@@ -1,0 +1,29 @@
+/src/README.md-22-
+/src/README.md:23:fury.parse({source: '... your Swagger 2.0 document ...'}, (err, result) => {
+/src/README.md-24-  if (err) {
+##############################################
+/src/tonic-example.js-25-
+/src/tonic-example.js:26:fury.parse({source}, (err, result) => {
+/src/tonic-example.js-27-    if (err) { console.log(err) }
+##############################################
+/src/lib/adapter.map:1:{"version":3,"sources":["src/adapter.js"],"names":[],"mappings":";;;;;;;;;;sBAAc,QAAQ;;;;sBACH,UAAU;;;;AAEtB,IAAM,IAAI,GAAG,SAAS,CAAC;;;;AAGvB,IAAM,UAAU,GAAG,CACxB,0BAA0B,EAC1B,0BAA0B,CAC3B,CAAC;;;;AAEK,SAAS,MAAM,CAAC,MAAM,EAAE;AAC7B,SAAO,CAAC,EAAE,oBAAE,QAAQ,CAAC,MAAM,CAAC,GACxB,MAAM,CAAC,KAAK,CAAC,8BAA8B,CAAC,GAC5C,MAAM,CAAC,OAAO,KAAK,KAAK,CAAA,AAAC,CAAC;CAC/B;;;;;;AAKM,SAAS,KAAK,CAAC,OAAO,EAAE,IAAI,EAAE;AACnC,MAAM,MAAM,GAAG,wBAAW,OAAO,CAAC,CAAC;AACnC,QAAM,CAAC,KAAK,CAAC,IAAI,CAAC,CAAC;CACpB;;qBAEc,EAAC,IAAI,EAAJ,IAAI,EAAE,UAAU,EAAV,UAAU,EAAE,MAAM,EAAN,MAAM,EAAE,KAAK,EAAL,KAAK,EAAC","file":"src/adapter.js","sourcesContent":["import _ from 'lodash';\nimport Parser from './parser';\n\nexport const name = 'swagger';\n\n// TODO: Figure out media type for Swagger 2.0\nexport const mediaTypes = [\n  'application/swagger+json',\n  'application/swagger+yaml',\n];\n\nexport function detect(source) {\n  return !!(_.isString(source)\n    ? source.match(/\"?swagger\"?:\\s*[\"']2\\.0[\"']/g)\n    : source.swagger === '2.0');\n}\n\n/*\n * Parse Swagger 2.0 into Refract elements\n */\nexport function parse(options, done) {\n  const parser = new Parser(options);\n  parser.parse(done);\n}\n\nexport default {name, mediaTypes, detect, parse};\n"]}
+##############################################
+/src/lib/adapter.js-36-  var parser = new _parser2['default'](options);
+/src/lib/adapter.js:37:  parser.parse(done);
+/src/lib/adapter.js-38-}
+##############################################
+/src/test/adapter.js-26-
+/src/test/adapter.js:27:    fury.parse({source, generateSourceMap}, (err, output) => {
+/src/test/adapter.js-28-      if (err && !output) {
+##############################################
+/src/test/adapter.js-80-    before((done) => {
+/src/test/adapter.js:81:      fury.parse({source}, (err, output) => {
+/src/test/adapter.js-82-        if (err) {
+##############################################
+/src/test/adapter.js-110-    before((done) => {
+/src/test/adapter.js:111:      fury.parse({source}, (err, result) => {
+/src/test/adapter.js-112-        parseError = err;
+##############################################
+/src/test/parameter.js-37-    before(done => {
+/src/test/parameter.js:38:      parser.parse(err => {
+/src/test/parameter.js-39-        if (err) done(err);

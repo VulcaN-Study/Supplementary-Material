@@ -1,0 +1,104 @@
+<report_mosca>
+ <Path>/src/i18next.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1446 -  	        setTimeout(function () {
+
+ Line: 1858 -  	      setTimeout(load, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/i18next.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  e)}return t}var i=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],s=void 0,a=void 0,l=JSON.parse(JSON.stringify(i));for(l.applyPostProcessor=!1;s=this.nestingRegexp.exec(e);)a=n(r.call(this,s[1].trim()),l),"string"!=typeof a&&(a=t(a)),a||(this.logger.warn("missed to pass in variable "+s[1]+" for interpolating "+e),a=""),a=o(this.escapeValue?u(a):a),e=e.replace(s[0],a),this.regexp.lastIndex=0;return e},e}(),U=function(t){function e(n,o,r){var i=arguments.length<=3||void 0===arguments[3]?{}:arguments[3];x(this,e);var s=w(this,t.call(this));return s.backend=n,s.store=o,s.services=r,s.options=i,s.logger=j.create("backendConnector"),s.state={},s.queue=[],s.backend&&s.backend.init&&s.backend.init(r,i.backend,i),s}return S(e,t),e.prototype.queueLoad=function(t,e,n){var o=this,r=[],i=[],s=[],a=[];return t.forEach(function(t){var n=!0;e.forEach(function(e){var s=t+"|"+e;o.store.hasResourceBundle(t,e)?o.state[s]=2:o.state[s]<0||(1===o.state[s]?i.indexOf(s)<0&&i.push(s):(o.state[s]=1,n=!1,i.indexOf(s)<0&&i.push(s),r.indexOf(s)<0&&r.push(s),a.indexOf(e)<0&&a.push(e)))}),n||s.push(t)}),(r.length||i.length)&&this.queue.push({pending:i,loaded:{},errors:[],callback:n}),{toLoad:r,pending:i,toLoadLanguages:s,toLoadNamespaces:a}},e.prototype.loaded=function(t,e,n){var o=this,i=t.split("|"),s=L(i,2),a=s[0],u=s[1];e&&this.emit("failedLoading",a,u,e),n&&this.store.addResourceBundle(a,u,n),this.state[t]=e?-1:2,this.queue.forEach(function(n){r(n.loaded,[a],u),v(n.pending,t),e&&n.errors.push(e),0!==n.pending.length||n.done||(n.errors.length?n.callback(n.errors):n.callback(),o.emit("loaded",n.loaded),n.done=!0)}),this.queue=this.queue.filter(function(t){return!t.done})},e.prototype.read=function(t,e,n,o,r,i){var s=this;return o||(o=0),r||(r=250),t.length?void this.backend[n](t,e,function(a,u){return a&&u&&o<5?void setTimeout(function(){s.read.call(s,t,e,n,++o,2*r,i)},r):void i(a,u)}):i(null,{})},e.prototype.load=function(t,e,n){var o=this;if(!this.backend)return this.logger.warn("No backend was added via i18next.use. Will not load resources."),n&&n();var r=k({},this.backend.options,this.opti Line: 14 -  cacheConnector.save()}),i.languageUtils=r,i.pluralResolver=new H(r,{prepend:this.options.pluralSeparator,compatibilityJSON:this.options.compatibilityJSON}),i.interpolator=new V(this.options),i.backendConnector=new U(n(this.modules.backend),i.resourceStore,i,this.options),i.backendConnector.on("*",function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];o.emit.apply(o,[t].concat(n))}),i.backendConnector.on("loaded",function(t){i.cacheConnector.save()}),i.cacheConnector=new I(n(this.modules.cache),i.resourceStore,i,this.options),i.cacheConnector.on("*",function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];o.emit.apply(o,[t].concat(n))}),this.modules.languageDetector&&(i.languageDetector=n(this.modules.languageDetector),i.languageDetector.init(i,this.options.detection,this.options)),this.translator=new _(this.services,this.options),this.translator.on("*",function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];o.emit.apply(o,[t].concat(n))})}var s=["getResource","addResource","addResources","addResourceBundle","removeResourceBundle","hasResourceBundle","getResourceBundle"];s.forEach(function(t){o[t]=function(){return this.store[t].apply(this.store,arguments)}}),"v1"===this.options.compatibilityAPI&&g(this);var a=function(){o.changeLanguage(o.options.lng,function(t,n){o.emit("initialized",o.options),o.logger.log("initialized",o.options),e(t,n)})};return this.options.resources||!this.options.initImmediate?a():setTimeout(a,0),this},e.prototype.loadResources=function(t){var e=this;if(t||(t=function(){}),this.options.resources)t(null);else{var n=function(){if(e.language&&"cimode"===e.language.toLowerCase())return{v:t()};var n=[],o=function(t){var o=e.services.languageUtils.toResolveHierarchy(t);o.forEach(function(t){n.indexOf(t)<0&&n.push(t)})};o(e.language),e.options.preload&&e.options.preload.forEach(function(t){o(t)}),e.services.cacheConnector.load(n,e.options.ns,function(){e.services.backendConnector.load(n,e.options.ns,t)})}();if("object"===("undefined"==typeof n?"undefined":m(n)</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/umd/i18next.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1446 -  	        setTimeout(function () {
+
+ Line: 1858 -  	      setTimeout(load, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/umd/i18next.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  e)}return t}var i=arguments.length<=2||void 0===arguments[2]?{}:arguments[2],s=void 0,a=void 0,l=JSON.parse(JSON.stringify(i));for(l.applyPostProcessor=!1;s=this.nestingRegexp.exec(e);)a=n(r.call(this,s[1].trim()),l),"string"!=typeof a&&(a=t(a)),a||(this.logger.warn("missed to pass in variable "+s[1]+" for interpolating "+e),a=""),a=o(this.escapeValue?u(a):a),e=e.replace(s[0],a),this.regexp.lastIndex=0;return e},e}(),U=function(t){function e(n,o,r){var i=arguments.length<=3||void 0===arguments[3]?{}:arguments[3];x(this,e);var s=w(this,t.call(this));return s.backend=n,s.store=o,s.services=r,s.options=i,s.logger=j.create("backendConnector"),s.state={},s.queue=[],s.backend&&s.backend.init&&s.backend.init(r,i.backend,i),s}return S(e,t),e.prototype.queueLoad=function(t,e,n){var o=this,r=[],i=[],s=[],a=[];return t.forEach(function(t){var n=!0;e.forEach(function(e){var s=t+"|"+e;o.store.hasResourceBundle(t,e)?o.state[s]=2:o.state[s]<0||(1===o.state[s]?i.indexOf(s)<0&&i.push(s):(o.state[s]=1,n=!1,i.indexOf(s)<0&&i.push(s),r.indexOf(s)<0&&r.push(s),a.indexOf(e)<0&&a.push(e)))}),n||s.push(t)}),(r.length||i.length)&&this.queue.push({pending:i,loaded:{},errors:[],callback:n}),{toLoad:r,pending:i,toLoadLanguages:s,toLoadNamespaces:a}},e.prototype.loaded=function(t,e,n){var o=this,i=t.split("|"),s=L(i,2),a=s[0],u=s[1];e&&this.emit("failedLoading",a,u,e),n&&this.store.addResourceBundle(a,u,n),this.state[t]=e?-1:2,this.queue.forEach(function(n){r(n.loaded,[a],u),v(n.pending,t),e&&n.errors.push(e),0!==n.pending.length||n.done||(n.errors.length?n.callback(n.errors):n.callback(),o.emit("loaded",n.loaded),n.done=!0)}),this.queue=this.queue.filter(function(t){return!t.done})},e.prototype.read=function(t,e,n,o,r,i){var s=this;return o||(o=0),r||(r=250),t.length?void this.backend[n](t,e,function(a,u){return a&&u&&o<5?void setTimeout(function(){s.read.call(s,t,e,n,++o,2*r,i)},r):void i(a,u)}):i(null,{})},e.prototype.load=function(t,e,n){var o=this;if(!this.backend)return this.logger.warn("No backend was added via i18next.use. Will not load resources."),n&&n();var r=k({},this.backend.options,this.opti Line: 14 -  cacheConnector.save()}),i.languageUtils=r,i.pluralResolver=new H(r,{prepend:this.options.pluralSeparator,compatibilityJSON:this.options.compatibilityJSON}),i.interpolator=new V(this.options),i.backendConnector=new U(n(this.modules.backend),i.resourceStore,i,this.options),i.backendConnector.on("*",function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];o.emit.apply(o,[t].concat(n))}),i.backendConnector.on("loaded",function(t){i.cacheConnector.save()}),i.cacheConnector=new I(n(this.modules.cache),i.resourceStore,i,this.options),i.cacheConnector.on("*",function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];o.emit.apply(o,[t].concat(n))}),this.modules.languageDetector&&(i.languageDetector=n(this.modules.languageDetector),i.languageDetector.init(i,this.options.detection,this.options)),this.translator=new _(this.services,this.options),this.translator.on("*",function(t){for(var e=arguments.length,n=Array(e>1?e-1:0),r=1;r<e;r++)n[r-1]=arguments[r];o.emit.apply(o,[t].concat(n))})}var s=["getResource","addResource","addResources","addResourceBundle","removeResourceBundle","hasResourceBundle","getResourceBundle"];s.forEach(function(t){o[t]=function(){return this.store[t].apply(this.store,arguments)}}),"v1"===this.options.compatibilityAPI&&g(this);var a=function(){o.changeLanguage(o.options.lng,function(t,n){o.emit("initialized",o.options),o.logger.log("initialized",o.options),e(t,n)})};return this.options.resources||!this.options.initImmediate?a():setTimeout(a,0),this},e.prototype.loadResources=function(t){var e=this;if(t||(t=function(){}),this.options.resources)t(null);else{var n=function(){if(e.language&&"cimode"===e.language.toLowerCase())return{v:t()};var n=[],o=function(t){var o=e.services.languageUtils.toResolveHierarchy(t);o.forEach(function(t){n.indexOf(t)<0&&n.push(t)})};o(e.language),e.options.preload&&e.options.preload.forEach(function(t){o(t)}),e.services.cacheConnector.load(n,e.options.ns,function(){e.services.backendConnector.load(n,e.options.ns,t)})}();if("object"===("undefined"==typeof n?"undefined":m(n)</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/es/i18next.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 154 -        setTimeout(load, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/es/BackendConnector.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 149 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/commonjs/i18next.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 196 -        setTimeout(load, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/commonjs/BackendConnector.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 167 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+

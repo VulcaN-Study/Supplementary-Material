@@ -1,0 +1,57 @@
+Instead of doing (at line 39 of dist/index.js):
+if (nconf.get('index')) {
+    app.use(function (req, res, next) {
+        var dir = path.join(DIRECTORY, req.url);
+        if (fs.existsSync(dir)) {
+            // List the directory
+            var children = fs.readdirSync(dir)
+                .filter(function (file) {
+                if (!nconf.get('hidden')) {
+                    return file[0] !== '.';
+                }
+                return true;
+            });
+            // Render our template
+            var page = indexTemplate({
+                directory: req.url,
+                children: children,
+            });
+            res.send(page);
+        }
+        else {
+            next();
+        }
+    });
+}
+
+
+Do:
+// Serve the index
+if (nconf.get('index')) {
+    app.use(function (req, res, next) {
+        var dir = path.join(DIRECTORY, req.url);
+        var xss = require('validator');
+        if (fs.existsSync(dir)) {
+            // List the directory
+
+            var children = fs.readdirSync(dir)
+                .filter(function (file) {
+                if (!nconf.get('hidden')) {
+                    return file[0] !== '.';
+                }
+                return true;
+                });
+            children = children.filter(ele => !ele.includes("javascript:"));    // CHANGE
+
+            // Render our template
+            var page = indexTemplate({
+                directory: req.url,
+                children: children,
+            });
+            res.send(page);
+        }
+        else {
+            next();
+        }
+    });
+}

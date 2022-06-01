@@ -1,0 +1,159 @@
+/src/server/filetree.js-117-    if (stats.isFile()) {
+/src/server/filetree.js:118:      filetree.unlink(dir);
+/src/server/filetree.js-119-    } else if (stats.isDirectory()) {
+##############################################
+/src/server/filetree.js-160-    if (err && err.code === "ENOENT") {
+/src/server/filetree.js:161:      fs.open(utils.addFilesPath(dir), "wx", function(err, fd) {
+/src/server/filetree.js-162-        if (err) log.error(err);
+##############################################
+/src/server/filetree.js-271-    if (err && err.code !== "ENOENT") return cb(err);
+/src/server/filetree.js:272:    fs.writeFile(utils.addFilesPath(dst), data, function(err) {
+/src/server/filetree.js-273-      dirs[path.dirname(dst)].files[path.basename(dst)] = {size: Buffer.byteLength(data), mtime: Date.now()};
+##############################################
+/src/server/update.js-63-      if (versions[0] !== versions[1]) {
+/src/server/update.js:64:        fs.readFile(paths.pid, function(err, data) {
+/src/server/update.js-65-          if (!err) {
+##############################################
+/src/server/utils.js-73-  var cbCalled = false;
+/src/server/utils.js:74:  var read     = fs.createReadStream(src);
+/src/server/utils.js-75-  var write    = fs.createWriteStream(dst);
+##############################################
+/src/server/utils.js-282-    if (stats && stats.isFile()) {
+/src/server/utils.js:283:      fs.readFile(p, function(err, data) {
+/src/server/utils.js-284-        if (err) return cb(err);
+##############################################
+/src/server/demo.js-90-            if (err) return callback(err);
+/src/server/demo.js:91:            fs.writeFile(zipDest, data, function(err) {
+/src/server/demo.js-92-              if (err) log.error(err);
+##############################################
+/src/server/demo.js-96-        } else {
+/src/server/demo.js:97:          fs.readFile(zipDest, function(err, data) {
+/src/server/demo.js-98-            if (err) return callback(err);
+##############################################
+/src/server/resources.js-130-    if (!can) return compile(cb);
+/src/server/resources.js:131:    fs.readFile(paths.cache, function(err, data) {
+/src/server/resources.js-132-      if (err) return cb(err);
+/src/server/resources.js-133-      try {
+/src/server/resources.js:134:        var cache = jb.parse(data);
+/src/server/resources.js-135-        cb(null, cache);
+##############################################
+/src/server/resources.js-160-    addGzip(cache, function(err, cache) {
+/src/server/resources.js:161:      if (minify) fs.writeFile(paths.cache, jb.stringify(cache));
+/src/server/resources.js-162-      cb(err, cache);
+##############################################
+/src/server/resources.js-254-      // add our own theme
+/src/server/resources.js:255:      fs.readFile(path.join(paths.mod, "/client/cmtheme.css"), function(err, css) {
+/src/server/resources.js-256-        if (err) return callback(err);
+##############################################
+/src/server/resources.js-267-  // parse meta.js from CM for supported modes
+/src/server/resources.js:268:  fs.readFile(path.join(paths.mod, "/node_modules/codemirror/mode/meta.js"), function(err, js) {
+/src/server/resources.js-269-    if (err) return callback(err);
+##############################################
+/src/server/resources.js-278-    async.map(Object.keys(modes), function(mode, cb) {
+/src/server/resources.js:279:      fs.readFile(path.join(modesPath, mode, mode + ".js"), function(err, data) {
+/src/server/resources.js-280-        cb(err, minify ? new Buffer(uglify.minify(data.toString(), opts.uglify).code) : data);
+##############################################
+/src/server/resources.js-295-      async.map(libs[dest], function(p, innercb) {
+/src/server/resources.js:296:        fs.readFile(path.join(paths.mod, p), innercb);
+/src/server/resources.js-297-      }, function(err, data) {
+##############################################
+/src/server/resources.js-301-    } else {
+/src/server/resources.js:302:      fs.readFile(path.join(paths.mod, libs[dest]), function(err, data) {
+/src/server/resources.js-303-        out[dest] = data;
+##############################################
+/src/server/server.js-49-    function(cb) { utils.mkdir([paths.files, paths.temp, paths.config], cb); },
+/src/server/server.js:50:    function(cb) { if (isStandalone) fs.writeFile(paths.pid, process.pid, cb); else cb(); },
+/src/server/server.js-51-    function(cb) { cfg.init(options, function(err, conf) { config = conf; cb(err); }); },
+##############################################
+/src/server/server.js-170-    var http = require("http");
+/src/server/server.js:171:    callback(null, http.createServer(handler));
+/src/server/server.js-172-  } else {
+##############################################
+/src/server/server.js-176-      if (err) return callback(err);
+/src/server/server.js:177:      server = https.createServer(tlsOptions);
+/src/server/server.js-178-
+##############################################
+/src/server/server.js-227-    ws.on("message", function(msg) {
+/src/server/server.js:228:      msg = JSON.parse(msg);
+/src/server/server.js-229-      var vId = msg.vId;
+##############################################
+/src/server/server.js-448-      if (config.logLevel === 3) {
+/src/server/server.js:449:        var debugData = JSON.parse(data);
+/src/server/server.js-450-        // Remove some spammy logging
+##############################################
+/src/server/server.js-528-    req.on("end", function() {
+/src/server/server.js:529:      var postData = qs.parse(body);
+/src/server/server.js-530-      if (db.authUser(postData.username, postData.password)) {
+##############################################
+/src/server/server.js-541-    req.on("end", function() {
+/src/server/server.js:542:      var postData = qs.parse(body);
+/src/server/server.js-543-      if (postData.username !== "" && postData.password !== "") {
+##############################################
+/src/server/server.js-668-          res.writeHead(status, headers);
+/src/server/server.js:669:          fs.createReadStream(filepath).pipe(res);
+/src/server/server.js-670-        } else {
+##############################################
+/src/server/server.js-684-            res.writeHead(status, headers);
+/src/server/server.js:685:            fs.createReadStream(filepath, {start: start, end: end}).pipe(res);
+/src/server/server.js-686-          } else {
+/src/server/server.js-687-            res.writeHead(status, headers);
+/src/server/server.js:688:            fs.createReadStream(filepath).pipe(res);
+/src/server/server.js-689-          }
+##############################################
+/src/server/server.js-734-
+/src/server/server.js:735:  req.query = qs.parse(req.url.substring("/upload?".length));
+/src/server/server.js-736-
+##############################################
+/src/server/server.js-834-      var ws = files[relPath].ws;
+/src/server/server.js:835:      fs.unlink(files[relPath].src, function() {});
+/src/server/server.js-836-      ws.on("finish", function() { // Wait for a possible stream to close before deleting
+/src/server/server.js:837:        fs.unlink(files[relPath].src, function() {});
+/src/server/server.js-838-      });
+##############################################
+/src/server/cfg.js-48-      } else {
+/src/server/cfg.js:49:        fs.readFile(configFile, function(err, data) {
+/src/server/cfg.js-50-          if (err) return callback(err);
+##############################################
+/src/server/cfg.js-52-          try {
+/src/server/cfg.js:53:            config = JSON.parse(String(data));
+/src/server/cfg.js-54-          } catch (err) {
+##############################################
+/src/server/cfg.js-79-function write(config, callback) {
+/src/server/cfg.js:80:  fs.writeFile(configFile, JSON.stringify(config, null, 2), callback);
+/src/server/cfg.js-81-}
+##############################################
+/src/server/db.js-25-    } else {
+/src/server/db.js:26:      fs.readFile(dbFile, function(err, data) {
+/src/server/db.js-27-        if (err) return callback(err);
+##############################################
+/src/server/db.js-31-          try {
+/src/server/db.js:32:            database = JSON.parse(data);
+/src/server/db.js-33-          } catch (error) {
+##############################################
+/src/client/client.js-171-  // Load prefs and set missing ones to their default
+/src/client/client.js:172:  prefs = JSON.parse(localStorage.getItem("prefs")) || {};
+/src/client/client.js-173-  Object.keys(defaults).forEach(function(pref) {
+##############################################
+/src/client/client.js-182-  droppy.get = function(pref) {
+/src/client/client.js:183:    prefs = JSON.parse(localStorage.getItem("prefs"));
+/src/client/client.js-184-    return prefs[pref];
+##############################################
+/src/client/client.js-301-      droppy.socketWait = false;
+/src/client/client.js:302:      msg = JSON.parse(event.data);
+/src/client/client.js-303-      vId = msg.vId;
+##############################################
+/src/client/client.js-714-    if (files.length) {
+/src/client/client.js:715:      xhr.open("POST", getRootPath() + "upload?" + $.param({
+/src/client/client.js-716-        vId : view[0].vId,
+##############################################
+/src/client/client.js-1365-        event.stopPropagation();
+/src/client/client.js:1366:        dragData = JSON.parse(event.dataTransfer.getData("text"));
+/src/client/client.js-1367-        if (view.data("type") === "directory") { // dropping into a directory view
+##############################################
+/src/client/client.js-2250-          autoplay : !droppy.detects.mobile,
+/src/client/client.js:2251:          preload  : "auto",
+/src/client/client.js-2252-          loop     : "loop",
+##############################################
+/src/client/templates/view.handlebars-44-    </div>
+/src/client/templates/view.handlebars:45:    <audio class="audio-player" preload="none"></audio>
+/src/client/templates/view.handlebars-46-  </div>

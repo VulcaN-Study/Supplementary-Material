@@ -1,0 +1,82 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 38,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2016-19 [these people](https://github.com/sveltejs/sapper/graphs/contributors)",
+          "message": "Lexical error: look_close_paren"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 37,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_cors": {
+      "files": [
+        {
+          "file_path": "/src/dist/dev.js",
+          "match_lines": [
+            447,
+            456
+          ],
+          "match_position": [
+            4,
+            5
+          ],
+          "match_string": "\t\t\tres.writeHead(200, {\n\n\t\t\t\t'Access-Control-Allow-Origin': '*',\n\n\t\t\t\t'Access-Control-Allow-Headers': 'Cache-Control',\n\n\t\t\t\t'Content-Type': 'text/event-stream;charset=utf-8',\n\n\t\t\t\t'Cache-Control': 'no-cache, no-transform',\n\n\t\t\t\t'Connection': 'keep-alive',\n\n\t\t\t\t// While behind nginx, event stream should not be buffered:\n\n\t\t\t\t// http://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffering\n\n\t\t\t\t'X-Accel-Buffering': 'no'\n\n\t\t\t});"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-346: Origin Validation Error",
+        "description": "Access-Control-Allow-Origin response header is set to \"*\". This will disable CORS Same Origin Policy restrictions.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/core.js",
+          "match_lines": [
+            86,
+            86
+          ],
+          "match_position": [
+            9,
+            31
+          ],
+          "match_string": "\treturn /^\\.{3}.+$/.test(param)"
+        },
+        {
+          "file_path": "/src/dist/core.js",
+          "match_lines": [
+            1408,
+            1446
+          ],
+          "match_position": [
+            3,
+            49
+          ],
+          "match_string": "\t\tconst a_sub_part = a.parts[i];\n\n\t\tconst b_sub_part = b.parts[i];\n\n\n\n\t\tif (!a_sub_part) return 1; // b is more specific, so goes first\n\n\t\tif (!b_sub_part) return -1;\n\n\n\n\t\t// if spread && index, order later\n\n\t\tif (a_sub_part.spread && b_sub_part.spread) {\n\n\t\t\treturn a.is_index ? 1 : -1\n\n\t\t}\n\n\n\n\t\t// If one is ...spread order it later\n\n\t\tif (a_sub_part.spread !== b_sub_part.spread) return a_sub_part.spread ? 1 : -1;\n\n\n\n\t\tif (a_sub_part.dynamic !== b_sub_part.dynamic) {\n\n\t\t\treturn a_sub_part.dynamic ? 1 : -1;\n\n\t\t}\n\n\n\n\t\tif (!a_sub_part.dynamic && a_sub_part.content !== b_sub_part.content) {\n\n\t\t\treturn (\n\n\t\t\t\t(b_sub_part.content.length - a_sub_part.content.length) ||\n\n\t\t\t\t(a_sub_part.content < b_sub_part.content ? -1 : 1)\n\n\t\t\t);\n\n\t\t}\n\n\n\n\t\t// If both parts dynamic, check for regexp patterns\n\n\t\tif (a_sub_part.dynamic && b_sub_part.dynamic) {\n\n\t\t\tconst regexp_pattern = /\\((.*?)\\)/;\n\n\t\t\tconst a_match = regexp_pattern.exec(a_sub_part.content);\n\n\t\t\tconst b_match = regexp_pattern.exec(b_sub_part.content);\n\n\n\n\t\t\tif (!a_match && b_match) {\n\n\t\t\t\treturn 1; // No regexp, so less specific than b\n\n\t\t\t}\n\n\t\t\tif (!b_match && a_match) {\n\n\t\t\t\treturn -1;\n\n\t\t\t}\n\n\t\t\tif (a_match && b_match && a_match[1] !== b_match[1]) {\n\n\t\t\t\treturn b_match[1].length - a_match[1].length;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

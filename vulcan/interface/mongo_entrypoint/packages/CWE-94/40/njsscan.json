@@ -1,0 +1,219 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 5,
+          "line": 3
+        },
+        "extra": {
+          "line": ".git",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.nodemonignore",
+        "start": {
+          "col": 5,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 3,
+          "line": 2
+        },
+        "extra": {
+          "line": "*.seed",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 2,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_os_command_exec": {
+      "files": [
+        {
+          "file_path": "/src/source/git.js",
+          "match_lines": [
+            57,
+            117
+          ],
+          "match_position": [
+            17,
+            17
+          ],
+          "match_string": "  var process = child_process.exec(\n\n    task.command, \n\n    { \n\n      cwd: task.repoPath,\n\n      maxBuffer: 1024 * 1024 * 100,\n\n      encoding: task._encoding,\n\n      timeout: task._timeout\n\n    },\n\n    function (error, stdout, stderr) {\n\n      git.runningTasks.splice(git.runningTasks.indexOf(task), 1);\n\n      stdout = stdout.toString(); // Convert Buffers to strings\n\n      stderr = stderr.toString();\n\n      if (config.logGitOutput) winston.info('git result (first 400 bytes): ' + task.command + '\\n' + stderr.slice(0, 400) + '\\n' + stdout.slice(0, 400));\n\n      if (error !== null) {\n\n        var err = {};\n\n        err.isGitError = true;\n\n        err.errorCode = 'unknown';\n\n        err.stackAtCall = task.potentialError.stack;\n\n        err.lineAtCall = task.potentialError.lineNumber;\n\n        err.command = task.command;\n\n        err.workingDirectory = task.repoPath;\n\n        err.error = error.toString();\n\n        err.message = err.error.split('\\n')[0];\n\n        err.stderr = stderr;\n\n        err.stdout = stdout;\n\n        if (stderr.indexOf('Not a git repository') >= 0)\n\n          err.errorCode = 'not-a-repository';\n\n        else if (err.stderr.indexOf('Connection timed out') != -1)\n\n          err.errorCode = 'remote-timeout';\n\n        else if (err.stderr.indexOf('Permission denied (publickey)') != -1)\n\n          err.errorCode = 'permision-denied-publickey';\n\n        else if (err.stderr.indexOf('ssh: connect to host') != -1 && err.stderr.indexOf('Bad file number') != -1)\n\n          err.errorCode = 'ssh-bad-file-number';\n\n        else if (err.stderr.indexOf('No remote configured to list refs from.') != -1)\n\n          err.errorCode = 'no-remote-configured';\n\n        else if ((err.stderr.indexOf('unable to access') != -1 && err.stderr.indexOf('Could not resolve host:') != -1) ||\n\n          (err.stderr.indexOf('Could not resolve hostname') != -1))\n\n          err.errorCode = 'offline';\n\n        else if (err.stderr.indexOf('Proxy Authentication Required') != -1)\n\n          err.errorCode = 'proxy-authentication-required';\n\n        else if (err.stderr.indexOf('Please tell me who you are') != -1)\n\n          err.errorCode = 'no-git-name-email-configured';\n\n        else if (err.stderr.indexOf('FATAL ERROR: Disconnected: No supported authentication methods available (server sent: publickey)') == 0)\n\n          err.errorCode = 'no-supported-authentication-provided';\n\n        else if (stderr.indexOf('fatal: No remote repository specified.') == 0)\n\n          err.errorCode = 'no-remote-specified';\n\n        else if (err.stderr.indexOf('non-fast-forward') != -1)\n\n          err.errorCode = 'non-fast-forward';\n\n        else if (err.stderr.indexOf('Failed to merge in the changes.') == 0 || err.stdout.indexOf('CONFLICT (content): Merge conflict in') != -1 || err.stderr.indexOf('after resolving the conflicts') != -1)\n\n          err.errorCode = 'merge-failed';\n\n        else if (err.stderr.indexOf('This operation must be run in a work tree') != -1)\n\n          err.errorCode = 'must-be-in-working-tree';\n\n        else if (err.stderr.indexOf('Your local changes to the following files would be overwritten by checkout') != -1)\n\n          err.errorCode = 'local-changes-would-be-overwritten';\n\n        task.setResult(err);\n\n        callback(err);\n\n      }\n\n      else {\n\n        var result = task._parser ? task._parser(stdout, task.parseArgs) : stdout;\n\n        task.setResult(null, result);\n\n        callback();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "description": "User controlled data in 'child_process.exec()' can result in Remote OS Command Execution.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/components/app/app.bundle.js",
+          "match_lines": [
+            43,
+            43
+          ],
+          "match_position": [
+            74,
+            85
+          ],
+          "match_string": "  this.showNPSSurvey = ko.observable(monthsSinceNPSLastDismissed >= 6 && Math.random() < 0.01);"
+        },
+        {
+          "file_path": "/src/components/app/app.js",
+          "match_lines": [
+            42,
+            42
+          ],
+          "match_position": [
+            74,
+            85
+          ],
+          "match_string": "  this.showNPSSurvey = ko.observable(monthsSinceNPSLastDismissed >= 6 && Math.random() < 0.01);"
+        },
+        {
+          "file_path": "/src/components/graph/graph.bundle.js",
+          "match_lines": [
+            1187,
+            1187
+          ],
+          "match_position": [
+            24,
+            35
+          ],
+          "match_string": "    var r = Math.floor(Math.random() * 256).toString(16);"
+        },
+        {
+          "file_path": "/src/components/graph/graph.js",
+          "match_lines": [
+            235,
+            235
+          ],
+          "match_position": [
+            24,
+            35
+          ],
+          "match_string": "    var r = Math.floor(Math.random() * 256).toString(16);"
+        },
+        {
+          "file_path": "/src/public/js/tracker.js",
+          "match_lines": [
+            1,
+            1
+          ],
+          "match_position": [
+            333,
+            344
+          ],
+          "match_string": "(function(v){\"use awesome\";try{var k=function(f){function k(c){c=c||navigator.userAgent;var d=c.match(/Trident\\/([\\d.]+)/);return d&&\"7.0\"===d[1]?11:(c=c.match(/MSIE ([\\d.]+)/))?parseInt(c[1],10):!1}return{slice:Array.prototype.slice,uuid:function(){return\"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx\".replace(/[xy]/g,function(c){var d=16*Math.random()|0;return(\"x\"==c?d:d&3|8).toString(16)})},reduce:function(c){try{return\"object\"===typeof c||\"function\"===typeof c?c.toString():c}catch(d){return\"unknown\"}},"
+        },
+        {
+          "file_path": "/src/source/git-api.js",
+          "match_lines": [
+            611,
+            611
+          ],
+          "match_position": [
+            73,
+            84
+          ],
+          "match_string": "      if (req.body.content === undefined) content = ('test content\\n' + Math.random() + '\\n');"
+        },
+        {
+          "file_path": "/src/source/git-api.js",
+          "match_lines": [
+            617,
+            617
+          ],
+          "match_position": [
+            64,
+            75
+          ],
+          "match_string": "      if (content === undefined) content = ('test content\\n' + Math.random() + '\\n');"
+        },
+        {
+          "file_path": "/src/source/utils/vector2.js",
+          "match_lines": [
+            45,
+            45
+          ],
+          "match_position": [
+            37,
+            48
+          ],
+          "match_string": "  return new Vector2(Math.random(), Math.random());"
+        },
+        {
+          "file_path": "/src/source/utils/vector2.js",
+          "match_lines": [
+            45,
+            45
+          ],
+          "match_position": [
+            22,
+            33
+          ],
+          "match_string": "  return new Vector2(Math.random(), Math.random());"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/public/js/tracker.js",
+          "match_lines": [
+            6,
+            6
+          ],
+          "match_position": [
+            158,
+            184
+          ],
+          "match_string": "(a=t[e],\"function\"===typeof a.onTransmit&&(g[e]=a.onTransmit()));if(!d()){g.throttled=b();a:{for(e=0;e<n.ignore.length;e++)if(n.ignore[e]&&n.ignore[e].test&&n.ignore[e].test(g.message)){e=!0;break a}e=!1}e||c(\"POST\",n.endpoint,g)}}function a(g){var a=k.slice.call(arguments,1),b;for(b in g)\"function\"===typeof g[b]&&(k.contains(a,b)||function(){var a=g[b];g[b]=function(){try{var g=k.slice.call(arguments,0);return a.apply(this,g)}catch(b){throw q(\"catch\",b),b;}}}())}function l(g){for(var a in g)if(g.hasOwnProperty(a)){var b="
+        },
+        {
+          "file_path": "/src/source/git-parser.js",
+          "match_lines": [
+            26,
+            110
+          ],
+          "match_position": [
+            3,
+            20
+          ],
+          "match_string": "  var lines = text.split(\"\\n\");\n\n  var diffs = [];\n\n  args = args || {};\n\n\n\n  while(lines.length && lines[0]) {\n\n    if (args.maxNLines) {\n\n      var nLines = diffs.length > 0 ? diffs[diffs.length - 1].lines.length : 0;\n\n      if (nLines >= args.maxNLines) break;\n\n    }\n\n    var diff = {};\n\n    var path = /^diff\\s--git\\s\\w\\/(.+?)\\s\\w\\/(.+)$/.exec(lines.shift());\n\n    diff.aPath = path[1];\n\n    diff.bPath = path[2];\n\n\n\n    if(/^old mode/.test(lines[0])) {\n\n      diff.aMode = /^old mode (\\d+)/.exec(lines.shift());\n\n      diff.bMode = /^new mode (\\d+)/.exec(lines.shift());\n\n    }\n\n\n\n    if(!lines.length || /^diff --git/.test(lines[0])) {\n\n      diffs.push(diff);\n\n      continue;\n\n    }\n\n\n\n    diff.simIndex = 0;\n\n    diff.newFile = false;\n\n    diff.deletedFile = false;\n\n    diff.renamedFile = false;\n\n    var m;\n\n\n\n    if(/^new file/.test(lines[0])) {\n\n      diff.bMode = /^new file mode (.+)$/.exec(lines.shift())[1];\n\n      diff.aMode = null;\n\n      diff.newFile = true;\n\n    } else if(/^deleted file/.test(lines[0])) {\n\n      diff.aMode= /^deleted file mode (.+)$/.exec(lines.shift())[1];\n\n      diff.bMode = null;\n\n      diff.deletedFile = true;\n\n    } else {\n\n      m = /^similarity index (\\d+)\\%/.exec(lines[0]);\n\n      if(m) {\n\n        diff.simIndex = m[1].to_i();\n\n        diff.renamedFile = true;\n\n        //shift away the 2 `rename from/to ...` lines\n\n        lines.shift();\n\n        lines.shift();\n\n      }\n\n    }\n\n\n\n    // Shift away index, ---, +++ and @@ stuff\n\n    if (lines.shift().indexOf('index ') == 0) lines.shift();\n\n    lines.shift();\n\n    var diff_lines = [];\n\n    var originalLine, newLine;\n\n    while(lines[0] && !/^diff/.test(lines[0])) {\n\n      if (args.maxNLines) {\n\n        if (diff_lines.length >= args.maxNLines) break;\n\n      }\n\n      var line = lines.shift();\n\n      if (line.indexOf('@@ ') == 0) {\n\n        var changeGroup = /@@ -(\\d+)(,\\d+)? [+](\\d+)(,\\d+)?/.exec(line);\n\n        originalLine = changeGroup[1];\n\n        newLine = changeGroup[3];\n\n        diff_lines.push([null, null, line]);\n\n      } else {\n\n        if (line[0] == '+') {\n\n          diff_lines.push([null, newLine++, line]);\n\n        } else if (line[0] == '-') {\n\n          diff_lines.push([originalLine++, null, line]);\n\n        } else {\n\n          diff_lines.push([originalLine++, newLine++, line]);\n\n        }\n\n      }\n\n    }\n\n\n\n    var unparsedLines = 0;\n\n    while(lines[0] && !/^diff/.test(lines[0])) {\n\n      unparsedLines++;\n\n      lines.shift();\n\n    }\n\n\n\n    diff.lines = diff_lines.length > 0 ? diff_lines : [[0, 0, \"<There are no changes>\"]];\n\n    diff.totalNumberOfLines = diff.lines.length + unparsedLines;\n\n\n\n    diffs.push(diff);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

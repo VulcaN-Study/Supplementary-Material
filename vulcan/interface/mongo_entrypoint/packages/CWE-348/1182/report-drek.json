@@ -1,0 +1,212 @@
+[
+ {
+  "id": 1,
+  "file": "/src/dist/ses.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "\n  document.body.appendChild(iframe);\n  const unsafeGlobal = iframe.contentWindow.eval(unsafeGlobalSrc);\n\n  // We keep the iframe attached to the DOM because removing it\n  // causes its global object to lose intrinsics, its eval()\n  // function to evaluate code, etc.\n\n  // TODO: can we remove and garbage-collect the iframes?\n\n  return unsafeGlobal;",
+  "line": 659,
+  "start": 654,
+  "end": 665
+ },
+ {
+  "id": 2,
+  "file": "/src/dist/ses.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": " * - ensure the Proxy invariants despite some global properties being frozen.\n */\nfunction createScopeHandler(unsafeRec, safeGlobal, sloppyGlobals) {\n  const { unsafeGlobal, unsafeEval } = unsafeRec;\n\n  // This flag allow us to determine if the eval() call is an done by the\n  // realm's code or if it is user-land invocation, so we can react differently.\n  let useUnsafeEvaluator = false;\n\n  return {\n    // The scope handler throws if any trap other than get/set/has are run",
+  "line": 880,
+  "start": 875,
+  "end": 886
+ },
+ {
+  "id": 3,
+  "file": "/src/dist/ses.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  return unsafeFunction(`\n    with (arguments[0]) {\n      ${optimizer}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `);\n}\n",
+  "line": 1142,
+  "start": 1137,
+  "end": 1148
+ },
+ {
+  "id": 4,
+  "file": "/src/dist/ses.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      ...realmTransforms,\n      ...mandatoryTransforms\n    ];\n\n    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;",
+  "line": 1174,
+  "start": 1169,
+  "end": 1180
+ },
+ {
+  "id": 5,
+  "file": "/src/dist/ses.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;\n        // Rewrite the source, threading through rewriter state as necessary.\n        const rewriterState = allTransforms.reduce(\n          (rs, transform) => (transform.rewrite ? transform.rewrite(rs) : rs),\n          { src, endowments }",
+  "line": 1178,
+  "start": 1173,
+  "end": 1184
+ },
+ {
+  "id": 6,
+  "file": "/src/dist/ses.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    value: Realm,\n    writable: true,\n    configurable: true\n  };\n\n  // Creating the realmRec provides the global object, eval() and Function()\n  // to the realm.\n  const realmRec = createRealmRec(unsafeRec, transforms, sloppyGlobals);\n\n  // Apply all shims in the new RootRealm. We don't do this for compartments.\n  const { safeEvalWhichTakesEndowments } = realmRec;",
+  "line": 1460,
+  "start": 1455,
+  "end": 1466
+ },
+ {
+  "id": 7,
+  "file": "/src/dist/ses.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  registerRealmRecForRealmInstance(self, realmRec);\n}\n\n/**\n * A compartment shares the intrinsics of its root realm. Here, only a\n * realmRec is necessary to hold the global object, eval() and Function().\n */\nfunction initCompartment(unsafeRec, self, options = {}) {\n  // note: 'self' is the instance of the Realm.\n\n  const { transforms, sloppyGlobals } = options;",
+  "line": 1476,
+  "start": 1471,
+  "end": 1482
+ },
+ {
+  "id": 8,
+  "file": "/src/dist/ses.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "\n  document.body.appendChild(iframe);\n  const unsafeGlobal = iframe.contentWindow.eval(unsafeGlobalSrc);\n\n  // We keep the iframe attached to the DOM because removing it\n  // causes its global object to lose intrinsics, its eval()\n  // function to evaluate code, etc.\n\n  // TODO: can we remove and garbage-collect the iframes?\n\n  return unsafeGlobal;",
+  "line": 655,
+  "start": 650,
+  "end": 661
+ },
+ {
+  "id": 9,
+  "file": "/src/dist/ses.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": " * - ensure the Proxy invariants despite some global properties being frozen.\n */\nfunction createScopeHandler(unsafeRec, safeGlobal, sloppyGlobals) {\n  const { unsafeGlobal, unsafeEval } = unsafeRec;\n\n  // This flag allow us to determine if the eval() call is an done by the\n  // realm's code or if it is user-land invocation, so we can react differently.\n  let useUnsafeEvaluator = false;\n\n  return {\n    // The scope handler throws if any trap other than get/set/has are run",
+  "line": 876,
+  "start": 871,
+  "end": 882
+ },
+ {
+  "id": 10,
+  "file": "/src/dist/ses.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  return unsafeFunction(`\n    with (arguments[0]) {\n      ${optimizer}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `);\n}\n",
+  "line": 1138,
+  "start": 1133,
+  "end": 1144
+ },
+ {
+  "id": 11,
+  "file": "/src/dist/ses.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      ...realmTransforms,\n      ...mandatoryTransforms\n    ];\n\n    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;",
+  "line": 1170,
+  "start": 1165,
+  "end": 1176
+ },
+ {
+  "id": 12,
+  "file": "/src/dist/ses.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;\n        // Rewrite the source, threading through rewriter state as necessary.\n        const rewriterState = allTransforms.reduce(\n          (rs, transform) => (transform.rewrite ? transform.rewrite(rs) : rs),\n          { src, endowments }",
+  "line": 1174,
+  "start": 1169,
+  "end": 1180
+ },
+ {
+  "id": 13,
+  "file": "/src/dist/ses.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    value: Realm,\n    writable: true,\n    configurable: true\n  };\n\n  // Creating the realmRec provides the global object, eval() and Function()\n  // to the realm.\n  const realmRec = createRealmRec(unsafeRec, transforms, sloppyGlobals);\n\n  // Apply all shims in the new RootRealm. We don't do this for compartments.\n  const { safeEvalWhichTakesEndowments } = realmRec;",
+  "line": 1456,
+  "start": 1451,
+  "end": 1462
+ },
+ {
+  "id": 14,
+  "file": "/src/dist/ses.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  registerRealmRecForRealmInstance(self, realmRec);\n}\n\n/**\n * A compartment shares the intrinsics of its root realm. Here, only a\n * realmRec is necessary to hold the global object, eval() and Function().\n */\nfunction initCompartment(unsafeRec, self, options = {}) {\n  // note: 'self' is the instance of the Realm.\n\n  const { transforms, sloppyGlobals } = options;",
+  "line": 1472,
+  "start": 1467,
+  "end": 1478
+ },
+ {
+  "id": 15,
+  "file": "/src/dist/ses.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "\n    document.body.appendChild(iframe);\n    const unsafeGlobal = iframe.contentWindow.eval(unsafeGlobalSrc);\n\n    // We keep the iframe attached to the DOM because removing it\n    // causes its global object to lose intrinsics, its eval()\n    // function to evaluate code, etc.\n\n    // TODO: can we remove and garbage-collect the iframes?\n\n    return unsafeGlobal;",
+  "line": 659,
+  "start": 654,
+  "end": 665
+ },
+ {
+  "id": 16,
+  "file": "/src/dist/ses.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "   * - ensure the Proxy invariants despite some global properties being frozen.\n   */\n  function createScopeHandler(unsafeRec, safeGlobal, sloppyGlobals) {\n    const { unsafeGlobal, unsafeEval } = unsafeRec;\n\n    // This flag allow us to determine if the eval() call is an done by the\n    // realm's code or if it is user-land invocation, so we can react differently.\n    let useUnsafeEvaluator = false;\n\n    return {\n      // The scope handler throws if any trap other than get/set/has are run",
+  "line": 880,
+  "start": 875,
+  "end": 886
+ },
+ {
+  "id": 17,
+  "file": "/src/dist/ses.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    return unsafeFunction(`\n    with (arguments[0]) {\n      ${optimizer}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `);\n  }\n",
+  "line": 1142,
+  "start": 1137,
+  "end": 1148
+ },
+ {
+  "id": 18,
+  "file": "/src/dist/ses.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "        ...realmTransforms,\n        ...mandatoryTransforms\n      ];\n\n      // We use the the concise method syntax to create an eval without a\n      // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n      // TypeError: eval is not a constructor\"), but which still accepts a\n      // 'this' binding.\n      const safeEval = {\n        eval(src) {\n          src = `${src}`;",
+  "line": 1174,
+  "start": 1169,
+  "end": 1180
+ },
+ {
+  "id": 19,
+  "file": "/src/dist/ses.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      // We use the the concise method syntax to create an eval without a\n      // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n      // TypeError: eval is not a constructor\"), but which still accepts a\n      // 'this' binding.\n      const safeEval = {\n        eval(src) {\n          src = `${src}`;\n          // Rewrite the source, threading through rewriter state as necessary.\n          const rewriterState = allTransforms.reduce(\n            (rs, transform) => (transform.rewrite ? transform.rewrite(rs) : rs),\n            { src, endowments }",
+  "line": 1178,
+  "start": 1173,
+  "end": 1184
+ },
+ {
+  "id": 20,
+  "file": "/src/dist/ses.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      value: Realm,\n      writable: true,\n      configurable: true\n    };\n\n    // Creating the realmRec provides the global object, eval() and Function()\n    // to the realm.\n    const realmRec = createRealmRec(unsafeRec, transforms, sloppyGlobals);\n\n    // Apply all shims in the new RootRealm. We don't do this for compartments.\n    const { safeEvalWhichTakesEndowments } = realmRec;",
+  "line": 1460,
+  "start": 1455,
+  "end": 1466
+ },
+ {
+  "id": 21,
+  "file": "/src/dist/ses.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    registerRealmRecForRealmInstance(self, realmRec);\n  }\n\n  /**\n   * A compartment shares the intrinsics of its root realm. Here, only a\n   * realmRec is necessary to hold the global object, eval() and Function().\n   */\n  function initCompartment(unsafeRec, self, options = {}) {\n    // note: 'self' is the instance of the Realm.\n\n    const { transforms, sloppyGlobals } = options;",
+  "line": 1476,
+  "start": 1471,
+  "end": 1482
+ }
+]

@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/bionode-sra.js",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 17,
+                  "endLine": 9,
+                  "endColumn": 23,
+                  "offset": 214,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/test/bionode-sra.js",
+                  "replacements": [
+                    {
+                      "offset": 214,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS173237",
+          "level": "error",
+          "message": "Do not store tokens or keys in source code.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/bionode-sra.js",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 18,
+                  "endLine": 27,
+                  "endColumn": 84,
+                  "offset": 1022,
+                  "length": 66
+                }
+              }
+            }
+          ],
+          "snippet": "'f13dd1b06542a0a5e2ce078f8ab123abfbd70fe49400cae66f430a2d980e42d9'",
+          "properties": {
+            "tags": ["Implementation.Privacy.Token"]
+          }
+        }
+      ],
+      "rules": {
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        },
+        "DS173237": {
+          "id": "DS173237",
+          "name": "Do not store tokens or keys in source code.",
+          "fullDescription": "A token or key was found in source code. If this represents a secret, it should be moved somewhere else.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS173237.md"
+        }
+      }
+    }
+  ]
+}

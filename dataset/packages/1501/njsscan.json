@@ -1,0 +1,282 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/lib/server/controllers/callback.js",
+          "match_lines": [
+            13,
+            21
+          ],
+          "match_position": [
+            5,
+            118
+          ],
+          "match_string": "    const providerName = req.params.providerName;\n\n    if (!req.companion.providerTokens) {\n\n        req.companion.providerTokens = {};\n\n    }\n\n    if (req.session.grant.response.access_token) {\n\n        req.companion.providerTokens[providerName] = req.session.grant.response.access_token;\n\n        logger.debug(`Generating auth token for provider ${providerName}`, null, req.id);\n\n        const uppyAuthToken = tokenService.generateToken(req.companion.providerTokens, req.companion.options.secret);\n\n        return res.redirect(req.companion.buildURL(`/${providerName}/send-token?uppyAuthToken=${uppyAuthToken}`, true));"
+        },
+        {
+          "file_path": "/src/lib/server/controllers/callback.js",
+          "match_lines": [
+            20,
+            21
+          ],
+          "match_position": [
+            9,
+            118
+          ],
+          "match_string": "        const uppyAuthToken = tokenService.generateToken(req.companion.providerTokens, req.companion.options.secret);\n\n        return res.redirect(req.companion.buildURL(`/${providerName}/send-token?uppyAuthToken=${uppyAuthToken}`, true));"
+        },
+        {
+          "file_path": "/src/lib/server/controllers/callback.js",
+          "match_lines": [
+            21,
+            21
+          ],
+          "match_position": [
+            16,
+            118
+          ],
+          "match_string": "        return res.redirect(req.companion.buildURL(`/${providerName}/send-token?uppyAuthToken=${uppyAuthToken}`, true));"
+        },
+        {
+          "file_path": "/src/lib/server/controllers/connect.js",
+          "match_lines": [
+            24,
+            24
+          ],
+          "match_position": [
+            5,
+            111
+          ],
+          "match_string": "    res.redirect(req.companion.buildURL(`/connect/${req.companion.provider.authProvider}?state=${state}`, true));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/server/controllers/send-token.js",
+          "match_lines": [
+            17,
+            31
+          ],
+          "match_position": [
+            5,
+            124
+          ],
+          "match_string": "    const uppyAuthToken = req.companion.authToken;\n\n    // some providers need the token in cookies for thumbnail/image requests\n\n    if (req.companion.provider.needsCookieAuth) {\n\n        tokenService.addToCookies(res, uppyAuthToken, req.companion.options, req.companion.provider.authProvider);\n\n    }\n\n    const dynamic = (req.session.grant || {}).dynamic || {};\n\n    const state = dynamic.state;\n\n    if (state) {\n\n        const origin = oAuthState.getFromState(state, 'origin', req.companion.options.secret);\n\n        const clientVersion = oAuthState.getFromState(state, 'clientVersion', req.companion.options.secret);\n\n        const allowedClients = req.companion.options.clients;\n\n        // if no preset clients then allow any client\n\n        if (!allowedClients || hasMatch(origin, allowedClients) || hasMatch(parseUrl(origin).host, allowedClients)) {\n\n            const allowsStringMessage = versionCmp.gte(clientVersion, '1.0.2');\n\n            return res.send(allowsStringMessage ? htmlContent(uppyAuthToken, origin) : oldHtmlContent(uppyAuthToken, origin));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_ssrf": {
+      "files": [
+        {
+          "file_path": "/src/lib/server/provider/drive/index.js",
+          "match_lines": [
+            77,
+            83
+          ],
+          "match_position": [
+            11,
+            26
+          ],
+          "match_string": "    stats({ id, token }, done) {\n\n        return this.client\n\n            .query()\n\n            .get(`files/${id}`)\n\n            .qs({ fields: DRIVE_FILE_FIELDS, supportsAllDrives: true })\n\n            .auth(token)\n\n            .request(done);"
+        },
+        {
+          "file_path": "/src/lib/server/provider/drive/index.js",
+          "match_lines": [
+            85,
+            95
+          ],
+          "match_position": [
+            14,
+            62
+          ],
+          "match_string": "    download({ id, token }, onData) {\n\n        return this.client\n\n            .query()\n\n            .get(`files/${id}`)\n\n            .qs({ alt: 'media', supportsAllDrives: true })\n\n            .auth(token)\n\n            .request()\n\n            .on('data', onData)\n\n            .on('end', () => onData(null))\n\n            .on('error', (err) => {\n\n            logger.error(err, 'provider.drive.download.error');"
+        },
+        {
+          "file_path": "/src/lib/server/provider/facebook/index.js",
+          "match_lines": [
+            69,
+            81
+          ],
+          "match_position": [
+            14,
+            73
+          ],
+          "match_string": "    download({ id, token }, onData) {\n\n        return this.client\n\n            .get(id)\n\n            .qs({ fields: 'images' })\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err)\n\n                return logger.error(err, 'provider.facebook.download.error');\n\n            request(this._getMediaUrl(body))\n\n                .on('data', onData)\n\n                .on('end', () => onData(null))\n\n                .on('error', (err) => {\n\n                logger.error(err, 'provider.facebook.download.url.error');"
+        },
+        {
+          "file_path": "/src/lib/server/provider/facebook/index.js",
+          "match_lines": [
+            91,
+            106
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "    size({ id, token }, done) {\n\n        return this.client\n\n            .get(id)\n\n            .qs({ fields: 'images' })\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err || resp.statusCode !== 200) {\n\n                err = this._error(err, resp);\n\n                logger.error(err, 'provider.facebook.size.error');\n\n                return done(err);\n\n            }\n\n            utils.getURLMeta(this._getMediaUrl(body))\n\n                .then(({ size }) => done(null, size))\n\n                .catch((err) => {\n\n                logger.error(err, 'provider.facebook.size.error');\n\n                done();"
+        },
+        {
+          "file_path": "/src/lib/server/provider/instagram/graph/index.js",
+          "match_lines": [
+            66,
+            78
+          ],
+          "match_position": [
+            14,
+            74
+          ],
+          "match_string": "    download({ id, token }, onData) {\n\n        return this.client\n\n            .get(`https://graph.instagram.com/${id}`)\n\n            .qs({ fields: 'media_url' })\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err)\n\n                return logger.error(err, 'provider.instagram.download.error');\n\n            request(body.media_url)\n\n                .on('data', onData)\n\n                .on('end', () => onData(null))\n\n                .on('error', (err) => {\n\n                logger.error(err, 'provider.instagram.download.url.error');"
+        },
+        {
+          "file_path": "/src/lib/server/provider/instagram/graph/index.js",
+          "match_lines": [
+            88,
+            103
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "    size({ id, token }, done) {\n\n        return this.client\n\n            .get(`https://graph.instagram.com/${id}`)\n\n            .qs({ fields: 'media_url' })\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err || resp.statusCode !== 200) {\n\n                err = this._error(err, resp);\n\n                logger.error(err, 'provider.instagram.size.error');\n\n                return done(err);\n\n            }\n\n            utils.getURLMeta(body.media_url)\n\n                .then(({ size }) => done(null, size))\n\n                .catch((err) => {\n\n                logger.error(err, 'provider.instagram.size.error');\n\n                done();"
+        },
+        {
+          "file_path": "/src/lib/server/provider/instagram/index.js",
+          "match_lines": [
+            20,
+            35
+          ],
+          "match_position": [
+            10,
+            79
+          ],
+          "match_string": "    list({ directory = 'recent', token, query = {} }, done) {\n\n        const cursor = query.cursor || query.max_id;\n\n        const qs = cursor ? { max_id: cursor } : {};\n\n        this.client\n\n            .get(`users/self/media/${directory}`)\n\n            .qs(qs)\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err || resp.statusCode !== 200) {\n\n                err = this._error(err, resp);\n\n                logger.error(err, 'provider.instagram.list.error');\n\n                return done(err);\n\n            }\n\n            else {\n\n                this._getUsername(token, (err, username) => {\n\n                    err ? done(err) : done(null, this.adaptData(body, username));"
+        },
+        {
+          "file_path": "/src/lib/server/provider/instagram/index.js",
+          "match_lines": [
+            69,
+            80
+          ],
+          "match_position": [
+            14,
+            74
+          ],
+          "match_string": "    download({ id, token, query = {} }, onData) {\n\n        return this.client\n\n            .get(`media/${id}`)\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err)\n\n                return logger.error(err, 'provider.instagram.download.error');\n\n            request(this._getMediaUrl(body, query.carousel_id))\n\n                .on('data', onData)\n\n                .on('end', () => onData(null))\n\n                .on('error', (err) => {\n\n                logger.error(err, 'provider.instagram.download.url.error');"
+        },
+        {
+          "file_path": "/src/lib/server/provider/instagram/index.js",
+          "match_lines": [
+            90,
+            104
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "    size({ id, token, query = {} }, done) {\n\n        return this.client\n\n            .get(`media/${id}`)\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err || resp.statusCode !== 200) {\n\n                err = this._error(err, resp);\n\n                logger.error(err, 'provider.instagram.size.error');\n\n                return done(err);\n\n            }\n\n            utils.getURLMeta(this._getMediaUrl(body, query.carousel_id))\n\n                .then(({ size }) => done(null, size))\n\n                .catch((err) => {\n\n                logger.error(err, 'provider.instagram.size.error');\n\n                done();"
+        },
+        {
+          "file_path": "/src/lib/server/provider/onedrive/index.js",
+          "match_lines": [
+            61,
+            70
+          ],
+          "match_position": [
+            14,
+            65
+          ],
+          "match_string": "    download({ id, token, query }, onData) {\n\n        const rootPath = query.driveId ? `/drives/${query.driveId}` : '/drive';\n\n        return this.client\n\n            .get(`${rootPath}/items/${id}/content`)\n\n            .auth(token)\n\n            .request()\n\n            .on('data', onData)\n\n            .on('end', () => onData(null))\n\n            .on('error', (err) => {\n\n            logger.error(err, 'provider.onedrive.download.error');"
+        },
+        {
+          "file_path": "/src/lib/server/provider/onedrive/index.js",
+          "match_lines": [
+            79,
+            91
+          ],
+          "match_position": [
+            10,
+            37
+          ],
+          "match_string": "    size({ id, query, token }, done) {\n\n        const rootPath = query.driveId ? `/drives/${query.driveId}` : '/drive';\n\n        return this.client\n\n            .get(`${rootPath}/items/${id}`)\n\n            .auth(token)\n\n            .request((err, resp, body) => {\n\n            if (err || resp.statusCode !== 200) {\n\n                err = this._error(err, resp);\n\n                logger.error(err, 'provider.onedrive.size.error');\n\n                return done(err);\n\n            }\n\n            else {\n\n                done(null, body.size);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-918: Server-Side Request Forgery (SSRF)",
+        "description": "User controlled URL in http client libraries can result in Server Side Request Forgery (SSRF).",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/companion.js",
+          "match_lines": [
+            165,
+            165
+          ],
+          "match_position": [
+            20,
+            61
+          ],
+          "match_string": "            return /^\\/connect\\/\\w+\\/callback/.test(req.path);"
+        },
+        {
+          "file_path": "/src/lib/server/helpers/utils.js",
+          "match_lines": [
+            11,
+            11
+          ],
+          "match_position": [
+            32,
+            57
+          ],
+          "match_string": "        return value === i || (new RegExp(i)).test(value);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

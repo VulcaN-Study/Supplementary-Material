@@ -1,0 +1,351 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "advisory": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "cwe": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "cwe"
+            ],
+            "additionalProperties": false
+        },
+        "correct_cwe": {
+            "type": "string",
+            "additionalProperties": false
+        },
+        "correct_package_link": {
+            "type": "string",
+            "additionalProperties": false
+        },
+        "vulnerability": {
+            "type": "object",
+            "properties": {
+                "vulnerability_location": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "source": {
+                                    "type": "object",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string"
+                                        },
+                                        "lineno": {
+                                            "type": "integer"
+                                        },
+                                        "code": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "file",
+                                        "lineno",
+                                        "code"
+                                    ],
+                                    "additionalProperties": false
+                                },
+                                "sink": {
+                                    "type": "object",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string"
+                                        },
+                                        "lineno": {
+                                            "type": "integer"
+                                        },
+                                        "code": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "file",
+                                        "lineno",
+                                        "code"
+                                    ],
+                                    "additionalProperties": false
+                                },
+                                "block": {
+                                    "type": "object",
+                                    "properties": {
+                                        "file": {
+                                            "type": "string"
+                                        },
+                                        "start_lineno": {
+                                            "type": "integer"
+                                        },
+                                        "end_lineno": {
+                                            "type": "integer"
+                                        },
+                                        "code": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "file",
+                                        "start_lineno",
+                                        "end_lineno",
+                                        "code"
+                                    ],
+                                    "additionalProperties": false
+                                }
+                            }
+                        }
+                    ]
+                },
+                "fail_reason": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fail_reason"
+            ],
+            "additionalProperties": false
+        },
+        "poc": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "url": {
+                            "type": "string"
+                        },
+                        "code": {
+                            "type": "string"
+                        },
+                        "file_path": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ],
+            "additionalProperties": false
+        },
+        "patch": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "url": {
+                            "type": "string"
+                        },
+                        "file_path": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ],
+            "additionalProperties": false
+        },
+        "tools": {
+            "type": "object",
+            "properties": {
+                "codeql": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "njsscan": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "graudit": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "insidersec": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "eslint": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "appinspector": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "msdevskim": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "drek": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                },
+                "mosca": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "string",
+                            "enum": [
+                                "A",
+                                "B",
+                                "C",
+                                "D",
+                                "E"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "codeql",
+                "njsscan",
+                "graudit",
+                "insidersec",
+                "eslint",
+                "appinspector",
+                "msdevskim",
+                "drek",
+                "mosca"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "advisory",
+        "correct_cwe",
+        "correct_package_link",
+        "vulnerability",
+        "tools"
+    ],
+    "additionalProperties": false
+}

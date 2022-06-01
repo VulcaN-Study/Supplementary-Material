@@ -1,0 +1,777 @@
+<report_mosca>
+ <Path>/src/highcharts.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  l,null,!0)},update:function(){var a=this.elem,f=this.prop,l=this.now,t=this.options.step;if(this[f+"Setter"])this[f+"Setter"]();else a.attr?a.element&&a.attr(f,l,null,!0):a.style[f]=l+this.unit;t&&t.call(a,l,this)},run:function(q,f,l){var t=this,n=t.options,v=function(a){return v.stopped?!1:t.step(a)},u=E.requestAnimationFrame||function(a){setTimeout(a,13)},c=function(){for(var b=0;b<a.timers.length;b++)a.timers[b]()||a.timers.splice(b--,1);a.timers.length&&u(c)};q===f?(delete n.curAnim[this.prop],
+
+ Line: 16 -  typeof a&&!isNaN(a)&&Infinity>a&&-Infinity<a};a.erase=function(a,f){for(var l=a.length;l--;)if(a[l]===f){a.splice(l,1);break}};a.defined=function(a){return void 0!==a&&null!==a};a.attr=function(q,f,l){var t;a.isString(f)?a.defined(l)?q.setAttribute(f,l):q&&q.getAttribute&&(t=q.getAttribute(f)):a.defined(f)&&a.isObject(f)&&a.objectEach(f,function(a,l){q.setAttribute(l,a)});return t};a.splat=function(q){return a.isArray(q)?q:[q]};a.syncTimeout=function(a,f,l){if(f)return setTimeout(a,f,l);a.call(0,
+
+ Line: 178 -  3:a,y:e?(k.y+b)/2:b,anchorX:p?void 0:e?(2*k.anchorX+m)/3:m,anchorY:p?void 0:e?(k.anchorY+d)/2:d});c.getLabel().attr(k);e&&(clearTimeout(this.tooltipTimeout),this.tooltipTimeout=setTimeout(function(){c&&c.move(a,b,m,d)},32))},hide:function(a){var b=this;clearTimeout(this.hideTimer);a=t(a,this.options.hideDelay,500);this.isHidden||(this.hideTimer=v(function(){b.getLabel()[a?"fadeOut":"hide"]();b.isHidden=!0},a))},getAnchor:function(a,b){var c,d=this.chart,h=d.inverted,k=d.plotTop,e=d.plotLeft,p=0,r=
+
+ Line: 233 -  (q.dashstyle=b.dashStyle);this.legendLine=l.path(["M",0,a,"L",d,a]).addClass("highcharts-graph").attr(q).add(z);c&&!1!==c.enabled&&(b=Math.min(v(c.radius,m),m),0===this.symbol.indexOf("url")&&(c=n(c,{width:f,height:f}),b=0),this.legendSymbol=c=l.symbol(this.symbol,d/2-b,a-b,2*b,2*b,c).addClass("highcharts-point").add(z),c.isMarker=!0)}};(/Trident\/7\.0/.test(b.navigator.userAgent)||l)&&m(a.Legend.prototype,"positionItem",function(a,b){var c=this,d=function(){b._legendItemPos&&a.call(c,b)};d();setTimeout(d)})})(K);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/highmaps.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  t,null,!0)},update:function(){var a=this.elem,g=this.prop,t=this.now,u=this.options.step;if(this[g+"Setter"])this[g+"Setter"]();else a.attr?a.element&&a.attr(g,t,null,!0):a.style[g]=t+this.unit;u&&u.call(a,t,this)},run:function(e,g,t){var u=this,q=u.options,r=function(a){return r.stopped?!1:u.step(a)},m=y.requestAnimationFrame||function(a){setTimeout(a,13)},f=function(){for(var h=0;h<a.timers.length;h++)a.timers[h]()||a.timers.splice(h--,1);a.timers.length&&m(f)};e===g?(delete q.curAnim[this.prop],
+
+ Line: 16 -  typeof a&&!isNaN(a)&&Infinity>a&&-Infinity<a};a.erase=function(a,g){for(var e=a.length;e--;)if(a[e]===g){a.splice(e,1);break}};a.defined=function(a){return void 0!==a&&null!==a};a.attr=function(e,g,t){var u;a.isString(g)?a.defined(t)?e.setAttribute(g,t):e&&e.getAttribute&&(u=e.getAttribute(g)):a.defined(g)&&a.isObject(g)&&a.objectEach(g,function(a,g){e.setAttribute(g,a)});return u};a.splat=function(e){return a.isArray(e)?e:[e]};a.syncTimeout=function(a,g,t){if(g)return setTimeout(a,g,t);a.call(0,
+
+ Line: 176 -  clearTimeout(this.tooltipTimeout)},move:function(a,h,e,k){var d=this,b=d.now,c=!1!==d.options.animation&&!d.isHidden&&(1<Math.abs(a-b.x)||1<Math.abs(h-b.y)),f=d.followPointer||1<d.len;B(b,{x:c?(2*b.x+a)/3:a,y:c?(b.y+h)/2:h,anchorX:f?void 0:c?(2*b.anchorX+e)/3:e,anchorY:f?void 0:c?(b.anchorY+k)/2:k});d.getLabel().attr(b);c&&(clearTimeout(this.tooltipTimeout),this.tooltipTimeout=setTimeout(function(){d&&d.move(a,h,e,k)},32))},hide:function(a){var f=this;clearTimeout(this.hideTimer);a=u(a,this.options.hideDelay,
+
+ Line: 232 -  b.isMarker=!0)}};(/Trident\/7\.0/.test(h.navigator.userAgent)||t)&&n(a.Legend.prototype,"positionItem",function(a,d){var b=this,c=function(){d._legendItemPos&&a.call(b,d)};c();setTimeout(c)})})(J);(function(a){var z=a.addEvent,B=a.animate,y=a.animObject,e=a.attr,g=a.doc,t=a.Axis,u=a.createElement,q=a.defaultOptions,r=a.discardElement,m=a.charts,f=a.css,h=a.defined,n=a.each,k=a.extend,d=a.find,b=a.fireEvent,c=a.grep,l=a.isNumber,C=a.isObject,K=a.isString,x=a.Legend,L=a.marginNames,D=a.merge,v=a.objectEach,
+
+ Line: 400 -  translateY:q,scaleX:k,scaleY:m}));d||a.group.element.setAttribute("stroke-width",a.options[a.pointAttrToOptions&&a.pointAttrToOptions["stroke-width"]||"borderWidth"]/(k||1));this.drawMapDataLabels()},drawMapDataLabels:function(){f.prototype.drawDataLabels.call(this);this.dataLabelsGroup&&this.dataLabelsGroup.clip(this.chart.clipRect)},render:function(){var a=this,c=f.prototype.render;a.chart.renderer.isVML&&3E3<a.data.length?setTimeout(function(){c.call(a)}):c.call(a)},animate:function(a){var b=this.options.animation,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/highstock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  l,null,!0)},update:function(){var a=this.elem,m=this.prop,l=this.now,w=this.options.step;if(this[m+"Setter"])this[m+"Setter"]();else a.attr?a.element&&a.attr(m,l,null,!0):a.style[m]=l+this.unit;w&&w.call(a,l,this)},run:function(r,m,l){var w=this,p=w.options,v=function(a){return v.stopped?!1:w.step(a)},B=F.requestAnimationFrame||function(a){setTimeout(a,13)},e=function(){for(var c=0;c<a.timers.length;c++)a.timers[c]()||a.timers.splice(c--,1);a.timers.length&&B(e)};r===m?(delete p.curAnim[this.prop],
+
+ Line: 16 -  typeof a&&!isNaN(a)&&Infinity>a&&-Infinity<a};a.erase=function(a,m){for(var l=a.length;l--;)if(a[l]===m){a.splice(l,1);break}};a.defined=function(a){return void 0!==a&&null!==a};a.attr=function(r,m,l){var w;a.isString(m)?a.defined(l)?r.setAttribute(m,l):r&&r.getAttribute&&(w=r.getAttribute(m)):a.defined(m)&&a.isObject(m)&&a.objectEach(m,function(a,l){r.setAttribute(l,a)});return w};a.splat=function(r){return a.isArray(r)?r:[r]};a.syncTimeout=function(a,m,l){if(m)return setTimeout(a,m,l);a.call(0,
+
+ Line: 178 -  3:a,y:t?(e.y+c)/2:c,anchorX:f?void 0:t?(2*e.anchorX+k)/3:k,anchorY:f?void 0:t?(e.anchorY+b)/2:b});g.getLabel().attr(e);t&&(clearTimeout(this.tooltipTimeout),this.tooltipTimeout=setTimeout(function(){g&&g.move(a,c,k,b)},32))},hide:function(a){var c=this;clearTimeout(this.hideTimer);a=w(a,this.options.hideDelay,500);this.isHidden||(this.hideTimer=v(function(){c.getLabel()[a?"fadeOut":"hide"]();c.isHidden=!0},a))},getAnchor:function(a,c){var e,b=this.chart,g=b.inverted,n=b.plotTop,t=b.plotLeft,f=0,u=
+
+ Line: 233 -  (A.dashstyle=b.dashStyle);this.legendLine=l.path(["M",0,a,"L",e,a]).addClass("highcharts-graph").attr(A).add(q);c&&!1!==c.enabled&&(b=Math.min(v(c.radius,k),k),0===this.symbol.indexOf("url")&&(c=p(c,{width:f,height:f}),b=0),this.legendSymbol=c=l.symbol(this.symbol,e/2-b,a-b,2*b,2*b,c).addClass("highcharts-point").add(q),c.isMarker=!0)}};(/Trident\/7\.0/.test(c.navigator.userAgent)||l)&&k(a.Legend.prototype,"positionItem",function(a,c){var b=this,e=function(){c._legendItemPos&&a.call(b,c)};e();setTimeout(e)})})(L);
+
+ Line: 470 -  c-d)):b.grabbedCenter&&(b.hasDragged=!0,c<g?c=g:c>e+g-f&&(c=e+g-f),b.render(0,0,c-g,c-g+f)),b.hasDragged&&b.scrollbar&&b.scrollbar.options.liveRedraw&&(a.DOMType=a.type,setTimeout(function(){b.onMouseUp(a)},0)))},onMouseUp:function(a){var b=this.chart,c=this.xAxis,d=c&&c.reversed,e=this.scrollbar,f,g,k=a.DOMEvent||a;(!this.hasDragged||e&&e.hasDragged)&&"scrollbar"!==a.trigger||(e=this.getUnionExtremes(),this.zoomedMin===this.otherHandlePos?f=this.fixedExtreme:this.zoomedMax===this.otherHandlePos&&
+
+ Line: 476 -  !0)},toFixedRange:F.prototype.toFixedRange,fake:!0};a.options.scrollbar.enabled&&(a.scrollbar=l.scrollbar=new q(a.renderer,f(a.options.scrollbar,{margin:l.navigatorEnabled?0:10,vertical:a.inverted}),a),E(l.scrollbar,"changed",function(b){var c=l.size,d=c*this.to,c=c*this.from;l.hasDragged=l.scrollbar.hasDragged;l.render(0,0,c,d);(a.options.scrollbar.liveRedraw||"mousemove"!==b.DOMType&&"touchmove"!==b.DOMType)&&setTimeout(function(){l.onMouseUp(b)})}));l.addBaseSeriesEvents();l.addChartEvents()},
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/highstock.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 239 -                          setTimeout(step, 13);
+
+ Line: 753 -                  return setTimeout(fn, delay, context);
+
+ Line: 17076 -                      this.tooltipTimeout = setTimeout(function() {
+
+ Line: 20440 -                  setTimeout(runPositionItem);
+
+ Line: 41307 -                          setTimeout(function() {
+
+ Line: 41595 -                              setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/es-modules/modules/exporting.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1191 -  		setTimeout(function () {
+
+ Line: 1275 -  					menu.hideTimer = setTimeout(hide, 500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/boost.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 30 -  c.marker.radius?g.setPointSize(2*c.marker.radius):g.setPointSize(10),g.setDrawAsCircle(!0),d=0;d<a.segments.length;d++)C.render(a.segments[d].from,a.segments[d].to,"POINTS")});q.debug.timeRendering&&console.timeEnd("gl rendering");a&&a();b()}function n(a){c();if(a.renderer.forExport)return y(a);I?y(a):setTimeout(function(){n(a)},1)}var g=!1,C=!1,e=!1,x=0,l=0,E=!1,V=!1,A=!1,U={},I=!1,w=[],M=L.createElement("canvas"),u=M.getContext("2d"),B,J={column:!0,columnrange:!0,bar:!0,area:!0,arearange:!0},H=
+
+ Line: 48 -  return d};h.eachAsync=function(a,d,c,f,b,k){b=b||0;f=f||3E4;for(var l=b+f,m=!0;m&&b<l&&b<a.length;)m=d(a[b],b),++b;m&&(b<a.length?k?h.eachAsync(a,d,c,f,b,k):H.requestAnimationFrame?H.requestAnimationFrame(function(){h.eachAsync(a,d,c,f,b)}):setTimeout(function(){h.eachAsync(a,d,c,f,b)}):c&&c())};v.prototype.getPoint=function(a){var d=a,c=this.xData||this.options.xData||this.processedXData||!1;!a||a instanceof this.pointClass||(d=(new this.pointClass).init(this,this.options.data[a.i],c?c[a.i]:void 0),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/boost.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2224 -                      setTimeout(function() {
+
+ Line: 2592 -           * An "async" foreach loop. Uses a setTimeout to keep the loop from blocking the
+
+ Line: 2625 -                          setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/exporting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 18 -  h(m,function(a,b){1===a.nodeType&&(e[b]=a.style.display,a.style.display="none")});f.appendChild(b);D.focus();D.print();setTimeout(function(){c.appendChild(b);h(m,function(a,b){1===a.nodeType&&(a.style.display=e[b])});a.isPrinting=!1;u&&a.setSize.apply(a,d);E(a,"afterPrint")},1E3)}},contextMenu:function(a,b,e,c,w,m,g){var d=this,u=d.options.navigation,k=d.chartWidth,r=d.chartHeight,n="cache-"+a,l=d[n],y=Math.max(w,m),z,q;l||(d[n]=l=p("div",{className:a},{position:"absolute",zIndex:1E3,padding:y+"px"},
+
+ Line: 19 -  d.container),z=p("div",{className:"highcharts-menu"},null,l),v(z,t({MozBoxShadow:"3px 3px 10px #888",WebkitBoxShadow:"3px 3px 10px #888",boxShadow:"3px 3px 10px #888"},u.menuStyle)),q=function(){v(l,{display:"none"});g&&g.setState(0);d.openMenu=!1},d.exportEvents.push(x(l,"mouseleave",function(){l.hideTimer=setTimeout(q,500)}),x(l,"mouseenter",function(){clearTimeout(l.hideTimer)}),x(A,"mouseup",function(b){d.pointer.inClass(b.target,a)||q()})),h(b,function(a){"string"===typeof a&&(a=d.options.exporting.menuItemDefinitions[a]);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/offline-exporting.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 175 -                      setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/canvas-tools.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 124 -  a.intervalID=setInterval(function(){var b=!1;g&&a.ImagesLoaded()&&(g=!1,b=!0);a.opts.ignoreMouse!=!0&&(b|=a.Mouse.hasEvents());if(a.opts.ignoreAnimation!=!0)for(var c=0;c<a.Animations.length;c++)b|=a.Animations[c].update(1E3/a.FRAMERATE);a.opts!=null&&typeof a.opts.forceRedraw=="function"&&a.opts.forceRedraw()==!0&&(b=!0);b&&(f(),a.Mouse.runEvents())},1E3/a.FRAMERATE)};a.stop=function(){a.intervalID&&clearInterval(a.intervalID)};a.Mouse=new function(){this.events=[];this.hasEvents=function(){return this.events.length!=
+
+ Line: 131 -  c(h,k);c(m,{"border-left":"1px solid darkgray"});f(a,"tooltipRefresh",function(d){var e=a.container,f=e.offsetLeft,e=e.offsetTop,g;h.innerHTML=d.text;g=a.tooltip.getPosition(h.offsetWidth,h.offsetHeight,{plotX:d.x,plotY:d.y});c(h,{visibility:"visible",left:g.x+"px",top:g.y+"px","border-color":d.borderColor});c(m,{visibility:"visible",left:f+d.x+"px",top:e+a.plotTop+"px",height:a.plotHeight+"px"});b.ttTimer!==void 0&&clearTimeout(b.ttTimer);b.ttTimer=setTimeout(function(){c(h,{visibility:"hidden"});
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/map.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 44 -  this.dataLabelsGroup&&this.dataLabelsGroup.clip(this.chart.clipRect)},render:function(){var a=this,c=b.prototype.render;a.chart.renderer.isVML&&3E3<a.data.length?setTimeout(function(){c.call(a)}):c.call(a)},animate:function(a){var b=this.options.animation,d=this.group,c=this.xAxis,k=this.yAxis,f=c.pos,m=k.pos;this.chart.renderer.isSVG&&(!0===b&&(b={duration:1E3}),a?d.attr({translateX:f+c.len/2,translateY:m+k.len/2,scaleX:.001,scaleY:.001}):(d.animate({translateX:f,translateY:m,scaleX:1,scaleY:1},
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/map.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1541 -                  setTimeout(function () {
+
+ Line: 1549 -                  	setTimeout(function () {
+
+ Line: 2484 -                      setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/canvas-tools.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2803 -  			svg.intervalID = setInterval(function() { 
+
+ Line: 3061 -  				renderer.ttTimer = setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/stock.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 6614 -                          setTimeout(function() {
+
+ Line: 6902 -                              setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/stock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 94 -  setTimeout(function(){b.onMouseUp(a)},0)))},onMouseUp:function(a){var b=this.chart,c=this.xAxis,e=c&&c.reversed,k=this.scrollbar,p,d,f=a.DOMEvent||a;(!this.hasDragged||k&&k.hasDragged)&&"scrollbar"!==a.trigger||(k=this.getUnionExtremes(),this.zoomedMin===this.otherHandlePos?p=this.fixedExtreme:this.zoomedMax===this.otherHandlePos&&(d=this.fixedExtreme),this.zoomedMax===this.size&&(d=e?k.dataMin:k.dataMax),0===this.zoomedMin&&(p=e?k.dataMax:k.dataMin),c=c.toFixedRange(this.zoomedMin,this.zoomedMax,
+
+ Line: 100 -  "changed",function(b){var c=g.size,e=c*this.to,c=c*this.from;g.hasDragged=g.scrollbar.hasDragged;g.render(0,0,c,e);(a.options.scrollbar.liveRedraw||"mousemove"!==b.DOMType&&"touchmove"!==b.DOMType)&&setTimeout(function(){g.onMouseUp(b)})}));g.addBaseSeriesEvents();g.addChartEvents()},getUnionExtremes:function(a){var b=this.chart.xAxis[0],c=this.xAxis,e=c.options,k=b.options,d;a&&null===b.dataMin||(d={dataMin:q(e&&e.min,L("min",k.min,b.dataMin,c.dataMin,c.min)),dataMax:q(e&&e.max,L("max",k.max,b.dataMax,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/offline-exporting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  encodeURIComponent(a)};c.imageToDataUrl=function(a,c,d,b,u,l,k,m,p){var g=new e.Image,h,f=function(){setTimeout(function(){var e=t.createElement("canvas"),f=e.getContext&&e.getContext("2d"),y;try{if(f){e.height=g.height*b;e.width=g.width*b;f.drawImage(g,0,0,e.width,e.height);try{y=e.toDataURL(c),u(y,c,d,b)}catch(F){h(a,c,d,b)}}else k(a,c,d,b)}finally{p&&p(a,c,d,b)}},E)},q=function(){m(a,c,d,b);p&&p(a,c,d,b)};h=function(){g=new e.Image;h=l;g.crossOrigin="Anonymous";g.onload=f;g.onerror=q;g.src=a};
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/exporting.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1205 -                  setTimeout(function() {
+
+ Line: 1293 -                              menu.hideTimer = setTimeout(hide, 500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/boost-canvas.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 598 -                              destroyLoadingDiv = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/boost-canvas.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 18 -  !0)),X(e,g,p,c),H(e,g,c);T=b&&!la;0===c%5E4&&(a.boostCopy||a.chart.boostCopy)&&(a.boostCopy||a.chart.boostCopy)()}return!W},function(){var b=f.loadingDiv,d=f.loadingShown;V();a.canvasToSVG();e&&console.timeEnd("canvas rendering");aa(a,"renderedCanvas");d&&(q(b.style,{transition:"opacity 250ms",opacity:0}),f.loadingShown=!1,I=setTimeout(function(){b.parentNode&&b.parentNode.removeChild(b);f.loadingDiv=f.loadingSpan=null},250));delete a.buildKDTree;a.buildKDTree()},f.renderer.forExport?Number.MAX_VALUE:
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/canvg.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2963 -  			svg.intervalID = setInterval(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/jspdf.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1385 -      						if (global.setTimeout) {
+
+ Line: 1386 -      							setTimeout(saveAs.unload, 911);
+
+ Line: 9687 -      			(view.setImmediate || view.setTimeout)(function() {
+
+ Line: 9708 -      				setTimeout(revoker, arbitrary_revoke_timeout);
+
+ Line: 9794 -      				setTimeout(function() {
+
+ Line: 12342 -      !function(){var a,b,c,d;!function(){var e={},f={};a=function(a,b,c){e[a]={deps:b,callback:c}},d=c=b=function(a){function c(b){if("."!==b.charAt(0))return b;for(var c=b.split("/"),d=a.split("/").slice(0,-1),e=0,f=c.length;f>e;e++){var g=c[e];if(".."===g)d.pop();else{if("."===g)continue;d.push(g)}}return d.join("/")}if(d._eak_seen=e,f[a])return f[a];if(f[a]={},!e[a])throw new Error("Could not find module "+a);for(var g,h=e[a],i=h.deps,j=h.callback,k=[],l=0,m=i.length;m>l;l++)"exports"===i[l]?k.push(g={}):k.push(b(c(i[l])));var n=j.apply(this,k);return f[a]=g||n}}(),a("promise/all",["./utils","exports"],function(a,b){"use strict";function c(a){var b=this;if(!d(a))throw new TypeError("You must pass an array to all.");return new b(function(b,c){function d(a){return function(b){f(a,b)}}function f(a,c){h[a]=c,0===--i&&b(h)}var g,h=[],i=a.length;0===i&&b([]);for(var j=0;j<a.length;j++)g=a[j],g&&e(g.then)?g.then(d(j),c):f(j,g)})}var d=a.isArray,e=a.isFunction;b.all=c}),a("promise/asap",["exports"],function(a){"use strict";function b(){return function(){process.nextTick(e)}}function c(){var a=0,b=new i(e),c=document.createTextNode("");return b.observe(c,{characterData:!0}),function(){c.data=a=++a%2}}function d(){return function(){j.setTimeout(e,1)}}function e(){for(var a=0;a<k.length;a++){var b=k[a],c=b[0],d=b[1];c(d)}k=[]}function f(a,b){var c=k.push([a,b]);1===c&&g()}var g,h="undefined"!=typeof window?window:{},i=h.MutationObserver||h.WebKitMutationObserver,j="undefined"!=typeof global?global:this,k=[];g="undefined"!=typeof process&&"[object process]"==={}.toString.call(process)?b():i?c():d(),a.asap=f}),a("promise/cast",["exports"],function(a){"use strict";function b(a){if(a&&"object"==typeof a&&a.constructor===this)return a;var b=this;return new b(function(b){b(a)})}a.cast=b}),a("promise/config",["exports"],function(a){"use strict";function b(a,b){return 2!==arguments.length?c[a]:(c[a]=b,void 0)}var c={instrument:!1};a.config=c,a.configure=b}),a("promise/polyfill",["./promise","./utils","exports"],function(a,b,c){"use strict";function d(){var a="Promise"in window&&"cast"in win Line: 13025 -                  var interval = setInterval(function() {
+
+ Line: 13403 -              timer = setTimeout(function() {
+
+ Line: 13986 -              setTimeout(bind(function() {
+
+ Line: 15935 -                return _this.animation._timeout = setTimeout(doFrame, frame.delay);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/jspdf.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7088 -      		SELECT: 1
+
+ Line: 13734 -          value = (this.node.tagName === "SELECT") ? selectionValue(this.node) : value;
+
+ Line: 14248 -              case "SELECT":
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/canvg.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 123 -  (k=!1,"function"==typeof a.opts.renderCallback&&a.opts.renderCallback(b))},g=!0;a.ImagesLoaded()&&(g=!1,f());a.intervalID=setInterval(function(){var b=!1;g&&a.ImagesLoaded()&&(g=!1,b=!0);1!=a.opts.ignoreMouse&&(b|=a.Mouse.hasEvents());if(1!=a.opts.ignoreAnimation)for(var c=0;c<a.Animations.length;c++)b|=a.Animations[c].update(1E3/a.FRAMERATE);"function"==typeof a.opts.forceRedraw&&1==a.opts.forceRedraw()&&(b=!0);b&&(f(),a.Mouse.runEvents())},1E3/a.FRAMERATE)};a.stop=function(){a.intervalID&&clearInterval(a.intervalID)};
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/svg2pdf.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 1788 -  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/jspdf.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 34 -  "S":"F"===t?e="f":"FD"===t||"DF"===t?e="B":"f"!==t&&"f*"!==t&&"B"!==t&&"B*"!==t||(e=t),e},ee=function(t,e,n){if(t=te(t),!e)return void st(t);n||(n=jt);var r=N[e],i=D[r];if(i instanceof et.ShadingPattern)st("q"),st("W "+t),i.gState&&et.setGState(i.gState),st(n.toString()+" cm"),st("/"+r+" sh"),st("Q");else if(i instanceof et.TilingPattern){var o=new Rt(1,0,0,-1,0,x);n.matrix&&(o=Bt(n.matrix||jt,o),r=i.createClone(e,n.boundingBox,n.xStep,n.yStep,o).id),st("q"),st("/Pattern cs"),st("/"+r+" scn"),i.gState&&et.setGState(i.gState),st(t),st("Q")}},ne=function(){for(var t=Zt(),e=t.length,n=new ArrayBuffer(e),r=new Uint8Array(n);e--;)r[e]=t.charCodeAt(e);return n},re=function(){return new Blob([ne()],{type:"application/pdf"})},ie=Ut(function(t,n){var i="dataur"===(""+t).substr(0,6)?"data:application/pdf;base64,"+btoa(Zt()):0;switch(t){case void 0:return Zt();case"save":if(navigator.getUserMedia&&(void 0===e.URL||void 0===e.URL.createObjectURL))return et.output("dataurlnewwindow");r(re(),n),"function"==typeof r.unload&&e.setTimeout&&setTimeout(r.unload,911);break;case"arraybuffer":return ne();case"blob":return re();case"bloburi":case"bloburl":return e.URL&&e.URL.createObjectURL(re())||void 0;case"datauristring":case"dataurlstring":return i;case"dataurlnewwindow":var o=e.open(i);if(o||"undefined"==typeof safari)return o;case"datauri":case"dataurl":return e.document.location.href=i;default:throw new Error('Output type "'+t+'" is not supported.')}});switch(l){case"pt":m=1;break;case"mm":m=72/25.4000508;break;case"cm":m=72/2.54000508;break;case"in":m=72;break;case"px":m=96/72;break;case"pc":m=12;break;case"em":m=12;break;case"ex":m=6;break;default:throw"Invalid unit: "+l}et.internal={pdfEscape:Wt,getStyle:te,getFont:function(){return B[$t.apply(et,arguments)]},getFontSize:function(){return P},getLineHeight:function(){return P*T},write:function(t){st(1===arguments.length?t:Array.prototype.join.call(arguments," "))},getCoordinateString:function(t){return rt(t)},getVerticalCoordinateString:function(t){return rt(t)},collections:{},newObject:ct,newAdditionalObject:ut,newObjectDeferred:lt,newObje Line: 159 -  ng"!=typeof t&&(t+=""),n.push(unescape(encodeURIComponent(t))))},i.getBlob=function(t){return arguments.length||(t=null),new r(this.data.join(""),t,"raw")},i.toString=function(){return"[object BlobBuilder]"},o.slice=function(t,e,n){var i=arguments.length;return 3>i&&(n=null),new r(this.data.slice(t,i>1?e:this.data.length),n,this.encoding)},o.toString=function(){return"[object Blob]"},o.close=function(){this.size=0,delete this.data},n}(t);t.Blob=function(t,e){var r=e?e.type||"":"",i=new n;if(t)for(var o=0,a=t.length;a>o;o++)Uint8Array&&t[o]instanceof Uint8Array?i.append(t[o].buffer):i.append(t[o]);var s=i.getBlob(r);return!s.slice&&s.webkitSlice&&(s.slice=s.webkitSlice),s};var r=Object.getPrototypeOf||function(t){return t.__proto__};t.Blob.prototype=r(new t.Blob)}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this.content||this);var r=r||function(t){if("undefined"==typeof navigator||!/MSIE [1-9]\./.test(navigator.userAgent)){var e=t.document,n=function(){return t.URL||t.webkitURL||t},r=e.createElementNS("http://www.w3.org/1999/xhtml","a"),i="download"in r,o=function(t){var e=new MouseEvent("click");t.dispatchEvent(e)},a=/Version\/[\d\.]+.*Safari/.test(navigator.userAgent),s=t.webkitRequestFileSystem,c=t.requestFileSystem||s||t.mozRequestFileSystem,u=function(e){(t.setImmediate||t.setTimeout)(function(){throw e},0)},l="application/octet-stream",h=0,f=500,d=function(e){var r=function(){"string"==typeof e?n().revokeObjectURL(e):e.remove()};t.chrome?r():setTimeout(r,f)},p=function(t,e,n){e=[].concat(e);for(var r=e.length;r--;){var i=t["on"+e[r]];if("function"==typeof i)try{i.call(t,n||t)}catch(o){u(o)}}},m=function(t){return/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(t.type)?new Blob(["\ufeff",t],{type:t.type}):t},g=function(e,u,f){f||(e=m(e));var g,w,y,v=this,b=e.type,x=!1,k=function(){p(v,"writestart progress write writeend".split(" "))},S=function(){if(w&&a&&"undefined"!=typeof FileReader){var r=new FileReader;return r.onloadend=function(){var t=r.result;w.location.href="data:attachment/file"+t.slice(t.search(/[,;]/)), Line: 160 -  .DONE,k()},r.readAsDataURL(e),void(v.readyState=v.INIT)}if(!x&&g||(g=n().createObjectURL(e)),w)w.location.href=g;else{var i=t.open(g,"_blank");void 0==i&&a&&(t.location.href=g)}v.readyState=v.DONE,k(),d(g)},C=function(t){return function(){return v.readyState!==v.DONE?t.apply(this,arguments):void 0}},A={create:!0,exclusive:!1};return v.readyState=v.INIT,u||(u="download"),i?(g=n().createObjectURL(e),void setTimeout(function(){r.href=g,r.download=u,o(r),k(),d(g),v.readyState=v.DONE})):(t.chrome&&b&&b!==l&&(y=e.slice||e.webkitSlice,e=y.call(e,0,e.size,l),x=!0),s&&"download"!==u&&(u+=".download"),(b===l||s)&&(w=t),c?(h+=e.size,void c(t.TEMPORARY,h,C(function(t){t.root.getDirectory("saved",A,C(function(t){var n=function(){t.getFile(u,A,C(function(t){t.createWriter(C(function(n){n.onwriteend=function(e){w.location.href=t.toURL(),v.readyState=v.DONE,p(v,"writeend",e),d(t)},n.onerror=function(){var t=n.error;t.code!==t.ABORT_ERR&&S()},"writestart progress write abort".split(" ").forEach(function(t){n["on"+t]=v["on"+t]}),n.write(e),v.abort=function(){n.abort(),v.readyState=v.DONE},v.readyState=v.WRITING}),S)}),S)};t.getFile(u,{create:!1},C(function(t){t.remove(),n()}),C(function(t){t.code===t.NOT_FOUND_ERR?n():S()}))}),S)}),S)):void S())},w=g.prototype,y=function(t,e,n){return new g(t,e,n)};return"undefined"!=typeof navigator&&navigator.msSaveOrOpenBlob?function(t,e,n){return n||(t=m(t)),navigator.msSaveOrOpenBlob(t,e||"download")}:(w.abort=function(){var t=this;t.readyState=t.DONE,p(t,"abort")},w.readyState=w.INIT=0,w.WRITING=1,w.DONE=2,w.error=w.onwritestart=w.onprogress=w.onwrite=w.onabort=w.onerror=w.onwriteend=null,y)}}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this.content);"undefined"!=typeof module&&module.exports?module.exports.saveAs=r:"undefined"!=typeof define&&null!==define&&null!=define.amd&&define([],function(){return r}),/*
+
+ Line: 218 -  lement("iframe");return a.className="html2canvas-container",a.style.visibility="hidden",a.style.position="fixed",a.style.left="-10000px",a.style.top="0px",a.style.border="0",a.width=n,a.height=r,a.scrolling="no",e.body.appendChild(a),new Promise(function(e){var n=a.contentWindow.document;a.contentWindow.onload=a.onload=function(){var o=setInterval(function(){n.body.childNodes.length>0&&(v(t,n),clearInterval(o),"view"===i.type&&a.contentWindow.scrollTo(r,s),e(a))},50)};var r=t.defaultView.pageXOffset,s=t.defaultView.pageYOffset;n.open(),n.write("<!DOCTYPE html><html></html>"),m(t,r,s),n.replaceChild(i.javascriptEnabled===!0?n.adoptNode(o):b(n.adoptNode(o)),n.documentElement),n.close()})}function m(t,e,n){e===t.defaultView.pageXOffset&&n===t.defaultView.pageYOffset||t.defaultView.scrollTo(e,n)}function g(e,n,r,i,o,a){return new At(e,n,t.document).then(w(e)).then(function(t){return p(t,r,i,o,a)})}function w(t){return function(n){var r,i=new DOMParser;try{r=i.parseFromString(n,"text/html")}catch(o){I("DOMParser not supported, falling back to createHTMLDocument"),r=e.implementation.createHTMLDocument("");try{r.open(),r.write(n),r.close()}catch(a){I("createHTMLDocument write not supported, falling back to document.body.innerHTML"),r.body.innerHTML=n}}var s=r.querySelector("base");if(!s||!s.href.host){var c=r.createElement("base");c.href=t,r.head.insertBefore(c,r.head.firstChild)}return r}}function y(t){[].slice.call(t.querySelectorAll("canvas"),0).forEach(function(t){t.setAttribute(Xt,"canvas-"+Vt++)})}function v(t,e){[].slice.call(t.querySelectorAll("["+Xt+"]"),0).forEach(function(t){try{var n=e.querySelector("["+Xt+'="'+t.getAttribute(Xt)+'"]');n&&(n.width=t.width,n.height=t.height,n.getContext("2d").putImageData(t.getContext("2d").getImageData(0,0,t.width,t.height),0,0))}catch(r){I("Unable to copy canvas content from",t,r)}t.removeAttribute(Xt)})}function b(t){return[].slice.call(t.childNodes,0).filter(x).forEach(function(e){"SCRIPT"===e.tagName?t.removeChild(e):b(e)}),t}function x(t){return t.nodeType===Node.ELEMENT_NODE}function k(t){var n=e.createElement("a");return n.href=t, Line: 237 -  !function(){var n,r,o,a;!function(){var t={},e={};n=function(e,n,r){t[e]={deps:n,callback:r}},a=o=r=function(n){function i(t){if("."!==t.charAt(0))return t;for(var e=t.split("/"),r=n.split("/").slice(0,-1),i=0,o=e.length;o>i;i++){var a=e[i];if(".."===a)r.pop();else{if("."===a)continue;r.push(a)}}return r.join("/")}if(a._eak_seen=t,e[n])return e[n];if(e[n]={},!t[n])throw new Error("Could not find module "+n);for(var o,s=t[n],c=s.deps,u=s.callback,l=[],h=0,f=c.length;f>h;h++)"exports"===c[h]?l.push(o={}):l.push(r(i(c[h])));var d=u.apply(this,l);return e[n]=o||d}}(),n("promise/all",["./utils","exports"],function(t,e){function n(t){var e=this;if(!r(t))throw new TypeError("You must pass an array to all.");return new e(function(e,n){function r(t){return function(e){o(t,e)}}function o(t,n){s[t]=n,0===--c&&e(s)}var a,s=[],c=t.length;0===c&&e([]);for(var u=0;u<t.length;u++)a=t[u],a&&i(a.then)?a.then(r(u),n):o(u,a)})}var r=t.isArray,i=t.isFunction;e.all=n}),n("promise/asap",["exports"],function(n){function r(){return function(){process.nextTick(s)}}function o(){var t=0,n=new h(s),r=e.createTextNode("");return n.observe(r,{characterData:!0}),function(){r.data=t=++t%2}}function a(){return function(){f.setTimeout(s,1)}}function s(){for(var t=0;t<d.length;t++){var e=d[t],n=e[0],r=e[1];n(r)}d=[]}function c(t,e){var n=d.push([t,e]);1===n&&u()}var u,l="undefined"!=typeof t?t:{},h=l.MutationObserver||l.WebKitMutationObserver,f="undefined"!=typeof i?i:this,d=[];u="undefined"!=typeof process&&"[object process]"==={}.toString.call(process)?r():h?o():a(),n.asap=c}),n("promise/cast",["exports"],function(t){function e(t){if(t&&"object"==typeof t&&t.constructor===this)return t;var e=this;return new e(function(e){e(t)})}t.cast=e}),n("promise/config",["exports"],function(t){function e(t,e){return 2!==arguments.length?n[t]:void(n[t]=e)}var n={instrument:!1};t.config=n,t.configure=e}),n("promise/polyfill",["./promise","./utils","exports"],function(e,n,r){function i(){var e="Promise"in t&&"cast"in t.Promise&&"resolve"in t.Promise&&"reject"in t.Promise&&"all"in t.Promise&&"race"in t.Promise&&function(){var Line: 242 -  method?new Dt(t.args[0],this.support.svg):"IFRAME"===t.method?new q(t.args[0],this.isSameOrigin(t.args[0].src),this.options):new S(t)},T.prototype.isSVG=function(t){return"svg"===t.substring(t.length-3).toLowerCase()||Rt.prototype.isInline(t)},T.prototype.imageExists=function(t,e){return t.some(function(t){return t.src===e})},T.prototype.isSameOrigin=function(t){return this.getOrigin(t)===this.origin},T.prototype.getOrigin=function(t){var n=this.link||(this.link=e.createElement("a"));return n.href=t,n.href=n.href,n.protocol+n.hostname+n.port},T.prototype.getPromise=function(t){return this.timeout(t,this.options.imageTimeout)["catch"](function(){var e=new S(t.src);return e.promise.then(function(e){t.image=e})})},T.prototype.get=function(t){var e=null;return this.images.some(function(n){return(e=n).src===t})?e:null},T.prototype.fetch=function(t){return this.images=t.reduce(gt(this.findBackgroundImage,this),this.findImages(t)),this.images.forEach(function(t,e){t.promise.then(function(){I("Succesfully loaded image #"+(e+1),t)},function(n){I("Failed loading image #"+(e+1),t,n)})}),this.ready=Promise.all(this.images.map(this.getPromise,this)),I("Finished searching images"),this},T.prototype.timeout=function(t,e){var n;return Promise.race([t.promise,new Promise(function(r,i){n=setTimeout(function(){I("Timed out loading image",t),i(t)},e)})]).then(function(t){return clearTimeout(n),t})},E.prototype=Object.create(_.prototype),E.prototype.stepRegExp=/((?:rgb|rgba)\(\d{1,3},\s\d{1,3},\s\d{1,3}(?:,\s[0-9\.]+)?\))\s*(\d{1,3})?(%|px)?/,O.prototype.cloneTo=function(t){t.visible=this.visible,t.borders=this.borders,t.bounds=this.bounds,t.clip=this.clip,t.backgroundClip=this.backgroundClip,t.computedStyles=this.computedStyles,t.styles=this.styles,t.backgroundImages=this.backgroundImages,t.opacity=this.opacity},O.prototype.getOpacity=function(){return null===this.opacity?this.opacity=this.cssFloat("opacity"):this.opacity},O.prototype.assignStack=function(t){this.stack=t,t.children.push(this)},O.prototype.isElementVisible=function(){return this.node.nodeType===Node.TEXT_NODE?this.parent.visible: Line: 245 -  clip]:[],n=t.parseClip();n&&-1!==["absolute","fixed"].indexOf(t.css("position"))&&e.push([["rect",t.bounds.left+n.left,t.bounds.top+n.top,n.right-n.left,n.bottom-n.top]]),t.clip=U(t)?t.parent.clip.concat(e):e,t.backgroundClip="hidden"!==t.css("overflow")?t.clip.concat([t.borders.clip]):t.clip,ft(t)&&t.cleanDOM()}else dt(t)&&(t.clip=U(t)?t.parent.clip:[]);ft(t)||(t.bounds=null)},this)},M.prototype.asyncRenderer=function(t,e,n){n=n||Date.now(),this.paint(t[this.renderIndex++]),t.length===this.renderIndex?e():n+20>Date.now()?this.asyncRenderer(t,e,n):setTimeout(gt(function(){this.asyncRenderer(t,e)},this),0)},M.prototype.createPseudoHideStyles=function(t){this.createStyles(t,"."+It.prototype.PSEUDO_HIDE_ELEMENT_CLASS_BEFORE+':before { content: "" !important; display: none !important; }.'+It.prototype.PSEUDO_HIDE_ELEMENT_CLASS_AFTER+':after { content: "" !important; display: none !important; }')},M.prototype.disableAnimations=function(t){this.createStyles(t,"* { -webkit-animation: none !important; -moz-animation: none !important; -o-animation: none !important; animation: none !important; -webkit-transition: none !important; -moz-transition: none !important; -o-transition: none !important; transition: none !important;}")},M.prototype.createStyles=function(t,e){var n=t.createElement("style");n.innerHTML=e,t.body.appendChild(n)},M.prototype.getPseudoElements=function(t){var e=[[t]];if(t.node.nodeType===Node.ELEMENT_NODE){var n=this.getPseudoElement(t,":before"),r=this.getPseudoElement(t,":after");n&&e.push(n),r&&e.push(r)}return bt(e)},M.prototype.getPseudoElement=function(t,n){var r=t.computedStyle(n);if(!r||!r.content||"none"===r.content||"-moz-alt-content"===r.content||"none"===r.display)return null;for(var i=xt(r.content),o="url"===i.substr(0,3),a=e.createElement(o?"img":"html2canvaspseudoelement"),s=new It(a,t,n),c=r.length-1;c>=0;c--){var u=H(r.item(c));a.style[u]=r[u]}if(a.className=It.prototype.PSEUDO_HIDE_ELEMENT_CLASS_BEFORE+" "+It.prototype.PSEUDO_HIDE_ELEMENT_CLASS_AFTER,o)return a.src=j(i)[0].args[0],[s];var l=e.createTextNode(i);return a.appendChild(l),[s,new Nt(l,s)]} Line: 264 -  ||[],o=new Uint8Array((a.length||0)+r.length),i=0,n=r.length,t=0,e=s=0,c=r.length;c>s;e=s+=3)o[i++]=r[e],o[i++]=r[e+1],o[i++]=r[e+2],o[i++]=null!=(u=a[t++])?u:255;return o},e.prototype.copyToImageData=function(t,e){var n,r,i,o,a,s,c,u,l,h,f;if(r=this.colors,l=null,n=this.hasAlphaChannel,this.palette.length&&(l=null!=(f=this._decodedPalette)?f:this._decodedPalette=this.decodePalette(),r=4,n=!0),i=t.data||t,u=i.length,a=l||e,o=s=0,1===r)for(;u>o;)c=l?4*e[o/4]:s,h=a[c++],i[o++]=h,i[o++]=h,i[o++]=h,i[o++]=n?a[c++]:255,s=c;else for(;u>o;)c=l?4*e[o/4]:s,i[o++]=a[c++],i[o++]=a[c++],i[o++]=a[c++],i[o++]=n?a[c++]:255,s=c},e.prototype.decode=function(){var t;return t=new Uint8Array(this.width*this.height*4),this.copyToImageData(t,this.decodePixels()),t};try{u=t.document.createElement("canvas"),l=u.getContext("2d")}catch(h){return-1}return s=function(t){var e;return l.width=t.width,l.height=t.height,l.clearRect(0,0,t.width,t.height),l.putImageData(t,0,0),e=new Image,e.src=u.toDataURL(),e},e.prototype.decodeFrames=function(t){var e,n,r,i,o,a,c,u;if(this.animation){for(c=this.animation.frames,u=[],n=o=0,a=c.length;a>o;n=++o)e=c[n],r=t.createImageData(e.width,e.height),i=this.decodePixels(new Uint8Array(e.data)),this.copyToImageData(r,i),e.imageData=r,u.push(e.image=s(r));return u}},e.prototype.renderFrame=function(t,e){var n,o,s;return o=this.animation.frames,n=o[e],s=o[e-1],0===e&&t.clearRect(0,0,this.width,this.height),(null!=s?s.disposeOp:void 0)===i?t.clearRect(s.xOffset,s.yOffset,s.width,s.height):(null!=s?s.disposeOp:void 0)===a&&t.putImageData(s.imageData,s.xOffset,s.yOffset),n.blendOp===r&&t.clearRect(n.xOffset,n.yOffset,n.width,n.height),t.drawImage(n.image,n.xOffset,n.yOffset)},e.prototype.animate=function(t){var e,n,r,i,o,a,s=this;return n=0,a=this.animation,i=a.numFrames,r=a.frames,o=a.numPlays,(e=function(){var a,c;return a=n++%i,c=r[a],s.renderFrame(t,a),i>1&&o>n/i?s.animation._timeout=setTimeout(e,c.delay):void 0})()},e.prototype.stopAnimation=function(){var t;return clearTimeout(null!=(t=this.animation)?t._timeout:void 0)},e.prototype.render=function(t){var e,n;return t._p</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/jspdf.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 119 -  -left"]=n&&m(r("margin-left"))||0,e["margin-right"]=n&&m(r("margin-right"))||0,e["padding-left"]=n&&m(r("padding-left"))||0,e["padding-right"]=n&&m(r("padding-right"))||0,e["page-break-before"]=r("page-break-before")||"auto",e["float"]=u[r("cssFloat")]||"none",e.clear=l[r("clear")]||"none",e.color=r("color"),e},w=function(t,e,n){var r,i,o,a,s;if(o=!1,i=void 0,a=void 0,s=void 0,r=n["#"+t.id])if("function"==typeof r)o=r(t,e);else for(i=0,a=r.length;!o&&i!==a;)o=r[i](t,e),i++;if(r=n[t.nodeName],!o&&r)if("function"==typeof r)o=r(t,e);else for(i=0,a=r.length;!o&&i!==a;)o=r[i](t,e),i++;return o},k=function(t,e){var n,r,i,o,a,s,c,u,l,h;for(n=[],r=[],i=0,h=t.rows[0].cells.length,u=t.clientWidth;h>i;)l=t.rows[0].cells[i],r[i]={name:l.textContent.toLowerCase().replace(/\s+/g,""),prompt:l.textContent.replace(/\r?\n/g,""),width:l.clientWidth/u*e.pdf.internal.pageSize.width},i++;for(i=1;i<t.rows.length;){for(s=t.rows[i],a={},o=0;o<s.cells.length;)a[r[o].name]=s.cells[o].textContent.replace(/\r?\n/g,""),o++;n.push(a),i++}return c={rows:n,headers:r}};var S={SCRIPT:1,STYLE:1,NOSCRIPT:1,OBJECT:1,EMBED:1,SELECT:1},C=1;r=function(e,i,o){var a,s,c,u,l,f,d,p,m;for(s=e.childNodes,a=void 0,c=h(e),l="block"===c.display,l&&(i.setBlockBoundary(),i.setBlockStyle(c)),d=19.049976/25.4,u=0,f=s.length;f>u;){if(a=s[u],"object"===("undefined"==typeof a?"undefined":t["typeof"](a))){if(i.executeWatchFunctions(a),1===a.nodeType&&"HEADER"===a.nodeName){var g=a,v=i.pdf.margins_doc.top;i.pdf.internal.events.subscribe("addPage",function(t){i.y=v,r(g,i,o),i.pdf.margins_doc.top=i.y+10,i.y+=10},!1)}if(8===a.nodeType&&"#comment"===a.nodeName)~a.textContent.indexOf("ADD_PAGE")&&(i.pdf.addPage(),i.y=i.pdf.margins_doc.top);else if(1!==a.nodeType||S[a.nodeName])if(3===a.nodeType){var b=a.nodeValue;if(a.nodeValue&&"LI"===a.parentNode.nodeName)if("OL"===a.parentNode.parentNode.nodeName)b=C++ +". "+b;else{var x=c["font-size"];offsetX=(3-.75*x)*i.pdf.internal.scaleFactor,offsetY=.75*x*i.pdf.internal.scaleFactor,radius=1.74*x/i.pdf.internal.scaleFactor,m=function(t,e){this.pdf.circle(t+offsetX,e+offsetY,radius,"FD")}}a.ownerDoc Line: 244 -  ",n);return i=R(a[0])?(t.width-(r||e).width)*(parseFloat(a[0])/100):parseInt(a[0],10),o="auto"===a[1]?i/e.width*e.height:R(a[1])?(t.height-(r||e).height)*parseFloat(a[1])/100:parseInt(a[1],10),"auto"===a[0]&&(i=o/e.height*e.width),{left:i,top:o}},O.prototype.parseBackgroundRepeat=function(t){return this.cssList("backgroundRepeat",t)[0]},O.prototype.parseTextShadows=function(){var t=this.css("textShadow"),e=[];if(t&&"none"!==t)for(var n=t.match(this.TEXT_SHADOW_PROPERTY),r=0;n&&r<n.length;r++){var i=n[r].match(this.TEXT_SHADOW_VALUES);e.push({color:i[0],offsetX:i[1]?parseFloat(i[1].replace("px","")):0,offsetY:i[2]?parseFloat(i[2].replace("px","")):0,blur:i[3]?i[3].replace("px",""):0})}return e},O.prototype.parseTransform=function(){if(!this.transformData)if(this.hasTransform()){var t=this.parseBounds(),e=this.prefixedCss("transformOrigin").split(" ").map(D).map(N);e[0]+=t.left,e[1]+=t.top,this.transformData={origin:e,matrix:this.parseTransformMatrix()}}else this.transformData={origin:[0,0],matrix:[1,0,0,1,0,0]};return this.transformData},O.prototype.parseTransformMatrix=function(){if(!this.transformMatrix){var t=this.prefixedCss("transform"),e=t?B(t.match(this.MATRIX_PROPERTY)):null;this.transformMatrix=e?e:[1,0,0,1,0,0]}return this.transformMatrix},O.prototype.parseBounds=function(){return this.bounds||(this.bounds=this.hasTransform()?L(this.node):z(this.node))},O.prototype.hasTransform=function(){return"1,0,0,1,0,0"!==this.parseTransformMatrix().join(",")||this.parent&&this.parent.hasTransform()},O.prototype.getValue=function(){var t=this.node.value||"";return t="SELECT"===this.node.tagName?F(this.node):t,0===t.length?this.node.placeholder||"":t},O.prototype.MATRIX_PROPERTY=/(matrix)\((.+)\)/,O.prototype.TEXT_SHADOW_PROPERTY=/((rgba|rgb)\([^\)]+\)(\s-?\d+px){0,})/g,O.prototype.TEXT_SHADOW_VALUES=/(-?\d+px)|(#.+)|(rgb\(.+\))|(rgba\(.+\))/g,O.prototype.CLIP=/^rect\((\d+)px,? (\d+)px,? (\d+)px,? (\d+)px\)$/,M.prototype.calculateOverflowClips=function(){this.nodes.forEach(function(t){if(ht(t)){ft(t)&&t.appendToDOM(),t.borders=this.parseBorders(t);var e="hidden"===t.css("overflow Line: 247 -  hildren.filter(ht),r=n.filter(lt(ct)),i=r.filter(lt(st)).filter(lt(tt)),o=n.filter(lt(st)).filter(ct),a=r.filter(lt(st)).filter(tt),s=t.contexts.concat(r.filter(st)).filter(Z),c=t.children.filter(dt).filter(nt),u=t.contexts.filter($);e.concat(i).concat(o).concat(a).concat(s).concat(c).concat(u).forEach(function(t){this.renderQueue.push(t),et(t)&&(this.parse(t),this.renderQueue.push(new W))},this)},M.prototype.paint=function(t){try{t instanceof W?this.renderer.ctx.restore():dt(t)?(ft(t.parent)&&t.parent.appendToDOM(),this.paintText(t),ft(t.parent)&&t.parent.cleanDOM()):this.paintNode(t)}catch(e){I(e)}},M.prototype.paintNode=function(t){if(et(t)&&(this.renderer.setOpacity(t.opacity),this.renderer.ctx.save(),t.hasTransform()&&this.renderer.setTransform(t.parseTransform())),"INPUT"===t.node.nodeName&&"checkbox"===t.node.type)this.paintCheckbox(t);else if("INPUT"===t.node.nodeName&&"radio"===t.node.type)this.paintRadio(t);else{if("always"===t.css("page-break-before")){var e=this.options.canvas.getContext("2d");"function"==typeof e._pageBreakAt&&e._pageBreakAt(t.node.offsetTop)}this.paintElement(t)}if(t.node.getAttribute){var n=t.node.getAttribute("name");if(null===n)var n=t.node.getAttribute("id");if(null!==n){var r=this.options.canvas.annotations;r&&r.setName(n,t.bounds)}}},M.prototype.paintElement=function(t){var e=t.parseBounds();this.renderer.clip(t.backgroundClip,function(){this.renderer.renderBackground(t,e,t.borders.borders.map(yt))},this),this.renderer.clip(t.clip,function(){this.renderer.renderBorders(t.borders.borders)},this),this.renderer.clip(t.backgroundClip,function(){switch(t.node.nodeName){case"svg":case"IFRAME":var n=this.images.get(t.node);n?this.renderer.renderImage(t,e,t.borders,n):I("Error loading <"+t.node.nodeName+">",t.node);break;case"IMG":var r=this.images.get(t.node.src);r?this.renderer.renderImage(t,e,t.borders,r):I("Error loading <img>",t.node.src);break;case"CANVAS":this.renderer.renderImage(t,e,t.borders,{image:t.node});break;case"SELECT":case"INPUT":case"TEXTAREA":this.paintFormValue(t)}},this)},M.prototype.paintCheckbox=function(t){var e=t.parseBou</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/highcharts.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 239 -                          setTimeout(step, 13);
+
+ Line: 753 -                  return setTimeout(fn, delay, context);
+
+ Line: 17076 -                      this.tooltipTimeout = setTimeout(function() {
+
+ Line: 20440 -                  setTimeout(runPositionItem);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/highcharts.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  e,null,!0)},update:function(){var a=this.elem,m=this.prop,e=this.now,k=this.options.step;if(this[m+"Setter"])this[m+"Setter"]();else a.attr?a.element&&a.attr(m,e,null,!0):a.style[m]=e+this.unit;k&&k.call(a,e,this)},run:function(p,m,e){var k=this,w=k.options,t=function(a){return t.stopped?!1:k.step(a)},n=C.requestAnimationFrame||function(a){setTimeout(a,13)},c=function(){for(var d=0;d<a.timers.length;d++)a.timers[d]()||a.timers.splice(d--,1);a.timers.length&&n(c)};p===m?(delete w.curAnim[this.prop],
+
+ Line: 16 -  typeof a&&!isNaN(a)&&Infinity>a&&-Infinity<a};a.erase=function(a,m){for(var e=a.length;e--;)if(a[e]===m){a.splice(e,1);break}};a.defined=function(a){return void 0!==a&&null!==a};a.attr=function(p,m,e){var k;a.isString(m)?a.defined(e)?p.setAttribute(m,e):p&&p.getAttribute&&(k=p.getAttribute(m)):a.defined(m)&&a.isObject(m)&&a.objectEach(m,function(a,e){p.setAttribute(e,a)});return k};a.splat=function(p){return a.isArray(p)?p:[p]};a.syncTimeout=function(a,m,e){if(m)return setTimeout(a,m,e);a.call(0,
+
+ Line: 171 -  3:a,y:u?(b.y+d)/2:d,anchorX:q?void 0:u?(2*b.anchorX+e)/3:e,anchorY:q?void 0:u?(b.anchorY+h)/2:h});c.getLabel().attr(b);u&&(clearTimeout(this.tooltipTimeout),this.tooltipTimeout=setTimeout(function(){c&&c.move(a,d,e,h)},32))},hide:function(a){var c=this;clearTimeout(this.hideTimer);a=k(a,this.options.hideDelay,500);this.isHidden||(this.hideTimer=t(function(){c.getLabel()[a?"fadeOut":"hide"]();c.isHidden=!0},a))},getAnchor:function(a,d){var c,h=this.chart,f=h.inverted,b=h.plotTop,e=h.plotLeft,q=0,k=
+
+ Line: 224 -  (b=Math.min(t(c.radius,b),b),0===this.symbol.indexOf("url")&&(c=w(c,{width:e,height:e}),b=0),this.legendSymbol=c=h.symbol(this.symbol,d/2-b,a-b,2*b,2*b,c).addClass("highcharts-point").add(k),c.isMarker=!0)}};(/Trident\/7\.0/.test(d.navigator.userAgent)||e)&&A(a.Legend.prototype,"positionItem",function(a,c){var b=this,f=function(){c._legendItemPos&&a.call(b,c)};f();setTimeout(f)})})(K);(function(a){var x=a.addEvent,E=a.animObject,C=a.attr,p=a.doc,m=a.Axis,e=a.createElement,k=a.defaultOptions,w=a.discardElement,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/highmaps.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  t,null,!0)},update:function(){var a=this.elem,d=this.prop,t=this.now,l=this.options.step;if(this[d+"Setter"])this[d+"Setter"]();else a.attr?a.element&&a.attr(d,t,null,!0):a.style[d]=t+this.unit;l&&l.call(a,t,this)},run:function(f,d,t){var l=this,v=l.options,q=function(a){return q.stopped?!1:l.step(a)},n=A.requestAnimationFrame||function(a){setTimeout(a,13)},e=function(){for(var k=0;k<a.timers.length;k++)a.timers[k]()||a.timers.splice(k--,1);a.timers.length&&n(e)};f===d?(delete v.curAnim[this.prop],
+
+ Line: 16 -  typeof a&&!isNaN(a)&&Infinity>a&&-Infinity<a};a.erase=function(a,d){for(var f=a.length;f--;)if(a[f]===d){a.splice(f,1);break}};a.defined=function(a){return void 0!==a&&null!==a};a.attr=function(f,d,t){var l;a.isString(d)?a.defined(t)?f.setAttribute(d,t):f&&f.getAttribute&&(l=f.getAttribute(d)):a.defined(d)&&a.isObject(d)&&a.objectEach(d,function(a,d){f.setAttribute(d,a)});return l};a.splat=function(f){return a.isArray(f)?f:[f]};a.syncTimeout=function(a,d,t){if(d)return setTimeout(a,d,t);a.call(0,
+
+ Line: 170 -  this.tooltipTimeout=setTimeout(function(){c&&c.move(a,k,d,h)},32))},hide:function(a){var e=this;clearTimeout(this.hideTimer);a=l(a,this.options.hideDelay,500);this.isHidden||(this.hideTimer=q(function(){e.getLabel()[a?"fadeOut":"hide"]();e.isHidden=!0},a))},getAnchor:function(a,k){var e,h=this.chart,c=h.inverted,b=h.plotTop,g=h.plotLeft,p=0,f=0,n,l;a=v(a);e=a[0].tooltipPos;this.followPointer&&k&&(void 0===k.chartX&&(k=h.pointer.normalize(k)),e=[k.chartX-h.plotLeft,k.chartY-b]);e||(w(a,function(a){n=
+
+ Line: 223 -  this.legendSymbol=c=d.symbol(this.symbol,e/2-b,a-b,2*b,2*b,c).addClass("highcharts-point").add(f),c.isMarker=!0)}};(/Trident\/7\.0/.test(k.navigator.userAgent)||t)&&y(a.Legend.prototype,"positionItem",function(a,c){var b=this,e=function(){c._legendItemPos&&a.call(b,c)};e();setTimeout(e)})})(I);(function(a){var w=a.addEvent,B=a.animObject,A=a.attr,f=a.doc,d=a.Axis,t=a.createElement,l=a.defaultOptions,v=a.discardElement,q=a.charts,n=a.defined,e=a.each,k=a.extend,y=a.find,h=a.fireEvent,c=a.grep,b=a.isNumber,
+
+ Line: 382 -  this.dataLabelsGroup&&this.dataLabelsGroup.clip(this.chart.clipRect)},render:function(){var a=this,c=e.prototype.render;a.chart.renderer.isVML&&3E3<a.data.length?setTimeout(function(){c.call(a)}):c.call(a)},animate:function(a){var b=this.options.animation,c=this.group,e=this.xAxis,d=this.yAxis,f=e.pos,h=d.pos;this.chart.renderer.isSVG&&(!0===b&&(b={duration:1E3}),a?c.attr({translateX:f+e.len/2,translateY:h+d.len/2,scaleX:.001,scaleY:.001}):(c.animate({translateX:f,translateY:h,scaleX:1,scaleY:1},
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/highstock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  g,null,!0)},update:function(){var a=this.elem,m=this.prop,g=this.now,t=this.options.step;if(this[m+"Setter"])this[m+"Setter"]();else a.attr?a.element&&a.attr(m,g,null,!0):a.style[m]=g+this.unit;t&&t.call(a,g,this)},run:function(v,m,g){var t=this,y=t.options,w=function(a){return w.stopped?!1:t.step(a)},r=G.requestAnimationFrame||function(a){setTimeout(a,13)},f=function(){for(var c=0;c<a.timers.length;c++)a.timers[c]()||a.timers.splice(c--,1);a.timers.length&&r(f)};v===m?(delete y.curAnim[this.prop],
+
+ Line: 16 -  typeof a&&!isNaN(a)&&Infinity>a&&-Infinity<a};a.erase=function(a,m){for(var g=a.length;g--;)if(a[g]===m){a.splice(g,1);break}};a.defined=function(a){return void 0!==a&&null!==a};a.attr=function(v,m,g){var t;a.isString(m)?a.defined(g)?v.setAttribute(m,g):v&&v.getAttribute&&(t=v.getAttribute(m)):a.defined(m)&&a.isObject(m)&&a.objectEach(m,function(a,g){v.setAttribute(g,a)});return t};a.splat=function(v){return a.isArray(v)?v:[v]};a.syncTimeout=function(a,m,g){if(m)return setTimeout(a,m,g);a.call(0,
+
+ Line: 171 -  3:a,y:f?(n.y+c)/2:c,anchorX:d?void 0:f?(2*n.anchorX+g)/3:g,anchorY:d?void 0:f?(n.anchorY+b)/2:b});h.getLabel().attr(n);f&&(clearTimeout(this.tooltipTimeout),this.tooltipTimeout=setTimeout(function(){h&&h.move(a,c,g,b)},32))},hide:function(a){var c=this;clearTimeout(this.hideTimer);a=t(a,this.options.hideDelay,500);this.isHidden||(this.hideTimer=w(function(){c.getLabel()[a?"fadeOut":"hide"]();c.isHidden=!0},a))},getAnchor:function(a,c){var f,b=this.chart,h=b.inverted,n=b.plotTop,B=b.plotLeft,d=0,C=
+
+ Line: 224 -  (c=Math.min(w(b.radius,c),c),0===this.symbol.indexOf("url")&&(b=y(b,{width:d,height:d}),c=0),this.legendSymbol=b=g.symbol(this.symbol,f/2-c,a-c,2*c,2*c,b).addClass("highcharts-point").add(r),b.isMarker=!0)}};(/Trident\/7\.0/.test(c.navigator.userAgent)||g)&&A(a.Legend.prototype,"positionItem",function(a,c){var b=this,h=function(){c._legendItemPos&&a.call(b,c)};h();setTimeout(h)})})(K);(function(a){var D=a.addEvent,F=a.animObject,G=a.attr,v=a.doc,m=a.Axis,g=a.createElement,t=a.defaultOptions,y=a.discardElement,
+
+ Line: 446 -  c-k,c-k+g)),b.hasDragged&&b.scrollbar&&b.scrollbar.options.liveRedraw&&(a.DOMType=a.type,setTimeout(function(){b.onMouseUp(a)},0)))},onMouseUp:function(a){var b=this.chart,c=this.xAxis,d=c&&c.reversed,f=this.scrollbar,k,h,p=a.DOMEvent||a;(!this.hasDragged||f&&f.hasDragged)&&"scrollbar"!==a.trigger||(f=this.getUnionExtremes(),this.zoomedMin===this.otherHandlePos?k=this.fixedExtreme:this.zoomedMax===this.otherHandlePos&&(h=this.fixedExtreme),this.zoomedMax===this.size&&(h=d?f.dataMin:f.dataMax),0===
+
+ Line: 452 -  (a.scrollbar=h.scrollbar=new I(a.renderer,B(a.options.scrollbar,{margin:h.navigatorEnabled?0:10,vertical:a.inverted}),a),F(h.scrollbar,"changed",function(b){var c=h.size,d=c*this.to,c=c*this.from;h.hasDragged=h.scrollbar.hasDragged;h.render(0,0,c,d);(a.options.scrollbar.liveRedraw||"mousemove"!==b.DOMType&&"touchmove"!==b.DOMType)&&setTimeout(function(){h.onMouseUp(b)})}));h.addBaseSeriesEvents();h.addChartEvents()},getUnionExtremes:function(a){var b=this.chart.xAxis[0],c=this.xAxis,e=c.options,f=
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/highstock.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 239 -                          setTimeout(step, 13);
+
+ Line: 753 -                  return setTimeout(fn, delay, context);
+
+ Line: 16218 -                      this.tooltipTimeout = setTimeout(function() {
+
+ Line: 19466 -                  setTimeout(runPositionItem);
+
+ Line: 38884 -                          setTimeout(function() {
+
+ Line: 39172 -                              setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/es-modules/modules/exporting.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1040 -  		setTimeout(function () {
+
+ Line: 1117 -  					menu.hideTimer = setTimeout(hide, 500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/boost.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 30 -  c.marker.radius?g.setPointSize(2*c.marker.radius):g.setPointSize(10),g.setDrawAsCircle(!0),d=0;d<a.segments.length;d++)C.render(a.segments[d].from,a.segments[d].to,"POINTS")});q.debug.timeRendering&&console.timeEnd("gl rendering");a&&a();b()}function n(a){c();if(a.renderer.forExport)return y(a);I?y(a):setTimeout(function(){n(a)},1)}var g=!1,C=!1,e=!1,x=0,l=0,E=!1,V=!1,A=!1,U={},I=!1,w=[],M=L.createElement("canvas"),u=M.getContext("2d"),B,J={column:!0,columnrange:!0,bar:!0,area:!0,arearange:!0},H=
+
+ Line: 48 -  return d};h.eachAsync=function(a,d,c,f,b,k){b=b||0;f=f||3E4;for(var l=b+f,m=!0;m&&b<l&&b<a.length;)m=d(a[b],b),++b;m&&(b<a.length?k?h.eachAsync(a,d,c,f,b,k):H.requestAnimationFrame?H.requestAnimationFrame(function(){h.eachAsync(a,d,c,f,b)}):setTimeout(function(){h.eachAsync(a,d,c,f,b)}):c&&c())};v.prototype.getPoint=function(a){var d=a,c=this.xData||this.options.xData||this.processedXData||!1;!a||a instanceof this.pointClass||(d=(new this.pointClass).init(this,this.options.data[a.i],c?c[a.i]:void 0),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/boost.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2224 -                      setTimeout(function() {
+
+ Line: 2592 -           * An "async" foreach loop. Uses a setTimeout to keep the loop from blocking the
+
+ Line: 2625 -                          setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/exporting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 17 -  !1],a.setSize(g,void 0,!1);t(h,function(a,b){1===a.nodeType&&(c[b]=a.style.display,a.style.display="none")});f.appendChild(b);y.focus();y.print();setTimeout(function(){d.appendChild(b);t(h,function(a,b){1===a.nodeType&&(a.style.display=c[b])});a.isPrinting=!1;n&&a.setSize.apply(a,e);I(a,"afterPrint")},1E3)}},contextMenu:function(a,b,c,d,v,h,g){var e=this,n=e.chartWidth,p=e.chartHeight,r="cache-"+a,k=e[r],l=Math.max(v,h),D,m;k||(e[r]=k=q("div",{className:a},{position:"absolute",zIndex:1E3,padding:l+
+
+ Line: 18 -  "px"},e.container),D=q("div",{className:"highcharts-menu"},null,k),m=function(){F(k,{display:"none"});g&&g.setState(0);e.openMenu=!1},e.exportEvents.push(w(k,"mouseleave",function(){k.hideTimer=setTimeout(m,500)}),w(k,"mouseenter",function(){clearTimeout(k.hideTimer)}),w(u,"mouseup",function(b){e.pointer.inClass(b.target,a)||m()})),t(b,function(a){"string"===typeof a&&(a=e.options.exporting.menuItemDefinitions[a]);if(f.isObject(a,!0)){var b;b=a.separator?q("hr",null,null,D):q("div",{className:"highcharts-menu-item",
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/offline-exporting.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 175 -                      setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/map.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 43 -  "borderWidth"]/(q||1));this.drawMapDataLabels()},drawMapDataLabels:function(){b.prototype.drawDataLabels.call(this);this.dataLabelsGroup&&this.dataLabelsGroup.clip(this.chart.clipRect)},render:function(){var a=this,c=b.prototype.render;a.chart.renderer.isVML&&3E3<a.data.length?setTimeout(function(){c.call(a)}):c.call(a)},animate:function(a){var b=this.options.animation,e=this.group,c=this.xAxis,g=this.yAxis,k=c.pos,d=g.pos;this.chart.renderer.isSVG&&(!0===b&&(b={duration:1E3}),a?e.attr({translateX:k+
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/map.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1505 -                  setTimeout(function () {
+
+ Line: 1513 -                  	setTimeout(function () {
+
+ Line: 2440 -                      setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/stock.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 6114 -                          setTimeout(function() {
+
+ Line: 6402 -                              setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/stock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 88 -  (b.hasDragged=!0,b.render(0,0,d-c,b.otherHandlePos)):b.grabbedRight?(b.hasDragged=!0,b.render(0,0,b.otherHandlePos,d-c)):b.grabbedCenter&&(b.hasDragged=!0,d<f?d=f:d>e+f-k&&(d=e+f-k),b.render(0,0,d-f,d-f+k)),b.hasDragged&&b.scrollbar&&b.scrollbar.options.liveRedraw&&(a.DOMType=a.type,setTimeout(function(){b.onMouseUp(a)},0)))},onMouseUp:function(a){var b=this.chart,d=this.xAxis,c=d&&d.reversed,e=this.scrollbar,k,f,g=a.DOMEvent||a;(!this.hasDragged||e&&e.hasDragged)&&"scrollbar"!==a.trigger||(e=this.getUnionExtremes(),
+
+ Line: 95 -  b.DOMType)&&setTimeout(function(){q.onMouseUp(b)})}));q.addBaseSeriesEvents();q.addChartEvents()},getUnionExtremes:function(a){var b=this.chart.xAxis[0],d=this.xAxis,c=d.options,e=b.options,k;a&&null===b.dataMin||(k={dataMin:f(c&&c.min,D("min",e.min,b.dataMin,d.dataMin,d.min)),dataMax:f(c&&c.max,D("max",e.max,b.dataMax,d.dataMax,d.max))});return k},setBaseSeries:function(a,b){var d=this.chart,c=this.baseSeries=[];a=a||d.options&&d.options.navigator.baseSeries||0;l(d.series||[],function(b,d){b.options.isInternal||
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/offline-exporting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  encodeURIComponent(a)};c.imageToDataUrl=function(a,c,d,b,u,l,k,m,p){var g=new e.Image,h,f=function(){setTimeout(function(){var e=t.createElement("canvas"),f=e.getContext&&e.getContext("2d"),y;try{if(f){e.height=g.height*b;e.width=g.width*b;f.drawImage(g,0,0,e.width,e.height);try{y=e.toDataURL(c),u(y,c,d,b)}catch(F){h(a,c,d,b)}}else k(a,c,d,b)}finally{p&&p(a,c,d,b)}},E)},q=function(){m(a,c,d,b);p&&p(a,c,d,b)};h=function(){g=new e.Image;h=l;g.crossOrigin="Anonymous";g.onload=f;g.onerror=q;g.src=a};
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/exporting.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1054 -                  setTimeout(function() {
+
+ Line: 1135 -                              menu.hideTimer = setTimeout(hide, 500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/boost-canvas.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 598 -                              destroyLoadingDiv = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/modules/boost-canvas.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 18 -  !0)),X(e,g,p,c),H(e,g,c);T=b&&!la;0===c%5E4&&(a.boostCopy||a.chart.boostCopy)&&(a.boostCopy||a.chart.boostCopy)()}return!W},function(){var b=f.loadingDiv,d=f.loadingShown;V();a.canvasToSVG();e&&console.timeEnd("canvas rendering");aa(a,"renderedCanvas");d&&(q(b.style,{transition:"opacity 250ms",opacity:0}),f.loadingShown=!1,I=setTimeout(function(){b.parentNode&&b.parentNode.removeChild(b);f.loadingDiv=f.loadingSpan=null},250));delete a.buildKDTree;a.buildKDTree()},f.renderer.forExport?Number.MAX_VALUE:
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/highcharts.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 239 -                          setTimeout(step, 13);
+
+ Line: 753 -                  return setTimeout(fn, delay, context);
+
+ Line: 16218 -                      this.tooltipTimeout = setTimeout(function() {
+
+ Line: 19466 -                  setTimeout(runPositionItem);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/highmaps.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 239 -                          setTimeout(step, 13);
+
+ Line: 753 -                  return setTimeout(fn, delay, context);
+
+ Line: 16103 -                      this.tooltipTimeout = setTimeout(function() {
+
+ Line: 19351 -                  setTimeout(runPositionItem);
+
+ Line: 32444 -                  setTimeout(function () {
+
+ Line: 32452 -                  	setTimeout(function () {
+
+ Line: 33379 -                      setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/highmaps.src.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 239 -                          setTimeout(step, 13);
+
+ Line: 753 -                  return setTimeout(fn, delay, context);
+
+ Line: 16961 -                      this.tooltipTimeout = setTimeout(function() {
+
+ Line: 20325 -                  setTimeout(runPositionItem);
+
+ Line: 34301 -                  setTimeout(function () {
+
+ Line: 34309 -                  	setTimeout(function () {
+
+ Line: 35244 -                      setTimeout(function() {
+
+</Result>
+</report_mosca>
+

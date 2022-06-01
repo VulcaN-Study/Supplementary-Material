@@ -1,0 +1,883 @@
+<report_mosca>
+ <Path>/src/src/editormd.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1764 -                  timer = setTimeout(function() {
+
+ Line: 2071 -                      flowchartTimer = setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/editormd.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1776 -                  timer = setTimeout(function() {
+
+ Line: 2083 -                      flowchartTimer = setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/editormd.amd.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 12 -  iewContainer.css("padding",o.autoHeight?"20px 20px 50px 40px":"20px"),i=setTimeout(function(){clearTimeout(i),e.save(),i=null},o.delay)}),this):this},loadedDisplay:function(t){t=t||!1;var i=this,o=this.editor,r=this.preview,n=this.settings;return this.containerMask.hide(),this.save(),n.watch&&r.show(),o.data("oldWidth",o.width()).data("oldHeight",o.height()),this.resize(),this.registerKeyMaps(),e(window).resize(function(){i.resize()}),this.bindScrollEvent().bindChangeEvent(),t||e.proxy(n.onload,this)(),this.state.loaded=!0,this},width:function(e){return this.editor.css("width","number"==typeof e?e+"px":e),this.resize(),this},height:function(e){return this.editor.css("height","number"==typeof e?e+"px":e),this.resize(),this},resize:function(t,i){t=t||null,i=i||null;var o=this.state,r=this.editor,n=this.preview,a=this.toolbar,s=this.settings,l=this.codeMirror;if(t&&r.css("width","number"==typeof t?t+"px":t),!s.autoHeight||o.fullscreen||o.preview?(i&&r.css("height","number"==typeof i?i+"px":i),o.fullscreen&&r.height(e(window).height()),s.toolbar&&!s.readOnly?l.css("margin-top",a.height()+1).height(r.height()-a.height()):l.css("margin-top",0).height(r.height())):(r.css("height","auto"),l.css("height","auto")),s.watch)if(l.width(r.width()/2),n.width(o.preview?r.width():r.width()/2),this.previewContainer.css("padding",s.autoHeight?"20px 20px 50px 40px":"20px"),s.toolbar&&!s.readOnly?n.css("top",a.height()+1):n.css("top",0),!s.autoHeight||o.fullscreen||o.preview){var c=s.toolbar&&!s.readOnly?r.height()-a.height():r.height();n.height(c)}else n.height("");else l.width(r.width()),n.hide();return o.loaded&&e.proxy(s.onresize,this)(),this},save:function(){if(null===i)return this;var r=this,n=this.state,a=this.settings,s=this.cm,l=s.getValue(),c=this.previewContainer;if("gfm"!==a.mode&&"markdown"!==a.mode)return this.markdownTextarea.val(l),this;var h=t.$marked,d=this.markdownToC=[],u=this.markedRendererOptions={toc:a.toc,tocm:a.tocm,tocStartLevel:a.tocStartLevel,pageBreak:a.pageBreak,taskList:a.taskList,emoji:a.emoji,tex:a.tex,atLink:a.atLink,emailLink:a.emailLink,flowChart:a.flowChart,seq Line: 13 -  a.sequenceDiagram,previewCodeHighlight:a.previewCodeHighlight},f=this.markedOptions={renderer:t.markedRenderer(d,u),gfm:!0,tables:!0,breaks:!0,pedantic:!1,sanitize:a.htmlDecode?!1:!0,smartLists:!0,smartypants:!0};h.setOptions(f);var g=t.$marked(l,f);if(g=t.filterHTMLTags(g,a.htmlDecode),this.markdownTextarea.text(l),s.save(),a.saveHTMLToTextarea&&this.htmlTextarea.text(g),a.watch||!a.watch&&n.preview){if(c.html(g),this.previewCodeHighlight(),a.toc){var p=""===a.tocContainer?c:e(a.tocContainer),m=p.find("."+this.classPrefix+"toc-menu");p.attr("previewContainer",""===a.tocContainer?"true":"false"),""!==a.tocContainer&&m.length>0&&m.remove(),t.markdownToCRenderer(d,p,a.tocDropdown,a.tocStartLevel),(a.tocDropdown||p.find("."+this.classPrefix+"toc-menu").length>0)&&t.tocDropdownMenu(p,""!==a.tocTitle?a.tocTitle:this.lang.tocTitle),""!==a.tocContainer&&c.find(".markdown-toc").css("border","none")}a.tex&&(!t.kaTeXLoaded&&a.autoLoadModules?t.loadKaTeX(function(){t.$katex=katex,t.kaTeXLoaded=!0,r.katexRender()}):(t.$katex=katex,this.katexRender())),(a.flowChart||a.sequenceDiagram)&&(o=setTimeout(function(){clearTimeout(o),r.flowChartAndSequenceDiagramRender(),o=null},10)),n.loaded&&e.proxy(a.onchange,this)()}return this},focus:function(){return this.cm.focus(),this},setCursor:function(e){return this.cm.setCursor(e),this},getCursor:function(){return this.cm.getCursor()},setSelection:function(e,t){return this.cm.setSelection(e,t),this},getSelection:function(){return this.cm.getSelection()},setSelections:function(e){return this.cm.setSelections(e),this},getSelections:function(){return this.cm.getSelections()},replaceSelection:function(e){return this.cm.replaceSelection(e),this},insertValue:function(e){return this.replaceSelection(e),this},appendMarkdown:function(e){var t=(this.settings,this.cm);return t.setValue(t.getValue()+e),this},setMarkdown:function(e){return this.cm.setValue(e||this.settings.markdown),this},getMarkdown:function(){return this.cm.getValue()},getValue:function(){return this.cm.getValue()},setValue:function(e){return this.cm.setValue(e),this},clear:function(){return thi</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/js/require.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 13 -  f),a.contextName=i.contextName,w(a);h&&v(l,function(a){F(a,{},{})});if((!c||b)&&g)if((z||ea)&&!X)X=setTimeout(function(){X=0;D()},50);W=!1}}function E(a){t(r,a[0])||s(p(a[0],null,!0)).init(a[1],a[2])}function I(a){var a=a.currentTarget||a.srcElement,b=i.onScriptLoad;a.detachEvent&&!Y?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=i.onScriptError;(!a.detachEvent||Y)&&a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}function J(){var a;
+
+ Line: 31 -  g.nextTick="undefined"!==typeof setTimeout?function(b){setTimeout(b,4)}:function(b){b()};require||(require=g);g.version="2.1.15";g.jsExtRegExp=/^\/|:|\?|\.js$/;g.isBrowser=z;x=g.s={contexts:F,newContext:ga};g({});v(["toUrl","undef","defined","specified"],function(b){g[b]=function(){var c=F._;return c.require[b].apply(c,arguments)}});if(z&&(y=x.head=document.getElementsByTagName("head")[0],D=document.getElementsByTagName("base")[0]))y=x.head=D.parentNode;g.onError=ca;g.createNode=function(b){var c=
+
+ Line: 35 -  (b=e.getAttribute("data-requiremodule")),g=F[e.getAttribute("data-requirecontext")])}(g?g.defQueue:R).push([b,c,d])};define.amd={jQuery:!0};g.exec=function(b){return eval(b)};g(q)}})(this);
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/js/jquery.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -  nction(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return  Line: 33 -  },cur:function(){var a=Zb.propHooks[this.prop];return a&&a.get?a.get(this):Zb.propHooks._default.get(this)},run:function(a){var b,c=Zb.propHooks[this.prop];return this.pos=b=this.options.duration?m.easing[this.easing](a,this.options.duration*a,0,1,this.options.duration):a,this.now=(this.end-this.start)*b+this.start,this.options.step&&this.options.step.call(this.elem,this.now,this),c&&c.set?c.set(this):Zb.propHooks._default.set(this),this}},Zb.prototype.init.prototype=Zb.prototype,Zb.propHooks={_default:{get:function(a){var b;return null==a.elem[a.prop]||a.elem.style&&null!=a.elem.style[a.prop]?(b=m.css(a.elem,a.prop,""),b&&"auto"!==b?b:0):a.elem[a.prop]},set:function(a){m.fx.step[a.prop]?m.fx.step[a.prop](a):a.elem.style&&(null!=a.elem.style[m.cssProps[a.prop]]||m.cssHooks[a.prop])?m.style(a.elem,a.prop,a.now+a.unit):a.elem[a.prop]=a.now}}},Zb.propHooks.scrollTop=Zb.propHooks.scrollLeft={set:function(a){a.elem.nodeType&&a.elem.parentNode&&(a.elem[a.prop]=a.now)}},m.easing={linear:function(a){return a},swing:function(a){return.5-Math.cos(a*Math.PI)/2}},m.fx=Zb.prototype.init,m.fx.step={};var $b,_b,ac=/^(?:toggle|show|hide)$/,bc=new RegExp("^(?:([+-])=|)("+S+")([a-z%]*)$","i"),cc=/queueHooks$/,dc=[ic],ec={"*":[function(a,b){var c=this.createTween(a,b),d=c.cur(),e=bc.exec(b),f=e&&e[3]||(m.cssNumber[a]?"":"px"),g=(m.cssNumber[a]||"px"!==f&&+d)&&bc.exec(m.css(c.elem,a)),h=1,i=20;if(g&&g[3]!==f){f=f||g[3],e=e||[],g=+d||1;do h=h||".5",g/=h,m.style(c.elem,a,g+f);while(h!==(h=c.cur()/d)&&1!==h&&--i)}return e&&(g=c.start=+g||+d||0,c.unit=f,c.end=e[1]?g+(e[1]+1)*e[2]:+e[2]),c}]};function fc(){return setTimeout(function(){$b=void 0}),$b=m.now()}function gc(a,b){var c,d={height:a},e=0;for(b=b?1:0;4>e;e+=2-b)c=T[e],d["margin"+c]=d["padding"+c]=a;return b&&(d.opacity=d.width=a),d}function hc(a,b,c){for(var d,e=(ec[b]||[]).concat(ec["*"]),f=0,g=e.length;g>f;f++)if(d=e[f].call(c,b,a))return d}function ic(a,b,c){var d,e,f,g,h,i,j,l,n=this,o={},p=a.style,q=a.nodeType&&U(a),r=m._data(a,"fxshow");c.queue||(h=m._queueHooks(a,"fx"),null==h.unqueued&&(h.unqueued=0,i=h.empty.fire,h.empty.fire=function Line: 36 -  g>b;b++)d[b]&&d[b].finish&&d[b].finish.call(this);delete c.finish})}}),m.each(["toggle","show","hide"],function(a,b){var c=m.fn[b];m.fn[b]=function(a,d,e){return null==a||"boolean"==typeof a?c.apply(this,arguments):this.animate(gc(b,!0),a,d,e)}}),m.each({slideDown:gc("show"),slideUp:gc("hide"),slideToggle:gc("toggle"),fadeIn:{opacity:"show"},fadeOut:{opacity:"hide"},fadeToggle:{opacity:"toggle"}},function(a,b){m.fn[a]=function(a,c,d){return this.animate(b,a,c,d)}}),m.timers=[],m.fx.tick=function(){var a,b=m.timers,c=0;for($b=m.now();c<b.length;c++)a=b[c],a()||b[c]!==a||b.splice(c--,1);b.length||m.fx.stop(),$b=void 0},m.fx.timer=function(a){m.timers.push(a),a()?m.fx.start():m.timers.pop()},m.fx.interval=13,m.fx.start=function(){_b||(_b=setInterval(m.fx.tick,m.fx.interval))},m.fx.stop=function(){clearInterval(_b),_b=null},m.fx.speeds={slow:600,fast:200,_default:400},m.fn.delay=function(a,b){return a=m.fx?m.fx.speeds[a]||a:a,b=b||"fx",this.queue(b,function(b,c){var d=setTimeout(b,a);c.stop=function(){clearTimeout(d)}})},function(){var a,b,c,d,e;b=y.createElement("div"),b.setAttribute("className","t"),b.innerHTML="  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>",d=b.getElementsByTagName("a")[0],c=y.createElement("select"),e=c.appendChild(y.createElement("option")),a=b.getElementsByTagName("input")[0],d.style.cssText="top:1px",k.getSetAttribute="t"!==b.className,k.style=/top/.test(d.getAttribute("style")),k.hrefNormalized="/a"===d.getAttribute("href"),k.checkOn=!!a.value,k.optSelected=e.selected,k.enctype=!!y.createElement("form").enctype,c.disabled=!0,k.optDisabled=!e.disabled,a=y.createElement("input"),a.setAttribute("value",""),k.input=""===a.getAttribute("value"),a.value="t",a.setAttribute("type","radio"),k.radioValue="t"===a.value}();var lc=/\r/g;m.fn.extend({val:function(a){var b,c,d,e=this[0];{if(arguments.length)return d=m.isFunction(a),this.each(function(c){var e;1===this.nodeType&&(e=d?a.call(this,c,m(this).val()):a,null==e?e="":"number"==typeof e?e+="":m.isArray(e)&&(e=m.map(e,function(a){return null==a?"":a+""})),b=m.valHooks[this.type]||m.valHooks[th Line: 42 -  =k.statusCode||{},r={},s={},t=0,u="canceled",v={readyState:0,getResponseHeader:function(a){var b;if(2===t){if(!j){j={};while(b=Cc.exec(f))j[b[1].toLowerCase()]=b[2]}b=j[a.toLowerCase()]}return null==b?null:b},getAllResponseHeaders:function(){return 2===t?f:null},setRequestHeader:function(a,b){var c=a.toLowerCase();return t||(a=s[c]=s[c]||a,r[a]=b),this},overrideMimeType:function(a){return t||(k.mimeType=a),this},statusCode:function(a){var b;if(a)if(2>t)for(b in a)q[b]=[q[b],a[b]];else v.always(a[v.status]);return this},abort:function(a){var b=a||u;return i&&i.abort(b),x(0,b),this}};if(o.promise(v).complete=p.add,v.success=v.done,v.error=v.fail,k.url=((a||k.url||zc)+"").replace(Ac,"").replace(Fc,yc[1]+"//"),k.type=b.method||b.type||k.method||k.type,k.dataTypes=m.trim(k.dataType||"*").toLowerCase().match(E)||[""],null==k.crossDomain&&(c=Gc.exec(k.url.toLowerCase()),k.crossDomain=!(!c||c[1]===yc[1]&&c[2]===yc[2]&&(c[3]||("http:"===c[1]?"80":"443"))===(yc[3]||("http:"===yc[1]?"80":"443")))),k.data&&k.processData&&"string"!=typeof k.data&&(k.data=m.param(k.data,k.traditional)),Mc(Hc,k,b,v),2===t)return v;h=k.global,h&&0===m.active++&&m.event.trigger("ajaxStart"),k.type=k.type.toUpperCase(),k.hasContent=!Ec.test(k.type),e=k.url,k.hasContent||(k.data&&(e=k.url+=(wc.test(e)?"&":"?")+k.data,delete k.data),k.cache===!1&&(k.url=Bc.test(e)?e.replace(Bc,"$1_="+vc++):e+(wc.test(e)?"&":"?")+"_="+vc++)),k.ifModified&&(m.lastModified[e]&&v.setRequestHeader("If-Modified-Since",m.lastModified[e]),m.etag[e]&&v.setRequestHeader("If-None-Match",m.etag[e])),(k.data&&k.hasContent&&k.contentType!==!1||b.contentType)&&v.setRequestHeader("Content-Type",k.contentType),v.setRequestHeader("Accept",k.dataTypes[0]&&k.accepts[k.dataTypes[0]]?k.accepts[k.dataTypes[0]]+("*"!==k.dataTypes[0]?", "+Jc+"; q=0.01":""):k.accepts["*"]);for(d in k.headers)v.setRequestHeader(d,k.headers[d]);if(k.beforeSend&&(k.beforeSend.call(l,v,k)===!1||2===t))return v.abort();u="abort";for(d in{success:1,error:1,complete:1})v[d](k[d]);if(i=Mc(Ic,k,b,v)){v.readyState=1,h&&n.trigger("ajaxSend",[v,k]),k.async&&k.timeout>0&&(g=setTimeout Line: 45 -  e]&&f.setRequestHeader(e,c[e]+"");f.send(a.hasContent&&a.data||null),b=function(c,e){var h,i,j;if(b&&(e||4===f.readyState))if(delete Xc[g],b=void 0,f.onreadystatechange=m.noop,e)4!==f.readyState&&f.abort();else{j={},h=f.status,"string"==typeof f.responseText&&(j.text=f.responseText);try{i=f.statusText}catch(k){i=""}h||!a.isLocal||a.crossDomain?1223===h&&(h=204):h=j.text?200:404}j&&d(h,i,j,f.getAllResponseHeaders())},a.async?4===f.readyState?setTimeout(b):f.onreadystatechange=Xc[g]=b:b()},abort:function(){b&&b(void 0,!0)}}}});function Zc(){try{return new a.XMLHttpRequest}catch(b){}}function $c(){try{return new a.ActiveXObject("Microsoft.XMLHTTP")}catch(b){}}m.ajaxSetup({accepts:{script:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"},contents:{script:/(?:java|ecma)script/},converters:{"text script":function(a){return m.globalEval(a),a}}}),m.ajaxPrefilter("script",function(a){void 0===a.cache&&(a.cache=!1),a.crossDomain&&(a.type="GET",a.global=!1)}),m.ajaxTransport("script",function(a){if(a.crossDomain){var b,c=y.head||m("head")[0]||y.documentElement;return{send:function(d,e){b=y.createElement("script"),b.async=!0,a.scriptCharset&&(b.charset=a.scriptCharset),b.src=a.url,b.onload=b.onreadystatechange=function(a,c){(c||!b.readyState||/loaded|complete/.test(b.readyState))&&(b.onload=b.onreadystatechange=null,b.parentNode&&b.parentNode.removeChild(b),b=null,c||e(200,"success"))},c.insertBefore(b,c.firstChild)},abort:function(){b&&b.onload(void 0,!0)}}}});var _c=[],ad=/(=)\?(?=&|$)|\?\?/;m.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var a=_c.pop()||m.expando+"_"+vc++;return this[a]=!0,a}}),m.ajaxPrefilter("json jsonp",function(b,c,d){var e,f,g,h=b.jsonp!==!1&&(ad.test(b.url)?"url":"string"==typeof b.data&&!(b.contentType||"").indexOf("application/x-www-form-urlencoded")&&ad.test(b.data)&&"data");return h||"jsonp"===b.dataTypes[0]?(e=b.jsonpCallback=m.isFunction(b.jsonpCallback)?b.jsonpCallback():b.jsonpCallback,h?b[h]=b[h].replace(ad,"$1"+e):b.jsonp!==!1&&(b.url+=(wc.test(b.url)?"&":"?")+b.jsonp+"="+e),b.converters["script json"]=f</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/js/zepto.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  ,p(n,r,"ajaxSuccess",[e,n,t]),x(o,e,n)}function y(t,e,n,i,r){var o=i.context;i.error.call(o,n,e,t),r&&r.rejectWith(o,[n,e,t]),p(i,o,"ajaxError",[n,i,t||e]),x(e,n,i)}function x(t,e,n){var i=n.context;n.complete.call(i,e,t),p(n,i,"ajaxComplete",[e,n]),m(n)}function b(){}function w(t){return t&&(t=t.split(";",2)[0]),t&&(t==f?"html":t==u?"json":s.test(t)?"script":a.test(t)&&"xml")||"text"}function E(t,e){return""==e?t:(t+"&"+e).replace(/[&?]{1,2}/,"?")}function j(e){e.processData&&e.data&&"string"!=t.type(e.data)&&(e.data=t.param(e.data,e.traditional)),!e.data||e.type&&"GET"!=e.type.toUpperCase()||(e.url=E(e.url,e.data),e.data=void 0)}function S(e,n,i,r){return t.isFunction(n)&&(r=i,i=n,n=void 0),t.isFunction(i)||(r=i,i=void 0),{url:e,data:n,success:i,dataType:r}}function C(e,n,i,r){var o,s=t.isArray(n),a=t.isPlainObject(n);t.each(n,function(n,u){o=t.type(u),r&&(n=i?r:r+"["+(a||"object"==o||"array"==o?n:"")+"]"),!r&&s?e.add(u.name,u.value):"array"==o||!i&&"object"==o?C(e,u,i,n):e.add(n,u)})}var i,r,e=0,n=window.document,o=/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,s=/^(?:text|application)\/javascript/i,a=/^(?:text|application)\/xml/i,u="application/json",f="text/html",c=/^\s*$/,l=n.createElement("a");l.href=window.location.href,t.active=0,t.ajaxJSONP=function(i,r){if(!("type"in i))return t.ajax(i);var f,h,o=i.jsonpCallback,s=(t.isFunction(o)?o():o)||"jsonp"+ ++e,a=n.createElement("script"),u=window[s],c=function(e){t(a).triggerHandler("error",e||"abort")},l={abort:c};return r&&r.promise(l),t(a).on("load error",function(e,n){clearTimeout(h),t(a).off().remove(),"error"!=e.type&&f?v(f[0],l,i,r):y(null,n||"error",l,i,r),window[s]=u,f&&t.isFunction(u)&&u(f[0]),u=f=void 0}),g(l,i)===!1?(c("abort"),l):(window[s]=function(){f=arguments},a.src=i.url.replace(/\?(.+)=\?/,"?$1="+s),n.head.appendChild(a),i.timeout>0&&(h=setTimeout(function(){c("timeout")},i.timeout)),l)},t.ajaxSettings={type:"GET",beforeSend:b,success:b,error:b,complete:b,context:null,global:!0,xhr:function(){return new window.XMLHttpRequest},accepts:{script:"text/javascript, application/javascript, application/x-ja Line: 11 -  n:u,xml:"application/xml, text/xml",html:f,text:"text/plain"},crossDomain:!1,timeout:0,processData:!0,cache:!0},t.ajax=function(e){var a,o=t.extend({},e||{}),s=t.Deferred&&t.Deferred();for(i in t.ajaxSettings)void 0===o[i]&&(o[i]=t.ajaxSettings[i]);d(o),o.crossDomain||(a=n.createElement("a"),a.href=o.url,a.href=a.href,o.crossDomain=l.protocol+"//"+l.host!=a.protocol+"//"+a.host),o.url||(o.url=window.location.toString()),j(o);var u=o.dataType,f=/\?.+=\?/.test(o.url);if(f&&(u="jsonp"),o.cache!==!1&&(e&&e.cache===!0||"script"!=u&&"jsonp"!=u)||(o.url=E(o.url,"_="+Date.now())),"jsonp"==u)return f||(o.url=E(o.url,o.jsonp?o.jsonp+"=?":o.jsonp===!1?"":"callback=?")),t.ajaxJSONP(o,s);var C,h=o.accepts[u],p={},m=function(t,e){p[t.toLowerCase()]=[t,e]},x=/^([\w-]+:)\/\//.test(o.url)?RegExp.$1:window.location.protocol,S=o.xhr(),T=S.setRequestHeader;if(s&&s.promise(S),o.crossDomain||m("X-Requested-With","XMLHttpRequest"),m("Accept",h||"*/*"),(h=o.mimeType||h)&&(h.indexOf(",")>-1&&(h=h.split(",",2)[0]),S.overrideMimeType&&S.overrideMimeType(h)),(o.contentType||o.contentType!==!1&&o.data&&"GET"!=o.type.toUpperCase())&&m("Content-Type",o.contentType||"application/x-www-form-urlencoded"),o.headers)for(r in o.headers)m(r,o.headers[r]);if(S.setRequestHeader=m,S.onreadystatechange=function(){if(4==S.readyState){S.onreadystatechange=b,clearTimeout(C);var e,n=!1;if(S.status>=200&&S.status<300||304==S.status||0==S.status&&"file:"==x){u=u||w(o.mimeType||S.getResponseHeader("content-type")),e=S.responseText;try{"script"==u?(1,eval)(e):"xml"==u?e=S.responseXML:"json"==u&&(e=c.test(e)?null:t.parseJSON(e))}catch(i){n=i}n?y(n,"parsererror",S,o,s):v(e,S,o,s)}else y(S.statusText||null,S.status?"error":"abort",S,o,s)}},g(S,o)===!1)return S.abort(),y(null,"abort",S,o,s),S;if(o.xhrFields)for(r in o.xhrFields)S[r]=o.xhrFields[r];var N="async"in o?o.async:!0;S.open(o.type,o.url,N,o.username,o.password);for(r in p)T.apply(S,p[r]);return o.timeout>0&&(C=setTimeout(function(){S.onreadystatechange=b,S.abort(),y(null,"timeout",S,o,s)},o.timeout)),S.send(o.data?o.data:null),S},t.get=function(){return t.ajax(S.apply(nu</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/plugins/image-dialog/image-dialog.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 160 -                              json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/qunit/qunit-1.16.0.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 27 -  	setTimeout = window.setTimeout,
+
+ Line: 31 -  		setTimeout: window.setTimeout !== undefined,
+
+ Line: 583 -  		if ( !defined.setTimeout || config.updateRate <= 0 ||
+
+ Line: 592 -  			setTimeout( next, 13 );
+
+ Line: 642 -  	if ( defined.setTimeout ) {
+
+ Line: 643 -  		setTimeout(function() {
+
+ Line: 661 -  	if ( config.testTimeout && defined.setTimeout ) {
+
+ Line: 663 -  		config.timeout = setTimeout(function() {
+
+ Line: 1748 -  				} else if ( obj.setInterval !== undefined &&
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/qunit/qunit-1.16.0.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 122 -  	// add checkboxes that are persisted in the query-string
+
+ Line: 128 -  			tooltip: "Only show tests and assertions that fail. Stored as query-strings."
+
+ Line: 134 -  				"`window` object. Stored as query-strings."
+
+ Line: 140 -  				"exceptions in IE reasonable. Stored as query-strings."
+
+ Line: 380 -  			location.pathname + querystring.slice( 0, -1 );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/js/searchbox.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 73 -                  setTimeout(function(){
+
+ Line: 123 -                          setTimeout(function() { sb.hide();});
+
+ Line: 550 -                      timer = setTimeout(callback, timeout || defaultTimeout);
+
+ Line: 555 -              timer = setTimeout(callback, timeout || defaultTimeout);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/js/searchbox.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 593 -                  INSERT      : 45,
+
+ Line: 594 -                  DELETE      : 46,
+
+ Line: 596 -                  INSERT_MAC  : 96,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/js/bootstrap.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 5 -  if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires jQuery");+function(a){"use strict";var b=a.fn.jquery.split(" ")[0].split(".");if(b[0]<2&&b[1]<9||1==b[0]&&9==b[1]&&b[2]<1)throw new Error("Bootstrap's JavaScript requires jQuery version 1.9.1 or higher")}(jQuery),+function(a){"use strict";function b(){var a=document.createElement("bootstrap"),b={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};for(var c in b)if(void 0!==a.style[c])return{end:b[c]};return!1}a.fn.emulateTransitionEnd=function(b){var c=!1,d=this;a(this).one("bsTransitionEnd",function(){c=!0});var e=function(){c||a(d).trigger(a.support.transition.end)};return setTimeout(e,b),this},a(function(){a.support.transition=b(),a.support.transition&&(a.event.special.bsTransitionEnd={bindType:a.support.transition.end,delegateType:a.support.transition.end,handle:function(b){return a(b.target).is(this)?b.handleObj.handler.apply(this,arguments):void 0}})})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var c=a(this),e=c.data("bs.alert");e||c.data("bs.alert",e=new d(this)),"string"==typeof b&&e[b].call(c)})}var c='[data-dismiss="alert"]',d=function(b){a(b).on("click",c,this.close)};d.VERSION="3.3.4",d.TRANSITION_DURATION=150,d.prototype.close=function(b){function c(){g.detach().trigger("closed.bs.alert").remove()}var e=a(this),f=e.attr("data-target");f||(f=e.attr("href"),f=f&&f.replace(/.*(?=#[^\s]*$)/,""));var g=a(f);b&&b.preventDefault(),g.length||(g=e.closest(".alert")),g.trigger(b=a.Event("close.bs.alert")),b.isDefaultPrevented()||(g.removeClass("in"),a.support.transition&&g.hasClass("fade")?g.one("bsTransitionEnd",c).emulateTransitionEnd(d.TRANSITION_DURATION):c())};var e=a.fn.alert;a.fn.alert=b,a.fn.alert.Constructor=d,a.fn.alert.noConflict=function(){return a.fn.alert=e,this},a(document).on("click.bs.alert.data-api",c,d.prototype.close)}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.button"),f="object"==typeof b&&b;e||d Line: 6 -  tton",e=new c(this,f)),"toggle"==b?e.toggle():b&&e.setState(b)})}var c=function(b,d){this.$element=a(b),this.options=a.extend({},c.DEFAULTS,d),this.isLoading=!1};c.VERSION="3.3.4",c.DEFAULTS={loadingText:"loading..."},c.prototype.setState=function(b){var c="disabled",d=this.$element,e=d.is("input")?"val":"html",f=d.data();b+="Text",null==f.resetText&&d.data("resetText",d[e]()),setTimeout(a.proxy(function(){d[e](null==f[b]?this.options[b]:f[b]),"loadingText"==b?(this.isLoading=!0,d.addClass(c).attr(c,c)):this.isLoading&&(this.isLoading=!1,d.removeClass(c).removeAttr(c))},this),0)},c.prototype.toggle=function(){var a=!0,b=this.$element.closest('[data-toggle="buttons"]');if(b.length){var c=this.$element.find("input");"radio"==c.prop("type")&&(c.prop("checked")&&this.$element.hasClass("active")?a=!1:b.find(".active").removeClass("active")),a&&c.prop("checked",!this.$element.hasClass("active")).trigger("change")}else this.$element.attr("aria-pressed",!this.$element.hasClass("active"));a&&this.$element.toggleClass("active")};var d=a.fn.button;a.fn.button=b,a.fn.button.Constructor=c,a.fn.button.noConflict=function(){return a.fn.button=d,this},a(document).on("click.bs.button.data-api",'[data-toggle^="button"]',function(c){var d=a(c.target);d.hasClass("btn")||(d=d.closest(".btn")),b.call(d,"toggle"),c.preventDefault()}).on("focus.bs.button.data-api blur.bs.button.data-api",'[data-toggle^="button"]',function(b){a(b.target).closest(".btn").toggleClass("focus",/^focus(in)?$/.test(b.type))})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.carousel"),f=a.extend({},c.DEFAULTS,d.data(),"object"==typeof b&&b),g="string"==typeof b?b:f.slide;e||d.data("bs.carousel",e=new c(this,f)),"number"==typeof b?e.to(b):g?e[g]():f.interval&&e.pause().cycle()})}var c=function(b,c){this.$element=a(b),this.$indicators=this.$element.find(".carousel-indicators"),this.options=c,this.paused=null,this.sliding=null,this.interval=null,this.$active=null,this.$items=null,this.options.keyboard&&this.$element.on("keydown.bs.carousel",a.proxy(this.keydown,this)),"hove Line: 7 -  ions.pause&&!("ontouchstart"in document.documentElement)&&this.$element.on("mouseenter.bs.carousel",a.proxy(this.pause,this)).on("mouseleave.bs.carousel",a.proxy(this.cycle,this))};c.VERSION="3.3.4",c.TRANSITION_DURATION=600,c.DEFAULTS={interval:5e3,pause:"hover",wrap:!0,keyboard:!0},c.prototype.keydown=function(a){if(!/input|textarea/i.test(a.target.tagName)){switch(a.which){case 37:this.prev();break;case 39:this.next();break;default:return}a.preventDefault()}},c.prototype.cycle=function(b){return b||(this.paused=!1),this.interval&&clearInterval(this.interval),this.options.interval&&!this.paused&&(this.interval=setInterval(a.proxy(this.next,this),this.options.interval)),this},c.prototype.getItemIndex=function(a){return this.$items=a.parent().children(".item"),this.$items.index(a||this.$active)},c.prototype.getItemForDirection=function(a,b){var c=this.getItemIndex(b),d="prev"==a&&0===c||"next"==a&&c==this.$items.length-1;if(d&&!this.options.wrap)return b;var e="prev"==a?-1:1,f=(c+e)%this.$items.length;return this.$items.eq(f)},c.prototype.to=function(a){var b=this,c=this.getItemIndex(this.$active=this.$element.find(".item.active"));return a>this.$items.length-1||0>a?void 0:this.sliding?this.$element.one("slid.bs.carousel",function(){b.to(a)}):c==a?this.pause().cycle():this.slide(a>c?"next":"prev",this.$items.eq(a))},c.prototype.pause=function(b){return b||(this.paused=!0),this.$element.find(".next, .prev").length&&a.support.transition&&(this.$element.trigger(a.support.transition.end),this.cycle(!0)),this.interval=clearInterval(this.interval),this},c.prototype.next=function(){return this.sliding?void 0:this.slide("next")},c.prototype.prev=function(){return this.sliding?void 0:this.slide("prev")},c.prototype.slide=function(b,d){var e=this.$element.find(".item.active"),f=d||this.getItemForDirection(b,e),g=this.interval,h="next"==b?"left":"right",i=this;if(f.hasClass("active"))return this.sliding=!1;var j=f[0],k=a.Event("slide.bs.carousel",{relatedTarget:j,direction:h});if(this.$element.trigger(k),!k.isDefaultPrevented()){if(this.sliding=!0,g&&this.pause(),this.$indicators.length){ Line: 8 -  tors.find(".active").removeClass("active");var l=a(this.$indicators.children()[this.getItemIndex(f)]);l&&l.addClass("active")}var m=a.Event("slid.bs.carousel",{relatedTarget:j,direction:h});return a.support.transition&&this.$element.hasClass("slide")?(f.addClass(b),f[0].offsetWidth,e.addClass(h),f.addClass(h),e.one("bsTransitionEnd",function(){f.removeClass([b,h].join(" ")).addClass("active"),e.removeClass(["active",h].join(" ")),i.sliding=!1,setTimeout(function(){i.$element.trigger(m)},0)}).emulateTransitionEnd(c.TRANSITION_DURATION)):(e.removeClass("active"),f.addClass("active"),this.sliding=!1,this.$element.trigger(m)),g&&this.cycle(),this}};var d=a.fn.carousel;a.fn.carousel=b,a.fn.carousel.Constructor=c,a.fn.carousel.noConflict=function(){return a.fn.carousel=d,this};var e=function(c){var d,e=a(this),f=a(e.attr("data-target")||(d=e.attr("href"))&&d.replace(/.*(?=#[^\s]+$)/,""));if(f.hasClass("carousel")){var g=a.extend({},f.data(),e.data()),h=e.attr("data-slide-to");h&&(g.interval=!1),b.call(f,g),h&&f.data("bs.carousel").to(h),c.preventDefault()}};a(document).on("click.bs.carousel.data-api","[data-slide]",e).on("click.bs.carousel.data-api","[data-slide-to]",e),a(window).on("load",function(){a('[data-ride="carousel"]').each(function(){var c=a(this);b.call(c,c.data())})})}(jQuery),+function(a){"use strict";function b(b){var c,d=b.attr("data-target")||(c=b.attr("href"))&&c.replace(/.*(?=#[^\s]+$)/,"");return a(d)}function c(b){return this.each(function(){var c=a(this),e=c.data("bs.collapse"),f=a.extend({},d.DEFAULTS,c.data(),"object"==typeof b&&b);!e&&f.toggle&&/show|hide/.test(b)&&(f.toggle=!1),e||c.data("bs.collapse",e=new d(this,f)),"string"==typeof b&&e[b]()})}var d=function(b,c){this.$element=a(b),this.options=a.extend({},d.DEFAULTS,c),this.$trigger=a('[data-toggle="collapse"][href="#'+b.id+'"],[data-toggle="collapse"][data-target="#'+b.id+'"]'),this.transitioning=null,this.options.parent?this.$parent=this.getParent():this.addAriaAndCollapsedClass(this.$element,this.$trigger),this.options.toggle&&this.toggle()};d.VERSION="3.3.4",d.TRANSITION_DURATION=350,d.DEFAULTS={toggl Line: 15 -  .getDelegateOptions=function(){var b={},c=this.getDefaults();return this._options&&a.each(this._options,function(a,d){c[a]!=d&&(b[a]=d)}),b},c.prototype.enter=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);return c&&c.$tip&&c.$tip.is(":visible")?void(c.hoverState="in"):(c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),clearTimeout(c.timeout),c.hoverState="in",c.options.delay&&c.options.delay.show?void(c.timeout=setTimeout(function(){"in"==c.hoverState&&c.show()},c.options.delay.show)):c.show())},c.prototype.leave=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);return c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),clearTimeout(c.timeout),c.hoverState="out",c.options.delay&&c.options.delay.hide?void(c.timeout=setTimeout(function(){"out"==c.hoverState&&c.hide()},c.options.delay.hide)):c.hide()},c.prototype.show=function(){var b=a.Event("show.bs."+this.type);if(this.hasContent()&&this.enabled){this.$element.trigger(b);var d=a.contains(this.$element[0].ownerDocument.documentElement,this.$element[0]);if(b.isDefaultPrevented()||!d)return;var e=this,f=this.tip(),g=this.getUID(this.type);this.setContent(),f.attr("id",g),this.$element.attr("aria-describedby",g),this.options.animation&&f.addClass("fade");var h="function"==typeof this.options.placement?this.options.placement.call(this,f[0],this.$element[0]):this.options.placement,i=/\s?auto?\s?/i,j=i.test(h);j&&(h=h.replace(i,"")||"top"),f.detach().css({top:0,left:0,display:"block"}).addClass(h).data("bs."+this.type,this),this.options.container?f.appendTo(this.options.container):f.insertAfter(this.$element);var k=this.getPosition(),l=f[0].offsetWidth,m=f[0].offsetHeight;if(j){var n=h,o=this.options.container?a(this.options.container):this.$element.parent(),p=this.getPosition(o);h="bottom"==h&&k.bottom+m>p.bottom?"top":"top"==h&&k.top-m<p.top?"bottom":"right"==h&&k.right+l>p.width?"left":"left"==h&&k.left-l<p.left?"right":h, Line: 22 -  top"==this.affixed)return c>e?"top":!1;if("bottom"==this.affixed)return null!=c?e+this.unpin<=f.top?!1:"bottom":a-d>=e+g?!1:"bottom";var h=null==this.affixed,i=h?e:f.top,j=h?g:b;return null!=c&&c>=e?"top":null!=d&&i+j>=a-d?"bottom":!1},c.prototype.getPinnedOffset=function(){if(this.pinnedOffset)return this.pinnedOffset;this.$element.removeClass(c.RESET).addClass("affix");var a=this.$target.scrollTop(),b=this.$element.offset();return this.pinnedOffset=b.top-a},c.prototype.checkPositionWithEventLoop=function(){setTimeout(a.proxy(this.checkPosition,this),1)},c.prototype.checkPosition=function(){if(this.$element.is(":visible")){var b=this.$element.height(),d=this.options.offset,e=d.top,f=d.bottom,g=a(document.body).height();"object"!=typeof d&&(f=e=d),"function"==typeof e&&(e=d.top(this.$element)),"function"==typeof f&&(f=d.bottom(this.$element));var h=this.getState(g,b,e,f);if(this.affixed!=h){null!=this.unpin&&this.$element.css("top","");var i="affix"+(h?"-"+h:""),j=a.Event(i+".bs.affix");if(this.$element.trigger(j),j.isDefaultPrevented())return;this.affixed=h,this.unpin="bottom"==h?this.getPinnedOffset():null,this.$element.removeClass(c.RESET).addClass(i).trigger(i.replace("affix","affixed")+".bs.affix")}"bottom"==h&&this.$element.offset({top:g-b-f})}};var d=a.fn.affix;a.fn.affix=b,a.fn.affix.Constructor=c,a.fn.affix.noConflict=function(){return a.fn.affix=d,this},a(window).on("load",function(){a('[data-spy="affix"]').each(function(){var c=a(this),d=c.data();d.offset=d.offset||{},null!=d.offsetBottom&&(d.offset.bottom=d.offsetBottom),null!=d.offsetTop&&(d.offset.top=d.offsetTop),b.call(c,d)})})}(jQuery);
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/editormd.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  crollHeight-16?o[0].scrollHeight:(o[0].scrollHeight+l+c)*s),e.proxy(r.onscroll,i)(t)})},l=function(){n.find(".CodeMirror-scroll").unbind(a("scroll","touchmove"))},c=function(){o.bind(a("scroll","touchmove"),function(t){var o=e(this).height(),a=e(this).scrollTop(),s=a/e(this)[0].scrollHeight,l=n.find(".CodeMirror-scroll");l.scrollTop(0===a?0:a+o>=e(this)[0].scrollHeight?l[0].scrollHeight:l[0].scrollHeight*s),e.proxy(r.onpreviewscroll,i)(t)})},h=function(){o.unbind(a("scroll","touchmove"))};return n.bind({mouseover:s,mouseout:l,touchstart:s,touchend:l}),"single"===r.syncScrolling?this:(o.bind({mouseover:c,mouseout:h,touchstart:c,touchend:h}),this)},bindChangeEvent:function(){var e=this,t=this.cm,o=this.settings;return o.syncScrolling?(t.on("change",function(t,r){o.watch&&e.previewContainer.css("padding",o.autoHeight?"20px 20px 50px 40px":"20px"),i=setTimeout(function(){clearTimeout(i),e.save(),i=null},o.delay)}),this):this},loadedDisplay:function(t){t=t||!1;var i=this,o=this.editor,r=this.preview,n=this.settings;return this.containerMask.hide(),this.save(),n.watch&&r.show(),o.data("oldWidth",o.width()).data("oldHeight",o.height()),this.resize(),this.registerKeyMaps(),e(window).resize(function(){i.resize()}),this.bindScrollEvent().bindChangeEvent(),t||e.proxy(n.onload,this)(),this.state.loaded=!0,this},width:function(e){return this.editor.css("width","number"==typeof e?e+"px":e),this.resize(),this},height:function(e){return this.editor.css("height","number"==typeof e?e+"px":e),this.resize(),this},resize:function(t,i){t=t||null,i=i||null;var o=this.state,r=this.editor,n=this.preview,a=this.toolbar,s=this.settings,l=this.codeMirror;if(t&&r.css("width","number"==typeof t?t+"px":t),!s.autoHeight||o.fullscreen||o.preview?(i&&r.css("height","number"==typeof i?i+"px":i),o.fullscreen&&r.height(e(window).height()),s.toolbar&&!s.readOnly?l.css("margin-top",a.height()+1).height(r.height()-a.height()):l.css("margin-top",0).height(r.height())):(r.css("height","auto"),l.css("height","auto")),s.watch)if(l.width(r.width()/2),n.width(o.preview?r.width():r.width()/2),this.previewContainer.css("pad Line: 12 -  eight?"20px 20px 50px 40px":"20px"),s.toolbar&&!s.readOnly?n.css("top",a.height()+1):n.css("top",0),!s.autoHeight||o.fullscreen||o.preview){var c=s.toolbar&&!s.readOnly?r.height()-a.height():r.height();n.height(c)}else n.height("");else l.width(r.width()),n.hide();return o.loaded&&e.proxy(s.onresize,this)(),this},save:function(){if(null===i)return this;var r=this,n=this.state,a=this.settings,s=this.cm,l=s.getValue(),c=this.previewContainer;if("gfm"!==a.mode&&"markdown"!==a.mode)return this.markdownTextarea.val(l),this;var h=t.$marked,d=this.markdownToC=[],u=this.markedRendererOptions={toc:a.toc,tocm:a.tocm,tocStartLevel:a.tocStartLevel,pageBreak:a.pageBreak,taskList:a.taskList,emoji:a.emoji,tex:a.tex,atLink:a.atLink,emailLink:a.emailLink,flowChart:a.flowChart,sequenceDiagram:a.sequenceDiagram,previewCodeHighlight:a.previewCodeHighlight},f=this.markedOptions={renderer:t.markedRenderer(d,u),gfm:!0,tables:!0,breaks:!0,pedantic:!1,sanitize:a.htmlDecode?!1:!0,smartLists:!0,smartypants:!0};h.setOptions(f);var g=t.$marked(l,f);if(g=t.filterHTMLTags(g,a.htmlDecode),this.markdownTextarea.text(l),s.save(),a.saveHTMLToTextarea&&this.htmlTextarea.text(g),a.watch||!a.watch&&n.preview){if(c.html(g),this.previewCodeHighlight(),a.toc){var p=""===a.tocContainer?c:e(a.tocContainer),m=p.find("."+this.classPrefix+"toc-menu");p.attr("previewContainer",""===a.tocContainer?"true":"false"),""!==a.tocContainer&&m.length>0&&m.remove(),t.markdownToCRenderer(d,p,a.tocDropdown,a.tocStartLevel),(a.tocDropdown||p.find("."+this.classPrefix+"toc-menu").length>0)&&t.tocDropdownMenu(p,""!==a.tocTitle?a.tocTitle:this.lang.tocTitle),""!==a.tocContainer&&c.find(".markdown-toc").css("border","none")}a.tex&&(!t.kaTeXLoaded&&a.autoLoadModules?t.loadKaTeX(function(){t.$katex=katex,t.kaTeXLoaded=!0,r.katexRender()}):(t.$katex=katex,this.katexRender())),(a.flowChart||a.sequenceDiagram)&&(o=setTimeout(function(){clearTimeout(o),r.flowChartAndSequenceDiagramRender(),o=null},10)),n.loaded&&e.proxy(a.onchange,this)()}return this},focus:function(){return this.cm.focus(),this},setCursor:function(e){return this.cm.setCursor(e)</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/editormd.amd.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1846 -                  timer = setTimeout(function() {
+
+ Line: 2153 -                      flowchartTimer = setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/raphael.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 18 -  [b][E](f));else for(;f.length>=d[g]&&(e.push([b][E](f.splice(0,d[g]))),d[g]););}),e.toString=c._path2string,b.arr=Cb(e),e},c.parseTransformString=f(function(a){if(!a)return null;var b=[];return c.is(a,V)&&c.is(a[0],V)&&(b=Cb(a)),b.length||I(a).replace(ib,function(a,c,d){{var e=[];M.call(c)}d.replace(jb,function(a,b){b&&e.push(+b)}),b.push([c][E](e))}),b.toString=c._path2string,b});var Ab=function(a){var b=Ab.ps=Ab.ps||{};return b[a]?b[a].sleep=100:b[a]={sleep:100},setTimeout(function(){for(var c in b)b[z](c)&&c!=a&&(b[c].sleep--,!b[c].sleep&&delete b[c])}),b[a]};c.findDotsAtSegment=function(a,b,c,d,e,f,g,h,i){var j=1-i,k=R(j,3),l=R(j,2),m=i*i,n=m*i,o=k*a+3*l*i*c+3*j*i*i*e+n*g,p=k*b+3*l*i*d+3*j*i*i*f+n*h,q=a+2*i*(c-a)+m*(e-2*c+a),r=b+2*i*(d-b)+m*(f-2*d+b),s=c+2*i*(e-c)+m*(g-2*e+c),t=d+2*i*(f-d)+m*(h-2*f+d),u=j*a+i*c,v=j*b+i*d,w=j*e+i*g,x=j*f+i*h,y=90-180*N.atan2(q-s,r-t)/S;return(q>s||t>r)&&(y+=180),{x:o,y:p,m:{x:q,y:r},n:{x:s,y:t},start:{x:u,y:v},end:{x:w,y:x},alpha:y}},c.bezierBBox=function(a,b,d,e,f,g,h,i){c.is(a,"array")||(a=[a,b,d,e,f,g,h,i]);var j=Jb.apply(null,a);return{x:j.min.x,y:j.min.y,x2:j.max.x,y2:j.max.y,width:j.max.x-j.min.x,height:j.max.y-j.min.y}},c.isPointInsideBBox=function(a,b,c){return b>=a.x&&b<=a.x2&&c>=a.y&&c<=a.y2},c.isBBoxIntersect=function(a,b){var d=c.isPointInsideBBox;return d(b,a.x,a.y)||d(b,a.x2,a.y)||d(b,a.x,a.y2)||d(b,a.x2,a.y2)||d(a,b.x,b.y)||d(a,b.x2,b.y)||d(a,b.x,b.y2)||d(a,b.x2,b.y2)||(a.x<b.x2&&a.x>b.x||b.x<a.x2&&b.x>a.x)&&(a.y<b.y2&&a.y>b.y||b.y<a.y2&&b.y>a.y)},c.pathIntersection=function(a,b){return n(a,b)},c.pathIntersectionNumber=function(a,b){return n(a,b,1)},c.isPointInsidePath=function(a,b,d){var e=c.pathBBox(a);return c.isPointInsideBBox(e,b,d)&&n(a,[["M",b,d],["H",e.x2+10]],1)%2==1},c._removedFactory=function(a){return function(){b("raphael.log",null,"Raphaël: you are calling to method “"+a+"” of removed object",a)}};var Bb=c.pathBBox=function(a){var b=Ab(a);if(b.bbox)return d(b.bbox);if(!a)return{x:0,y:0,width:0,height:0,x2:0,y2:0};a=Kb(a);for(var c,e=0,f=0,g=[],h=[],i=0,j=a.length;j>i;i++)if(c=a[i],"M"==c[0])e=c[1],f=c[2],g. Line: 25 -  .toFilter=function(){return"progid:DXImageTransform.Microsoft.Matrix(M11="+this.get(0)+", M12="+this.get(2)+", M21="+this.get(1)+", M22="+this.get(3)+", Dx="+this.get(4)+", Dy="+this.get(5)+", sizingmethod='auto expand')"},a.offset=function(){return[this.e.toFixed(4),this.f.toFixed(4)]},a.split=function(){var a={};a.dx=this.e,a.dy=this.f;var e=[[this.a,this.c],[this.b,this.d]];a.scalex=N.sqrt(b(e[0])),d(e[0]),a.shear=e[0][0]*e[1][0]+e[0][1]*e[1][1],e[1]=[e[1][0]-e[0][0]*a.shear,e[1][1]-e[0][1]*a.shear],a.scaley=N.sqrt(b(e[1])),d(e[1]),a.shear/=a.scaley;var f=-e[0][1],g=e[1][1];return 0>g?(a.rotate=c.deg(N.acos(g)),0>f&&(a.rotate=360-a.rotate)):a.rotate=c.deg(N.asin(f)),a.isSimple=!(+a.shear.toFixed(9)||a.scalex.toFixed(9)!=a.scaley.toFixed(9)&&a.rotate),a.isSuperSimple=!+a.shear.toFixed(9)&&a.scalex.toFixed(9)==a.scaley.toFixed(9)&&!a.rotate,a.noRotation=!+a.shear.toFixed(9)&&!a.rotate,a},a.toTransformString=function(a){var b=a||this[J]();return b.isSimple?(b.scalex=+b.scalex.toFixed(4),b.scaley=+b.scaley.toFixed(4),b.rotate=+b.rotate.toFixed(4),(b.dx||b.dy?"t"+[b.dx,b.dy]:G)+(1!=b.scalex||1!=b.scaley?"s"+[b.scalex,b.scaley,0,0]:G)+(b.rotate?"r"+[b.rotate,0,0]:G)):"m"+[this.get(0),this.get(1),this.get(2),this.get(3),this.get(4),this.get(5)]}}(o.prototype);var Qb=navigator.userAgent.match(/Version\/(.*?)\s/)||navigator.userAgent.match(/Chrome\/(\d+)/);v.safari="Apple Computer, Inc."==navigator.vendor&&(Qb&&Qb[1]<4||"iP"==navigator.platform.slice(0,2))||"Google Inc."==navigator.vendor&&Qb&&Qb[1]<8?function(){var a=this.rect(-99,-99,this.width+99,this.height+99).attr({stroke:"none"});setTimeout(function(){a.remove()})}:mb;for(var Rb=function(){this.returnValue=!1},Sb=function(){return this.originalEvent.preventDefault()},Tb=function(){this.cancelBubble=!0},Ub=function(){return this.originalEvent.stopPropagation()},Vb=function(a){var b=A.doc.documentElement.scrollTop||A.doc.body.scrollTop,c=A.doc.documentElement.scrollLeft||A.doc.body.scrollLeft;return{x:a.clientX+c,y:a.clientY+b}},Wb=function(){return A.doc.addEventListener?function(a,b,c,d){var e=function(a){var b=Vb(a);return c Line: 30 -  k.alpha&&(k={x:k.x,y:k.y,alpha:k.alpha}),k}},ec=dc(1),fc=dc(),gc=dc(0,1);c.getTotalLength=ec,c.getPointAtLength=fc,c.getSubpath=function(a,b,c){if(this.getTotalLength(a)-c<1e-6)return gc(a,b).end;var d=gc(a,c,1);return b?gc(d,b).end:d},$b.getTotalLength=function(){var a=this.getPath();if(a)return this.node.getTotalLength?this.node.getTotalLength():ec(a)},$b.getPointAtLength=function(a){var b=this.getPath();if(b)return fc(b,a)},$b.getPath=function(){var a,b=c._getPath[this.type];if("text"!=this.type&&"set"!=this.type)return b&&(a=b(this)),a},$b.getSubpath=function(a,b){var d=this.getPath();if(d)return c.getSubpath(d,a,b)};var hc=c.easing_formulas={linear:function(a){return a},"<":function(a){return R(a,1.7)},">":function(a){return R(a,.48)},"<>":function(a){var b=.48-a/1.04,c=N.sqrt(.1734+b*b),d=c-b,e=R(Q(d),1/3)*(0>d?-1:1),f=-c-b,g=R(Q(f),1/3)*(0>f?-1:1),h=e+g+.5;return 3*(1-h)*h*h+h*h*h},backIn:function(a){var b=1.70158;return a*a*((b+1)*a-b)},backOut:function(a){a-=1;var b=1.70158;return a*a*((b+1)*a+b)+1},elastic:function(a){return a==!!a?a:R(2,-10*a)*N.sin(2*(a-.075)*S/.3)+1},bounce:function(a){var b,c=7.5625,d=2.75;return 1/d>a?b=c*a*a:2/d>a?(a-=1.5/d,b=c*a*a+.75):2.5/d>a?(a-=2.25/d,b=c*a*a+.9375):(a-=2.625/d,b=c*a*a+.984375),b}};hc.easeIn=hc["ease-in"]=hc["<"],hc.easeOut=hc["ease-out"]=hc[">"],hc.easeInOut=hc["ease-in-out"]=hc["<>"],hc["back-in"]=hc.backIn,hc["back-out"]=hc.backOut;var ic=[],jc=a.requestAnimationFrame||a.webkitRequestAnimationFrame||a.mozRequestAnimationFrame||a.oRequestAnimationFrame||a.msRequestAnimationFrame||function(a){setTimeout(a,16)},kc=function(){for(var a=+new Date,d=0;d<ic.length;d++){var e=ic[d];if(!e.el.removed&&!e.paused){var f,g,h=a-e.start,i=e.ms,j=e.easing,k=e.from,l=e.diff,m=e.to,n=(e.t,e.el),o={},p={};if(e.initstatus?(h=(e.initstatus*e.anim.top-e.prev)/(e.percent-e.prev)*i,e.status=e.initstatus,delete e.initstatus,e.stop&&ic.splice(d--,1)):e.status=(e.prev+(e.percent-e.prev)*(h/i))/e.anim.top,!(0>h))if(i>h){var q=j(h/i);for(var r in k)if(k[z](r)){switch(db[r]){case T:f=+k[r]+q*i*l[r];break;case"colour":f="rgb("+[lc($(k[r].r+q*i*l[r].r) Line: 31 -  +q*i*l[r].g)),lc($(k[r].b+q*i*l[r].b))].join(",")+")";break;case"path":f=[];for(var t=0,u=k[r].length;u>t;t++){f[t]=[k[r][t][0]];for(var v=1,w=k[r][t].length;w>v;v++)f[t][v]=+k[r][t][v]+q*i*l[r][t][v];f[t]=f[t].join(H)}f=f.join(H);break;case"transform":if(l[r].real)for(f=[],t=0,u=k[r].length;u>t;t++)for(f[t]=[k[r][t][0]],v=1,w=k[r][t].length;w>v;v++)f[t][v]=k[r][t][v]+q*i*l[r][t][v];else{var x=function(a){return+k[r][a]+q*i*l[r][a]};f=[["m",x(0),x(1),x(2),x(3),x(4),x(5)]]}break;case"csv":if("clip-rect"==r)for(f=[],t=4;t--;)f[t]=+k[r][t]+q*i*l[r][t];break;default:var y=[][E](k[r]);for(f=[],t=n.paper.customAttributes[r].length;t--;)f[t]=+y[t]+q*i*l[r][t]}o[r]=f}n.attr(o),function(a,c,d){setTimeout(function(){b("raphael.anim.frame."+a,c,d)})}(n.id,n,e.anim)}else{if(function(a,d,e){setTimeout(function(){b("raphael.anim.frame."+d.id,d,e),b("raphael.anim.finish."+d.id,d,e),c.is(a,"function")&&a.call(d)})}(e.callback,n,e.anim),n.attr(m),ic.splice(d--,1),e.repeat>1&&!e.next){for(g in m)m[z](g)&&(p[g]=e.totalOrigin[g]);e.el.attr(p),s(e.anim,e.el,e.anim.percents[0],null,e.totalOrigin,e.repeat-1)}e.next&&!e.stop&&s(e.anim,e.el,e.next,null,e.totalOrigin,e.repeat)}}}c.svg&&n&&n.paper&&n.paper.safari(),ic.length&&jc(kc)},lc=function(a){return a>255?255:0>a?0:a};$b.animateWith=function(a,b,d,e,f,g){var h=this;if(h.removed)return g&&g.call(h),h;var i=d instanceof r?d:c.animation(d,e,f,g);s(i,h,i.percents[0],null,h.attr());for(var j=0,k=ic.length;k>j;j++)if(ic[j].anim==b&&ic[j].el==a){ic[k-1].start=ic[j].start;break}return h},$b.onAnimation=function(a){return a?b.on("raphael.anim.frame."+this.id,a):b.unbind("raphael.anim.frame."+this.id),this},r.prototype.delay=function(a){var b=new r(this.anim,this.ms);return b.times=this.times,b.del=+a||0,b},r.prototype.repeat=function(a){var b=new r(this.anim,this.ms);return b.del=this.del,b.times=N.floor(O(a,0))||1,b},c.animation=function(a,b,d,e){if(a instanceof r)return a;(c.is(d,"function")||!d)&&(e=e||d||null,d=null),a=Object(a),b=+b||0;var f,g,h={};for(g in a)a[z](g)&&_(g)!=g&&_(g)+"%"!=g&&(f=!0,h[g]=a[g]);if(f)return d&&(h.easing=d),e&&(h.callback=e) Line: 35 -  }),function(a,b,d){function e(){/in/.test(a.readyState)?setTimeout(e,9):c.eve("raphael.DOMload")}null==a.readyState&&a.addEventListener&&(a.addEventListener(b,d=function(){a.removeEventListener(b,d,!1),a.readyState="complete"},!1),a.readyState="loading"),e()}(document,"DOMContentLoaded"),function(){if(c.svg){var a="hasOwnProperty",b=String,d=parseFloat,e=parseInt,f=Math,g=f.max,h=f.abs,i=f.pow,j=/[, ]+/,k=c.eve,l="",m=" ",n="http://www.w3.org/1999/xlink",o={block:"M5,0 0,2.5 5,5z",classic:"M5,0 0,2.5 5,5 3.5,3 3.5,2z",diamond:"M2.5,0 5,2.5 2.5,5 0,2.5z",open:"M6,1 1,3.5 6,6",oval:"M2.5,0A2.5,2.5,0,0,1,2.5,5 2.5,2.5,0,0,1,2.5,0z"},p={};c.toString=function(){return"Your browser supports SVG.\nYou are running Raphaël "+this.version};var q=function(d,e){if(e){"string"==typeof d&&(d=q(d));for(var f in e)e[a](f)&&("xlink:"==f.substring(0,6)?d.setAttributeNS(n,f.substring(6),b(e[f])):d.setAttribute(f,b(e[f])))}else d=c._g.doc.createElementNS("http://www.w3.org/2000/svg",d),d.style&&(d.style.webkitTapHighlightColor="rgba(0,0,0,0)");return d},r=function(a,e){var j="linear",k=a.id+e,m=.5,n=.5,o=a.node,p=a.paper,r=o.style,s=c._g.doc.getElementById(k);if(!s){if(e=b(e).replace(c._radial_gradient,function(a,b,c){if(j="radial",b&&c){m=d(b),n=d(c);var e=2*(n>.5)-1;i(m-.5,2)+i(n-.5,2)>.25&&(n=f.sqrt(.25-i(m-.5,2))*e+.5)&&.5!=n&&(n=n.toFixed(5)-1e-5*e)}return l}),e=e.split(/\s*\-\s*/),"linear"==j){var t=e.shift();if(t=-d(t),isNaN(t))return null;var u=[0,0,f.cos(c.rad(t)),f.sin(c.rad(t))],v=1/(g(h(u[2]),h(u[3]))||1);u[2]*=v,u[3]*=v,u[2]<0&&(u[0]=-u[2],u[2]=0),u[3]<0&&(u[1]=-u[3],u[3]=0)}var w=c._parseDots(e);if(!w)return null;if(k=k.replace(/[\(\)\s,\xb0#]/g,"_"),a.gradient&&k!=a.gradient.id&&(p.defs.removeChild(a.gradient),delete a.gradient),!a.gradient){s=q(j+"Gradient",{id:k}),a.gradient=s,q(s,"radial"==j?{fx:m,fy:n}:{x1:u[0],y1:u[1],x2:u[2],y2:u[3],gradientTransform:a.matrix.invert()}),p.defs.appendChild(s);for(var x=0,y=w.length;y>x;x++)s.appendChild(q("stop",{offset:w[x].offset?w[x].offset:x?"100%":"0%","stop-color":w[x].color||"#fff"}))}}return q(o,{fill:"url("+document.location+"#"+k+")</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/underscore.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  m.pluck(n,e);return r},m.object=function(n,t){for(var r={},e=0,u=n&&n.length;u>e;e++)t?r[n[e]]=t[e]:r[n[e][0]]=n[e][1];return r},m.indexOf=function(n,t,r){var e=0,u=n&&n.length;if("number"==typeof r)e=0>r?Math.max(0,u+r):r;else if(r&&u)return e=m.sortedIndex(n,t),n[e]===t?e:-1;if(t!==t)return m.findIndex(l.call(n,e),m.isNaN);for(;u>e;e++)if(n[e]===t)return e;return-1},m.lastIndexOf=function(n,t,r){var e=n?n.length:0;if("number"==typeof r&&(e=0>r?e+r+1:Math.min(e,r+1)),t!==t)return m.findLastIndex(l.call(n,0,e),m.isNaN);for(;--e>=0;)if(n[e]===t)return e;return-1},m.findIndex=t(1),m.findLastIndex=t(-1),m.sortedIndex=function(n,t,r,e){r=b(r,e,1);for(var u=r(t),i=0,o=n.length;o>i;){var a=Math.floor((i+o)/2);r(n[a])<u?i=a+1:o=a}return i},m.range=function(n,t,r){arguments.length<=1&&(t=n||0,n=0),r=r||1;for(var e=Math.max(Math.ceil((t-n)/r),0),u=Array(e),i=0;e>i;i++,n+=r)u[i]=n;return u};var O=function(n,t,r,e,u){if(!(e instanceof t))return n.apply(r,u);var i=_(n.prototype),o=n.apply(i,u);return m.isObject(o)?o:i};m.bind=function(n,t){if(v&&n.bind===v)return v.apply(n,l.call(arguments,1));if(!m.isFunction(n))throw new TypeError("Bind must be called on a function");var r=l.call(arguments,2),e=function(){return O(n,e,t,this,r.concat(l.call(arguments)))};return e},m.partial=function(n){var t=l.call(arguments,1),r=function(){for(var e=0,u=t.length,i=Array(u),o=0;u>o;o++)i[o]=t[o]===m?arguments[e++]:t[o];for(;e<arguments.length;)i.push(arguments[e++]);return O(n,r,this,this,i)};return r},m.bindAll=function(n){var t,r,e=arguments.length;if(1>=e)throw new Error("bindAll must be passed function names");for(t=1;e>t;t++)r=arguments[t],n[r]=m.bind(n[r],n);return n},m.memoize=function(n,t){var r=function(e){var u=r.cache,i=""+(t?t.apply(this,arguments):e);return m.has(u,i)||(u[i]=n.apply(this,arguments)),u[i]};return r.cache={},r},m.delay=function(n,t){var r=l.call(arguments,2);return setTimeout(function(){return n.apply(null,r)},t)},m.defer=m.partial(m.delay,m,1),m.throttle=function(n,t,r){var e,u,i,o=null,a=0;r||(r={});var c=function(){a=r.leading===!1?0:m.now(),o=null,i=n.apply(e,u),o||(e=u=nu Line: 8 -  function(){var l=m.now();a||r.leading!==!1||(a=l);var f=t-(l-a);return e=this,u=arguments,0>=f||f>t?(o&&(clearTimeout(o),o=null),a=l,i=n.apply(e,u),o||(e=u=null)):o||r.trailing===!1||(o=setTimeout(c,f)),i}},m.debounce=function(n,t,r){var e,u,i,o,a,c=function(){var l=m.now()-o;t>l&&l>=0?e=setTimeout(c,t-l):(e=null,r||(a=n.apply(i,u),e||(i=u=null)))};return function(){i=this,u=arguments,o=m.now();var l=r&&!e;return e||(e=setTimeout(c,t)),l&&(a=n.apply(i,u),i=u=null),a}},m.wrap=function(n,t){return m.partial(t,n)},m.negate=function(n){return function(){return!n.apply(this,arguments)}},m.compose=function(){var n=arguments,t=n.length-1;return function(){for(var r=t,e=n[t].apply(this,arguments);r--;)e=n[r].call(this,e);return e}},m.after=function(n,t){return function(){return--n<1?t.apply(this,arguments):void 0}},m.before=function(n,t){var r;return function(){return--n>0&&(r=t.apply(this,arguments)),1>=n&&(t=null),r}},m.once=m.partial(m.before,2);var F=!{toString:null}.propertyIsEnumerable("toString"),S=["valueOf","isPrototypeOf","toString","propertyIsEnumerable","hasOwnProperty","toLocaleString"];m.keys=function(n){if(!m.isObject(n))return[];if(h)return h(n);var t=[];for(var e in n)m.has(n,e)&&t.push(e);return F&&r(n,t),t},m.allKeys=function(n){if(!m.isObject(n))return[];var t=[];for(var e in n)t.push(e);return F&&r(n,t),t},m.values=function(n){for(var t=m.keys(n),r=t.length,e=Array(r),u=0;r>u;u++)e[u]=n[t[u]];return e},m.mapObject=function(n,t,r){t=b(t,r);for(var e,u=m.keys(n),i=u.length,o={},a=0;i>a;a++)e=u[a],o[e]=t(n[e],e,n);return o},m.pairs=function(n){for(var t=m.keys(n),r=t.length,e=Array(r),u=0;r>u;u++)e[u]=[t[u],n[t[u]]];return e},m.invert=function(n){for(var t={},r=m.keys(n),e=0,u=r.length;u>e;e++)t[n[r[e]]]=r[e];return t},m.functions=m.methods=function(n){var t=[];for(var r in n)m.isFunction(n[r])&&t.push(r);return t.sort()},m.extend=x(m.allKeys),m.extendOwn=m.assign=x(m.keys),m.findKey=function(n,t,r){t=b(t,r);for(var e,u=m.keys(n),i=0,o=u.length;o>i;i++)if(e=u[i],t(n[e],e,n))return e},m.pick=function(n,t,r){var e,u,i={},o=n;if(null==o)return i;m.isFunction(t)?(u=m.allK</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addons.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2 -  u=0;u<l.length;++u){var f=l[u];!function(t){e.on(f,"click",function(i){e.e_preventDefault(i),a(),t&&t(d)})}(r[u]),e.on(f,"blur",function(){--h,setTimeout(function(){0>=h&&a()},200)}),e.on(f,"focus",function(){++h})}}),e.defineExtension("openNotification",function(o,r){function n(){l||(l=!0,clearTimeout(a),s.parentNode.removeChild(s))}i(this,n);var a,s=t(this,o,r&&r.bottom),l=!1,c=r&&"undefined"!=typeof r.duration?r.duration:5e3;return e.on(s,"click",function(t){e.e_preventDefault(t),n()}),c&&(a=setTimeout(n,c)),n})}),function(e){"object"==typeof exports&&"object"==typeof module?e(require("../../lib/codemirror")):"function"==typeof define&&define.amd?define(["../../lib/codemirror"],e):e(CodeMirror)}(function(e){"use strict";function t(e,t,r,n){if(this.atOccurrence=!1,this.doc=e,null==n&&"string"==typeof t&&(n=!1),r=r?e.clipPos(r):o(0,0),this.pos={from:r,to:r},"string"!=typeof t)t.global||(t=new RegExp(t.source,t.ignoreCase?"ig":"g")),this.matches=function(i,r){if(i){t.lastIndex=0;for(var n,a,s=e.getLine(r.line).slice(0,r.ch),l=0;;){t.lastIndex=l;var c=t.exec(s);if(!c)break;if(n=c,a=n.index,l=n.index+(n[0].length||1),l==s.length)break}var d=n&&n[0].length||0;d||(0==a&&0==s.length?n=void 0:a!=e.getLine(r.line).length&&d++)}else{t.lastIndex=r.ch;var s=e.getLine(r.line),n=t.exec(s),d=n&&n[0].length||0,a=n&&n.index;a+d==s.length||d||(d=1)}return n&&d?{from:o(r.line,a),to:o(r.line,a+d),match:n}:void 0};else{var a=t;n&&(t=t.toLowerCase());var s=n?function(e){return e.toLowerCase()}:function(e){return e},l=t.split("\n");if(1==l.length)t.length?this.matches=function(r,n){if(r){var l=e.getLine(n.line).slice(0,n.ch),c=s(l),d=c.lastIndexOf(t);if(d>-1)return d=i(l,c,d),{from:o(n.line,d),to:o(n.line,d+a.length)}}else{var l=e.getLine(n.line).slice(n.ch),c=s(l),d=c.indexOf(t);if(d>-1)return d=i(l,c,d)+n.ch,{from:o(n.line,d),to:o(n.line,d+a.length)}}}:this.matches=function(){};else{var c=a.split("\n");this.matches=function(t,i){var r=l.length-1;if(t){if(i.line-(l.length-1)<e.firstLine())return;if(s(e.getLine(i.line).slice(0,c[r].length))!=l[l.length-1])return;for(var n=o(i.line,c[r].length),a=i. Line: 5 -  ;var r=n(e,i,e.getCursor()),a=function(){var t,o=r.from();!(t=r.findNext())&&(r=n(e,i),!(t=r.findNext())||o&&r.from().line==o.line&&r.from().ch==o.ch)||(e.setSelection(r.from(),r.to()),e.scrollIntoView({from:r.from(),to:r.to()}),s(e,m,"Replace?",[function(){l(t)},a]))},l=function(e){r.replace("string"==typeof i?o:o.replace(/\$(\d)/g,function(t,i){return e[i]})),a()};a()}}))})}var f='Search: <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">(Use /re/ syntax for regexp search)</span>',g='Replace: <input type="text" style="width: 10em" class="CodeMirror-search-field"/> <span style="color: #888" class="CodeMirror-search-hint">(Use /re/ syntax for regexp search)</span>',p='With: <input type="text" style="width: 10em" class="CodeMirror-search-field"/>',m="Replace? <button>Yes</button> <button>No</button> <button>Stop</button>";e.commands.find=function(e){h(e),c(e)},e.commands.findNext=c,e.commands.findPrev=function(e){c(e,!0)},e.commands.clearSearch=h,e.commands.replace=u,e.commands.replaceAll=function(e){u(e,!0)}}),function(e){"object"==typeof exports&&"object"==typeof module?e(require("../../lib/codemirror")):"function"==typeof define&&define.amd?define(["../../lib/codemirror"],e):e(CodeMirror)}(function(e){"use strict";function t(e,t){function i(e){clearTimeout(o.doRedraw),o.doRedraw=setTimeout(function(){o.redraw()},e)}this.cm=e,this.options=t,this.buttonHeight=t.scrollButtonHeight||e.getOption("scrollButtonHeight"),this.annotations=[],this.doRedraw=this.doUpdate=null,this.div=e.getWrapperElement().appendChild(document.createElement("div")),this.div.style.cssText="position: absolute; right: 0; top: 0; z-index: 7; pointer-events: none",this.computeScale();var o=this;e.on("refresh",this.resizeHandler=function(){clearTimeout(o.doUpdate),o.doUpdate=setTimeout(function(){o.computeScale()&&i(20)},100)}),e.on("markerAdded",this.resizeHandler),e.on("markerCleared",this.resizeHandler),t.listenForChanges!==!1&&e.on("change",this.changeHandler=function(){i(250)})}e.defineExtension("annotateScrollbar",function(e) Line: 7 -  h.max(t,e+i)}e.defineExtension("showMatchesOnScrollbar",function(e,i,o){return"string"==typeof o&&(o={className:o}),o||(o={}),new t(this,e,i,o)});var o=1e3;t.prototype.findMatches=function(){if(this.gap){for(var t=0;t<this.matches.length;t++){var i=this.matches[t];if(i.from.line>=this.gap.to)break;i.to.line>=this.gap.from&&this.matches.splice(t--,1)}for(var r=this.cm.getSearchCursor(this.query,e.Pos(this.gap.from,0),this.caseFold);r.findNext();){var i={from:r.from(),to:r.to()};if(i.from.line>=this.gap.to)break;if(this.matches.splice(t++,0,i),this.matches.length>o)break}this.gap=null}},t.prototype.onChange=function(t){var o=t.from.line,r=e.changeEnd(t).line,n=r-t.to.line;if(this.gap?(this.gap.from=Math.min(i(this.gap.from,o,n),t.from.line),this.gap.to=Math.max(i(this.gap.to,o,n),t.from.line)):this.gap={from:t.from.line,to:r+1},n)for(var a=0;a<this.matches.length;a++){var s=this.matches[a],l=i(s.from.line,o,n);l!=s.from.line&&(s.from=e.Pos(l,s.from.ch));var c=i(s.to.line,o,n);c!=s.to.line&&(s.to=e.Pos(c,s.to.ch))}clearTimeout(this.update);var d=this;this.update=setTimeout(function(){d.updateAfterChange()},250)},t.prototype.updateAfterChange=function(){this.findMatches(),this.annotation.update(this.matches)},t.prototype.clear=function(){this.cm.off("change",this.changeHandler),this.annotation.clear()}}),function(e){"object"==typeof exports&&"object"==typeof module?e(require("../../lib/codemirror")):"function"==typeof define&&define.amd?define(["../../lib/codemirror"],e):e(CodeMirror)}(function(e){function t(e){e.state.placeholder&&(e.state.placeholder.parentNode.removeChild(e.state.placeholder),e.state.placeholder=null)}function i(e){t(e);var i=e.state.placeholder=document.createElement("pre");i.style.cssText="height: 0; overflow: visible",i.className="CodeMirror-placeholder",i.appendChild(document.createTextNode(e.getOption("placeholder"))),e.display.lineSpace.insertBefore(i,e.display.lineSpace.firstChild)}function o(e){n(e)&&i(e)}function r(e){var o=e.getWrapperElement(),r=n(e);o.className=o.className.replace(" CodeMirror-empty","")+(r?" CodeMirror-empty":""),r?i(e):t(e)}functio Line: 11 -  tter"),null==e.indicatorOpen&&(e.indicatorOpen="CodeMirror-foldgutter-open"),null==e.indicatorFolded&&(e.indicatorFolded="CodeMirror-foldgutter-folded"),e}function o(e,t){for(var i=e.findMarksAt(h(t)),o=0;o<i.length;++o)if(i[o].__isFold&&i[o].find().from.line==t)return!0}function r(e){if("string"==typeof e){var t=document.createElement("div");return t.className=e+" CodeMirror-guttermarker-subtle",t}return e.cloneNode(!0)}function n(e,t,i){var n=e.state.foldGutter.options,a=t,s=e.foldOption(n,"minFoldSize"),l=e.foldOption(n,"rangeFinder");e.eachLine(t,i,function(t){var i=null;if(o(e,a))i=r(n.indicatorFolded);else{var c=h(a,0),d=l&&l(e,c);d&&d.to.line-d.from.line>=s&&(i=r(n.indicatorOpen))}e.setGutterMarker(t,n.gutter,i),++a})}function a(e){var t=e.getViewport(),i=e.state.foldGutter;i&&(e.operation(function(){n(e,t.from,t.to)}),i.from=t.from,i.to=t.to)}function s(e,t,i){var o=e.state.foldGutter;if(o){var r=o.options;i==r.gutter&&e.foldCode(h(t,0),r.rangeFinder)}}function l(e){var t=e.state.foldGutter;if(t){var i=t.options;t.from=t.to=0,clearTimeout(t.changeUpdate),t.changeUpdate=setTimeout(function(){a(e)},i.foldOnChangeTimeSpan||600)}}function c(e){var t=e.state.foldGutter;if(t){var i=t.options;clearTimeout(t.changeUpdate),t.changeUpdate=setTimeout(function(){var i=e.getViewport();t.from==t.to||i.from-t.to>20||t.from-i.to>20?a(e):e.operation(function(){i.from<t.from&&(n(e,i.from,t.from),t.from=i.from),i.to>t.to&&(n(e,t.to,i.to),t.to=i.to)})},i.updateViewportTimeSpan||400)}}function d(e,t){var i=e.state.foldGutter;if(i){var o=t.line;o>=i.from&&o<i.to&&n(e,o,o+1)}}e.defineOption("foldGutter",!1,function(o,r,n){n&&n!=e.Init&&(o.clearGutter(o.state.foldGutter.options.gutter),o.state.foldGutter=null,o.off("gutterClick",s),o.off("change",l),o.off("viewportChange",c),o.off("fold",d),o.off("unfold",d),o.off("swapDoc",a)),r&&(o.state.foldGutter=new t(i(r)),a(o),o.on("gutterClick",s),o.on("change",l),o.on("viewportChange",c),o.on("fold",d),o.on("unfold",d),o.on("swapDoc",a))});var h=e.Pos}),function(e){"object"==typeof exports&&"object"==typeof module?e(require("../../lib/codemirror")):" Line: 20 -  erElement();e.state.fullScreenRestore={scrollTop:window.pageYOffset,scrollLeft:window.pageXOffset,width:t.style.width,height:t.style.height},t.style.width="",t.style.height="auto",t.className+=" CodeMirror-fullscreen",document.documentElement.style.overflow="hidden",e.refresh()}function i(e){var t=e.getWrapperElement();t.className=t.className.replace(/\s*CodeMirror-fullscreen\b/,""),document.documentElement.style.overflow="";var i=e.state.fullScreenRestore;t.style.width=i.width,t.style.height=i.height,window.scrollTo(i.scrollLeft,i.scrollTop),e.refresh()}e.defineOption("fullScreen",!1,function(o,r,n){n==e.Init&&(n=!1),!n!=!r&&(r?t(o):i(o))})}),function(e){"object"==typeof exports&&"object"==typeof module?e(require("../../lib/codemirror")):"function"==typeof define&&define.amd?define(["../../lib/codemirror"],e):e(CodeMirror)}(function(e){"use strict";function t(e){"object"==typeof e&&(this.minChars=e.minChars,this.style=e.style,this.showToken=e.showToken,this.delay=e.delay,this.wordsOnly=e.wordsOnly),null==this.style&&(this.style=l),null==this.minChars&&(this.minChars=s),null==this.delay&&(this.delay=c),null==this.wordsOnly&&(this.wordsOnly=d),this.overlay=this.timeout=null}function i(e){var t=e.state.matchHighlighter;clearTimeout(t.timeout),t.timeout=setTimeout(function(){o(e)},t.delay)}function o(e){e.operation(function(){var t=e.state.matchHighlighter;if(t.overlay&&(e.removeOverlay(t.overlay),t.overlay=null),!e.somethingSelected()&&t.showToken){for(var i=t.showToken===!0?/[\w$]/:t.showToken,o=e.getCursor(),n=e.getLine(o.line),s=o.ch,l=s;s&&i.test(n.charAt(s-1));)--s;for(;l<n.length&&i.test(n.charAt(l));)++l;return void(l>s&&e.addOverlay(t.overlay=a(n.slice(s,l),i,t.style)))}var c=e.getCursor("from"),d=e.getCursor("to");if(c.line==d.line&&(!t.wordsOnly||r(e,c,d))){var h=e.getRange(c,d).replace(/^\s+|\s+$/g,"");h.length>=t.minChars&&e.addOverlay(t.overlay=a(h,!1,t.style))}})}function r(e,t,i){var o=e.getRange(t,i);if(null!==o.match(/^\w+$/)){if(t.ch>0){var r={line:t.line,ch:t.ch-1},n=e.getRange(r,t);if(null===n.match(/\W/))return!1}if(i.ch<e.getLine(t.line).length){var r={line</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/modes.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -  od install interval invoker isolation iterate key keys kill language last leading leave left level limit linear lines list load local localtime localtimestamp lock logs low_priority master master_heartbeat_period master_ssl_verify_server_cert masters match max max_rows maxvalue message_text middleint migrate min min_rows minute_microsecond minute_second mod mode modifies modify mutex mysql_errno natural next no no_write_to_binlog offline offset one online open optimize option optionally out outer outfile pack_keys parser partition partitions password phase plugin plugins prepare preserve prev primary privileges procedure processlist profile profiles purge query quick range read read_write reads real rebuild recover references regexp relaylog release remove rename reorganize repair repeatable replace require resignal restrict resume return returns revoke right rlike rollback rollup row row_format rtree savepoint schedule schema schema_name schemas second_microsecond security sensitive separator serializable server session share show signal slave slow smallint snapshot soname spatial specific sql sql_big_result sql_buffer_result sql_cache sql_calc_found_rows sql_no_cache sql_small_result sqlexception sqlstate sqlwarning ssl start starting starts status std stddev stddev_pop stddev_samp storage straight_join subclass_origin sum suspend table_name table_statistics tables tablespace temporary terminated to trailing transaction trigger triggers truncate uncommitted undo uninstall unique unlock upgrade usage use use_frm user user_resources user_statistics using utc_date utc_time utc_timestamp value variables varying view views warnings when while with work write xa xor year_month zerofill begin do then else loop repeat"),builtin:i("bool boolean bit blob decimal double float long longblob longtext medium mediumblob mediumint mediumtext time timestamp tinyblob tinyint tinytext text bigint int int1 int2 int3 int4 int8 integer float float4 float8 double char varbinary varchar varcharacter precision date datetime year unsigned signed numeric"),atoms:i("false true null unknown"),operatorCh Line: 25 -  next no no_write_to_binlog offline offset one online open optimize option optionally out outer outfile pack_keys parser partition partitions password persistent phase plugin plugins prepare preserve prev primary privileges procedure processlist profile profiles purge query quick range read read_write reads real rebuild recover references regexp relaylog release remove rename reorganize repair repeatable replace require resignal restrict resume return returns revoke right rlike rollback rollup row row_format rtree savepoint schedule schema schema_name schemas second_microsecond security sensitive separator serializable server session share show shutdown signal slave slow smallint snapshot soft soname spatial specific sql sql_big_result sql_buffer_result sql_cache sql_calc_found_rows sql_no_cache sql_small_result sqlexception sqlstate sqlwarning ssl start starting starts status std stddev stddev_pop stddev_samp storage straight_join subclass_origin sum suspend table_name table_statistics tables tablespace temporary terminated to trailing transaction trigger triggers truncate uncommitted undo uninstall unique unlock upgrade usage use use_frm user user_resources user_statistics using utc_date utc_time utc_timestamp value variables varying view views virtual warnings when while with work write xa xor year_month zerofill begin do then else loop repeat"),builtin:i("bool boolean bit blob decimal double float long longblob longtext medium mediumblob mediumint mediumtext time timestamp tinyblob tinyint tinytext text bigint int int1 int2 int3 int4 int8 integer float float4 float8 double char varbinary varchar varcharacter precision date datetime year unsigned signed numeric"),atoms:i("false true null unknown"),operatorChars:/^[*+\-%<>!=&|^]/,dateSQL:i("date time timestamp"),support:i("ODBCdotTable decimallessFloat zerolessFloat binaryNumber hexNumber doubleQuote nCharCast charsetCast commentHash commentSpaceRequired"),hooks:{"@":r,"`":t,"\\":n}}),e.defineMIME("text/x-cassandra",{name:"sql",client:{},keywords:i("use select from using consistency where limit first reversed first and in ins</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/mode/sql/sql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 295 -      keywords: set(sqlKeywords + "accessible action add after algorithm all analyze asensitive at authors auto_increment autocommit avg avg_row_length before binary binlog both btree cache call cascade cascaded case catalog_name chain change changed character check checkpoint checksum class_origin client_statistics close coalesce code collate collation collations column columns comment commit committed completion concurrent condition connection consistent constraint contains continue contributors convert cross current current_date current_time current_timestamp current_user cursor data database databases day_hour day_microsecond day_minute day_second deallocate dec declare default delay_key_write delayed delimiter des_key_file describe deterministic dev_pop dev_samp deviance diagnostics directory disable discard distinctrow div dual dumpfile each elseif enable enclosed end ends engine engines enum errors escape escaped even event events every execute exists exit explain extended fast fetch field fields first flush for force foreign found_rows full fulltext function general get global grant grants group groupby_concat handler hash help high_priority hosts hour_microsecond hour_minute hour_second if ignore ignore_server_ids import index index_statistics infile inner innodb inout insensitive insert_method install interval invoker isolation iterate key keys kill language last leading leave left level limit linear lines list load local localtime localtimestamp lock logs low_priority master master_heartbeat_period master_ssl_verify_server_cert masters match max max_rows maxvalue message_text middleint migrate min min_rows minute_microsecond minute_second mod mode modifies modify mutex mysql_errno natural next no no_write_to_binlog offline offset one online open optimize option optionally out outer outfile pack_keys parser partition partitions password phase plugin plugins prepare preserve prev primary privileges procedure processlist profile profiles purge query quick range read read_write reads real rebuild recover references regexp relaylog release remove rename reorganize repair  Line: 312 -      keywords: set(sqlKeywords + "accessible action add after algorithm all always analyze asensitive at authors auto_increment autocommit avg avg_row_length before binary binlog both btree cache call cascade cascaded case catalog_name chain change changed character check checkpoint checksum class_origin client_statistics close coalesce code collate collation collations column columns comment commit committed completion concurrent condition connection consistent constraint contains continue contributors convert cross current current_date current_time current_timestamp current_user cursor data database databases day_hour day_microsecond day_minute day_second deallocate dec declare default delay_key_write delayed delimiter des_key_file describe deterministic dev_pop dev_samp deviance diagnostics directory disable discard distinctrow div dual dumpfile each elseif enable enclosed end ends engine engines enum errors escape escaped even event events every execute exists exit explain extended fast fetch field fields first flush for force foreign found_rows full fulltext function general generated get global grant grants group groupby_concat handler hard hash help high_priority hosts hour_microsecond hour_minute hour_second if ignore ignore_server_ids import index index_statistics infile inner innodb inout insensitive insert_method install interval invoker isolation iterate key keys kill language last leading leave left level limit linear lines list load local localtime localtimestamp lock logs low_priority master master_heartbeat_period master_ssl_verify_server_cert masters match max max_rows maxvalue message_text middleint migrate min min_rows minute_microsecond minute_second mod mode modifies modify mutex mysql_errno natural next no no_write_to_binlog offline offset one online open optimize option optionally out outer outfile pack_keys parser partition partitions password persistent phase plugin plugins prepare preserve prev primary privileges procedure processlist profile profiles purge query quick range read read_write reads real rebuild recover references regexp relaylog release Line: 326 -    // the query language used by Apache Cassandra is called CQL, but this mime type
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/mode/cobol/cobol.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 56 -        "DECIMAL-POINT DECLARATIVES DEFAULT DELETE DELIMITED " +
+
+ Line: 64 -        "END-ADD END-CALL END-COMPUTE END-DELETE END-DISPLAY " +
+
+ Line: 75 -        "FOREGROUND-COLOUR FORMAT FREE FROM FULL " +
+
+ Line: 118 -        "SELECT SEND SENTENCE SEPARATE SEQUENCE " +
+
+ Line: 132 -        "UNSTRING UNTIL UP UPDATE UPON " +
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/mode/slim/slim.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 298 -        var query = embedded[mode];
+
+ Line: 305 -          return factory(config, {name: query});
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/mode/slim/test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -    // Requires at least one media query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/mode/haml/test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -    // Requires at least one media query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/mode/pig/pig.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 169 -      + "JOIN CROSS UNION SPLIT INTO IF OTHERWISE ALL AS BY USING INNER OUTER ONSCHEMA PARALLEL "
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/mode/mirc/mirc.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 72 -                              "qme qmsg query queryn quit raw reload remini remote remove rename renwin " +
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/codemirror.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  {display.input.focus()}initScrollbars(this);this.state={keyMaps:[],overlays:[],modeGen:0,overwrite:false,focused:false,suppressEdits:false,pasteIncoming:false,cutIncoming:false,draggingText:false,highlight:new Delayed(),keySeq:null};var cm=this;if(ie&&ie_version<11){setTimeout(function(){cm.display.input.reset(true)},20)}registerEventHandlers(this);ensureGlobalHandlers();startOperation(this);this.curOp.forceUpdate=true;attachDoc(this,doc);if((options.autofocus&&!mobile)||cm.hasFocus()){setTimeout(bind(onFocus,this),20)}else{onBlur(this)}for(var opt in optionHandlers){if(optionHandlers.hasOwnProperty(opt)){optionHandlers[opt](this,options[opt],Init)}}maybeUpdateLineNumberWidth(this);if(options.finishInit){options.finishInit(this)}for(var i=0;i<initHooks.length;++i){initHooks[i](this)}endOperation(this);if(webkit&&options.lineWrapping&&getComputedStyle(display.lineDiv).textRendering=="optimizelegibility"){display.lineDiv.style.textRendering="auto"}}function Display(place,doc,input){var d=this;this.input=input;d.scrollbarFiller=elt("div",null,"CodeMirror-scrollbar-filler");d.scrollbarFiller.setAttribute("cm-not-content","true");d.gutterFiller=elt("div",null,"CodeMirror-gutter-filler");d.gutterFiller.setAttribute("cm-not-content","true");d.lineDiv=elt("div",null,"CodeMirror-code");d.selectionDiv=elt("div",null,null,"position: relative; z-index: 1");d.cursorDiv=elt("div",null,"CodeMirror-cursors");d.measure=elt("div",null,"CodeMirror-measure");d.lineMeasure=elt("div",null,"CodeMirror-measure");d.lineSpace=elt("div",[d.measure,d.lineMeasure,d.selectionDiv,d.cursorDiv,d.lineDiv],null,"position: relative; outline: none");d.mover=elt("div",[elt("div",[d.lineSpace],"CodeMirror-lines")],null,"position: relative");d.sizer=elt("div",[d.mover],"CodeMirror-sizer");d.sizerWidth=null;d.heightForcer=elt("div",null,null,"position: absolute; height: "+scrollerGap+"px; width: 1px;");d.gutters=elt("div",null,"CodeMirror-gutters");d.lineGutter=null;d.scroller=elt("div",[d.sizer,d.heightForcer,d.gutters],"CodeMirror-scroll");d.scroller.setAttribute("tabIndex","-1");d.wrapper=elt("div",[d.scrollbarFil Line: 13 -  d.viewOffset=0;d.lastWrapHeight=d.lastWrapWidth=0;d.updateLineNumbers=null;d.nativeBarWidth=d.barHeight=d.barWidth=0;d.scrollbarsClipped=false;d.lineNumWidth=d.lineNumInnerWidth=d.lineNumChars=null;d.alignWidgets=false;d.cachedCharWidth=d.cachedTextHeight=d.cachedPaddingH=null;d.maxLine=null;d.maxLineLength=0;d.maxLineChanged=false;d.wheelDX=d.wheelDY=d.wheelStartX=d.wheelStartY=null;d.shift=false;d.selForContextMenu=null;d.activeTouch=null;input.init(d)}function loadMode(cm){cm.doc.mode=CodeMirror.getMode(cm.options,cm.doc.modeOption);resetModeState(cm)}function resetModeState(cm){cm.doc.iter(function(line){if(line.stateAfter){line.stateAfter=null}if(line.styles){line.styles=null}});cm.doc.frontier=cm.doc.first;startWorker(cm,100);cm.state.modeGen++;if(cm.curOp){regChange(cm)}}function wrappingChanged(cm){if(cm.options.lineWrapping){addClass(cm.display.wrapper,"CodeMirror-wrap");cm.display.sizer.style.minWidth="";cm.display.sizerWidth=null}else{rmClass(cm.display.wrapper,"CodeMirror-wrap");findMaxLine(cm)}estimateLineHeights(cm);regChange(cm);clearCaches(cm);setTimeout(function(){updateScrollbars(cm)},100)}function estimateHeight(cm){var th=textHeight(cm.display),wrapping=cm.options.lineWrapping;var perLine=wrapping&&Math.max(5,cm.display.scroller.clientWidth/charWidth(cm.display)-3);return function(line){if(lineIsHidden(cm.doc,line)){return 0}var widgetsHeight=0;if(line.widgets){for(var i=0;i<line.widgets.length;i++){if(line.widgets[i].height){widgetsHeight+=line.widgets[i].height}}}if(wrapping){return widgetsHeight+(Math.ceil(line.text.length/perLine)||1)*th}else{return widgetsHeight+th}}}function estimateLineHeights(cm){var doc=cm.doc,est=estimateHeight(cm);doc.iter(function(line){var estHeight=est(line);if(estHeight!=line.height){updateLineHeight(line,estHeight)}})}function themeChanged(cm){cm.display.wrapper.className=cm.display.wrapper.className.replace(/\s*cm-s-\S+/g,"")+cm.options.theme.replace(/(^|\s)\s*/g," cm-s-");clearCaches(cm)}function guttersChanged(cm){updateGutters(cm);regChange(cm);setTimeout(function(){alignHorizontally(cm)},20)}function updateGutters(cm){v Line: 16 -  }else{this.vert.style.display="";this.vert.firstChild.style.height="0"}if(needsH){this.horiz.style.display="block";this.horiz.style.right=needsV?sWidth+"px":"0";this.horiz.style.left=measure.barLeft+"px";var totalWidth=measure.viewWidth-measure.barLeft-(needsV?sWidth:0);this.horiz.firstChild.style.width=(measure.scrollWidth-measure.clientWidth+totalWidth)+"px"}else{this.horiz.style.display="";this.horiz.firstChild.style.width="0"}if(!this.checkedOverlay&&measure.clientHeight>0){if(sWidth==0){this.overlayHack()}this.checkedOverlay=true}return{right:needsV?sWidth:0,bottom:needsH?sWidth:0}},setScrollLeft:function(pos){if(this.horiz.scrollLeft!=pos){this.horiz.scrollLeft=pos}},setScrollTop:function(pos){if(this.vert.scrollTop!=pos){this.vert.scrollTop=pos}},overlayHack:function(){var w=mac&&!mac_geMountainLion?"12px":"18px";this.horiz.style.minHeight=this.vert.style.minWidth=w;var self=this;var barMouseDown=function(e){if(e_target(e)!=self.vert&&e_target(e)!=self.horiz){operation(self.cm,onMouseDown)(e)}};on(this.vert,"mousedown",barMouseDown);on(this.horiz,"mousedown",barMouseDown)},clear:function(){var parent=this.horiz.parentNode;parent.removeChild(this.horiz);parent.removeChild(this.vert)}},NativeScrollbars.prototype);function NullScrollbars(){}NullScrollbars.prototype=copyObj({update:function(){return{bottom:0,right:0}},setScrollLeft:function(){},setScrollTop:function(){},clear:function(){}},NullScrollbars.prototype);CodeMirror.scrollbarModel={"native":NativeScrollbars,"null":NullScrollbars};function initScrollbars(cm){if(cm.display.scrollbars){cm.display.scrollbars.clear();if(cm.display.scrollbars.addClass){rmClass(cm.display.wrapper,cm.display.scrollbars.addClass)}}cm.display.scrollbars=new CodeMirror.scrollbarModel[cm.options.scrollbarStyle](function(node){cm.display.wrapper.insertBefore(node,cm.display.scrollbarFiller);on(node,"mousedown",function(){if(cm.state.focused){setTimeout(function(){cm.display.input.focus()},0)}});node.setAttribute("cm-not-content","true")},function(pos,axis){if(axis=="horizontal"){setScrollLeft(cm,pos)}else{setScrollTop(cm,pos)}},cm);if(cm.displ Line: 32 -  electionStart==0){operation(cm,commands.selectAll)(cm)}else{if(i++<10){display.detectingSelectAll=setTimeout(poll,500)}else{display.input.reset()}}};display.detectingSelectAll=setTimeout(poll,200)}}if(ie&&ie_version>=9){prepareSelectAllHack()}if(captureRightClick){e_stop(e);var mouseup=function(){off(window,"mouseup",mouseup);setTimeout(rehide,20)};on(window,"mouseup",mouseup)}else{setTimeout(rehide,50)}},setUneditable:nothing,needsContentAttribute:false},TextareaInput.prototype);function ContentEditableInput(cm){this.cm=cm;this.lastAnchorNode=this.lastAnchorOffset=this.lastFocusNode=this.lastFocusOffset=null;this.polling=new Delayed()}ContentEditableInput.prototype=copyObj({init:function(display){var input=this,cm=input.cm;var div=input.div=display.lineDiv;div.contentEditable="true";disableBrowserMagic(div);on(div,"paste",function(e){var pasted=e.clipboardData&&e.clipboardData.getData("text/plain");if(pasted){e.preventDefault();cm.replaceSelection(pasted,null,"paste")}});on(div,"compositionstart",function(e){var data=e.data;input.composing={sel:cm.doc.sel,data:data,startData:data};if(!data){return}var prim=cm.doc.sel.primary();var line=cm.getLine(prim.head.line);var found=line.indexOf(data,Math.max(0,prim.head.ch-data.length));if(found>-1&&found<=prim.head.ch){input.composing.sel=simpleSelection(Pos(prim.head.line,found),Pos(prim.head.line,found+data.length))}});on(div,"compositionupdate",function(e){input.composing.data=e.data});on(div,"compositionend",function(e){var ours=input.composing;if(!ours){return}if(e.data!=ours.startData&&!/\u200b/.test(e.data)){ours.data=e.data}setTimeout(function(){if(!ours.handled){input.applyComposition(ours)}if(input.composing==ours){input.composing=null}},50)});on(div,"touchstart",function(){input.forceCompositionEnd()});on(div,"input",function(){if(input.composing){return}if(!input.pollContent()){runInOp(input.cm,function(){regChange(cm)})}});function onCopyCut(e){if(cm.somethingSelected()){lastCopied=cm.getSelections();if(e.type=="cut"){cm.replaceSelection("",null,"cut")}}else{var ranges=copyableRanges(cm);lastCopied=ranges.text;if(e.type== Line: 33 -  ration(function(){cm.setSelections(ranges.ranges,0,sel_dontScroll);cm.replaceSelection("",null,"cut")})}}if(e.clipboardData&&!ios){e.preventDefault();e.clipboardData.clearData();e.clipboardData.setData("text/plain",lastCopied.join("\n"))}else{var kludge=hiddenTextarea(),te=kludge.firstChild;cm.display.lineSpace.insertBefore(kludge,cm.display.lineSpace.firstChild);te.value=lastCopied.join("\n");var hadFocus=document.activeElement;selectInput(te);setTimeout(function(){cm.display.lineSpace.removeChild(kludge);hadFocus.focus()},50)}}on(div,"copy",onCopyCut);on(div,"cut",onCopyCut)},prepareSelection:function(){var result=prepareSelection(this.cm,false);result.focus=this.cm.state.focused;return result},showSelection:function(info){if(!info||!this.cm.display.view.length){return
+
+ Line: 45 -  ions.cursorBlinkRate>0){display.blinker=setInterval(function(){display.cursorDiv.style.visibility=(on=!on)?"":"hidden"},cm.options.cursorBlinkRate)}else{if(cm.options.cursorBlinkRate<0){display.cursorDiv.style.visibility="hidden"}}}function startWorker(cm,time){if(cm.doc.mode.startState&&cm.doc.frontier<cm.display.viewTo){cm.state.highlight.set(time,bind(highlightWorker,cm))}}function highlightWorker(cm){var doc=cm.doc;if(doc.frontier<doc.first){doc.frontier=doc.first}if(doc.frontier>=cm.display.viewTo){return}var end=+new Date+cm.options.workTime;var state=copyState(doc.mode,getStateBefore(cm,doc.frontier));var changedLines=[];doc.iter(doc.frontier,Math.min(doc.first+doc.size,cm.display.viewTo+500),function(line){if(doc.frontier>=cm.display.viewFrom){var oldStyles=line.styles;
+
+ Line: 60 -  ",function(e){onContextMenu(cm,e)})}var touchFinished,prevTouch={end:0};function finishTouch(){if(d.activeTouch){touchFinished=setTimeout(function(){d.activeTouch=null},1000);prevTouch=d.activeTouch;prevTouch.end=+new Date}}function isMouseLikeTouchEvent(e){if(e.touches.length!=1){return false}var touch=e.touches[0];return touch.radiusX<=1&&touch.radiusY<=1}function farAway(touch,other){if(other.left==null){return true}var dx=other.left-touch.left,dy=other.top-touch.top;return dx*dx+dy*dy>20*20}on(d.scroller,"touchstart",function(e){if(!isMouseLikeTouchEvent(e)){clearTimeout(touchFinished);var now=+new Date;d.activeTouch={start:now,moved:false,prev:now-prevTouch.end<=300?prevTouch:null};if(e.touches.length==1){d.activeTouch.left=e.touches[0].pageX;
+
+ Line: 62 -  pace=display.lineSpace.getBoundingClientRect();try{x=e.clientX-space.left;y=e.clientY-space.top}catch(e){return null}var coords=coordsChar(cm,x,y),line;if(forRect&&coords.xRel==1&&(line=getLine(cm.doc,coords.line).text).length==coords.ch){var colDiff=countColumn(line,line.length,cm.options.tabSize)-line.length;coords=Pos(coords.line,Math.max(0,Math.round((x-paddingH(cm.display).left)/charWidth(cm.display))-colDiff))}return coords}function onMouseDown(e){var cm=this,display=cm.display;if(display.activeTouch&&display.input.supportsTouch()||signalDOMEvent(cm,e)){return}display.shift=e.shiftKey;if(eventInWidget(display,e)){if(!webkit){display.scroller.draggable=false;setTimeout(function(){display.scroller.draggable=true},100)}return}if(clickInGutter(cm,e)){return}var start=posFromMouse(cm,e);window.focus();switch(e_button(e)){case 1:if(start){leftButtonDown(cm,e,start)}else{if(e_target(e)==display.scroller){e_preventDefault(e)}}break;case 2:if(webkit){cm.state.lastMiddleDown=+new Date}if(start){extendSelection(cm.doc,start)}setTimeout(function(){display.input.focus()},20);e_preventDefault(e);break;case 3:if(captureRightClick){onContextMenu(cm,e)}break}}var lastClick,lastDoubleClick;function leftButtonDown(cm,e,start){if(ie){setTimeout(bind(ensureFocus,cm),0)}else{ensureFocus(cm)}var now=+new Date,type;if(lastDoubleClick&&lastDoubleClick.time>now-400&&cmp(lastDoubleClick.pos,start)==0){type="triple"}else{if(lastClick&&lastClick.time>now-400&&cmp(lastClick.pos,start)==0){type="double";lastDoubleClick={time:now,pos:start}}else{type="single";lastClick={time:now,pos:start}}}var sel=cm.doc.sel,modifier=mac?e.metaKey:e.ctrlKey,contained;if(cm.options.dragDrop&&dragAndDrop&&!isReadOnly(cm)&&type=="single"&&(contained=sel.contains(start))>-1&&!sel.ranges[contained].empty()){leftButtonStartDrag(cm,e,start,modifier)}else{leftButtonSelect(cm,e,start,type,modifier)}}function leftButtonStartDrag(cm,e,start,modifier){var display=cm.display;var dragEnd=operation(cm,function(e2){if(webkit){display.scroller.draggable=false}cm.state.draggingText=false;off(document,"mouseup",dragEnd);off(display.scro Line: 63 -  ragEnd);if(Math.abs(e.clientX-e2.clientX)+Math.abs(e.clientY-e2.clientY)<10){e_preventDefault(e2);if(!modifier){extendSelection(cm.doc,start)}display.input.focus();if(ie&&ie_version==9){setTimeout(function(){document.body.focus();display.input.focus()},20)}}});if(webkit){display.scroller.draggable=true}cm.state.draggingText=dragEnd;if(display.scroller.dragDrop){display.scroller.dragDrop()}on(document,"mouseup",dragEnd);on(display.scroller,"drop",dragEnd)}function leftButtonSelect(cm,e,start,type,addNew){var display=cm.display,doc=cm.doc;e_preventDefault(e);var ourRange,ourIndex,startSel=doc.sel,ranges=startSel.ranges;if(addNew&&!e.shiftKey){ourIndex=doc.sel.contains(start);if(ourIndex>-1){ourRange=ranges[ourIndex]}else{ourRange=new Range(start,start)
+
+ Line: 65 -  nge=new Range(Pos(pos.line,0),clipPos(doc,Pos(pos.line+1,0)))}if(cmp(range.anchor,anchor)>0){head=range.head;anchor=minPos(oldRange.from(),range.anchor)}else{head=range.anchor;anchor=maxPos(oldRange.to(),range.head)}}var ranges=startSel.ranges.slice(0);ranges[ourIndex]=new Range(clipPos(doc,anchor),head);setSelection(doc,normalizeSelection(ranges,ourIndex),sel_mouse)}}var editorSize=display.wrapper.getBoundingClientRect();var counter=0;function extend(e){var curCount=++counter;var cur=posFromMouse(cm,e,true,type=="rect");if(!cur){return}if(cmp(cur,lastPos)!=0){ensureFocus(cm);extendTo(cur);var visible=visibleLines(display,doc);if(cur.line>=visible.to||cur.line<visible.from){setTimeout(operation(cm,function(){if(counter==curCount){extend(e)}}),150)}}else{var outside=e.clientY<editorSize.top?-20:e.clientY>editorSize.bottom?20:0;if(outside){setTimeout(operation(cm,function(){if(counter!=curCount){return}display.scroller.scrollTop+=outside;extend(e)}),50)}}}function done(e){counter=Infinity;e_preventDefault(e);display.input.focus();off(document,"mousemove",move);off(document,"mouseup",up);doc.history.lastSelOrigin=null}var move=operation(cm,function(e){if(!e_button(e)){done(e)}else{extend(e)}});var up=operation(cm,done);on(document,"mousemove",move);on(document,"mouseup",up)}function gutterEvent(cm,e,type,prevent,signalfn){try{var mX=e.clientX,mY=e.clientY}catch(e){return false}if(mX>=Math.floor(cm.display.gutters.getBoundingClientRect().right)){return false}if(prevent){e_preventDefault(e)}var display=cm.display;var lineBox=display.lineDiv.getBoundingClientRect();if(mY>lineBox.bottom||!hasHandler(cm,type)){return e_defaultPrevented(e)}mY-=lineBox.top-display.viewOffset;for(var i=0;i<cm.options.gutters.length;++i){var g=display.gutters.childNodes[i];if(g&&g.getBoundingClientRect().right>=mX){var line=lineAtHeight(cm.doc,mY);var gutter=cm.options.gutters[i];signalfn(cm,type,cm,line,gutter,e);return e_defaultPrevented(e)}}}function clickInGutter(cm,e){return gutterEvent(cm,e,"gutterClick",true,signalLater)}var lastDrop=0;function onDrop(e){var cm=this;if(signalDOMEvent(cm,e)||eventIn Line: 66 -  play,e)){return}e_preventDefault(e);if(ie){lastDrop=+new Date}var pos=posFromMouse(cm,e,true),files=e.dataTransfer.files;if(!pos||isReadOnly(cm)){return}if(files&&files.length&&window.FileReader&&window.File){var n=files.length,text=Array(n),read=0;var loadFile=function(file,i){var reader=new FileReader;reader.onload=operation(cm,function(){text[i]=reader.result;if(++read==n){pos=clipPos(cm.doc,pos);var change={from:pos,to:pos,text:splitLines(text.join("\n")),origin:"paste"};makeChange(cm.doc,change);setSelectionReplaceHistory(cm.doc,simpleSelection(pos,changeEnd(change)))}});reader.readAsText(file)};for(var i=0;i<n;++i){loadFile(files[i],i)}}else{if(cm.state.draggingText&&cm.doc.sel.contains(pos)>-1){cm.state.draggingText(e);setTimeout(function(){cm.display.input.focus()
+
+ Line: 68 -  (e){var delta=wheelEventDelta(e);delta.x*=wheelPixelsPerUnit;delta.y*=wheelPixelsPerUnit;return delta};function onScrollWheel(cm,e){var delta=wheelEventDelta(e),dx=delta.x,dy=delta.y;var display=cm.display,scroll=display.scroller;if(!(dx&&scroll.scrollWidth>scroll.clientWidth||dy&&scroll.scrollHeight>scroll.clientHeight)){return}if(dy&&mac&&webkit){outer:for(var cur=e.target,view=display.view;cur!=scroll;cur=cur.parentNode){for(var i=0;i<view.length;i++){if(view[i].node==cur){cm.display.currentWheelTarget=cur;break outer}}}}if(dx&&!gecko&&!presto&&wheelPixelsPerUnit!=null){if(dy){setScrollTop(cm,Math.max(0,Math.min(scroll.scrollTop+dy*wheelPixelsPerUnit,scroll.scrollHeight-scroll.clientHeight)))}setScrollLeft(cm,Math.max(0,Math.min(scroll.scrollLeft+dx*wheelPixelsPerUnit,scroll.scrollWidth-scroll.clientWidth)));e_preventDefault(e);display.wheelStartX=null;return}if(dy&&wheelPixelsPerUnit!=null){var pixels=dy*wheelPixelsPerUnit;var top=cm.doc.scrollTop,bot=top+display.wrapper.clientHeight;if(pixels<0){top=Math.max(0,top+pixels-50)}else{bot=Math.min(cm.doc.height,bot+pixels+50)}updateDisplaySimple(cm,{top:top,bottom:bot})}if(wheelSamples<20){if(display.wheelStartX==null){display.wheelStartX=scroll.scrollLeft;display.wheelStartY=scroll.scrollTop;display.wheelDX=dx;display.wheelDY=dy;setTimeout(function(){if(display.wheelStartX==null){return}var movedX=scroll.scrollLeft-display.wheelStartX;var movedY=scroll.scrollTop-display.wheelStartY;var sample=(movedY&&display.wheelDY&&movedY/display.wheelDY)||(movedX&&display.wheelDX&&movedX/display.wheelDX);display.wheelStartX=display.wheelStartY=null;if(!sample){return}wheelPixelsPerUnit=(wheelPixelsPerUnit*wheelSamples+sample)/(wheelSamples+1);++wheelSamples},200)}else{display.wheelDX+=dx;display.wheelDY+=dy}}}function doHandleBinding(cm,bound,dropShift){if(typeof bound=="string"){bound=commands[bound];if(!bound){return false}}cm.display.input.ensurePolled();var prevShift=cm.display.shift,done=false;try{if(isReadOnly(cm)){cm.state.suppressEdits=true}if(dropShift){cm.display.shift=false}done=bound(cm)!=Pass}finally{cm.display.shift=prevShif Line: 71 -  cm.curOp&&cm.display.selForContextMenu!=cm.doc.sel){cm.display.input.reset();if(webkit){setTimeout(function(){cm.display.input.reset(true)},20)}}cm.display.input.receivedFocus()}restartBlink(cm)}function onBlur(cm){if(cm.state.focused){signal(cm,"blur",cm);cm.state.focused=false;rmClass(cm.display.wrapper,"CodeMirror-focused")}clearInterval(cm.display.blinker);setTimeout(function(){if(!cm.state.focused){cm.display.shift=false}},150)}function onContextMenu(cm,e){if(eventInWidget(cm.display,e)||contextMenuInGutter(cm,e)){return}cm.display.input.onContextMenu(e)}function contextMenuInGutter(cm,e){if(!hasHandler(cm,"gutterContextMenu")){return false}return gutterEvent(cm,e,"gutterContextMenu",false,signal)}var changeEnd=CodeMirror.changeEnd=function(change){if(!change.text){return change.to}return Pos(change.from.line+change.text.length-1,lst(change.text).length+(change.text.length==1?change.from.ch:0))};function adjustForChange(pos,change){if(cmp(pos,change.from)<0){return pos}if(cmp(pos,change.to)<=0){return changeEnd(change)}var line=pos.line+change.text.length-(change.to.line-change.from.line)-1,ch=pos.ch;if(pos.line==change.to.line){ch+=changeEnd(change).ch-change.to.ch}return Pos(line,ch)}function computeSelAfterChange(doc,change){var out=[];for(var i=0;i<doc.sel.ranges.length;i++){var range=doc.sel.ranges[i];out.push(new Range(adjustForChange(range.anchor,change),adjustForChange(range.head,change)))}return normalizeSelection(out,doc.sel.primIndex)}function offsetPos(pos,old,nw){if(pos.line==old.line){return Pos(nw.line,pos.ch-old.ch+nw.ch)}else{return Pos(nw.line+(pos.line-old.line),pos.ch)}}function computeReplacedSel(doc,changes,hint){var out=[];var oldPrev=Pos(doc.first,0),newPrev=oldPrev;for(var i=0;i<changes.length;i++){var change=changes[i];var from=offsetPos(change.from,oldPrev,newPrev);var to=offsetPos(changeEnd(change),oldPrev,newPrev);oldPrev=change.to;newPrev=to;if(hint=="around"){var range=doc.sel.ranges[i],inv=cmp(range.head,range.anchor)<0;out[i]=new Range(inv?to:from,inv?from:to)}else{out[i]=new Range(from,from)}}return new Selection(out,doc.sel.primIndex)}fu Line: 131 -  pe){var arr=emitter._handlers&&emitter._handlers[type];if(!arr){return}var args=Array.prototype.slice.call(arguments,2);for(var i=0;i<arr.length;++i){arr[i].apply(null,args)}};var orphanDelayedCallbacks=null;function signalLater(emitter,type){var arr=emitter._handlers&&emitter._handlers[type];if(!arr){return}var args=Array.prototype.slice.call(arguments,2),list;if(operationGroup){list=operationGroup.delayedCallbacks}else{if(orphanDelayedCallbacks){list=orphanDelayedCallbacks}else{list=orphanDelayedCallbacks=[];setTimeout(fireOrphanDelayed,0)}}function bnd(f){return function(){f.apply(null,args)}}for(var i=0;i<arr.length;++i){list.push(bnd(arr[i]))}}function fireOrphanDelayed(){var delayed=orphanDelayedCallbacks;orphanDelayedCallbacks=null;for(var i=0;i<delayed.length;++i){delayed[i]()}}function signalDOMEvent(cm,e,override){if(typeof e=="string"){e={type:e,preventDefault:function(){this.defaultPrevented=true}}}signal(cm,override||e.type,cm,e);return e_defaultPrevented(e)||e.codemirrorIgnore}function signalCursorActivity(cm){var arr=cm._handlers&&cm._handlers.cursorActivity;if(!arr){return}var set=cm.curOp.cursorActivityHandlers||(cm.curOp.cursorActivityHandlers=[]);for(var i=0;i<arr.length;++i){if(indexOf(set,arr[i])==-1){set.push(arr[i])}}}function hasHandler(emitter,type){var arr=emitter._handlers&&emitter._handlers[type];return arr&&arr.length>0}function eventMixin(ctor){ctor.prototype.on=function(type,f){on(this,type,f)};ctor.prototype.off=function(type,f){off(this,type,f)}}var scrollerGap=30;var Pass=CodeMirror.Pass={toString:function(){return"CodeMirror.Pass"}};var sel_dontScroll={scroll:false},sel_mouse={origin:"*mouse"},sel_move={origin:"+move"};function Delayed(){this.id=null}Delayed.prototype.set=function(ms,f){clearTimeout(this.id);this.id=setTimeout(f,ms)};var countColumn=CodeMirror.countColumn=function(string,end,tabSize,startIndex,startValue){if(end==null){end=string.search(/[^\s\u00a0]/);if(end==-1){end=string.length}}for(var i=startIndex||0,n=startValue||0;;){var nextTab=string.indexOf("\t",i);if(nextTab<0||nextTab>=end){return n+(end-i)}n+=nextTab-i;n+=tabSiz Line: 136 -  }};function joinClasses(a,b){var as=a.split(" ");for(var i=0;i<as.length;i++){if(as[i]&&!classTest(as[i]).test(b)){b+=" "+as[i]}}return b}function forEachCodeMirror(f){if(!document.body.getElementsByClassName){return}var byClass=document.body.getElementsByClassName("CodeMirror");for(var i=0;i<byClass.length;i++){var cm=byClass[i].CodeMirror;if(cm){f(cm)}}}var globalsRegistered=false;function ensureGlobalHandlers(){if(globalsRegistered){return}registerGlobalHandlers();globalsRegistered=true}function registerGlobalHandlers(){var resizeTimer;on(window,"resize",function(){if(resizeTimer==null){resizeTimer=setTimeout(function(){resizeTimer=null;forEachCodeMirror(onResize)},100)}});on(window,"blur",function(){forEachCodeMirror(onBlur)})}var dragAndDrop=function(){if(ie&&ie_version<9){return false}var div=elt("div");return"draggable" in div||"dragDrop" in div}();var zwspSupported;function zeroWidthElement(measure){if(zwspSupported==null){var test=elt("span","\u200b");removeChildrenAndAdd(measure,elt("span",[test,document.createTextNode("x")]));if(measure.firstChild.offsetHeight!=0){zwspSupported=test.offsetWidth<=1&&test.offsetHeight>2&&!(ie&&ie_version<8)}}var node=zwspSupported?elt("span","\u200b"):elt("span","\u00a0",null,"display: inline-block; width: 1px; margin-right: -1px");node.setAttribute("cm-text","");return node}var badBidiRects;function hasBadBidiRects(measure){if(badBidiRects!=null){return badBidiRects}var txt=removeChildrenAndAdd(measure,document.createTextNode("A\u062eA"));var r0=range(txt,0,1).getBoundingClientRect();if(!r0||r0.left==r0.right){return false}var r1=range(txt,1,2).getBoundingClientRect();return badBidiRects=(r1.right-r0.right<3)}var splitLines=CodeMirror.splitLines="\n\nb".split(/\n/).length!=3?function(string){var pos=0,result=[],l=string.length;while(pos<=l){var nl=string.indexOf("\n",pos);if(nl==-1){nl=string.length}var line=string.slice(pos,string.charAt(nl-1)=="\r"?nl-1:nl);var rt=line.indexOf("\r");if(rt!=-1){result.push(line.slice(0,rt));pos+=rt+1}else{result.push(line);pos=nl+1}}return result}:function(string){return string.split(/\r\n?|\n/)};v</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/lib/codemirror.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 96 -      if (ie && ie_version < 11) setTimeout(function() { cm.display.input.reset(true); }, 20);
+
+ Line: 106 -        setTimeout(bind(onFocus, this), 20);
+
+ Line: 259 -      setTimeout(function(){updateScrollbars(cm);}, 100);
+
+ Line: 300 -      setTimeout(function(){alignHorizontally(cm);}, 20);
+
+ Line: 494 -          if (cm.state.focused) setTimeout(function() { cm.display.input.focus(); }, 0);
+
+ Line: 1462 -              else if (i++ < 10) display.detectingSelectAll = setTimeout(poll, 500);
+
+ Line: 1465 -            display.detectingSelectAll = setTimeout(poll, 200);
+
+ Line: 1474 -            setTimeout(rehide, 20);
+
+ Line: 1478 -          setTimeout(rehide, 50);
+
+ Line: 1532 -          setTimeout(function() {
+
+ Line: 1576 -            setTimeout(function() {
+
+ Line: 2319 -        display.blinker = setInterval(function() {
+
+ Line: 3312 -          touchFinished = setTimeout(function() {d.activeTouch = null;}, 1000);
+
+ Line: 3454 -          setTimeout(function(){display.scroller.draggable = true;}, 100);
+
+ Line: 3472 -        setTimeout(function() {display.input.focus();}, 20);
+
+ Line: 3483 -      if (ie) setTimeout(bind(ensureFocus, cm), 0);
+
+ Line: 3522 -            setTimeout(function() {document.body.focus(); display.input.focus();}, 20);
+
+ Line: 3646 -            setTimeout(operation(cm, function(){if (counter == curCount) extend(e);}), 150);
+
+ Line: 3649 -          if (outside) setTimeout(operation(cm, function() {
+
+ Line: 3739 -          setTimeout(function() {cm.display.input.focus();}, 20);
+
+ Line: 3891 -          setTimeout(function() {
+
+ Line: 4063 -          if (webkit) setTimeout(function() { cm.display.input.reset(true); }, 20); // Issue #1730
+
+ Line: 4076 -      setTimeout(function() {if (!cm.state.focused) cm.display.shift = false;}, 150);
+
+ Line: 7963 -        setTimeout(fireOrphanDelayed, 0);
+
+ Line: 8021 -      this.id = setTimeout(f, ms);
+
+ Line: 8236 -        if (resizeTimer == null) resizeTimer = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/lib/codemirror.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 227 -    // STATE UPDATES
+
+ Line: 1909 -    // SELECTION / CURSOR
+
+ Line: 2009 -    // SELECTION UPDATES
+
+ Line: 2194 -    // SELECTION DRAWING
+
+ Line: 5697 -    // FROMTEXTAREA
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/lint/lint.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 37 -      setTimeout(function() { rm(tt); }, 600);
+
+ Line: 46 -      var poll = setInterval(function() {
+
+ Line: 166 -      state.timeout = setTimeout(function(){startLinting(cm);}, state.options.delay || 500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/hint/show-hint.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 98 -          return setTimeout(fn, 1000/60);
+
+ Line: 271 -        cm.on("blur", this.onBlur = function() { closingOnBlur = setTimeout(function() { completion.close(); }, 100); });
+
+ Line: 300 -        setTimeout(function(){cm.focus();}, 20);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/hint/sql-hint.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 191 -      var query = doc.getRange(validRange.start, validRange.end, false);
+
+ Line: 193 -      for (var i = 0; i < query.length; i++) {
+
+ Line: 194 -        var lineText = query[i];
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/merge/merge.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 103 -        debounceChange = setTimeout(update, fast === true ? 20 : 250);
+
+ Line: 488 -      var resizeInterval = setInterval(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/merge/merge.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -  // declare global: diff_match_patch, DIFF_INSERT, DIFF_DELETE, DIFF_EQUAL
+
+ Line: 85 -          updateMarks(dv.edit, dv.diff, edit, DIFF_INSERT, dv.classes);
+
+ Line: 86 -          updateMarks(dv.orig, dv.diff, orig, DIFF_DELETE, dv.classes);
+
+ Line: 127 -        syncScroll(dv, DIFF_INSERT) && makeConnections(dv);
+
+ Line: 130 -        syncScroll(dv, DIFF_DELETE) && makeConnections(dv);
+
+ Line: 139 -      if (type == DIFF_INSERT) { editor = dv.edit; other = dv.orig; }
+
+ Line: 151 -        var around = chunkBoundariesAround(dv.chunks, mid, type == DIFF_INSERT);
+
+ Line: 152 -        var off = getOffsets(editor, type == DIFF_INSERT ? around.edit : around.orig);
+
+ Line: 153 -        var offOther = getOffsets(other, type == DIFF_INSERT ? around.orig : around.edit);
+
+ Line: 185 -      if (val && action != false) syncScroll(dv, DIFF_INSERT) && makeConnections(dv);
+
+ Line: 229 -      var cls = type == DIFF_DELETE ? classes.del : classes.insert;
+
+ Line: 582 -          moveOver(tp == DIFF_INSERT ? edit : orig, part[1]);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/edit/matchbrackets.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 90 -        if (autoclear) setTimeout(clear, 800);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/fold/foldgutter.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 109 -      state.changeUpdate = setTimeout(function() { updateInViewport(cm); }, opts.foldOnChangeTimeSpan || 600);
+
+ Line: 117 -      state.changeUpdate = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/tern/tern.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 189 -      if (doc.lineCount() > bigDoc && change.to - changed.from > 100) setTimeout(function() {
+
+ Line: 616 -      setTimeout(maybeClear, 1700);
+
+ Line: 637 -      setTimeout(function() { remove(tooltip); }, 1100);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/tern/tern.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 29 -  // * responseFilter: A function(doc, query, request, error, data) that
+
+ Line: 122 -      request: function (cm, query, c, pos) {
+
+ Line: 125 -        var request = buildRequest(this, doc, query, pos);
+
+ Line: 129 -            data = self.options.responseFilter(doc, query, request, error, data);
+
+ Line: 250 -    function showContextInfo(ts, cm, pos, queryName, c) {
+
+ Line: 251 -      ts.request(cm, queryName, function(error, data) {
+
+ Line: 499 -    function buildRequest(ts, doc, query, pos) {
+
+ Line: 501 -      if (!allowFragments) delete query.fullDocs;
+
+ Line: 502 -      if (typeof query == "string") query = {type: query};
+
+ Line: 503 -      query.lineCharPositions = true;
+
+ Line: 505 -        query.end = pos || doc.doc.getCursor("end");
+
+ Line: 507 -          query.start = doc.doc.getCursor("start");
+
+ Line: 509 -      var startPos = query.start || query.end;
+
+ Line: 514 -            doc.changed.from <= startPos.line && doc.changed.to > query.end.line) {
+
+ Line: 515 -          files.push(getFragmentAround(doc, startPos, query.end));
+
+ Line: 516 -          query.file = "#0";
+
+ Line: 518 -          if (query.start != null) query.start = Pos(query.start.line - -offsetLines, query.start.ch);
+
+ Line: 519 -          query.end = Pos(query.end.line - offsetLines, query.end.ch);
+
+ Line: 524 -          query.file = doc.name;
+
+ Line: 528 -        query.file = doc.name;
+
+ Line: 538 -      return {query: query, files: files};
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/selection/selection-pointer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 69 -        setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/search/matchesonscrollbar.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 82 -      this.update = setTimeout(function() { self.updateAfterChange(); }, 250);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/search/matchesonscrollbar.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 16 -      return new SearchAnnotation(this, query, caseFold, options);
+
+ Line: 19 -    function SearchAnnotation(cm, query, caseFold, options) {
+
+ Line: 25 -      this.query = query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/search/search.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 21 -      if (typeof query == "string")
+
+ Line: 22 -        query = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), caseInsensitive ? "gi" : "g");
+
+ Line: 24 -        query = new RegExp(query.source, query.ignoreCase ? "gi" : "g");
+
+ Line: 27 -        query.lastIndex = stream.pos;
+
+ Line: 28 -        var match = query.exec(stream.string);
+
+ Line: 47 -    function queryCaseInsensitive(query) {
+
+ Line: 48 -      return typeof query == "string" && query == query.toLowerCase();
+
+ Line: 50 -    function getSearchCursor(cm, query, pos) {
+
+ Line: 51 -      // Heuristic: if the query string is all lowercase, do a case insensitive search.
+
+ Line: 52 -      return cm.getSearchCursor(query, pos, queryCaseInsensitive(query));
+
+ Line: 63 -      var isRE = query.match(/^\/(.*)\/([a-z]*)$/);
+
+ Line: 65 -        try { query = new RegExp(isRE[1], isRE[2].indexOf("i") == -1 ? "" : "i"); }
+
+ Line: 68 -      if (typeof query == "string" ? query == "" : query.test(""))
+
+ Line: 69 -        query = /x^/;
+
+ Line: 70 -      return query;
+
+ Line: 72 -    var queryDialog =
+
+ Line: 77 -      dialog(cm, queryDialog, "Search for:", cm.getSelection(), function(query) {
+
+ Line: 81 -          cm.removeOverlay(state.overlay, queryCaseInsensitive(state.query));
+
+ Line: 82 -          state.overlay = searchOverlay(state.query, queryCaseInsensitive(state.query));
+
+ Line: 86 -            state.annotate = cm.showMatchesOnScrollbar(state.query, queryCaseInsensitive(state.query));
+
+ Line: 120 -        query = parseQuery(query);
+
+ Line: 124 -              for (var cursor = getSearchCursor(cm, query); cursor.findNext();) {
+
+ Line: 125 -                if (typeof query != "string") {
+
+ Line: 133 -            var cursor = getSearchCursor(cm, query, cm.getCursor());
+
+ Line: 137 -                cursor = getSearchCursor(cm, query);
+
+ Line: 147 -              cursor.replace(typeof query == "string" ? text :
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/search/match-highlighter.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 68 -      state.timeout = setTimeout(function() {highlightMatches(cm);}, state.delay);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/search/searchcursor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 14 -    function SearchCursor(doc, query, pos, caseFold) {
+
+ Line: 16 -      if (caseFold == null && typeof query == "string") caseFold = false;
+
+ Line: 21 -      // The matches method is filled in based on the type of query.
+
+ Line: 23 -      // describing the next occurrence of the query, or null if no
+
+ Line: 25 -      if (typeof query != "string") { // Regexp match
+
+ Line: 26 -        if (!query.global) query = new RegExp(query.source, query.ignoreCase ? "ig" : "g");
+
+ Line: 29 -            query.lastIndex = 0;
+
+ Line: 32 -              query.lastIndex = cutOff;
+
+ Line: 33 -              var newMatch = query.exec(line);
+
+ Line: 48 -            query.lastIndex = pos.ch;
+
+ Line: 49 -            var line = doc.getLine(pos.line), match = query.exec(line);
+
+ Line: 59 -      } else { // String query
+
+ Line: 60 -        var origQuery = query;
+
+ Line: 61 -        if (caseFold) query = query.toLowerCase();
+
+ Line: 63 -        var target = query.split("\n");
+
+ Line: 172 -      return new SearchCursor(this.doc, query, pos, caseFold);
+
+ Line: 175 -      return new SearchCursor(this, query, pos, caseFold);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/dialog/dialog.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 117 -          setTimeout(function() { if (blurring <= 0) close(); }, 200);
+
+ Line: 150 -        doneTimer = setTimeout(close, duration);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/codemirror/addon/scroll/annotatescrollbar.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 32 -        self.doRedraw = setTimeout(function() { self.redraw(); }, delay);
+
+ Line: 38 -        self.doUpdate = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/prettify.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 21 -  >";V=V.firstChild;if(X){T(V,X,true)}var W={langExtension:Y,numberLines:X,sourceNode:V,pre:1};d(W);return V.innerHTML}function w(al,ab){var ah=ab||document.body;var ao=ah.ownerDocument||document;function aa(aq){return ah.getElementsByTagName(aq)}var ad=[aa("pre"),aa("code"),aa("xmp")];var ae=[];for(var ak=0;ak<ad.length;++ak){for(var aj=0,ag=ad[ak].length;aj<ag;++aj){ae.push(ad[ak][aj])}}ad=null;var ap=Date;if(!ap["now"]){ap={"now":function(){return +(new Date)}}}var ai=0;var ac;var X=/\blang(?:uage)?-([\w.]+)(?!\S)/;var an=/\bprettyprint\b/;var W=/\bprettyprinted\b/;var Z=/pre|xmp/i;var V=/^code$/i;var Y=/^(?:pre|code|xmp)$/i;var am={};function af(){var ay=(P["PR_SHOULD_USE_CONTINUATION"]?ap["now"]()+250:Infinity);for(;ai<ae.length&&ap["now"]()<ay;ai++){var aA=ae[ai];var aH=am;for(var ax=aA;(ax=ax.previousSibling);){var aE=ax.nodeType;var aF=(aE===7||aE===8)&&ax.nodeValue;if(aF?!/^\??prettify\b/.test(aF):(aE!==3||/\S/.test(ax.nodeValue))){break}if(aF){aH={};aF.replace(/\b(\w+)=([\w:.%+-]+)/g,function(aJ,aI,aK){aH[aI]=aK});break}}var aB=aA.className;if((aH!==am||an.test(aB))&&!W.test(aB)){var aD=false;for(var au=aA.parentNode;au;au=au.parentNode){var aG=au.tagName;if(Y.test(aG)&&au.className&&an.test(au.className)){aD=true;break}}if(!aD){aA.className+=" prettyprinted";var aw=aH["lang"];if(!aw){aw=aB.match(X);var ar;if(!aw&&(ar=o(aA))&&V.test(ar.tagName)){aw=ar.className.match(X)}if(aw){aw=aw[1]}}var av;if(Z.test(aA.tagName)){av=1}else{var at=aA["currentStyle"];var az=ao.defaultView;var aq=(at?at["whiteSpace"]:(az&&az.getComputedStyle)?az.getComputedStyle(aA,null).getPropertyValue("white-space"):0);av=aq&&"pre"===aq.substring(0,3)}var aC=aH["linenums"];if(!(aC=aC==="true"||+aC)){aC=aB.match(/\blinenums\b(?::(\d+))?/);aC=aC?aC[1]&&aC[1].length?+aC[1]:true:false}if(aC){T(aA,aC,av)}ac={langExtension:aw,sourceNode:aA,numberLines:aC,pre:av};d(ac)}}}if(ai<ae.length){setTimeout(af,250)}else{if("function"===typeof al){al()}}}af()}var a=P["PR"]={"createSimpleLexer":f,"registerLangHandler":c,"sourceDecorator":h,"PR_ATTRIB_NAME":S,"PR_ATTRIB_VALUE":n,"PR_COMMENT":j,"PR_DECLARATION":G,"PR_K</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/scripts/prettify/prettify.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 25 -  !k){b=n;for(var o=void 0,c=b.firstChild;c;c=c.nextSibling)var i=c.nodeType,o=i===1?o?b:c:i===3?N.test(c.nodeValue)?b:o:o;b=(f=o===b?void 0:o)&&"CODE"===f.tagName}b&&(k=f.className.match(g));k&&(k=k[1]);b=!1;for(o=n.parentNode;o;o=o.parentNode)if((o.tagName==="pre"||o.tagName==="code"||o.tagName==="xmp")&&o.className&&o.className.indexOf("prettyprint")>=0){b=!0;break}b||((b=(b=n.className.match(/\blinenums\b(?::(\d+))?/))?b[1]&&b[1].length?+b[1]:!0:!1)&&D(n,b),d={g:k,h:n,i:b},E(d))}}p<h.length?setTimeout(m,
+
+</Result>
+</report_mosca>
+

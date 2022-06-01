@@ -1,0 +1,184 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/install.js",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 20,
+                  "endLine": 23,
+                  "endColumn": 26,
+                  "offset": 575,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/install.js",
+                  "replacements": [
+                    {
+                      "offset": 575,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/report/complexity/assets/scripts/bundles/core-bundle.js",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 25649,
+                  "endLine": 4,
+                  "endColumn": 25655,
+                  "offset": 122622,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/report/complexity/assets/scripts/bundles/core-bundle.js",
+                  "replacements": [
+                    {
+                      "offset": 122622,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/report/complexity/assets/scripts/vendor/codemirror/codemirror.js",
+                "region": {
+                  "startLine": 786,
+                  "startColumn": 14,
+                  "endLine": 786,
+                  "endColumn": 17,
+                  "offset": 33534,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssL",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/report/complexity/assets/scripts/vendor/codemirror/codemirror.js",
+                "region": {
+                  "startLine": 828,
+                  "startColumn": 12,
+                  "endLine": 828,
+                  "endColumn": 15,
+                  "offset": 35036,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssL",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/report/complexity/assets/scripts/vendor/codemirror/codemirror.js",
+                "region": {
+                  "startLine": 3553,
+                  "startColumn": 17,
+                  "endLine": 3553,
+                  "endColumn": 20,
+                  "offset": 140637,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssL",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        }
+      ],
+      "rules": {
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        },
+        "DS440000": {
+          "id": "DS440000",
+          "name": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "fullDescription": "SSL/TLS version usage should be based on an OS or external configuration.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS440000.md"
+        }
+      }
+    }
+  ]
+}

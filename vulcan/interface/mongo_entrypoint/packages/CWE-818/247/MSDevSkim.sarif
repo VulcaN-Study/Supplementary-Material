@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS125134",
+          "level": "error",
+          "message": "Disabled certificate validation",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/install/index.js",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 15,
+                  "endLine": 33,
+                  "endColumn": 33,
+                  "offset": 835,
+                  "length": 18
+                }
+              }
+            }
+          ],
+          "snippet": "rejectUnauthorized",
+          "properties": {
+            "tags": ["Cryptography.Certificate.Validation"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/install/index.js",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 21,
+                  "endLine": 13,
+                  "endColumn": 27,
+                  "offset": 253,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/install/index.js",
+                  "replacements": [
+                    {
+                      "offset": 253,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        }
+      ],
+      "rules": {
+        "DS125134": {
+          "id": "DS125134",
+          "name": "Disabled certificate validation",
+          "fullDescription": "Extend default certificate validation, but do not disable or override default rules.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS114352.md"
+        },
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        }
+      }
+    }
+  ]
+}

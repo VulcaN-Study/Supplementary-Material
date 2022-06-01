@@ -1,0 +1,12 @@
+[
+ {
+  "id": 1,
+  "file": "/src/lib/shovel.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "function getSafeRunner() {\n  var global = this;\n  // Keep it outside of strict mode\n  function UserScript(str) {\n    // We want a global scoped function that has implicit returns.\n    return Function('return eval('+JSON.stringify(str+'')+')');\n  }\n  // place with a closure that is not exposed thanks to strict mode\n  return function run(comm, src) {\n    // stop argument / caller attacks\n    \"use strict\";",
+  "line": 24,
+  "start": 19,
+  "end": 30
+ }
+]

@@ -1,0 +1,62 @@
+{
+    "advisory": {
+        "id": 178,
+        "cwe": "CWE-818"
+    },
+    "correct_cwe": "CWE-818",
+    "correct_package_link": "https://registry.npmjs.org/libxl/-/libxl-0.4.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "install-libxl.js",
+                    "start_lineno": 73,
+                    "end_lineno": 96,
+                    "code": "function onOpen() {            var url = util.format('http://www.libxl.com/download/%s', getArchiveName());            console.log('Downloading ' + url);            http.get(url, function(response) {                if (response.statusCode !== 200) {                    dieOnError(new Error(util.format('request failed: %s %s', response.statusCode, response.statusMessage)));                }                response.on('error', dieOnError);                writer.on('finish', function() {                   callback(filename);                });                response.pipe(writer);            }).on('error', dieOnError);        }"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/DirtyHairy/node-libxl/commit/1bbb7080688114221ea48c11628eb8af14a01ee0"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "B"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

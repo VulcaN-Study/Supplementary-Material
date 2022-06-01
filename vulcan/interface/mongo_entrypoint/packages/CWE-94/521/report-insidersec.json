@@ -1,0 +1,109 @@
+{
+ "dra": [
+  {
+   "dra": "brian.m.carlson@gmail.com",
+   "type": "email",
+   "file": "/src/lib/client.js"
+  },
+  {
+   "dra": "https://github.com/coopernurse/node-pool",
+   "type": "url",
+   "file": "/src/lib/defaults.js"
+  },
+  {
+   "dra": "http://developer.postgresql.org/pgdocs/postgres/protocol-flow.html#PROTOCOL-FLOW-EXT-QUERY",
+   "type": "url",
+   "file": "/src/lib/query.js"
+  },
+  {
+   "dra": "https://github.com/brianc/node-postgres/issues/507",
+   "type": "url",
+   "file": "/src/lib/result.js"
+  },
+  {
+   "dra": "https://github.com/brianc/node-postgres/issues/934",
+   "type": "url",
+   "file": "/src/lib/result.js"
+  }
+ ],
+ "sast": {
+  "name": "pg",
+  "version": "7.1.1",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "83645 Bytes",
+  "numberOfLines": 2240
+ },
+ "libraries": [
+  {
+   "name": "pg-types",
+   "current": "1.*"
+  },
+  {
+   "name": "pgpass",
+   "current": "1.x"
+  },
+  {
+   "name": "semver",
+   "current": "4.3.2"
+  },
+  {
+   "name": "buffer-writer",
+   "current": "1.0.1"
+  },
+  {
+   "name": "packet-reader",
+   "current": "0.3.1"
+  },
+  {
+   "name": "js-string-escape",
+   "current": "1.0.1"
+  },
+  {
+   "name": "pg-connection-string",
+   "current": "0.1.3"
+  },
+  {
+   "name": "pg-pool",
+   "current": "2.*"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 6.8,
+   "cwe": "CWE-312",
+   "line": 111,
+   "class": "client.js (111:12)",
+   "vul_id": "bd67c93ca577359399ef34529229cebf",
+   "method": "var md5password = 'md5' + outer",
+   "column": 12,
+   "longMessage": "The file contains sensitive information written directly in the code, such as usernames, passwords, keys, etc. An attacker could decompile the application and obtain the data for improper use.",
+   "classMessage": "/lib/client.js (111:12)",
+   "shortMessage": "Credentials must not be stored in the Git code or repository. There are ‘Secrets Management’ solutions that can be used to store secrets or use Pipeline resources.",
+   "affectedFiles": [
+    "/lib/index.js",
+    "/lib/native/index.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 138,
+   "class": "utils.js (138:17)",
+   "vul_id": "5eecc3f2360e44315c7f220b16691908",
+   "method": "return crypto.createHash('md5').update(string, 'utf-8').digest('hex')",
+   "column": 17,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/utils.js (138:17)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/client.js",
+    "/lib/connection.js",
+    "/lib/index.js",
+    "/lib/native/client.js",
+    "/lib/native/query.js",
+    "/lib/query.js"
+   ]
+  }
+ ]
+}

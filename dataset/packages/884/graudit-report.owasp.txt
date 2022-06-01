@@ -1,0 +1,289 @@
+/src/src/undoManager.coffee-195-        if i == position.length - 2 and $(node).is(':empty')
+/src/src/undoManager.coffee:196:          child = document.createTextNode ''
+/src/src/undoManager.coffee-197-          node.appendChild child
+##############################################
+/src/src/undoManager.coffee-236-
+/src/src/undoManager.coffee:237:      range = document.createRange()
+/src/src/undoManager.coffee-238-      range.setStart(startContainer, startOffset)
+##############################################
+/src/src/core.coffee-63-      try
+/src/src/core.coffee:64:        document.execCommand 'enableObjectResizing', false, false
+/src/src/core.coffee:65:        document.execCommand 'enableInlineTableEditing', false, false
+/src/src/core.coffee-66-      catch e
+##############################################
+/src/src/core.coffee-169-        $blockEl = $('<p/>').append(@util.phBr).appendTo(@body)
+/src/src/core.coffee:170:      range = document.createRange()
+/src/src/core.coffee-171-      @selection.setRangeAtEndOf $blockEl, range
+##############################################
+/src/src/selection.coffee-330-
+/src/src/selection.coffee:331:      range = document.createRange()
+/src/src/selection.coffee-332-      range.setStart(startContainer.get(0), startOffset)
+##############################################
+/src/src/clipboard.coffee-120-        for line in lines
+/src/src/clipboard.coffee:121:          @editor.selection.insertNode document.createTextNode(line)
+/src/src/clipboard.coffee-122-          @editor.selection.insertNode $('<br/>')
+/src/src/clipboard.coffee:123:        @editor.selection.insertNode document.createTextNode(lastLine)
+/src/src/clipboard.coffee-124-      else
+##############################################
+/src/src/clipboard.coffee-162-            img.onload = ->
+/src/src/clipboard.coffee:163:              canvas = document.createElement('canvas')
+/src/src/clipboard.coffee-164-              canvas.width = img.naturalWidth
+##############################################
+/src/src/indentation.coffee-94-    text = range.toString().replace /^(?=.+)/mg, '\u00A0\u00A0'
+/src/src/indentation.coffee:95:    textNode = document.createTextNode(text || '\u00A0\u00A0')
+/src/src/indentation.coffee-96-    range.deleteContents()
+##############################################
+/src/src/indentation.coffee-118-      if $parentLi.length < 1
+/src/src/indentation.coffee:119:        range = document.createRange()
+/src/src/indentation.coffee-120-        range.setStartBefore $parent[0]
+##############################################
+/src/src/keystroke.coffee-195-      if !@editor.util.browser.msie && @editor.selection.rangeAtEndOf $node
+/src/src/keystroke.coffee:196:        breakNode = document.createTextNode('\n\n')
+/src/src/keystroke.coffee-197-      else
+/src/src/keystroke.coffee:198:        breakNode = document.createTextNode('\n')
+/src/src/keystroke.coffee-199-      
+##############################################
+/src/src/keystroke.coffee-213-      $node.after $closestBlock
+/src/src/keystroke.coffee:214:      range = document.createRange()
+/src/src/keystroke.coffee-215-      @editor.selection.setRangeAtStartOf $closestBlock, range
+##############################################
+/src/src/keystroke.coffee-246-
+/src/src/keystroke.coffee:247:      range = document.createRange()
+/src/src/keystroke.coffee-248-      $prevChildList = $prevNode.children('ul, ol')
+##############################################
+/src/src/keystroke.coffee-267-      $node.remove()
+/src/src/keystroke.coffee:268:      range = document.createRange()
+/src/src/keystroke.coffee-269-      @editor.selection.setRangeAtStartOf $newNode, range
+##############################################
+/src/src/keystroke.coffee-276-      $firstChild = $node.children().first().unwrap()
+/src/src/keystroke.coffee:277:      range = document.createRange()
+/src/src/keystroke.coffee-278-      @editor.selection.setRangeAtStartOf $firstChild, range
+##############################################
+/src/src/formatter.coffee-77-        subStr = text.substring(lastIndex, match.index)
+/src/src/formatter.coffee:78:        replaceEls.push document.createTextNode(subStr)
+/src/src/formatter.coffee-79-        lastIndex = re.lastIndex
+##############################################
+/src/src/formatter.coffee-86-
+/src/src/formatter.coffee:87:      replaceEls.push document.createTextNode(text.substring(lastIndex))
+/src/src/formatter.coffee-88-      $node.replaceWith $(replaceEls)
+##############################################
+/src/src/formatter.coffee-128-      if text
+/src/src/formatter.coffee:129:        textNode = document.createTextNode text
+/src/src/formatter.coffee-130-        $node.replaceWith textNode
+##############################################
+/src/src/buttons/italic.coffee-28-  command: ->
+/src/src/buttons/italic.coffee:29:    document.execCommand 'italic'
+/src/src/buttons/italic.coffee-30-    unless @editor.util.support.oninput
+##############################################
+/src/src/buttons/link.coffee-28-    if @active
+/src/src/buttons/link.coffee:29:      txtNode = document.createTextNode @node.text()
+/src/src/buttons/link.coffee-30-      @node.replaceWith txtNode
+##############################################
+/src/src/buttons/link.coffee-111-        e.preventDefault()
+/src/src/buttons/link.coffee:112:        range = document.createRange()
+/src/src/buttons/link.coffee-113-        @editor.selection.setRangeAfter @target, range
+##############################################
+/src/src/buttons/link.coffee-117-    @unlinkEl.on 'click', (e) =>
+/src/src/buttons/link.coffee:118:      txtNode = document.createTextNode @target.text()
+/src/src/buttons/link.coffee-119-      @target.replaceWith txtNode
+##############################################
+/src/src/buttons/link.coffee-121-
+/src/src/buttons/link.coffee:122:      range = document.createRange()
+/src/src/buttons/link.coffee-123-      @editor.selection.setRangeAfter txtNode, range
+##############################################
+/src/src/buttons/font-scale.coffee-61-    # Use span[style] instead of font[size]
+/src/src/buttons/font-scale.coffee:62:    document.execCommand 'styleWithCSS', false, true
+/src/src/buttons/font-scale.coffee:63:    document.execCommand 'fontSize', false, param
+/src/src/buttons/font-scale.coffee:64:    document.execCommand 'styleWithCSS', false, false
+/src/src/buttons/font-scale.coffee-65-    @editor.selection.reset()
+##############################################
+/src/src/buttons/color.coffee-49-      if !$link.hasClass('font-color-default') and range.collapsed
+/src/src/buttons/color.coffee:50:        textNode = document.createTextNode(@_t('coloredText'))
+/src/src/buttons/color.coffee-51-        range.insertNode textNode
+##############################################
+/src/src/buttons/color.coffee-57-      # Use span[style] instead of font[color]
+/src/src/buttons/color.coffee:58:      document.execCommand 'styleWithCSS', false, true
+/src/src/buttons/color.coffee:59:      document.execCommand 'foreColor', false, hex
+/src/src/buttons/color.coffee:60:      document.execCommand 'styleWithCSS', false, false
+/src/src/buttons/color.coffee-61-
+##############################################
+/src/src/buttons/strikethrough.coffee-17-  command: ->
+/src/src/buttons/strikethrough.coffee:18:    document.execCommand 'strikethrough'
+/src/src/buttons/strikethrough.coffee-19-    unless @editor.util.support.oninput
+##############################################
+/src/src/buttons/bold.coffee-27-  command: ->
+/src/src/buttons/bold.coffee:28:    document.execCommand 'bold'
+/src/src/buttons/bold.coffee-29-    unless @editor.util.support.oninput
+##############################################
+/src/src/buttons/underline.coffee-27-  command: ->
+/src/src/buttons/underline.coffee:28:    document.execCommand 'underline'
+/src/src/buttons/underline.coffee-29-    unless @editor.util.support.oninput
+##############################################
+/src/src/buttons/image.coffee-43-      #@popover.show $img
+/src/src/buttons/image.coffee:44:      range = document.createRange()
+/src/src/buttons/image.coffee-45-      range.selectNode $img[0]
+##############################################
+/src/src/buttons/image.coffee-386-      e.preventDefault()
+/src/src/buttons/image.coffee:387:      range = document.createRange()
+/src/src/buttons/image.coffee-388-      @button.editor.selection.setRangeAfter @target, range
+##############################################
+/src/src/buttons/image.coffee-413-        @hide()
+/src/src/buttons/image.coffee:414:        range = document.createRange()
+/src/src/buttons/image.coffee-415-        @button.editor.selection.setRangeAfter $img, range
+##############################################
+/src/src/buttons/image.coffee-422-
+/src/src/buttons/image.coffee:423:        range = document.createRange()
+/src/src/buttons/image.coffee-424-        @button.editor.selection.setRangeAfter @target, range
+##############################################
+/src/src/inputManager.coffee-101-        lastBlock = $children.last().get(0)
+/src/src/inputManager.coffee:102:        range = document.createRange()
+/src/src/inputManager.coffee-103-        range.setStart firstBlock, 0
+##############################################
+/src/src/inputManager.coffee-131-          $blockEl = @editor.body.children().first()
+/src/src/inputManager.coffee:132:          range = document.createRange()
+/src/src/inputManager.coffee-133-          @editor.selection.setRangeAtStartOf $blockEl, range
+##############################################
+/src/lib/simditor.js-448-      }
+/src/lib/simditor.js:449:      range = document.createRange();
+/src/lib/simditor.js-450-      range.setStart(startContainer.get(0), startOffset);
+##############################################
+/src/lib/simditor.js-554-        subStr = text.substring(lastIndex, match.index);
+/src/lib/simditor.js:555:        replaceEls.push(document.createTextNode(subStr));
+/src/lib/simditor.js-556-        lastIndex = re.lastIndex;
+##############################################
+/src/lib/simditor.js-560-      }
+/src/lib/simditor.js:561:      replaceEls.push(document.createTextNode(text.substring(lastIndex)));
+/src/lib/simditor.js-562-      $node.replaceWith($(replaceEls));
+##############################################
+/src/lib/simditor.js-622-      if (text) {
+/src/lib/simditor.js:623:        textNode = document.createTextNode(text);
+/src/lib/simditor.js-624-        $node.replaceWith(textNode);
+##############################################
+/src/lib/simditor.js-901-          lastBlock = $children.last().get(0);
+/src/lib/simditor.js:902:          range = document.createRange();
+/src/lib/simditor.js-903-          range.setStart(firstBlock, 0);
+##############################################
+/src/lib/simditor.js-934-            $blockEl = _this.editor.body.children().first();
+/src/lib/simditor.js:935:            range = document.createRange();
+/src/lib/simditor.js-936-            _this.editor.selection.setRangeAtStartOf($blockEl, range);
+##############################################
+/src/lib/simditor.js-1230-        if (!_this.editor.util.browser.msie && _this.editor.selection.rangeAtEndOf($node)) {
+/src/lib/simditor.js:1231:          breakNode = document.createTextNode('\n\n');
+/src/lib/simditor.js-1232-        } else {
+/src/lib/simditor.js:1233:          breakNode = document.createTextNode('\n');
+/src/lib/simditor.js-1234-        }
+##############################################
+/src/lib/simditor.js-1249-        $node.after($closestBlock);
+/src/lib/simditor.js:1250:        range = document.createRange();
+/src/lib/simditor.js-1251-        _this.editor.selection.setRangeAtStartOf($closestBlock, range);
+##############################################
+/src/lib/simditor.js-1287-        }
+/src/lib/simditor.js:1288:        range = document.createRange();
+/src/lib/simditor.js-1289-        $prevChildList = $prevNode.children('ul, ol');
+##############################################
+/src/lib/simditor.js-1312-        $node.remove();
+/src/lib/simditor.js:1313:        range = document.createRange();
+/src/lib/simditor.js-1314-        _this.editor.selection.setRangeAtStartOf($newNode, range);
+##############################################
+/src/lib/simditor.js-1324-        $firstChild = $node.children().first().unwrap();
+/src/lib/simditor.js:1325:        range = document.createRange();
+/src/lib/simditor.js-1326-        _this.editor.selection.setRangeAtStartOf($firstChild, range);
+##############################################
+/src/lib/simditor.js-1580-        if (i === position.length - 2 && $(node).is(':empty')) {
+/src/lib/simditor.js:1581:          child = document.createTextNode('');
+/src/lib/simditor.js-1582-          node.appendChild(child);
+##############################################
+/src/lib/simditor.js-1624-      }
+/src/lib/simditor.js:1625:      range = document.createRange();
+/src/lib/simditor.js-1626-      range.setStart(startContainer, startOffset);
+##############################################
+/src/lib/simditor.js-2173-    text = range.toString().replace(/^(?=.+)/mg, '\u00A0\u00A0');
+/src/lib/simditor.js:2174:    textNode = document.createTextNode(text || '\u00A0\u00A0');
+/src/lib/simditor.js-2175-    range.deleteContents();
+##############################################
+/src/lib/simditor.js-2201-      if ($parentLi.length < 1) {
+/src/lib/simditor.js:2202:        range = document.createRange();
+/src/lib/simditor.js-2203-        range.setStartBefore($parent[0]);
+##############################################
+/src/lib/simditor.js-2385-          line = lines[k];
+/src/lib/simditor.js:2386:          this.editor.selection.insertNode(document.createTextNode(line));
+/src/lib/simditor.js-2387-          this.editor.selection.insertNode($('<br/>'));
+/src/lib/simditor.js-2388-        }
+/src/lib/simditor.js:2389:        this.editor.selection.insertNode(document.createTextNode(lastLine));
+/src/lib/simditor.js-2390-      } else {
+##############################################
+/src/lib/simditor.js-2437-              var canvas;
+/src/lib/simditor.js:2438:              canvas = document.createElement('canvas');
+/src/lib/simditor.js-2439-              canvas.width = img.naturalWidth;
+##############################################
+/src/lib/simditor.js-2595-      try {
+/src/lib/simditor.js:2596:        document.execCommand('enableObjectResizing', false, false);
+/src/lib/simditor.js:2597:        return document.execCommand('enableInlineTableEditing', false, false);
+/src/lib/simditor.js-2598-      } catch (_error) {
+##############################################
+/src/lib/simditor.js-2702-      }
+/src/lib/simditor.js:2703:      range = document.createRange();
+/src/lib/simditor.js-2704-      return this.selection.setRangeAtEndOf($blockEl, range);
+##############################################
+/src/lib/simditor.js-3391-    this.editor.selection.range(range);
+/src/lib/simditor.js:3392:    document.execCommand('styleWithCSS', false, true);
+/src/lib/simditor.js:3393:    document.execCommand('fontSize', false, param);
+/src/lib/simditor.js:3394:    document.execCommand('styleWithCSS', false, false);
+/src/lib/simditor.js-3395-    this.editor.selection.reset();
+##############################################
+/src/lib/simditor.js-3462-  BoldButton.prototype.command = function() {
+/src/lib/simditor.js:3463:    document.execCommand('bold');
+/src/lib/simditor.js-3464-    if (!this.editor.util.support.oninput) {
+##############################################
+/src/lib/simditor.js-3510-  ItalicButton.prototype.command = function() {
+/src/lib/simditor.js:3511:    document.execCommand('italic');
+/src/lib/simditor.js-3512-    if (!this.editor.util.support.oninput) {
+##############################################
+/src/lib/simditor.js-3558-  UnderlineButton.prototype.command = function() {
+/src/lib/simditor.js:3559:    document.execCommand('underline');
+/src/lib/simditor.js-3560-    if (!this.editor.util.support.oninput) {
+##############################################
+/src/lib/simditor.js-3618-        if (!$link.hasClass('font-color-default') && range.collapsed) {
+/src/lib/simditor.js:3619:          textNode = document.createTextNode(_this._t('coloredText'));
+/src/lib/simditor.js-3620-          range.insertNode(textNode);
+##############################################
+/src/lib/simditor.js-3623-        _this.editor.selection.range(range);
+/src/lib/simditor.js:3624:        document.execCommand('styleWithCSS', false, true);
+/src/lib/simditor.js:3625:        document.execCommand('foreColor', false, hex);
+/src/lib/simditor.js:3626:        document.execCommand('styleWithCSS', false, false);
+/src/lib/simditor.js-3627-        if (!_this.editor.util.support.oninput) {
+##############################################
+/src/lib/simditor.js-4156-    if (this.active) {
+/src/lib/simditor.js:4157:      txtNode = document.createTextNode(this.node.text());
+/src/lib/simditor.js-4158-      this.node.replaceWith(txtNode);
+##############################################
+/src/lib/simditor.js-4237-          e.preventDefault();
+/src/lib/simditor.js:4238:          range = document.createRange();
+/src/lib/simditor.js-4239-          _this.editor.selection.setRangeAfter(_this.target, range);
+##############################################
+/src/lib/simditor.js-4247-        var range, txtNode;
+/src/lib/simditor.js:4248:        txtNode = document.createTextNode(_this.target.text());
+/src/lib/simditor.js-4249-        _this.target.replaceWith(txtNode);
+/src/lib/simditor.js-4250-        _this.hide();
+/src/lib/simditor.js:4251:        range = document.createRange();
+/src/lib/simditor.js-4252-        _this.editor.selection.setRangeAfter(txtNode, range);
+##############################################
+/src/lib/simditor.js-4332-        $img = $(e.currentTarget);
+/src/lib/simditor.js:4333:        range = document.createRange();
+/src/lib/simditor.js-4334-        range.selectNode($img[0]);
+##############################################
+/src/lib/simditor.js-4723-        e.preventDefault();
+/src/lib/simditor.js:4724:        range = document.createRange();
+/src/lib/simditor.js-4725-        _this.button.editor.selection.setRangeAfter(_this.target, range);
+##############################################
+/src/lib/simditor.js-4761-          _this.hide();
+/src/lib/simditor.js:4762:          range = document.createRange();
+/src/lib/simditor.js-4763-          return _this.button.editor.selection.setRangeAfter($img, range);
+##############################################
+/src/lib/simditor.js-4773-          e.preventDefault();
+/src/lib/simditor.js:4774:          range = document.createRange();
+/src/lib/simditor.js-4775-          _this.button.editor.selection.setRangeAfter(_this.target, range);
+##############################################
+/src/lib/simditor.js-5581-  StrikethroughButton.prototype.command = function() {
+/src/lib/simditor.js:5582:    document.execCommand('strikethrough');
+/src/lib/simditor.js-5583-    if (!this.editor.util.support.oninput) {

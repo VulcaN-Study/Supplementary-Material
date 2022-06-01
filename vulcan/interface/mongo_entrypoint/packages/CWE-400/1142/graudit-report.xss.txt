@@ -1,0 +1,122 @@
+/src/lib/dialects/postgres/query-generator.js-49-    if (options.comment && _.isString(options.comment)) {
+/src/lib/dialects/postgres/query-generator.js:50:      comments += '; COMMENT ON TABLE <%= table %> IS ' + this.escape(options.comment);
+/src/lib/dialects/postgres/query-generator.js-51-    }
+##############################################
+/src/lib/dialects/postgres/query-generator.js-262-  changeColumnQuery(tableName, attributes) {
+/src/lib/dialects/postgres/query-generator.js:263:    const query = 'ALTER TABLE <%= tableName %> ALTER COLUMN <%= query %>;';
+/src/lib/dialects/postgres/query-generator.js-264-    const sql = [];
+##############################################
+/src/lib/dialects/postgres/query-generator.js-336-    for (const attributeName in attributes) {
+/src/lib/dialects/postgres/query-generator.js:337:      attrString.push(_.template('<%= before %> TO <%= after %>', this._templateSettings)({
+/src/lib/dialects/postgres/query-generator.js-338-        before: this.quoteIdentifier(attrBefore),
+##############################################
+/src/lib/dialects/postgres/query-generator.js-421-
+/src/lib/dialects/postgres/query-generator.js:422:      query = 'DELETE FROM <%= table %> WHERE <%= primaryKeys %> IN (SELECT <%= primaryKeysSelection %> FROM <%= table %><%= where %><%= limit %>)';
+/src/lib/dialects/postgres/query-generator.js-423-    } else {
+/src/lib/dialects/postgres/query-generator.js:424:      query = 'DELETE FROM <%= table %><%= where %>';
+/src/lib/dialects/postgres/query-generator.js-425-    }
+##############################################
+/src/lib/dialects/mssql/query-generator.js-89-  createTableQuery(tableName, attributes, options) {
+/src/lib/dialects/mssql/query-generator.js:90:    const query = "IF OBJECT_ID('<%= table %>', 'U') IS NULL CREATE TABLE <%= table %> (<%= attributes %>)",
+/src/lib/dialects/mssql/query-generator.js-91-      primaryKeys = [],
+##############################################
+/src/lib/dialects/mssql/query-generator.js-186-  renameTableQuery(before, after) {
+/src/lib/dialects/mssql/query-generator.js:187:    const query = 'EXEC sp_rename <%= before %>, <%= after %>;';
+/src/lib/dialects/mssql/query-generator.js-188-    return _.template(query, this._templateSettings)({
+##############################################
+/src/lib/dialects/mssql/query-generator.js-198-  dropTableQuery(tableName) {
+/src/lib/dialects/mssql/query-generator.js:199:    const query = "IF OBJECT_ID('<%= table %>', 'U') IS NOT NULL DROP TABLE <%= table %>";
+/src/lib/dialects/mssql/query-generator.js-200-    const values = {
+##############################################
+/src/lib/dialects/mssql/query-generator.js-211-
+/src/lib/dialects/mssql/query-generator.js:212:    const query = 'ALTER TABLE <%= table %> ADD <%= attribute %>;',
+/src/lib/dialects/mssql/query-generator.js:213:      attribute = _.template('<%= key %> <%= definition %>', this._templateSettings)({
+/src/lib/dialects/mssql/query-generator.js-214-        key: this.quoteIdentifier(key),
+##############################################
+/src/lib/dialects/mssql/query-generator.js-226-  removeColumnQuery(tableName, attributeName) {
+/src/lib/dialects/mssql/query-generator.js:227:    const query = 'ALTER TABLE <%= tableName %> DROP COLUMN <%= attributeName %>;';
+/src/lib/dialects/mssql/query-generator.js-228-    return _.template(query, this._templateSettings)({
+##############################################
+/src/lib/dialects/mssql/query-generator.js-234-  changeColumnQuery(tableName, attributes) {
+/src/lib/dialects/mssql/query-generator.js:235:    const query = 'ALTER TABLE <%= tableName %> <%= query %>;';
+/src/lib/dialects/mssql/query-generator.js-236-    const attrString = [],
+##############################################
+/src/lib/dialects/mssql/query-generator.js-241-      if (definition.match(/REFERENCES/)) {
+/src/lib/dialects/mssql/query-generator.js:242:        constraintString.push(_.template('<%= fkName %> FOREIGN KEY (<%= attrName %>) <%= definition %>', this._templateSettings)({
+/src/lib/dialects/mssql/query-generator.js-243-          fkName: this.quoteIdentifier(attributeName + '_foreign_idx'),
+##############################################
+/src/lib/dialects/mssql/query-generator.js-247-      } else {
+/src/lib/dialects/mssql/query-generator.js:248:        attrString.push(_.template('<%= attrName %> <%= definition %>', this._templateSettings)({
+/src/lib/dialects/mssql/query-generator.js-249-          attrName: this.quoteIdentifier(attributeName),
+##############################################
+/src/lib/dialects/mssql/query-generator.js-270-  renameColumnQuery(tableName, attrBefore, attributes) {
+/src/lib/dialects/mssql/query-generator.js:271:    const query = "EXEC sp_rename '<%= tableName %>.<%= before %>', '<%= after %>', 'COLUMN';",
+/src/lib/dialects/mssql/query-generator.js-272-      newName = Object.keys(attributes)[0];
+##############################################
+/src/lib/dialects/mssql/query-generator.js-283-    attributes = attributes || {};
+/src/lib/dialects/mssql/query-generator.js:284:    const query = 'INSERT INTO <%= table %> (<%= attributes %>)<%= output %> VALUES <%= tuples %>;',
+/src/lib/dialects/mssql/query-generator.js:285:      emptyQuery = 'INSERT INTO <%= table %><%= output %> DEFAULT VALUES',
+/src/lib/dialects/mssql/query-generator.js-286-      tuples = [],
+##############################################
+/src/lib/dialects/mssql/query-generator.js-493-    let limit = '';
+/src/lib/dialects/mssql/query-generator.js:494:    const query = 'DELETE<%= limit %> FROM <%= table %><%= where %>; ' +
+/src/lib/dialects/mssql/query-generator.js-495-                'SELECT @@ROWCOUNT AS AFFECTEDROWS;';
+##############################################
+/src/lib/dialects/mssql/query-generator.js-518-  showIndexesQuery(tableName) {
+/src/lib/dialects/mssql/query-generator.js:519:    const sql = "EXEC sys.sp_helpindex @objname = N'<%= tableName %>';";
+/src/lib/dialects/mssql/query-generator.js-520-    return _.template(sql, this._templateSettings)({
+##############################################
+/src/lib/dialects/mssql/query-generator.js-529-  removeIndexQuery(tableName, indexNameOrAttributes) {
+/src/lib/dialects/mssql/query-generator.js:530:    const sql = 'DROP INDEX <%= indexName %> ON <%= tableName %>';
+/src/lib/dialects/mssql/query-generator.js-531-    let indexName = indexNameOrAttributes;
+##############################################
+/src/lib/dialects/mssql/query-generator.js-759-  dropForeignKeyQuery(tableName, foreignKey) {
+/src/lib/dialects/mssql/query-generator.js:760:    return _.template('ALTER TABLE <%= table %> DROP <%= key %>', this._templateSettings)({
+/src/lib/dialects/mssql/query-generator.js-761-      table: this.quoteTable(tableName),
+##############################################
+/src/lib/dialects/mssql/query-generator.js-767-    const sql = 'SELECT name FROM SYS.DEFAULT_CONSTRAINTS ' +
+/src/lib/dialects/mssql/query-generator.js:768:      "WHERE PARENT_OBJECT_ID = OBJECT_ID('<%= table %>', 'U') " +
+/src/lib/dialects/mssql/query-generator.js:769:      "AND PARENT_COLUMN_ID = (SELECT column_id FROM sys.columns WHERE NAME = ('<%= column %>') " +
+/src/lib/dialects/mssql/query-generator.js:770:      "AND object_id = OBJECT_ID('<%= table %>', 'U'));";
+/src/lib/dialects/mssql/query-generator.js-771-    return _.template(sql, this._templateSettings)({
+##############################################
+/src/lib/dialects/mssql/query-generator.js-777-  dropConstraintQuery(tableName, constraintName) {
+/src/lib/dialects/mssql/query-generator.js:778:    const sql = 'ALTER TABLE <%= table %> DROP CONSTRAINT <%= constraint %>;';
+/src/lib/dialects/mssql/query-generator.js-779-    return _.template(sql, this._templateSettings)({
+##############################################
+/src/lib/dialects/mysql/query-generator.js-36-
+/src/lib/dialects/mysql/query-generator.js:37:    const query = 'CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>) ENGINE=<%= engine %><%= comment %><%= charset %><%= collation %><%= initialAutoIncrement %><%= rowFormat %>';
+/src/lib/dialects/mysql/query-generator.js-38-    const primaryKeys = [];
+##############################################
+/src/lib/dialects/abstract/query-generator.js-84-    let query;
+/src/lib/dialects/abstract/query-generator.js:85:    let valueQuery = '<%= tmpTable %>INSERT<%= ignoreDuplicates %> INTO <%= table %> (<%= attributes %>)<%= output %> VALUES (<%= values %>)<%= onConflictDoNothing %>';
+/src/lib/dialects/abstract/query-generator.js:86:    let emptyQuery = '<%= tmpTable %>INSERT<%= ignoreDuplicates %> INTO <%= table %><%= output %><%= onConflictDoNothing %>';
+/src/lib/dialects/abstract/query-generator.js-87-    let outputFragment;
+##############################################
+/src/lib/dialects/abstract/query-generator.js-117-          let outputColumns = '';
+/src/lib/dialects/abstract/query-generator.js:118:          tmpTable = 'declare @tmp table (<%= columns %>); ';
+/src/lib/dialects/abstract/query-generator.js-119-
+##############################################
+/src/lib/dialects/abstract/query-generator.js-154-        options.exception = 'WHEN unique_violation THEN GET STACKED DIAGNOSTICS sequelize_caught_exception = PG_EXCEPTION_DETAIL;';
+/src/lib/dialects/abstract/query-generator.js:155:        valueQuery = 'CREATE OR REPLACE FUNCTION pg_temp.testfunc(OUT response <%= table %>, OUT sequelize_caught_exception text) RETURNS RECORD AS ' + delimiter +
+/src/lib/dialects/abstract/query-generator.js-156-          ' BEGIN ' + valueQuery + ' INTO response; EXCEPTION ' + options.exception + ' END ' + delimiter +
+##############################################
+/src/lib/dialects/abstract/query-generator.js-159-        options.exception = 'WHEN unique_violation THEN NULL;';
+/src/lib/dialects/abstract/query-generator.js:160:        valueQuery = 'CREATE OR REPLACE FUNCTION pg_temp.testfunc() RETURNS SETOF <%= table %> AS $body$ BEGIN RETURN QUERY ' + valueQuery + '; EXCEPTION ' + options.exception + ' END; $body$ LANGUAGE plpgsql; SELECT * FROM pg_temp.testfunc(); DROP FUNCTION IF EXISTS pg_temp.testfunc();';
+/src/lib/dialects/abstract/query-generator.js-161-      }
+##############################################
+/src/lib/dialects/abstract/query-generator.js-224-
+/src/lib/dialects/abstract/query-generator.js:225:    const query = 'INSERT<%= ignoreDuplicates %> INTO <%= table %> (<%= attributes %>) VALUES <%= tuples %><%= onDuplicateKeyUpdate %><%= onConflictDoNothing %><%= returning %>;';
+/src/lib/dialects/abstract/query-generator.js-226-    const tuples = [];
+##############################################
+/src/lib/dialects/abstract/query-generator.js-298-    const modelAttributeMap = {};
+/src/lib/dialects/abstract/query-generator.js:299:    let query = '<%= tmpTable %>UPDATE <%= table %> SET <%= values %><%= output %> <%= where %>';
+/src/lib/dialects/abstract/query-generator.js-300-    let outputFragment;
+##############################################
+/src/lib/dialects/abstract/query-generator.js-316-        if (attributes && options.hasTrigger && this._dialect.supports.tmpTableTrigger) {
+/src/lib/dialects/abstract/query-generator.js:317:          tmpTable = 'declare @tmp table (<%= columns %>); ';
+/src/lib/dialects/abstract/query-generator.js-318-          let tmpColumns = '';
+##############################################
+/src/lib/dialects/abstract/query-generator.js-405-    const values = [];
+/src/lib/dialects/abstract/query-generator.js:406:    let query = 'UPDATE <%= table %> SET <%= values %><%= output %> <%= where %>';
+/src/lib/dialects/abstract/query-generator.js-407-    let outputFragment;

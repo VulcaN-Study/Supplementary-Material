@@ -1,0 +1,64 @@
+{
+ "dra": [
+  {
+   "dra": "https://github.com/richardgirges/express-fileupload/issues/14",
+   "type": "url",
+   "file": "/src/lib/fileFactory.js"
+  },
+  {
+   "dra": "'joe@mailinator.com",
+   "type": "email",
+   "file": "/src/test/multipartFields.spec.js"
+  }
+ ],
+ "sast": {
+  "name": "express-fileupload",
+  "version": "1.1.6-alpha.5",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "1206596 Bytes",
+  "numberOfLines": 2488
+ },
+ "libraries": [
+  {
+   "name": "busboy",
+   "current": "^0.2.14"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 14,
+   "class": "memHandler.js (14:21)",
+   "vul_id": "f64628ea486b7c28e0c5301d6c0b12de",
+   "method": "let hash = crypto.createHash('md5');",
+   "column": 21,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/memHandler.js (14:21)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/processMultipart.js",
+    "/test/fileFactory.spec.js",
+    "/test/processNested.spec.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 18,
+   "class": "tempFileHandler.js (18:23)",
+   "vul_id": "553f448b209854c2db06fad47a75cdce",
+   "method": "const hash = crypto.createHash('md5');",
+   "column": 23,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/tempFileHandler.js (18:23)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/processMultipart.js",
+    "/test/fileFactory.spec.js",
+    "/test/processNested.spec.js"
+   ]
+  }
+ ]
+}

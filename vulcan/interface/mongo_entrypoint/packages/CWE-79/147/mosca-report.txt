@@ -1,0 +1,60 @@
+<report_mosca>
+ <Path>/src/browser/nunjucks.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 6 -  gth]=this}}},function(e,t){(function(t){"use strict";function n(e){a.length||(o(),l=!0),a[a.length]=e}function i(){for(;c<a.length;){var e=c;if(c+=1,a[e].call(),c>h){for(var t=0,n=a.length-c;n>t;t++)a[t]=a[t+c];a.length-=c,c=0}}a.length=0,c=0,l=!1}function r(e){var t=1,n=new u(e),i=document.createTextNode("");return n.observe(i,{characterData:!0}),function(){t=-t,i.data=t}}function s(e){return function(){function t(){clearTimeout(n),clearInterval(i),e()}var n=setTimeout(t,0),i=setInterval(t,50)}}e.exports=n;var o,a=[],l=!1,c=0,h=1024,u=t.MutationObserver||t.WebKitMutationObserver;o="function"==typeof u?r(i):s(i),n.requestFlush=o,n.makeRequestCallFromTimer=s}).call(t,function(){return this}())},function(e,t){"use strict";function n(e,t,i){var r=function(){};r.prototype=e.prototype;var s=new r,o=/xyz/.test(function(){xyz})?/\bparent\b/:/.*/;i=i||{};for(var a in i){var l=i[a],c=s[a];"function"==typeof c&&"function"==typeof l&&o.test(l)?s[a]=function(e,t){return function(){var n=this.parent;this.parent=t;var i=e.apply(this,arguments);return this.parent=n,i}}(l,c):s[a]=l}s.typename=t;var h=function(){s.init&&s.init.apply(this,arguments)};return h.prototype=s,h.prototype.constructor=h,h.extend=function(e,t){return"object"==typeof e&&(t=e,e="anonymous"),n(h,e,t)},h}e.exports=n(Object,"Object",{})},function(e,t,n){"use strict";function i(e){return function(t,n){this.compile(t.left,n),this.emit(e),this.compile(t.right,n)}}var r=n(1),s=n(8),o=n(11),a=n(10),l=n(6),c=n(12).Frame,h={"==":"==","!=":"!=","<":"<",">":">","<=":"<=",">=":">="},u=l.extend({init:function(e,t){this.templateName=e,this.codebuf=[],this.lastId=0,this.buffer=null,this.bufferStack=[],this.scopeClosers="",this.inBlock=!1,this.throwOnUndefined=t},fail:function(e,t,n){throw void 0!==t&&(t+=1),void 0!==n&&(n+=1),new r.TemplateError(e,t,n)},pushBufferId:function(e){this.bufferStack.push(this.buffer),this.buffer=e,this.emit("var "+this.buffer+' = "";')},popBufferId:function(){this.buffer=this.bufferStack.pop()},emit:function(e){this.codebuf.push(e)},emitLine:function(e){this.emit(e+"\n")},emitLines:function(){r.each(r.toArray</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser/nunjucks.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1224 -  	// preferrable to falling back to setTimeout since it does not have
+
+ Line: 1301 -  	// `setTimeout` does not call the passed callback if the delay is less than
+
+ Line: 1311 -  	        var timeoutHandle = setTimeout(handleTimer, 0);
+
+ Line: 1315 -  	        var intervalHandle = setInterval(handleTimer, 50);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser/nunjucks-slim.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 6 -  is}}},function(t,e){(function(e){"use strict";function r(t){u.length||(s(),a=!0),u[u.length]=t}function n(){for(;c<u.length;){var t=c;if(c+=1,u[t].call(),c>l){for(var e=0,r=u.length-c;r>e;e++)u[e]=u[e+c];u.length-=c,c=0}}u.length=0,c=0,a=!1}function i(t){var e=1,r=new f(t),n=document.createTextNode("");return r.observe(n,{characterData:!0}),function(){e=-e,n.data=e}}function o(t){return function(){function e(){clearTimeout(r),clearInterval(n),t()}var r=setTimeout(e,0),n=setInterval(e,50)}}t.exports=r;var s,u=[],a=!1,c=0,l=1024,f=e.MutationObserver||e.WebKitMutationObserver;s="function"==typeof f?i(n):o(n),r.requestFlush=s,r.makeRequestCallFromTimer=o}).call(e,function(){return this}())},function(t,e){"use strict";function r(t,e,n){var i=function(){};i.prototype=t.prototype;var o=new i,s=/xyz/.test(function(){xyz})?/\bparent\b/:/.*/;n=n||{};for(var u in n){var a=n[u],c=o[u];"function"==typeof c&&"function"==typeof a&&s.test(a)?o[u]=function(t,e){return function(){var r=this.parent;this.parent=e;var n=t.apply(this,arguments);return this.parent=r,n}}(a,c):o[u]=a}o.typename=e;var l=function(){o.init&&o.init.apply(this,arguments)};return l.prototype=o,l.prototype.constructor=l,l.extend=function(t,e){return"object"==typeof t&&(e=t,t="anonymous"),r(l,t,e)},l}t.exports=r(Object,"Object",{})},function(t,e,r){"use strict";function n(t,e){return null===t||void 0===t||t===!1?e:t}var i=r(1),o=r(8),s={abs:function(t){return Math.abs(t)},batch:function(t,e,r){var n,i=[],o=[];for(n=0;n<t.length;n++)n%e===0&&o.length&&(i.push(o),o=[]),o.push(t[n]);if(o.length){if(r)for(n=o.length;e>n;n++)o.push(r);i.push(o)}return i},capitalize:function(t){t=n(t,"");var e=t.toLowerCase();return o.copySafeness(t,e.charAt(0).toUpperCase()+e.slice(1))},center:function(t,e){if(t=n(t,""),e=e||80,t.length>=e)return t;var r=e-t.length,s=i.repeat(" ",r/2-r%2),u=i.repeat(" ",r/2);return o.copySafeness(t,s+t+u)},"default":function(t,e,r){return r?t?t:e:void 0!==t?t:e},dictsort:function(t,e,r){if(!i.isObject(t))throw new i.TemplateError("dictsort filter: val must be an object");var n=[];for(var o in t)n.push([o,t[o]]);var</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser/nunjucks-slim.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1224 -  	// preferrable to falling back to setTimeout since it does not have
+
+ Line: 1301 -  	// `setTimeout` does not call the passed callback if the delay is less than
+
+ Line: 1311 -  	        var timeoutHandle = setTimeout(handleTimer, 0);
+
+ Line: 1315 -  	        var intervalHandle = setInterval(handleTimer, 50);
+
+</Result>
+</report_mosca>
+

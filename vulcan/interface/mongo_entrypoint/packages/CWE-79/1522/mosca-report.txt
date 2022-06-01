@@ -1,0 +1,124 @@
+<report_mosca>
+ <Path>/src/docs/docs/dist/js/bootstrap-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 568 -              return setTimeout(function () {
+
+ Line: 760 -        setTimeout(function () {
+
+ Line: 2284 -                    setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/docs/dist/js/bootstrap-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2805 -    // SELECTPICKER PLUGIN DEFINITION
+
+ Line: 2879 -    // SELECTPICKER NO CONFLICT
+
+ Line: 2893 -    // SELECTPICKER DATA-API
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/docs/dist/js/bootstrap-select.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -   collision. If loading Bootstrap asynchronously, the version may need to be manually specified via $.fn.selectpicker.Constructor.BootstrapVersion.",e)}var p=0,A=".bs.select",Y={DISABLED:"disabled",DIVIDER:"divider",SHOW:"open",DROPUP:"dropup",MENU:"dropdown-menu",MENURIGHT:"dropdown-menu-right",MENULEFT:"dropdown-menu-left",BUTTONCLASS:"btn-default",POPOVERHEADER:"popover-title"},N={MENU:"."+Y.MENU};"4"===K.major&&(Y.DIVIDER="dropdown-divider",Y.SHOW="show",Y.BUTTONCLASS="btn-light",Y.POPOVERHEADER="popover-header");var P=new RegExp(D+"|"+L),R=new RegExp("^"+H+"$|"+C),u=function(e,t){var i=this;s.useDefault||(G.valHooks.select.set=s._set,s.useDefault=!0),this.$element=G(e),this.$newElement=null,this.$button=null,this.$menu=null,this.options=t,this.selectpicker={main:{map:{newIndex:{},originalIndex:{}}},current:{map:{}},search:{map:{}},view:{},keydown:{keyHistory:"",resetKeyHistory:{start:function(){return setTimeout(function(){i.selectpicker.keydown.keyHistory=""},800)}}}},null===this.options.title&&(this.options.title=this.$element.attr("title"));var n=this.options.windowPadding;"number"==typeof n&&(this.options.windowPadding=[n,n,n,n]),this.val=u.prototype.val,this.render=u.prototype.render,this.refresh=u.prototype.refresh,this.setStyle=u.prototype.setStyle,this.selectAll=u.prototype.selectAll,this.deselectAll=u.prototype.deselectAll,this.destroy=u.prototype.destroy,this.remove=u.prototype.remove,this.show=u.prototype.show,this.hide=u.prototype.hide,this.init()};function f(e){var o,l=arguments,r=e;if([].shift.apply(l),!K.success){try{K.full=(G.fn.dropdown.Constructor.VERSION||"").split(" ")[0].split(".")}catch(e){K.full=u.BootstrapVersion.split(" ")[0].split(".")}K.major=K.full[0],K.success=!0,"4"===K.major&&(Y.DIVIDER="dropdown-divider",Y.SHOW="show",Y.BUTTONCLASS="btn-light",u.DEFAULTS.style=Y.BUTTONCLASS="btn-light",Y.POPOVERHEADER="popover-header")}var t=this.each(function(){var e=G(this);if(e.is("select")){var t=e.data("selectpicker"),i="object"==typeof r&&r;if(t){if(i)for(var n in i)i.hasOwnProperty(n)&&(t.options[n]=i[n])}else{var s=G.extend({},u.DEFAULTS,G.fn.selectp Line: 12 -  ",e),this.checkDisabled(),this.clickListener(),this.options.liveSearch&&this.liveSearchListener(),this.render(),this.setStyle(),this.setWidth(),this.options.container?this.selectPosition():this.$element.on("hide"+A,function(){if(i.isVirtual()){var e=i.$menuInner[0],t=e.firstChild.cloneNode(!1);e.replaceChild(t,e.firstChild),e.scrollTop=0}}),this.$menu.data("this",this),this.$newElement.data("this",this),this.options.mobile&&this.mobile(),this.$newElement.on({"hide.bs.dropdown":function(e){i.$menuInner.attr("aria-expanded",!1),i.$element.trigger("hide"+A,e)},"hidden.bs.dropdown":function(e){i.$element.trigger("hidden"+A,e)},"show.bs.dropdown":function(e){i.$menuInner.attr("aria-expanded",!0),i.$element.trigger("show"+A,e)},"shown.bs.dropdown":function(e){i.$element.trigger("shown"+A,e)}}),i.$element[0].hasAttribute("required")&&this.$element.on("invalid",function(){i.$button.addClass("bs-invalid"),i.$element.on("shown"+A+".invalid",function(){i.$element.val(i.$element.val()).off("shown"+A+".invalid")}).on("rendered"+A,function(){this.validity.valid&&i.$button.removeClass("bs-invalid"),i.$element.off("rendered"+A)}),i.$button.on("blur"+A,function(){i.$element.focus().blur(),i.$button.off("blur"+A)})}),setTimeout(function(){i.$element.trigger("loaded"+A)})},createDropdown:function(){var e,t=this.multiple||this.options.showTick?" show-tick":"",i=this.autofocus?" autofocus":"",n="",s="",o="",l="";return this.options.header&&(n='<div class="'+Y.POPOVERHEADER+'"><button type="button" class="close" aria-hidden="true">&times;</button>'+this.options.header+"</div>"),this.options.liveSearch&&(s='<div class="bs-searchbox"><input type="text" class="form-control" autocomplete="off"'+(null===this.options.liveSearchPlaceholder?"":' placeholder="'+q(this.options.liveSearchPlaceholder)+'"')+' role="textbox" aria-label="Search"></div>'),this.multiple&&this.options.actionsBox&&(o='<div class="bs-actionsbox"><div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn '+Y.BUTTONCLASS+'">'+this.options.selectAllText+'</button><button type="button" class=" Line: 25 -  prop("selected",!1),c.prop("selected",!0);for(var g=0;g<a.length;g++)E.setSelected(g,!1);E.setSelected(s,!0)}else if(f&&1==f){h.find("option:selected").prop("selected",!1),c.prop("selected",!0);for(g=0;g<p.length;g++){var b=p[g];E.setSelected(a.index(b),!1)}E.setSelected(s,!0)}else{var w="string"==typeof E.options.maxOptionsText?[E.options.maxOptionsText,E.options.maxOptionsText]:E.options.maxOptionsText,I="function"==typeof w?w(u,f):w,x=I[0].replace("{n}",u),k=I[1].replace("{n}",f),$=G('<div class="notify"></div>');I[2]&&(x=x.replace("{var}",I[2][1<u?0:1]),k=k.replace("{var}",I[2][1<f?0:1])),c.prop("selected",!1),E.$menu.append($),u&&m&&($.append(G("<div>"+x+"</div>")),r=!1,E.$element.trigger("maxReached"+A)),f&&v&&($.append(G("<div>"+k+"</div>")),r=!1,E.$element.trigger("maxReachedGrp"+A)),setTimeout(function(){E.setSelected(s,!1)},10),$.delay(750).fadeOut(300,function(){G(this).remove()})}}}else a.prop("selected",!1),c.prop("selected",!0),E.setSelected(s,!0);!E.multiple||E.multiple&&1===E.options.maxOptions?E.$button.focus():E.options.liveSearch&&E.$searchbox.focus(),r&&(o!=S(E.$element[0])&&E.multiple||l!=E.$element.prop("selectedIndex")&&!E.multiple)&&(y=[s,c.prop("selected"),o],E.$element.triggerNative("change"))}}),this.$menu.on("click","li."+Y.DISABLED+" a, ."+Y.POPOVERHEADER+", ."+Y.POPOVERHEADER+" :not(.close)",function(e){e.currentTarget==this&&(e.preventDefault(),e.stopPropagation(),E.options.liveSearch&&!G(e.target).hasClass("close")?E.$searchbox.focus():E.$button.focus())}),this.$menuInner.on("click",".divider, .dropdown-header",function(e){e.preventDefault(),e.stopPropagation(),E.options.liveSearch?E.$searchbox.focus():E.$button.focus()}),this.$menu.on("click","."+Y.POPOVERHEADER+" .close",function(){E.$button.click()}),this.$searchbox.on("click",function(e){e.stopPropagation()}),this.$menu.on("click",".actions-btn",function(e){E.options.liveSearch?E.$searchbox.focus():E.$button.focus(),e.preventDefault(),e.stopPropagation(),G(this).hasClass("bs-select-all")?E.selectAll():E.deselectAll()}),this.$element.on({change:function(){E.render(),E.$element.trigger("change</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/js/bootstrap-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 568 -              return setTimeout(function () {
+
+ Line: 760 -        setTimeout(function () {
+
+ Line: 2284 -                    setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/js/bootstrap-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2805 -    // SELECTPICKER PLUGIN DEFINITION
+
+ Line: 2879 -    // SELECTPICKER NO CONFLICT
+
+ Line: 2893 -    // SELECTPICKER DATA-API
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/js/bootstrap-select.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -   collision. If loading Bootstrap asynchronously, the version may need to be manually specified via $.fn.selectpicker.Constructor.BootstrapVersion.",e)}var p=0,A=".bs.select",Y={DISABLED:"disabled",DIVIDER:"divider",SHOW:"open",DROPUP:"dropup",MENU:"dropdown-menu",MENURIGHT:"dropdown-menu-right",MENULEFT:"dropdown-menu-left",BUTTONCLASS:"btn-default",POPOVERHEADER:"popover-title"},N={MENU:"."+Y.MENU};"4"===K.major&&(Y.DIVIDER="dropdown-divider",Y.SHOW="show",Y.BUTTONCLASS="btn-light",Y.POPOVERHEADER="popover-header");var P=new RegExp(D+"|"+L),R=new RegExp("^"+H+"$|"+C),u=function(e,t){var i=this;s.useDefault||(G.valHooks.select.set=s._set,s.useDefault=!0),this.$element=G(e),this.$newElement=null,this.$button=null,this.$menu=null,this.options=t,this.selectpicker={main:{map:{newIndex:{},originalIndex:{}}},current:{map:{}},search:{map:{}},view:{},keydown:{keyHistory:"",resetKeyHistory:{start:function(){return setTimeout(function(){i.selectpicker.keydown.keyHistory=""},800)}}}},null===this.options.title&&(this.options.title=this.$element.attr("title"));var n=this.options.windowPadding;"number"==typeof n&&(this.options.windowPadding=[n,n,n,n]),this.val=u.prototype.val,this.render=u.prototype.render,this.refresh=u.prototype.refresh,this.setStyle=u.prototype.setStyle,this.selectAll=u.prototype.selectAll,this.deselectAll=u.prototype.deselectAll,this.destroy=u.prototype.destroy,this.remove=u.prototype.remove,this.show=u.prototype.show,this.hide=u.prototype.hide,this.init()};function f(e){var o,l=arguments,r=e;if([].shift.apply(l),!K.success){try{K.full=(G.fn.dropdown.Constructor.VERSION||"").split(" ")[0].split(".")}catch(e){K.full=u.BootstrapVersion.split(" ")[0].split(".")}K.major=K.full[0],K.success=!0,"4"===K.major&&(Y.DIVIDER="dropdown-divider",Y.SHOW="show",Y.BUTTONCLASS="btn-light",u.DEFAULTS.style=Y.BUTTONCLASS="btn-light",Y.POPOVERHEADER="popover-header")}var t=this.each(function(){var e=G(this);if(e.is("select")){var t=e.data("selectpicker"),i="object"==typeof r&&r;if(t){if(i)for(var n in i)i.hasOwnProperty(n)&&(t.options[n]=i[n])}else{var s=G.extend({},u.DEFAULTS,G.fn.selectp Line: 12 -  ",e),this.checkDisabled(),this.clickListener(),this.options.liveSearch&&this.liveSearchListener(),this.render(),this.setStyle(),this.setWidth(),this.options.container?this.selectPosition():this.$element.on("hide"+A,function(){if(i.isVirtual()){var e=i.$menuInner[0],t=e.firstChild.cloneNode(!1);e.replaceChild(t,e.firstChild),e.scrollTop=0}}),this.$menu.data("this",this),this.$newElement.data("this",this),this.options.mobile&&this.mobile(),this.$newElement.on({"hide.bs.dropdown":function(e){i.$menuInner.attr("aria-expanded",!1),i.$element.trigger("hide"+A,e)},"hidden.bs.dropdown":function(e){i.$element.trigger("hidden"+A,e)},"show.bs.dropdown":function(e){i.$menuInner.attr("aria-expanded",!0),i.$element.trigger("show"+A,e)},"shown.bs.dropdown":function(e){i.$element.trigger("shown"+A,e)}}),i.$element[0].hasAttribute("required")&&this.$element.on("invalid",function(){i.$button.addClass("bs-invalid"),i.$element.on("shown"+A+".invalid",function(){i.$element.val(i.$element.val()).off("shown"+A+".invalid")}).on("rendered"+A,function(){this.validity.valid&&i.$button.removeClass("bs-invalid"),i.$element.off("rendered"+A)}),i.$button.on("blur"+A,function(){i.$element.focus().blur(),i.$button.off("blur"+A)})}),setTimeout(function(){i.$element.trigger("loaded"+A)})},createDropdown:function(){var e,t=this.multiple||this.options.showTick?" show-tick":"",i=this.autofocus?" autofocus":"",n="",s="",o="",l="";return this.options.header&&(n='<div class="'+Y.POPOVERHEADER+'"><button type="button" class="close" aria-hidden="true">&times;</button>'+this.options.header+"</div>"),this.options.liveSearch&&(s='<div class="bs-searchbox"><input type="text" class="form-control" autocomplete="off"'+(null===this.options.liveSearchPlaceholder?"":' placeholder="'+q(this.options.liveSearchPlaceholder)+'"')+' role="textbox" aria-label="Search"></div>'),this.multiple&&this.options.actionsBox&&(o='<div class="bs-actionsbox"><div class="btn-group btn-group-sm btn-block"><button type="button" class="actions-btn bs-select-all btn '+Y.BUTTONCLASS+'">'+this.options.selectAllText+'</button><button type="button" class=" Line: 25 -  prop("selected",!1),c.prop("selected",!0);for(var g=0;g<a.length;g++)E.setSelected(g,!1);E.setSelected(s,!0)}else if(f&&1==f){h.find("option:selected").prop("selected",!1),c.prop("selected",!0);for(g=0;g<p.length;g++){var b=p[g];E.setSelected(a.index(b),!1)}E.setSelected(s,!0)}else{var w="string"==typeof E.options.maxOptionsText?[E.options.maxOptionsText,E.options.maxOptionsText]:E.options.maxOptionsText,I="function"==typeof w?w(u,f):w,x=I[0].replace("{n}",u),k=I[1].replace("{n}",f),$=G('<div class="notify"></div>');I[2]&&(x=x.replace("{var}",I[2][1<u?0:1]),k=k.replace("{var}",I[2][1<f?0:1])),c.prop("selected",!1),E.$menu.append($),u&&m&&($.append(G("<div>"+x+"</div>")),r=!1,E.$element.trigger("maxReached"+A)),f&&v&&($.append(G("<div>"+k+"</div>")),r=!1,E.$element.trigger("maxReachedGrp"+A)),setTimeout(function(){E.setSelected(s,!1)},10),$.delay(750).fadeOut(300,function(){G(this).remove()})}}}else a.prop("selected",!1),c.prop("selected",!0),E.setSelected(s,!0);!E.multiple||E.multiple&&1===E.options.maxOptions?E.$button.focus():E.options.liveSearch&&E.$searchbox.focus(),r&&(o!=S(E.$element[0])&&E.multiple||l!=E.$element.prop("selectedIndex")&&!E.multiple)&&(y=[s,c.prop("selected"),o],E.$element.triggerNative("change"))}}),this.$menu.on("click","li."+Y.DISABLED+" a, ."+Y.POPOVERHEADER+", ."+Y.POPOVERHEADER+" :not(.close)",function(e){e.currentTarget==this&&(e.preventDefault(),e.stopPropagation(),E.options.liveSearch&&!G(e.target).hasClass("close")?E.$searchbox.focus():E.$button.focus())}),this.$menuInner.on("click",".divider, .dropdown-header",function(e){e.preventDefault(),e.stopPropagation(),E.options.liveSearch?E.$searchbox.focus():E.$button.focus()}),this.$menu.on("click","."+Y.POPOVERHEADER+" .close",function(){E.$button.click()}),this.$searchbox.on("click",function(e){e.stopPropagation()}),this.$menu.on("click",".actions-btn",function(e){E.options.liveSearch?E.$searchbox.focus():E.$button.focus(),e.preventDefault(),e.stopPropagation(),G(this).hasClass("bs-select-all")?E.selectAll():E.deselectAll()}),this.$element.on({change:function(){E.render(),E.$element.trigger("change</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/bootstrap-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 544 -              return setTimeout(function () {
+
+ Line: 736 -        setTimeout(function () {
+
+ Line: 2260 -                    setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/js/bootstrap-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2781 -    // SELECTPICKER PLUGIN DEFINITION
+
+ Line: 2855 -    // SELECTPICKER NO CONFLICT
+
+ Line: 2869 -    // SELECTPICKER DATA-API
+
+</Result>
+</report_mosca>
+

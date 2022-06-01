@@ -1,0 +1,8 @@
+7c7,11
+<     var path="."+url.parse(request.url).pathname;
+---
+>     var url_path = url.parse(request.url).pathname;
+>     if (!url_path.startsWith('/')) {
+>         url_path = '/' + url_path;
+>     }
+>     var path="."+require('path').normalize(url_path);

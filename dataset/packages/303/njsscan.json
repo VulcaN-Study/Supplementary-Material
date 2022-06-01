@@ -1,0 +1,82 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/routes/statics.js",
+          "match_lines": [
+            19,
+            19
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "  var _seed = Math.random();"
+        },
+        {
+          "file_path": "/src/lib/routes/statics.js",
+          "match_lines": [
+            95,
+            95
+          ],
+          "match_position": [
+            13,
+            24
+          ],
+          "match_string": "    _seed = Math.random();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/routes/statics.js",
+          "match_lines": [
+            37,
+            37
+          ],
+          "match_position": [
+            24,
+            47
+          ],
+          "match_string": "      var uniqueHash = crypto.createHash('md5').update(new Buffer(["
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

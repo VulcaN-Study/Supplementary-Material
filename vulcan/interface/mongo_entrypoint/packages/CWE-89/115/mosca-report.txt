@@ -1,0 +1,694 @@
+<report_mosca>
+ <Path>/src/sequel/where.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -   * Build WHERE query clause
+
+ Line: 12 -   * `Where` conditions may use key/value model attributes for simple query
+
+ Line: 87 -    var queryString = '';
+
+ Line: 90 -    // Add any hasFK strategy joins to the main query
+
+ Line: 93 -      var strategy = queryObject.instructions[attr].strategy.strategy;
+
+ Line: 94 -      var population = queryObject.instructions[attr].instructions[0];
+
+ Line: 102 -        queryString += 'LEFT OUTER JOIN ' + utils.escapeName(population.child, self.escapeCharacter) + ' AS ' + alias + ' ON ';
+
+ Line: 103 -        queryString += utils.escapeName(parentAlias, self.escapeCharacter) + '.' + utils.escapeName(population.parentKey, self.escapeCharacter);
+
+ Line: 104 -        queryString += ' = ' + alias + '.' + utils.escapeName(population.childKey, self.escapeCharacter);
+
+ Line: 111 -      queryString += ' ';
+
+ Line: 127 -      queryObject.sort = {};
+
+ Line: 128 -      queryObject.sort[childPK] = -1;
+
+ Line: 131 -    // Read the queryObject and get back a query string and params
+
+ Line: 135 -    // Build up a WHERE queryString
+
+ Line: 137 -      queryString += 'WHERE ';
+
+ Line: 150 -    queryString += parsedCriteria.query;
+
+ Line: 154 -      queryString = queryString.slice(0, -5);
+
+ Line: 159 -      queryString = queryString.slice(0, -4);
+
+ Line: 171 -      query: queryString,
+
+ Line: 177 -   * Build a template for a complex UNION query. This is needed when populating using
+
+ Line: 191 -      var queryString = '';
+
+ Line: 197 -      var strategy = queryObject.instructions[attr].strategy.strategy;
+
+ Line: 202 -        var population = queryObject.instructions[attr].instructions[0];
+
+ Line: 213 -        // Build the WHERE part of the query string
+
+ Line: 229 -        // Read the queryObject and get back a query string and params
+
+ Line: 232 -        queryString = '(SELECT * FROM ' + utils.escapeName(population.child, self.escapeCharacter) + ' AS ' + utils.escapeName(populationAlias, self.escapeCharacter) + ' WHERE ' + utils.escapeName(population.childKey, self.escapeCharacter) + ' = ^?^ ';
+
+ Line: 237 -            queryString += 'AND ';
+
+ Line: 240 -          queryString += parsedCriteria.query;
+
+ Line: 243 -        queryString += ')';
+
+ Line: 245 -        // Add to the query list
+
+ Line: 247 -          qs: queryString,
+
+ Line: 257 -        var stage1 = queryObject.instructions[attr].instructions[0];
+
+ Line: 258 -        var stage2 = queryObject.instructions[attr].instructions[1];
+
+ Line: 270 -        // Build the WHERE part of the query string
+
+ Line: 286 -        // Read the queryObject and get back a query string and params
+
+ Line: 298 -        queryString += '(SELECT ';
+
+ Line: 301 -          queryString += utils.escapeName(projectionAlias, self.escapeCharacter) + '.' + utils.escapeName(projection.key, self.escapeCharacter) + ',';
+
+ Line: 305 -        queryString += utils.escapeName(stage1.child, self.escapeCharacter) + '.' + utils.escapeName(stage1.childKey, self.escapeCharacter) + ' AS "___' + stage1.childKey + '"';
+
+ Line: 307 -        queryString += ' FROM ' + utils.escapeName(stage2.child, self.escapeCharacter) + ' AS ' + utils.escapeName(stage2ChildAlias, self.escapeCharacter) + ' ';
+
+ Line: 308 -        queryString += ' INNER JOIN ' + utils.escapeName(stage1.child, self.escapeCharacter) + ' ON ' + utils.escapeName(stage2.parent, self.escapeCharacter);
+
+ Line: 309 -        queryString += '.' + utils.escapeName(stage2.parentKey, self.escapeCharacter) + ' = ' + utils.escapeName(stage2ChildAlias, self.escapeCharacter) + '.' + utils.escapeName(stage2.childKey, self.escapeCharacter);
+
+ Line: 310 -        queryString += ' WHERE ' + utils.escapeName(stage1.child, self.escapeCharacter) + '.' + utils.escapeName(stage1.childKey, self.escapeCharacter) + ' = ^?^ ';
+
+ Line: 316 -            queryString += 'AND ';
+
+ Line: 319 -          queryString += parsedCriteria.query;
+
+ Line: 322 -        queryString += ')';
+
+ Line: 324 -        // Add to the query list
+
+ Line: 326 -          qs: queryString,
+
+ Line: 327 -          instructions: queryObject.instructions[attr].instructions,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/sequel/select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 14 -  var SelectBuilder = module.exports = function(schema, currentTable, queryObject, options) {
+
+ Line: 61 -    var query = 'SELECT ';
+
+ Line: 63 -    var attributes = queryObject.select || Object.keys(this.schema[this.currentTable].attributes);
+
+ Line: 64 -    delete queryObject.select;
+
+ Line: 75 -    // Add any hasFK strategy joins to the main query
+
+ Line: 78 -      var strategy = queryObject.instructions[attr].strategy.strategy;
+
+ Line: 81 -      var population = queryObject.instructions[attr].instructions[0];
+
+ Line: 98 -        query += utils.escapeName(select.table, self.escapeCharacter) + '.' + utils.escapeName(select.key, self.escapeCharacter) + ' AS ' + self.escapeCharacter + select.alias + '___' + select.key + self.escapeCharacter + ', ';
+
+ Line: 101 -        query += utils.escapeName(select.table, self.escapeCharacter) + '.' + utils.escapeName(select.key, self.escapeCharacter) + ', ';
+
+ Line: 107 -    query = query.slice(0, -2) + ' FROM ' + tableName + ' AS ' + utils.escapeName(self.currentTable, self.escapeCharacter) + ' ';
+
+ Line: 109 -    return query;
+
+ Line: 132 -    var query = 'SELECT ';
+
+ Line: 139 -          query += tableName + '.' + utils.escapeName(opt, self.escapeCharacter) + ', ';
+
+ Line: 143 -        query += tableName + '.' + utils.escapeName(criteria.groupBy, self.escapeCharacter) + ', ';
+
+ Line: 156 -          query += sum + ' AS ' + opt + ', ';
+
+ Line: 164 -        query += sum + ' AS ' + criteria.sum + ', ';
+
+ Line: 177 -          query +=  avg + ' AS ' + opt + ', ';
+
+ Line: 184 -        query += avg + ' AS ' + criteria.average + ', ';
+
+ Line: 193 -          query += 'MAX(' + tableName + '.' + utils.escapeName(opt, self.escapeCharacter) + ') AS ' + opt + ', ';
+
+ Line: 197 -        query += 'MAX(' + tableName + '.' + utils.escapeName(criteria.max, self.escapeCharacter) + ') AS ' + criteria.max + ', ';
+
+ Line: 205 -          query += 'MIN(' + tableName + '.' + utils.escapeName(opt, self.escapeCharacter) + ') AS ' + opt + ', ';
+
+ Line: 209 -        query += 'MIN(' + tableName + '.' + utils.escapeName(criteria.min, self.escapeCharacter) + ') AS ' + criteria.min + ', ';
+
+ Line: 214 -    query = query.slice(0, -2) + ' ';
+
+ Line: 216 -    // Add FROM clause
+
+ Line: 217 -    query += 'FROM ' + utils.escapeName(self.schema[self.currentTable].tableName, self.escapeCharacter) + ' AS ' + tableName + ' ';
+
+ Line: 218 -    return query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/sequel/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 14 -   * Given a Waterline Query Object build a SQL query.
+
+ Line: 22 -    // To solve a query, multiple query strings may be needed.
+
+ Line: 35 -    // should use lower or regex logic for querying.
+
+ Line: 47 -    // Determine if aliased tablenames in DELETE queries need to be referenced before the FROM, e.g.
+
+ Line: 48 -    // DELETE `tableName` FROM `tableName` as `otherTableName` WHERE `otherTableName`.`foo` = "bar"
+
+ Line: 75 -  Sequel.prototype.find = function find(currentTable, queryObject) {
+
+ Line: 79 -    var selectObject = this.select(currentTable, queryObject);
+
+ Line: 84 -    var query;
+
+ Line: 88 -     * Step 2 - Build out the parent query.
+
+ Line: 91 -    whereObject = this.simpleWhere(currentTable, queryObject);
+
+ Line: 97 -     * Step 3 - Build out the child query templates.
+
+ Line: 100 -    childQueries = this.complexWhere(currentTable, queryObject);
+
+ Line: 104 -      query: this.queries,
+
+ Line: 114 -  Sequel.prototype.count = function count(currentTable, queryObject) {
+
+ Line: 121 -    this.queries = ['SELECT COUNT(*) as count FROM '];
+
+ Line: 123 -    var subQuery = 'SELECT * FROM ' + tableName;
+
+ Line: 127 -    var query;
+
+ Line: 131 -     * Step 2 - Build out the WHERE part of the query.
+
+ Line: 134 -    whereObject = this.simpleWhere(currentTable, queryObject);
+
+ Line: 137 -    // SELECT count(*) as count FROM (SELECT * FROM table LIMIT 10 OFFSET 10) AS tableAlias;
+
+ Line: 138 -    this.queries[0] += '(SELECT * FROM ' + tableName + ' ' + whereObject.query + ') AS ' + tableName;
+
+ Line: 142 -     * Step 3 - Build out the child query templates.
+
+ Line: 145 -    childQueries = this.complexWhere(currentTable, queryObject);
+
+ Line: 149 -      query: this.queries,
+
+ Line: 168 -    // Transform the Data object into arrays used in a parameterized query
+
+ Line: 174 -    var query = 'INSERT INTO ' + utils.escapeName(currentTable, this.escapeCharacter) + ' (' + columnNames + ') values (' + paramValues + ')';
+
+ Line: 177 -      query += ' RETURNING *';
+
+ Line: 180 -    return { query: query, values: attributes.values };
+
+ Line: 187 -  Sequel.prototype.update = function update(currentTable, queryObject, data) {
+
+ Line: 197 -    // Create the query with the tablename aliased as the identity (in case they are different)
+
+ Line: 198 -    var query = 'UPDATE ' + utils.escapeName(currentTable, this.escapeCharacter) + ' AS ' + utils.escapeName(identity, this.escapeCharacter) + ' ';
+
+ Line: 200 -    // Transform the Data object into arrays used in a parameterized query
+
+ Line: 215 -    query += 'SET ' + str + ' ';
+
+ Line: 221 -    var whereObject = this.simpleWhere(currentTable, queryObject, { paramCount: paramCount });
+
+ Line: 223 -    query += ' ' + whereObject.query;
+
+ Line: 227 -      query += ' RETURNING *';
+
+ Line: 231 -      query: query,
+
+ Line: 238 -   * Build Delete SQL query.
+
+ Line: 241 -  Sequel.prototype.destroy = function destroy(currentTable, queryObject) {
+
+ Line: 246 -    var query = 'DELETE ' + (this.declareDeleteAlias ? utils.escapeName(identity, this.escapeCharacter) : '') + ' FROM ' + utils.escapeName(currentTable, this.escapeCharacter) + ' AS ' + utils.escapeName(identity, this.escapeCharacter) + ' ';
+
+ Line: 249 -    var whereObject = this.simpleWhere(currentTable, queryObject);
+
+ Line: 251 -    query += ' ' + whereObject.query;
+
+ Line: 255 -      query += ' RETURNING *';
+
+ Line: 259 -      query: query,
+
+ Line: 266 -   * Build the select statements for a query.
+
+ Line: 269 -  Sequel.prototype.select = function select(currentTable, queryObject) {
+
+ Line: 277 -    return new SelectBuilder(this.schema, currentTable, queryObject, options);
+
+ Line: 281 -   * Build the where statements for a query.
+
+ Line: 284 -  Sequel.prototype.simpleWhere = function simpleWhere(currentTable, queryObject, options) {
+
+ Line: 296 -  Sequel.prototype.complexWhere = function complexWhere(currentTable, queryObject, options) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/sequel/lib/criteriaProcessor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 27 -   * Processes a query criteria object
+
+ Line: 118 -      query: this.queryString,
+
+ Line: 332 -    // Append each value to query
+
+ Line: 564 -   * Processes comparators in a query.
+
+ Line: 809 -    // Add str to query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/unit/index.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 28 -      // Loop through the query objects and test them against the `.select()` method.
+
+ Line: 33 -              selectQuery = sequel.select(query.table, query.query);
+
+ Line: 37 -          assert.lengthOf(selectQuery.select, query.expected.select.queriesReturned);
+
+ Line: 38 -          assert.strictEqual(selectQuery.select[0], query.expected.select.queryString);
+
+ Line: 46 -      // Loop through the query objects and test them against the `.find()` method.
+
+ Line: 51 -              findQuery = sequel.find(query.table, query.query);
+
+ Line: 55 -          assert.lengthOf(findQuery.query, query.expected.find.queriesReturned);
+
+ Line: 56 -          assert.strictEqual(findQuery.query[0], query.expected.find.queryString);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectPopulate.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    description: 'Should construct a simple select query with a populate',
+
+ Line: 5 -    // The name of the table this query should be ran against.
+
+ Line: 8 -    // The query object used to build this query.
+
+ Line: 9 -    query      : {
+
+ Line: 37 -    // Expected results per query method.
+
+ Line: 43 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 44 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo` ',
+
+ Line: 53 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 54 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo`  LEFT OUTER JOIN `bat` AS `__bat` ON `foo`.`bat` = `__bat`.`id` ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/skeleton.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2 -    // Set so that this query will be skipped in the tests.
+
+ Line: 7 -    description: 'Should construct a simple select query',
+
+ Line: 9 -    // The name of the table this query should be ran against.
+
+ Line: 12 -    // The query object used to build this query.
+
+ Line: 13 -    query      : {"where": null},
+
+ Line: 15 -    // Expected results per query method.
+
+ Line: 21 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 22 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo` ',
+
+ Line: 31 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 32 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo`  ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectEmptySort.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    description: 'Should construct a simple select query with an empty sort clause',
+
+ Line: 5 -    // The name of the table this query should be ran against.
+
+ Line: 8 -    // The query object used to build this query.
+
+ Line: 9 -    query      : {
+
+ Line: 14 -    // Expected results per query method.
+
+ Line: 20 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 21 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo` ',
+
+ Line: 30 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 31 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo`  ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectNestedFilterAlias.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2 -   * That way, the query stays the same, but you have the freedom to use aliases.
+
+ Line: 7 -    description: 'Should construct a nested filter select query using aliased property (using the alias).',
+
+ Line: 9 -    // The name of the table this query should be ran against.
+
+ Line: 12 -    // The query object used to build this query.
+
+ Line: 13 -    query      : {
+
+ Line: 21 -    // Expected results per query method.
+
+ Line: 27 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 28 -        queryString    : 'SELECT `oddity`.`meta`, `oddity`.`id`, `oddity`.`createdAt`, `oddity`.`updatedAt`, `oddity`.`stubborn`, `oddity`.`bat` FROM `oddity` AS `oddity` ',
+
+ Line: 37 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 38 -        queryString    : 'SELECT `oddity`.`meta`, `oddity`.`id`, `oddity`.`createdAt`, `oddity`.`updatedAt`, `oddity`.`stubborn`, `oddity`.`bat` FROM `oddity` AS `oddity`  WHERE `__bar`.`meta` = "foo"  ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/complexSelectNestedFilters.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2 -    description: 'Should construct a complex, nested filter select query',
+
+ Line: 4 -    // The name of the table this query should be ran against.
+
+ Line: 7 -    // The query object used to build this query.
+
+ Line: 8 -    query      : {
+
+ Line: 72 -    // Expected results per query method.
+
+ Line: 78 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 79 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo` ',
+
+ Line: 88 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 89 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo`  LEFT OUTER JOIN `bat` AS `__bat` ON `foo`.`bat` = `__bat`.`id` WHERE ((LOWER(`foo`.`color`) = "red") OR (LOWER(`foo`.`color`) = "blue") OR (LOWER(`foo`.`color`) = "grey") OR (`__bat`.`color_g` = "yellow" ) OR (`__bat`.`color_g` = "blue" )) AND `__bat`.`color_h` = "red" AND ((`__bat`.`color_i` IN ("pink","purple","green")) OR (`__bat`.`color_i` > "black" ) OR (`__bat`.`color_i` = "yellow"))  ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectNestedFilters.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2 -    description: 'Should construct a simple nested filter select query',
+
+ Line: 4 -    // The name of the table this query should be ran against.
+
+ Line: 7 -    // The query object used to build this query.
+
+ Line: 8 -    query      : {
+
+ Line: 41 -    // Expected results per query method.
+
+ Line: 47 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 48 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo` ',
+
+ Line: 57 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 58 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo`  LEFT OUTER JOIN `bat` AS `__bat` ON `foo`.`bat` = `__bat`.`id` WHERE `__bat`.`color_g` = "yellow"  AND LOWER(`foo`.`color`) = "red" ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/complexSelectFilters.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2 -    description: 'Should construct a complex select query',
+
+ Line: 4 -    // The name of the table this query should be ran against.
+
+ Line: 7 -    // The query object used to build this query.
+
+ Line: 8 -    query      : {
+
+ Line: 49 -    // Expected results per query method.
+
+ Line: 55 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 56 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo` ',
+
+ Line: 65 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 66 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz`, `__bat`.`color_g` AS `bat___color_g`, `__bat`.`color_h` AS `bat___color_h`, `__bat`.`color_i` AS `bat___color_i`, `__bat`.`id` AS `bat___id`, `__bat`.`createdAt` AS `bat___createdAt`, `__bat`.`updatedAt` AS `bat___updatedAt` FROM `foo` AS `foo`  LEFT OUTER JOIN `bat` AS `__bat` ON `foo`.`bat` = `__bat`.`id` WHERE `foo`.`bat` = 1 AND `foo`.`baz` IN (1,2,3,4) AND ((LOWER(`foo`.`color`) = "red") OR (LOWER(`foo`.`color`) = "blue") OR (LOWER(`foo`.`color`) = "grey") OR (LOWER(`foo`.`color`) > "111" )) ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelect.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    description: 'Should construct a simple select query',
+
+ Line: 5 -    // The name of the table this query should be ran against.
+
+ Line: 8 -    // The query object used to build this query.
+
+ Line: 9 -    query      : {"where": null},
+
+ Line: 11 -    // Expected results per query method.
+
+ Line: 17 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 18 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo` ',
+
+ Line: 27 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 28 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo`  ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -    var query = require("./" + file);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectSort.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    description: 'Should construct a simple select query with a sort clause',
+
+ Line: 5 -    // The name of the table this query should be ran against.
+
+ Line: 8 -    // The query object used to build this query.
+
+ Line: 9 -    query      : {
+
+ Line: 16 -    // Expected results per query method.
+
+ Line: 22 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 23 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo` ',
+
+ Line: 32 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 33 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo`   ORDER BY `foo`.`color` ASC',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectWhere.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    description: 'Should construct a simple select query with a where clause',
+
+ Line: 5 -    // The name of the table this query should be ran against.
+
+ Line: 8 -    // The query object used to build this query.
+
+ Line: 9 -    query      : {
+
+ Line: 15 -    // Expected results per query method.
+
+ Line: 21 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 22 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo` ',
+
+ Line: 31 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 32 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo`  WHERE LOWER(`foo`.`color`) = "blue" ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectObjectFilters.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    description: 'Should construct a simple select query with an object based where clause',
+
+ Line: 5 -    // The name of the table this query should be ran against.
+
+ Line: 8 -    // The query object used to build this query.
+
+ Line: 9 -    query      : {
+
+ Line: 15 -    // Expected results per query method.
+
+ Line: 21 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 22 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo` ',
+
+ Line: 31 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 32 -        queryString    : 'SELECT `foo`.`color`, `foo`.`id`, `foo`.`createdAt`, `foo`.`updatedAt`, `foo`.`bar`, `foo`.`bat`, `foo`.`baz` FROM `foo` AS `foo`  WHERE `foo`.`bat` > 5  ',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/queries/simpleSelectNestedFilterNoAlias.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    description: 'Should construct a nested filter select query using aliased property (not using the alias).',
+
+ Line: 5 -    // The name of the table this query should be ran against.
+
+ Line: 8 -    // The query object used to build this query.
+
+ Line: 9 -    query      : {
+
+ Line: 17 -    // Expected results per query method.
+
+ Line: 23 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 24 -        queryString    : 'SELECT `oddity`.`meta`, `oddity`.`id`, `oddity`.`createdAt`, `oddity`.`updatedAt`, `oddity`.`stubborn`, `oddity`.`bat` FROM `oddity` AS `oddity` ',
+
+ Line: 33 -        // The queryString we expect to be rendered after calling `Sequel.select()`
+
+ Line: 34 -        queryString    : 'SELECT `oddity`.`meta`, `oddity`.`id`, `oddity`.`createdAt`, `oddity`.`updatedAt`, `oddity`.`stubborn`, `oddity`.`bat` FROM `oddity` AS `oddity`  WHERE `__bar`.`meta` = "foo"  ',
+
+</Result>
+</report_mosca>
+

@@ -1,0 +1,398 @@
+/src/src/HMRServer.js-12-      if (!options.https) {
+/src/src/HMRServer.js:13:        this.server = http.createServer();
+/src/src/HMRServer.js-14-      } else if (typeof options.https === 'boolean') {
+/src/src/HMRServer.js:15:        this.server = https.createServer(generateCertificate(options));
+/src/src/HMRServer.js-16-      } else {
+/src/src/HMRServer.js:17:        this.server = https.createServer(await getCertificate(options.https));
+/src/src/HMRServer.js-18-      }
+##############################################
+/src/src/FSCache.js-60-      await this.writeDepMtimes(data);
+/src/src/FSCache.js:61:      await fs.writeFile(this.getCacheFile(filename), JSON.stringify(data));
+/src/src/FSCache.js-62-      this.invalidated.delete(filename);
+##############################################
+/src/src/FSCache.js-96-
+/src/src/FSCache.js:97:      let json = await fs.readFile(cacheFile);
+/src/src/FSCache.js:98:      let data = JSON.parse(json);
+/src/src/FSCache.js-99-      if (!(await this.checkDepMtimes(data))) {
+##############################################
+/src/src/FSCache.js-114-    try {
+/src/src/FSCache.js:115:      await fs.unlink(this.getCacheFile(filename));
+/src/src/FSCache.js-116-      this.invalidated.delete(filename);
+##############################################
+/src/src/cli.js-172-
+/src/src/cli.js:173:program.parse(args);
+/src/src/cli.js-174-
+##############################################
+/src/src/Asset.js-59-    if (!this.ast) {
+/src/src/Asset.js:60:      this.ast = await this.parse(this.contents);
+/src/src/Asset.js-61-    }
+##############################################
+/src/src/Asset.js-93-
+/src/src/Asset.js:94:    const parsed = URL.parse(url);
+/src/src/Asset.js-95-    let depName;
+##############################################
+/src/src/Asset.js-162-  async load() {
+/src/src/Asset.js:163:    return await fs.readFile(this.name, this.encoding);
+/src/src/Asset.js-164-  }
+##############################################
+/src/src/builtins/loaders/node/wasm-loader.js-4-  return new Promise(function(resolve, reject) {
+/src/src/builtins/loaders/node/wasm-loader.js:5:    fs.readFile(__dirname + bundle, function(err, data) {
+/src/src/builtins/loaders/node/wasm-loader.js-6-      if (err) {
+##############################################
+/src/src/builtins/loaders/node/js-loader.js-4-  return new Promise(function(resolve, reject) {
+/src/src/builtins/loaders/node/js-loader.js:5:    fs.readFile(__dirname + bundle, 'utf8', function(err, data) {
+/src/src/builtins/loaders/node/js-loader.js-6-      if (err) {
+##############################################
+/src/src/builtins/hmr-runtime.js-29-  ws.onmessage = function(event) {
+/src/src/builtins/hmr-runtime.js:30:    var data = JSON.parse(event.data);
+/src/src/builtins/hmr-runtime.js-31-
+##############################################
+/src/src/Server.js-50-    function respond() {
+/src/src/Server.js:51:      let {pathname} = url.parse(req.url);
+/src/src/Server.js-52-      if (bundler.error) {
+##############################################
+/src/src/Server.js-116-  if (!useHTTPS) {
+/src/src/Server.js:117:    server = http.createServer(handler);
+/src/src/Server.js-118-  } else if (typeof useHTTPS === 'boolean') {
+/src/src/Server.js:119:    server = https.createServer(generateCertificate(bundler.options), handler);
+/src/src/Server.js-120-  } else {
+/src/src/Server.js:121:    server = https.createServer(await getCertificate(useHTTPS), handler);
+/src/src/Server.js-122-  }
+##############################################
+/src/src/packagers/RawPackager.js-12-    if (!contents || (contents && contents.path)) {
+/src/src/packagers/RawPackager.js:13:      contents = await fs.readFile(contents ? contents.path : asset.name);
+/src/src/packagers/RawPackager.js-14-    }
+##############################################
+/src/src/packagers/RawPackager.js-21-    this.size = contents.length;
+/src/src/packagers/RawPackager.js:22:    await fs.writeFile(this.bundle.name, contents);
+/src/src/packagers/RawPackager.js-23-  }
+##############################################
+/src/src/packagers/JSConcatPackager.js-83-  write(string) {
+/src/src/packagers/JSConcatPackager.js:84:    this.statements.push(...this.parse(string));
+/src/src/packagers/JSConcatPackager.js-85-  }
+##############################################
+/src/src/packagers/JSConcatPackager.js-235-    } else {
+/src/src/packagers/JSConcatPackager.js:236:      statements = this.parse(asset.generated.js, asset.name);
+/src/src/packagers/JSConcatPackager.js-237-    }
+##############################################
+/src/src/packagers/JSConcatPackager.js-271-    if (this.assetPostludes.has(asset)) {
+/src/src/packagers/JSConcatPackager.js:272:      statements.push(...this.parse(this.assetPostludes.get(asset)));
+/src/src/packagers/JSConcatPackager.js-273-    }
+##############################################
+/src/src/packagers/JSConcatPackager.js-345-  parse(code, filename) {
+/src/src/packagers/JSConcatPackager.js:346:    let ast = babylon.parse(code, {
+/src/src/packagers/JSConcatPackager.js-347-      sourceFilename: filename,
+##############################################
+/src/src/utils/config.js-11-
+/src/src/utils/config.js:12:async function resolve(filepath, filenames, root = path.parse(filepath).root) {
+/src/src/utils/config.js-13-  filepath = path.dirname(filepath);
+##############################################
+/src/src/utils/config.js-33-
+/src/src/utils/config.js:34:async function load(filepath, filenames, root = path.parse(filepath).root) {
+/src/src/utils/config.js-35-  let configFile = await resolve(filepath, filenames, root);
+##############################################
+/src/src/utils/config.js-42-
+/src/src/utils/config.js:43:      let configContent = (await fs.readFile(configFile)).toString();
+/src/src/utils/config.js-44-      let parse = PARSERS[extname] || PARSERS.json;
+##############################################
+/src/src/utils/urlJoin.js-8-module.exports = function(publicURL, assetPath) {
+/src/src/utils/urlJoin.js:9:  const url = URL.parse(publicURL, false, true);
+/src/src/utils/urlJoin.js:10:  const assetUrl = URL.parse(assetPath);
+/src/src/utils/urlJoin.js-11-  url.pathname = path.posix.join(url.pathname, assetUrl.pathname);
+##############################################
+/src/src/utils/installPackage.js-33-  if (packageManager === 'npm' && !packageLocation) {
+/src/src/utils/installPackage.js:34:    await fs.writeFile(path.join(cwd, 'package.json'), '{}');
+/src/src/utils/installPackage.js-35-  }
+##############################################
+/src/src/utils/getCertificate.js-4-  try {
+/src/src/utils/getCertificate.js:5:    let cert = await fs.readFile(options.cert);
+/src/src/utils/getCertificate.js:6:    let key = await fs.readFile(options.key);
+/src/src/utils/getCertificate.js-7-    return {key, cert};
+##############################################
+/src/src/utils/getRootDir.js-6-  for (let file of files) {
+/src/src/utils/getRootDir.js:7:    let parsed = path.parse(file);
+/src/src/utils/getRootDir.js-8-    if (!cur) {
+##############################################
+/src/src/utils/md5.js-12-  return new Promise((resolve, reject) => {
+/src/src/utils/md5.js:13:    fs.createReadStream(filename)
+/src/src/utils/md5.js-14-      .pipe(crypto.createHash('md5').setEncoding('hex'))
+##############################################
+/src/src/assets/JSONAsset.js-12-  parse(code) {
+/src/src/assets/JSONAsset.js:13:    return path.extname(this.name) === '.json5' ? json5.parse(code) : null;
+/src/src/assets/JSONAsset.js-14-  }
+##############################################
+/src/src/assets/WebManifestAsset.js-9-  parse(content) {
+/src/src/assets/WebManifestAsset.js:10:    return JSON.parse(content);
+/src/src/assets/WebManifestAsset.js-11-  }
+##############################################
+/src/src/assets/StylusAsset.js-69-  let parser = new Parser(code, options);
+/src/src/assets/StylusAsset.js:70:  let ast = parser.parse();
+/src/src/assets/StylusAsset.js-71-  let deps = new Map();
+##############################################
+/src/src/assets/StylusAsset.js-129-
+/src/src/assets/StylusAsset.js:130:          let code = await fs.readFile(resolved, 'utf8');
+/src/src/assets/StylusAsset.js-131-          for (let [path, resolvedPath] of await getDependencies(
+##############################################
+/src/src/assets/JSAsset.js-82-    const options = await this.getParserOptions();
+/src/src/assets/JSAsset.js:83:    return babylon.parse(code, options);
+/src/src/assets/JSAsset.js-84-  }
+##############################################
+/src/src/assets/HTMLAsset.js-81-  async parse(code) {
+/src/src/assets/HTMLAsset.js:82:    let res = await posthtmlTransform.parse(code, this);
+/src/src/assets/HTMLAsset.js-83-    res.walk = api.walk;
+##############################################
+/src/src/assets/CSSAsset.js-25-  parse(code) {
+/src/src/assets/CSSAsset.js:26:    let root = postcss.parse(code, {from: this.name, to: this.name});
+/src/src/assets/CSSAsset.js-27-    return new CSSAst(code, root);
+##############################################
+/src/src/assets/VueAsset.js-19-
+/src/src/assets/VueAsset.js:20:    return this.vue.parse({
+/src/src/assets/VueAsset.js-21-      source: code,
+##############################################
+/src/src/assets/RustAsset.js-143-      cargoConfig.lib['crate-type'].push('cdylib');
+/src/src/assets/RustAsset.js:144:      await fs.writeFile(
+/src/src/assets/RustAsset.js-145-        path.join(cargoDir, 'Cargo.toml'),
+##############################################
+/src/src/assets/RustAsset.js-157-    });
+/src/src/assets/RustAsset.js:158:    const cargoMetadata = JSON.parse(stdout);
+/src/src/assets/RustAsset.js-159-    const cargoTargetDir = cargoMetadata.target_directory;
+##############################################
+/src/src/assets/RustAsset.js-193-    // Read deps file
+/src/src/assets/RustAsset.js:194:    let contents = await fs.readFile(this.depsPath, 'utf8');
+/src/src/assets/RustAsset.js-195-    let dir = path.dirname(this.name);
+##############################################
+/src/src/assets/TypeScriptAsset.js-44-    if (sourceMap) {
+/src/src/assets/TypeScriptAsset.js:45:      sourceMap = JSON.parse(sourceMap);
+/src/src/assets/TypeScriptAsset.js-46-      sourceMap.sources = [this.relativeName];
+##############################################
+/src/src/assets/ReasonAsset.js-24-    const outputFile = this.name.replace(/\.(re|ml)$/, '.bs.js');
+/src/src/assets/ReasonAsset.js:25:    const outputContent = await fs.readFile(outputFile);
+/src/src/assets/ReasonAsset.js-26-    return outputContent.toString();
+##############################################
+/src/src/assets/LESSAsset.js-89-      return {
+/src/src/assets/LESSAsset.js:90:        contents: await fs.readFile(resolved.path, 'utf8'),
+/src/src/assets/LESSAsset.js-91-        filename: resolved.path
+##############################################
+/src/src/assets/TOMLAsset.js-11-  parse(code) {
+/src/src/assets/TOMLAsset.js:12:    return toml.parse(code);
+/src/src/assets/TOMLAsset.js-13-  }
+##############################################
+/src/src/SourceMap.js-35-    }
+/src/src/SourceMap.js:36:    map = typeof map === 'string' ? JSON.parse(map) : map;
+/src/src/SourceMap.js-37-    return await new SourceMapConsumer(map);
+##############################################
+/src/src/Resolver.js-164-    let parts = this.getModuleParts(filename);
+/src/src/Resolver.js:165:    let root = path.parse(dir).root;
+/src/src/Resolver.js-166-
+##############################################
+/src/src/Resolver.js-248-
+/src/src/Resolver.js:249:    let json = await fs.readFile(file, 'utf8');
+/src/src/Resolver.js:250:    let pkg = JSON.parse(json);
+/src/src/Resolver.js-251-
+##############################################
+/src/src/Resolver.js-401-    // Find the nearest package.json file within the current node_modules folder
+/src/src/Resolver.js:402:    let root = path.parse(dir).root;
+/src/src/Resolver.js-403-    while (dir !== root && path.basename(dir) !== 'node_modules') {
+##############################################
+/src/src/Watcher.js-32-
+/src/src/Watcher.js:33:    let root = Path.parse(path).root;
+/src/src/Watcher.js-34-    while (path !== root) {
+##############################################
+/src/lib/HMRServer.js-22-          if (!options.https) {
+/src/lib/HMRServer.js:23:            _this.server = http.createServer();
+/src/lib/HMRServer.js-24-          } else if (typeof options.https === 'boolean') {
+/src/lib/HMRServer.js:25:            _this.server = https.createServer(generateCertificate(options));
+/src/lib/HMRServer.js-26-          } else {
+/src/lib/HMRServer.js:27:            _this.server = https.createServer((yield getCertificate(options.https)));
+/src/lib/HMRServer.js-28-          }
+##############################################
+/src/lib/FSCache.js-100-        yield _this3.writeDepMtimes(data);
+/src/lib/FSCache.js:101:        yield fs.writeFile(_this3.getCacheFile(filename), JSON.stringify(data));
+/src/lib/FSCache.js-102-        _this3.invalidated.delete(filename);
+##############################################
+/src/lib/FSCache.js-165-
+/src/lib/FSCache.js:166:        let json = yield fs.readFile(cacheFile);
+/src/lib/FSCache.js:167:        let data = JSON.parse(json);
+/src/lib/FSCache.js-168-        if (!(yield _this5.checkDepMtimes(data))) {
+##############################################
+/src/lib/FSCache.js-187-      try {
+/src/lib/FSCache.js:188:        yield fs.unlink(_this6.getCacheFile(filename));
+/src/lib/FSCache.js-189-        _this6.invalidated.delete(filename);
+##############################################
+/src/lib/cli.js-73-
+/src/lib/cli.js:74:program.parse(args);
+##############################################
+/src/lib/Asset.js-72-      if (!_this2.ast) {
+/src/lib/Asset.js:73:        _this2.ast = yield _this2.parse(_this2.contents);
+/src/lib/Asset.js-74-      }
+##############################################
+/src/lib/Asset.js-108-
+/src/lib/Asset.js:109:    const parsed = URL.parse(url);
+/src/lib/Asset.js-110-    let depName;
+##############################################
+/src/lib/Asset.js-184-    return _asyncToGenerator(function* () {
+/src/lib/Asset.js:185:      return yield fs.readFile(_this6.name, _this6.encoding);
+/src/lib/Asset.js-186-    })();
+##############################################
+/src/lib/builtins/loaders/node/wasm-loader.js-4-  return new Promise(function(resolve, reject) {
+/src/lib/builtins/loaders/node/wasm-loader.js:5:    fs.readFile(__dirname + bundle, function(err, data) {
+/src/lib/builtins/loaders/node/wasm-loader.js-6-      if (err) {
+##############################################
+/src/lib/builtins/loaders/node/js-loader.js-4-  return new Promise(function(resolve, reject) {
+/src/lib/builtins/loaders/node/js-loader.js:5:    fs.readFile(__dirname + bundle, 'utf8', function(err, data) {
+/src/lib/builtins/loaders/node/js-loader.js-6-      if (err) {
+##############################################
+/src/lib/builtins/hmr-runtime.js-29-  ws.onmessage = function(event) {
+/src/lib/builtins/hmr-runtime.js:30:    var data = JSON.parse(event.data);
+/src/lib/builtins/hmr-runtime.js-31-
+##############################################
+/src/lib/Server.js-7-    if (!useHTTPS) {
+/src/lib/Server.js:8:      server = http.createServer(handler);
+/src/lib/Server.js-9-    } else if (typeof useHTTPS === 'boolean') {
+/src/lib/Server.js:10:      server = https.createServer(generateCertificate(bundler.options), handler);
+/src/lib/Server.js-11-    } else {
+/src/lib/Server.js:12:      server = https.createServer((yield getCertificate(useHTTPS)), handler);
+/src/lib/Server.js-13-    }
+##############################################
+/src/lib/Server.js-84-    function respond() {
+/src/lib/Server.js:85:      var _url$parse = url.parse(req.url);
+/src/lib/Server.js-86-
+##############################################
+/src/lib/packagers/RawPackager.js-19-      if (!contents || contents && contents.path) {
+/src/lib/packagers/RawPackager.js:20:        contents = yield fs.readFile(contents ? contents.path : asset.name);
+/src/lib/packagers/RawPackager.js-21-      }
+##############################################
+/src/lib/packagers/RawPackager.js-28-      _this.size = contents.length;
+/src/lib/packagers/RawPackager.js:29:      yield fs.writeFile(_this.bundle.name, contents);
+/src/lib/packagers/RawPackager.js-30-    })();
+##############################################
+/src/lib/packagers/JSConcatPackager.js-121-  write(string) {
+/src/lib/packagers/JSConcatPackager.js:122:    this.statements.push(...this.parse(string));
+/src/lib/packagers/JSConcatPackager.js-123-  }
+##############################################
+/src/lib/packagers/JSConcatPackager.js-339-    } else {
+/src/lib/packagers/JSConcatPackager.js:340:      statements = this.parse(asset.generated.js, asset.name);
+/src/lib/packagers/JSConcatPackager.js-341-    }
+##############################################
+/src/lib/packagers/JSConcatPackager.js-417-    if (this.assetPostludes.has(asset)) {
+/src/lib/packagers/JSConcatPackager.js:418:      statements.push(...this.parse(this.assetPostludes.get(asset)));
+/src/lib/packagers/JSConcatPackager.js-419-    }
+##############################################
+/src/lib/packagers/JSConcatPackager.js-501-  parse(code, filename) {
+/src/lib/packagers/JSConcatPackager.js:502:    let ast = babylon.parse(code, {
+/src/lib/packagers/JSConcatPackager.js-503-      sourceFilename: filename,
+##############################################
+/src/lib/utils/config.js-3-let resolve = (() => {
+/src/lib/utils/config.js:4:  var _ref = _asyncToGenerator(function* (filepath, filenames, root = path.parse(filepath).root) {
+/src/lib/utils/config.js-5-    filepath = path.dirname(filepath);
+##############################################
+/src/lib/utils/config.js-50-let load = (() => {
+/src/lib/utils/config.js:51:  var _ref2 = _asyncToGenerator(function* (filepath, filenames, root = path.parse(filepath).root) {
+/src/lib/utils/config.js-52-    let configFile = yield resolve(filepath, filenames, root);
+##############################################
+/src/lib/utils/config.js-59-
+/src/lib/utils/config.js:60:        let configContent = (yield fs.readFile(configFile)).toString();
+/src/lib/utils/config.js-61-        let parse = PARSERS[extname] || PARSERS.json;
+##############################################
+/src/lib/utils/urlJoin.js-10-module.exports = function (publicURL, assetPath) {
+/src/lib/utils/urlJoin.js:11:  const url = URL.parse(publicURL, false, true);
+/src/lib/utils/urlJoin.js:12:  const assetUrl = URL.parse(assetPath);
+/src/lib/utils/urlJoin.js-13-  url.pathname = path.posix.join(url.pathname, assetUrl.pathname);
+##############################################
+/src/lib/utils/installPackage.js-33-    if (packageManager === 'npm' && !packageLocation) {
+/src/lib/utils/installPackage.js:34:      yield fs.writeFile(path.join(cwd, 'package.json'), '{}');
+/src/lib/utils/installPackage.js-35-    }
+##############################################
+/src/lib/utils/getCertificate.js-5-    try {
+/src/lib/utils/getCertificate.js:6:      let cert = yield fs.readFile(options.cert);
+/src/lib/utils/getCertificate.js:7:      let key = yield fs.readFile(options.key);
+/src/lib/utils/getCertificate.js-8-      return { key, cert };
+##############################################
+/src/lib/utils/getRootDir.js-15-
+/src/lib/utils/getRootDir.js:16:      let parsed = path.parse(file);
+/src/lib/utils/getRootDir.js-17-      if (!cur) {
+##############################################
+/src/lib/utils/md5.js-11-  return new Promise((resolve, reject) => {
+/src/lib/utils/md5.js:12:    fs.createReadStream(filename).pipe(crypto.createHash('md5').setEncoding('hex')).on('finish', function () {
+/src/lib/utils/md5.js-13-      resolve(this.read());
+##############################################
+/src/lib/assets/JSONAsset.js-18-  parse(code) {
+/src/lib/assets/JSONAsset.js:19:    return path.extname(this.name) === '.json5' ? json5.parse(code) : null;
+/src/lib/assets/JSONAsset.js-20-  }
+##############################################
+/src/lib/assets/WebManifestAsset.js-11-  parse(content) {
+/src/lib/assets/WebManifestAsset.js:12:    return JSON.parse(content);
+/src/lib/assets/WebManifestAsset.js-13-  }
+##############################################
+/src/lib/assets/StylusAsset.js-22-    let parser = new Parser(code, options);
+/src/lib/assets/StylusAsset.js:23:    let ast = parser.parse();
+/src/lib/assets/StylusAsset.js-24-    let deps = new Map();
+##############################################
+/src/lib/assets/StylusAsset.js-87-
+/src/lib/assets/StylusAsset.js:88:              let code = yield fs.readFile(resolved, 'utf8');
+/src/lib/assets/StylusAsset.js-89-              var _iteratorNormalCompletion2 = true;
+##############################################
+/src/lib/assets/JSAsset.js-89-      const options = yield _this2.getParserOptions();
+/src/lib/assets/JSAsset.js:90:      return babylon.parse(code, options);
+/src/lib/assets/JSAsset.js-91-    })();
+##############################################
+/src/lib/assets/HTMLAsset.js-57-    return _asyncToGenerator(function* () {
+/src/lib/assets/HTMLAsset.js:58:      let res = yield posthtmlTransform.parse(code, _this);
+/src/lib/assets/HTMLAsset.js-59-      res.walk = api.walk;
+##############################################
+/src/lib/assets/CSSAsset.js-27-  parse(code) {
+/src/lib/assets/CSSAsset.js:28:    let root = postcss.parse(code, { from: this.name, to: this.name });
+/src/lib/assets/CSSAsset.js-29-    return new CSSAst(code, root);
+##############################################
+/src/lib/assets/VueAsset.js-27-
+/src/lib/assets/VueAsset.js:28:      return _this.vue.parse({
+/src/lib/assets/VueAsset.js-29-        source: code,
+##############################################
+/src/lib/assets/RustAsset.js-154-        cargoConfig.lib['crate-type'].push('cdylib');
+/src/lib/assets/RustAsset.js:155:        yield fs.writeFile(path.join(cargoDir, 'Cargo.toml'), tomlify.toToml(cargoConfig));
+/src/lib/assets/RustAsset.js-156-      }
+##############################################
+/src/lib/assets/RustAsset.js-170-
+/src/lib/assets/RustAsset.js:171:      const cargoMetadata = JSON.parse(stdout);
+/src/lib/assets/RustAsset.js-172-      const cargoTargetDir = cargoMetadata.target_directory;
+##############################################
+/src/lib/assets/RustAsset.js-205-      // Read deps file
+/src/lib/assets/RustAsset.js:206:      let contents = yield fs.readFile(_this4.depsPath, 'utf8');
+/src/lib/assets/RustAsset.js-207-      let dir = path.dirname(_this4.name);
+##############################################
+/src/lib/assets/TypeScriptAsset.js-45-      if (sourceMap) {
+/src/lib/assets/TypeScriptAsset.js:46:        sourceMap = JSON.parse(sourceMap);
+/src/lib/assets/TypeScriptAsset.js-47-        sourceMap.sources = [_this.relativeName];
+##############################################
+/src/lib/assets/ReasonAsset.js-31-      const outputFile = _this.name.replace(/\.(re|ml)$/, '.bs.js');
+/src/lib/assets/ReasonAsset.js:32:      const outputContent = yield fs.readFile(outputFile);
+/src/lib/assets/ReasonAsset.js-33-      return outputContent.toString();
+##############################################
+/src/lib/assets/LESSAsset.js-109-        return {
+/src/lib/assets/LESSAsset.js:110:          contents: yield fs.readFile(resolved.path, 'utf8'),
+/src/lib/assets/LESSAsset.js-111-          filename: resolved.path
+##############################################
+/src/lib/assets/TOMLAsset.js-13-  parse(code) {
+/src/lib/assets/TOMLAsset.js:14:    return toml.parse(code);
+/src/lib/assets/TOMLAsset.js-15-  }
+##############################################
+/src/lib/SourceMap.js-33-      }
+/src/lib/SourceMap.js:34:      map = typeof map === 'string' ? JSON.parse(map) : map;
+/src/lib/SourceMap.js-35-      return yield new SourceMapConsumer(map);
+##############################################
+/src/lib/Resolver.js-177-      let parts = _this4.getModuleParts(filename);
+/src/lib/Resolver.js:178:      let root = path.parse(dir).root;
+/src/lib/Resolver.js-179-
+##############################################
+/src/lib/Resolver.js-273-
+/src/lib/Resolver.js:274:      let json = yield fs.readFile(file, 'utf8');
+/src/lib/Resolver.js:275:      let pkg = JSON.parse(json);
+/src/lib/Resolver.js-276-
+##############################################
+/src/lib/Resolver.js-467-      // Find the nearest package.json file within the current node_modules folder
+/src/lib/Resolver.js:468:      let root = path.parse(dir).root;
+/src/lib/Resolver.js-469-      while (dir !== root && path.basename(dir) !== 'node_modules') {
+##############################################
+/src/lib/Watcher.js-33-
+/src/lib/Watcher.js:34:    let root = Path.parse(path).root;
+/src/lib/Watcher.js-35-    while (path !== root) {

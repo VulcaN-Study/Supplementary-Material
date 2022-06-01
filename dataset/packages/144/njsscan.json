@@ -1,0 +1,48 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            71,
+            78
+          ],
+          "match_position": [
+            5,
+            57
+          ],
+          "match_string": "    var toEvaluate = expression.replace(new RegExp(unit, \"gi\"), \"\")\n\n    var result\n\n\n\n    try {\n\n      result = eval(toEvaluate)\n\n    }\n\n    catch (e) {\n\n      return functionIdentifier + \"(\" + expression + \")\""
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

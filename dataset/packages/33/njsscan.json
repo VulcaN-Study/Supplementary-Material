@@ -1,0 +1,278 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# EditorConfig helps developers define and maintain consistent",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 2
+        },
+        "extra": {
+          "line": "    \"globals\": {",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 14,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 8
+        },
+        "extra": {
+          "line": "coverage*",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 8
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2011 Sascha Depold",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 17,
+          "line": 373
+        },
+        "extra": {
+          "line": "            as = item.as",
+          "message": "Syntax error"
+        },
+        "path": "/src/lib/dialects/abstract/query-generator.js",
+        "start": {
+          "col": 16,
+          "line": 373
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/utils.js",
+          "match_lines": [
+            574,
+            574
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            63,
+            69
+          ],
+          "match_position": [
+            7,
+            34
+          ],
+          "match_string": "      var showSchemasSql = self.QueryGenerator.showSchemasQuery()\n\n      self.sequelize.query(showSchemasSql, null, options).success(function(schemaNames) {\n\n        self.emit('showAllSchemas', null)\n\n        emitter.emit('success', Utils._.flatten(Utils._.map(schemaNames, function(value){ return (!!value.schema_name ? value.schema_name : value) })))\n\n      }).error(function(err) {\n\n        self.emit('showAllSchemas', err)\n\n        emitter.emit('error', err)"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            75,
+            186
+          ],
+          "match_position": [
+            5,
+            11
+          ],
+          "match_string": "    var attributeHashes   = {}\n\n      , dataTypeValues    = Utils._.values(DataTypes)\n\n      , keys              = Object.keys(attributes)\n\n      , keyLen            = keys.length\n\n      , self              = this\n\n      , sql               = ''\n\n      , i                 = 0\n\n\n\n    for (i = 0; i < keyLen; i++) {\n\n      if (dataTypeValues.indexOf(attributes[keys[i]]) > -1) {\n\n        attributeHashes[keys[i]] = { type: attributes[keys[i]], allowNull: true }\n\n      } else {\n\n        attributeHashes[keys[i]] = attributes[keys[i]]\n\n      }\n\n    }\n\n\n\n    options = Utils._.extend({\n\n      logging: this.sequelize.options.logging\n\n    }, options || {})\n\n\n\n    return new Utils.CustomEventEmitter(function(emitter) {\n\n      // Postgres requires a special SQL command for enums\n\n      if (self.sequelize.options.dialect === \"postgres\") {\n\n        var chainer = new Utils.QueryChainer()\n\n          // For backwards-compatibility, public schemas don't need to\n\n          // explicitly state their schema when creating a new enum type\n\n          , getTableName = (!options || !options.schema || options.schema === \"public\" ? '' : options.schema + '_') + tableName\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (attributes[keys[i]].toString().match(/^ENUM\\(/) || attributes[keys[i]].toString() === \"ENUM\" || (attributes[keys[i]].type && attributes[keys[i]].type.toString() === \"ENUM\")) {\n\n            sql = self.QueryGenerator.pgListEnums(getTableName, keys[i], options)\n\n            chainer.add(self.sequelize.query(sql, null, { plain: true, raw: true, type: QueryTypes.SELECT, logging: options.logging }))\n\n          }\n\n        }\n\n\n\n        chainer.runSerially().success(function(results) {\n\n          var chainer2 = new Utils.QueryChainer()\n\n            // Find the table that we're trying to create throgh DAOFactoryManager\n\n            , daoTable = self.sequelize.daoFactoryManager.daos.filter(function(dao) { return dao.tableName === tableName })\n\n            , enumIdx  = 0\n\n\n\n          daoTable = daoTable.length > 0 ? daoTable[0] : null\n\n\n\n          for (i = 0; i < keyLen; i++) {\n\n            if (attributes[keys[i]].toString().match(/^ENUM\\(/) || attributes[keys[i]].toString() === \"ENUM\" || (attributes[keys[i]].type && attributes[keys[i]].type.toString() === \"ENUM\")) {\n\n              // If the enum type doesn't exist then create it\n\n              if (!results[enumIdx]) {\n\n                sql = self.QueryGenerator.pgEnum(getTableName, keys[i], attributes[keys[i]], options)\n\n                chainer2.add(self.sequelize.query(sql, null, { raw: true, logging: options.logging }))\n\n              } else if (!!results[enumIdx] && !!daoTable) {\n\n                var enumVals = self.QueryGenerator.fromArray(results[enumIdx].enum_value)\n\n                  , vals = daoTable.rawAttributes[keys[i]].values\n\n\n\n                vals.forEach(function(value, idx) {\n\n                  // reset out after/before options since it's for every enum value\n\n                  options.before = null\n\n                  options.after = null\n\n\n\n                  if (enumVals.indexOf(value) === -1) {\n\n                    if (!!vals[idx+1]) {\n\n                      options.before = vals[idx+1]\n\n                    }\n\n                    else if (!!vals[idx-1]) {\n\n                      options.after = vals[idx-1]\n\n                    }\n\n\n\n                    chainer2.add(self.sequelize.query(self.QueryGenerator.pgEnumAdd(getTableName, keys[i], value, options)))\n\n                  }\n\n                })\n\n                enumIdx++\n\n              }\n\n            }\n\n          }\n\n\n\n          attributes = self.QueryGenerator.attributesToSQL(attributeHashes)\n\n          sql = self.QueryGenerator.createTableQuery(tableName, attributes, options)\n\n\n\n          chainer2.run().success(function() {\n\n            queryAndEmit\n\n              .call(self, sql, 'createTable', options)\n\n              .success(function(res) {\n\n                self.emit('createTable', null)\n\n                emitter.emit('success', res)\n\n              })\n\n              .error(function(err) {\n\n                self.emit('createTable', err)\n\n                emitter.emit('error', err)\n\n              })\n\n              .on('sql', function(sql)  {\n\n                emitter.emit('sql', sql)\n\n              })\n\n          }).error(function(err) {\n\n            emitter.emit('error', err)\n\n          }).on('sql', function(sql) {\n\n            emitter.emit('sql', sql)\n\n          })\n\n        })\n\n      } else {\n\n        attributes = self.QueryGenerator.attributesToSQL(attributeHashes)\n\n        sql = self.QueryGenerator.createTableQuery(tableName, attributes, options)\n\n\n\n        queryAndEmit.call(self, sql, 'createTable', options).success(function(results) {\n\n          self.emit('createTable', null)\n\n          emitter.emit('success', results)\n\n        }).error(function(err) {\n\n          self.emit('createTable', err)\n\n          emitter.emit('error', err)\n\n        }).on('sql', function(sql) {\n\n          emitter.emit('sql', sql)\n\n        })\n\n      }\n\n    }).run()"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            91,
+            186
+          ],
+          "match_position": [
+            5,
+            11
+          ],
+          "match_string": "    options = Utils._.extend({\n\n      logging: this.sequelize.options.logging\n\n    }, options || {})\n\n\n\n    return new Utils.CustomEventEmitter(function(emitter) {\n\n      // Postgres requires a special SQL command for enums\n\n      if (self.sequelize.options.dialect === \"postgres\") {\n\n        var chainer = new Utils.QueryChainer()\n\n          // For backwards-compatibility, public schemas don't need to\n\n          // explicitly state their schema when creating a new enum type\n\n          , getTableName = (!options || !options.schema || options.schema === \"public\" ? '' : options.schema + '_') + tableName\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (attributes[keys[i]].toString().match(/^ENUM\\(/) || attributes[keys[i]].toString() === \"ENUM\" || (attributes[keys[i]].type && attributes[keys[i]].type.toString() === \"ENUM\")) {\n\n            sql = self.QueryGenerator.pgListEnums(getTableName, keys[i], options)\n\n            chainer.add(self.sequelize.query(sql, null, { plain: true, raw: true, type: QueryTypes.SELECT, logging: options.logging }))\n\n          }\n\n        }\n\n\n\n        chainer.runSerially().success(function(results) {\n\n          var chainer2 = new Utils.QueryChainer()\n\n            // Find the table that we're trying to create throgh DAOFactoryManager\n\n            , daoTable = self.sequelize.daoFactoryManager.daos.filter(function(dao) { return dao.tableName === tableName })\n\n            , enumIdx  = 0\n\n\n\n          daoTable = daoTable.length > 0 ? daoTable[0] : null\n\n\n\n          for (i = 0; i < keyLen; i++) {\n\n            if (attributes[keys[i]].toString().match(/^ENUM\\(/) || attributes[keys[i]].toString() === \"ENUM\" || (attributes[keys[i]].type && attributes[keys[i]].type.toString() === \"ENUM\")) {\n\n              // If the enum type doesn't exist then create it\n\n              if (!results[enumIdx]) {\n\n                sql = self.QueryGenerator.pgEnum(getTableName, keys[i], attributes[keys[i]], options)\n\n                chainer2.add(self.sequelize.query(sql, null, { raw: true, logging: options.logging }))\n\n              } else if (!!results[enumIdx] && !!daoTable) {\n\n                var enumVals = self.QueryGenerator.fromArray(results[enumIdx].enum_value)\n\n                  , vals = daoTable.rawAttributes[keys[i]].values\n\n\n\n                vals.forEach(function(value, idx) {\n\n                  // reset out after/before options since it's for every enum value\n\n                  options.before = null\n\n                  options.after = null\n\n\n\n                  if (enumVals.indexOf(value) === -1) {\n\n                    if (!!vals[idx+1]) {\n\n                      options.before = vals[idx+1]\n\n                    }\n\n                    else if (!!vals[idx-1]) {\n\n                      options.after = vals[idx-1]\n\n                    }\n\n\n\n                    chainer2.add(self.sequelize.query(self.QueryGenerator.pgEnumAdd(getTableName, keys[i], value, options)))\n\n                  }\n\n                })\n\n                enumIdx++\n\n              }\n\n            }\n\n          }\n\n\n\n          attributes = self.QueryGenerator.attributesToSQL(attributeHashes)\n\n          sql = self.QueryGenerator.createTableQuery(tableName, attributes, options)\n\n\n\n          chainer2.run().success(function() {\n\n            queryAndEmit\n\n              .call(self, sql, 'createTable', options)\n\n              .success(function(res) {\n\n                self.emit('createTable', null)\n\n                emitter.emit('success', res)\n\n              })\n\n              .error(function(err) {\n\n                self.emit('createTable', err)\n\n                emitter.emit('error', err)\n\n              })\n\n              .on('sql', function(sql)  {\n\n                emitter.emit('sql', sql)\n\n              })\n\n          }).error(function(err) {\n\n            emitter.emit('error', err)\n\n          }).on('sql', function(sql) {\n\n            emitter.emit('sql', sql)\n\n          })\n\n        })\n\n      } else {\n\n        attributes = self.QueryGenerator.attributesToSQL(attributeHashes)\n\n        sql = self.QueryGenerator.createTableQuery(tableName, attributes, options)\n\n\n\n        queryAndEmit.call(self, sql, 'createTable', options).success(function(results) {\n\n          self.emit('createTable', null)\n\n          emitter.emit('success', results)\n\n        }).error(function(err) {\n\n          self.emit('createTable', err)\n\n          emitter.emit('error', err)\n\n        }).on('sql', function(sql) {\n\n          emitter.emit('sql', sql)\n\n        })\n\n      }\n\n    }).run()"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            98,
+            106
+          ],
+          "match_position": [
+            9,
+            134
+          ],
+          "match_string": "        var chainer = new Utils.QueryChainer()\n\n          // For backwards-compatibility, public schemas don't need to\n\n          // explicitly state their schema when creating a new enum type\n\n          , getTableName = (!options || !options.schema || options.schema === \"public\" ? '' : options.schema + '_') + tableName\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (attributes[keys[i]].toString().match(/^ENUM\\(/) || attributes[keys[i]].toString() === \"ENUM\" || (attributes[keys[i]].type && attributes[keys[i]].type.toString() === \"ENUM\")) {\n\n            sql = self.QueryGenerator.pgListEnums(getTableName, keys[i], options)\n\n            chainer.add(self.sequelize.query(sql, null, { plain: true, raw: true, type: QueryTypes.SELECT, logging: options.logging }))"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            98,
+            169
+          ],
+          "match_position": [
+            9,
+            36
+          ],
+          "match_string": "        var chainer = new Utils.QueryChainer()\n\n          // For backwards-compatibility, public schemas don't need to\n\n          // explicitly state their schema when creating a new enum type\n\n          , getTableName = (!options || !options.schema || options.schema === \"public\" ? '' : options.schema + '_') + tableName\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (attributes[keys[i]].toString().match(/^ENUM\\(/) || attributes[keys[i]].toString() === \"ENUM\" || (attributes[keys[i]].type && attributes[keys[i]].type.toString() === \"ENUM\")) {\n\n            sql = self.QueryGenerator.pgListEnums(getTableName, keys[i], options)\n\n            chainer.add(self.sequelize.query(sql, null, { plain: true, raw: true, type: QueryTypes.SELECT, logging: options.logging }))\n\n          }\n\n        }\n\n\n\n        chainer.runSerially().success(function(results) {\n\n          var chainer2 = new Utils.QueryChainer()\n\n            // Find the table that we're trying to create throgh DAOFactoryManager\n\n            , daoTable = self.sequelize.daoFactoryManager.daos.filter(function(dao) { return dao.tableName === tableName })\n\n            , enumIdx  = 0\n\n\n\n          daoTable = daoTable.length > 0 ? daoTable[0] : null\n\n\n\n          for (i = 0; i < keyLen; i++) {\n\n            if (attributes[keys[i]].toString().match(/^ENUM\\(/) || attributes[keys[i]].toString() === \"ENUM\" || (attributes[keys[i]].type && attributes[keys[i]].type.toString() === \"ENUM\")) {\n\n              // If the enum type doesn't exist then create it\n\n              if (!results[enumIdx]) {\n\n                sql = self.QueryGenerator.pgEnum(getTableName, keys[i], attributes[keys[i]], options)\n\n                chainer2.add(self.sequelize.query(sql, null, { raw: true, logging: options.logging }))\n\n              } else if (!!results[enumIdx] && !!daoTable) {\n\n                var enumVals = self.QueryGenerator.fromArray(results[enumIdx].enum_value)\n\n                  , vals = daoTable.rawAttributes[keys[i]].values\n\n\n\n                vals.forEach(function(value, idx) {\n\n                  // reset out after/before options since it's for every enum value\n\n                  options.before = null\n\n                  options.after = null\n\n\n\n                  if (enumVals.indexOf(value) === -1) {\n\n                    if (!!vals[idx+1]) {\n\n                      options.before = vals[idx+1]\n\n                    }\n\n                    else if (!!vals[idx-1]) {\n\n                      options.after = vals[idx-1]\n\n                    }\n\n\n\n                    chainer2.add(self.sequelize.query(self.QueryGenerator.pgEnumAdd(getTableName, keys[i], value, options)))\n\n                  }\n\n                })\n\n                enumIdx++\n\n              }\n\n            }\n\n          }\n\n\n\n          attributes = self.QueryGenerator.attributesToSQL(attributeHashes)\n\n          sql = self.QueryGenerator.createTableQuery(tableName, attributes, options)\n\n\n\n          chainer2.run().success(function() {\n\n            queryAndEmit\n\n              .call(self, sql, 'createTable', options)\n\n              .success(function(res) {\n\n                self.emit('createTable', null)\n\n                emitter.emit('success', res)\n\n              })\n\n              .error(function(err) {\n\n                self.emit('createTable', err)\n\n                emitter.emit('error', err)\n\n              })\n\n              .on('sql', function(sql)  {\n\n                emitter.emit('sql', sql)\n\n              })\n\n          }).error(function(err) {\n\n            emitter.emit('error', err)\n\n          }).on('sql', function(sql) {\n\n            emitter.emit('sql', sql)"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            105,
+            106
+          ],
+          "match_position": [
+            13,
+            134
+          ],
+          "match_string": "            sql = self.QueryGenerator.pgListEnums(getTableName, keys[i], options)\n\n            chainer.add(self.sequelize.query(sql, null, { plain: true, raw: true, type: QueryTypes.SELECT, logging: options.logging }))"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            122,
+            123
+          ],
+          "match_position": [
+            17,
+            101
+          ],
+          "match_string": "                sql = self.QueryGenerator.pgEnum(getTableName, keys[i], attributes[keys[i]], options)\n\n                chainer2.add(self.sequelize.query(sql, null, { raw: true, logging: options.logging }))"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            141,
+            141
+          ],
+          "match_position": [
+            34,
+            122
+          ],
+          "match_string": "                    chainer2.add(self.sequelize.query(self.QueryGenerator.pgEnumAdd(getTableName, keys[i], value, options)))"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            301,
+            316
+          ],
+          "match_position": [
+            5,
+            36
+          ],
+          "match_string": "    var self = this\n\n      , emitter = new Utils.CustomEventEmitter()\n\n      , chainer = new Utils.QueryChainer()\n\n      , sql = this.QueryGenerator.pgListEnums()\n\n\n\n    this.sequelize.query(sql, null, { plain: false, raw: true, type: QueryTypes.SELECT, logging: options.logging })\n\n      .proxy(emitter, {events: ['sql', 'error']})\n\n      .success(function (results) {\n\n        results.forEach(function (result) {\n\n          chainer.add(self.sequelize.query(\n\n            self.QueryGenerator.pgEnumDrop(null, null, result.enum_name),\n\n            null,\n\n            {logging: options.logging, raw: true}\n\n          ))\n\n        })\n\n        chainer.run().proxy(emitter)"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            310,
+            313
+          ],
+          "match_position": [
+            23,
+            50
+          ],
+          "match_string": "          chainer.add(self.sequelize.query(\n\n            self.QueryGenerator.pgEnumDrop(null, null, result.enum_name),\n\n            null,\n\n            {logging: options.logging, raw: true}"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            336,
+            343
+          ],
+          "match_position": [
+            7,
+            34
+          ],
+          "match_string": "      var showTablesSql = self.QueryGenerator.showTablesQuery()\n\n\n\n      self.sequelize.query(showTablesSql, null, options).success(function(tableNames) {\n\n        self.emit('showAllTables', null)\n\n        emitter.emit('success', Utils._.flatten(tableNames))\n\n      }).error(function(err) {\n\n        self.emit('showAllTables', err)\n\n        emitter.emit('error', err)"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            746,
+            748
+          ],
+          "match_position": [
+            7,
+            70
+          ],
+          "match_string": "      var sql          = self.QueryGenerator.selectQuery(tableName, options)\n\n        , queryOptions = Utils._.extend({ transaction: options.transaction }, { plain: true, raw: true, type: QueryTypes.SELECT })\n\n        , query        = self.sequelize.query(sql, null, queryOptions)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,54 @@
+/src/README.md-12-      <% for project in @projects: %>
+/src/README.md:13:        <a href="<%= project.url %>"><%= project.name %></a>
+/src/README.md:14:        <p><%= project.description %></p>
+/src/README.md-15-      <% end %>
+##############################################
+/src/README.md-56-  printing its return value.
+/src/README.md:57:* `<%= expression %>`: Evaluate a CoffeeScript expression, escape its
+/src/README.md-58-  return value, and print it.
+##############################################
+/src/README.md-148-
+/src/README.md:149:    eco.render "<%= linkTo @project %>",
+/src/README.md-150-      project: { id: 4, name: "Crate & Barrel" }
+##############################################
+/src/README.md-183-    <% end %>
+/src/README.md:184:    <%= div "Hello" %>
+/src/README.md-185-
+##############################################
+/src/README.md-197-        <label>Name:</label>
+/src/README.md:198:        <%= form.textField "name" %>
+/src/README.md-199-      <% end %>
+##############################################
+/src/test/fixtures/capture.eco-2-  <div class="item">
+/src/test/fixtures/capture.eco:3:    <span class="name"><%= item.name %></span>
+/src/test/fixtures/capture.eco:4:    <span class="price">$<%= item.price %></span>
+/src/test/fixtures/capture.eco-5-  </div>
+##############################################
+/src/test/fixtures/capture.eco-8-<% for item in @items: %>
+/src/test/fixtures/capture.eco:9:  <%= renderItem item %>
+/src/test/fixtures/capture.eco-10-<% end %>
+##############################################
+/src/test/fixtures/helpers.eco-2-  <%= @contentTag "div", class: "item", => %>
+/src/test/fixtures/helpers.eco:3:    <%= @contentTag "span", class: "price", -> %>$<%= item.price %><% end %>
+/src/test/fixtures/helpers.eco:4:    <%= @contentTag "span", class: "name", -> %><%= item.name %><% end %>
+/src/test/fixtures/helpers.eco-5-  <% end %>
+##############################################
+/src/test/fixtures/projects.eco-2-  <% for project in @projects: %>
+/src/test/fixtures/projects.eco:3:    <a href="<%= project.url %>"><%= project.name %></a>
+/src/test/fixtures/projects.eco-4-    <%- project.description %>
+##############################################
+/src/test/test_preprocessor.coffee-21-        <% if item = @items?[0]: %>
+/src/test/test_preprocessor.coffee:22:          <%= item.price %>
+/src/test/test_preprocessor.coffee-23-          <% end %>
+##############################################
+/src/test/test_preprocessor.coffee-33-      preprocess """
+/src/test/test_preprocessor.coffee:34:        <%= item.price if
+/src/test/test_preprocessor.coffee-35-              item = @items?[0] %>
+##############################################
+/src/test/test_preprocessor.coffee-43-    try
+/src/test/test_preprocessor.coffee:44:      preprocess "<%= item.price"
+/src/test/test_preprocessor.coffee-45-    catch err
+##############################################
+/src/test/test_preprocessor.coffee-62-        <% for item in items: %>
+/src/test/test_preprocessor.coffee:63:        <li><%= item.name %></li>
+/src/test/test_preprocessor.coffee-64-        <% end %>

@@ -1,0 +1,49 @@
+/src/Changes.md-203-* Default `connectTimeout` to 2 minutes
+/src/Changes.md:204:* Reject unauthorized SSL connections (use `ssl.rejectUnauthorized` to override) #816
+/src/Changes.md-205-* Return last error when PoolCluster exhausts connection retries #818
+##############################################
+/src/Readme.md-199-issue [#501](https://github.com/mysqljs/mysql/issues/501). (Default: `false`)
+/src/Readme.md:200:* `insecureAuth`: Allow connecting to MySQL instances that ask for the old
+/src/Readme.md:201:  (insecure) authentication method. (Default: `false`)
+/src/Readme.md-202-* `typeCast`: Determines if column values should be converted to native
+##############################################
+/src/Readme.md-270-    // set up your ca correctly to trust the connection
+/src/Readme.md:271:    rejectUnauthorized: false
+/src/Readme.md-272-  }
+##############################################
+/src/lib/ConnectionConfig.js-21-    : options.connectTimeout;
+/src/lib/ConnectionConfig.js:22:  this.insecureAuth       = options.insecureAuth || false;
+/src/lib/ConnectionConfig.js-23-  this.supportBigNumbers  = options.supportBigNumbers || false;
+##############################################
+/src/lib/ConnectionConfig.js-48-  if (this.ssl) {
+/src/lib/ConnectionConfig.js:49:    // Default rejectUnauthorized to true
+/src/lib/ConnectionConfig.js:50:    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+/src/lib/ConnectionConfig.js-51-  }
+##############################################
+/src/lib/Connection.js-300-    // socket <-> encrypted
+/src/lib/Connection.js:301:    var rejectUnauthorized = this.config.ssl.rejectUnauthorized;
+/src/lib/Connection.js-302-    var secureEstablished  = false;
+/src/lib/Connection.js-303-    var secureSocket       = new tls.TLSSocket(this._socket, {
+/src/lib/Connection.js:304:      rejectUnauthorized : rejectUnauthorized,
+/src/lib/Connection.js-305-      requestCert        : true,
+##############################################
+/src/lib/Connection.js-327-
+/src/lib/Connection.js:328:      onSecure(rejectUnauthorized ? this.ssl.verifyError() : null);
+/src/lib/Connection.js-329-    });
+##############################################
+/src/lib/Connection.js-350-
+/src/lib/Connection.js:351:    var rejectUnauthorized = this.config.ssl.rejectUnauthorized;
+/src/lib/Connection.js-352-    var secureEstablished  = false;
+/src/lib/Connection.js:353:    var securePair         = tls.createSecurePair(credentials, false, true, rejectUnauthorized);
+/src/lib/Connection.js-354-
+##############################################
+/src/lib/Connection.js-383-
+/src/lib/Connection.js:384:      if (!rejectUnauthorized) {
+/src/lib/Connection.js-385-        onSecure();
+##############################################
+/src/lib/protocol/sequences/Handshake.js-83-Handshake.prototype['UseOldPasswordPacket'] = function() {
+/src/lib/protocol/sequences/Handshake.js:84:  if (!this._config.insecureAuth) {
+/src/lib/protocol/sequences/Handshake.js-85-    var err = new Error(
+/src/lib/protocol/sequences/Handshake.js:86:      'MySQL server is requesting the old and insecure pre-4.1 auth mechanism.' +
+/src/lib/protocol/sequences/Handshake.js:87:      'Upgrade the user password or use the {insecureAuth: true} option.'
+/src/lib/protocol/sequences/Handshake.js-88-    );

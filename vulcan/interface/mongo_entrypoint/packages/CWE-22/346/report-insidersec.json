@@ -1,0 +1,129 @@
+{
+ "dra": [
+  {
+   "dra": "http://news.cn",
+   "type": "url",
+   "file": "/src/crx/f2e-server/background.js"
+  },
+  {
+   "dra": "http://127.0.0.1",
+   "type": "url",
+   "file": "/src/node-server.js"
+  },
+  {
+   "dra": "https://raw.githubusercontent.com/shy2850/node-server/master/package.json",
+   "type": "url",
+   "file": "/src/nodeLib/config/update.js"
+  },
+  {
+   "dra": "http://github.com/jrburke/requirejs",
+   "type": "url",
+   "file": "/src/static/js/require.min.js"
+  },
+  {
+   "dra": "http://requirejs.org/docs/errors.html#",
+   "type": "url",
+   "file": "/src/static/js/require.min.js"
+  },
+  {
+   "dra": "http://www.w3.org/1999/xhtml",
+   "type": "url",
+   "file": "/src/static/js/require.min.js"
+  }
+ ],
+ "sast": {
+  "name": "f2e-server",
+  "version": "1.12.11",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "207580 Bytes",
+  "numberOfLines": 2359
+ },
+ "libraries": [
+  {
+   "name": "underscore",
+   "current": "\u003e=1.7.0"
+  },
+  {
+   "name": "commander",
+   "current": "\u003e=2.9.0"
+  },
+  {
+   "name": "cssmin",
+   "current": "\u003e=0.4.1"
+  },
+  {
+   "name": "marked",
+   "current": "\u003e=0.3.3"
+  },
+  {
+   "name": "mime",
+   "current": "*"
+  },
+  {
+   "name": "mdppt",
+   "current": "*"
+  },
+  {
+   "name": "tinify",
+   "current": "^1.2.0"
+  },
+  {
+   "name": "uglify-js",
+   "current": "\u003e=2.4.15"
+  },
+  {
+   "name": "wfquery",
+   "current": "*"
+  },
+  {
+   "name": "babel-core",
+   "current": "^6.5.2"
+  },
+  {
+   "name": "chokidar",
+   "current": "\u003e=1.2.0"
+  },
+  {
+   "name": "formidable",
+   "current": "\u003e=1.0.15"
+  },
+  {
+   "name": "ftp",
+   "current": "^0.3.10"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 16,
+   "class": "rename.js (16:17)",
+   "vul_id": "c5bf11354e68ed94e9237a2424ef0e45",
+   "method": "return crypto.createHash('md5').update(text).digest('hex');",
+   "column": 17,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/nodeLib/common/rename.js (16:17)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/nodeLib/common/handle.js",
+    "/nodeLib/plugins/build.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 31,
+   "class": "build.js (31:17)",
+   "vul_id": "3cdc4e560a187e71e1450c0fc20e0522",
+   "method": "return crypto.createHash('md5').update(text).digest('hex');",
+   "column": 17,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/nodeLib/plugins/build.js (31:17)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/nodeLib/plugins/livereload.js"
+   ]
+  }
+ ]
+}

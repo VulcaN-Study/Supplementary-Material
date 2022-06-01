@@ -1,0 +1,173 @@
+{
+ "dra": [
+  {
+   "dra": "http://stackoverflow.com/questions/13216903/get-binary-data-with-xmlhttprequest-in-a-firefox-extension",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://gist.github.com/mloughran/2052006",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "http://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://github.com/Automattic/engine.io-client/pull/217",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://github.com/yujiosaka/socke.io-ie8-loading-example",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://github.com/niklasvh/base64-arraybuffer",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "http://stackoverflow.com/a/16459606/376773",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "http://stackoverflow.com/a/398120/376773",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "http://ghinda.net/jpeg-blob-ajax-android/",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://github.com/ariya/phantomjs/issues/11395",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://github.com/Modernizr/Modernizr/blob/master/feature-detects/cors.js",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://mths.be/utf8js",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  },
+  {
+   "dra": "https://mths.be/punycode",
+   "type": "url",
+   "file": "/src/engine.io.js"
+  }
+ ],
+ "sca": [
+  {
+   "cwe": "CWE-730",
+   "cves": "CVE-2016-10542",
+   "sast": "",
+   "title": "DoS due to excessively large websocket message - ws",
+   "severity": "high",
+   "advisoryId": 120,
+   "description": "Affected versions of `ws` do not appropriately limit the size of incoming websocket payloads, which may result in a denial of service condition when the node process crashes after receiving a large payload.\n",
+   "recomendation": "Update to version 1.1.1 or later. \nAlternatively, set the `maxpayload` option for the `ws` server to a value smaller than 256MB."
+  },
+  {
+   "cwe": "CWE-400",
+   "cves": "CVE-2017-16113",
+   "sast": "",
+   "title": "Regular Expression Denial of Service - parsejson",
+   "severity": "high",
+   "advisoryId": 528,
+   "description": "Affected versions of `parsejson` are vulnerable to a regular expression denial of service when parsing untrusted user input.",
+   "recomendation": "The `parsejson` package has not been functionally updated since it was initially released.\n\nAdditionally, it provides functionality which is natively included in Node.js, and therefore the native `JSON.parse()` should be used, for both performance and security reasons."
+  },
+  {
+   "cwe": "CWE-400",
+   "cves": "CVE-2017-16137",
+   "sast": "",
+   "title": "Regular Expression Denial of Service - debug",
+   "severity": "low",
+   "advisoryId": 534,
+   "description": "Affected versions of `debug` are vulnerable to regular expression denial of service when untrusted user input is passed into the `o` formatter. \n\nAs it takes 50,000 characters to block the event loop for 2 seconds, this issue is a low severity issue.",
+   "recomendation": "Version 2.x.x: Update to version 2.6.9 or later.\nVersion 3.x.x: Update to version 3.1.0 or later.\n"
+  },
+  {
+   "cwe": "CWE-20",
+   "cves": "",
+   "sast": "",
+   "title": "Denial of Service - ws",
+   "severity": "high",
+   "advisoryId": 550,
+   "description": "Affected versions of `ws` can crash when a specially crafted `Sec-WebSocket-Extensions` header containing `Object.prototype` property names as extension or parameter names is sent.\n\n## Proof of concept\n\n```\nconst WebSocket = require('ws');\nconst net = require('net');\n\nconst wss = new WebSocket.Server({ port: 3000 }, function () {\n  const payload = 'constructor';  // or ',;constructor'\n\n  const request = [\n    'GET / HTTP/1.1',\n    'Connection: Upgrade',\n    'Sec-WebSocket-Key: test',\n    'Sec-WebSocket-Version: 8',\n    `Sec-WebSocket-Extensions: ${payload}`,\n    'Upgrade: websocket',\n    '\\r\\n'\n  ].join('\\r\\n');\n\n  const socket = net.connect(3000, function () {\n    socket.resume();\n    socket.write(request);\n  });\n});\n```",
+   "recomendation": "Update to version 3.3.1 or later."
+  }
+ ],
+ "sast": {
+  "name": "engine.io-client",
+  "version": "1.6.8",
+  "securityScore": 100,
+  "size": "175944 Bytes",
+  "numberOfLines": 6413
+ },
+ "libraries": [
+  {
+   "name": "xmlhttprequest-ssl",
+   "current": "1.5.1"
+  },
+  {
+   "name": "component-emitter",
+   "current": "1.1.2"
+  },
+  {
+   "name": "indexof",
+   "current": "0.0.1"
+  },
+  {
+   "name": "engine.io-parser",
+   "current": "1.2.4"
+  },
+  {
+   "name": "parseuri",
+   "current": "0.0.4"
+  },
+  {
+   "name": "parsejson",
+   "current": "0.0.1"
+  },
+  {
+   "name": "parseqs",
+   "current": "0.0.2"
+  },
+  {
+   "name": "has-cors",
+   "current": "1.1.0"
+  },
+  {
+   "name": "component-inherit",
+   "current": "0.0.3"
+  },
+  {
+   "name": "debug",
+   "current": "2.2.0"
+  },
+  {
+   "name": "yeast",
+   "current": "0.1.2"
+  },
+  {
+   "name": "ws",
+   "current": "1.0.1"
+  }
+ ]
+}

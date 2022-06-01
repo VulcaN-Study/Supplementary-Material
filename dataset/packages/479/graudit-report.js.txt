@@ -1,0 +1,280 @@
+/src/History.md-56- * Added `.responseType()` to Node version (Kornel Lesiński)
+/src/History.md:57: * Added `.parse()` to browser version (jakepearson)
+/src/History.md-58- * Fixed parse error when using `responseType('blob')` (Kornel Lesiński)
+##############################################
+/src/History.md-116-
+/src/History.md:117:  * Browser: The `.parse()` method has been renamed to `.serialize()` for consistency with NodeJS version.
+/src/History.md-118-  * Browser: Query string keys without a value used to be parsed as `'undefined'`, now their value is `''` (empty string) (shura, Kornel Lesiński).
+##############################################
+/src/History.md-139-  * Fixed parsing of `vnd+json` MIME types (Kornel Lesiński)
+/src/History.md:140:  * Aliased browser implementation of `.parse()` as `.serialize()` for forward compatibility
+/src/History.md-141-
+##############################################
+/src/History.md-348- * fix .pipe() unzipping on more recent nodes. Closes #240
+/src/History.md:349: * fix passing an empty object to .query() no longer appends "?"
+/src/History.md-350- * fix formidable error handling
+##############################################
+/src/History.md-477-
+/src/History.md:478:  * fix client-side .query(str) support
+/src/History.md-479-
+##############################################
+/src/History.md-482-
+/src/History.md:483:  * add .parse(fn) support
+/src/History.md-484-  * fix socket hangup with dates in querystring. Closes #146
+##############################################
+/src/History.md-525-
+/src/History.md:526:  * remove __GET__ `.send()` == `.query()` special-case (__API__ change !!!)
+/src/History.md-527-
+##############################################
+/src/History.md-614-  * Added "response" event providing a Response object. Closes #28
+/src/History.md:615:  * Added `.query(obj)`. Closes #59
+/src/History.md-616-  * Added `res.type` (browser). Closes #54
+##############################################
+/src/Makefile-11-test-node:
+/src/Makefile:12:	@NODE_ENV=test NODE_TLS_REJECT_UNAUTHORIZED=0 ./node_modules/.bin/mocha \
+/src/Makefile-13-		--require should \
+##############################################
+/src/superagent.js-546- *       request.get('/user')
+/src/superagent.js:547: *         .query('name=Nick')
+/src/superagent.js:548: *         .query('search=Manny')
+/src/superagent.js-549- *         .sortQuery()
+##############################################
+/src/superagent.js-553- *       request.get('/user')
+/src/superagent.js:554: *         .query('name=Nick')
+/src/superagent.js:555: *         .query('search=Manny')
+/src/superagent.js-556- *         .sortQuery(function(a, b){
+##############################################
+/src/superagent.js-1573- *   request.get('/shoes')
+/src/superagent.js:1574: *     .query('size=10')
+/src/superagent.js:1575: *     .query({ color: 'blue' })
+/src/superagent.js-1576- *
+##############################################
+/src/superagent.js-1766-    if (this.username && this.password) {
+/src/superagent.js:1767:      xhr.open(this.method, this.url, true, this.username, this.password);
+/src/superagent.js-1768-    } else {
+/src/superagent.js:1769:      xhr.open(this.method, this.url, true);
+/src/superagent.js-1770-    }
+##############################################
+/src/superagent.js-1823-  if ('function' == typeof data) fn = data, data = null;
+/src/superagent.js:1824:  if (data) req.query(data);
+/src/superagent.js-1825-  if (fn) req.end(fn);
+##############################################
+/src/superagent.js-1841-  if ('function' == typeof data) fn = data, data = null;
+/src/superagent.js:1842:  if (data) req.query(data);
+/src/superagent.js-1843-  if (fn) req.end(fn);
+##############################################
+/src/Readme.md-50-  .get('/some-url')
+/src/Readme.md:51:  .query({ action: 'edit', city: 'London' }) // query string
+/src/Readme.md-52-  .use(prefix) // Prefixes *only* this request
+##############################################
+/src/Readme.md-85-* [1.x to 2.x](https://github.com/visionmedia/superagent/releases/tag/v2.0.0):
+/src/Readme.md:86:  - If you use `.parse()` in the *browser* version, rename it to `.serialize()`.
+/src/Readme.md-87-  - If you rely on `undefined` in query-string values being sent literally as the text "undefined", switch to checking for missing value instead. `?key=undefined` is now `?key` (without a value).
+##############################################
+/src/lib/request-base.js-530- *       request.get('/user')
+/src/lib/request-base.js:531: *         .query('name=Nick')
+/src/lib/request-base.js:532: *         .query('search=Manny')
+/src/lib/request-base.js-533- *         .sortQuery()
+##############################################
+/src/lib/request-base.js-537- *       request.get('/user')
+/src/lib/request-base.js:538: *         .query('name=Nick')
+/src/lib/request-base.js:539: *         .query('search=Manny')
+/src/lib/request-base.js-540- *         .sortQuery(function(a, b){
+##############################################
+/src/lib/client.js-541- *   request.get('/shoes')
+/src/lib/client.js:542: *     .query('size=10')
+/src/lib/client.js:543: *     .query({ color: 'blue' })
+/src/lib/client.js-544- *
+##############################################
+/src/lib/client.js-734-    if (this.username && this.password) {
+/src/lib/client.js:735:      xhr.open(this.method, this.url, true, this.username, this.password);
+/src/lib/client.js-736-    } else {
+/src/lib/client.js:737:      xhr.open(this.method, this.url, true);
+/src/lib/client.js-738-    }
+##############################################
+/src/lib/client.js-791-  if ('function' == typeof data) fn = data, data = null;
+/src/lib/client.js:792:  if (data) req.query(data);
+/src/lib/client.js-793-  if (fn) req.end(fn);
+##############################################
+/src/lib/client.js-809-  if ('function' == typeof data) fn = data, data = null;
+/src/lib/client.js:810:  if (data) req.query(data);
+/src/lib/client.js-811-  if (fn) req.end(fn);
+##############################################
+/src/lib/node/parsers/urlencoded.js-13-    try {
+/src/lib/node/parsers/urlencoded.js:14:      fn(null, qs.parse(res.text));
+/src/lib/node/parsers/urlencoded.js-15-    } catch (err) {
+##############################################
+/src/lib/node/parsers/json.js-7-    try {
+/src/lib/node/parsers/json.js:8:      var body = res.text && JSON.parse(res.text);
+/src/lib/node/parsers/json.js-9-    } catch (e) {
+##############################################
+/src/lib/node/index.js-198-      debug('creating `fs.ReadStream` instance for file: %s', file);
+/src/lib/node/index.js:199:      file = fs.createReadStream(file);
+/src/lib/node/index.js-200-    } else if (!o.filename && file.path) {
+##############################################
+/src/lib/node/index.js-298- *   request.get('/shoes')
+/src/lib/node/index.js:299: *     .query('size=10')
+/src/lib/node/index.js:300: *     .query({ color: 'blue' })
+/src/lib/node/index.js-301- *
+##############################################
+/src/lib/node/index.js-820-      } else if (multipart) {
+/src/lib/node/index.js:821:        var form = new formidable.IncomingForm();
+/src/lib/node/index.js-822-        parser = form.parse.bind(form);
+##############################################
+/src/lib/node/index.js-988-      if (method === 'GET' || method === 'HEAD') {
+/src/lib/node/index.js:989:        req.query(data);
+/src/lib/node/index.js-990-      } else {
+##############################################
+/src/docs/index.md-93-
+/src/docs/index.md:94:The `.query()` method accepts objects, which when used with the __GET__ method will form a query-string. The following will produce the path `/search?query=Manny&range=1..5&order=desc`.
+/src/docs/index.md-95-
+##############################################
+/src/docs/index.md-97-       .get('/search')
+/src/docs/index.md:98:       .query({ query: 'Manny' })
+/src/docs/index.md:99:       .query({ range: '1..5' })
+/src/docs/index.md:100:       .query({ order: 'desc' })
+/src/docs/index.md-101-       .end(function(err, res){
+##############################################
+/src/docs/index.md-108-      .get('/search')
+/src/docs/index.md:109:      .query({ query: 'Manny', range: '1..5', order: 'desc' })
+/src/docs/index.md-110-      .end(function(err, res){
+##############################################
+/src/docs/index.md-113-
+/src/docs/index.md:114:The `.query()` method accepts strings as well:
+/src/docs/index.md-115-
+##############################################
+/src/docs/index.md-117-        .get('/querystring')
+/src/docs/index.md:118:        .query('search=Manny&range=1..5')
+/src/docs/index.md-119-        .end(function(err, res){
+##############################################
+/src/docs/index.md-126-        .get('/querystring')
+/src/docs/index.md:127:        .query('search=Manny')
+/src/docs/index.md:128:        .query('range=1..5')
+/src/docs/index.md-129-        .end(function(err, res){
+##############################################
+/src/docs/index.md-134-
+/src/docs/index.md:135:You can also use the `.query()` method for HEAD requests. The following will produce the path `/users?email=joe@smith.com`.
+/src/docs/index.md-136-
+##############################################
+/src/docs/index.md-138-        .head('/users')
+/src/docs/index.md:139:        .query({ email: 'joe@smith.com' })
+/src/docs/index.md-140-        .end(function(err, res){
+##############################################
+/src/docs/index.md-239-
+/src/docs/index.md:240:  `req.query(obj)` is a method which may be used to build up a query-string. For example populating `?format=json&dest=/login` on a __POST__:
+/src/docs/index.md-241-
+##############################################
+/src/docs/index.md-243-      .post('/')
+/src/docs/index.md:244:      .query({ format: 'json' })
+/src/docs/index.md:245:      .query({ dest: '/login' })
+/src/docs/index.md-246-      .send({ post: 'data', here: 'wahoo' })
+##############################################
+/src/docs/index.md-253- request.get('/user')
+/src/docs/index.md:254:   .query('name=Nick')
+/src/docs/index.md:255:   .query('search=Manny')
+/src/docs/index.md-256-   .sortQuery()
+##############################################
+/src/docs/index.md-260- request.get('/user')
+/src/docs/index.md:261:   .query('name=Nick')
+/src/docs/index.md:262:   .query('search=Manny')
+/src/docs/index.md-263-   .sortQuery(function(a, b){
+##############################################
+/src/docs/index.md-303-
+/src/docs/index.md:304:You can set a custom parser (that takes precedence over built-in parsers) with the `.buffer(true).parse(fn)` method. If response buffering is not enabled (`.buffer(false)`) then the `response` event will be emitted without waiting for the body parser to finish, so `response.body` won't be available.
+/src/docs/index.md-305-
+##############################################
+/src/docs/index.md-465-
+/src/docs/index.md:466:    const stream = fs.createReadStream('path/to/my.json');
+/src/docs/index.md-467-    const req = request.post('/somewhere');
+##############################################
+/src/docs/test.html-514-            <dd><pre><code>request
+/src/docs/test.html:515:.get(url.parse('http://localhost:5000/login'))
+/src/docs/test.html-516-.end(function(err, res){
+##############################################
+/src/docs/test.html-1024-  agent
+/src/docs/test.html:1025:  .get(url.parse('https://localhost:8443/'))
+/src/docs/test.html-1026-  .end(function(err, res){
+##############################################
+/src/docs/test.html-1354-    <section class="suite">
+/src/docs/test.html:1355:      <h1>req.parse(fn)</h1>
+/src/docs/test.html-1356-      <dl>
+##############################################
+/src/docs/test.html-1359-.get('http://localhost:3033/manny')
+/src/docs/test.html:1360:.parse(request.parse['application/json'])
+/src/docs/test.html-1361-.end(function(err, res){
+##############################################
+/src/docs/test.html-1369-.get('http://localhost:3033/image')
+/src/docs/test.html:1370:.parse(function(res, fn) {
+/src/docs/test.html-1371-  res.on('data', function() {});
+##############################################
+/src/docs/test.html-1381-.get('http://localhost:3033/manny')
+/src/docs/test.html:1382:.parse(function() {
+/src/docs/test.html-1383-  throw new Error('I am broken');
+##############################################
+/src/docs/test.html-1392-.get('http://localhost:3033/manny')
+/src/docs/test.html:1393:.parse(function(res, fn) {
+/src/docs/test.html-1394-  fn(new Error('I am broken'));
+##############################################
+/src/docs/test.html-1445-        <dd><pre><code>var req = request.post('http://localhost:3020');
+/src/docs/test.html:1446:var stream = fs.createReadStream('test/node/fixtures/user.json');
+/src/docs/test.html-1447-req.type('json');
+##############################################
+/src/docs/test.html-1457-req.on('end', function(){
+/src/docs/test.html:1458:  JSON.parse(fs.readFileSync('test/node/fixtures/tmp.json', 'utf8')).should.eql({ name: 'tobi' });
+/src/docs/test.html-1459-  done();
+##############################################
+/src/docs/test.html-1464-    <section class="suite">
+/src/docs/test.html:1465:      <h1>req.query(String)</h1>
+/src/docs/test.html-1466-      <dl>
+##############################################
+/src/docs/test.html-1469-.get('http://localhost:3006')
+/src/docs/test.html:1470:.query('name=toby')
+/src/docs/test.html:1471:.query('a=\uD800')
+/src/docs/test.html:1472:.query({ b: '\uD800' })
+/src/docs/test.html-1473-.end(function(err, res){
+##############################################
+/src/docs/test.html-1480-.del('http://localhost:3006')
+/src/docs/test.html:1481:.query('name=t%F6bi')
+/src/docs/test.html-1482-.end(function(err, res){
+##############################################
+/src/docs/test.html-1488-.del('http://localhost:3006/?name=tobi')
+/src/docs/test.html:1489:.query('age=2%20')
+/src/docs/test.html-1490-.end(function(err, res){
+##############################################
+/src/docs/test.html-1496-  .del('http://localhost:3006/')
+/src/docs/test.html:1497:  .query('name=t%F6bi&amp;age=2')
+/src/docs/test.html-1498-  .end(function(err, res){
+##############################################
+/src/docs/test.html-1504-.del('http://localhost:3006/')
+/src/docs/test.html:1505:.query('name=t%F6bi')
+/src/docs/test.html:1506:.query('age=2%F6')
+/src/docs/test.html-1507-.end(function(err, res){
+##############################################
+/src/docs/test.html-1513-.del('http://localhost:3006/')
+/src/docs/test.html:1514:.query('name=t%F6bi')
+/src/docs/test.html:1515:.query({ age: '2' })
+/src/docs/test.html-1516-.end(function(err, res){
+##############################################
+/src/docs/test.html-1522-    <section class="suite">
+/src/docs/test.html:1523:      <h1>req.query(Object)</h1>
+/src/docs/test.html-1524-      <dl>
+##############################################
+/src/docs/test.html-1527-.del('http://localhost:3006/')
+/src/docs/test.html:1528:.query({ name: 'tobi' })
+/src/docs/test.html:1529:.query({ order: 'asc' })
+/src/docs/test.html:1530:.query({ limit: ['1', '2'] })
+/src/docs/test.html-1531-.end(function(err, res){
+##############################################
+/src/docs/test.html-1538-.del('http://localhost:3006/')
+/src/docs/test.html:1539:.query({ at: date })
+/src/docs/test.html-1540-.end(function(err, res){
+##############################################
+/src/docs/test.html-1548-.set('Bar', 'baz')
+/src/docs/test.html:1549:.query({ name: 'tobi' })
+/src/docs/test.html:1550:.query({ order: 'asc' })
+/src/docs/test.html:1551:.query({ limit: ['1', '2'] })
+/src/docs/test.html-1552-.end(function(err, res){
+##############################################
+/src/docs/test.html-1558-.del('http://localhost:3006/?name=tobi')
+/src/docs/test.html:1559:.query({ order: 'asc' })
+/src/docs/test.html-1560-.end(function(err, res) {

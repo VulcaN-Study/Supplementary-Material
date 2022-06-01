@@ -1,0 +1,70 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2016, Jack Sarick",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/server.js",
+          "match_lines": [
+            24,
+            135
+          ],
+          "match_position": [
+            2,
+            14
+          ],
+          "match_string": "\tvar parsed_request = request.url;\n\n\tvar dir_struct = parsed_request.split(\"/\").last().split(\".\");\n\n\n\n\tdir = (dir_struct.length == 1)? request.url : parsed_request.split(\"/\").slice(0,-1).join(\"/\");\n\n\n\n\t// If they are requesting a directory, serve the default file\n\n\tif (dir_struct.length == 1) {\n\n\n\n\t\t// Append a \"/\" if it's the top directory\n\n\t\tparsed_request += (dir_struct == \"\")? \"\" : \"/\";\n\n\t\t\n\n\t\t// append index\n\n\t\tparsed_request += config.index;\n\n\t}\n\n\n\n\t// Parse request for further use\n\n\tparsed_request = parsed_request.split(\"/\");\n\n\n\n\t// Determine File extension\n\n\tvar extension = parsed_request.last().split(\".\").last();\n\n\n\n\t// check if requested file fits rule in deny.json\n\n\tvar denied = config.deny.map( function(x) {\n\n\t\treturn match_file(parsed_request.last(), x);\n\n\t});\n\n\n\n\n\n\t// If the file fits more than one rule, send 403 error\n\n\tif (denied.sum() > 0) {\n\n\n\n\t\t// Log the request\n\n\t\tlog.warn(\"Responded with 403 to requested \" + req_file);\n\n\n\n\t\t// Assemble the head\n\n\t\tresponse.writeHead(403, {\"Content-Type\": config.error.e_403.type});\n\n\n\n\t\t// Write the content\n\n\t\tresponse.write(config.error.e_403.type);\n\n\n\n\t\t// End the connection\n\n\t\tresponse.end();\n\n\n\n\t\t// End the function with an error code\n\n\t\treturn 403;\n\n\t}\n\n\n\n\telse {\n\n\t\treq_file = \".\" + parsed_request.join(\"\\/\");\n\n\n\n\t\t// Try to send a request. Most things that go wrong will be caught with a 500 error\n\n\t\ttry {\n\n\n\n\t\t\t// See if the file exists\n\n\t\t\ttry {\n\n\t\t\t\tdata = fs.readFileSync(req_file, 'utf8');\n\n\t\t\t}\n\n\n\n\t\t\t// Throw 404 if we can't load it (most likely because it's not there)\n\n\t\t\tcatch(err) {\n\n\t\t\t\tlog.error(\"Responded with 404. Could not find \" + req_file);\n\n\t\t\t\tresponse.writeHead(404, {\"Content-Type\": config.error.e_404.type});\n\n\t\t\t\tresponse.write(config.error.e_404.content);\n\n\t\t\t\tresponse.end();\n\n\t\t\t\treturn 404;\n\n\t\t\t}\n\n\n\n\t\t\t// Set head to a blank string if it is not set up\n\n\t\t\tif (config.head == undefined) {\n\n\t\t\t\tconfig.head = \"\";\n\n\t\t\t}\n\n\n\n\t\t\t// Generate our head file\n\n\t\t\tvar head = \"<head> \" + config.head;\n\n\n\n\t\t\t// Add the stylesheet if we need it\n\n\t\t\t// if (config.css_exts.indexOf(extension) >= 0) head += \"<link rel='stylesheet' href=\" + dir + \"/\" + config.css + \">\";\n\n\n\n\t\t\thead += \"</head>\";\n\n\n\n\t\t\t// Add head to the beginning\n\n\t\t\tdata = head + data;\n\n\n\n\t\t\t// Parse based on extension\n\n\t\t\t/* NOTE: Neat little thing is happening here\n\n\t\t\t * We have the wierd double parenthases ()()\n\n\t\t\t * becuase modules.load() is loading a function\n\n\t\t\t * and the second set of parenthases executes it.\n\n\t\t\t * Here's a more drawn out version:\n\n\t\t\t * \n\n\t\t\t * parse = modules.load(extension)\n\n\t\t\t * data = parse(data)\n\n\t\t\t * \n\n\t\t\t * I thought it was pretty neat, at least.\n\n\t\t\t*/\n\n\t\t\tdata = modules.load(extension)(data);\n\n\n\n\t\t\t// Respond with http 200\n\n\t\t\tlog.plain(\"Responded with 200\");\n\n\t\t\tresponse.writeHead(200, {\"Content-Type\": \"text/html\"});\n\n\t\t\tresponse.write(data);\n\n\t\t\tresponse.end();\n\n\t\t\treturn 200;\n\n\t\t}\n\n\n\n\t\t// If something goes wrong, throw a generic 500\n\n\t\tcatch(err) {\n\n\t\t\tlog.error(\"Responded with 500. Something went wrong serving \" + req_file + \"\\nSee below for error.\");\n\n\t\t\tlog.dev(err);\n\n\t\t\tresponse.writeHead(500, {\"Content-Type\": config.error.e_500.type});\n\n\t\t\tresponse.write(config.error.e_500.content);\n\n\t\t\tresponse.end();\n\n\t\t\treturn 500;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/utils.js",
+          "match_lines": [
+            16,
+            16
+          ],
+          "match_position": [
+            9,
+            87
+          ],
+          "match_string": "\treturn new RegExp(\"^\" + rule.replace(\"\\.\", \"\\\\\\.\").replace(\"*\", \".*\") + \"$\").test(str);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

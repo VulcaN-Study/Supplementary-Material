@@ -1,0 +1,95 @@
+{
+    "advisory": {
+        "id": 659,
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/command-exists/-/command-exists-1.2.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 44,
+                    "code": "var commandExistsUnix = function(commandName, callback) {"
+                },
+                "sink": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 49,
+                    "code": "var child = exec('command -v ' + commandName + ...);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 63,
+                    "code": "var commandExistsWindows = function(commandName, callback) {"
+                },
+                "sink": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 64,
+                    "code": "var child = exec('where ' + commandName,"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 75,
+                    "code": "var commandExistsUnixSync = function(commandName) {"
+                },
+                "sink": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 78,
+                    "code": "var stdout = execSync('command -v ' + commandName +..."
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 92,
+                    "code": "var commandExistsWindowsSync = function(commandName, callback) {"
+                },
+                "sink": {
+                    "file": "lib/command-exists.js",
+                    "lineno": 94,
+                    "code": "var stdout = execSync('where ' + commandName);"
+                }
+            }
+        ]
+    },
+    "poc": [],
+    "patch": [
+        {
+            "url": "https://github.com/mathisonian/command-exists/blob/master/lib/command-exists.js"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "advisory": {
+        "id": 1181,
+        "cwe": "CWE-265"
+    },
+    "correct_cwe": "CWE-265",
+    "correct_package_link": "https://registry.npmjs.org/realms-shim/-/realms-shim-1.1.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "dist/realms-shim.cjs.js",
+                    "start_lineno": 1003,
+                    "end_lineno": 1013,
+                    "code": "const htmlCommentPattern = new RegExp(`(?:${'<'}!--|--${'>'})`); function rejectHtmlComments(s) { const index = s.search(htmlCommentPattern); if (index !== -1) { const linenum = s.slice(0, index).split('\n').length; // more or less throw new SyntaxError(`possible html comment syntax rejected around line ${linenum}`); } }"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/Agoric/realms-shim/commit/f98ac5e7107ea35aa91df613f52a2ec3c679280b"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

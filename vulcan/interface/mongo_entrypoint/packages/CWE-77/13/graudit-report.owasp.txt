@@ -1,0 +1,156 @@
+/src/src/scripts/responders.coffee-48-    try
+/src/src/scripts/responders.coffee:49:      eval_pattern = eval("/#{pattern}/i")
+/src/src/scripts/responders.coffee-50-    catch error
+/src/src/scripts/responders.coffee:51:      eval_pattern = null
+/src/src/scripts/responders.coffee-52-
+/src/src/scripts/responders.coffee-53-    try
+/src/src/scripts/responders.coffee:54:      eval_callback = eval("_ = function (msg) { #{callback} }")
+/src/src/scripts/responders.coffee-55-    catch error
+/src/src/scripts/responders.coffee:56:      eval_callback = null
+/src/src/scripts/responders.coffee-57-
+/src/src/scripts/responders.coffee:58:    if eval_pattern instanceof RegExp and eval_callback instanceof Function
+/src/src/scripts/responders.coffee-59-      @remove(pattern)
+/src/src/scripts/responders.coffee:60:      @robot.respond(eval_pattern, eval_callback)
+/src/src/scripts/responders.coffee-61-      @responders()[pattern] = {
+##############################################
+/src/src/scripts/ruby.coffee-32-          else
+/src/src/scripts/ruby.coffee:33:            msg.reply "Unable to evaluate script: #{script}. Request returned with the status code: #{res.statusCode}"
+##############################################
+/src/src/scripts/speak.coffee-55-          .get() (err, res, body) ->
+/src/src/scripts/speak.coffee:56:            langs = eval(body) unless err
+/src/src/scripts/speak.coffee-57-
+##############################################
+/src/src/scripts/speak.coffee-60-              .get() (err, res, body) ->
+/src/src/scripts/speak.coffee:61:                if err or (langs.indexOf(eval(body)) == -1)
+/src/src/scripts/speak.coffee:62:                  msg.send "Sorry, I can't speak #{err or eval(body)}"
+/src/src/scripts/speak.coffee-63-                  return
+/src/src/scripts/speak.coffee:64:                lang = eval(body)
+/src/src/scripts/speak.coffee-65-
+##############################################
+/src/src/scripts/speak.coffee-68-                  .get() (err, res, body) ->
+/src/src/scripts/speak.coffee:69:                    msg.send(eval(body)) unless err
+##############################################
+/src/src/scripts/jira-issues.coffee-41-
+/src/src/scripts/jira-issues.coffee:42:      robot.hear eval(jiraPattern), (msg) ->
+/src/src/scripts/jira-issues.coffee-43-        for i in msg.match
+##############################################
+/src/src/scripts/eval.coffee-1-# Description:
+/src/src/scripts/eval.coffee:2:#   evaluate code
+/src/src/scripts/eval.coffee-3-#
+##############################################
+/src/src/scripts/eval.coffee-10-# Commands:
+/src/src/scripts/eval.coffee:11:#   hubot eval me <lang> <code> - evaluate <code> and show the result
+/src/src/scripts/eval.coffee:12:#   hubot eval on <lang> - start recording
+/src/src/scripts/eval.coffee:13:#   hubot eval off|finish|done - evaluate recorded <code> and show the result
+/src/src/scripts/eval.coffee:14:#   hubot eval cancel - cancel recording
+/src/src/scripts/eval.coffee:15:#   hubot eval list - list available languages
+/src/src/scripts/eval.coffee-16-#
+##############################################
+/src/src/scripts/eval.coffee-25-    callback or= () ->
+/src/src/scripts/eval.coffee:26:    if not ready or robot.brain?.data?.eval_langs
+/src/src/scripts/eval.coffee:27:      callback(robot.brain?.data?.eval_langs || {})
+/src/src/scripts/eval.coffee-28-      return
+/src/src/scripts/eval.coffee-29-
+/src/src/scripts/eval.coffee:30:    url = "http://api.dan.co.jp/lleval.cgi"
+/src/src/scripts/eval.coffee-31-    robot.logger.info "Loading language data from #{url}"
+##############################################
+/src/src/scripts/eval.coffee-36-        langs = JSON.parse(body)
+/src/src/scripts/eval.coffee:37:        robot.brain.data.eval_langs = langs
+/src/src/scripts/eval.coffee-38-        callback(langs)
+/src/src/scripts/eval.coffee:39:        robot.logger.info "Brain received eval language list #{util.inspect(langs)}"
+/src/src/scripts/eval.coffee-40-
+##############################################
+/src/src/scripts/eval.coffee-53-
+/src/src/scripts/eval.coffee:54:  robot.respond /eval[,:]?\s+list$/i, (msg) ->
+/src/src/scripts/eval.coffee-55-    get_languages robot, (languages) ->
+##############################################
+/src/src/scripts/eval.coffee-60-
+/src/src/scripts/eval.coffee:61:  robot.respond /eval[,:]? +on +([a-z]+) *$/i, (msg) ->
+/src/src/scripts/eval.coffee:62:    robot.brain.data.eval or= {}
+/src/src/scripts/eval.coffee-63-    lang = msg.match[1]
+##############################################
+/src/src/scripts/eval.coffee-66-      if not valid 
+/src/src/scripts/eval.coffee:67:        msg.send "Unknown language #{lang} - use eval list command for languages"
+/src/src/scripts/eval.coffee-68-        return
+/src/src/scripts/eval.coffee-69-
+/src/src/scripts/eval.coffee:70:      robot.brain.data.eval[msg.message.user.name] = {
+/src/src/scripts/eval.coffee-71-        recording: true
+##############################################
+/src/src/scripts/eval.coffee-73-      }
+/src/src/scripts/eval.coffee:74:      msg.send("OK, recording #{msg.message.user.name}'s codes for evaluate.")
+/src/src/scripts/eval.coffee-75-
+##############################################
+/src/src/scripts/eval.coffee-77-
+/src/src/scripts/eval.coffee:78:  robot.respond /eval[,:]? +(?:off|finish|done) *$/i, (msg) ->
+/src/src/scripts/eval.coffee:79:    return unless robot.brain.data.eval?[msg.message.user.name]?.recording
+/src/src/scripts/eval.coffee:80:    code = robot.brain.data.eval[msg.message.user.name].code?.join("\n")
+/src/src/scripts/eval.coffee:81:    lang = robot.brain.data.eval[msg.message.user.name].lang
+/src/src/scripts/eval.coffee-82-    
+##############################################
+/src/src/scripts/eval.coffee-84-      if not valid
+/src/src/scripts/eval.coffee:85:        msg.send "Unknown language #{lang} - use eval list command for languages"
+/src/src/scripts/eval.coffee-86-        return
+##############################################
+/src/src/scripts/eval.coffee-88-      msg
+/src/src/scripts/eval.coffee:89:        .http("http://api.dan.co.jp/lleval.cgi")
+/src/src/scripts/eval.coffee-90-        .query(s: "#!/usr/bin/#{lang}\n#{code}")
+##############################################
+/src/src/scripts/eval.coffee-94-          msg.send ret.split("\n")
+/src/src/scripts/eval.coffee:95:      delete robot.brain.data.eval[msg.message.user.name]
+/src/src/scripts/eval.coffee-96-
+##############################################
+/src/src/scripts/eval.coffee-98-
+/src/src/scripts/eval.coffee:99:  robot.respond /eval[,:]? +cancel *$/i, (msg) ->
+/src/src/scripts/eval.coffee:100:    delete robot.brain.data.eval?[msg.message.user.name]?
+/src/src/scripts/eval.coffee:101:    msg.send "canceled #{msg.message.user.name}'s evaluation recording"
+/src/src/scripts/eval.coffee-102-
+/src/src/scripts/eval.coffee:103:  robot.respond /eval( me)? ([^ ]+) (.+)/i, (msg) ->
+/src/src/scripts/eval.coffee-104-    lang = msg.match[2]
+##############################################
+/src/src/scripts/eval.coffee-108-      if not valid
+/src/src/scripts/eval.coffee:109:        msg.send "Unknown language #{lang} - use eval list command for languages"
+/src/src/scripts/eval.coffee-110-        return
+##############################################
+/src/src/scripts/eval.coffee-112-      msg
+/src/src/scripts/eval.coffee:113:        .http("http://api.dan.co.jp/lleval.cgi")
+/src/src/scripts/eval.coffee-114-        .query(s: "#!/usr/bin/#{lang}\n#{msg.match[3]}")
+##############################################
+/src/src/scripts/eval.coffee-122-  robot.catchAll (msg) ->
+/src/src/scripts/eval.coffee:123:    return unless robot.brain.data.eval?[msg.message.user.name]
+/src/src/scripts/eval.coffee:124:    if robot.brain.data.eval[msg.message.user.name].recording
+/src/src/scripts/eval.coffee:125:      robot.brain.data.eval[msg.message.user.name].code or= []
+/src/src/scripts/eval.coffee:126:      unless msg.message.text?.match /eval[,:]? +on +([a-z]+) *$/i
+/src/src/scripts/eval.coffee:127:        robot.brain.data.eval[msg.message.user.name].code.push msg.message.text
+##############################################
+/src/src/scripts/tryerlang.coffee-21-    data = QS.stringify({'expression': expr})
+/src/src/scripts/tryerlang.coffee:22:    msg.http('http://www.tryerlang.org/api/eval/default/intro')
+/src/src/scripts/tryerlang.coffee-23-      .post(data) (err, res, body) ->
+##############################################
+/src/src/scripts/stallman.coffee-81-  "Richard Stallman discovered extra-terrestrial life but killed them because they used non-free software."
+/src/src/scripts/stallman.coffee:82:  "Richard Stallman doesn't evaluate expressions; expressions evaluate to Richard Stallman."
+/src/src/scripts/stallman.coffee-83-  "Richard Stallman can see Russia from his house."
+##############################################
+/src/src/scripts/oauth.coffee-64-hear_and_respond = (robot, regex, callback) ->
+/src/src/scripts/oauth.coffee:65:  robot.hear eval('/^'+regex+'/i'), callback
+/src/src/scripts/oauth.coffee:66:  robot.respond eval('/'+regex+'/i'), callback
+/src/src/scripts/oauth.coffee-67-
+##############################################
+/src/src/scripts/clojure.coffee-21-
+/src/src/scripts/clojure.coffee:22:    msg.http("http://tryclj.com/eval.json")
+/src/src/scripts/clojure.coffee-23-      .query(expr: script)
+##############################################
+/src/src/scripts/clojure.coffee-38-          else
+/src/src/scripts/clojure.coffee:39:            msg.reply "Unable to evaluate script: #{script}. Request returned with the status code: #{res.statusCode}"
+##############################################
+/src/src/scripts/spin.coffee-98-hear_and_respond = (robot, regex, callback) ->
+/src/src/scripts/spin.coffee:99:	robot.hear eval('/^'+regex+'/i'), callback
+/src/src/scripts/spin.coffee:100:	robot.respond eval('/'+regex+'/i'), callback
+/src/src/scripts/spin.coffee-101-
+##############################################
+/src/src/scripts/lyrics.coffee-26-      .get() (err, res, body) ->
+/src/src/scripts/lyrics.coffee:27:        result = eval body # can't use JSON.parse :(
+/src/src/scripts/lyrics.coffee-28-        msg.send result['url']
+##############################################
+/src/src/scripts/hubotagainsthumanity.coffee-514-  "Media coverage.",
+/src/src/scripts/hubotagainsthumanity.coffee:515:  "Medieval Times Dinner & Tournament.",
+/src/src/scripts/hubotagainsthumanity.coffee-516-  "Men.",

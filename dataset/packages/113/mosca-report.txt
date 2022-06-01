@@ -1,0 +1,1336 @@
+<report_mosca>
+ <Path>/src/spec-jasmine/postgres/query-generator.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 60 -          expectation: {id: 'INTEGER REFERENCES "Bar" ("id") ON DELETE CASCADE'}
+
+ Line: 64 -          expectation: {id: 'INTEGER REFERENCES "Bar" ("id") ON UPDATE RESTRICT'}
+
+ Line: 68 -          expectation: {id: 'INTEGER NOT NULL DEFAULT 1 REFERENCES "Bar" ("id") ON DELETE CASCADE ON UPDATE RESTRICT'}
+
+ Line: 90 -          arguments: ['myTable', {title: 'VARCHAR(255)', name: 'VARCHAR(255)', otherId: 'INTEGER REFERENCES "otherTable" ("id") ON DELETE CASCADE ON UPDATE NO ACTION'}],
+
+ Line: 91 -          expectation: "CREATE TABLE IF NOT EXISTS \"myTable\" (\"title\" VARCHAR(255), \"name\" VARCHAR(255), \"otherId\" INTEGER REFERENCES \"otherTable\" (\"id\") ON DELETE CASCADE ON UPDATE NO ACTION);"
+
+ Line: 117 -          expectation: "SELECT * FROM \"myTable\";"
+
+ Line: 120 -          expectation: "SELECT \"id\", \"name\" FROM \"myTable\";"
+
+ Line: 123 -          expectation: "SELECT * FROM \"myTable\" WHERE \"myTable\".\"id\"=2;"
+
+ Line: 126 -          expectation: "SELECT * FROM \"myTable\" WHERE \"myTable\".\"name\"='foo';"
+
+ Line: 129 -          expectation: "SELECT * FROM \"myTable\" WHERE \"myTable\".\"name\"='foo'';DROP TABLE myTable;';"
+
+ Line: 132 -          expectation: "SELECT * FROM \"myTable\" WHERE \"myTable\".\"id\"=2;"
+
+ Line: 135 -          expectation: 'SELECT count(*) as \"count\" FROM \"foo\";'
+
+ Line: 138 -          expectation: "SELECT * FROM \"myTable\" WHERE foo='bar';"
+
+ Line: 141 -          expectation: "SELECT * FROM \"myTable\" ORDER BY \"id\" DESC;"
+
+ Line: 144 -          expectation: "SELECT * FROM \"myTable\" GROUP BY \"name\";"
+
+ Line: 147 -          expectation: "SELECT * FROM \"myTable\" GROUP BY \"name\";"
+
+ Line: 150 -          expectation: "SELECT * FROM \"myTable\" GROUP BY \"name\", \"title\";"
+
+ Line: 153 -          expectation: "SELECT * FROM \"myTable\" LIMIT 10;"
+
+ Line: 156 -          expectation: "SELECT * FROM \"myTable\" LIMIT 10 OFFSET 2;"
+
+ Line: 160 -          expectation: "SELECT * FROM \"myTable\" OFFSET 2;"
+
+ Line: 163 -          expectation: "SELECT * FROM \"mySchema\".\"myTable\";"
+
+ Line: 166 -          expectation: "SELECT * FROM \"mySchema\".\"myTable\" WHERE \"mySchema\".\"myTable\".\"name\"='foo'';DROP TABLE mySchema.myTable;';"
+
+ Line: 173 -          expectation: "INSERT INTO \"myTable\" (\"name\") VALUES ('foo') RETURNING *;"
+
+ Line: 176 -          expectation: "INSERT INTO \"myTable\" (\"name\") VALUES ('foo'';DROP TABLE myTable;') RETURNING *;"
+
+ Line: 179 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"birthday\") VALUES ('foo','2011-03-27 10:01:55.0Z') RETURNING *;"
+
+ Line: 182 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"foo\") VALUES ('foo',1) RETURNING *;"
+
+ Line: 185 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"nullValue\") VALUES ('foo',NULL) RETURNING *;"
+
+ Line: 188 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"nullValue\") VALUES ('foo',NULL) RETURNING *;",
+
+ Line: 192 -          expectation: "INSERT INTO \"myTable\" (\"name\") VALUES ('foo') RETURNING *;",
+
+ Line: 196 -          expectation: "INSERT INTO \"myTable\" (\"name\") VALUES ('foo') RETURNING *;",
+
+ Line: 200 -          expectation: "INSERT INTO \"mySchema\".\"myTable\" (\"name\") VALUES ('foo') RETURNING *;"
+
+ Line: 203 -          expectation: "INSERT INTO \"mySchema\".\"myTable\" (\"name\") VALUES ('{\"info\":\"Look ma a \\\" quote\"}') RETURNING *;"
+
+ Line: 206 -          expectation: "INSERT INTO \"mySchema\".\"myTable\" (\"name\") VALUES ('foo'';DROP TABLE mySchema.myTable;') RETURNING *;"
+
+ Line: 213 -          expectation: "INSERT INTO \"myTable\" (\"name\") VALUES ('foo'),('bar') RETURNING *;"
+
+ Line: 216 -          expectation: "INSERT INTO \"myTable\" (\"name\") VALUES ('foo'';DROP TABLE myTable;'),('bar') RETURNING *;"
+
+ Line: 219 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"birthday\") VALUES ('foo','2011-03-27 10:01:55.0Z'),('bar','2012-03-27 10:01:55.0Z') RETURNING *;"
+
+ Line: 222 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"foo\") VALUES ('foo',1),('bar',2) RETURNING *;"
+
+ Line: 225 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"nullValue\") VALUES ('foo',NULL),('bar',NULL) RETURNING *;"
+
+ Line: 228 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"nullValue\") VALUES ('foo',NULL),('bar',NULL) RETURNING *;",
+
+ Line: 232 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"nullValue\") VALUES ('foo',NULL),('bar',NULL) RETURNING *;",
+
+ Line: 236 -          expectation: "INSERT INTO \"myTable\" (\"name\",\"nullValue\") VALUES ('foo',NULL),('bar',NULL) RETURNING *;",
+
+ Line: 240 -          expectation: "INSERT INTO \"mySchema\".\"myTable\" (\"name\") VALUES ('foo'),('bar') RETURNING *;"
+
+ Line: 243 -          expectation: "INSERT INTO \"mySchema\".\"myTable\" (\"name\") VALUES ('{\"info\":\"Look ma a \\\" quote\"}'),('{\"info\":\"Look ma another \\\" quote\"}') RETURNING *;"
+
+ Line: 246 -          expectation: "INSERT INTO \"mySchema\".\"myTable\" (\"name\") VALUES ('foo'';DROP TABLE mySchema.myTable;'),('bar') RETURNING *;"
+
+ Line: 253 -          expectation: "UPDATE \"myTable\" SET \"name\"='foo',\"birthday\"='2011-03-27 10:01:55.0Z' WHERE \"id\"=2 RETURNING *"
+
+ Line: 256 -          expectation: "UPDATE \"myTable\" SET \"name\"='foo',\"birthday\"='2011-03-27 10:01:55.0Z' WHERE \"id\"=2 RETURNING *"
+
+ Line: 259 -          expectation: "UPDATE \"myTable\" SET \"bar\"=2 WHERE \"name\"='foo' RETURNING *"
+
+ Line: 262 -          expectation: "UPDATE \"myTable\" SET \"name\"='foo'';DROP TABLE myTable;' WHERE \"name\"='foo' RETURNING *"
+
+ Line: 265 -          expectation: "UPDATE \"myTable\" SET \"bar\"=2,\"nullValue\"=NULL WHERE \"name\"='foo' RETURNING *"
+
+ Line: 268 -          expectation: "UPDATE \"myTable\" SET \"bar\"=2,\"nullValue\"=NULL WHERE \"name\"='foo' RETURNING *",
+
+ Line: 272 -          expectation: "UPDATE \"myTable\" SET \"bar\"=2 WHERE \"name\"='foo' RETURNING *",
+
+ Line: 276 -          expectation: "UPDATE \"myTable\" SET \"bar\"=2 WHERE \"name\"='foo' RETURNING *",
+
+ Line: 280 -          expectation: "UPDATE \"mySchema\".\"myTable\" SET \"name\"='foo',\"birthday\"='2011-03-27 10:01:55.0Z' WHERE \"id\"=2 RETURNING *"
+
+ Line: 283 -          expectation: "UPDATE \"mySchema\".\"myTable\" SET \"name\"='foo'';DROP TABLE mySchema.myTable;' WHERE \"name\"='foo' RETURNING *"
+
+ Line: 290 -          expectation: "DELETE FROM \"myTable\" WHERE \"id\" IN (SELECT \"id\" FROM \"myTable\" WHERE \"name\"='foo' LIMIT 1)"
+
+ Line: 293 -          expectation: "DELETE FROM \"myTable\" WHERE \"id\" IN (SELECT \"id\" FROM \"myTable\" WHERE \"id\"=1 LIMIT 1)"
+
+ Line: 296 -          expectation: "DELETE FROM \"myTable\" WHERE \"id\" IN (SELECT \"id\" FROM \"myTable\" WHERE \"id\"=1 LIMIT 10)"
+
+ Line: 299 -          expectation: "DELETE FROM \"myTable\" WHERE \"id\" IN (SELECT \"id\" FROM \"myTable\" WHERE \"name\"='foo'';DROP TABLE myTable;' LIMIT 10)"
+
+ Line: 302 -          expectation: "DELETE FROM \"mySchema\".\"myTable\" WHERE \"id\" IN (SELECT \"id\" FROM \"mySchema\".\"myTable\" WHERE \"name\"='foo' LIMIT 1)"
+
+ Line: 305 -          expectation: "DELETE FROM \"mySchema\".\"myTable\" WHERE \"id\" IN (SELECT \"id\" FROM \"mySchema\".\"myTable\" WHERE \"name\"='foo'';DROP TABLE mySchema.myTable;' LIMIT 10)"
+
+ Line: 308 -          expectation: "DELETE FROM \"myTable\" WHERE \"id\" IN (SELECT \"id\" FROM \"myTable\" WHERE \"name\"='foo')"
+
+ Line: 339 -      //    expectation: 'SHOW INDEX FROM \"User\"'
+
+ Line: 342 -      //    expectation: "SHOW INDEX FROM \"User\" FROM \"sequelize\""
+
+ Line: 376 -            // Options would normally be set by the query interface that instantiates the query-generator, but here we specify it explicitly
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec-jasmine/dao-factory.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 157 -              setTimeout(function() {
+
+ Line: 179 -              setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec-jasmine/dao-factory.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 84 -                    expect(sql.toUpperCase().indexOf("DELETE")).toBeGreaterThan(-1)
+
+ Line: 106 -                  expect(sql.toUpperCase().indexOf("UPDATE")).toBeGreaterThan(-1)
+
+ Line: 246 -                  expect(sql.toUpperCase().indexOf("SELECT")).toBeGreaterThan(-1)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec-jasmine/mysql/query-generator.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 56 -          expectation: {id: 'INTEGER REFERENCES `Bar` (`id`) ON DELETE CASCADE'}
+
+ Line: 60 -          expectation: {id: 'INTEGER REFERENCES `Bar` (`id`) ON UPDATE RESTRICT'}
+
+ Line: 64 -          expectation: {id: 'INTEGER NOT NULL auto_increment DEFAULT 1 REFERENCES `Bar` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT'}
+
+ Line: 90 -          arguments: ['myTable', {title: 'VARCHAR(255)', name: 'VARCHAR(255)', otherId: 'INTEGER REFERENCES `otherTable` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION'}],
+
+ Line: 91 -          expectation: "CREATE TABLE IF NOT EXISTS `myTable` (`title` VARCHAR(255), `name` VARCHAR(255), `otherId` INTEGER, FOREIGN KEY (`otherId`) REFERENCES `otherTable` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION) ENGINE=InnoDB;"
+
+ Line: 105 -          expectation: "SELECT * FROM `myTable`;",
+
+ Line: 109 -          expectation: "SELECT `id`, `name` FROM `myTable`;",
+
+ Line: 113 -          expectation: "SELECT * FROM `myTable` WHERE `myTable`.`id`=2;",
+
+ Line: 117 -          expectation: "SELECT * FROM `myTable` WHERE `myTable`.`name`='foo';",
+
+ Line: 121 -          expectation: "SELECT * FROM `myTable` WHERE `myTable`.`name`='foo\\';DROP TABLE myTable;';",
+
+ Line: 125 -          expectation: "SELECT * FROM `myTable` WHERE `myTable`.`id`=2;",
+
+ Line: 129 -          expectation: 'SELECT count(*) as `count` FROM `foo`;',
+
+ Line: 133 -          expectation: "SELECT * FROM `myTable` WHERE foo='bar';",
+
+ Line: 137 -          expectation: "SELECT * FROM `myTable` ORDER BY id DESC;",
+
+ Line: 141 -          expectation: "SELECT * FROM `myTable` GROUP BY `name`;",
+
+ Line: 145 -          expectation: "SELECT * FROM `myTable` GROUP BY `name`;",
+
+ Line: 149 -          expectation: "SELECT * FROM `myTable` GROUP BY `name`, `title`;",
+
+ Line: 153 -          expectation: "SELECT * FROM `myTable` GROUP BY `name` ORDER BY id DESC;",
+
+ Line: 157 -          expectation: "SELECT * FROM `myTable` LIMIT 10;",
+
+ Line: 161 -          expectation: "SELECT * FROM `myTable` LIMIT 2, 10;",
+
+ Line: 166 -          expectation: "SELECT * FROM `myTable`;",
+
+ Line: 171 -          expectation: "SELECT * FROM `myTable` WHERE `myTable`.`boat`='canoe' AND `myTable`.`weather`='cold';",
+
+ Line: 176 -          expectation: "SELECT * FROM `myTable` WHERE 1=1;",
+
+ Line: 181 -          expectation: "SELECT * FROM `myTable` WHERE 1=1;",
+
+ Line: 186 -          expectation: "SELECT * FROM `myTable` WHERE 1=1;",
+
+ Line: 194 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('foo');"
+
+ Line: 197 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('foo\\';DROP TABLE myTable;');"
+
+ Line: 200 -          expectation: "INSERT INTO `myTable` (`name`,`birthday`) VALUES ('foo','2011-03-27 10:01:55');"
+
+ Line: 203 -          expectation: "INSERT INTO `myTable` (`name`,`foo`) VALUES ('foo',1);"
+
+ Line: 206 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL);"
+
+ Line: 209 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL);",
+
+ Line: 213 -          expectation: "INSERT INTO `myTable` (`name`,`foo`) VALUES ('foo',1);",
+
+ Line: 217 -          expectation: "INSERT INTO `myTable` (`name`,`foo`) VALUES ('foo',1);",
+
+ Line: 221 -          expectation: "INSERT INTO `myTable` (`foo`) VALUES (0);"
+
+ Line: 224 -          expectation: "INSERT INTO `myTable` (`foo`) VALUES (1);"
+
+ Line: 231 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('foo'),('bar');"
+
+ Line: 234 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('foo\\';DROP TABLE myTable;'),('bar');"
+
+ Line: 237 -          expectation: "INSERT INTO `myTable` (`name`,`birthday`) VALUES ('foo','2011-03-27 10:01:55'),('bar','2012-03-27 10:01:55');"
+
+ Line: 240 -          expectation: "INSERT INTO `myTable` (`name`,`foo`) VALUES ('foo',1),('bar',2);"
+
+ Line: 243 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',NULL);"
+
+ Line: 246 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',2,NULL);",
+
+ Line: 250 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',2,NULL);",
+
+ Line: 254 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',2,NULL);",
+
+ Line: 258 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('foo',1),('bar',0);"
+
+ Line: 265 -          expectation: "UPDATE `myTable` SET `name`='foo',`birthday`='2011-03-27 10:01:55' WHERE `id`=2"
+
+ Line: 268 -          expectation: "UPDATE `myTable` SET `name`='foo',`birthday`='2011-03-27 10:01:55' WHERE `id`=2"
+
+ Line: 271 -          expectation: "UPDATE `myTable` SET `bar`=2 WHERE `name`='foo'"
+
+ Line: 274 -          expectation: "UPDATE `myTable` SET `name`='foo\\';DROP TABLE myTable;' WHERE `name`='foo'"
+
+ Line: 277 -          expectation: "UPDATE `myTable` SET `bar`=2,`nullValue`=NULL WHERE `name`='foo'"
+
+ Line: 280 -          expectation: "UPDATE `myTable` SET `bar`=2,`nullValue`=NULL WHERE `name`='foo'",
+
+ Line: 284 -          expectation: "UPDATE `myTable` SET `bar`=2 WHERE `name`='foo'",
+
+ Line: 288 -          expectation: "UPDATE `myTable` SET `bar`=0 WHERE `name`='foo'"
+
+ Line: 291 -          expectation: "UPDATE `myTable` SET `bar`=1 WHERE `name`='foo'"
+
+ Line: 298 -          expectation: "DELETE FROM `myTable` WHERE `name`='foo' LIMIT 1"
+
+ Line: 301 -          expectation: "DELETE FROM `myTable` WHERE `id`=1 LIMIT 1"
+
+ Line: 304 -          expectation: "DELETE FROM `myTable` WHERE `id`=1 LIMIT 10"
+
+ Line: 307 -          expectation: "DELETE FROM `myTable` WHERE `name`='foo\\';DROP TABLE myTable;' LIMIT 10"
+
+ Line: 310 -          expectation: "DELETE FROM `myTable` WHERE `name`='foo'"
+
+ Line: 337 -          expectation: 'SHOW INDEX FROM User'
+
+ Line: 340 -          expectation: "SHOW INDEX FROM User FROM sequelize"
+
+ Line: 392 -            // Options would normally be set by the query interface that instantiates the query-generator, but here we specify it explicitly
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec-jasmine/mysql/connector-manager.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 29 -        setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec-jasmine/dao.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 197 -              setTimeout(function() {
+
+ Line: 206 -              setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec-jasmine/dao.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 312 -                  expect(emitter.query.sql).toMatch(/WHERE [`"]identifier[`"]..identifier./)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec-jasmine/sqlite/query-generator.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 55 -          expectation: {id: 'INTEGER REFERENCES `Bar` (`id`) ON DELETE CASCADE'}
+
+ Line: 59 -          expectation: {id: 'INTEGER REFERENCES `Bar` (`id`) ON UPDATE RESTRICT'}
+
+ Line: 63 -          expectation: {id: 'INTEGER NOT NULL DEFAULT 1 REFERENCES `Bar` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT'}
+
+ Line: 81 -          arguments: ['myTable', {title: 'VARCHAR(255)', name: 'VARCHAR(255)', otherId: 'INTEGER REFERENCES `otherTable` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION'}],
+
+ Line: 82 -          expectation: "CREATE TABLE IF NOT EXISTS `myTable` (`title` VARCHAR(255), `name` VARCHAR(255), `otherId` INTEGER REFERENCES `otherTable` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION);"
+
+ Line: 89 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('foo');"
+
+ Line: 92 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('''bar''');"
+
+ Line: 95 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('bar',NULL);"
+
+ Line: 98 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('bar',NULL);"
+
+ Line: 101 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('foo',1);"
+
+ Line: 104 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('foo',0);"
+
+ Line: 107 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL);"
+
+ Line: 110 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL);",
+
+ Line: 114 -          expectation: "INSERT INTO `myTable` (`name`,`foo`) VALUES ('foo',1);",
+
+ Line: 118 -          expectation: "INSERT INTO `myTable` (`name`,`foo`) VALUES ('foo',1);",
+
+ Line: 126 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('foo'),('bar');"
+
+ Line: 129 -          expectation: "INSERT INTO `myTable` (`name`) VALUES ('''bar'''),('foo');"
+
+ Line: 132 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('bar',NULL),('foo',1);"
+
+ Line: 135 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('bar',NULL),('bar',2);"
+
+ Line: 138 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('foo',1),('bar',0);"
+
+ Line: 141 -          expectation: "INSERT INTO `myTable` (`name`,`value`) VALUES ('foo',0),('bar',0);"
+
+ Line: 144 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',2,NULL);"
+
+ Line: 147 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',2,NULL);",
+
+ Line: 151 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',2,NULL);",
+
+ Line: 155 -          expectation: "INSERT INTO `myTable` (`name`,`foo`,`nullValue`) VALUES ('foo',1,NULL),('bar',2,NULL);",
+
+ Line: 163 -          expectation: "UPDATE `myTable` SET `name`='foo' WHERE `id`=2"
+
+ Line: 166 -          expectation: "UPDATE `myTable` SET `name`='''bar''' WHERE `id`=2"
+
+ Line: 169 -          expectation: "UPDATE `myTable` SET `name`='bar',`value`=NULL WHERE `id`=2"
+
+ Line: 172 -          expectation: "UPDATE `myTable` SET `name`='bar',`value`=NULL WHERE `id`=2"
+
+ Line: 175 -          expectation: "UPDATE `myTable` SET `flag`=1 WHERE `id`=2"
+
+ Line: 178 -          expectation: "UPDATE `myTable` SET `flag`=0 WHERE `id`=2"
+
+ Line: 181 -          expectation: "UPDATE `myTable` SET `bar`=2,`nullValue`=NULL WHERE `name`='foo'"
+
+ Line: 184 -          expectation: "UPDATE `myTable` SET `bar`=2,`nullValue`=NULL WHERE `name`='foo'",
+
+ Line: 188 -          expectation: "UPDATE `myTable` SET `bar`=2 WHERE `name`='foo'",
+
+ Line: 196 -          expectation: "DELETE FROM `myTable` WHERE `name`='foo'"
+
+ Line: 199 -          expectation: "DELETE FROM `myTable` WHERE `id`=1"
+
+ Line: 202 -          expectation: "DELETE FROM `myTable` WHERE `id`=1"
+
+ Line: 205 -          expectation: "DELETE FROM `myTable` WHERE `name`='foo\\';DROP TABLE myTable;'"
+
+ Line: 208 -          expectation: "DELETE FROM `myTable` WHERE `name`='foo'"
+
+ Line: 218 -            // Options would normally be set by the query interface that instantiates the query-generator, but here we specify it explicitly
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/dao-factory.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 389 -              expect(sql.toUpperCase().indexOf("INSERT")).toBeGreaterThan(-1)
+
+ Line: 819 -            expect(sql.toUpperCase().indexOf("SELECT")).toBeGreaterThan(-1)
+
+ Line: 1208 -        it("should return a DAO when queryOptions are not set", function (done) {
+
+ Line: 1232 -      }) // - describe: queryOptions
+
+ Line: 1476 -          it("should return a DAO when queryOptions are not set", function (done) {
+
+ Line: 1507 -        }) // - describe: queryOptions
+
+ Line: 1540 -          expect(sql.toUpperCase().indexOf("SELECT")).toBeGreaterThan(-1)
+
+ Line: 1597 -          expect(sql.toUpperCase().indexOf("SELECT")).toBeGreaterThan(-1)
+
+ Line: 1645 -                  expect(dblSql.indexOf('INSERT INTO `hello__UserSpecialDblUnderscores`')).toBeGreaterThan(-1)
+
+ Line: 1647 -                  expect(sql.indexOf('INSERT INTO `hello_UserSpecialUnderscores`')).toBeGreaterThan(-1)
+
+ Line: 1667 -                expect(UserSpecial.indexOf('INSERT INTO "special"."UserSpecials"')).toBeGreaterThan(-1)
+
+ Line: 1668 -                expect(UserPublic.indexOf('INSERT INTO "UserPublics"')).toBeGreaterThan(-1)
+
+ Line: 1671 -                expect(UserSpecial.indexOf('INSERT INTO `special.UserSpecials`')).toBeGreaterThan(-1)
+
+ Line: 1672 -                expect(UserPublic.indexOf('INSERT INTO `UserPublics`')).toBeGreaterThan(-1)
+
+ Line: 1675 -                expect(UserSpecial.indexOf('INSERT INTO `special.UserSpecials`')).toBeGreaterThan(-1)
+
+ Line: 1676 -                expect(UserPublic.indexOf('INSERT INTO `UserPublics`')).toBeGreaterThan(-1)
+
+ Line: 1684 -                  expect(user.indexOf('UPDATE "special"."UserSpecials"')).toBeGreaterThan(-1)
+
+ Line: 1686 -                  expect(user.indexOf('UPDATE `special.UserSpecials`')).toBeGreaterThan(-1)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/sequelize.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 46 -        this.insertQuery = "INSERT INTO " + qq(this.User.tableName) + " (username, " + qq("createdAt") + ", " + qq("updatedAt") + ") VALUES ('john', '2012-01-01 10:10:10', '2012-01-01 10:10:10')"
+
+ Line: 54 -      it('executes a query the internal way', function(done) {
+
+ Line: 66 -      it('executes a query if only the sql is passed', function(done) {
+
+ Line: 93 -      it('executes select query and parses dot notation results', function(done) {
+
+ Line: 113 -                "CREATE PROCEDURE foo()\nSELECT * FROM " + this.User.tableName + ";"
+
+ Line: 129 -          this.sequelize.query("SELECT * FROM " + qq(this.User.tableName) + ";", this.User).success(function(users) {
+
+ Line: 136 -      it('destructs dot separated attributes when doing a raw query', function(done) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/query-chainer.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 46 -        setTimeout(function() { emitter2.run() }, 100)
+
+ Line: 133 -          , emitter2 = new CustomEventEmitter(function(e) { setTimeout(function() { e.emit('success', 2) }, 100) })
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/dao.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 285 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/dao.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 103 -          // Select the user again (simulating a concurrent query)
+
+ Line: 193 -          // Select the user again (simulating a concurrent query)
+
+ Line: 601 -      it("can reuse query option objects", function(done) {
+
+ Line: 603 -          var query = { where: { username: 'fnord' }}
+
+ Line: 618 -      it("can reuse query option objects", function(done) {
+
+ Line: 620 -          var query = { where: { username: 'fnord' }}
+
+ Line: 637 -          var query = { where: { username: 'fnord' }}
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/promise.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 88 -          // Select the user again (simulating a concurrent query)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/associations/belongs-to.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 131 -                // the `UPDATE` query generated by `save()` uses `id` in the
+
+ Line: 132 -                // `WHERE` clause
+
+ Line: 161 -                // the `UPDATE` query generated by `save()` uses `id` in the
+
+ Line: 162 -                // `WHERE` clause
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/associations/has-one.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 131 -                // the `UPDATE` query generated by `save()` uses `id` in the
+
+ Line: 132 -                // `WHERE` clause
+
+ Line: 161 -                // the `UPDATE` query generated by `save()` uses `id` in the
+
+ Line: 162 -                // `WHERE` clause
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/spec/associations/has-many.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 281 -      it("adds three items to the query chainer when calling sync", function() {
+
+ Line: 407 -                // the `UPDATE` query generated by `save()` uses `id` in the
+
+ Line: 408 -                // `WHERE` clause
+
+ Line: 437 -                // the `UPDATE` query generated by `save()` uses `id` in the
+
+ Line: 438 -                // `WHERE` clause
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dao.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 169 -          , query      = this.QueryInterface.update(this, tableName, values, identifier)
+
+ Line: 171 -        return query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -        Returns a query for creating a table.
+
+ Line: 22 -        Returns a query for dropping a table.
+
+ Line: 29 -        Returns a rename table query.
+
+ Line: 39 -        Returns a query, which gets all available table names in the database.
+
+ Line: 46 -        Returns a query, which adds an attribute to an existing table.
+
+ Line: 61 -        Returns a query, which removes an attribute from an existing table.
+
+ Line: 71 -        Returns a query, which modifies an existing attribute from a table.
+
+ Line: 86 -        Returns a query, which renames an existing attribute.
+
+ Line: 97 -        Returns a query for selecting elements in the table <tableName>.
+
+ Line: 129 -        Returns an update query.
+
+ Line: 143 -        Returns a deletion query.
+
+ Line: 158 -        Returns a bulk deletion query.
+
+ Line: 171 -        Returns an update query.
+
+ Line: 185 -        Returns an add index query.
+
+ Line: 204 -        Returns an show index query.
+
+ Line: 215 -        Returns a remove index query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/postgres/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 30 -        var query = "CREATE SCHEMA <%= schema%>;"
+
+ Line: 35 -        var query = "DROP SCHEMA <%= schema%> CASCADE;"
+
+ Line: 40 -        return "SELECT schema_name FROM information_schema.schemata WHERE schema_name <> 'information_schema' AND schema_name != 'public' AND schema_name !~ E'^pg_';"
+
+ Line: 50 -        var query   = "CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>)"
+
+ Line: 58 -            query = QueryGenerator.pgEnum(tableName, attr, attributes[attr]) + query
+
+ Line: 80 -        var query = "DROP TABLE IF EXISTS <%= table %><%= cascade %>;"
+
+ Line: 88 -        var query = "ALTER TABLE <%= before %> RENAME TO <%= after %>;"
+
+ Line: 96 -        return "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';"
+
+ Line: 100 -        var query = 'SELECT column_name as "Field", column_default as "Default", is_nullable as "Null", data_type as "Type" FROM information_schema.columns WHERE table_name = <%= table %>;'
+
+ Line: 107 -        var query      = "ALTER TABLE <%= tableName %> ADD COLUMN <%= attributes %>;"
+
+ Line: 119 -            query = QueryGenerator.pgEnum(tableName, attrName, definition) + query
+
+ Line: 129 -        var query = "ALTER TABLE <%= tableName %> DROP COLUMN <%= attributeName %>;"
+
+ Line: 137 -        var query = "ALTER TABLE <%= tableName %> ALTER COLUMN <%= query %>;"
+
+ Line: 147 -              query:     QueryGenerator.addQuotes(attributeName) + ' SET NOT NULL'
+
+ Line: 154 -              query:     QueryGenerator.addQuotes(attributeName) + ' DROP NOT NULL'
+
+ Line: 161 -              query:     QueryGenerator.addQuotes(attributeName) + ' SET DEFAULT' + definition.match(/DEFAULT ([^;]+)/)[1]
+
+ Line: 168 -              query:     QueryGenerator.addQuotes(attributeName) + ' DROP DEFAULT'
+
+ Line: 173 -            query      = QueryGenerator.pgEnum(tableName, attributeName, definition) + query
+
+ Line: 179 -            query:     QueryGenerator.addQuotes(attributeName) + ' TYPE ' + definition
+
+ Line: 189 -        var query      = "ALTER TABLE <%= tableName %> RENAME COLUMN <%= attributes %>;"
+
+ Line: 206 -        var query = "SELECT <%= attributes %> FROM <%= table %>"
+
+ Line: 247 -            query += Utils._.template(joinQuery)({
+
+ Line: 262 -          query += " WHERE <%= where %>"
+
+ Line: 274 -          query += " GROUP BY <%= group %>"
+
+ Line: 281 -          query += " ORDER BY <%= order %>"
+
+ Line: 286 -            query += " LIMIT <%= limit %>"
+
+ Line: 290 -            query += " OFFSET <%= offset %>"
+
+ Line: 294 -        query += ";"
+
+ Line: 302 -        var query     = "INSERT INTO <%= table %> (<%= attributes %>) VALUES (<%= values %>) RETURNING *;"
+
+ Line: 319 -        var query     = "INSERT INTO <%= table %> (<%= attributes %>) VALUES <%= tuples %> RETURNING *;"
+
+ Line: 345 -        var query  = "UPDATE <%= table %> SET <%= values %> WHERE <%= where %> RETURNING *"
+
+ Line: 371 -        var query = "DELETE FROM <%= table %> WHERE <%= primaryKeys %> IN (SELECT <%= primaryKeysSelection %> FROM <%= table %> WHERE <%= where %><%= limit %>)"
+
+ Line: 396 -        var query  = "UPDATE <%= table %> SET <%= values %> WHERE <%= where %> RETURNING *"
+
+ Line: 458 -        var query = "SELECT relname FROM pg_class WHERE oid IN ( SELECT indexrelid FROM pg_index, pg_class WHERE pg_class.relname='<%= tableName %>' AND pg_class.oid=pg_index.indrelid);"
+
+ Line: 588 -                template += " ON DELETE <%= onDeleteAction %>"
+
+ Line: 593 -                template += " ON UPDATE <%= onUpdateAction %>"
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/postgres/connector-manager.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 45 -        setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/postgres/connector-manager.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 32 -      var query = new Query(this.client, this.sequelize, callee, options || {})
+
+ Line: 36 -      return query.run(sql)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/postgres/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 27 -        , query         = this.client.query(sql)
+
+ Line: 30 -      query.on('row', function(row) {
+
+ Line: 34 -      query.on('error', function(err) {
+
+ Line: 39 -      query.on('end', function() {
+
+ Line: 58 -        , isTableNameQuery = (this.sql.indexOf('SELECT table_name FROM information_schema.tables') === 0)
+
+ Line: 59 -        , isRelNameQuery   = (this.sql.indexOf('SELECT relname FROM pg_class WHERE oid IN') === 0)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/connector-manager.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -      throw new Error('Define the query method!')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mysql/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 36 -        var query = "SHOW TABLES"
+
+ Line: 41 -        var query = "SHOW TABLES"
+
+ Line: 55 -        var query   = "CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>) ENGINE=<%= engine %> <%= charset %>"
+
+ Line: 102 -        var query = "DROP TABLE IF EXISTS <%= table %>;"
+
+ Line: 110 -        var query = "RENAME TABLE `<%= before %>` TO `<%= after %>`;"
+
+ Line: 119 -        var query      = "ALTER TABLE `<%= tableName %>` ADD <%= attributes %>;"
+
+ Line: 135 -        var query = "ALTER TABLE `<%= tableName %>` DROP `<%= attributeName %>`;"
+
+ Line: 140 -        var query      = "ALTER TABLE `<%= tableName %>` CHANGE <%= attributes %>;"
+
+ Line: 156 -        var query      = "ALTER TABLE `<%= tableName %>` CHANGE <%= attributes %>;"
+
+ Line: 210 -        var query = "SELECT " + options.attributes + " FROM " + options.table
+
+ Line: 211 -        query += joinQuery
+
+ Line: 215 -          query += " WHERE " + options.where
+
+ Line: 220 -          query += " GROUP BY " + options.group
+
+ Line: 224 -          query += " ORDER BY " + options.order
+
+ Line: 230 -            query += " LIMIT " + options.offset + ", " + options.limit
+
+ Line: 232 -            query += " LIMIT " + options.limit
+
+ Line: 236 -        query += ";"
+
+ Line: 238 -        return query
+
+ Line: 248 -        var query = "INSERT INTO " + table + " (" + attributes + ") VALUES (" + values + ");"
+
+ Line: 250 -        return query
+
+ Line: 265 -        var query  = "INSERT INTO " + table + " (" + attributes + ") VALUES " + tuples.join(",") + ";"
+
+ Line: 267 -        return query
+
+ Line: 282 -        var query = "UPDATE " + QueryGenerator.addQuotes(tableName) +
+
+ Line: 284 -                    " WHERE " + QueryGenerator.getWhereConditions(where)
+
+ Line: 286 -        return query
+
+ Line: 304 -        var query = "DELETE FROM " + table + " WHERE " + where + limit
+
+ Line: 306 -        return query
+
+ Line: 315 -        var query = "DELETE FROM " + table + " WHERE " + where
+
+ Line: 317 -        return query
+
+ Line: 336 -        var query = "UPDATE " + table + " SET " + values + " WHERE " + where
+
+ Line: 338 -        return query
+
+ Line: 385 -        var sql = "SHOW INDEX FROM <%= tableName %><%= options %>"
+
+ Line: 388 -          options: (options || {}).database ? ' FROM ' + options.database : ''
+
+ Line: 504 -                template += " ON DELETE " + dataType.onDelete.toUpperCase()
+
+ Line: 508 -                template += " ON UPDATE " + dataType.onUpdate.toUpperCase()
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mysql/connector-manager.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 165 -            setTimeout(function() {
+
+ Line: 235 -        intervalObj = setInterval(cleanup, 10)
+
+ Line: 352 -      this.disconnectTimeoutId = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mysql/connector-manager.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 62 -          acquire: function (callback, priority, queryType) {
+
+ Line: 63 -            if (queryType == 'SELECT') {
+
+ Line: 149 -          query: new Query(this.client, this.sequelize, callee, options || {}),
+
+ Line: 157 -      var self = this, query = new Query(this.client, this.sequelize, callee, options || {});
+
+ Line: 160 -      query.done(function() {
+
+ Line: 173 -        query.run(sql);
+
+ Line: 178 -          if (err) return query.emit('error', err);
+
+ Line: 180 -          query.client = client;
+
+ Line: 181 -          query.run(sql);
+
+ Line: 186 -      return query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/abstract/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 142 -      return eval(fctName).apply(this, args)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/abstract/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 13 -     * Execute the passed sql query.
+
+ Line: 17 -     *     query.run('SELECT 1')
+
+ Line: 19 -     * @param {String} sql - The SQL query which should be executed.
+
+ Line: 44 -     * High level function that handles the results of a query execution.
+
+ Line: 48 -     *  query.formatResults([
+
+ Line: 57 -     * @param {Array} data - The result of the query execution.
+
+ Line: 108 -        The function returns the instance of the query.
+
+ Line: 124 -        The function returns the instance of the query.
+
+ Line: 146 -     * Get the attributes of an insert query, which contains the just inserted id.
+
+ Line: 159 -     * Iterate over all known tables and search their names inside the sql query.
+
+ Line: 162 -     * @param  {String} attribute An attribute of a SQL query. (?)
+
+ Line: 183 -    var queryResultHasJoin = function(results) {
+
+ Line: 200 -      // is insert query if sql contains insert into
+
+ Line: 203 -      // is insert query if no results are passed or if the result has the inserted id
+
+ Line: 206 -      // is insert query if no metadata are passed or if the metadata has the inserted id
+
+ Line: 236 -      return this.options.type === 'SELECT';
+
+ Line: 363 -      The function takes the result of the query execution and groups
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/sqlite/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 59 -        var query = "SELECT name FROM sqlite_master WHERE type='table' and name!='sqlite_sequence';"
+
+ Line: 64 -        var query = "SELECT name FROM sqlite_master WHERE type='table' and name!='sqlite_sequence';"
+
+ Line: 69 -        return "SELECT name FROM sqlite_master WHERE type='table' and name!='sqlite_sequence';"
+
+ Line: 75 -        var query       = "CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>)"
+
+ Line: 121 -        return "SELECT name FROM sqlite_master WHERE type='table' and name!='sqlite_sequence';"
+
+ Line: 127 -        var query = "INSERT INTO <%= table %> (<%= attributes %>) VALUES (<%= values %>);";
+
+ Line: 141 -        var query = "INSERT INTO <%= table %> (<%= attributes %>) VALUES <%= tuples %>;"
+
+ Line: 198 -        var query = "SELECT " + options.attributes + " FROM " + options.table
+
+ Line: 199 -        query += joinQuery
+
+ Line: 203 -          query += " WHERE " + options.where
+
+ Line: 208 -          query += " GROUP BY " + options.group
+
+ Line: 212 -          query += " ORDER BY " + options.order
+
+ Line: 218 -            query += " LIMIT " + options.offset + ", " + options.limit
+
+ Line: 220 -            query += " LIMIT " + options.limit
+
+ Line: 224 -        query += ";"
+
+ Line: 226 -        return query
+
+ Line: 232 -        var query  = "UPDATE <%= table %> SET <%= values %> WHERE <%= where %>"
+
+ Line: 252 -        var query = "DELETE FROM <%= table %> WHERE <%= where %>"
+
+ Line: 264 -        var query  = "UPDATE <%= table %> SET <%= values %> WHERE <%= where %>"
+
+ Line: 331 -                template += " ON DELETE <%= onDeleteAction %>"
+
+ Line: 336 -                template += " ON UPDATE <%= onUpdateAction %>"
+
+ Line: 415 -        var query = "ALTER TABLE `<%= before %>` RENAME TO `<%= after %>`;"
+
+ Line: 423 -        var query = [
+
+ Line: 425 -          "INSERT INTO <%= tableName %>_backup SELECT <%= attributeNames %> FROM <%= tableName %>;",
+
+ Line: 428 -          "INSERT INTO <%= tableName %> SELECT <%= attributeNames %> FROM <%= tableName %>_backup;",
+
+ Line: 442 -        var query = [
+
+ Line: 444 -          "INSERT INTO <%= tableName %>_backup SELECT <%= attributeNamesImport %> FROM <%= tableName %>;",
+
+ Line: 447 -          "INSERT INTO <%= tableName %> SELECT <%= attributeNamesExport %> FROM <%= tableName %>_backup;",
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/sqlite/query-interface.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 20 -      @param  {Function} queryAndEmit  The function from outside that triggers some events to get triggered.
+
+ Line: 24 -    removeColumn: function(tableName, attributeName, emitter, queryAndEmit) {
+
+ Line: 34 -          QueryInterface.execMultiQuery.call(this, subQueries, 'removeColumn', emitter, queryAndEmit)
+
+ Line: 50 -      @param  {Function} queryAndEmit The function from outside that triggers some events to get triggered.
+
+ Line: 54 -    changeColumn: function(tableName, attributes, emitter, queryAndEmit) {
+
+ Line: 66 -          QueryInterface.execMultiQuery.call(this, subQueries, 'changeColumn', emitter, queryAndEmit)
+
+ Line: 83 -      @param  {Function} queryAndEmit The function from outside that triggers some events to get triggered.
+
+ Line: 87 -    renameColumn: function(tableName, attrNameBefore, attrNameAfter, emitter, queryAndEmit) {
+
+ Line: 98 -          QueryInterface.execMultiQuery.call(this, subQueries, 'renameColumn', emitter, queryAndEmit)
+
+ Line: 103 -    execMultiQuery: function(queries, methodName, emitter, queryAndEmit) {
+
+ Line: 117 -            queryAndEmit.call(this, queries.splice(queries.length - 1)[0], methodName, {}, emitter)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dao-factory.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 238 -          setTimeout(function() { emitter.emit('success', null) }, 10)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dao-factory.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 185 -    DAOFactory.prototype.all = function(options, queryOptions) {
+
+ Line: 186 -      return this.findAll(options, queryOptions)
+
+ Line: 189 -    DAOFactory.prototype.findAll = function(options, queryOptions) {
+
+ Line: 207 -        type:    'SELECT',
+
+ Line: 209 -      }, queryOptions))
+
+ Line: 220 -      return this.QueryInterface.select(this, [this.getTableName(), joinTableName], optcpy, { type: 'SELECT' })
+
+ Line: 228 -    * @param  {Object} set the query options, e.g. raw, specifying that you want raw data instead of built DAOs
+
+ Line: 231 -    DAOFactory.prototype.find = function(options, queryOptions) {
+
+ Line: 285 -        type: 'SELECT',
+
+ Line: 287 -      }, queryOptions))
+
+ Line: 366 -     * the newly created values, you will need to query for them again. This is
+
+ Line: 464 -    var query = function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/query-interface.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 14 -      return queryAndEmit.call(this, sql, 'createSchema')
+
+ Line: 19 -      return queryAndEmit.call(this, sql, 'dropSchema')
+
+ Line: 78 -      return queryAndEmit.call(this, sql, 'createTable')
+
+ Line: 83 -      return queryAndEmit.call(this, sql, 'dropTable')
+
+ Line: 121 -      return queryAndEmit.call(this, sql, 'renameTable')
+
+ Line: 171 -      return queryAndEmit.call(this, sql, 'addColumn')
+
+ Line: 178 -          SQLiteQueryInterface.removeColumn.call(this, tableName, attributeName, emitter, queryAndEmit)
+
+ Line: 182 -        return queryAndEmit.call(this, sql, 'removeColumn')
+
+ Line: 198 -          SQLiteQueryInterface.changeColumn.call(this, tableName, attributes, emitter, queryAndEmit)
+
+ Line: 204 -        return queryAndEmit.call(this, sql, 'changeColumn')
+
+ Line: 224 -            SQLiteQueryInterface.renameColumn.call(this, tableName, attrNameBefore, attrNameAfter, emitter, queryAndEmit)
+
+ Line: 230 -            queryAndEmit.call(this, sql, 'renameColumn', {}, emitter)
+
+ Line: 242 -      return queryAndEmit.call(this, sql, 'addIndex')
+
+ Line: 247 -      return queryAndEmit.call(this, sql, 'showIndex')
+
+ Line: 252 -      return queryAndEmit.call(this, sql, "removeIndex")
+
+ Line: 257 -      return queryAndEmit.call(this, [sql, dao], 'insert', {
+
+ Line: 264 -      return queryAndEmit.call(this, sql, 'bulkInsert')
+
+ Line: 269 -      return queryAndEmit.call(this, [sql, dao], 'update')
+
+ Line: 274 -      return queryAndEmit.call(this, sql, 'bulkUpdate')
+
+ Line: 279 -      return queryAndEmit.call(this, [sql, dao], 'delete')
+
+ Line: 284 -      return queryAndEmit.call(this, sql, 'bulkDelete')
+
+ Line: 287 -    QueryInterface.prototype.select = function(factory, tableName, options, queryOptions) {
+
+ Line: 291 -      queryOptions = Utils._.extend({}, queryOptions, { include: options.include })
+
+ Line: 292 -      return queryAndEmit.call(this, [sql, factory, queryOptions], 'select')
+
+ Line: 297 -      return queryAndEmit.call(this, [sql, dao], 'increment');
+
+ Line: 309 -          , qry = self.sequelize.query(sql, null, { plain: true, raw: true, type: 'SELECT' })
+
+ Line: 339 -        return queryAndEmit.call(this, sql, 'enableForeignKeyConstraints')
+
+ Line: 351 -        return queryAndEmit.call(this, sql, 'disableForeignKeyConstraints')
+
+ Line: 362 -    var queryAndEmit = function(sqlOrQueryParams, methodName, options, emitter) {
+
+ Line: 369 -        var query = null
+
+ Line: 380 -          query = this.sequelize.query.apply(this.sequelize, sqlOrQueryParams)
+
+ Line: 382 -          query = this.sequelize.query(sqlOrQueryParams, null, {})
+
+ Line: 385 -        // append the query for better testing
+
+ Line: 386 -        emitter.query = query
+
+ Line: 388 -        query.success(function(obj) {
+
+ Line: 398 -        query.on('sql', function(sql) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/sequelize.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 73 -        query: {},
+
+ Line: 217 -        type: (sql.toLowerCase().indexOf('select') === 0) ? 'SELECT' : false
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/assets/vendor/prettify/prettify-min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  gName;if(ad.test(ax)&&ao.className&&ak.test(ao.className)){aw=true;break}}if(!aw){at.className+=" prettyprinted";var aq=au.match(af);var am;if(!aq&&(am=p(at))&&ai.test(am.tagName)){aq=am.className.match(af)}if(aq){aq=aq[1]}var ap;if(ag.test(at.tagName)){ap=1}else{var an=at.currentStyle;var al=(an?an.whiteSpace:(document.defaultView&&document.defaultView.getComputedStyle)?document.defaultView.getComputedStyle(at,null).getPropertyValue("white-space"):0);ap=al&&"pre"===al.substring(0,3)}var av=at.className.match(/\blinenums\b(?::(\d+))?/);av=av?av[1]&&av[1].length?+av[1]:true:false;if(av){S(at,av,ap)}U={langExtension:aq,sourceNode:at,numberLines:av,pre:ap};e(U)}}}if(aa<V.length){setTimeout(X,250)}else{if(aj){aj()}}}X()}var a=O.PR={createSimpleLexer:h,registerLangHandler:d,sourceDecorator:i,PR_ATTRIB_NAME:R,PR_ATTRIB_VALUE:o,PR_COMMENT:k,PR_DECLARATION:F,PR_KEYWORD:A,PR_LITERAL:H,PR_NOCODE:P,PR_PLAIN:G,PR_PUNCTUATION:M,PR_SOURCE:K,PR_STRING:D,PR_TAG:n,PR_TYPE:Q,prettyPrintOne:O.prettyPrintOne=z,prettyPrint:O.prettyPrint=c};if(typeof define==="function"&&define.amd){define("google-code-prettify",[],function(){return a})}})();PR.registerLangHandler(PR.createSimpleLexer([],[[PR.PR_DECLARATION,/^<!\w[^>]*(?:>|$)/],[PR.PR_COMMENT,/^<\!--[\s\S]*?(?:-\->|$)/],[PR.PR_PUNCTUATION,/^(?:<[%?]|[%?]>)/],["lang-",/^<\?([\s\S]+?)(?:\?>|$)/],["lang-",/^<%([\s\S]+?)(?:%>|$)/],["lang-",/^<xmp\b[^>]*>([\s\S]+?)<\/xmp\b[^>]*>/i],["lang-handlebars",/^<script\b[^>]*type\s*=\s*['"]?text\/x-handlebars-template['"]?\b[^>]*>([\s\S]*?)(<\/script\b[^>]*>)/i],["lang-js",/^<script\b[^>]*>([\s\S]*?)(<\/script\b[^>]*>)/i],["lang-css",/^<style\b[^>]*>([\s\S]*?)(<\/style\b[^>]*>)/i],["lang-in.tag",/^(<\/?[a-z][^<>]*>)/i],[PR.PR_DECLARATION,/^{{[#^>/]?\s*[\w.][^}]*}}/],[PR.PR_DECLARATION,/^{{&?\s*[\w.][^}]*}}/],[PR.PR_DECLARATION,/^{{{>?\s*[\w.][^}]*}}}/],[PR.PR_COMMENT,/^{{![^}]*}}/]]),["handlebars","hbs"]);PR.registerLangHandler(PR.createSimpleLexer([[PR.PR_PLAIN,/^[ \t\r\n\f]+/,null," \t\r\n\f"]],[[PR.PR_STRING,/^\"(?:[^\n\r\f\\\"]|\\(?:\r\n?|\n|\f)|\\[\s\S])*\"/,null],[PR.PR_STRING,/^\'(?:[^\n\r\f\\\']|\\(?:\r\n</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/assets/js/apidocs.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 204 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/assets/js/api-list.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 216 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/assets/js/api-list.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 163 -                  'different query?' +
+
+ Line: 187 -              queryType     : name
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/docs/assets/js/api-filter.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 27 -          queryType: {
+
+</Result>
+</report_mosca>
+

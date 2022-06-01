@@ -1,0 +1,12 @@
+diff '--color=auto' -ur package/lib/server.js package-fixed/lib/server.js
+--- package/lib/server.js	1970-01-01 01:00:00.000000000 +0100
++++ package-fixed/lib/server.js	2020-10-28 11:09:37.464000000 +0000
+@@ -88,7 +88,7 @@
+ 
+   // Don't allow rendering ignored files
+   const ignored = !ignoredFiles.every(item => {
+-    return !decodeURIComponent(pathname).includes(item)
++    return !decodeURIComponent(pathname.toLowerCase()).includes(item)
+   })
+ 
+   if (ignored || (!assetRequest && related.indexOf(current) !== 0)) {

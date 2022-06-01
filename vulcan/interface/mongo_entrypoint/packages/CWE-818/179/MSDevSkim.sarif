@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/list.c",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 14,
+                  "endLine": 3,
+                  "endColumn": 33,
+                  "offset": 34,
+                  "length": 19
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(size_t size)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/test/list.c",
+                  "replacements": [
+                    {
+                      "offset": 34,
+                      "deletedLength": 19,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/list.c",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 38,
+                  "endLine": 22,
+                  "endColumn": 65,
+                  "offset": 322,
+                  "length": 27
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(sizeof (struct Node)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/test/list.c",
+                  "replacements": [
+                    {
+                      "offset": 322,
+                      "deletedLength": 27,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/simple.cpp",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 5,
+                  "endLine": 20,
+                  "endColumn": 11,
+                  "offset": 273,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        }
+      ],
+      "rules": {
+        "DS161085": {
+          "id": "DS161085",
+          "name": "Problematic C function detected (malloc)",
+          "fullDescription": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS161085.md"
+        },
+        "DS154189": {
+          "id": "DS154189",
+          "name": "Banned C function detected",
+          "fullDescription": "These functions are historically error-prone and have been associated with a significant number of vulnerabilities. Most of these functions have safer alternatives, such as replacing 'strcpy' with 'strlcpy' or 'strcpy_s'.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS154189.md"
+        }
+      }
+    }
+  ]
+}

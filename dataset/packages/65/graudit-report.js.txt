@@ -1,0 +1,96 @@
+/src/API.md-2301-          flag to the header.
+/src/API.md:2302:        - `preload` - a boolean specifying whether to add the 'preload' flag (used to submit
+/src/API.md:2303:          domains inclusion in Chrome's HTTP Strict Transport Security (HSTS) preload list)
+/src/API.md-2304-          to the header.
+##############################################
+/src/lib/schema.js-140-                includeSubDomains: Joi.boolean(),
+/src/lib/schema.js:141:                preload: Joi.boolean()
+/src/lib/schema.js-142-            }),
+##############################################
+/src/lib/request.js-207-
+/src/lib/request.js:208:    this.url = Url.parse(url, false);
+/src/lib/request.js:209:    this.url.query = Qs.parse(this.url.query, this.connection.settings.query.qs || parserOptions);      // Override parsed value
+/src/lib/request.js-210-    this.query = this.url.query;
+##############################################
+/src/lib/route.js-214-                }
+/src/lib/route.js:215:                if (security.hsts.preload) {
+/src/lib/route.js:216:                    security._hsts += '; preload';
+/src/lib/route.js-217-                }
+##############################################
+/src/lib/route.js-395-
+/src/lib/route.js:396:    request.connection.states.parse(cookies, function (err, state, failed) {
+/src/lib/route.js-397-
+##############################################
+/src/lib/route.js-452-
+/src/lib/route.js:453:    Subtext.parse(request.raw.req, request._tap(), request.route.settings.payload, function (err, parsed) {
+/src/lib/route.js-454-
+##############################################
+/src/lib/transmit.js-149-    try {
+/src/lib/transmit.js:150:        return Date.parse(string);
+/src/lib/transmit.js-151-    }
+##############################################
+/src/lib/connection.js-88-
+/src/lib/connection.js:89:    this.listener = this.settings.listener || (this.settings.tls ? Https.createServer(this.settings.tls) : Http.createServer());
+/src/lib/connection.js-90-    this.listener.on('request', this._dispatch());
+##############################################
+/src/test/request.js-250-
+/src/test/request.js:251:                    var client = Net.connect(server.info.port, function () {
+/src/test/request.js-252-
+##############################################
+/src/test/transmit.js-125-
+/src/test/transmit.js:126:                return reply(Fs.createReadStream(__dirname + '/../package.json')).header('etag', 'abc');
+/src/test/transmit.js-127-            };
+##############################################
+/src/test/transmit.js-168-
+/src/test/transmit.js:169:                var last = new Date(Date.parse(res1.headers['last-modified']) + 1000);
+/src/test/transmit.js-170-                server.inject({ url: '/file', headers: { 'if-modified-since': last.toUTCString() } }, function (res2) {
+##############################################
+/src/test/transmit.js-1503-
+/src/test/transmit.js:1504:                Wreck.get('https://localhost:' + server.info.port, { rejectUnauthorized: false }, function (err, res, body) {
+/src/test/transmit.js-1505-
+##############################################
+/src/test/transmit.js-1827-                var filePath = Path.join(__dirname, 'file', 'image.png');
+/src/test/transmit.js:1828:                return reply(Fs.createReadStream(filePath)).bytes(Fs.statSync(filePath).size);
+/src/test/transmit.js-1829-            };
+##############################################
+/src/test/transmit.js-3008-
+/src/test/transmit.js:3009:        it('returns correct hsts header when security.hsts is an object only specifying includeSubDomains and preload', function (done) {
+/src/test/transmit.js-3010-
+##############################################
+/src/test/transmit.js-3016-            var server = new Hapi.Server();
+/src/test/transmit.js:3017:            server.connection({ routes: { security: { hsts: { includeSubDomains: true, preload: true } } } });
+/src/test/transmit.js-3018-            server.route({ method: 'GET', path: '/', handler: handler });
+##############################################
+/src/test/transmit.js-3023-                expect(res.result).to.equal('Test');
+/src/test/transmit.js:3024:                expect(res.headers['strict-transport-security']).to.equal('max-age=15768000; includeSubDomains; preload');
+/src/test/transmit.js-3025-                done();
+##############################################
+/src/test/connection.js-190-
+/src/test/connection.js:191:        var listener = Http.createServer();
+/src/test/connection.js-192-        var server = new Hapi.Server();
+##############################################
+/src/test/connection.js-214-
+/src/test/connection.js:215:        var listener = Http.createServer();
+/src/test/connection.js-216-        var server = new Hapi.Server();
+##############################################
+/src/test/connection.js-234-
+/src/test/connection.js:235:        var listener = Http.createServer();
+/src/test/connection.js-236-        var server = new Hapi.Server();
+##############################################
+/src/test/connection.js-448-
+/src/test/connection.js:449:                socket1.connect(server.info.port, '127.0.0.1', function () {
+/src/test/connection.js-450-
+/src/test/connection.js:451:                    socket2.connect(server.info.port, '127.0.0.1', function () {
+/src/test/connection.js-452-
+##############################################
+/src/test/connection.js-496-
+/src/test/connection.js:497:                socket1.connect(server.info.port, server.connections[0].settings.host, function () {
+/src/test/connection.js-498-
+/src/test/connection.js:499:                    socket2.connect(server.info.port, server.connections[0].settings.host, function () {
+/src/test/connection.js-500-
+##############################################
+/src/test/connection.js-538-
+/src/test/connection.js:539:                socket1.connect(server.info.port, server.connections[0].settings.host, function () {
+/src/test/connection.js-540-
+/src/test/connection.js:541:                    socket2.connect(server.info.port, server.connections[0].settings.host, function () {
+/src/test/connection.js-542-

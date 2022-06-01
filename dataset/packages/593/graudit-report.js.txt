@@ -1,0 +1,106 @@
+/src/History.md-112-  * throw an Error when no proxy info is given
+/src/History.md:113:  * add support for passing options to net/tls .connect()
+/src/History.md-114-
+##############################################
+/src/README.md-44-console.log('attempting to GET %j', endpoint);
+/src/README.md:45:var options = url.parse(endpoint);
+/src/README.md-46-
+##############################################
+/src/README.md-69-var endpoint = process.argv[2] || 'ws://echo.websocket.org';
+/src/README.md:70:var parsed = url.parse(endpoint);
+/src/README.md-71-console.log('attempting to connect to WebSocket %j', endpoint);
+##############################################
+/src/README.md-73-// create an instance of the `HttpsProxyAgent` class with the proxy server information
+/src/README.md:74:var options = url.parse(proxy);
+/src/README.md-75-
+##############################################
+/src/README.md-107-  * `headers` - Object - Additional HTTP headers to be sent on the HTTP CONNECT method.
+/src/README.md:108:  * Any other options given are passed to the `net.connect()`/`tls.connect()` functions.
+/src/README.md-109-
+##############################################
+/src/index.js-26-  if (!(this instanceof HttpsProxyAgent)) return new HttpsProxyAgent(opts);
+/src/index.js:27:  if ('string' == typeof opts) opts = url.parse(opts);
+/src/index.js-28-  if (!opts)
+##############################################
+/src/index.js-51-    // if both a `host` and `path` are specified then it's most likely the
+/src/index.js:52:    // result of a `url.parse()` call... we need to remove the `path` portion so
+/src/index.js:53:    // that `net.connect()` doesn't attempt to open that as a unix socket file.
+/src/index.js-54-    delete proxy.path;
+##############################################
+/src/index.js-73-  if (this.secureProxy) {
+/src/index.js:74:    socket = tls.connect(proxy);
+/src/index.js-75-  } else {
+/src/index.js:76:    socket = net.connect(proxy);
+/src/index.js-77-  }
+##############################################
+/src/index.js-152-        opts.port = null;
+/src/index.js:153:        sock = tls.connect(opts);
+/src/index.js-154-      }
+##############################################
+/src/test/test.js-29-    // setup target HTTP server
+/src/test/test.js:30:    server = http.createServer();
+/src/test/test.js-31-    server.listen(function () {
+##############################################
+/src/test/test.js-51-    };
+/src/test/test.js:52:    sslServer = https.createServer(options);
+/src/test/test.js-53-    sslServer.listen(function () {
+##############################################
+/src/test/test.js-64-    };
+/src/test/test.js:65:    sslProxy = Proxy(https.createServer(options));
+/src/test/test.js-66-    sslProxy.listen(function () {
+##############################################
+/src/test/test.js-103-    });
+/src/test/test.js:104:    it('should accept a `url.parse()` result object argument', function () {
+/src/test/test.js:105:      var opts = url.parse('http://127.0.0.1:' + proxyPort);
+/src/test/test.js-106-      var agent = new HttpsProxyAgent(opts);
+##############################################
+/src/test/test.js-143-
+/src/test/test.js:144:      var opts = url.parse('http://127.0.0.1:' + serverPort);
+/src/test/test.js-145-      opts.agent = agent;
+##############################################
+/src/test/test.js-153-        res.on('end', function () {
+/src/test/test.js:154:          data = JSON.parse(data);
+/src/test/test.js-155-          assert.equal('127.0.0.1:' + serverPort, data.host);
+##############################################
+/src/test/test.js-166-      var proxy = process.env.HTTPS_PROXY || process.env.https_proxy || 'https://127.0.0.1:' + sslProxyPort;
+/src/test/test.js:167:      proxy = url.parse(proxy);
+/src/test/test.js:168:      proxy.rejectUnauthorized = false;
+/src/test/test.js-169-      var agent = new HttpsProxyAgent(proxy);
+/src/test/test.js-170-
+/src/test/test.js:171:      var opts = url.parse('http://127.0.0.1:' + serverPort);
+/src/test/test.js-172-      opts.agent = agent;
+##############################################
+/src/test/test.js-180-        res.on('end', function () {
+/src/test/test.js:181:          data = JSON.parse(data);
+/src/test/test.js-182-          assert.equal('127.0.0.1:' + serverPort, data.host);
+##############################################
+/src/test/test.js-213-
+/src/test/test.js:214:      var opts = url.parse('http://nodejs.org');
+/src/test/test.js-215-      opts.agent = agent;
+##############################################
+/src/test/test.js-233-      var uri = 'http://127.0.0.1:' + serverPort;
+/src/test/test.js:234:      var proxyOpts = url.parse(uri);
+/src/test/test.js-235-      proxyOpts.headers = {
+##############################################
+/src/test/test.js-259-
+/src/test/test.js:260:      var opts = url.parse('https://127.0.0.1:' + sslServerPort);
+/src/test/test.js:261:      opts.rejectUnauthorized = false;
+/src/test/test.js-262-      opts.agent = agent;
+##############################################
+/src/test/test.js-270-        res.on('end', function () {
+/src/test/test.js:271:          data = JSON.parse(data);
+/src/test/test.js-272-          assert.equal('127.0.0.1:' + sslServerPort, data.host);
+##############################################
+/src/test/test.js-283-      var proxy = process.env.HTTPS_PROXY || process.env.https_proxy || 'https://127.0.0.1:' + sslProxyPort;
+/src/test/test.js:284:      proxy = url.parse(proxy);
+/src/test/test.js:285:      proxy.rejectUnauthorized = false;
+/src/test/test.js-286-      var agent = new HttpsProxyAgent(proxy);
+/src/test/test.js-287-
+/src/test/test.js:288:      var opts = url.parse('https://127.0.0.1:' + sslServerPort);
+/src/test/test.js-289-      opts.agent = agent;
+/src/test/test.js:290:      opts.rejectUnauthorized = false;
+/src/test/test.js-291-
+##############################################
+/src/test/test.js-298-        res.on('end', function () {
+/src/test/test.js:299:          data = JSON.parse(data);
+/src/test/test.js-300-          assert.equal('127.0.0.1:' + sslServerPort, data.host);

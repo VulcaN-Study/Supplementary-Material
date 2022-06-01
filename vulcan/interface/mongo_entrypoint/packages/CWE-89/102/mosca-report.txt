@@ -1,0 +1,1261 @@
+<report_mosca>
+ <Path>/src/lib/dialects/postgres/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 15 -      var query = 'SET search_path to <%= searchPath%>;';
+
+ Line: 20 -      var query = 'CREATE SCHEMA <%= schema%>;';
+
+ Line: 25 -      var query = 'DROP SCHEMA IF EXISTS <%= schema%> CASCADE;';
+
+ Line: 30 -      return "SELECT schema_name FROM information_schema.schemata WHERE schema_name <> 'information_schema' AND schema_name != 'public' AND schema_name !~ E'^pg_';";
+
+ Line: 45 -      var query = 'CREATE TABLE ' +
+
+ Line: 58 -          // Move comment to a separate query
+
+ Line: 97 -      var query = 'DROP TABLE IF EXISTS <%= table %><%= cascade %>;';
+
+ Line: 105 -      return "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type LIKE '%TABLE' AND table_name != 'spatial_ref_sys';";
+
+ Line: 113 -      var query = 'SELECT tc.constraint_type as "Constraint", c.column_name as "Field", c.column_default as "Default", c.is_nullable as "Null", ' +
+
+ Line: 115 -        'THEN c.udt_name ELSE c.data_type END as "Type", (SELECT array_agg(e.enumlabel) ' +
+
+ Line: 116 -        'FROM pg_catalog.pg_type t JOIN pg_catalog.pg_enum e ON t.oid=e.enumtypid WHERE t.typname=c.udt_name) AS "special" ' +
+
+ Line: 117 -        'FROM information_schema.columns c ' +
+
+ Line: 120 -        ' WHERE c.table_name = <%= table %> AND c.table_schema = <%= schema %> ';
+
+ Line: 181 -      var query = 'ALTER TABLE <%= table %> ADD COLUMN <%= attribute %>;'
+
+ Line: 186 -        query = this.pgEnum(table, key, dataType) + query;
+
+ Line: 201 -      var query = 'ALTER TABLE <%= tableName %> DROP COLUMN <%= attributeName %>;';
+
+ Line: 209 -      var query = 'ALTER TABLE <%= tableName %> ALTER COLUMN <%= query %>;'
+
+ Line: 219 -            query: this.quoteIdentifier(attributeName) + ' SET NOT NULL'
+
+ Line: 226 -            query: this.quoteIdentifier(attributeName) + ' DROP NOT NULL'
+
+ Line: 233 -            query: this.quoteIdentifier(attributeName) + ' SET DEFAULT ' + definition.match(/DEFAULT ([^;]+)/)[1]
+
+ Line: 240 -            query: this.quoteIdentifier(attributeName) + ' DROP DEFAULT'
+
+ Line: 245 -          query = this.pgEnum(tableName, attributeName, attributes[attributeName]) + query;
+
+ Line: 255 -            query: 'ADD CONSTRAINT ' + this.quoteIdentifier(attributeName + '_unique_idx') + ' UNIQUE (' + this.quoteIdentifier(attributeName) + ')'
+
+ Line: 263 -            query: 'ADD CONSTRAINT ' + this.quoteIdentifier(attributeName + '_foreign_idx') + ' FOREIGN KEY (' + this.quoteIdentifier(attributeName) + ') ' + definition
+
+ Line: 268 -            query: this.quoteIdentifier(attributeName) + ' TYPE ' + definition
+
+ Line: 279 -      var query = 'ALTER TABLE <%= tableName %> RENAME COLUMN <%= attributes %>;';
+
+ Line: 300 -      var query = 'CREATE OR REPLACE FUNCTION pg_temp.<%= fnName %>() RETURNS <%= returns %> AS $func$ BEGIN <%= body %> END; $func$ LANGUAGE <%= language %>; SELECT * FROM pg_temp.<%= fnName %>();';
+
+ Line: 340 -      var query;
+
+ Line: 347 -        query = 'TRUNCATE ' + tableName;
+
+ Line: 350 -          query += ' CASCADE';
+
+ Line: 353 -        return query;
+
+ Line: 361 -        query = 'DELETE FROM <%= table %> WHERE <%= primaryKeys %> IN (SELECT <%= primaryKeysSelection %> FROM <%= table %><%= where %><%= limit %>)';
+
+ Line: 363 -        query = 'DELETE FROM <%= table %><%= where %>';
+
+ Line: 379 -        replacements.where = ' WHERE ' + replacements.where;
+
+ Line: 394 -      var query = 'SELECT i.relname AS name, ix.indisprimary AS primary, ix.indisunique AS unique, ix.indkey AS indkey, ' +
+
+ Line: 396 -        'AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a<%= schemaJoin%> ' +
+
+ Line: 397 -        'WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND ' +
+
+ Line: 485 -          template += ' ON DELETE <%= onDeleteAction %>';
+
+ Line: 490 -          template += ' ON UPDATE <%= onUpdateAction %>';
+
+ Line: 697 -          'insert': 'INSERT',
+
+ Line: 698 -          'update': 'UPDATE',
+
+ Line: 699 -          'delete': 'DELETE',
+
+ Line: 708 -        if (eventSpec === 'UPDATE') {
+
+ Line: 740 -      var query = 'SELECT t.typname enum_name, array_agg(e.enumlabel ORDER BY enumsortorder) enum_value FROM pg_type t ' +
+
+ Line: 743 -        "WHERE n.nspname = '" + tableDetails.schema + "'" + enumName + ' GROUP BY 1';
+
+ Line: 745 -      return query;
+
+ Line: 845 -     * Generates an SQL query that returns all foreign keys of a table.
+
+ Line: 849 -     * @return {String}            The generated sql query.
+
+ Line: 852 -      return 'SELECT conname as constraint_name, pg_catalog.pg_get_constraintdef(r.oid, true) as condef FROM pg_catalog.pg_constraint r ' +
+
+ Line: 853 -        "WHERE r.conrelid = (SELECT oid FROM pg_class WHERE relname = '" + tableName + "' LIMIT 1) AND r.contype = 'f' ORDER BY 1;";
+
+ Line: 857 -     * Generates an SQL query that removes a foreign key from a table.
+
+ Line: 861 -     * @return {String}            The generated sql query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/postgres/connection-manager.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 112 -      // If we didn't ever hear from the client.connect() callback the connection timeout, node-postgres does not treat this as an error since no active query was ever emitted
+
+ Line: 125 -      var query = '';
+
+ Line: 128 -        query += 'SET standard_conforming_strings=on;';
+
+ Line: 134 -          query += 'SET client_min_messages TO warning; SET TIME ZONE \'' + self.sequelize.options.timezone + '\';';
+
+ Line: 136 -          query += 'SET client_min_messages TO warning; SET TIME ZONE INTERVAL \'' + self.sequelize.options.timezone + '\' HOUR TO MINUTE;';
+
+ Line: 142 -        query += 'SELECT typname, oid, typarray FROM pg_type WHERE typtype = \'b\' AND typname IN (\'hstore\', \'geometry\', \'geography\')';
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/postgres/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 25 -   * rewrite query with parameters
+
+ Line: 61 -      , query = ((parameters && parameters.length) ? this.client.query(this.sql, parameters) : this.client.query(this.sql))
+
+ Line: 64 -    //do we need benchmark for this query execution
+
+ Line: 70 -      var queryBegin = Date.now();
+
+ Line: 74 -      query.on('row', function(row) {
+
+ Line: 78 -      query.on('error', function(err) {
+
+ Line: 90 -      query.on('end', function(result) {
+
+ Line: 93 -          self.sequelize.log('Executed (' + (self.client.uuid || 'default') + '): ' + self.sql + ' in ' + (Date.now() - queryBegin) + 'ms', self.options);
+
+ Line: 104 -        , isTableNameQuery = (sql.indexOf('SELECT table_name FROM information_schema.tables') === 0)
+
+ Line: 105 -        , isRelNameQuery = (sql.indexOf('SELECT relname FROM pg_class WHERE oid IN') === 0);
+
+ Line: 170 -          if (row.condef !== undefined && (defParts = row.condef.match(/FOREIGN KEY \((.+)\) REFERENCES (.+)\((.+)\)( ON (UPDATE|DELETE) (CASCADE|RESTRICT))?( ON (UPDATE|DELETE) (CASCADE|RESTRICT))?/))) {
+
+ Line: 177 -              if (/(UPDATE|DELETE)/.test(defParts[i])) {
+
+ Line: 239 -      } else if (QueryTypes.BULKUPDATE === self.options.type) {
+
+ Line: 245 -      } else if (QueryTypes.BULKDELETE === self.options.type) {
+
+ Line: 361 -    return /SELECT conname as constraint_name, pg_catalog\.pg_get_constraintdef\(r\.oid, true\) as condef FROM pg_catalog\.pg_constraint r WHERE r\.conrelid = \(SELECT oid FROM pg_class WHERE relname = '.*' LIMIT 1\) AND r\.contype = 'f' ORDER BY 1;/.test(this.sql);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mssql/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -        'IF NOT EXISTS (SELECT schema_name',
+
+ Line: 20 -        'FROM information_schema.schemata',
+
+ Line: 21 -        'WHERE schema_name =', wrapSingleQuote(schema), ')',
+
+ Line: 32 -        'SELECT "name" as "schema_name" FROM sys.schemas as s',
+
+ Line: 33 -        'WHERE "s"."name" NOT IN (',
+
+ Line: 40 -      return "SELECT @@VERSION as 'version'";
+
+ Line: 44 -      var query = "IF OBJECT_ID('<%= table %>', 'U') IS NULL CREATE TABLE <%= table %> (<%= attributes %>)"
+
+ Line: 107 -        'SELECT',
+
+ Line: 113 -        'FROM',
+
+ Line: 121 -        'WHERE t.TABLE_NAME =', wrapSingleQuote(tableName)
+
+ Line: 132 -      var query = 'EXEC sp_rename <%= before %>, <%= after %>;';
+
+ Line: 140 -      return 'SELECT TABLE_NAME, TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES;';
+
+ Line: 144 -      var query = "IF OBJECT_ID('<%= table %>', 'U') IS NOT NULL DROP TABLE <%= table %>";
+
+ Line: 157 -      var query = 'ALTER TABLE <%= table %> ADD <%= attribute %>;'
+
+ Line: 172 -      var query = 'ALTER TABLE <%= tableName %> DROP COLUMN <%= attributeName %>;';
+
+ Line: 180 -      var query = 'ALTER TABLE <%= tableName %> <%= query %>;';
+
+ Line: 210 -        query: finalQuery
+
+ Line: 215 -      var query = "EXEC sp_rename '<%= tableName %>.<%= before %>', '<%= after %>', 'COLUMN';"
+
+ Line: 226 -      var query = 'INSERT INTO <%= table %> (<%= attributes %>)<%= output %> VALUES <%= tuples %>;'
+
+ Line: 227 -        , emptyQuery = 'INSERT INTO <%= table %><%= output %> DEFAULT VALUES'
+
+ Line: 235 -        outputFragment = ' OUTPUT INSERTED.*';
+
+ Line: 285 -          'SET IDENTITY_INSERT', this.quoteTable(tableName), 'ON;',
+
+ Line: 287 -          'SET IDENTITY_INSERT', this.quoteTable(tableName), 'OFF;',
+
+ Line: 299 -        // Truncate does not allow LIMIT and WHERE
+
+ Line: 305 -        , query = 'DELETE<%= limit %> FROM <%= table %><%= where %>; ' +
+
+ Line: 306 -                  'SELECT @@ROWCOUNT AS AFFECTEDROWS;';
+
+ Line: 323 -        replacements.where = ' WHERE ' + replacements.where;
+
+ Line: 365 -            + 'we will remove it but we recommend restructuring your query');
+
+ Line: 420 -          template += ' ON DELETE ' + attribute.onDelete.toUpperCase();
+
+ Line: 424 -          template += ' ON UPDATE ' + attribute.onUpdate.toUpperCase();
+
+ Line: 512 -        'SELECT',
+
+ Line: 514 -        'FROM',
+
+ Line: 516 -        "WHERE C.CONSTRAINT_TYPE = 'FOREIGN KEY'",
+
+ Line: 535 -      var sql = "SELECT name FROM SYS.DEFAULT_CONSTRAINTS " +
+
+ Line: 536 -        "WHERE PARENT_OBJECT_ID = OBJECT_ID('<%= table %>', 'U') " +
+
+ Line: 537 -        "AND PARENT_COLUMN_ID = (SELECT column_id FROM sys.columns WHERE NAME = ('<%= column %>') " +
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mssql/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -    'LIMIT ON UPDATE': true,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mssql/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 33 -    //do we need benchmark for this query execution
+
+ Line: 39 -      var queryBegin = Date.now();
+
+ Line: 75 -              self.sequelize.log('Executed (' + (self.connection.uuid || 'default') + '): ' + self.sql + ' in ' + (Date.now() - queryBegin) + 'ms', self.options);
+
+ Line: 110 -   * High level function that handles the results of a query execution.
+
+ Line: 114 -   *  query.formatResults([
+
+ Line: 123 -   * @param {Array} data - The result of the query execution.
+
+ Line: 132 -          // NOTE: super contrived. This just passes the newly added query-interface
+
+ Line: 229 -            err.message.match(/The DELETE statement conflicted with the REFERENCE constraint "(.*)". The conflict occurred in database "(.*)", table "(.*)", column '(.*)'./) ||
+
+ Line: 230 -            err.message.match(/The INSERT statement conflicted with the FOREIGN KEY constraint "(.*)". The conflict occurred in database "(.*)", table "(.*)", column '(.*)'./) ||
+
+ Line: 231 -            err.message.match(/The UPDATE statement conflicted with the FOREIGN KEY constraint "(.*)". The conflict occurred in database "(.*)", table "(.*)", column '(.*)'./);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mysql/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8 -      var query = 'SHOW TABLES';
+
+ Line: 17 -      return 'SELECT VERSION() as `version`';
+
+ Line: 28 -      var query = 'CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>) ENGINE=<%= engine %><%= comment %><%= charset %><%= collation %><%= initialAutoIncrement %>'
+
+ Line: 100 -      var query = 'ALTER TABLE <%= table %> ADD <%= attribute %>;'
+
+ Line: 115 -      var query = 'ALTER TABLE <%= tableName %> DROP <%= attributeName %>;';
+
+ Line: 123 -      var query = 'ALTER TABLE <%= tableName %> <%= query %>;';
+
+ Line: 153 -        query: finalQuery
+
+ Line: 158 -      var query = 'ALTER TABLE <%= tableName %> CHANGE <%= attributes %>;';
+
+ Line: 175 -      options.onDuplicate = 'UPDATE ';
+
+ Line: 190 -        // Truncate does not allow LIMIT and WHERE
+
+ Line: 205 -      var query = 'DELETE FROM ' + table;
+
+ Line: 206 -      if (where) query += ' WHERE ' + where;
+
+ Line: 207 -      query += limit;
+
+ Line: 209 -      return query;
+
+ Line: 213 -      var sql = 'SHOW INDEX FROM <%= tableName %><%= options %>';
+
+ Line: 216 -        options: (options || {}).database ? ' FROM `' + options.database + '`' : ''
+
+ Line: 276 -          template += ' ON DELETE ' + attribute.onDelete.toUpperCase();
+
+ Line: 280 -          template += ' ON UPDATE ' + attribute.onUpdate.toUpperCase();
+
+ Line: 322 -     * Generates an SQL query that returns all foreign keys of a table.
+
+ Line: 326 -     * @return {String}            The generated sql query.
+
+ Line: 329 -      return "SELECT CONSTRAINT_NAME as constraint_name FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE where TABLE_NAME = '" + tableName + /* jshint ignore: line */
+
+ Line: 334 -     * Generates an SQL query that removes a foreign key from a table.
+
+ Line: 338 -     * @return {String}            The generated sql query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mysql/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -    'LIMIT ON UPDATE': true,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/mysql/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 29 -    //do we need benchmark for this query execution
+
+ Line: 35 -      var queryBegin = Date.now();
+
+ Line: 42 -          self.sequelize.log('Executed (' + (self.connection.uuid || 'default') + '): ' + self.sql + ' in ' + (Date.now() - queryBegin) + 'ms', self.options);
+
+ Line: 59 -   * High level function that handles the results of a query execution.
+
+ Line: 63 -   *  query.formatResults([
+
+ Line: 72 -   * @param {Array} data - The result of the query execution.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/abstract/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 49 -      Returns a query for dropping a schema
+
+ Line: 56 -      Returns a query for creating a table.
+
+ Line: 88 -      Returns a query for dropping a table.
+
+ Line: 93 -      var query = 'DROP TABLE IF EXISTS <%= table %>;';
+
+ Line: 101 -      Returns a rename table query.
+
+ Line: 107 -      var query = 'ALTER TABLE <%= before %> RENAME TO <%= after %>;';
+
+ Line: 115 -      Returns a query, which gets all available table names in the database.
+
+ Line: 123 -      Returns a query, which adds an attribute to an existing table.
+
+ Line: 139 -      Returns a query, which removes an attribute from an existing table.
+
+ Line: 150 -      Returns a query, which modifies an existing attribute from a table.
+
+ Line: 166 -      Returns a query, which renames an existing attribute.
+
+ Line: 185 -      var query
+
+ Line: 186 -        , valueQuery = '<%= tmpTable %>INSERT<%= ignore %> INTO <%= table %> (<%= attributes %>)<%= output %> VALUES (<%= values %>)'
+
+ Line: 187 -        , emptyQuery = '<%= tmpTable %>INSERT<%= ignore %> INTO <%= table %><%= output %>'
+
+ Line: 222 -          outputFragment = ' OUTPUT INSERTED.*';
+
+ Line: 237 -                  outputColumns += 'INSERTED.' + this.quoteIdentifier(attribute.field);
+
+ Line: 265 -            ' LANGUAGE plpgsql; SELECT (testfunc.response).*, testfunc.sequelize_caught_exception FROM pg_temp.testfunc(); DROP FUNCTION IF EXISTS pg_temp.testfunc()';
+
+ Line: 268 -          valueQuery = 'CREATE OR REPLACE FUNCTION pg_temp.testfunc() RETURNS SETOF <%= table %> AS $body$ BEGIN RETURN QUERY ' + valueQuery + '; EXCEPTION ' + options.exception + ' END; $body$ LANGUAGE plpgsql; SELECT * FROM pg_temp.testfunc(); DROP FUNCTION IF EXISTS pg_temp.testfunc();';
+
+ Line: 297 -            values.push(this.escape(value, (modelAttributeMap && modelAttributeMap[key]) || undefined, { context: 'INSERT' }));
+
+ Line: 311 -      query = (replacements.attributes.length ? valueQuery : emptyQuery) + ';';
+
+ Line: 313 -        query = [
+
+ Line: 314 -          'SET IDENTITY_INSERT', this.quoteTable(table), 'ON;',
+
+ Line: 315 -          query,
+
+ Line: 316 -          'SET IDENTITY_INSERT', this.quoteTable(table), 'OFF;',
+
+ Line: 331 -      var query = 'INSERT<%= ignoreDuplicates %> INTO <%= table %> (<%= attributes %>) VALUES <%= tuples %><%= onDuplicateKeyUpdate %><%= returning %>;'
+
+ Line: 355 -            return this.escape(attrValueHash[key], rawAttributes[key], { context: 'INSERT' });
+
+ Line: 361 -        onDuplicateKeyUpdate += ' ON DUPLICATE KEY UPDATE ' + options.updateOnDuplicate.map(function(attr) {
+
+ Line: 383 -      Returns an update query.
+
+ Line: 398 -      var query
+
+ Line: 409 -      query = '<%= tmpTable %>UPDATE <%= table %> SET <%= values %><%= output %> <%= where %>';
+
+ Line: 411 -      if (this._dialect.supports['LIMIT ON UPDATE'] && options.limit) {
+
+ Line: 412 -        query += ' LIMIT ' + this.escape(options.limit) + ' ';
+
+ Line: 418 -          outputFragment = ' OUTPUT INSERTED.*';
+
+ Line: 433 -                  outputColumns += 'INSERTED.' + this.quoteIdentifier(attribute.field);
+
+ Line: 445 -              query += selectFromTmp;
+
+ Line: 450 -          query += ' RETURNING *';
+
+ Line: 472 -        values.push(this.quoteIdentifier(key) + '=' + this.escape(value, (modelAttributeMap && modelAttributeMap[key] || undefined), { context: 'UPDATE' }));
+
+ Line: 491 -      Returns an upsert query.
+
+ Line: 498 -      Returns a deletion query.
+
+ Line: 519 -      Returns an update query.
+
+ Line: 531 -      var query
+
+ Line: 537 -      query = 'UPDATE <%= table %> SET <%= values %><%= output %> <%= where %>';
+
+ Line: 540 -          query += ' RETURNING *';
+
+ Line: 542 -          outputFragment = ' OUTPUT INSERTED.*';
+
+ Line: 582 -      Returns an add index query.
+
+ Line: 720 -      Returns a query listing indexes for a given table.
+
+ Line: 732 -      Returns a remove index query.
+
+ Line: 961 -            if (['INSERT', 'UPDATE'].indexOf(options.context) !== -1 && this.typeValidation && field && field.type && value) {
+
+ Line: 986 -     * Generates an SQL query that returns all foreign keys of a table.
+
+ Line: 990 -     * @return {String}            The generated sql query.
+
+ Line: 998 -     * Generates an SQL query that removes a foreign key from a table.
+
+ Line: 1002 -     * @return {String}            The generated sql query.
+
+ Line: 1011 -      Returns a query for selecting elements in the table <tableName>.
+
+ Line: 1031 -        , query
+
+ Line: 1420 -        subQueryItems.push('SELECT ' + subQueryAttributes.join(', ') + ' FROM ' + table);
+
+ Line: 1433 -          mainQueryItems.push('SELECT '+mainAttributes.join(', ')+' FROM ('+
+
+ Line: 1449 -              self._dialect.supports['UNION ALL'] ?' UNION ALL ' : ' UNION '
+
+ Line: 1453 -          mainQueryItems.push('SELECT ' + mainAttributes.join(', ') + ' FROM ' + table);
+
+ Line: 1461 -      // Add WHERE to sub or main query
+
+ Line: 1466 -            subQueryItems.push(' WHERE ' + options.where);
+
+ Line: 1468 -            mainQueryItems.push(' WHERE ' + options.where);
+
+ Line: 1473 -      // Add GROUP BY to sub or main query
+
+ Line: 1483 -      // Add HAVING to sub or main query
+
+ Line: 1492 -      // Add ORDER to sub or main query
+
+ Line: 1544 -      // Add LIMIT, OFFSET to sub or main query
+
+ Line: 1556 -        query = 'SELECT ' + mainAttributes.join(', ') + ' FROM (';
+
+ Line: 1557 -        query += subQueryItems.join('');
+
+ Line: 1558 -        query += ') AS ' + mainTableAs;
+
+ Line: 1559 -        query += mainJoinQueries.join('');
+
+ Line: 1560 -        query += mainQueryItems.join('');
+
+ Line: 1562 -        query = mainQueryItems.join('');
+
+ Line: 1570 -        if (this._dialect.supports.lockKey && (lock === 'KEY SHARE' || lock === 'NO KEY UPDATE')) {
+
+ Line: 1571 -          query += ' FOR ' + lock;
+
+ Line: 1573 -          query += ' ' + this._dialect.supports.forShare;
+
+ Line: 1575 -          query += ' FOR UPDATE';
+
+ Line: 1578 -          query += ' OF ' + this.quoteTable(options.lock.of.name);
+
+ Line: 1582 -      query += ';';
+
+ Line: 1584 -      return query;
+
+ Line: 1671 -     * Returns a query that starts a transaction.
+
+ Line: 1675 -     * @return {String}          The generated sql query.
+
+ Line: 1686 -     * Returns a query that sets the transaction isolation level.
+
+ Line: 1690 -     * @return {String}         The generated sql query.
+
+ Line: 1701 -     * Returns a query that starts a transaction.
+
+ Line: 1705 -     * @return {String}         The generated sql query.
+
+ Line: 1716 -     * Returns a query that defers the constraints. Only works for postgres.
+
+ Line: 1720 -     * @return {String}         The generated sql query.
+
+ Line: 1729 -     * Returns a query that commits a transaction.
+
+ Line: 1732 -     * @return {String}         The generated sql query.
+
+ Line: 1743 -     * Returns a query that rollbacks a transaction.
+
+ Line: 1747 -     * @return {String}         The generated sql query.
+
+ Line: 1762 -     * @return {String}         The generated sql query.
+
+ Line: 1845 -      var query = this.whereItemsQuery(where, options);
+
+ Line: 1846 -      if (query && query.length) {
+
+ Line: 1847 -        return 'WHERE '+query;
+
+ Line: 1863 -        throw new Error('where: "raw query" has been removed, please use where ["raw query", [replacements]]');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/abstract/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -    'LIMIT ON UPDATE': false,
+
+ Line: 13 -    'UNION': true,
+
+ Line: 14 -    'UNION ALL': true,
+
+ Line: 15 -    /* What is the dialect's keyword for INSERT IGNORE */
+
+ Line: 34 -    /* The dialect's words for INSERT IGNORE */
+
+ Line: 36 -    /* Does the dialect support ON DUPLICATE KEY UPDATE */
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/abstract/connection-manager.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 132 -      acquire: function(callback, priority, queryType, useMaster) {
+
+ Line: 134 -        if (queryType === 'SELECT' && !useMaster) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/abstract/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -    The function takes the result of the query execution and groups
+
+ Line: 289 -            // If checkExisting is false it's because there's only 1:1 associations in this query
+
+ Line: 384 -   * rewrite query with parameters
+
+ Line: 388 -   *   query.formatBindParameters('select $1 as foo', ['fooval']);
+
+ Line: 390 -   *   query.formatBindParameters('select $foo as foo', { foo: 'fooval' });
+
+ Line: 463 -   * Execute the passed sql query.
+
+ Line: 467 -   *     query.run('SELECT 1')
+
+ Line: 469 -   * @param {String} sql - The SQL query which should be executed.
+
+ Line: 494 -   * Get the attributes of an insert query, which contains the just inserted id.
+
+ Line: 503 -   * Iterate over all known tables and search their names inside the sql query.
+
+ Line: 506 -   * @param  {String} attribute An attribute of a SQL query. (?)
+
+ Line: 561 -    if (this.options.type === QueryTypes.INSERT) {
+
+ Line: 565 -    // is insert query if sql contains insert into
+
+ Line: 568 -    // is insert query if no results are passed or if the result has the inserted id
+
+ Line: 571 -    // is insert query if no metadata are passed or if the metadata has the inserted id
+
+ Line: 609 -    return this.options.type === QueryTypes.SELECT;
+
+ Line: 613 -    return this.options.type === QueryTypes.BULKUPDATE;
+
+ Line: 617 -    return this.options.type === QueryTypes.BULKDELETE;
+
+ Line: 625 -    return this.options.type === QueryTypes.UPDATE;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/sqlite/query-generator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -      var query = "SELECT name FROM `sqlite_master` WHERE type='table' and name!='sqlite_sequence';";
+
+ Line: 22 -      return "SELECT name FROM `sqlite_master` WHERE type='table' and name!='sqlite_sequence';";
+
+ Line: 26 -      return 'SELECT sqlite_version() as `version`';
+
+ Line: 32 -      var query = 'CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>)'
+
+ Line: 91 -      var query = 'ALTER TABLE <%= table %> ADD <%= attribute %>;'
+
+ Line: 112 -      return "SELECT name FROM `sqlite_master` WHERE type='table' and name!='sqlite_sequence';";
+
+ Line: 129 -      var query  = 'UPDATE <%= table %> SET <%= values %> <%= where %>'
+
+ Line: 144 -        values.push(this.quoteIdentifier(key) + '=' + this.escape(value, (modelAttributeMap && modelAttributeMap[key] || undefined), { context: 'UPDATE' }));
+
+ Line: 159 -      var query = 'DELETE FROM <%= table %><%= where %>';
+
+ Line: 166 -        replacements.where = ' WHERE ' + replacements.where;
+
+ Line: 219 -              template += ' ON DELETE <%= onDeleteAction %>';
+
+ Line: 224 -              template += ' ON UPDATE <%= onUpdateAction %>';
+
+ Line: 282 -        , query;
+
+ Line: 295 -      query = [
+
+ Line: 297 -        'INSERT INTO <%= backupTableName %> SELECT <%= attributeNames %> FROM <%= tableName %>;',
+
+ Line: 300 -        'INSERT INTO <%= tableName %> SELECT <%= attributeNames %> FROM <%= backupTableName %>;',
+
+ Line: 313 -        , query;
+
+ Line: 326 -      query = [
+
+ Line: 328 -        'INSERT INTO <%= backupTableName %> SELECT <%= attributeNamesImport %> FROM <%= tableName %>;',
+
+ Line: 331 -        'INSERT INTO <%= tableName %> SELECT <%= attributeNamesExport %> FROM <%= backupTableName %>;',
+
+ Line: 384 -     * Generates an SQL query that returns all foreign keys of a table.
+
+ Line: 388 -     * @return {String}            The generated sql query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/sqlite/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -    'UNION ALL': false,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/dialects/sqlite/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 30 -   * rewrite query with parameters
+
+ Line: 86 -    //do we need benchmark for this query execution
+
+ Line: 92 -      var queryBegin = Date.now();
+
+ Line: 106 -                  self.sequelize.log('Executed (' + (self.database.uuid || 'default') + '): ' + self.sql + ' in ' + (Date.now() - queryBegin) + 'ms', self.options);
+
+ Line: 221 -                  } else if ([QueryTypes.BULKUPDATE, QueryTypes.BULKDELETE].indexOf(self.options.type) !== -1) {
+
+ Line: 251 -          } else if (/FROM `(.*?)`/i.exec(self.sql)) {
+
+ Line: 252 -            tableNames.push(/FROM `(.*?)`/i.exec(self.sql)[1]);
+
+ Line: 377 -    } else if (this.isInsertQuery() || this.isUpdateQuery() || this.isBulkUpdateQuery() || (this.sql.toLowerCase().indexOf('CREATE TEMPORARY TABLE'.toLowerCase()) !== -1) || this.options.type === QueryTypes.BULKDELETE) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/instance.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 120 -   * Get an object representing the query for this instance, use with `options.where`
+
+ Line: 486 -   * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 649 -          , query = null
+
+ Line: 653 -          query = 'insert';
+
+ Line: 660 -          query = 'update';
+
+ Line: 736 -  * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 827 -   * @param {Function}    [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 860 -        return this.sequelize.getQueryInterface().delete(this, this.$Model.getTableName(options), where, _.assign({ type: QueryTypes.DELETE, limit: null }, options));
+
+ Line: 876 -   * @param {Function}    [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 914 -   * query. To get the correct value after an increment into the Instance you should do a reload.
+
+ Line: 927 -   * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 977 -   * query. To get the correct value after an decrement into the Instance you should do a reload.
+
+ Line: 990 -   * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/counter-cache.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 68 -        var query = CounterUtil._targetQuery(targetId);
+
+ Line: 70 -        return association.target.count({ where: query, logging: options && options.logging }).then(function (count) {
+
+ Line: 73 -          query = CounterUtil._sourceQuery(targetId);
+
+ Line: 77 -          return association.source.update(newValues, { where: query, logging: options && options.logging });
+
+ Line: 81 -        var query = CounterUtil._sourceQuery(targetId);
+
+ Line: 83 -        return association.source.find({ where: query, logging: options && options.logging }).then(function (instance) {
+
+ Line: 88 -        var query = CounterUtil._sourceQuery(targetId);
+
+ Line: 90 -        return association.source.find({ where: query, logging: options && options.logging }).then(function (instance) {
+
+ Line: 96 -        var query = {};
+
+ Line: 98 -        query[association.foreignKey] = id;
+
+ Line: 100 -        return query;
+
+ Line: 103 -        var query = {};
+
+ Line: 105 -        query[association.source.primaryKeyAttribute] = id;
+
+ Line: 107 -        return query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/errors.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 122 -   * Thrown when a database query times out because of a deadlock
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 350 -   * A hook that is run before a find (select) query
+
+ Line: 357 -   * A hook that is run before a find (select) query, after any { include: {all: ...} } options are expanded
+
+ Line: 364 -   * A hook that is run before a find (select) query, after all option parsing is complete
+
+ Line: 371 -   * A hook that is run after a find (select) query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/deferrable.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 27 -   * trigger a query once the transaction has been started and set the constraints
+
+ Line: 107 -   * A property that will trigger an additional query at the beginning of a
+
+ Line: 123 -    return queryGenerator.setDeferredQuery(this.constraints);
+
+ Line: 128 -   * A property that will trigger an additional query at the beginning of a
+
+ Line: 144 -    return queryGenerator.setImmediateQuery(this.constraints);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/transaction.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8 -   * To run a query under a transaction, you should pass the transaction in the options object.
+
+ Line: 127 -   * t1.LOCK.UPDATE,
+
+ Line: 130 -   * t1.LOCK.NO_KEY_UPDATE // Postgres 9.3+ only
+
+ Line: 160 -    UPDATE: 'UPDATE',
+
+ Line: 163 -    NO_KEY_UPDATE: 'NO KEY UPDATE'
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/query-interface.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 50 -      type: this.sequelize.QueryTypes.SELECT,
+
+ Line: 100 -            _.assign({}, options, { plain: true, raw: true, type: QueryTypes.SELECT })
+
+ Line: 290 -    return this.sequelize.query(sql, _.assign({}, options, { plain: false, raw: true, type: QueryTypes.SELECT }));
+
+ Line: 334 -      // If no data is returned from the query, then the table name may be wrong.
+
+ Line: 386 -      var query = this.QueryGenerator.attributesToSQL(attributes)
+
+ Line: 387 -        , sql = this.QueryGenerator.changeColumnQuery(tableName, query);
+
+ Line: 493 -    options.type = QueryTypes.INSERT;
+
+ Line: 559 -    options.type = QueryTypes.INSERT;
+
+ Line: 574 -    options.type = QueryTypes.UPDATE;
+
+ Line: 651 -    options.type = QueryTypes.SELECT;
+
+ Line: 665 -    options.type = QueryTypes.UPDATE;
+
+ Line: 681 -      type: QueryTypes.SELECT
+
+ Line: 782 -  // Helper methods useful for querying
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/sequelize.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 84 -   * @param {Object}   [options.retry] Set of flags that control when a query is automatically retried.
+
+ Line: 85 -   * @param {Array}    [options.retry.match] Only retry a query if the error matches one of these strings.
+
+ Line: 86 -   * @param {Integer}  [options.retry.max] How many times a failing query is automatically retried.  Set to 0 to disable retrying on SQL_BUSY error.
+
+ Line: 88 -   * @param {Boolean}  [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 140 -      query: {},
+
+ Line: 268 -   * Available query types for use with `sequelize.query`
+
+ Line: 360 -   * Thrown when a database query times out because of a deadlock
+
+ Line: 665 -   * Execute a query on the DB, with the possibility to bypass all the sequelize goodness.
+
+ Line: 669 -   * If you are running a type of query where you don't need the metadata, for example a `SELECT` query, you can pass in a query type to make sequelize format the results:
+
+ Line: 672 -   * sequelize.query('SELECT...').spread(function (results, metadata) {
+
+ Line: 673 -   *   // Raw query - use spread
+
+ Line: 676 -   * sequelize.query('SELECT...', { type: sequelize.QueryTypes.SELECT }).then(function (results) {
+
+ Line: 677 -   *   // SELECT query - use then
+
+ Line: 681 -   * @method query
+
+ Line: 684 -   * @param {Boolean}         [options.raw] If true, sequelize will not try to format the results of the query, or build an instance of a model from the result
+
+ Line: 685 -   * @param {Transaction}     [options.transaction=null] The transaction that the query should be executed under
+
+ Line: 686 -   * @param {String}          [options.type='RAW'] The type of query you are executing. The query type affects how results are formatted before they are passed back. The type is a string, but `Sequelize.QueryTypes` is provided as convenience shortcuts.
+
+ Line: 687 -   * @param {Boolean}         [options.nest=false] If true, transforms objects with `.` separated property names into nested objects using [dottie.js](https://github.com/mickhansen/dottie.js). For example { 'user.username': 'john' } becomes { user: { username: 'john' }}. When `nest` is true, the query type is assumed to be `'SELECT'`, unless otherwise specified
+
+ Line: 688 -   * @param {Boolean}         [options.plain=false] Sets the query type to `SELECT` and return a single row
+
+ Line: 691 -   * @param {Boolean}         [options.useMaster=false] Force the query to use the write pool, regardless of the query type.
+
+ Line: 692 -   * @param {Function}        [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 695 -   * @param {Object}          [options.retry] Set of flags that control when a query is automatically retried.
+
+ Line: 696 -   * @param {Array}           [options.retry.match] Only retry a query if the error matches one of these strings.
+
+ Line: 697 -   * @param {Integer}         [options.retry.max] How many times a failing query is automatically retried.
+
+ Line: 699 -   * @param {Boolean}         [options.supportsSearchPath] If false do not prepend the query with the search_path (Postgres only)
+
+ Line: 701 -   * @param {Object}          [options.fieldMap] Map returned fields to arbitrary names for `SELECT` query type.
+
+ Line: 784 -        options.type = QueryTypes.SELECT;
+
+ Line: 813 -      var query = new self.dialect.Query(connection, self, options);
+
+ Line: 815 -        return query.run(sql, bindParameters).finally(function() {
+
+ Line: 828 -   * Execute a query which would set an environment or user variable. The variables are set per connection, so this function needs a transaction.
+
+ Line: 834 -   * @param {Transaction}   options.transaction The transaction that the query should be executed under
+
+ Line: 839 -    var query;
+
+ Line: 851 -    // Override some options, since this isn't a SELECT
+
+ Line: 857 -    query =
+
+ Line: 1045 -    return this.query('SELECT 1+1 AS result', Utils._.assign({ raw: true, plain: true }, options)).return();
+
+ Line: 1122 -   * An AND query
+
+ Line: 1135 -   * An OR query
+
+ Line: 1183 -   * Start a transaction. When using transactions, you should pass the transaction in the options argument in order for the query to happen under that transaction
+
+ Line: 1210 -   * If you have [CLS](https://github.com/othiym23/node-continuation-local-storage) enabled, the transaction will automatically be passed to any query that runs within the callback.
+
+ Line: 1227 -   * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/associations/mixin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 58 -   * When fetching associated models, you can limit your query to only load some models. These queries are written in the same way as queries to `find`/`findAll`. To only get pictures in JPG, you can do:
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/query-types.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -    SELECT: 'SELECT',
+
+ Line: 4 -    INSERT: 'INSERT',
+
+ Line: 5 -    UPDATE: 'UPDATE',
+
+ Line: 6 -    BULKUPDATE: 'BULKUPDATE',
+
+ Line: 7 -    BULKDELETE: 'BULKDELETE',
+
+ Line: 8 -    DELETE: 'DELETE',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/model.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 1017 -   * @param {Function} [options.logging=false]   A function that gets executed while running the query to log the sql.
+
+ Line: 1018 -   * @param {Boolean}  [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1036 -   * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 1037 -   * @param {Boolean}  [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1069 -   * @param {Object}   [options] The hash of options from any query. You can use one model to access tables with matching schemas by overriding `getTableName` and using custom key/values to alter the name of the table. (eg. subscribers_1, subscribers_2)
+
+ Line: 1070 -   * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 1071 -   * @param {Boolean}  [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1144 -   * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to your query. Here's a couple of examples:
+
+ Line: 1146 -   * Model.findAll() // WHERE username = 'dan'
+
+ Line: 1147 -   * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
+
+ Line: 1153 -   * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
+
+ Line: 1239 -   * WHERE attr1 = 42 AND attr2 = 'cake'
+
+ Line: 1263 -   * WHERE attr1 > 50 AND attr2 <= 45 AND attr3 IN (1,2,3) AND attr4 != 5
+
+ Line: 1285 -   * WHERE `Model`.`name` = 'a project' AND (`Model`.`id` IN (1, 2, 3) OR (`Model`.`id` > 10 AND `Model`.`id` < 100));
+
+ Line: 1288 -   * The success listener is called with an array of instances if the query succeeds.
+
+ Line: 1301 -   * @param  {Boolean}                   [options.include[].or=false] Whether to bind the ON and WHERE clause together by OR instead of AND.
+
+ Line: 1305 -   * @param  {Boolean}                   [options.include[].separate] If true, runs a separate query to fetch the associated instances, only supported for hasMany associations
+
+ Line: 1313 -   * @param  {Transaction}               [options.transaction] Transaction to run query under
+
+ Line: 1314 -   * @param  {String|Object}             [options.lock] Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE. Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model locks with joins. See [transaction.LOCK for an example](transaction#lock)
+
+ Line: 1316 -   * @param  {Function}                  [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 1319 -   * @param  {Boolean}                   [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1448 -  * @param  {Transaction}               [options.transaction] Transaction to run query under
+
+ Line: 1479 -  * @param  {Transaction}               [options.transaction] Transaction to run query under
+
+ Line: 1495 -      // Don't add limit if querying directly on the pk
+
+ Line: 1515 -   * @param {Function}        [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 1518 -   * @param {Transaction}     [options.transaction] Transaction to run query under
+
+ Line: 1520 -   * @param {Boolean}         [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1571 -   * @param {Transaction}   [options.transaction] Transaction to run query under
+
+ Line: 1572 -   * @param {Function}      [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 1574 -   * @param {Boolean}       [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1605 -   * Find all the rows matching your query, within a specified offset / limit, and get the total number of rows matching your query. This is very useful for paging
+
+ Line: 1616 -   * In the above example, `result.rows` will contain rows 13 through 24, while `result.count` will return the total number of rows that matched your query.
+
+ Line: 1633 -   * @see {Model#findAll} for a specification of find and query options
+
+ Line: 1807 -   * @param {Transaction}   [options.transaction] Transaction to run query under
+
+ Line: 1808 -   * @param {Function}      [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 1810 -   * @param {Boolean}       [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1827 -   * Find a row that matches the query, or build (but don't save) the row if none is found.
+
+ Line: 1833 -   * @param {Object}   [options.transaction] Transaction to run query under
+
+ Line: 1834 -   * @param {Function} [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 1835 -   * @param {Boolean}  [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 1868 -   * Find a row that matches the query, or build and save the row if none is found
+
+ Line: 1878 -   * @param {Transaction} [options.transaction] Transaction to run query under
+
+ Line: 1928 -          // If the query returned an empty result for the primary key, we know that this was actually a unique constraint violation
+
+ Line: 1999 -   * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
+
+ Line: 2000 -   * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN unique_constraint UPDATE
+
+ Line: 2001 -   * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed regardless of whether the row already existed or not
+
+ Line: 2003 -   * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know whether the row was inserted or not.
+
+ Line: 2009 -   * @param  {Transaction}  [options.transaction] Transaction to run query under
+
+ Line: 2010 -   * @param  {Function}     [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 2012 -   * @param  {Boolean}      [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 2062 -   * To obtain Instances for the newly created values, you will need to query for them again.
+
+ Line: 2072 -   * @param  {Transaction}  [options.transaction] Transaction to run query under
+
+ Line: 2073 -   * @param  {Function}     [options.logging=false]          A function that gets executed while running the query to log the sql.
+
+ Line: 2076 -   * @param  {Boolean}      [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 2181 -        // Create all in one query
+
+ Line: 2222 -   * @param {Boolean|function} [options.transaction] Transaction to run query under
+
+ Line: 2224 -   * @param {Transaction}      [options.transaction] Transaction to run query under
+
+ Line: 2227 -   * @param {Boolean}          [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 2245 -   * @param  {Boolean}      [options.individualHooks=false] If set to true, destroy will SELECT all records matching the where parameter and will execute before / after destroy hooks on each row
+
+ Line: 2248 -   * @param  {Boolean}      [options.truncate=false]        If set to true, dialects that support it will use TRUNCATE instead of DELETE FROM. If a table is truncated the where and limit options are ignored
+
+ Line: 2250 -   * @param  {Transaction}  [options.transaction] Transaction to run query under
+
+ Line: 2251 -   * @param  {Function}     [options.logging=false]         A function that gets executed while running the query to log the sql.
+
+ Line: 2252 -   * @param  {Boolean}      [options.benchmark=false]       Print query execution time in milliseconds when logging SQL.
+
+ Line: 2270 -    options.type = QueryTypes.BULKDELETE;
+
+ Line: 2292 -      // Run delete query (or update if paranoid)
+
+ Line: 2331 -   * @param  {Function}     [options.logging=false]         A function that gets executed while running the query to log the sql.
+
+ Line: 2332 -   * @param  {Boolean}      [options.benchmark=false]       Print query execution time in milliseconds when logging SQL.
+
+ Line: 2333 -   * @param  {Transaction}  [options.transaction] Transaction to run query under
+
+ Line: 2369 -      // Run undelete query
+
+ Line: 2406 -   * @param  {Boolean}      [options.individualHooks=false] Run before / after update hooks?. If true, this will execute a SELECT followed by individual UPDATEs. A select is needed, because the row data needs to be passed to the hooks
+
+ Line: 2409 -   * @param  {Function}     [options.logging=false] A function that gets executed while running the query to log the sql.
+
+ Line: 2410 -   * @param  {Boolean}      [options.benchmark=false] Print query execution time in milliseconds when logging SQL.
+
+ Line: 2411 -   * @param  {Transaction}  [options.transaction] Transaction to run query under
+
+ Line: 2432 -    options.type = QueryTypes.BULKUPDATE;
+
+ Line: 2551 -              // Do not run original query but save each record individually
+
+ Line: 2576 -      // Run query to update all rows
+
+ Line: 2608 -   * Run a describe query on the table. The result will be return to the listener as a hash of attributes and their types.
+
+</Result>
+</report_mosca>
+

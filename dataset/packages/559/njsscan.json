@@ -1,0 +1,105 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# EditorConfig is awesome: http://EditorConfig.org",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"extends\": \"airbnb/base\",",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# Logs",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            11,
+            52
+          ],
+          "match_position": [
+            3,
+            50
+          ],
+          "match_string": "  const parsedUrl = url.parse(req.url);\n\n  // remove querystring/parameters\n\n  let path = parsedUrl && parsedUrl.pathname.slice(1);\n\n  debug('path = ', path);\n\n  if (path.length === 0) {\n\n    debug('default to index.html.');\n\n    path = resolve('index.html');\n\n  }\n\n  // 404 not found\n\n  if (!fs.existsSync(path)) {\n\n    console.log('404 Not found.');\n\n    res.statusCode = 404;\n\n    return res.end();\n\n  }\n\n  // Directory default to index.html or index.htm\n\n  const stats = fs.statSync(path);\n\n  if (stats.isDirectory()) {\n\n    console.log('Is directory ...');\n\n    if (fs.existsSync(resolve(path, 'index.html'))) {\n\n      path = resolve(path, 'index.html');\n\n    } else if (fs.existsSync(resolve(path, 'index.htm'))) {\n\n      path = resolve(path, 'index.htm');\n\n    } else {\n\n      console.log('404 Not found: Directory.');\n\n      res.statusCode = 404;\n\n      return res.end();\n\n    }\n\n  }\n\n\n\n  // set http header\n\n  switch (extname(path)) {\n\n    case '.html':\n\n    case '.htm':\n\n      res.setHeader('Content-Type', 'text/html');\n\n      break;\n\n    case '.txt':\n\n      res.setHeader('Content-Type', 'text/plain');\n\n      break;\n\n    default:\n\n      break;\n\n  }\n\n  res.write(fs.readFileSync(path, { flag: 'rs+' }));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

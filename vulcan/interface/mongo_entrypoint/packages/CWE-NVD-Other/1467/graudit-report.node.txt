@@ -1,0 +1,867 @@
+/src/src/android/InAppBrowser.java-211-                                Intent intent = new Intent(Intent.ACTION_DIAL);
+/src/src/android/InAppBrowser.java:212:                                intent.setData(Uri.parse(url));
+/src/src/android/InAppBrowser.java-213-                                cordova.getActivity().startActivity(intent);
+##############################################
+/src/src/android/InAppBrowser.java-427-            // Adding the MIME type to http: URLs causes them to not be handled by the downloader.
+/src/src/android/InAppBrowser.java:428:            Uri uri = Uri.parse(url);
+/src/src/android/InAppBrowser.java-429-            if ("file".equals(uri.getScheme())) {
+##############################################
+/src/src/android/InAppBrowser.java-1066-                    Intent intent = new Intent(Intent.ACTION_DIAL);
+/src/src/android/InAppBrowser.java:1067:                    intent.setData(Uri.parse(url));
+/src/src/android/InAppBrowser.java-1068-                    cordova.getActivity().startActivity(intent);
+##############################################
+/src/src/android/InAppBrowser.java-1075-                    Intent intent = new Intent(Intent.ACTION_VIEW);
+/src/src/android/InAppBrowser.java:1076:                    intent.setData(Uri.parse(url));
+/src/src/android/InAppBrowser.java-1077-                    cordova.getActivity().startActivity(intent);
+##############################################
+/src/src/android/InAppBrowser.java-1096-                        // If body, then set sms body
+/src/src/android/InAppBrowser.java:1097:                        Uri uri = Uri.parse(url);
+/src/src/android/InAppBrowser.java-1098-                        String query = uri.getQuery();
+##############################################
+/src/src/android/InAppBrowser.java-1104-                    }
+/src/src/android/InAppBrowser.java:1105:                    intent.setData(Uri.parse("sms:" + address));
+/src/src/android/InAppBrowser.java-1106-                    intent.putExtra("address", address);
+##############################################
+/src/README.md-33-
+/src/README.md:34:This plugin provides a web browser view that displays when calling `cordova.InAppBrowser.open()`.
+/src/README.md-35-
+/src/README.md:36:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/README.md-37-
+/src/README.md:38:The `cordova.InAppBrowser.open()` function is defined to be a drop-in replacement
+/src/README.md:39:for the `window.open()` function.  Existing `window.open()` calls can use the
+/src/README.md-40-InAppBrowser window, by replacing window.open:
+##############################################
+/src/README.md-89-
+/src/README.md:90:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/README.md-91-
+##############################################
+/src/README.md-171-
+/src/README.md:172:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/README.md:173:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/README.md-174-
+##############################################
+/src/README.md-229-
+/src/README.md:230:    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
+/src/README.md-231-
+##############################################
+/src/README.md-312-
+/src/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/README.md-314-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/README.md-342-
+/src/README.md:343:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/README.md-344-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/README.md-364-
+/src/README.md:365:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/README.md-366-    ref.close();
+##############################################
+/src/README.md-384-
+/src/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/README.md-386-    // some time later...
+##############################################
+/src/README.md-404-
+/src/README.md:405:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank');
+/src/README.md-406-    // some time later...
+##############################################
+/src/README.md-436-
+/src/README.md:437:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/README.md-438-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/README.md-471-
+/src/README.md:472:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/README.md-473-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/README.md-546-
+/src/README.md:547:    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
+/src/README.md-548-
+##############################################
+/src/README.md-637-
+/src/README.md:638:iab.open('local-url.html');                  // loads in the Cordova WebView
+/src/README.md:639:iab.open('local-url.html', '_self');         // loads in the Cordova WebView
+/src/README.md:640:iab.open('local-url.html', '_system');       // Security error: system browser, but url will not load (iOS)
+/src/README.md:641:iab.open('local-url.html', '_blank');        // loads in the InAppBrowser
+/src/README.md:642:iab.open('local-url.html', 'random_string'); // loads in the InAppBrowser
+/src/README.md:643:iab.open('local-url.html', 'random_string', 'location=no'); // loads in the InAppBrowser, no location bar
+/src/README.md-644-
+##############################################
+/src/README.md-653-
+/src/README.md:654:iab.open('http://whitelisted-url.com');                  // loads in the Cordova WebView
+/src/README.md:655:iab.open('http://whitelisted-url.com', '_self');         // loads in the Cordova WebView
+/src/README.md:656:iab.open('http://whitelisted-url.com', '_system');       // loads in the system browser
+/src/README.md:657:iab.open('http://whitelisted-url.com', '_blank');        // loads in the InAppBrowser
+/src/README.md:658:iab.open('http://whitelisted-url.com', 'random_string'); // loads in the InAppBrowser
+/src/README.md-659-
+/src/README.md:660:iab.open('http://whitelisted-url.com', 'random_string', 'location=no'); // loads in the InAppBrowser, no location bar
+/src/README.md-661-
+##############################################
+/src/README.md-668-
+/src/README.md:669:iab.open('http://url-that-fails-whitelist.com');                  // loads in the InAppBrowser
+/src/README.md:670:iab.open('http://url-that-fails-whitelist.com', '_self');         // loads in the InAppBrowser
+/src/README.md:671:iab.open('http://url-that-fails-whitelist.com', '_system');       // loads in the system browser
+/src/README.md:672:iab.open('http://url-that-fails-whitelist.com', '_blank');        // loads in the InAppBrowser
+/src/README.md:673:iab.open('http://url-that-fails-whitelist.com', 'random_string'); // loads in the InAppBrowser
+/src/README.md:674:iab.open('http://url-that-fails-whitelist.com', 'random_string', 'location=no'); // loads in the InAppBrowser, no location bar
+/src/README.md-675-
+##############################################
+/src/tests/tests.js-97-        it('inappbrowser.spec.3 should return InAppBrowser instance with required methods', function () {
+/src/tests/tests.js:98:            iabInstance = cordova.InAppBrowser.open(url, '_blank');
+/src/tests/tests.js-99-
+##############################################
+/src/tests/tests.js-115-
+/src/tests/tests.js:116:            iabInstance = cordova.InAppBrowser.open(url, '_blank');
+/src/tests/tests.js-117-            iabInstance.addEventListener('loadstart', onLoadStart);
+##############################################
+/src/tests/tests.js-129-        it('inappbrowser.spec.5 should support exit event', function (done) {
+/src/tests/tests.js:130:            iabInstance = cordova.InAppBrowser.open(url, '_blank');
+/src/tests/tests.js-131-            iabInstance.addEventListener('exit', function (evt) {
+##############################################
+/src/tests/tests.js-144-            }
+/src/tests/tests.js:145:            iabInstance = cordova.InAppBrowser.open(badUrl, '_blank');
+/src/tests/tests.js-146-            iabInstance.addEventListener('loaderror', function (evt) {
+##############################################
+/src/tests/tests.js-182-        if (useWindowOpen) {
+/src/tests/tests.js:183:            console.log('Use window.open() for url');
+/src/tests/tests.js:184:            iab = window.open(url, target, params, callbacks);
+/src/tests/tests.js-185-        } else {
+/src/tests/tests.js:186:            iab = cordova.InAppBrowser.open(url, target, params, callbacks);
+/src/tests/tests.js-187-        }
+##############################################
+/src/tests/tests.js-307-        var shopt = (startHidden) ? 'hidden=yes' : '';
+/src/tests/tests.js:308:        hiddenwnd = cordova.InAppBrowser.open(url, 'random_string', shopt);
+/src/tests/tests.js-309-        if (!hiddenwnd) {
+##############################################
+/src/tests/tests.js-339-        '<p/> <div id="openLocalHook"></div>' +
+/src/tests/tests.js:340:        'Expected result: opens successfully in CordovaWebView (using hook of window.open()).' +
+/src/tests/tests.js-341-        '<p/> <div id="openLocalSelf"></div>' +
+##############################################
+/src/tests/tests.js-359-        '<p/> <div id="openWhiteListedHook"></div>' +
+/src/tests/tests.js:360:        'Expected result: open successfully in CordovaWebView to cordova.apache.org (using hook of window.open())' +
+/src/tests/tests.js-361-        '<p/> <div id="openWhiteListedSelf"></div>' +
+##############################################
+/src/tests/tests.js-375-        '<p/> <div id="openNonWhiteListedHook"></div>' +
+/src/tests/tests.js:376:        'Expected result: open successfully in InAppBrowser to apple.com (using hook of window.open()).' +
+/src/tests/tests.js-377-        '<p/> <div id="openNonWhiteListedSelf"></div>' +
+##############################################
+/src/tests/tests.js-681-    createActionButton('no hardwareback -> hardwareback=no -> no hardwareback', function () {
+/src/tests/tests.js:682:        var ref = cordova.InAppBrowser.open('https://google.com', '_blank', 'location=yes');
+/src/tests/tests.js-683-        ref.addEventListener('loadstop', function () {
+##############################################
+/src/tests/tests.js-686-        ref.addEventListener('exit', function () {
+/src/tests/tests.js:687:            var ref2 = cordova.InAppBrowser.open('https://google.com', '_blank', 'location=yes,hardwareback=no');
+/src/tests/tests.js-688-            ref2.addEventListener('loadstop', function () {
+##############################################
+/src/tests/tests.js-691-            ref2.addEventListener('exit', function () {
+/src/tests/tests.js:692:                cordova.InAppBrowser.open('https://google.com', '_blank', 'location=yes');
+/src/tests/tests.js-693-            });
+##############################################
+/src/doc/it/README.md-23-
+/src/doc/it/README.md:24:Questo plugin fornisce una vista di browser web che viene visualizzato quando si chiama `di cordova.InAppBrowser.open()`.
+/src/doc/it/README.md-25-
+/src/doc/it/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/README.md-27-    
+/src/doc/it/README.md-28-
+/src/doc/it/README.md:29:Il `cordova.InAppBrowser.open()` funzione è definita per essere un rimpiazzo per la funzione `window.open`. Esistenti chiamate `Window` possono utilizzare la finestra di InAppBrowser, sostituendo window.open():
+/src/doc/it/README.md-30-
+##############################################
+/src/doc/it/README.md-67-
+/src/doc/it/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/it/README.md-69-    
+##############################################
+/src/doc/it/README.md-129-
+/src/doc/it/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/it/README.md-132-    
+##############################################
+/src/doc/it/README.md-229-
+/src/doc/it/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/it/README.md-262-
+/src/doc/it/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/it/README.md-289-
+/src/doc/it/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/README.md-291-    ref.close();
+##############################################
+/src/doc/it/README.md-312-
+/src/doc/it/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/it/README.md-314-    // some time later...
+##############################################
+/src/doc/it/README.md-345-
+/src/doc/it/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/it/README.md-384-
+/src/doc/it/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/it/index.md-21-
+/src/doc/it/index.md:22:Questo plugin fornisce una vista di browser web che viene visualizzato quando si chiama `di cordova.InAppBrowser.open()`.
+/src/doc/it/index.md-23-
+/src/doc/it/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/index.md-25-    
+/src/doc/it/index.md-26-
+/src/doc/it/index.md:27:Il `cordova.InAppBrowser.open()` funzione è definita per essere un rimpiazzo per la funzione `window.open`. Esistenti chiamate `Window` possono utilizzare la finestra di InAppBrowser, sostituendo window.open():
+/src/doc/it/index.md-28-
+##############################################
+/src/doc/it/index.md-65-
+/src/doc/it/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/it/index.md-67-    
+##############################################
+/src/doc/it/index.md-126-
+/src/doc/it/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/it/index.md-129-    
+##############################################
+/src/doc/it/index.md-211-
+/src/doc/it/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/it/index.md-243-
+/src/doc/it/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/it/index.md-269-
+/src/doc/it/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/index.md-271-    ref.close();
+##############################################
+/src/doc/it/index.md-291-
+/src/doc/it/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/it/index.md-293-    // some time later...
+##############################################
+/src/doc/it/index.md-323-
+/src/doc/it/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/it/index.md-353-
+/src/doc/it/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/it/index.md-355-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/fr/README.md-23-
+/src/doc/fr/README.md:24:Ce module fournit une vue de navigateur web qui s'affiche lorsque vous appelez `cordova.InAppBrowser.open()`.
+/src/doc/fr/README.md-25-
+/src/doc/fr/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/README.md-27-    
+/src/doc/fr/README.md-28-
+/src/doc/fr/README.md:29:Le `cordova.InAppBrowser.open()` fonction est définie pour être un remplacement rapide de la fonction `window.open()`. Les appels existants `window.open()` peuvent utiliser la fenêtre de InAppBrowser, en remplaçant window.open :
+/src/doc/fr/README.md-30-
+##############################################
+/src/doc/fr/README.md-67-
+/src/doc/fr/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/fr/README.md-69-    
+##############################################
+/src/doc/fr/README.md-129-
+/src/doc/fr/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/fr/README.md-132-    
+##############################################
+/src/doc/fr/README.md-229-
+/src/doc/fr/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/fr/README.md-262-
+/src/doc/fr/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/fr/README.md-289-
+/src/doc/fr/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/README.md-291-    ref.close();
+##############################################
+/src/doc/fr/README.md-312-
+/src/doc/fr/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/fr/README.md-314-    // some time later...
+##############################################
+/src/doc/fr/README.md-345-
+/src/doc/fr/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/fr/README.md-384-
+/src/doc/fr/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/fr/index.md-21-
+/src/doc/fr/index.md:22:Ce module fournit une vue de navigateur web qui s'affiche lorsque vous appelez `cordova.InAppBrowser.open()`.
+/src/doc/fr/index.md-23-
+/src/doc/fr/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/index.md-25-    
+/src/doc/fr/index.md-26-
+/src/doc/fr/index.md:27:Le `cordova.InAppBrowser.open()` fonction est définie pour être un remplacement rapide de la fonction `window.open()`. Les appels existants `window.open()` peuvent utiliser la fenêtre de InAppBrowser, en remplaçant window.open :
+/src/doc/fr/index.md-28-
+##############################################
+/src/doc/fr/index.md-65-
+/src/doc/fr/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/fr/index.md-67-    
+##############################################
+/src/doc/fr/index.md-126-
+/src/doc/fr/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/fr/index.md-129-    
+##############################################
+/src/doc/fr/index.md-211-
+/src/doc/fr/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/fr/index.md-243-
+/src/doc/fr/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/fr/index.md-269-
+/src/doc/fr/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/index.md-271-    ref.close();
+##############################################
+/src/doc/fr/index.md-291-
+/src/doc/fr/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/fr/index.md-293-    // some time later...
+##############################################
+/src/doc/fr/index.md-323-
+/src/doc/fr/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/fr/index.md-353-
+/src/doc/fr/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/fr/index.md-355-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/de/README.md-23-
+/src/doc/de/README.md:24:Dieses Plugin bietet eine Web-Browser-Ansicht, die beim Aufruf von `cordova.InAppBrowser.open()`.
+/src/doc/de/README.md-25-
+/src/doc/de/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/README.md-27-    
+/src/doc/de/README.md-28-
+/src/doc/de/README.md:29:Die `cordova.InAppBrowser.open()` Funktion ist definiert als Ersatz für die `window.open()` Funktion. InAppBrowser Fenster, können vorhandene `window.open()` Aufrufe durch window.open ersetzen:
+/src/doc/de/README.md-30-
+##############################################
+/src/doc/de/README.md-67-
+/src/doc/de/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/de/README.md-69-    
+##############################################
+/src/doc/de/README.md-129-
+/src/doc/de/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/de/README.md-132-    
+##############################################
+/src/doc/de/README.md-229-
+/src/doc/de/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/de/README.md-262-
+/src/doc/de/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/de/README.md-289-
+/src/doc/de/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/README.md-291-    ref.close();
+##############################################
+/src/doc/de/README.md-312-
+/src/doc/de/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/de/README.md-314-    // some time later...
+##############################################
+/src/doc/de/README.md-345-
+/src/doc/de/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/de/README.md-384-
+/src/doc/de/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/de/index.md-21-
+/src/doc/de/index.md:22:Dieses Plugin bietet eine Web-Browser-Ansicht, die beim Aufruf von `cordova.InAppBrowser.open()`.
+/src/doc/de/index.md-23-
+/src/doc/de/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/index.md-25-    
+/src/doc/de/index.md-26-
+/src/doc/de/index.md:27:Die `cordova.InAppBrowser.open()` Funktion ist definiert als Ersatz für die `window.open()` Funktion. InAppBrowser Fenster, können vorhandene `window.open()` Aufrufe durch window.open ersetzen:
+/src/doc/de/index.md-28-
+##############################################
+/src/doc/de/index.md-65-
+/src/doc/de/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/de/index.md-67-    
+##############################################
+/src/doc/de/index.md-126-
+/src/doc/de/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/de/index.md-129-    
+##############################################
+/src/doc/de/index.md-211-
+/src/doc/de/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/de/index.md-243-
+/src/doc/de/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/de/index.md-269-
+/src/doc/de/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/index.md-271-    ref.close();
+##############################################
+/src/doc/de/index.md-291-
+/src/doc/de/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/de/index.md-293-    // some time later...
+##############################################
+/src/doc/de/index.md-323-
+/src/doc/de/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/de/index.md-353-
+/src/doc/de/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/de/index.md-355-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/es/README.md-23-
+/src/doc/es/README.md:24:Este plugin proporciona una vista de navegador web que se muestra cuando se llama a `cordova.InAppBrowser.open()`.
+/src/doc/es/README.md-25-
+/src/doc/es/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/README.md-27-    
+/src/doc/es/README.md-28-
+/src/doc/es/README.md:29:El `cordova.InAppBrowser.open()` función se define como un reemplazo de sobreponer para la función `window.Open ()`. Llamadas existentes `window.Open ()` pueden utilizar la ventana InAppBrowser, mediante la sustitución de window.open:
+/src/doc/es/README.md-30-
+##############################################
+/src/doc/es/README.md-67-
+/src/doc/es/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/es/README.md-69-    
+##############################################
+/src/doc/es/README.md-129-
+/src/doc/es/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/es/README.md-132-    
+##############################################
+/src/doc/es/README.md-229-
+/src/doc/es/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/es/README.md-262-
+/src/doc/es/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/es/README.md-289-
+/src/doc/es/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/README.md-291-    ref.close();
+##############################################
+/src/doc/es/README.md-312-
+/src/doc/es/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/es/README.md-314-    // some time later...
+##############################################
+/src/doc/es/README.md-345-
+/src/doc/es/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/es/README.md-384-
+/src/doc/es/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/es/index.md-21-
+/src/doc/es/index.md:22:Este plugin proporciona una vista de navegador web que se muestra cuando se llama a `cordova.InAppBrowser.open()`.
+/src/doc/es/index.md-23-
+/src/doc/es/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/index.md-25-    
+/src/doc/es/index.md-26-
+/src/doc/es/index.md:27:El `cordova.InAppBrowser.open()` función se define como un reemplazo de sobreponer para la función `window.Open ()`. Llamadas existentes `window.Open ()` pueden utilizar la ventana InAppBrowser, mediante la sustitución de window.open:
+/src/doc/es/index.md-28-
+##############################################
+/src/doc/es/index.md-65-
+/src/doc/es/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/es/index.md-67-    
+##############################################
+/src/doc/es/index.md-126-
+/src/doc/es/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/es/index.md-129-    
+##############################################
+/src/doc/es/index.md-211-
+/src/doc/es/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/es/index.md-243-
+/src/doc/es/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/es/index.md-269-
+/src/doc/es/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/index.md-271-    ref.close();
+##############################################
+/src/doc/es/index.md-291-
+/src/doc/es/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/es/index.md-293-    // some time later...
+##############################################
+/src/doc/es/index.md-323-
+/src/doc/es/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/es/index.md-353-
+/src/doc/es/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/es/index.md-355-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/zh/README.md-23-
+/src/doc/zh/README.md:24:這個外掛程式提供了一個 web 瀏覽器視圖，顯示在調用 `cordova.InAppBrowser.open()`.
+/src/doc/zh/README.md-25-
+/src/doc/zh/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/README.md-27-    
+/src/doc/zh/README.md-28-
+/src/doc/zh/README.md:29:`cordova.InAppBrowser.open()` 函數被定義為一個臨時替代 `window.open ()` 函數。 現有 `window.open ()` 調用，可以通過替換 window.open 使用 InAppBrowser 視窗：
+/src/doc/zh/README.md-30-
+##############################################
+/src/doc/zh/README.md-67-
+/src/doc/zh/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/zh/README.md-69-    
+##############################################
+/src/doc/zh/README.md-129-
+/src/doc/zh/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/zh/README.md-132-    
+##############################################
+/src/doc/zh/README.md-229-
+/src/doc/zh/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/zh/README.md-262-
+/src/doc/zh/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/zh/README.md-289-
+/src/doc/zh/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/README.md-291-    ref.close();
+##############################################
+/src/doc/zh/README.md-312-
+/src/doc/zh/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/zh/README.md-314-    // some time later...
+##############################################
+/src/doc/zh/README.md-345-
+/src/doc/zh/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/zh/README.md-384-
+/src/doc/zh/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/zh/index.md-21-
+/src/doc/zh/index.md:22:這個外掛程式提供了一個 web 瀏覽器視圖，顯示在調用 `cordova.InAppBrowser.open()`.
+/src/doc/zh/index.md-23-
+/src/doc/zh/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/index.md-25-    
+/src/doc/zh/index.md-26-
+/src/doc/zh/index.md:27:`cordova.InAppBrowser.open()` 函數被定義為一個臨時替代 `window.open ()` 函數。 現有 `window.open ()` 調用，可以通過替換 window.open 使用 InAppBrowser 視窗：
+/src/doc/zh/index.md-28-
+##############################################
+/src/doc/zh/index.md-65-
+/src/doc/zh/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/zh/index.md-67-    
+##############################################
+/src/doc/zh/index.md-126-
+/src/doc/zh/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/zh/index.md-129-    
+##############################################
+/src/doc/zh/index.md-211-
+/src/doc/zh/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/zh/index.md-243-
+/src/doc/zh/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/zh/index.md-269-
+/src/doc/zh/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/index.md-271-    ref.close();
+##############################################
+/src/doc/zh/index.md-291-
+/src/doc/zh/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/zh/index.md-293-    // some time later...
+##############################################
+/src/doc/zh/index.md-323-
+/src/doc/zh/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/zh/index.md-353-
+/src/doc/zh/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/zh/index.md-355-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ru/index.md-21-
+/src/doc/ru/index.md:22:Этот плагин обеспечивает представление веб-браузера, что показывает при вызове`window.open()`.
+/src/doc/ru/index.md-23-
+/src/doc/ru/index.md:24:    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ru/index.md-25-    
+##############################################
+/src/doc/ru/index.md-37-
+/src/doc/ru/index.md:38:    var ref = window.open(url, target, options);
+/src/doc/ru/index.md-39-    
+##############################################
+/src/doc/ru/index.md-99-
+/src/doc/ru/index.md:100:    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ru/index.md:101:    var ref2 = window.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/ru/index.md-102-    
+##############################################
+/src/doc/ru/index.md-184-
+/src/doc/ru/index.md:185:    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ru/index.md-186-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/ru/index.md-216-
+/src/doc/ru/index.md:217:    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ru/index.md-218-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/ru/index.md-242-
+/src/doc/ru/index.md:243:    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ru/index.md-244-    ref.close();
+##############################################
+/src/doc/ru/index.md-264-
+/src/doc/ru/index.md:265:    var ref = window.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/ru/index.md-266-    // some time later...
+##############################################
+/src/doc/ru/index.md-296-
+/src/doc/ru/index.md:297:    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ru/index.md-298-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ru/index.md-326-
+/src/doc/ru/index.md:327:    var ref = window.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ru/index.md-328-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ja/README.md-23-
+/src/doc/ja/README.md:24:このプラグインは `コルドバを呼び出すときに表示される web ブラウザーのビューを提供します。InAppBrowser.open()`.
+/src/doc/ja/README.md-25-
+/src/doc/ja/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/README.md-27-    
+/src/doc/ja/README.md-28-
+/src/doc/ja/README.md:29:`コルドバ。InAppBrowser.open()` `window.open()` 関数との交換を定義する関数。 既存の `window.open()` 呼び出しは、window.open を置き換えることによって InAppBrowser ウィンドウを使用できます。
+/src/doc/ja/README.md-30-
+##############################################
+/src/doc/ja/README.md-67-
+/src/doc/ja/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/ja/README.md-69-    
+##############################################
+/src/doc/ja/README.md-129-
+/src/doc/ja/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/ja/README.md-132-    
+##############################################
+/src/doc/ja/README.md-229-
+/src/doc/ja/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/ja/README.md-262-
+/src/doc/ja/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/ja/README.md-289-
+/src/doc/ja/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/README.md-291-    ref.close();
+##############################################
+/src/doc/ja/README.md-312-
+/src/doc/ja/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/ja/README.md-314-    // some time later...
+##############################################
+/src/doc/ja/README.md-345-
+/src/doc/ja/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ja/README.md-384-
+/src/doc/ja/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ja/index.md-21-
+/src/doc/ja/index.md:22:このプラグインは `コルドバを呼び出すときに表示される web ブラウザーのビューを提供します。InAppBrowser.open()`.
+/src/doc/ja/index.md-23-
+/src/doc/ja/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/index.md-25-    
+/src/doc/ja/index.md-26-
+/src/doc/ja/index.md:27:`コルドバ。InAppBrowser.open()` `window.open()` 関数との交換を定義する関数。 既存の `window.open()` 呼び出しは、window.open を置き換えることによって InAppBrowser ウィンドウを使用できます。
+/src/doc/ja/index.md-28-
+##############################################
+/src/doc/ja/index.md-65-
+/src/doc/ja/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/ja/index.md-67-    
+##############################################
+/src/doc/ja/index.md-126-
+/src/doc/ja/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/ja/index.md-129-    
+##############################################
+/src/doc/ja/index.md-211-
+/src/doc/ja/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/ja/index.md-243-
+/src/doc/ja/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/ja/index.md-269-
+/src/doc/ja/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/index.md-271-    ref.close();
+##############################################
+/src/doc/ja/index.md-291-
+/src/doc/ja/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/ja/index.md-293-    // some time later...
+##############################################
+/src/doc/ja/index.md-323-
+/src/doc/ja/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ja/index.md-353-
+/src/doc/ja/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ja/index.md-355-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ko/README.md-23-
+/src/doc/ko/README.md:24:이 플러그인 `코르도바를 호출할 때 표시 하는 웹 브라우저 보기를 제공 합니다.InAppBrowser.open()`.
+/src/doc/ko/README.md-25-
+/src/doc/ko/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/README.md-27-    
+/src/doc/ko/README.md-28-
+/src/doc/ko/README.md:29:`코르도바입니다.InAppBrowser.open()` 함수 `window.open ()` 함수에 대 한 대체품 정의 됩니다. 기존의 `window.open ()` 호출 window.open을 대체 하 여 InAppBrowser 윈도우를 사용할 수 있습니다.
+/src/doc/ko/README.md-30-
+##############################################
+/src/doc/ko/README.md-67-
+/src/doc/ko/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/ko/README.md-69-    
+##############################################
+/src/doc/ko/README.md-129-
+/src/doc/ko/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/ko/README.md-132-    
+##############################################
+/src/doc/ko/README.md-229-
+/src/doc/ko/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/ko/README.md-262-
+/src/doc/ko/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/ko/README.md-289-
+/src/doc/ko/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/README.md-291-    ref.close();
+##############################################
+/src/doc/ko/README.md-312-
+/src/doc/ko/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/ko/README.md-314-    // some time later...
+##############################################
+/src/doc/ko/README.md-345-
+/src/doc/ko/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ko/README.md-384-
+/src/doc/ko/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ko/index.md-21-
+/src/doc/ko/index.md:22:이 플러그인 `코르도바를 호출할 때 표시 하는 웹 브라우저 보기를 제공 합니다.InAppBrowser.open()`.
+/src/doc/ko/index.md-23-
+/src/doc/ko/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/index.md-25-    
+/src/doc/ko/index.md-26-
+/src/doc/ko/index.md:27:`코르도바입니다.InAppBrowser.open()` 함수 `window.open ()` 함수에 대 한 대체품 정의 됩니다. 기존의 `window.open ()` 호출 window.open을 대체 하 여 InAppBrowser 윈도우를 사용할 수 있습니다.
+/src/doc/ko/index.md-28-
+##############################################
+/src/doc/ko/index.md-65-
+/src/doc/ko/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/ko/index.md-67-    
+##############################################
+/src/doc/ko/index.md-126-
+/src/doc/ko/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/ko/index.md-129-    
+##############################################
+/src/doc/ko/index.md-211-
+/src/doc/ko/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/ko/index.md-243-
+/src/doc/ko/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/ko/index.md-269-
+/src/doc/ko/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/index.md-271-    ref.close();
+##############################################
+/src/doc/ko/index.md-291-
+/src/doc/ko/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/ko/index.md-293-    // some time later...
+##############################################
+/src/doc/ko/index.md-323-
+/src/doc/ko/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/ko/index.md-353-
+/src/doc/ko/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/ko/index.md-355-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/pl/README.md-23-
+/src/doc/pl/README.md:24:Plugin daje widok przeglądarki sieci web, które są wyświetlane podczas wywoływania `cordova.InAppBrowser.open()`.
+/src/doc/pl/README.md-25-
+/src/doc/pl/README.md:26:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/README.md-27-    
+/src/doc/pl/README.md-28-
+/src/doc/pl/README.md:29:`cordova.InAppBrowser.open()` funkcja jest definiowana jako zamiennik dla funkcji `window.open()`. Istniejące wywołania `window.open()` służy okno InAppBrowser, zastępując window.open:
+/src/doc/pl/README.md-30-
+##############################################
+/src/doc/pl/README.md-67-
+/src/doc/pl/README.md:68:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/pl/README.md-69-    
+##############################################
+/src/doc/pl/README.md-129-
+/src/doc/pl/README.md:130:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/README.md:131:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/pl/README.md-132-    
+##############################################
+/src/doc/pl/README.md-229-
+/src/doc/pl/README.md:230:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/README.md-231-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/pl/README.md-262-
+/src/doc/pl/README.md:263:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/README.md-264-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/pl/README.md-289-
+/src/doc/pl/README.md:290:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/README.md-291-    ref.close();
+##############################################
+/src/doc/pl/README.md-312-
+/src/doc/pl/README.md:313:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/pl/README.md-314-    // some time later...
+##############################################
+/src/doc/pl/README.md-345-
+/src/doc/pl/README.md:346:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/README.md-347-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/pl/README.md-384-
+/src/doc/pl/README.md:385:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/README.md-386-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/pl/index.md-21-
+/src/doc/pl/index.md:22:Plugin daje widok przeglądarki sieci web, które są wyświetlane podczas wywoływania `cordova.InAppBrowser.open()`.
+/src/doc/pl/index.md-23-
+/src/doc/pl/index.md:24:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/index.md-25-    
+/src/doc/pl/index.md-26-
+/src/doc/pl/index.md:27:`cordova.InAppBrowser.open()` funkcja jest definiowana jako zamiennik dla funkcji `window.open()`. Istniejące wywołania `window.open()` służy okno InAppBrowser, zastępując window.open:
+/src/doc/pl/index.md-28-
+##############################################
+/src/doc/pl/index.md-65-
+/src/doc/pl/index.md:66:    var ref = cordova.InAppBrowser.open(url, target, options);
+/src/doc/pl/index.md-67-    
+##############################################
+/src/doc/pl/index.md-126-
+/src/doc/pl/index.md:127:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/index.md:128:    var ref2 = cordova.InAppBrowser.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
+/src/doc/pl/index.md-129-    
+##############################################
+/src/doc/pl/index.md-211-
+/src/doc/pl/index.md:212:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/index.md-213-    ref.addEventListener('loadstart', function(event) { alert(event.url); });
+##############################################
+/src/doc/pl/index.md-243-
+/src/doc/pl/index.md:244:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/index.md-245-    var myCallback = function(event) { alert(event.url); }
+##############################################
+/src/doc/pl/index.md-269-
+/src/doc/pl/index.md:270:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/index.md-271-    ref.close();
+##############################################
+/src/doc/pl/index.md-291-
+/src/doc/pl/index.md:292:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'hidden=yes');
+/src/doc/pl/index.md-293-    // some time later...
+##############################################
+/src/doc/pl/index.md-323-
+/src/doc/pl/index.md:324:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/index.md-325-    ref.addEventListener('loadstop', function() {
+##############################################
+/src/doc/pl/index.md-353-
+/src/doc/pl/index.md:354:    var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
+/src/doc/pl/index.md-355-    ref.addEventListener('loadstop', function() {

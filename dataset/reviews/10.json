@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 10,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-24",
+    "correct_package_link": "https://registry.npmjs.org/geddy/-/geddy-13.0.7.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/app/index.js",
+                    "lineno": 179,
+                    "code": "staticPath = this.config.staticFilePath + decodeURIComponent(reqUrl);"
+                },
+                "sink": {
+                    "file": "lib/app/index.js",
+                    "lineno": 185,
+                    "code": "this.handleStaticFile(staticPath, params, reqUrl, reqObj, respObj, params);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/geddy/geddy/issues/697#issue-97490106"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/geddy/geddy/pull/699/files#diff-3f1b9c2aa8cfe4c89b3da8a1aabc2b80cf7a44806547a7a37539f4b87de9f8dc"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

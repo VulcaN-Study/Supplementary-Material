@@ -1,0 +1,112 @@
+/src/lib/dialects/postgres/connector-manager.js-50-    return new Utils.CustomEventEmitter(function(emitter) {
+/src/lib/dialects/postgres/connector-manager.js:51:      self.connect()
+/src/lib/dialects/postgres/connector-manager.js-52-      .on('error', function(err) {
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-146-      // acquire client from pool
+/src/lib/dialects/postgres/connector-manager.js:147:      this.pg.connect(config, connectCallback)
+/src/lib/dialects/postgres/connector-manager.js-148-    } else {
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-156-        this.client = new this.pg.Client(config)
+/src/lib/dialects/postgres/connector-manager.js:157:        this.client.connect(function(err, client, done) {
+/src/lib/dialects/postgres/connector-manager.js-158-          responded = true
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-161-
+/src/lib/dialects/postgres/connector-manager.js:162:        // If we didn't ever hear from the client.connect() callback the connection timeout, node-postgres does not treat this as an error since no active query was ever emitted
+/src/lib/dialects/postgres/connector-manager.js-163-        this.client.on('end', function () {
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-180-  ConnectorManager.prototype.setTimezone = function(client, timezone, callback) {
+/src/lib/dialects/postgres/connector-manager.js:181:    client.query("SET TIME ZONE '" + (timezone || "UTC") + "'").on('end', callback)
+/src/lib/dialects/postgres/connector-manager.js-182-  }
+##############################################
+/src/lib/dialects/postgres/query.js-26-      , receivedError = false
+/src/lib/dialects/postgres/query.js:27:      , query         = this.client.query(sql)
+/src/lib/dialects/postgres/query.js-28-      , rows          = []
+##############################################
+/src/lib/dialects/connector-manager.js-23-    this.disconnect()
+/src/lib/dialects/connector-manager.js:24:    this.connect()
+/src/lib/dialects/connector-manager.js-25-  }
+##############################################
+/src/lib/dialects/mysql/connector-manager.js-312-
+/src/lib/dialects/mysql/connector-manager.js:313:    var connection = mysql.createConnection(connectionConfig);
+/src/lib/dialects/mysql/connector-manager.js:314:    connection.connect(function(err) {
+/src/lib/dialects/mysql/connector-manager.js-315-      if (err) {
+##############################################
+/src/lib/dialects/mysql/connector-manager.js-336-
+/src/lib/dialects/mysql/connector-manager.js:337:    connection.query("SET time_zone = '+0:00'");
+/src/lib/dialects/mysql/connector-manager.js-338-    // client.setMaxListeners(self.maxConcurrentQueries)
+##############################################
+/src/lib/dialects/mysql/query.js-25-
+/src/lib/dialects/mysql/query.js:26:    this.client.query(this.sql, function(err, results, fields) {
+/src/lib/dialects/mysql/query.js-27-      this.emit('sql', this.sql)
+##############################################
+/src/lib/dialects/mariadb/connector-manager.js-162-    if (!this.isConnected && !this.pool) {
+/src/lib/dialects/mariadb/connector-manager.js:163:      this.connect()
+/src/lib/dialects/mariadb/connector-manager.js-164-    }
+##############################################
+/src/lib/dialects/mariadb/connector-manager.js-285-    client = new mariadb()
+/src/lib/dialects/mariadb/connector-manager.js:286:    client.connect(connectionConfig)
+/src/lib/dialects/mariadb/connector-manager.js-287-    client
+##############################################
+/src/lib/dialects/mariadb/connector-manager.js-293-      .on('connect', function () {
+/src/lib/dialects/mariadb/connector-manager.js:294:        client.query("SET time_zone = '+0:00'").on('result', function (res) {
+/src/lib/dialects/mariadb/connector-manager.js-295-          res.on('end', function () {
+##############################################
+/src/lib/dialects/mariadb/query.js-30-
+/src/lib/dialects/mariadb/query.js:31:    this.client.query(this.sql)
+/src/lib/dialects/mariadb/query.js-32-      .on('result', function(results) {
+##############################################
+/src/lib/dialects/sqlite/connector-manager.js-40-    if (!this.database) {
+/src/lib/dialects/sqlite/connector-manager.js:41:      this.connect()
+/src/lib/dialects/sqlite/connector-manager.js-42-    }
+##############################################
+/src/lib/dialects/sqlite/query-interface.js-145-            .sequelize
+/src/lib/dialects/sqlite/query-interface.js:146:            .query('PRAGMA foreign_keys;')
+/src/lib/dialects/sqlite/query-interface.js-147-            .proxy(dropAllTablesEmitter, { events: ['sql'] })
+##############################################
+/src/lib/query-interface.js-63-      var showSchemasSql = self.QueryGenerator.showSchemasQuery()
+/src/lib/query-interface.js:64:      self.sequelize.query(showSchemasSql, null, options).success(function(schemaNames) {
+/src/lib/query-interface.js-65-        self.emit('showAllSchemas', null)
+##############################################
+/src/lib/query-interface.js-105-            sql = self.QueryGenerator.pgListEnums(getTableName, keys[i], options)
+/src/lib/query-interface.js:106:            chainer.add(self.sequelize.query(sql, null, { plain: true, raw: true, type: QueryTypes.SELECT, logging: options.logging }))
+/src/lib/query-interface.js-107-          }
+##############################################
+/src/lib/query-interface.js-122-                sql = self.QueryGenerator.pgEnum(getTableName, keys[i], attributes[keys[i]], options)
+/src/lib/query-interface.js:123:                chainer2.add(self.sequelize.query(sql, null, { raw: true, logging: options.logging }))
+/src/lib/query-interface.js-124-              } else if (!!results[enumIdx] && !!daoTable) {
+##############################################
+/src/lib/query-interface.js-140-
+/src/lib/query-interface.js:141:                    chainer2.add(self.sequelize.query(self.QueryGenerator.pgEnumAdd(getTableName, keys[i], value, options)))
+/src/lib/query-interface.js-142-                  }
+##############################################
+/src/lib/query-interface.js-305-
+/src/lib/query-interface.js:306:    this.sequelize.query(sql, null, { plain: false, raw: true, type: QueryTypes.SELECT, logging: options.logging })
+/src/lib/query-interface.js-307-      .proxy(emitter, {events: ['sql', 'error']})
+##############################################
+/src/lib/query-interface.js-337-
+/src/lib/query-interface.js:338:      self.sequelize.query(showTablesSql, null, options).success(function(tableNames) {
+/src/lib/query-interface.js-339-        self.emit('showAllTables', null)
+##############################################
+/src/lib/query-interface.js-370-
+/src/lib/query-interface.js:371:      self.sequelize.query(sql, null, { raw: true }).success(function(data) {
+/src/lib/query-interface.js-372-        if(Utils._.isEmpty(data)) {
+##############################################
+/src/lib/query-interface.js-747-        , queryOptions = Utils._.extend({ transaction: options.transaction }, { plain: true, raw: true, type: QueryTypes.SELECT })
+/src/lib/query-interface.js:748:        , query        = self.sequelize.query(sql, null, queryOptions)
+/src/lib/query-interface.js-749-
+##############################################
+/src/lib/query-interface.js-970-      } else {
+/src/lib/query-interface.js:971:        emitter.query = this.sequelize.query(sqlOrQueryParams, null, options)
+/src/lib/query-interface.js-972-      }
+##############################################
+/src/lib/sequelize.js-329-
+/src/lib/sequelize.js:330:    return this.transactionManager.query(sql, callee, options)
+/src/lib/sequelize.js-331-  }
+##############################################
+/src/lib/sequelize.js-409-      self
+/src/lib/sequelize.js:410:        .query('SELECT 1+1 AS result', null, { raw: true, plain: true })
+/src/lib/sequelize.js-411-        .complete(function(err, result) {
+##############################################
+/src/lib/transaction-manager.js-51-
+/src/lib/transaction-manager.js:52:  return this.getConnectorManager(options.uuid).query(sql, callee, options)
+/src/lib/transaction-manager.js-53-}

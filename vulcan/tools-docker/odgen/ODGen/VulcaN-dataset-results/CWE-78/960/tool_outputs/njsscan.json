@@ -1,0 +1,206 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 9
+        },
+        "extra": {
+          "line": "*.log",
+          "message": "Lexical error: WIERD end of file in regexp"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 9
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/src/server/app.js",
+          "match_lines": [
+            19,
+            19
+          ],
+          "match_position": [
+            14,
+            25
+          ],
+          "match_string": "  secret: ''+Math.random(),"
+        },
+        {
+          "file_path": "/src/src/server/lib/wxsign.js",
+          "match_lines": [
+            4,
+            4
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "  return Math.random().toString(36).substr(2, 15);"
+        },
+        {
+          "file_path": "/src/src/server/route/view-basic.js",
+          "match_lines": [
+            65,
+            65
+          ],
+          "match_position": [
+            16,
+            27
+          ],
+          "match_string": "      rndcode: Math.random(), // \u5f3a\u5236\u7981\u7f13\u5b58"
+        },
+        {
+          "file_path": "/src/src/server/route/view-basic.js",
+          "match_lines": [
+            112,
+            112
+          ],
+          "match_position": [
+            16,
+            27
+          ],
+          "match_string": "      rndcode: Math.random(), // \u5f3a\u5236\u7981\u7f13\u5b58"
+        },
+        {
+          "file_path": "/src/src/server/route/view-basic.js",
+          "match_lines": [
+            169,
+            169
+          ],
+          "match_position": [
+            16,
+            27
+          ],
+          "match_string": "      rndcode: Math.random(),"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/src/server/wxpub.js",
+          "match_lines": [
+            156,
+            156
+          ],
+          "match_position": [
+            10,
+            33
+          ],
+          "match_string": "  return crypto.createHash('md5').update(str).digest('hex')"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/src/server/route/view-admin.js",
+          "match_lines": [
+            66,
+            75
+          ],
+          "match_position": [
+            5,
+            30
+          ],
+          "match_string": "    var msgId = parseInt(req.params['id']);\n\n    songColl.findOne({\n\n      //published: true,\n\n      msgid: msgId\n\n    }, {\n\n      // \u63d0\u53d6\u76f8\u5e94\u7684\u5217\n\n      fields: ['msgid', 'name', 'playlength', 'plays', 'createtime', 'published']\n\n    }, function (err, song) {\n\n      if (!song) return res.send({ msg: '\u6b4c\u66f2\u4e0d\u5b58\u5728' });\n\n      res.send({ song: song });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/src/web/song.html",
+          "match_position": [
+            10888,
+            10903
+          ],
+          "match_string": "{{{statshtml}}}"
+        },
+        {
+          "file_path": "/src/src/web/playlist.html",
+          "match_position": [
+            7153,
+            7166
+          ],
+          "match_string": "{{{listarr}}}"
+        },
+        {
+          "file_path": "/src/src/web/playlist.html",
+          "match_position": [
+            9845,
+            9860
+          ],
+          "match_string": "{{{statshtml}}}"
+        },
+        {
+          "file_path": "/src/src/web/songlist.html",
+          "match_position": [
+            11875,
+            11890
+          ],
+          "match_string": "{{{statshtml}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

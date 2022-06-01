@@ -1,0 +1,185 @@
+<report_mosca>
+ <Path>/src/benchmarks/main.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 248 -  setInterval(function () {
+
+ Line: 316 -    setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/benchmarks/main.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 34 -  var queryWorkers = 0
+
+ Line: 39 -  var queryOnline = 0
+
+ Line: 49 -    queryWorkers = argv.querySpec.length
+
+ Line: 56 -  var rwWorkers = argv.processes - queryWorkers - scanWorkers
+
+ Line: 145 -  // @to-do this worker has to create index and then issue a query request
+
+ Line: 148 -  function queryWorkerJob (worker, id) {
+
+ Line: 150 -    var queryConfig = argv.querySpec[id]
+
+ Line: 152 -      stmt.filters = [aerospike.filter.range(queryConfig.bin, queryConfig.min, queryConfig.max)]
+
+ Line: 154 -      stmt.filters = [aerospike.filter.equal(queryConfig.bin, queryConfig.value)]
+
+ Line: 205 -      logger.info('%s query(records = %d timeouts = %d errors = %d)',
+
+ Line: 284 -    } else if (queryOnline < queryWorkers) {
+
+ Line: 285 -      queryWorkerJob(worker, queryOnline)
+
+ Line: 286 -      queryOnline++
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/benchmarks/worker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 298 -    setInterval(monitorMemory, 6000)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/benchmarks/worker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 241 -    interval_data[QUERY] = [0, 0, 0] // [QueryRecords, query_timeout, query_error]
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/aerospike.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 39 -  // wrapper function around query_foreach function.
+
+ Line: 66 -      // it is a query request.
+
+ Line: 68 -        // query UDF is not supported currently.
+
+ Line: 71 -        // normal query and query aggregation is invoked here.
+
+ Line: 93 -  var query = function query (ns, set, options) {
+
+ Line: 102 -    var queryObj = this.createQuery(ns, set, options)
+
+ Line: 103 -    var queryProto = Object.getPrototypeOf(queryObj)
+
+ Line: 106 -      queryProto.execute = execute
+
+ Line: 110 -      queryProto.Info = Info
+
+ Line: 113 -    return queryObj
+
+ Line: 268 -      proto.query = query
+
+ Line: 356 -    return populateCdtOp(as.cdt_operations.LIST_INSERT, bin,
+
+ Line: 361 -    return populateCdtOp(as.cdt_operations.LIST_INSERT_ITEMS, bin,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/scan.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 73 -    it('should query all the records', function (done) {
+
+ Line: 79 -      var query = client.query(helper.namespace, helper.set)
+
+ Line: 81 -      var stream = query.execute()
+
+ Line: 98 -    it('should query and select no bins', function (done) {
+
+ Line: 104 -      var query = client.query(helper.namespace, helper.set, args)
+
+ Line: 106 -      var stream = query.execute()
+
+ Line: 121 -    it('should query and select only few bins in the record', function (done) {
+
+ Line: 127 -      var query = client.query(helper.namespace, helper.set, args)
+
+ Line: 129 -      var stream = query.execute()
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 45 -        var record = {queryBinInt: i, queryBinString: 'querystringvalue'}
+
+ Line: 74 -    it('should query on an integer index - filter by equality of bin value', function (done) {
+
+ Line: 80 -      var query = client.query(helper.namespace, helper.set, args)
+
+ Line: 82 -      var stream = query.execute()
+
+ Line: 99 -    it('should query on an integer index - filter by range of bin values', function (done) {
+
+ Line: 106 -      var query = client.query(helper.namespace, helper.set, args)
+
+ Line: 108 -      var stream = query.execute()
+
+ Line: 125 -    it('should query on a string index - filter by equality of bin value', function (done) {
+
+ Line: 132 -      var query = client.query(helper.namespace, helper.set, args)
+
+ Line: 134 -      var stream = query.execute()
+
+ Line: 152 -    it('should query on an index and apply aggregation user defined function', function (done) {
+
+ Line: 161 -      var query = client.query(helper.namespace, helper.set, args)
+
+ Line: 163 -      var stream = query.execute()
+
+ Line: 188 -      var query = client.query(helper.namespace, helper.set, args)
+
+ Line: 190 -      var stream = query.execute()
+
+</Result>
+</report_mosca>
+

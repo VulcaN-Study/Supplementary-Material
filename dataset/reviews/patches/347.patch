@@ -1,0 +1,6 @@
+36c36,38
+<      , filename = path.join(process.cwd(), "/public/" + uri);
+---
+>    uri = decodeURI(uri); // avoid encoded path traversal
+>    uri = uri.replaceAll("../", ""); // avoid path traversal
+>    var filename = path.join(process.cwd(), "/public/" + uri);

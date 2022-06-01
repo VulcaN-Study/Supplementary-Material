@@ -1,0 +1,210 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# files",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.dockerignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 2
+        },
+        "extra": {
+          "line": "# The assemble script builds the application artifacts from a source and ",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.s2i/bin/assemble",
+        "start": {
+          "col": 1,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.snyk",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 5
+        },
+        "extra": {
+          "line": "# optional build arg to let the hardening process remove all package manager (apk, npm, yarn) too to not allow",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/Dockerfile",
+        "start": {
+          "col": 1,
+          "line": 5
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 2
+        },
+        "extra": {
+          "line": "#",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/dist/debian/init.d/redis-commander",
+        "start": {
+          "col": 1,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/routes/apiv1.js",
+          "match_lines": [
+            1032,
+            1043
+          ],
+          "match_position": [
+            3,
+            26
+          ],
+          "match_string": "  let val = req.params.stringValue;\n\n  let encoded = \"\";\n\n\n\n  if (typeof Buffer.from === \"function\") {\n\n    // Node 5.10+\n\n    encoded = Buffer(val).toString('base64');\n\n  } else {\n\n    // older Node versions\n\n    encoded = new Buffer(val).toString('base64');\n\n  }\n\n\n\n  return res.send(encoded)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/app.js",
+          "match_lines": [
+            27,
+            27
+          ],
+          "match_position": [
+            13,
+            40
+          ],
+          "match_string": "  let key = crypto.pseudoRandomBytes(32);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/routes/apiv1.js",
+          "match_lines": [
+            229,
+            231
+          ],
+          "match_position": [
+            3,
+            31
+          ],
+          "match_string": "  let cmd = req.body.cmd;\n\n  let connection = res.locals.connection;\n\n  let parts = myutil.split(cmd);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "ejs_ect_template": {
+      "files": [
+        {
+          "file_path": "/src/web/views/layout.ejs",
+          "match_position": [
+            1215,
+            1226
+          ],
+          "match_string": "<%- body %>"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The EJS/ECT template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "ejs_ect_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "<%-(?![ ]*include\\().*%>",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

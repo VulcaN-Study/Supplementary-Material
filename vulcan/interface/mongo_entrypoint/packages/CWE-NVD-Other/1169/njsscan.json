@@ -1,0 +1,260 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"presets\": [",
+          "message": "Syntax error"
+        },
+        "path": "/src/.babelrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "layer7_object_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            8061,
+            8063
+          ],
+          "match_position": [
+            5,
+            26
+          ],
+          "match_string": "    for (var i = 0; i < group.length; i++) {\n\n      var node = assertNodeType(group[i], \"textord\");\n\n      number += node.text;"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            9741,
+            9749
+          ],
+          "match_position": [
+            5,
+            8
+          ],
+          "match_string": "    for (var i = 0; i < hlinesInGap.length; ++i) {\n\n      if (i > 0) {\n\n        totalHeight += 0.25;\n\n      }\n\n\n\n      hlines.push({\n\n        pos: totalHeight,\n\n        isDashed: hlinesInGap[i]\n\n      });"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            9755,
+            9814
+          ],
+          "match_position": [
+            3,
+            38
+          ],
+          "match_string": "  for (r = 0; r < group.body.length; ++r) {\n\n    var inrow = group.body[r];\n\n    var height = arstrutHeight; // \\@array adds an \\@arstrut\n\n\n\n    var depth = arstrutDepth; // to each tow (via the template)\n\n\n\n    if (nc < inrow.length) {\n\n      nc = inrow.length;\n\n    }\n\n\n\n    var outrow = new Array(inrow.length);\n\n\n\n    for (c = 0; c < inrow.length; ++c) {\n\n      var elt = buildHTML_buildGroup(inrow[c], options);\n\n\n\n      if (depth < elt.depth) {\n\n        depth = elt.depth;\n\n      }\n\n\n\n      if (height < elt.height) {\n\n        height = elt.height;\n\n      }\n\n\n\n      outrow[c] = elt;\n\n    }\n\n\n\n    var rowGap = group.rowGaps[r];\n\n    var gap = 0;\n\n\n\n    if (rowGap) {\n\n      gap = units_calculateSize(rowGap, options);\n\n\n\n      if (gap > 0) {\n\n        // \\@argarraycr\n\n        gap += arstrutDepth;\n\n\n\n        if (depth < gap) {\n\n          depth = gap; // \\@xargarraycr\n\n        }\n\n\n\n        gap = 0;\n\n      }\n\n    } // In AMS multiline environments such as aligned and gathered, rows\n\n    // correspond to lines that have additional \\jot added to the\n\n    // \\baselineskip via \\openup.\n\n\n\n\n\n    if (group.addJot) {\n\n      depth += jot;\n\n    }\n\n\n\n    outrow.height = height;\n\n    outrow.depth = depth;\n\n    totalHeight += height;\n\n    outrow.pos = totalHeight;\n\n    totalHeight += depth + gap; // \\@yargarraycr\n\n\n\n    body[r] = outrow; // Set a position for \\hline(s), if any.\n\n\n\n    setHLinePos(hLinesBeforeRow[r + 1]);"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            9767,
+            9778
+          ],
+          "match_position": [
+            5,
+            22
+          ],
+          "match_string": "    for (c = 0; c < inrow.length; ++c) {\n\n      var elt = buildHTML_buildGroup(inrow[c], options);\n\n\n\n      if (depth < elt.depth) {\n\n        depth = elt.depth;\n\n      }\n\n\n\n      if (height < elt.height) {\n\n        height = elt.height;\n\n      }\n\n\n\n      outrow[c] = elt;"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            9823,
+            9905
+          ],
+          "match_position": [
+            3,
+            25
+          ],
+          "match_string": "  for (c = 0, colDescrNum = 0; // Continue while either there are more columns or more column\n\n  // descriptions, so trailing separators don't get lost.\n\n  c < nc || colDescrNum < colDescriptions.length; ++c, ++colDescrNum) {\n\n    var colDescr = colDescriptions[colDescrNum] || {};\n\n    var firstSeparator = true;\n\n\n\n    while (colDescr.type === \"separator\") {\n\n      // If there is more than one separator in a row, add a space\n\n      // between them.\n\n      if (!firstSeparator) {\n\n        colSep = buildCommon.makeSpan([\"arraycolsep\"], []);\n\n        colSep.style.width = options.fontMetrics().doubleRuleSep + \"em\";\n\n        cols.push(colSep);\n\n      }\n\n\n\n      if (colDescr.separator === \"|\" || colDescr.separator === \":\") {\n\n        var lineType = colDescr.separator === \"|\" ? \"solid\" : \"dashed\";\n\n        var separator = buildCommon.makeSpan([\"vertical-separator\"], [], options);\n\n        separator.style.height = totalHeight + \"em\";\n\n        separator.style.borderRightWidth = ruleThickness + \"em\";\n\n        separator.style.borderRightStyle = lineType;\n\n        separator.style.margin = \"0 -\" + ruleThickness / 2 + \"em\";\n\n        separator.style.verticalAlign = -(totalHeight - offset) + \"em\";\n\n        cols.push(separator);\n\n      } else {\n\n        throw new src_ParseError(\"Invalid separator type: \" + colDescr.separator);\n\n      }\n\n\n\n      colDescrNum++;\n\n      colDescr = colDescriptions[colDescrNum] || {};\n\n      firstSeparator = false;\n\n    }\n\n\n\n    if (c >= nc) {\n\n      continue;\n\n    }\n\n\n\n    var sepwidth = void 0;\n\n\n\n    if (c > 0 || group.hskipBeforeAndAfter) {\n\n      sepwidth = utils.deflt(colDescr.pregap, arraycolsep);\n\n\n\n      if (sepwidth !== 0) {\n\n        colSep = buildCommon.makeSpan([\"arraycolsep\"], []);\n\n        colSep.style.width = sepwidth + \"em\";\n\n        cols.push(colSep);\n\n      }\n\n    }\n\n\n\n    var col = [];\n\n\n\n    for (r = 0; r < nr; ++r) {\n\n      var row = body[r];\n\n      var elem = row[c];\n\n\n\n      if (!elem) {\n\n        continue;\n\n      }\n\n\n\n      var shift = row.pos - offset;\n\n      elem.depth = row.depth;\n\n      elem.height = row.height;\n\n      col.push({\n\n        type: \"elem\",\n\n        elem: elem,\n\n        shift: shift\n\n      });\n\n    }\n\n\n\n    col = buildCommon.makeVList({\n\n      positionType: \"individualShift\",\n\n      children: col\n\n    }, options);\n\n    col = buildCommon.makeSpan([\"col-align-\" + (colDescr.align || \"c\")], [col]);\n\n    cols.push(col);\n\n\n\n    if (c < nc - 1 || group.hskipBeforeAndAfter) {\n\n      sepwidth = utils.deflt(colDescr.postgap, arraycolsep);\n\n\n\n      if (sepwidth !== 0) {\n\n        colSep = buildCommon.makeSpan([\"arraycolsep\"], []);\n\n        colSep.style.width = sepwidth + \"em\";\n\n        cols.push(colSep);"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            9874,
+            9889
+          ],
+          "match_position": [
+            5,
+            8
+          ],
+          "match_string": "    for (r = 0; r < nr; ++r) {\n\n      var row = body[r];\n\n      var elem = row[c];\n\n\n\n      if (!elem) {\n\n        continue;\n\n      }\n\n\n\n      var shift = row.pos - offset;\n\n      elem.depth = row.depth;\n\n      elem.height = row.height;\n\n      col.push({\n\n        type: \"elem\",\n\n        elem: elem,\n\n        shift: shift\n\n      });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "Layer7 Denial of Service. Looping over user controlled objects can result in DoS.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/katex/contrib/render-a11y-string.js",
+          "match_lines": [
+            647,
+            647
+          ],
+          "match_position": [
+            13,
+            37
+          ],
+          "match_string": "        if (/cancel/.test(tree.label)) {"
+        },
+        {
+          "file_path": "/src/dist/katex/contrib/render-a11y-string.js",
+          "match_lines": [
+            654,
+            654
+          ],
+          "match_position": [
+            20,
+            41
+          ],
+          "match_string": "        } else if (/box/.test(tree.label)) {"
+        },
+        {
+          "file_path": "/src/dist/katex/contrib/render-a11y-string.js",
+          "match_lines": [
+            661,
+            661
+          ],
+          "match_position": [
+            20,
+            42
+          ],
+          "match_string": "        } else if (/sout/.test(tree.label)) {"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            5494,
+            5494
+          ],
+          "match_position": [
+            7,
+            34
+          ],
+          "match_string": "  if (/[0-9]/.test(value.charAt(0)) || // glyphs for \\imath and \\jmath do not exist in Math-Italic so we"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            5522,
+            5522
+          ],
+          "match_position": [
+            14,
+            41
+          ],
+          "match_string": "  } else if (/[0-9]/.test(value.charAt(0))) {"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            7814,
+            7814
+          ],
+          "match_position": [
+            23,
+            70
+          ],
+          "match_string": "    var isStretchy = !NON_STRETCHY_ACCENT_REGEX.test(context.funcName);"
+        },
+        {
+          "file_path": "/src/dist/katex/katex.js",
+          "match_lines": [
+            13511,
+            13511
+          ],
+          "match_position": [
+            16,
+            39
+          ],
+          "match_string": "    } else if (/[0-9]/.test(group.text)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "vue_template": {
+      "files": [
+        {
+          "file_path": "/src/src/mavon-editor.vue",
+          "match_position": [
+            2963,
+            3002
+          ],
+          "match_string": "v-html=\"d_render\" v-show=\"!s_html_code\""
+        },
+        {
+          "file_path": "/src/src/mavon-editor.vue",
+          "match_position": [
+            5349,
+            5366
+          ],
+          "match_string": "v-html=\"d_render\""
+        },
+        {
+          "file_path": "/src/src/mavon-editor.vue",
+          "match_position": [
+            4793,
+            4808
+          ],
+          "match_string": "v-html=\"d_help\""
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Vue.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "vue_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "v-html=[\\'|\"].+[\\'|\"]",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

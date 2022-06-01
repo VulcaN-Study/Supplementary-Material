@@ -1,0 +1,120 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"presets\": [\"es2015\", \"stage-3\"]",
+          "message": "Syntax error"
+        },
+        "path": "/src/.babelrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 3,
+          "line": 3
+        },
+        "extra": {
+          "line": "[*]",
+          "message": "Syntax error"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 2,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"node\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 9,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/inc/index.js",
+          "match_lines": [
+            472,
+            472
+          ],
+          "match_position": [
+            20,
+            150
+          ],
+          "match_string": "              fn = new Function('require', 'module', 'exports', '_u1'+rid, '_u2'+rid, '__u3'+rid, '__u4'+rid, '__filename', '__dirname', value.source);"
+        },
+        {
+          "file_path": "/src/inc/index.js",
+          "match_lines": [
+            478,
+            478
+          ],
+          "match_position": [
+            20,
+            124
+          ],
+          "match_string": "              fn = new Function('require', 'module', 'exports',  '_u1'+rid, '_u2'+rid, '__u3'+rid, '__u4'+rid, value.source);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/inc/index.js",
+          "match_lines": [
+            443,
+            443
+          ],
+          "match_position": [
+            26,
+            37
+          ],
+          "match_string": "        var rid = String(Math.random()).replace(/[^0-9]/g, '');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

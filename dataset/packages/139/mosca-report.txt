@@ -1,0 +1,37 @@
+<report_mosca>
+ <Path>/src/dist/pivot.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Logic fail</Title>
+ <Description>Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake.</Description>
+ <Level> Low</Level>
+ <Reference> https://en.wikipedia.org/wiki/Logic_error</Reference>
+ <Match> if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\)</Match>
+ <Result> Line: 1247 -                  if ($(this).val() !== "") {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/pivot.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1340 -              return setTimeout(refreshDelayed, 10);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/pivot.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 9 -  ction(){return v.rows.push(t(this).data("attrName"))}),r.find(".pvtCols li span.pvtAttr").each(function(){return v.cols.push(t(this).data("attrName"))}),r.find(".pvtVals select.pvtAttrDropdown").each(function(){return 0===c?t(this).remove():(c--,""!==t(this).val()?C.push(t(this).val()):void 0)}),0!==c)for(h=r.find(".pvtVals"),$=m=0,g=c;g>=0?g>m:m>g;$=g>=0?++m:--m){for(u=t("<select>").addClass("pvtAttrDropdown").append(t("<option>")).bind("change",function(){return U()}),b=0,s=P.length;s>b;b++)a=P[b],u.append(t("<option>").val(a).text(a));h.append(u)}return w&&(C=k.vals,y=0,r.find(".pvtVals select.pvtAttrDropdown").each(function(){return t(this).val(C[y]),y++}),w=!1),v.aggregatorName=l.val(),v.vals=C,v.aggregator=k.aggregators[l.val()](C),v.renderer=k.renderers[j.val()],o={},r.find("input.pvtFilter").not(":checked").each(function(){var e;return e=t(this).data("filter"),null!=o[e[0]]?o[e[0]].push(e[1]):o[e[0]]=[e[1]]}),i={},r.find("input.pvtFilter:checked").each(function(){var e;return e=t(this).data("filter"),null!=o[e[0]]?null!=i[e[0]]?i[e[0]].push(e[1]):i[e[0]]=[e[1]]:void 0}),v.filter=function(t){var n,r;if(!k.filter(t))return!1;for(T in o)if(n=o[T],r=""+t[T],e.call(n,r)>=0)return!1;return!0},D.pivot(n,v),p=t.extend(k,{cols:v.cols,rows:v.rows,vals:C,exclusions:o,inclusions:i,inclusionsInfo:i,aggregatorName:l.val(),rendererName:j.val()}),r.data("pivotUIOptions",p),k.autoSortUnusedAttrs&&(A=r.find("td.pvtUnused.pvtAxisContainer"),t(A).children("li").sort(function(e,n){return f(t(e).text(),t(n).text())}).appendTo(A)),D.css("opacity",1),null!=k.onRefresh?k.onRefresh(p):void 0}}(this),U=function(t){return function(){return D.css("opacity",.5),setTimeout(V,10)}}(this),U(),this.find(".pvtAxisContainer").sortable({update:function(t,e){return null==e.sender?U():void 0},connectWith:this.find(".pvtAxisContainer"),items:"li",placeholder:"pvtPlaceholder"})}catch(G){b=G,"undefined"!=typeof console&&null!==console&&console.error(b.stack),this.html(k.localeStrings.uiRenderError)}return this},t.fn.heatmap=function(e){var n,r,a,o,i,s,u,l,c,p;switch(null==e&&(e="heatmap"),l=this.data("numrows")</Result>
+</report_mosca>
+

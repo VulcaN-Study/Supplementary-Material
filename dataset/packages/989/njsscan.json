@@ -1,0 +1,88 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/model.js",
+          "match_lines": [
+            53,
+            55
+          ],
+          "match_position": [
+            5,
+            22
+          ],
+          "match_string": "    con.query(\"SELECT * FROM \" + temp.model + \";\",function (e,data){\n\n      //if(e) throw e;\n\n      callback(e,data);"
+        },
+        {
+          "file_path": "/src/lib/model.js",
+          "match_lines": [
+            180,
+            203
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  temp.m = model2.get(temp.model);\n\n  temp.values = function(list=[]){\n\n    temp.m.values(list);\n\n    //console.log(temp.m.show());\n\n    temp.m.all = function(callback){\n\n      var con = connection();\n\n      //console.log(temp.m.show())\n\n      con.query(temp.m.show(),function(e,data){\n\n        if(e) throw e;\n\n        callback(e,data);\n\n      });\n\n      con.end();\n\n    }\n\n\n\n    temp.m.filter = function(dict,callback){\n\n      var con = connection();\n\n      temp.m.filters(dict);\n\n      con.query(temp.m.show(),function(e,data){\n\n        if(e) throw e;\n\n        callback(e,data);\n\n      });\n\n      con.end();\n\n    }\n\n    return temp.m;"
+        },
+        {
+          "file_path": "/src/lib/model.js",
+          "match_lines": [
+            187,
+            189
+          ],
+          "match_position": [
+            7,
+            24
+          ],
+          "match_string": "      con.query(temp.m.show(),function(e,data){\n\n        if(e) throw e;\n\n        callback(e,data);"
+        },
+        {
+          "file_path": "/src/lib/model.js",
+          "match_lines": [
+            197,
+            199
+          ],
+          "match_position": [
+            7,
+            24
+          ],
+          "match_string": "      con.query(temp.m.show(),function(e,data){\n\n        if(e) throw e;\n\n        callback(e,data);"
+        },
+        {
+          "file_path": "/src/lib/model.js",
+          "match_lines": [
+            299,
+            316
+          ],
+          "match_position": [
+            5,
+            22
+          ],
+          "match_string": "    query = \"SELECT * FROM \" + temp.model + \" WHERE \";\n\n    if(typeof list == 'string'){\n\n      query += list;\n\n    }else{\n\n      let length = 0;\n\n      for(i in list){\n\n        if(length == Object.keys(list).length - 1)\n\n          query += i + \"='\" + list[i] + \"'\";\n\n        else\n\n          query += i + \"='\" + list[i] + \"' and \";\n\n        length++;\n\n      }\n\n    }\n\n    query += ';';\n\n    var con = connection();\n\n    con.query(query,function (e,data){\n\n      //if(e) throw e;\n\n      callback(e,data);"
+        },
+        {
+          "file_path": "/src/lib/model.js",
+          "match_lines": [
+            401,
+            419
+          ],
+          "match_position": [
+            3,
+            20
+          ],
+          "match_string": "  let value = dic.value;\n\n  if(! in_queue.has(key) ){\n\n    in_queue.add(key);\n\n    con_.query(value,(e, d)=>{\n\n      if(e && e.code == 'ER_TABLE_EXISTS_ERROR')console.log(e.message);\n\n\n\n      else if(e && e.code != 'ER_TABLE_EXISTS_ERROR') throw e;\n\n      else\n\n        console.log('Created Table ' + key + ' .....');\n\n\n\n      if(ql.length -1 > t){\n\n        setTimeout(()=>{exec(ql, t, con,in_queue);}, 100);\n\n      }\n\n    });\n\n  }else{\n\n    if(ql.length -1 > t){\n\n      exec(ql, t, con,in_queue);\n\n    }\n\n    return in_queue;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

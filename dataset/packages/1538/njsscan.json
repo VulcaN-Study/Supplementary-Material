@@ -1,0 +1,84 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/dist/server/build/babel/plugins/handle-import.js",
+          "match_lines": [
+            60,
+            60
+          ],
+          "match_position": [
+            32,
+            65
+          ],
+          "match_string": "          var modulePathHash = _crypto2.default.createHash('md5').update(modulePath).digest('hex');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/dist/server/hot-reloader.js",
+          "match_lines": [
+            540,
+            540
+          ],
+          "match_position": [
+            25,
+            78
+          ],
+          "match_string": "                        if (_this2.prevChunkHashes.get(_n) === hash) continue;"
+        },
+        {
+          "file_path": "/src/dist/server/index.js",
+          "match_lines": [
+            1339,
+            1340
+          ],
+          "match_position": [
+            7,
+            87
+          ],
+          "match_string": "      if (hash !== this.buildStats[filename].hash) {\n\n        throw new Error('Invalid Build File Hash(' + hash + ') for chunk: ' + filename);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/server/on-demand-entry-handler.js",
+          "match_lines": [
+            291,
+            291
+          ],
+          "match_position": [
+            16,
+            63
+          ],
+          "match_string": "          if (!/^\\/_next\\/on-demand-entries-ping/.test(req.url)) return next();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

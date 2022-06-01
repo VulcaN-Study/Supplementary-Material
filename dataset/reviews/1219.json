@@ -1,0 +1,62 @@
+{
+    "advisory": {
+        "id": 1219,
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/markdown-to-jsx/-/markdown-to-jsx-6.11.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "index.js",
+                    "start_lineno": 587,
+                    "end_lineno": 597,
+                    "code": "function sanitizeUrl(url) {\ntry {\nconst decoded = decodeURIComponent(url);\nif (decoded.match(/^\\s*javascript:/i)) {\nif (process.env.NODE_ENV !== 'production') {\nconsole.warn(\n'Anchor URL contains an unsafe JavaScript expression, it will not be rendered.',\ndecoded\n);\n}"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/citypredict.whauwiller/attack.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/probablyup/markdown-to-jsx/pull/307/commits/226f133adaf91c228b91975b6a3dd2ad1ad489a6 "
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

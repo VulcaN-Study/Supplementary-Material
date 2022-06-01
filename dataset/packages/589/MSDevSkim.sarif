@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS125134",
+          "level": "error",
+          "message": "Disabled certificate validation",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/angular-http-server.js",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 13,
+                  "endLine": 25,
+                  "endColumn": 31,
+                  "offset": 798,
+                  "length": 18
+                }
+              }
+            }
+          ],
+          "snippet": "rejectUnauthorized",
+          "properties": {
+            "tags": ["Cryptography.Certificate.Validation"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/angular-http-server.js",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 10,
+                  "endLine": 20,
+                  "endColumn": 13,
+                  "offset": 592,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssl",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        }
+      ],
+      "rules": {
+        "DS125134": {
+          "id": "DS125134",
+          "name": "Disabled certificate validation",
+          "fullDescription": "Extend default certificate validation, but do not disable or override default rules.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS114352.md"
+        },
+        "DS440000": {
+          "id": "DS440000",
+          "name": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "fullDescription": "SSL/TLS version usage should be based on an OS or external configuration.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS440000.md"
+        }
+      }
+    }
+  ]
+}

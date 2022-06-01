@@ -1,0 +1,82 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 45,
+          "line": 3
+        },
+        "extra": {
+          "line": "Copyright (c) 2011-2016 Jason Benson <repos@jasonbenson.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 44,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/middleware/respond.js",
+          "match_lines": [
+            6,
+            28
+          ],
+          "match_position": [
+            3,
+            55
+          ],
+          "match_string": "\t\tlet options = request.options;\n\n\n\n\t\tif (options.headers) {\n\n\t\t\tObject.keys(options.headers).forEach((key) => {\n\n\t\t\t\tresponse.setHeader(key, options.headers[key]);\n\n\t\t\t});\n\n\t\t}\n\n\n\n\t\tif (options.mimeType) {\n\n\t\t\tresponse.setHeader('content-type', options.mimeType);\n\n\t\t}\n\n\n\n\t\tif (request.method == 'HEAD') {\n\n\t\t\treturn response.end();\n\n\t\t}\n\n\n\n\t\t// pipe file or text\n\n\t\tif (options.html || options.text) {\n\n\t\t\tresponse.write(options.html || options.text);\n\n\t\t\tresponse.end();\n\n\t\t}\n\n\t\telse {\n\n\t\t\tfs.createReadStream(options.filePath).pipe(response);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/index.js",
+          "match_lines": [
+            51,
+            51
+          ],
+          "match_position": [
+            13,
+            24
+          ],
+          "match_string": "\t\tvar key = Math.random().toString(16).slice(2);"
+        },
+        {
+          "file_path": "/src/test/index.js",
+          "match_lines": [
+            10,
+            10
+          ],
+          "match_position": [
+            19,
+            30
+          ],
+          "match_string": "\tport: Math.floor(Math.random() * 1000) + 9000"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

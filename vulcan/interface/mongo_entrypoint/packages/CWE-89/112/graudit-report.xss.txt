@@ -1,0 +1,344 @@
+/src/lib/dialects/postgres/query-generator.js-15-  setSearchPath: function(searchPath) {
+/src/lib/dialects/postgres/query-generator.js:16:    var query = 'SET search_path to <%= searchPath%>;';
+/src/lib/dialects/postgres/query-generator.js-17-    return Utils._.template(query)({searchPath: searchPath});
+##############################################
+/src/lib/dialects/postgres/query-generator.js-20-  createSchema: function(schema) {
+/src/lib/dialects/postgres/query-generator.js:21:    var query = 'CREATE SCHEMA <%= schema%>;';
+/src/lib/dialects/postgres/query-generator.js-22-    return Utils._.template(query)({schema: schema});
+##############################################
+/src/lib/dialects/postgres/query-generator.js-25-  dropSchema: function(schema) {
+/src/lib/dialects/postgres/query-generator.js:26:    var query = 'DROP SCHEMA <%= schema%> CASCADE;';
+/src/lib/dialects/postgres/query-generator.js-27-    return Utils._.template(query)({schema: schema});
+##############################################
+/src/lib/dialects/postgres/query-generator.js-49-                ( (databaseVersion === 0 || semver.gte(databaseVersion, '9.1.0')) ? 'IF NOT EXISTS ' : '') +
+/src/lib/dialects/postgres/query-generator.js:50:                '<%= table %> (<%= attributes%>)<%= comments %>'
+/src/lib/dialects/postgres/query-generator.js-51-      , comments = ''
+##############################################
+/src/lib/dialects/postgres/query-generator.js-55-    if (options.comment && Utils._.isString(options.comment)) {
+/src/lib/dialects/postgres/query-generator.js:56:      comments += '; COMMENT ON TABLE <%= table %> IS ' + this.escape(options.comment);
+/src/lib/dialects/postgres/query-generator.js-57-    }
+##############################################
+/src/lib/dialects/postgres/query-generator.js-96-    options = options || {};
+/src/lib/dialects/postgres/query-generator.js:97:    var query = 'DROP TABLE IF EXISTS <%= table %><%= cascade %>;';
+/src/lib/dialects/postgres/query-generator.js-98-    return Utils._.template(query)({
+##############################################
+/src/lib/dialects/postgres/query-generator.js-119-      'LEFT JOIN information_schema.table_constraints tc ON c.table_name = tc.table_name AND cu.column_name = c.column_name AND tc.constraint_type = \'PRIMARY KEY\' ' +
+/src/lib/dialects/postgres/query-generator.js:120:      ' WHERE c.table_name = <%= table %> AND c.table_schema = <%= schema %> ';
+/src/lib/dialects/postgres/query-generator.js-121-
+##############################################
+/src/lib/dialects/postgres/query-generator.js-181-  addColumnQuery: function(table, key, dataType) {
+/src/lib/dialects/postgres/query-generator.js:182:    var query = 'ALTER TABLE <%= table %> ADD COLUMN <%= attribute %>;'
+/src/lib/dialects/postgres/query-generator.js-183-      , dbDataType = this.attributeToSQL(dataType, {context: 'addColumn'})
+##############################################
+/src/lib/dialects/postgres/query-generator.js-189-
+/src/lib/dialects/postgres/query-generator.js:190:    attribute = Utils._.template('<%= key %> <%= definition %>')({
+/src/lib/dialects/postgres/query-generator.js-191-      key: this.quoteIdentifier(key),
+##############################################
+/src/lib/dialects/postgres/query-generator.js-201-  removeColumnQuery: function(tableName, attributeName) {
+/src/lib/dialects/postgres/query-generator.js:202:    var query = 'ALTER TABLE <%= tableName %> DROP COLUMN <%= attributeName %>;';
+/src/lib/dialects/postgres/query-generator.js-203-    return Utils._.template(query)({
+##############################################
+/src/lib/dialects/postgres/query-generator.js-209-  changeColumnQuery: function(tableName, attributes) {
+/src/lib/dialects/postgres/query-generator.js:210:    var query = 'ALTER TABLE <%= tableName %> ALTER COLUMN <%= query %>;'
+/src/lib/dialects/postgres/query-generator.js-211-      , sql = [];
+##############################################
+/src/lib/dialects/postgres/query-generator.js-271-  renameColumnQuery: function(tableName, attrBefore, attributes) {
+/src/lib/dialects/postgres/query-generator.js:272:    var query = 'ALTER TABLE <%= tableName %> RENAME COLUMN <%= attributes %>;';
+/src/lib/dialects/postgres/query-generator.js-273-    var attrString = [];
+##############################################
+/src/lib/dialects/postgres/query-generator.js-275-    for (var attributeName in attributes) {
+/src/lib/dialects/postgres/query-generator.js:276:      attrString.push(Utils._.template('<%= before %> TO <%= after %>')({
+/src/lib/dialects/postgres/query-generator.js-277-        before: this.quoteIdentifier(attrBefore),
+##############################################
+/src/lib/dialects/postgres/query-generator.js-292-
+/src/lib/dialects/postgres/query-generator.js:293:    var query = 'CREATE OR REPLACE FUNCTION pg_temp.<%= fnName %>() RETURNS <%= returns %> AS $func$ BEGIN <%= body %> END; $func$ LANGUAGE <%= language %>; SELECT * FROM pg_temp.<%= fnName %>();';
+/src/lib/dialects/postgres/query-generator.js-294-
+##############################################
+/src/lib/dialects/postgres/query-generator.js-305-
+/src/lib/dialects/postgres/query-generator.js:306:    var body = '<%= main %> EXCEPTION WHEN <%= when %> THEN <%= then %>;';
+/src/lib/dialects/postgres/query-generator.js-307-    body = Utils._.template(body)({
+##############################################
+/src/lib/dialects/postgres/query-generator.js-361-    if (options.limit) {
+/src/lib/dialects/postgres/query-generator.js:362:      query = 'DELETE FROM <%= table %> WHERE <%= primaryKeys %> IN (SELECT <%= primaryKeysSelection %> FROM <%= table %><%= where %><%= limit %>)';
+/src/lib/dialects/postgres/query-generator.js-363-    } else {
+/src/lib/dialects/postgres/query-generator.js:364:      query = 'DELETE FROM <%= table %><%= where %>';
+/src/lib/dialects/postgres/query-generator.js-365-    }
+##############################################
+/src/lib/dialects/postgres/query-generator.js-394-      schemaJoin = ', pg_namespace s';
+/src/lib/dialects/postgres/query-generator.js:395:      schemaWhere = Utils._.template(" AND s.oid = t.relnamespace AND s.nspname = '<%= schemaName %>'")({schemaName: tableName.schema});
+/src/lib/dialects/postgres/query-generator.js-396-      tableName = tableName.tableName;
+##############################################
+/src/lib/dialects/postgres/query-generator.js-401-      'array_agg(a.attnum) as column_indexes, array_agg(a.attname) AS column_names, pg_get_indexdef(ix.indexrelid) ' +
+/src/lib/dialects/postgres/query-generator.js:402:      'AS definition FROM pg_class t, pg_class i, pg_index ix, pg_attribute a<%= schemaJoin%> ' +
+/src/lib/dialects/postgres/query-generator.js-403-      'WHERE t.oid = ix.indrelid AND i.oid = ix.indexrelid AND a.attrelid = t.oid AND ' +
+/src/lib/dialects/postgres/query-generator.js:404:      "t.relkind = 'r' and t.relname = '<%= tableName %>'<%= schemaWhere%> " +
+/src/lib/dialects/postgres/query-generator.js-405-      'GROUP BY i.relname, ix.indexrelid, ix.indisprimary, ix.indisunique, ix.indkey ORDER BY i.relname;';
+##############################################
+/src/lib/dialects/postgres/query-generator.js-410-  removeIndexQuery: function(tableName, indexNameOrAttributes) {
+/src/lib/dialects/postgres/query-generator.js:411:    var sql = 'DROP INDEX IF EXISTS <%= indexName %>'
+/src/lib/dialects/postgres/query-generator.js-412-      , indexName = indexNameOrAttributes;
+##############################################
+/src/lib/dialects/postgres/query-generator.js-438-
+/src/lib/dialects/postgres/query-generator.js:439:    var template = '<%= type %>'
+/src/lib/dialects/postgres/query-generator.js-440-      , replacements = {};
+##############################################
+/src/lib/dialects/postgres/query-generator.js-466-    if (Utils.defaultValueSchemable(attribute.defaultValue)) {
+/src/lib/dialects/postgres/query-generator.js:467:      template += ' DEFAULT <%= defaultValue %>';
+/src/lib/dialects/postgres/query-generator.js-468-      replacements.defaultValue = this.escape(attribute.defaultValue, attribute);
+##############################################
+/src/lib/dialects/postgres/query-generator.js-480-      attribute = Utils.formatReferences(attribute);
+/src/lib/dialects/postgres/query-generator.js:481:      template += ' REFERENCES <%= referencesTable %> (<%= referencesKey %>)';
+/src/lib/dialects/postgres/query-generator.js-482-      replacements.referencesTable = this.quoteTable(attribute.references.model);
+##############################################
+/src/lib/dialects/postgres/query-generator.js-490-      if (attribute.onDelete) {
+/src/lib/dialects/postgres/query-generator.js:491:        template += ' ON DELETE <%= onDeleteAction %>';
+/src/lib/dialects/postgres/query-generator.js-492-        replacements.onDeleteAction = attribute.onDelete.toUpperCase();
+##############################################
+/src/lib/dialects/postgres/query-generator.js-495-      if (attribute.onUpdate) {
+/src/lib/dialects/postgres/query-generator.js:496:        template += ' ON UPDATE <%= onUpdateAction %>';
+/src/lib/dialects/postgres/query-generator.js-497-        replacements.onUpdateAction = attribute.onUpdate.toUpperCase();
+##############################################
+/src/lib/dialects/postgres/query-generator.js-500-      if (attribute.references.deferrable) {
+/src/lib/dialects/postgres/query-generator.js:501:        template += ' <%= deferrable %>';
+/src/lib/dialects/postgres/query-generator.js-502-        replacements.deferrable = attribute.references.deferrable.toString(this);
+##############################################
+/src/lib/dialects/postgres/query-generator.js-561-    var sql = [
+/src/lib/dialects/postgres/query-generator.js:562:        'CREATE <%= constraintVal %>TRIGGER <%= triggerName %>'
+/src/lib/dialects/postgres/query-generator.js:563:        , '<%= eventType %> <%= eventSpec %>'
+/src/lib/dialects/postgres/query-generator.js:564:        , 'ON <%= tableName %>'
+/src/lib/dialects/postgres/query-generator.js:565:        , '<%= optionsSpec %>'
+/src/lib/dialects/postgres/query-generator.js:566:        , 'EXECUTE PROCEDURE <%= functionName %>(<%= paramList %>);'
+/src/lib/dialects/postgres/query-generator.js-567-      ].join('\n\t');
+##############################################
+/src/lib/dialects/postgres/query-generator.js-581-  dropTrigger: function(tableName, triggerName) {
+/src/lib/dialects/postgres/query-generator.js:582:    var sql = 'DROP TRIGGER <%= triggerName %> ON <%= tableName %> RESTRICT;';
+/src/lib/dialects/postgres/query-generator.js-583-    return Utils._.template(sql)({
+##############################################
+/src/lib/dialects/postgres/query-generator.js-589-  renameTrigger: function(tableName, oldTriggerName, newTriggerName) {
+/src/lib/dialects/postgres/query-generator.js:590:    var sql = 'ALTER TRIGGER <%= oldTriggerName %> ON <%= tableName %> RENAME TO <%= newTriggerName%>;';
+/src/lib/dialects/postgres/query-generator.js-591-    return Utils._.template(sql)({
+##############################################
+/src/lib/dialects/postgres/query-generator.js-598-  createFunction: function(functionName, params, returnType, language, body, options) {
+/src/lib/dialects/postgres/query-generator.js:599:    var sql = ['CREATE FUNCTION <%= functionName %>(<%= paramList %>)'
+/src/lib/dialects/postgres/query-generator.js:600:        , 'RETURNS <%= returnType %> AS $func$'
+/src/lib/dialects/postgres/query-generator.js-601-        , 'BEGIN'
+/src/lib/dialects/postgres/query-generator.js:602:        , '\t<%= body %>'
+/src/lib/dialects/postgres/query-generator.js-603-        , 'END;'
+/src/lib/dialects/postgres/query-generator.js:604:        , "$func$ language '<%= language %>'<%= options %>;"
+/src/lib/dialects/postgres/query-generator.js-605-    ].join('\n');
+##############################################
+/src/lib/dialects/postgres/query-generator.js-618-    // RESTRICT is (currently, as of 9.2) default but we'll be explicit
+/src/lib/dialects/postgres/query-generator.js:619:    var sql = 'DROP FUNCTION <%= functionName %>(<%= paramList %>) RESTRICT;';
+/src/lib/dialects/postgres/query-generator.js-620-    return Utils._.template(sql)({
+##############################################
+/src/lib/dialects/postgres/query-generator.js-626-  renameFunction: function(oldFunctionName, params, newFunctionName) {
+/src/lib/dialects/postgres/query-generator.js:627:    var sql = 'ALTER FUNCTION <%= oldFunctionName %>(<%= paramList %>) RENAME TO <%= newFunctionName %>;';
+/src/lib/dialects/postgres/query-generator.js-628-    return Utils._.template(sql)({
+##############################################
+/src/lib/dialects/postgres/query-generator.js-635-  databaseConnectionUri: function(config) {
+/src/lib/dialects/postgres/query-generator.js:636:    var template = '<%= protocol %>://<%= user %>:<%= password %>@<%= host %><% if(port) { %>:<%= port %><% } %>/<%= database %><% if(ssl) { %>?ssl=<%= ssl %><% } %>';
+/src/lib/dialects/postgres/query-generator.js-637-
+##############################################
+/src/lib/dialects/mssql/query-generator.js-44-  createTableQuery: function(tableName, attributes, options) {
+/src/lib/dialects/mssql/query-generator.js:45:    var query = "IF OBJECT_ID('<%= table %>', 'U') IS NULL CREATE TABLE <%= table %> (<%= attributes %>)"
+/src/lib/dialects/mssql/query-generator.js-46-      , primaryKeys = []
+##############################################
+/src/lib/dialects/mssql/query-generator.js-132-  renameTableQuery: function(before, after) {
+/src/lib/dialects/mssql/query-generator.js:133:    var query = 'EXEC sp_rename <%= before %>, <%= after %>;';
+/src/lib/dialects/mssql/query-generator.js-134-    return Utils._.template(query)({
+##############################################
+/src/lib/dialects/mssql/query-generator.js-144-  dropTableQuery: function(tableName) {
+/src/lib/dialects/mssql/query-generator.js:145:    var query = "IF OBJECT_ID('<%= table %>', 'U') IS NOT NULL DROP TABLE <%= table %>";
+/src/lib/dialects/mssql/query-generator.js-146-    var values = {
+##############################################
+/src/lib/dialects/mssql/query-generator.js-157-
+/src/lib/dialects/mssql/query-generator.js:158:    var query = 'ALTER TABLE <%= table %> ADD <%= attribute %>;'
+/src/lib/dialects/mssql/query-generator.js:159:      , attribute = Utils._.template('<%= key %> <%= definition %>')({
+/src/lib/dialects/mssql/query-generator.js-160-        key: this.quoteIdentifier(key),
+##############################################
+/src/lib/dialects/mssql/query-generator.js-172-  removeColumnQuery: function(tableName, attributeName) {
+/src/lib/dialects/mssql/query-generator.js:173:    var query = 'ALTER TABLE <%= tableName %> DROP COLUMN <%= attributeName %>;';
+/src/lib/dialects/mssql/query-generator.js-174-    return Utils._.template(query)({
+##############################################
+/src/lib/dialects/mssql/query-generator.js-180-  changeColumnQuery: function(tableName, attributes) {
+/src/lib/dialects/mssql/query-generator.js:181:    var query = 'ALTER TABLE <%= tableName %> ALTER COLUMN <%= attributes %>;';
+/src/lib/dialects/mssql/query-generator.js-182-    var attrString = [];
+##############################################
+/src/lib/dialects/mssql/query-generator.js-186-
+/src/lib/dialects/mssql/query-generator.js:187:      attrString.push(Utils._.template('<%= attrName %> <%= definition %>')({
+/src/lib/dialects/mssql/query-generator.js-188-        attrName: this.quoteIdentifier(attrName),
+##############################################
+/src/lib/dialects/mssql/query-generator.js-199-  renameColumnQuery: function(tableName, attrBefore, attributes) {
+/src/lib/dialects/mssql/query-generator.js:200:    var query = "EXEC sp_rename '<%= tableName %>.<%= before %>', '<%= after %>', 'COLUMN';"
+/src/lib/dialects/mssql/query-generator.js-201-      , newName = Object.keys(attributes)[0];
+##############################################
+/src/lib/dialects/mssql/query-generator.js-210-  bulkInsertQuery: function(tableName, attrValueHashes, options, attributes) {
+/src/lib/dialects/mssql/query-generator.js:211:    var query = 'INSERT INTO <%= table %> (<%= attributes %>)<%= output %> VALUES <%= tuples %>;'
+/src/lib/dialects/mssql/query-generator.js:212:      , emptyQuery = 'INSERT INTO <%= table %><%= output %> DEFAULT VALUES'
+/src/lib/dialects/mssql/query-generator.js-213-      , tuples = []
+##############################################
+/src/lib/dialects/mssql/query-generator.js-289-    var limit = ''
+/src/lib/dialects/mssql/query-generator.js:290:      , query = 'DELETE<%= limit %> FROM <%= table %><%= where %>; ' +
+/src/lib/dialects/mssql/query-generator.js-291-                'SELECT @@ROWCOUNT AS AFFECTEDROWS;';
+##############################################
+/src/lib/dialects/mssql/query-generator.js-314-  showIndexesQuery: function(tableName) {
+/src/lib/dialects/mssql/query-generator.js:315:    var sql = "EXEC sys.sp_helpindex @objname = N'<%= tableName %>';";
+/src/lib/dialects/mssql/query-generator.js-316-    return Utils._.template(sql)({
+##############################################
+/src/lib/dialects/mssql/query-generator.js-321-  removeIndexQuery: function(tableName, indexNameOrAttributes) {
+/src/lib/dialects/mssql/query-generator.js:322:    var sql = 'DROP INDEX <%= indexName %> ON <%= tableName %>'
+/src/lib/dialects/mssql/query-generator.js-323-      , indexName = indexNameOrAttributes;
+##############################################
+/src/lib/dialects/mssql/query-generator.js-512-  dropForeignKeyQuery: function(tableName, foreignKey) {
+/src/lib/dialects/mssql/query-generator.js:513:    return Utils._.template('ALTER TABLE <%= table %> DROP <%= key %>')({
+/src/lib/dialects/mssql/query-generator.js-514-      table: this.quoteTable(tableName),
+##############################################
+/src/lib/dialects/mysql/query-generator.js-28-
+/src/lib/dialects/mysql/query-generator.js:29:    var query = 'CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>) ENGINE=<%= engine %><%= comment %><%= charset %><%= collation %><%= initialAutoIncrement %>'
+/src/lib/dialects/mysql/query-generator.js-30-      , primaryKeys = []
+##############################################
+/src/lib/dialects/mysql/query-generator.js-100-  addColumnQuery: function(table, key, dataType) {
+/src/lib/dialects/mysql/query-generator.js:101:    var query = 'ALTER TABLE <%= table %> ADD <%= attribute %>;'
+/src/lib/dialects/mysql/query-generator.js:102:      , attribute = Utils._.template('<%= key %> <%= definition %>')({
+/src/lib/dialects/mysql/query-generator.js-103-        key: this.quoteIdentifier(key),
+##############################################
+/src/lib/dialects/mysql/query-generator.js-115-  removeColumnQuery: function(tableName, attributeName) {
+/src/lib/dialects/mysql/query-generator.js:116:    var query = 'ALTER TABLE <%= tableName %> DROP <%= attributeName %>;';
+/src/lib/dialects/mysql/query-generator.js-117-    return Utils._.template(query)({
+##############################################
+/src/lib/dialects/mysql/query-generator.js-123-  changeColumnQuery: function(tableName, attributes) {
+/src/lib/dialects/mysql/query-generator.js:124:    var query = 'ALTER TABLE <%= tableName %> CHANGE <%= attributes %>;';
+/src/lib/dialects/mysql/query-generator.js-125-    var attrString = [];
+##############################################
+/src/lib/dialects/mysql/query-generator.js-129-
+/src/lib/dialects/mysql/query-generator.js:130:      attrString.push(Utils._.template('`<%= attrName %>` `<%= attrName %>` <%= definition %>')({
+/src/lib/dialects/mysql/query-generator.js-131-        attrName: attrName,
+##############################################
+/src/lib/dialects/mysql/query-generator.js-139-  renameColumnQuery: function(tableName, attrBefore, attributes) {
+/src/lib/dialects/mysql/query-generator.js:140:    var query = 'ALTER TABLE <%= tableName %> CHANGE <%= attributes %>;';
+/src/lib/dialects/mysql/query-generator.js-141-    var attrString = [];
+##############################################
+/src/lib/dialects/mysql/query-generator.js-145-
+/src/lib/dialects/mysql/query-generator.js:146:      attrString.push(Utils._.template('`<%= before %>` `<%= after %>` <%= definition %>')({
+/src/lib/dialects/mysql/query-generator.js-147-        before: attrBefore,
+##############################################
+/src/lib/dialects/mysql/query-generator.js-194-  showIndexesQuery: function(tableName, options) {
+/src/lib/dialects/mysql/query-generator.js:195:    var sql = 'SHOW INDEX FROM <%= tableName %><%= options %>';
+/src/lib/dialects/mysql/query-generator.js-196-    return Utils._.template(sql)({
+##############################################
+/src/lib/dialects/mysql/query-generator.js-202-  removeIndexQuery: function(tableName, indexNameOrAttributes) {
+/src/lib/dialects/mysql/query-generator.js:203:    var sql = 'DROP INDEX <%= indexName %> ON <%= tableName %>'
+/src/lib/dialects/mysql/query-generator.js-204-      , indexName = indexNameOrAttributes;
+##############################################
+/src/lib/dialects/abstract/query-generator.js-93-
+/src/lib/dialects/abstract/query-generator.js:94:    var query = 'DROP TABLE IF EXISTS <%= table %>;';
+/src/lib/dialects/abstract/query-generator.js-95-
+##############################################
+/src/lib/dialects/abstract/query-generator.js-107-  renameTableQuery: function(before, after) {
+/src/lib/dialects/abstract/query-generator.js:108:    var query = 'ALTER TABLE <%= before %> RENAME TO <%= after %>;';
+/src/lib/dialects/abstract/query-generator.js-109-    return Utils._.template(query)({
+##############################################
+/src/lib/dialects/abstract/query-generator.js-186-    var query
+/src/lib/dialects/abstract/query-generator.js:187:      , valueQuery = '<%= tmpTable %>INSERT<%= ignore %> INTO <%= table %> (<%= attributes %>)<%= output %> VALUES (<%= values %>)'
+/src/lib/dialects/abstract/query-generator.js:188:      , emptyQuery = '<%= tmpTable %>INSERT<%= ignore %> INTO <%= table %><%= output %>'
+/src/lib/dialects/abstract/query-generator.js-189-      , outputFragment
+##############################################
+/src/lib/dialects/abstract/query-generator.js-226-        if (modelAttributes && options.hasTrigger && this._dialect.supports.tmpTableTrigger) {
+/src/lib/dialects/abstract/query-generator.js:227:            tmpTable = 'declare @tmp table (<%= columns %>); ';
+/src/lib/dialects/abstract/query-generator.js-228-
+##############################################
+/src/lib/dialects/abstract/query-generator.js-263-        options.exception = 'WHEN unique_violation THEN GET STACKED DIAGNOSTICS sequelize_caught_exception = PG_EXCEPTION_DETAIL;';
+/src/lib/dialects/abstract/query-generator.js:264:        valueQuery = 'CREATE OR REPLACE FUNCTION pg_temp.testfunc(OUT response <%= table %>, OUT sequelize_caught_exception text) RETURNS RECORD AS ' + delimiter +
+/src/lib/dialects/abstract/query-generator.js-265-          ' BEGIN ' + valueQuery + ' INTO response; EXCEPTION ' + options.exception + ' END ' + delimiter +
+##############################################
+/src/lib/dialects/abstract/query-generator.js-268-        options.exception = 'WHEN unique_violation THEN NULL;';
+/src/lib/dialects/abstract/query-generator.js:269:        valueQuery = 'CREATE OR REPLACE FUNCTION pg_temp.testfunc() RETURNS SETOF <%= table %> AS $body$ BEGIN RETURN QUERY ' + valueQuery + '; EXCEPTION ' + options.exception + ' END; $body$ LANGUAGE plpgsql; SELECT * FROM pg_temp.testfunc(); DROP FUNCTION IF EXISTS pg_temp.testfunc();';
+/src/lib/dialects/abstract/query-generator.js-270-      }
+##############################################
+/src/lib/dialects/abstract/query-generator.js-331-
+/src/lib/dialects/abstract/query-generator.js:332:    var query = 'INSERT<%= ignoreDuplicates %> INTO <%= table %> (<%= attributes %>) VALUES <%= tuples %><%= onDuplicateKeyUpdate %><%= returning %>;'
+/src/lib/dialects/abstract/query-generator.js-333-      , tuples = []
+##############################################
+/src/lib/dialects/abstract/query-generator.js-409-
+/src/lib/dialects/abstract/query-generator.js:410:    query = '<%= tmpTable %>UPDATE <%= table %> SET <%= values %><%= output %> <%= where %>';
+/src/lib/dialects/abstract/query-generator.js-411-
+##############################################
+/src/lib/dialects/abstract/query-generator.js-422-        if (attributes && options.hasTrigger && this._dialect.supports.tmpTableTrigger) {
+/src/lib/dialects/abstract/query-generator.js:423:            tmpTable = 'declare @tmp table (<%= columns %>); ';
+/src/lib/dialects/abstract/query-generator.js-424-
+##############################################
+/src/lib/dialects/abstract/query-generator.js-537-
+/src/lib/dialects/abstract/query-generator.js:538:    query = 'UPDATE <%= table %> SET <%= values %><%= output %> <%= where %>';
+/src/lib/dialects/abstract/query-generator.js-539-    if (this._dialect.supports.returnValues) {
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-32-
+/src/lib/dialects/sqlite/query-generator.js:33:    var query = 'CREATE TABLE IF NOT EXISTS <%= table %> (<%= attributes%>)'
+/src/lib/dialects/sqlite/query-generator.js-34-      , primaryKeys = []
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-106-  addColumnQuery: function(table, key, dataType) {
+/src/lib/dialects/sqlite/query-generator.js:107:    var query = 'ALTER TABLE <%= table %> ADD <%= attribute %>;'
+/src/lib/dialects/sqlite/query-generator.js-108-      , attributes = {};
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-113-    });
+/src/lib/dialects/sqlite/query-generator.js:114:    var attribute = Utils._.template('<%= key %> <%= definition %>')({
+/src/lib/dialects/sqlite/query-generator.js-115-        key: this.quoteIdentifier(key),
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-144-
+/src/lib/dialects/sqlite/query-generator.js:145:    var query  = 'UPDATE <%= table %> SET <%= values %> <%= where %>'
+/src/lib/dialects/sqlite/query-generator.js-146-      , modelAttributeMap = {}
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-174-
+/src/lib/dialects/sqlite/query-generator.js:175:    var query = 'DELETE FROM <%= table %><%= where %>';
+/src/lib/dialects/sqlite/query-generator.js-176-    var replacements = {
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-195-      if (Utils._.isObject(dataType)) {
+/src/lib/dialects/sqlite/query-generator.js:196:        var template     = '<%= type %>'
+/src/lib/dialects/sqlite/query-generator.js-197-          , replacements = { type: dataType.type.toString() };
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-206-          // i.e. mysql requires: DEFAULT CURRENT_TIMESTAMP
+/src/lib/dialects/sqlite/query-generator.js:207:          template += ' DEFAULT <%= defaultValue %>';
+/src/lib/dialects/sqlite/query-generator.js-208-          replacements.defaultValue = this.escape(dataType.defaultValue, dataType);
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-224-          dataType = Utils.formatReferences(dataType);
+/src/lib/dialects/sqlite/query-generator.js:225:          template += ' REFERENCES <%= referencesTable %> (<%= referencesKey %>)';
+/src/lib/dialects/sqlite/query-generator.js-226-          replacements.referencesTable = this.quoteTable(dataType.references.model);
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-234-          if(dataType.onDelete) {
+/src/lib/dialects/sqlite/query-generator.js:235:            template += ' ON DELETE <%= onDeleteAction %>';
+/src/lib/dialects/sqlite/query-generator.js-236-            replacements.onDeleteAction = dataType.onDelete.toUpperCase();
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-239-          if(dataType.onUpdate) {
+/src/lib/dialects/sqlite/query-generator.js:240:            template += ' ON UPDATE <%= onUpdateAction %>';
+/src/lib/dialects/sqlite/query-generator.js-241-            replacements.onUpdateAction = dataType.onUpdate.toUpperCase();
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-270-  showIndexesQuery: function(tableName) {
+/src/lib/dialects/sqlite/query-generator.js:271:    var sql = 'PRAGMA INDEX_LIST(<%= tableName %>)';
+/src/lib/dialects/sqlite/query-generator.js-272-    return Utils._.template(sql)({ tableName: this.quoteTable(tableName) });
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-275-  removeIndexQuery: function(tableName, indexNameOrAttributes) {
+/src/lib/dialects/sqlite/query-generator.js:276:    var sql = 'DROP INDEX IF EXISTS <%= indexName %>'
+/src/lib/dialects/sqlite/query-generator.js-277-      , indexName = indexNameOrAttributes;
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-291-
+/src/lib/dialects/sqlite/query-generator.js:292:    var sql = 'PRAGMA TABLE_INFO(<%= tableName %>);';
+/src/lib/dialects/sqlite/query-generator.js-293-    return Utils._.template(sql)({tableName: this.quoteTable(this.addSchema(table))});
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-312-      this.createTableQuery(backupTableName, attributes).replace('CREATE TABLE', 'CREATE TEMPORARY TABLE'),
+/src/lib/dialects/sqlite/query-generator.js:313:      'INSERT INTO <%= backupTableName %> SELECT <%= attributeNames %> FROM <%= tableName %>;',
+/src/lib/dialects/sqlite/query-generator.js:314:      'DROP TABLE <%= tableName %>;',
+/src/lib/dialects/sqlite/query-generator.js-315-      this.createTableQuery(tableName, attributes),
+/src/lib/dialects/sqlite/query-generator.js:316:      'INSERT INTO <%= tableName %> SELECT <%= attributeNames %> FROM <%= backupTableName %>;',
+/src/lib/dialects/sqlite/query-generator.js:317:      'DROP TABLE <%= backupTableName %>;'
+/src/lib/dialects/sqlite/query-generator.js-318-    ].join('');
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-343-      this.createTableQuery(backupTableName, attributes).replace('CREATE TABLE', 'CREATE TEMPORARY TABLE'),
+/src/lib/dialects/sqlite/query-generator.js:344:      'INSERT INTO <%= backupTableName %> SELECT <%= attributeNamesImport %> FROM <%= tableName %>;',
+/src/lib/dialects/sqlite/query-generator.js:345:      'DROP TABLE <%= tableName %>;',
+/src/lib/dialects/sqlite/query-generator.js-346-      this.createTableQuery(tableName, attributes),
+/src/lib/dialects/sqlite/query-generator.js:347:      'INSERT INTO <%= tableName %> SELECT <%= attributeNamesExport %> FROM <%= backupTableName %>;',
+/src/lib/dialects/sqlite/query-generator.js:348:      'DROP TABLE <%= backupTableName %>;'
+/src/lib/dialects/sqlite/query-generator.js-349-    ].join('');
+##############################################
+/src/lib/dialects/sqlite/query-generator.js-406-  getForeignKeysQuery: function(tableName, schemaName) {
+/src/lib/dialects/sqlite/query-generator.js:407:    var sql = 'PRAGMA foreign_key_list(<%= tableName %>)';
+/src/lib/dialects/sqlite/query-generator.js-408-    return Utils._.template(sql)({ tableName: tableName });

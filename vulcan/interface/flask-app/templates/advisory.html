@@ -1,0 +1,176 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>VulcaN - Vulnerability Database</title>
+    <meta name="description" content="VulcaN - Vulnerability Database">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+        body {
+            font-family: 'Open Sans', serif;
+            font-size: 14pt;
+            background-color: #f7f7f7;
+        }
+
+        div.container {
+            max-width: 1600pt;
+            border: 20pt;
+            padding: 10pt;
+            background-color: #f7f7f7;
+        }
+
+        .center {
+            margin: auto;
+            width: 50%;
+            border-width: 1px;
+            border-top-width: 0px;
+            padding: 10pt;
+            background-color: white;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .1);
+            border-bottom-left-radius: .25rem;
+            border-bottom-right-radius: .25rem;
+        }
+
+        .banner {
+            margin: auto;
+            width: 50%;
+            padding: 10pt;
+            color: #b25454;
+        }
+
+        .header {
+            margin: auto;
+            width: 50%;
+            border-width: 1px;
+            padding: 10pt;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .1);
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            background-color: #e5e5e5;
+        }
+
+        .right {
+            position: absolute;
+            right: 20pt;
+            width: 300px;
+            margin-top: 20pt;
+            border-width: 1px;
+            padding: 10pt;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .1);
+            background-color: white;
+            border-radius: .25rem;
+        }
+
+        .version_time {
+            color: gray;
+        }
+
+        h1,
+        h2,
+        h3 {
+            text-align: center;
+        }
+
+        h4,
+        h5 {
+            font-weight: bold;
+            color: #4c4c4c;
+        }
+
+        a {
+            color: #cb3837;
+        }
+
+        img {
+            width: 14pt;
+            height: 14pt;
+            vertical-align: middle;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="banner">
+            <h1>VulcaN - Vulnerability Database</h1>
+        </div>
+        <div class="header">
+            <h1><a href="https://npmjs.com/advisories/{{ advisory_id }}">Advisory {{ advisory_id }}</a></h1>
+            <h2>{{ advisory['advisoryData']['title'] }} - {{ advisory['advisoryData']['severity'] }} severity</h2>
+            <h3>{{ advisory['advisoryData']['cwe'] }} {{ cwe_name }} </h3>
+            <h3>Package name: <a
+                    href="https://www.npmjs.com/package/{{ advisory['advisoryData']['module_name'] }}">{{ advisory['advisoryData']['module_name'] }}</a>
+            </h3>
+        </div>
+        <div class="right">
+            <h4>
+                <a style="color: #4c4c4c;" href="{{ advisory['vulnerable_package']['tarball_url'] }}">
+                Download vulnerable package
+                {% if 'vulnerable_package' in advisory %}
+                    <img src="/img/archive.png" alt="{{ advisory['vulnerable_package']['version']['version'] }}">
+                </a>
+                {% else %}
+                 - none available
+                {% endif %}
+            </h4>
+            <h4>Tool reports </h4>
+            <ul>
+            {% if analysis|count != 0 %}
+                {% for entry in analysis %}
+                    <li> <a href="/tool_report?id={{advisory_id}}&tool={{entry['tool']}}">{{entry['tool']}}</a> </li>
+                {% endfor %}
+                </ul>
+            {%else%}
+                <p> No tool reports available for this advisory</p>
+            {%endif%}
+        </div>
+        <div class="center">
+            <h4>Overview </h4>
+            <p> {{ advisory['advisoryData']['overview'] |markdown}} </p>
+
+            <h4>References </h4>
+            {% if 'references' in advisory['advisoryData'] %}
+            <p> {{ advisory['advisoryData']['references'] |markdown}} </p>
+            {% else %}
+            <p>No references available for this report</p>
+            {% endif %}
+
+            <h4>CVEs: </h4>
+            {% if advisory['advisoryData']['cves']|count != 0%}
+            <ul>
+                {% for cve in advisory['advisoryData']['cves'] %}
+                <li><a href=" https://cve.mitre.org/cgi-bin/cvename.cgi?name={{ cve }}">{{cve}}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No CVE for this report</p>
+            {% endif %}
+            <h4>Vulnerable Versions </h4>
+            <p> {{ advisory['advisoryData']['vulnerable_versions'] }} </p>
+            <h4>Patched versions </h4>
+            <p> {{ advisory['advisoryData']['patched_versions'] }} </p>
+
+            <h4>Affected versions </h4>
+            <ul>
+                {% for version in advisory['versions']['affected'] %}
+                <li>{{version['version']}} <span class="version_time">({{version['time']}})</span></li>
+                {% endfor %}
+            </ul>
+            <h4>Unaffected Versions </h4>
+            <ul>
+                {% for version in advisory['versions']['unaffected'] %}
+                <li>{{version['version']}} <span class="version_time">({{version['time']}})</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,558 @@
+/src/examples/params.js-27-    
+/src/examples/params.js:28:    db.query("select ? as a, ? as b, ? as c, ? as d, ? as e", [null, 4711, true, -3.14, 'string'], function (error, result, info) {
+/src/examples/params.js-29-        console.log("some random parameters");
+##############################################
+/src/examples/params.js-38-    
+/src/examples/params.js:39:    db.query("select ?", ['áäàéêèóöòüßÄÖÜ€'], function (error, result) {
+/src/examples/params.js-40-        console.log("some non-ASCII characters");
+##############################################
+/src/README.md-180-  
+/src/README.md:181:  conn.query('select 1 from sysibm.sysdummy1', function (err, data) {
+/src/README.md-182-    if (err) console.log(err);
+##############################################
+/src/lib/odbc.js-307-
+/src/lib/odbc.js:308:  self.odbc.createConnection(function (err, conn) {
+/src/lib/odbc.js-309-    if(!cb)
+##############################################
+/src/lib/odbc.js-606-        query.params = params;
+/src/lib/odbc.js:607:        self.conn.query(query, cbQuery);
+/src/lib/odbc.js-608-      }
+/src/lib/odbc.js-609-      else
+/src/lib/odbc.js:610:        self.conn.query(query, params, cbQuery);
+/src/lib/odbc.js-611-    }
+##############################################
+/src/lib/odbc.js-613-    {
+/src/lib/odbc.js:614:      self.conn.query(query, cbQuery);
+/src/lib/odbc.js-615-    }
+##############################################
+/src/lib/odbc.js-648-  self.queue.push(function (next) {
+/src/lib/odbc.js:649:    //ODBCConnection.query() is the fastest-path querying mechanism.
+/src/lib/odbc.js-650-    if (!self.connected)
+##############################################
+/src/lib/odbc.js-668-        query.params = params;
+/src/lib/odbc.js:669:        self.conn.query(query, cbQuery);
+/src/lib/odbc.js-670-      }
+/src/lib/odbc.js-671-      else
+/src/lib/odbc.js:672:        self.conn.query(sql, params, cbQuery);
+/src/lib/odbc.js-673-    }
+##############################################
+/src/lib/odbc.js-675-    {
+/src/lib/odbc.js:676:      self.conn.query(sql, cbQuery);
+/src/lib/odbc.js-677-    }
+##############################################
+/src/test/test-binding-connection-timeOut.js-7-
+/src/test/test-binding-connection-timeOut.js:8:db.createConnection(function (err, conn) {
+/src/test/test-binding-connection-timeOut.js-9-  //connectionTimeout should be 30 by default as set in C++
+##############################################
+/src/test/test-max-pool-size.js-67-        var startTime = new Date();
+/src/test/test-max-pool-size.js:68:        connection.query("select c1, c2 from mtab1", function(err, data) {
+/src/test/test-max-pool-size.js-69-            if(err) console.log(err);
+##############################################
+/src/test/test-open-close.js-7-
+/src/test/test-open-close.js:8:db.query("select * from " + common.tableName, function (err, rs, sqlca) {
+/src/test/test-open-close.js-9-  assert.deepEqual(err.message, 'Connection not open.');
+##############################################
+/src/test/test-open-close.js-21-    
+/src/test/test-open-close.js:22:    db.query("select * from " + common.tableName, function (err, rs, sqlca) {
+/src/test/test-open-close.js-23-      assert.deepEqual(err.message, 'Connection not open.');
+##############################################
+/src/test/nodeEE-stress-async-waterfall.js-52-  {
+/src/test/nodeEE-stress-async-waterfall.js:53:    db.query("create table " + tableOne + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-async-waterfall.js-54-      if (err == null)
+##############################################
+/src/test/nodeEE-stress-async-waterfall.js-64-      
+/src/test/nodeEE-stress-async-waterfall.js:65:    db.query("create table " + tableTwo + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-async-waterfall.js-66-      if (err == null)
+##############################################
+/src/test/nodeEE-stress-async-waterfall.js-76-      
+/src/test/nodeEE-stress-async-waterfall.js:77:    db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall.js:78:    db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+/src/test/nodeEE-stress-async-waterfall.js:79:    db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall.js:80:    db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall.js:81:    db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall.js-82-    
+/src/test/nodeEE-stress-async-waterfall.js:83:    db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+/src/test/nodeEE-stress-async-waterfall.js:84:    db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+/src/test/nodeEE-stress-async-waterfall.js-85-    
+/src/test/nodeEE-stress-async-waterfall.js:86:    db.query("SELECT * from " + tableOne, scback.bind({expected: expected1}));
+/src/test/nodeEE-stress-async-waterfall.js:87:    db.query("SELECT * from " + tableTwo, scback.bind({expected: expected2}));
+/src/test/nodeEE-stress-async-waterfall.js-88-    
+/src/test/nodeEE-stress-async-waterfall.js:89:    db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+/src/test/nodeEE-stress-async-waterfall.js:90:    db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({expected: expected3}));
+/src/test/nodeEE-stress-async-waterfall.js-91-    
+/src/test/nodeEE-stress-async-waterfall.js:92:    db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+/src/test/nodeEE-stress-async-waterfall.js:93:    db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall.js:94:    db.query("DROP table " + tableTwo, drcback); 
+/src/test/nodeEE-stress-async-waterfall.js:95:    db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall.js:96:    db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+/src/test/nodeEE-stress-async-waterfall.js:97:    db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall.js:98:    db.query("DROP table " + tableOne, drcback);
+/src/test/nodeEE-stress-async-waterfall.js:99:    db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall.js-100-    closeConnection();
+##############################################
+/src/test/test-ibm-db-issue18.js-28-		*/
+/src/test/test-ibm-db-issue18.js:29:		conn.query("SELECT TIMESTAMP_FORMAT('1999-12-31 23:59:59.123', 'YYYY-MM-DD HH24:MI:SS.FF') AS TD FROM SYSIBM.SYSDUMMY1;", function(err, nodetest, moreResultSets) {
+/src/test/test-ibm-db-issue18.js-30-		
+##############################################
+/src/test/bench-insertBatch1000.js-25-function createTable() {
+/src/test/bench-insertBatch1000.js:26:	db.query("create table bench_insert (str varchar(50))", function (err) {
+/src/test/bench-insertBatch1000.js-27-		if (err) {
+##############################################
+/src/test/bench-insertBatch1000.js-51-	for (var x = 0; x < iterations; x++) {
+/src/test/bench-insertBatch1000.js:52:		db.query(insertString, cb);
+/src/test/bench-insertBatch1000.js-53-		
+##############################################
+/src/test/test-chinese-char.js-19-  stmt.closeSync();
+/src/test/test-chinese-char.js:20:  conn.query(sql, function(err, data) { // Insert Row3
+/src/test/test-chinese-char.js-21-    if(err){ console.log(err); return; }
+##############################################
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js-35-	{
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:36:		db.query("create table "+ tableName + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js-37-			if (err == null)
+##############################################
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js-47-				
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:48:		db.query("INSERT into " + tableName + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:49:		db.query("INSERT into " + tableName + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:50:		db.query("INSERT into " + tableName + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:51:		db.query("INSERT into " + tableName + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:52:		db.query("INSERT into " + tableName + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js-53-		
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:54:		db.query("SELECT * from " + tableName, scback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js-55-		
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:56:		db.query("UPDATE " + tableName + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:57:		db.query("SELECT * from " + tableName + " where C3 = 'QA Intern'", scback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:58:		db.query("SELECT count(*) from " + tableName + " where PID = 7", scback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:59:		db.query("DELETE from " + tableName + " where PID = 5", dcback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:60:		db.query("INSERT into " + tableName + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:61:		db.query("SELECT * from " + tableName + " where PID = 5", scback);
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js:62:		db.query("DROP table " + tableName, drcback.bind({tableName: tableName}));
+/src/test/nodeEE-leak-multiple-query-multiple-connections.js-63-	}
+##############################################
+/src/test/test-multi-open-query-close.js-41-    
+/src/test/test-multi-open-query-close.js:42:    db.query(query, function (err, rows, moreResultSets) {
+/src/test/test-multi-open-query-close.js-43-             
+##############################################
+/src/test/nodeEE-leak-multiple-query-pool-connections.js-48-	{
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:49:		connection.query("create table "+ tableName + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-leak-multiple-query-pool-connections.js-50-			if (err == null)
+##############################################
+/src/test/nodeEE-leak-multiple-query-pool-connections.js-59-		});
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:60:		connection.query("INSERT into " + tableName + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:61:		connection.query("INSERT into " + tableName + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:62:		connection.query("INSERT into " + tableName + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:63:		connection.query("INSERT into " + tableName + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:64:		connection.query("INSERT into " + tableName + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js-65-				
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:66:		connection.query("SELECT * from " + tableName, scback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js-67-				
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:68:		connection.query("UPDATE " + tableName + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:69:		connection.query("SELECT * from " + tableName + " where C3 = 'QA Intern'", scback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:70:		connection.query("SELECT count(*) from " + tableName + " where PID = 7", scback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:71:		connection.query("DELETE from " + tableName + " where PID = 5", dcback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:72:		connection.query("INSERT into " + tableName + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:73:		connection.query("SELECT * from " + tableName + " where PID = 5", scback);
+/src/test/nodeEE-leak-multiple-query-pool-connections.js:74:		connection.query("DROP table " + tableName, drcback.bind({tableName: tableName}));
+/src/test/nodeEE-leak-multiple-query-pool-connections.js-75-	}
+##############################################
+/src/test/bench-prepare-not.js-23-  for (var x = 0; x < iterations; x++) {
+/src/test/bench-prepare-not.js:24:    db.query("select 1 + ? as test from sysibm.sysdummy1", [1], cb);
+/src/test/bench-prepare-not.js-25-  }
+##############################################
+/src/test/promise-test-open-close.js-5-
+/src/test/promise-test-open-close.js:6:db.query("select * from " + common.tableName).then(null, function (err) {
+/src/test/promise-test-open-close.js-7-  assert.deepEqual(err, { message: 'Connection not open.' });
+##############################################
+/src/test/promise-test-open-close.js-13-  assert.equal(db.connected, true);
+/src/test/promise-test-open-close.js:14:  db.query("select * from " + common.tableName).then(null, function (err) {
+/src/test/promise-test-open-close.js-15-	var errorFound = false;
+##############################################
+/src/test/promise-test-open-close.js-24-
+/src/test/promise-test-open-close.js:25:      db.query("select * from " + common.tableName).then(null, function (err) {
+/src/test/promise-test-open-close.js-26-	    if(err) console.log(err);
+##############################################
+/src/test/test-promisified-connection-pool.js-13-//       //         console.log("connection opened.");
+/src/test/test-promisified-connection-pool.js:14://       //         conn.query('select 1 from sysibm.sysdummy1', function (err, data) {
+/src/test/test-promisified-connection-pool.js-15-//       //             if (err) console.log(err);
+##############################################
+/src/test/test-closed.js-8-
+/src/test/test-closed.js:9:db.query("select * from test", function (err, rs, sqlca) {
+/src/test/test-closed.js-10-  assert.deepEqual(err.message, 'Connection not open.');
+##############################################
+/src/test/test-query-select.js-8-
+/src/test/test-query-select.js:9:db.query("select 1 as \"COLINT\", 'some test' as \"COLTEXT\" FROM SYSIBM.SYSDUMMY1", function (err, data) {
+/src/test/test-query-select.js-10-  db.closeSync();
+##############################################
+/src/test/test-ibm-db-issue14.js-35-		*/
+/src/test/test-ibm-db-issue14.js:36:		conn.query("SELECT * FROM " + testTable, function(err, nodetest, moreResultSets) {
+/src/test/test-ibm-db-issue14.js-37-			console.log("COLINT\tTESTVALUE");
+##############################################
+/src/test/test-query-select-fetchMode-array.js-10-
+/src/test/test-query-select-fetchMode-array.js:11:db.query("select 1 as COLINT, 'some test' as COLTEXT FROM SYSIBM.SYSDUMMY1", function (err, data) {
+/src/test/test-query-select-fetchMode-array.js-12-  assert.equal(err, null);
+##############################################
+/src/test/bench-query.js-20-	for (var x = 0; x < iterations; x++) {
+/src/test/bench-query.js:21:		db.query("select 1 + 1 as test from sysibm.sysdummy1", cb);
+/src/test/bench-query.js-22-	}
+##############################################
+/src/test/test-issue-get-column-value-2.js-22-    db.describe({database: 'SAMPLE', schema: 'AVINASH', table: common.tableName }, function (err, rows) {
+/src/test/test-issue-get-column-value-2.js:23://    db.query("select * from " + common.tableName, function (err, rows) {
+/src/test/test-issue-get-column-value-2.js-24-      if (err) {
+##############################################
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-54-	{
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:55:		db.query("create table " + tableOne + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-56-			if (err == null)
+##############################################
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-66-			
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:67:		db.query("create table " + tableTwo + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-68-			if (err == null)
+##############################################
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-78-				
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:79:		db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:80:		db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:81:		db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:82:		db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:83:		db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-84-		
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:85:		db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:86:		db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-87-		
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:88:		db.query("SELECT * from " + tableOne, scback.bind({expected: expected1}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:89:		db.query("SELECT * from " + tableTwo , scback.bind({expected: expected2}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-90-		
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:91:		db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:92:		db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({expected: expected3}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-93-		
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:94:		db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:95:		db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:96:		db.query("DROP table " + tableTwo, drcback.bind({tableName: tableTwo})); 
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:97:		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:98:		db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:99:		db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:100:		db.query("DROP table " + tableOne , drcback.bind({tableName: tableTwo}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js:101:		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({expected: []}));
+/src/test/nodeEE-stress-async-waterfall-multiple-connections.js-102-		
+##############################################
+/src/test/promise-test-all-data-types.js-14-      conn.querySync("insert into mytab1 values (1, 2, 456736789, 1234, 67.98, 5689, 56.2390, 34567890, 45.234, 'bimal', 'kumar', '\x50', 'jha123456', '2015-09-10', '10:16:33', '2015-09-10 10:16:33.770139', BLOB(x'616263'))");
+/src/test/promise-test-all-data-types.js:15:      conn.query("select * from mytab1").then(function(data) {
+/src/test/promise-test-all-data-types.js-16-        console.log(data);
+##############################################
+/src/test/test-basic-test.js-16-  conn.querySync("insert into mytab1 values ( 4, 'für')");
+/src/test/test-basic-test.js:17:  conn.query('select 1, 4, 5 from sysibm.sysdummy1;', function (err, data) {
+/src/test/test-basic-test.js-18-    if (err) {
+##############################################
+/src/test/test-basic-test.js-21-      console.log(data);
+/src/test/test-basic-test.js:22:      conn.query('select * from mytab1 where c1 = 2;', function (err, data) {
+/src/test/test-basic-test.js-23-        if (err) {
+##############################################
+/src/test/test-basic-test.js-26-          console.log(data);
+/src/test/test-basic-test.js:27:          conn.query('select 3,7,8 from sysibm.sysdummy1', [23], function (err, data) {
+/src/test/test-basic-test.js-28-            if (err) {
+##############################################
+/src/test/bench-insertBatch10000.js-25-function createTable() {
+/src/test/bench-insertBatch10000.js:26:	db.query("create table bench_insert (str varchar(50))", function (err) {
+/src/test/bench-insertBatch10000.js-27-		if (err) {
+##############################################
+/src/test/bench-insertBatch10000.js-51-	for (var x = 0; x < iterations; x++) {
+/src/test/bench-insertBatch10000.js:52:		db.query(insertString, cb);
+/src/test/bench-insertBatch10000.js-53-		
+##############################################
+/src/test/test-open-connectTimeout.js-24-    
+/src/test/test-open-connectTimeout.js:25:    db.query("select * from " + common.tableName, function (err, rs, sqlca) {
+/src/test/test-open-connectTimeout.js-26-      assert.deepEqual(err.message, 'Connection not open.');
+##############################################
+/src/test/nodeEE-stress-mixed-query.js-28-	{
+/src/test/nodeEE-stress-mixed-query.js:29:		db.query("create table " + tableOne + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-mixed-query.js-30-			if (err == null)
+##############################################
+/src/test/nodeEE-stress-mixed-query.js-40-			
+/src/test/nodeEE-stress-mixed-query.js:41:		db.query("create table " + tableTwo + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-mixed-query.js-42-			if (err == null)
+##############################################
+/src/test/nodeEE-stress-mixed-query.js-52-			
+/src/test/nodeEE-stress-mixed-query.js:53:		db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query.js:54:		db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+/src/test/nodeEE-stress-mixed-query.js:55:		db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query.js:56:		db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query.js:57:		db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query.js-58-		
+/src/test/nodeEE-stress-mixed-query.js:59:		db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+/src/test/nodeEE-stress-mixed-query.js:60:		db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+/src/test/nodeEE-stress-mixed-query.js-61-		
+/src/test/nodeEE-stress-mixed-query.js:62:		db.query("SELECT * from " + tableOne, scback.bind({done: false, expected: expected1}));
+/src/test/nodeEE-stress-mixed-query.js:63:		db.query("SELECT * from " + tableTwo, scback.bind({done: false, expected: expected2}));
+/src/test/nodeEE-stress-mixed-query.js-64-		
+/src/test/nodeEE-stress-mixed-query.js:65:		db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+/src/test/nodeEE-stress-mixed-query.js:66:		db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({done: false, expected: expected3}));
+/src/test/nodeEE-stress-mixed-query.js-67-		
+/src/test/nodeEE-stress-mixed-query.js:68:		db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+/src/test/nodeEE-stress-mixed-query.js:69:		db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({done: false, expected: []}));
+/src/test/nodeEE-stress-mixed-query.js:70:		db.query("DROP table " + tableTwo, drcback); 
+/src/test/nodeEE-stress-mixed-query.js:71:		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({done: false, expected: []}));
+/src/test/nodeEE-stress-mixed-query.js:72:		db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+/src/test/nodeEE-stress-mixed-query.js:73:		db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({done: false, expected: []}));
+/src/test/nodeEE-stress-mixed-query.js:74:		db.query("DROP table " + tableOne, drcback);
+/src/test/nodeEE-stress-mixed-query.js:75:		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({done: true, expected: []}));
+/src/test/nodeEE-stress-mixed-query.js-76-	}
+##############################################
+/src/test/test-issue253.js-17-  
+/src/test/test-issue253.js:18:  conn.query(selectSQL, function (err, data) {
+/src/test/test-issue253.js-19-      conn.querySync(dropSQL);
+##############################################
+/src/test/test-openSync.js-7-
+/src/test/test-openSync.js:8:db.query("select * from " + common.tableName, function (err, rs, sqlca) {
+/src/test/test-openSync.js-9-  assert.deepEqual(err.message, 'Connection not open.');
+##############################################
+/src/test/test-binding-statement-executeSync.js-7-
+/src/test/test-binding-statement-executeSync.js:8:db.createConnection(function (err, conn) {
+/src/test/test-binding-statement-executeSync.js-9-  conn.openSync(common.connectionString);
+##############################################
+/src/test/bench-insertBatch100.js-25-function createTable() {
+/src/test/bench-insertBatch100.js:26:	db.query("create table bench_insert (str varchar(50))", function (err) {
+/src/test/bench-insertBatch100.js-27-		if (err) {
+##############################################
+/src/test/bench-insertBatch100.js-51-	for (var x = 0; x < iterations; x++) {
+/src/test/bench-insertBatch100.js:52:		db.query(insertString, cb);
+/src/test/bench-insertBatch100.js-53-		
+##############################################
+/src/test/webapp.js-65-  else
+/src/test/webapp.js:66:  conn.query("SELECT id, filename, image FROM imgtab WHERE id=?", [imgid], function(err, rows) {
+/src/test/webapp.js-67-    if(err){
+##############################################
+/src/test/test-sp-resultset.js-61-    // Call SP Asynchronously.
+/src/test/test-sp-resultset.js:62:    conn.query(query, ['1', param2], function (err, result) {
+/src/test/test-sp-resultset.js-63-        if (err) console.log(err);
+##############################################
+/src/test/test-sp-resultset.js-83-        // Call SP Asynchronously.
+/src/test/test-sp-resultset.js:84:        conn.query(query, ['1', param2], function (err, result) {
+/src/test/test-sp-resultset.js-85-            if (err) console.log(err);
+##############################################
+/src/test/test-sp-resultset.js-105-            // Call SP Asynchronously.
+/src/test/test-sp-resultset.js:106:            conn.query(query, ['1', 'abc'], function (err, result) {
+/src/test/test-sp-resultset.js-107-                if (err) console.log(err);
+##############################################
+/src/test/nodeEE-leak-huge-query.js-48-  {
+/src/test/nodeEE-leak-huge-query.js:49:    db.query("create table " + tableOne + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-leak-huge-query.js-50-      if (err == null)
+##############################################
+/src/test/nodeEE-leak-huge-query.js-60-
+/src/test/nodeEE-leak-huge-query.js:61:    db.query("create table " + tableTwo + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-leak-huge-query.js-62-      if (err == null)
+##############################################
+/src/test/nodeEE-leak-huge-query.js-76-    query = "values ('" + insertCount + "', '" + maxVarChar + "', '" + maxVarChar + "', '" + maxVarChar + "')";
+/src/test/nodeEE-leak-huge-query.js:77:    db.query("insert into " + tableOne + " " + query, icback);
+/src/test/nodeEE-leak-huge-query.js:78:    db.query("insert into " + tableTwo + " " + query, icback);
+/src/test/nodeEE-leak-huge-query.js-79-  }
+##############################################
+/src/test/nodeEE-leak-huge-query.js-82-  {
+/src/test/nodeEE-leak-huge-query.js:83:    db.query("select * from " + tableOne, scback);
+/src/test/nodeEE-leak-huge-query.js:84:    db.query("select * from " + tableTwo, scback);
+/src/test/nodeEE-leak-huge-query.js:85:    db.query("select * from " + tableOne + " INNER JOIN " + tableTwo + " ON " + tableOne + ".PID = " + tableTwo + ".PID", scback);
+/src/test/nodeEE-leak-huge-query.js:86:    db.query("drop table " + tableOne, drcback.bind({tableName: tableOne}));
+/src/test/nodeEE-leak-huge-query.js:87:    db.query("drop table " + tableTwo, drcback.bind({tableName: tableTwo}));
+/src/test/nodeEE-leak-huge-query.js-88-  }
+##############################################
+/src/test/test-blocking-issue210.js-52-        startTime1 = new Date();
+/src/test/test-blocking-issue210.js:53:        connection.query("select * from mtab1", function(err, data) {
+/src/test/test-blocking-issue210.js-54-            if(err) console.log(err);
+##############################################
+/src/test/test-blocking-issue210.js-69-        startTime2 = new Date();
+/src/test/test-blocking-issue210.js:70:        connection.query("select c1, c2 from mtab1", function(err, data) {
+/src/test/test-blocking-issue210.js-71-            if(err) console.log(err);
+##############################################
+/src/test/test-blocking-issue210.js-101-    startTime1 = new Date();
+/src/test/test-blocking-issue210.js:102:    conn.query(query1, params, function(err, rows) {
+/src/test/test-blocking-issue210.js-103-        if(err) console.log(err);
+##############################################
+/src/test/test-blocking-issue210.js-107-        startTime2 = new Date();
+/src/test/test-blocking-issue210.js:108:        conn.query(query2, function(err, rows) {
+/src/test/test-blocking-issue210.js-109-            if(err) console.log(err);
+##############################################
+/src/test/test-ibm-db-issue17.js-36-		*/
+/src/test/test-ibm-db-issue17.js:37:		conn.query("insert into " + testTable + " values (" + testValues[0] + ")", function(err, nodetest, moreResultSets) {
+/src/test/test-ibm-db-issue17.js-38-		
+##############################################
+/src/test/test-pool-idle-connection.js-16-  console.log("Got new connection at => " + getDateTime());
+/src/test/test-pool-idle-connection.js:17:  conn.query('select 1 from sysibm.sysdummy1', function (err, data) {
+/src/test/test-pool-idle-connection.js-18-    if (err) console.log(err);
+##############################################
+/src/test/test-pool-idle-connection.js-33-        console.log("Got connection from pool at ==> " + endtime);
+/src/test/test-pool-idle-connection.js:34:        conn.query('select 1 from sysibm.sysdummy1', function (err, data) {
+/src/test/test-pool-idle-connection.js-35-          if (err) console.log(err);
+##############################################
+/src/test/test-date.js-16-  
+/src/test/test-date.js:17:  db.query(sql, function (err, data) {
+/src/test/test-date.js-18-    assert.equal(err, null);
+##############################################
+/src/test/test-issue211.js-43-
+/src/test/test-issue211.js:44:              conn1.query(stmt1, function(err, data) {
+/src/test/test-issue211.js-45-                console.log('Query 1 executed');
+##############################################
+/src/test/test-issue211.js-55-
+/src/test/test-issue211.js:56:              conn2.query(stmt2, function(err, data) {
+/src/test/test-issue211.js-57-                console.log('Query 2 executed');
+##############################################
+/src/test/test-all-data-types.js-61-    }
+/src/test/test-all-data-types.js:62:    conn.query("select * from mytab1", function (err, data) {
+/src/test/test-all-data-types.js-63-      if(err) console.log(err);
+##############################################
+/src/test/bench-insert.js-14-function createTable() {
+/src/test/bench-insert.js:15:	db.query("create table bench_insert (str varchar(50))", function (err) {
+/src/test/bench-insert.js-16-		if (err) {
+##############################################
+/src/test/bench-insert.js-39-	for (var x = 0; x < iterations; x++) {
+/src/test/bench-insert.js:40:		db.query("insert into bench_insert (str) values ('testing')", cb);
+/src/test/bench-insert.js-41-		
+##############################################
+/src/test/common.js-85-exports.dropTables = function (db, cb) {
+/src/test/common.js:86:  db.query("drop table " + exports.tableName, cb);
+/src/test/common.js-87-};
+##############################################
+/src/test/common.js-89-exports.createTables = function (db, cb) {
+/src/test/common.js:90:  db.query("create table " + exports.tableName + " (COLINT INTEGER, COLDATETIME TIMESTAMP, COLTEXT VARCHAR(255))", cb);
+/src/test/common.js-91-};
+##############################################
+/src/test/test-query-insert.js-12-      
+/src/test/test-query-insert.js:13:      db.query("insert into " + common.tableName + " (COLTEXT) values ('sandwich')", insertCallback);
+/src/test/test-query-insert.js:14:      db.query("insert into " + common.tableName + " (COLTEXT) values ('fish')", insertCallback);
+/src/test/test-query-insert.js:15:      db.query("insert into " + common.tableName + " (COLTEXT) values ('scarf')", insertCallback);
+/src/test/test-query-insert.js-16-      
+##############################################
+/src/test/test-binding-transaction-commit.js-7-
+/src/test/test-binding-transaction-commit.js:8:db.createConnection(function (err, conn) {
+/src/test/test-binding-transaction-commit.js-9-  
+##############################################
+/src/test/test-issue-54.js-24-  if (!err) {
+/src/test/test-issue-54.js:25:    db.query(sql, function (err, results, more) {
+/src/test/test-issue-54.js-26-      console.log("q1 result: ", err, results, more);
+##############################################
+/src/test/test-issue-54.js-30-
+/src/test/test-issue-54.js:31:        db.query("select 1 as x", function(err, results, more) {
+/src/test/test-issue-54.js-32-          console.log("q2 result: ", err, results, more);
+##############################################
+/src/test/disabled/test-binding-statement-rebinding.js-13-  
+/src/test/disabled/test-binding-statement-rebinding.js:14:db.createConnection(function (err, conn) {
+/src/test/disabled/test-binding-statement-rebinding.js-15-	
+##############################################
+/src/test/disabled/test-param-select-with-unicode.js-7-db.open(common.connectionString, function(err) {
+/src/test/disabled/test-param-select-with-unicode.js:8:  db.query("select ? as UNICODETEXT", ['ף צ ץ ק ר ש תכ ך ל מ ם נ ן ס ע פ 電电電買买買開开開東东東車车車'], function (err, data) {
+/src/test/disabled/test-param-select-with-unicode.js-9-    db.close(function () {
+##############################################
+/src/test/disabled/test-query-select-unicode.js-8-
+/src/test/disabled/test-query-select-unicode.js:9:db.query("select '☯ąčęėįšųūž☎áäàéêèóöòüßÄÖÜ€ шчябы Ⅲ ❤' as UNICODETEXT FROM SYSIBM.SYSDUMMY1", function (err, data) {
+/src/test/disabled/test-query-select-unicode.js-10-  db.closeSync();
+##############################################
+/src/test/disabled/test-issue-13.js-21-
+/src/test/disabled/test-issue-13.js:22:		db.query(query, function(err, rows, moreResultSets)
+/src/test/disabled/test-issue-13.js-23-		{
+##############################################
+/src/test/nodeEE-leak-multiple-query.js-28-	{
+/src/test/nodeEE-leak-multiple-query.js:29:		db.query("create table T1Leak (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-leak-multiple-query.js-30-			if (err == null)
+##############################################
+/src/test/nodeEE-leak-multiple-query.js-40-			
+/src/test/nodeEE-leak-multiple-query.js:41:		db.query("INSERT into T1Leak values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query.js:42:		db.query("INSERT into T1Leak values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+/src/test/nodeEE-leak-multiple-query.js:43:		db.query("INSERT into T1Leak values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query.js:44:		db.query("INSERT into T1Leak values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query.js:45:		db.query("INSERT into T1Leak values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+/src/test/nodeEE-leak-multiple-query.js-46-		
+/src/test/nodeEE-leak-multiple-query.js:47:		db.query("SELECT * from T1Leak", scback);
+/src/test/nodeEE-leak-multiple-query.js-48-		
+/src/test/nodeEE-leak-multiple-query.js:49:		db.query("UPDATE T1Leak SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+/src/test/nodeEE-leak-multiple-query.js:50:		db.query("SELECT * from T1Leak where C3 = 'QA Intern'", scback);
+/src/test/nodeEE-leak-multiple-query.js:51:		db.query("SELECT count(*) from T1Leak where PID = 7", scback);
+/src/test/nodeEE-leak-multiple-query.js:52:		db.query("DELETE from T1Leak where PID = 5", dcback);
+/src/test/nodeEE-leak-multiple-query.js:53:		db.query("INSERT into T1Leak values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+/src/test/nodeEE-leak-multiple-query.js:54:		db.query("SELECT * from T1Leak where PID = 5", scback);
+/src/test/nodeEE-leak-multiple-query.js:55:		db.query("DROP table T1Leak", drcback);
+/src/test/nodeEE-leak-multiple-query.js-56-	}
+##############################################
+/src/test/bench-insertBatch10.js-25-function createTable() {
+/src/test/bench-insertBatch10.js:26:	db.query("create table bench_insert (str varchar(50))", function (err) {
+/src/test/bench-insertBatch10.js-27-		if (err) {
+##############################################
+/src/test/bench-insertBatch10.js-50-	for (var x = 0; x < iterations; x++) {
+/src/test/bench-insertBatch10.js:51:		db.query(insertString, cb);
+/src/test/bench-insertBatch10.js-52-		
+##############################################
+/src/test/test-call-async.js-1-// Test case to verify result of OUT and INOUT Parameters in a Strored Procedure.
+/src/test/test-call-async.js:2:// When SP is called using conn.query() assynchronously.
+/src/test/test-call-async.js-3-
+##############################################
+/src/test/test-call-async.js-45-
+/src/test/test-call-async.js:46:    conn.query(query, [param1, param2, param3], function(err, result){
+/src/test/test-call-async.js-47-        if(err) console.log(err);
+##############################################
+/src/test/test-call-async.js-71-    query = "call " + schema + ".PROC2(?)";
+/src/test/test-call-async.js:72:    conn.query({"sql":query, "params" : [param1]}, function(err, result){
+/src/test/test-call-async.js-73-        if(err) console.log(err);
+##############################################
+/src/test/test-binding-transaction-commitSync.js-7-
+/src/test/test-binding-transaction-commitSync.js:8:db.createConnection(function (err, conn) {
+/src/test/test-binding-transaction-commitSync.js-9-  conn.openSync(common.connectionString);
+##############################################
+/src/test/sql-cli.js-15-	process.stdin.on('data',function (strInput) {
+/src/test/sql-cli.js:16:		db.query(strInput.toString(), function (err, rs, moreResultSets) {
+/src/test/sql-cli.js-17-			if (err) {
+##############################################
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-36-	{
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:37:		db.query("create table " + tableOne + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-38-			if (err == null)
+##############################################
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-48-			
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:49:		db.query("create table " + tableTwo + " (PID INTEGER, C1 VARCHAR(255), C2 VARCHAR(255), C3 VARCHAR(255))", function(err, data){
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-50-			if (err == null)
+##############################################
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-60-				
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:61:		db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:62:		db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:63:		db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:64:		db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:65:		db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-66-		
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:67:		db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:68:		db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-69-		
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:70:		db.query("SELECT * from " + tableOne, scback.bind({done: false, expected: expected1}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:71:		db.query("SELECT * from " + tableTwo , scback.bind({done: false, expected: expected2}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-72-		
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:73:		db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:74:		db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({done: false, expected: expected3}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-75-		
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:76:		db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:77:		db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({done: false, expected: []}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:78:		db.query("DROP table " + tableTwo, drcback.bind({tableName: tableTwo})); 
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:79:		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({done: false, expected: []}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:80:		db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:81:		db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({done: false, expected: []}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:82:		db.query("DROP table " + tableOne , drcback.bind({tableName: tableTwo}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js:83:		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({done: true, expected: []}));
+/src/test/nodeEE-stress-mixed-query-multiple-connections.js-84-	}
+##############################################
+/src/APIDocumentation.md-11-2.  [.openSync(connectionString)](#openSyncApi)
+/src/APIDocumentation.md:12:3.  [.query(sqlQuery [, bindingParameters], callback)](#queryApi)
+/src/APIDocumentation.md-13-4.  [.querySync(sqlQuery [, bindingParameters])](#querySyncApi) 
+##############################################
+/src/APIDocumentation.md-74-    }
+/src/APIDocumentation.md:75:    connection.query("select 1 from sysibm.sysdummy1", function (err1, rows) {
+/src/APIDocumentation.md-76-      if (err1) console.log(err1);
+##############################################
+/src/APIDocumentation.md-114-      var conn = ibmdb.openSync(connString, option);
+/src/APIDocumentation.md:115:      conn.query("select * from customers fetch first 10 rows only", function (err, rows) {
+/src/APIDocumentation.md-116-		if (err) {
+##############################################
+/src/APIDocumentation.md-127-
+/src/APIDocumentation.md:128:### <a name="queryApi"></a> 3) .query(sqlQuery [, bindingParameters], callback)
+/src/APIDocumentation.md-129-
+##############################################
+/src/APIDocumentation.md-850-    }
+/src/APIDocumentation.md:851:    connection.query("select 1 from sysibm.sysdummy1", function (err1, rows) {
+/src/APIDocumentation.md-852-        if (err1) console.log(err1);
+##############################################
+/src/APIDocumentation.md-986-	//db is now an open database connection and can be used like normal
+/src/APIDocumentation.md:987:	//if we run some queries with db.query(...) and then call db.close();
+/src/APIDocumentation.md-988-	//a connection to `cn` will be re-opened silently behind the scene
+##############################################
+/src/APIDocumentation.md-1101-
+/src/APIDocumentation.md:1102:* [test-call-async.js](https://github.com/ibmdb/node-ibm_db/blob/master/test/test-call-async.js) - Example using conn.query().
+/src/APIDocumentation.md-1103-

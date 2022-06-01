@@ -1,0 +1,22 @@
+/src/index.js-20-    .option('-p, --port <80>', 'server listen port', parseInt)
+/src/index.js:21:    .parse(process.argv);
+/src/index.js-22-
+##############################################
+/src/index.js-28-
+/src/index.js:29:server.createServer(function(request, response) {
+/src/index.js:30:    var req_url = url.parse(request.url);
+/src/index.js-31-    var host = (request.headers.host || '').replace(/:\d+/g, '');
+/src/index.js-32-    var pathname = req_url.pathname;
+/src/index.js:33:    var param = querystring.parse(req_url.query);
+/src/index.js-34-
+##############################################
+/src/index.js-49-    if (pathname_match('/upload') && request.method.toLowerCase() == 'post') {
+/src/index.js:50:        var form = new formidable.IncomingForm();
+/src/index.js-51-        form.encoding = 'binary';
+/src/index.js-52-        form.maxFieldsSize = 1024 * 1024 * 1024; // 1024 MB
+/src/index.js:53:        form.parse(request, function(err, fields) {
+/src/index.js-54-            if (err) return response_end('parse error', 403);
+##############################################
+/src/index.js-82-
+/src/index.js:83:            fs.readFile(real_path, function(err, file) {
+/src/index.js-84-                return err ? response_end('404') : response_end(file);

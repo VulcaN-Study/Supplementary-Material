@@ -1,0 +1,47 @@
+/src/bin/mcstatic-14-	.option('-p, --port [value]', 'Port to use. Default is '+options.port+'.')
+/src/bin/mcstatic:15:	.parse(process.argv);
+/src/bin/mcstatic-16-
+##############################################
+/src/bin/mcstatic-22-
+/src/bin/mcstatic:23:mcstatic.createServer(options).listen(port, function () {
+/src/bin/mcstatic-24-		console.log('mcstatic serving ' + options.root + ' on port ' + port);
+##############################################
+/src/lib/httpHelpers.js-9-        decodeURI(requestUrl);
+/src/lib/httpHelpers.js:10:        var parsed = url.parse(requestUrl);
+/src/lib/httpHelpers.js-11-        var pathname = decodeURI(parsed.pathname);
+##############################################
+/src/lib/mcstatic.js-37-        self.options(options);
+/src/lib/mcstatic.js:38:        var server = http.createServer(mcstaticApiHandler(self._options,
+/src/lib/mcstatic.js-39-                                    staticFileHandler(self._options)));
+##############################################
+/src/lib/responseHandlers.js-11-    var chunksize = (end-start)+1;
+/src/lib/responseHandlers.js:12:    var fstream = fs.createReadStream(file, {start: start, end: end});
+/src/lib/responseHandlers.js-13-    res.writeHead(206, { 'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': contentType || 'application/octet-stream' });
+##############################################
+/src/lib/responseHandlers.js-22-var streamResponse = function(res, file, stat, next){
+/src/lib/responseHandlers.js:23:    var stream = fs.createReadStream(file);
+/src/lib/responseHandlers.js-24-    res.setHeader('content-length', stat.size);
+##############################################
+/src/lib/mcstaticApiHandler.js-35-            req.on('end',function(){
+/src/lib/mcstaticApiHandler.js:36:                var mockRequest = JSON.parse(requestData);
+/src/lib/mcstaticApiHandler.js-37-                for(var mock in mockRequest){
+##############################################
+/src/test/mcstatic.js-18-    beforeEach(function(done){
+/src/test/mcstatic.js:19:        server = mcstatic.createServer(options)
+/src/test/mcstatic.js-20-                    .listen(port, function () {
+##############################################
+/src/test/mcstatic.js-44-                response = res;
+/src/test/mcstatic.js:45:                body = JSON.parse(responseBody);
+/src/test/mcstatic.js-46-                done();
+##############################################
+/src/test/mcstatic.js-75-            request.getRequest(requestOptions,function(err,res,responseBody){
+/src/test/mcstatic.js:76:                var body = JSON.parse(responseBody);
+/src/test/mcstatic.js-77-                assert(body.item1 === 1)
+##############################################
+/src/test/mcstatic.js-98-            request.getRequest(requestOptions,function(err,res,responseBody){
+/src/test/mcstatic.js:99:                var body = JSON.parse(responseBody);
+/src/test/mcstatic.js-100-                assert(body.item1 === testData.item1)
+##############################################
+/src/test/core.js-18-
+/src/test/core.js:19:  var server = http.createServer(mcstatic({root: root}));
+/src/test/core.js-20-

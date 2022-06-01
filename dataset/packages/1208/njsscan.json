@@ -1,0 +1,67 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2010-14 Alexis Sellier",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 4
+        },
+        "extra": {
+          "line": "  , static  = require('../../lib/node-static');",
+          "message": "Syntax error"
+        },
+        "path": "/src/test/integration/node-static-test.js",
+        "start": {
+          "col": 5,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/lib/node-static.js",
+          "match_lines": [
+            357,
+            382
+          ],
+          "match_position": [
+            9,
+            34
+          ],
+          "match_string": "        var file = files.shift();\n\n\n\n        if (file) {\n\n            file = path.resolve(file) === path.normalize(file)  ? file : path.join(pathname || '.', file);\n\n\n\n            // Stream the file to the client\n\n            fs.createReadStream(file, {\n\n                flags: 'r',\n\n                mode: 0666,\n\n                start: startByte,\n\n                end: startByte + (length ? length - 1 : 0)\n\n            }).on('data', function (chunk) {\n\n                // Bounds check the incoming chunk and offset, as copying\n\n                // a buffer from an invalid offset will throw an error and crash\n\n                if (chunk.length && offset < length && offset >= 0) {\n\n                    offset += chunk.length;\n\n                }\n\n            }).on('close', function () {\n\n                streamFile(files, offset);\n\n            }).on('error', function (err) {\n\n                callback(err);\n\n                console.error(err);\n\n            }).pipe(res, { end: false });\n\n        } else {\n\n            res.end();\n\n            callback(null, offset);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

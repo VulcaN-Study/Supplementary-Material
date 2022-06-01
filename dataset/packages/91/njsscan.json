@@ -1,0 +1,222 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2012-2015 silverwind",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "handlebars_safestring": {
+      "files": [
+        {
+          "file_path": "/src/client/client.js",
+          "match_lines": [
+            145,
+            145
+          ],
+          "match_position": [
+            12,
+            53
+          ],
+          "match_string": "    return new Handlebars.SafeString(droppy.svg[type]);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Handlebars SafeString will not escape the data passed through it. Untrusted user input passing through SafeString can cause XSS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/client/client.js",
+          "match_lines": [
+            2147,
+            2147
+          ],
+          "match_position": [
+            32,
+            43
+          ],
+          "match_string": "        nextIndex = Math.floor(Math.random() * view[0].playlistLength);"
+        },
+        {
+          "file_path": "/src/server/utils.js",
+          "match_lines": [
+            102,
+            102
+          ],
+          "match_position": [
+            39,
+            50
+          ],
+          "match_string": "      link += chars.charAt(Math.floor(Math.random() * chars.length));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            352,
+            363
+          ],
+          "match_position": [
+            9,
+            24
+          ],
+          "match_string": "        if (pass === \"\") {\n\n          if (!db.get(\"users\")[name]) return;\n\n          if (db.delUser(msg.data.name)) log.info(ws, null, \"Deleted user: \", chalk.magenta(name));\n\n          sendUsers(sid);\n\n        } else {\n\n          var isNew = !db.get(\"users\")[name];\n\n          db.addOrUpdateUser(name, pass, msg.data.priv);\n\n          if (isNew)\n\n            log.info(ws, null, \"Added user: \", chalk.magenta(name));\n\n          else\n\n            log.info(ws, null, \"Updated user: \", chalk.magenta(name));\n\n          sendUsers(sid);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            464,
+            494
+          ],
+          "match_position": [
+            3,
+            50
+          ],
+          "match_string": "  var URI = decodeURIComponent(req.url);\n\n\n\n  if (!utils.isPathSane(URI, true))\n\n    return log.info(req, res, \"Invalid GET: \" + req.url);\n\n\n\n  if (config.public && !cookies.get(req.headers.cookie))\n\n    cookies.free(req, res);\n\n\n\n  if (/^\\/\\?!\\//.test(URI)) {\n\n    handleResourceRequest(req, res, /\\?!\\/([\\s\\S]+)$/.exec(URI)[1]);\n\n  } else if (/^\\/\\?[~\\$]\\//.test(URI)) {\n\n    handleFileRequest(req, res, true);\n\n  } else if (/^\\/\\?\\?\\//.test(URI)) {\n\n    handleTypeRequest(req, res);\n\n  } else if (/^\\/\\?_\\//.test(URI)) {\n\n    handleFileRequest(req, res, false);\n\n  } else if (/^\\/\\?~~\\//.test(URI)) {\n\n    streamArchive(req, res, utils.addFilesPath(URI.substring(4)), true);\n\n  } else if (/^\\/favicon.ico$/.test(URI)) {\n\n    handleResourceRequest(req, res, \"favicon.ico\");\n\n  } else {\n\n    if (validateRequest(req)) {\n\n      handleResourceRequest(req, res, \"main.html\");\n\n      if (config.public) return;\n\n      var sessions = db.get(\"sessions\");\n\n      sessions[cookies.get(req.headers.cookie)].lastSeen = Date.now();\n\n      db.set(\"sessions\", sessions);\n\n    } else if (firstRun) {\n\n      handleResourceRequest(req, res, \"firstrun.html\");\n\n    } else {\n\n      handleResourceRequest(req, res, \"auth.html\");"
+        },
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            570,
+            570
+          ],
+          "match_position": [
+            7,
+            37
+          ],
+          "match_string": "  if (/^\\/\\?!\\/theme\\//.test(req.url)) {"
+        },
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            572,
+            572
+          ],
+          "match_position": [
+            14,
+            43
+          ],
+          "match_string": "  } else if (/^\\/\\?!\\/mode\\//.test(req.url)) {"
+        },
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            574,
+            574
+          ],
+          "match_position": [
+            14,
+            42
+          ],
+          "match_string": "  } else if (/^\\/\\?!\\/lib\\//.test(req.url)) {"
+        },
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            576,
+            576
+          ],
+          "match_position": [
+            14,
+            52
+          ],
+          "match_string": "  } else if (/^\\/\\?!\\/manifest\\.json$/.test(req.url)) {"
+        },
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            639,
+            642
+          ],
+          "match_position": [
+            3,
+            47
+          ],
+          "match_string": "  var URI = decodeURIComponent(req.url), shareLink, filepath;\n\n\n\n  // Check for a shareLink\n\n  filepath = /\\?([\\$~_])\\/([\\s\\S]+)$/.exec(URI);"
+        },
+        {
+          "file_path": "/src/server/utils.js",
+          "match_lines": [
+            175,
+            175
+          ],
+          "match_position": [
+            9,
+            28
+          ],
+          "match_string": "    if (/[\\/\\\\]\\.\\./.test(p)) return false;      // Navigating down the tree (prefix)"
+        },
+        {
+          "file_path": "/src/server/utils.js",
+          "match_lines": [
+            176,
+            176
+          ],
+          "match_position": [
+            9,
+            28
+          ],
+          "match_string": "    if (/\\.\\.[\\/\\\\]/.test(p)) return false;      // Navigating down the tree (postfix)"
+        },
+        {
+          "file_path": "/src/server/utils.js",
+          "match_lines": [
+            177,
+            177
+          ],
+          "match_position": [
+            9,
+            31
+          ],
+          "match_string": "    if (/[\\*\\{\\}\\|<>\"]/.test(p)) return false;   // Invalid characters"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

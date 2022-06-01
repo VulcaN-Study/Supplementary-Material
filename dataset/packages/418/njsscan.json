@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_header_injection": {
+      "files": [
+        {
+          "file_path": "/src/tencent-server.js",
+          "match_lines": [
+            9,
+            9
+          ],
+          "match_position": [
+            3,
+            61
+          ],
+          "match_string": "\t\tres.writeHead(200, {'Content-Type': mime.lookup(req.url) });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-644: Improper Neutralization of HTTP Headers for Scripting Syntax",
+        "description": "Untrusted user input in response header will result in HTTP Header Injection or Response Splitting Attacks.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/tencent-server.js",
+          "match_lines": [
+            6,
+            30
+          ],
+          "match_position": [
+            3,
+            56
+          ],
+          "match_string": "\t\tvar pathurl = base + req.url;\n\n\t\t//console.log( req.url );\n\n\t\t// \u9ed8\u8ba4\u662f\u4e8c\u8fdb\u5236\u6d41: \u6d4f\u89c8\u5668\u4e00\u822c\u4f1a\u76f4\u63a5\u4e0b\u8f7d application/octet-stream\n\n\t\tres.writeHead(200, {'Content-Type': mime.lookup(req.url) });\n\n\t\tfs.stat(pathurl, function(err,stats){\n\n\t\t\tif( stats && stats.isFile() ){\n\n\t\t\t\t\tfs.readFile( pathurl, function (err, data) {\n\n\t\t\t\t\t\t\tres.end( data );\n\n\t\t\t\t\t});\n\n\t\t\t}else if( stats && stats.isDirectory() ){\n\n\t\t\t\t\tres.writeHead(200, {\"Content-Type\": \"text/html;charset:utf-8\"});\n\n\t\t\t\t\t/*\u521b\u5efa\u76ee\u5f55\u5217\u8868\u5c55\u793a*/\n\n\t\t\t\t\tfs.readdir(pathurl, function(err,files){\n\n\t\t\t\t\t\t\t//console.log( files );\n\n\t\t\t\t\t\t\t//res.end('<meta charset=\"utf-8\"><ol><li>'+ files.join('</li><li>') +'</li></ol>');\n\n\t\t\t\t\t\t\tvar html = '';\n\n\t\t\t\t\t\t\tfiles.map(function(file,i){\n\n\t\t\t\t\t\t\t\thtml += '<li><a href=\"'+file+'\">'+file+'</a></li>';\n\n\t\t\t\t\t\t\t});\n\n\t\t\t\t\t\t\tres.end( '<meta charset=\"utf-8\"><ol>'+html+'</ol>' );\n\n\t\t\t\t\t});\n\n\t\t\t}else{\n\n\t\t\t\t\t// HTTP Code\n\n\t\t\t\t\tres.writeHead(404, {'Content-Type': 'text/html','charset':'UTF-8' });\n\n\t\t\t\t\tres.end( '<h1 style=\"text-align:center;\">404</h1>' );"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

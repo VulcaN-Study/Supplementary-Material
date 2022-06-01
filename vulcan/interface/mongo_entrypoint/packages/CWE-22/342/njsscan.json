@@ -1,0 +1,60 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# Windows image file caches",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_os_command_exec": {
+      "files": [
+        {
+          "file_path": "/src/dist/http.js",
+          "match_lines": [
+            491,
+            503
+          ],
+          "match_position": [
+            9,
+            41
+          ],
+          "match_string": "        var cmd = path.replace(/\"/g, '\"\"');\n\n        if (this.isWin) {\n\n            cmd = 'start \"\" ' + cmd;\n\n        } else {\n\n            if (process.env['XDG_SESSION_COOKIE']) {\n\n                cmd = 'xdg-open ' + cmd;\n\n            } else if (process.env['GNOME_DESKTOP_SESSION_ID']) {\n\n                cmd = 'gnome-open ' + cmd;\n\n            } else {\n\n                cmd = 'open ' + cmd;\n\n            }\n\n        }\n\n        child_process.exec(cmd, callback);"
+        },
+        {
+          "file_path": "/src/src/http/util.js",
+          "match_lines": [
+            41,
+            53
+          ],
+          "match_position": [
+            9,
+            41
+          ],
+          "match_string": "        var cmd = path.replace(/\"/g, '\"\"');\n\n        if (this.isWin) {\n\n            cmd = 'start \"\" ' + cmd;\n\n        } else {\n\n            if (process.env['XDG_SESSION_COOKIE']) {\n\n                cmd = 'xdg-open ' + cmd;\n\n            } else if (process.env['GNOME_DESKTOP_SESSION_ID']) {\n\n                cmd = 'gnome-open ' + cmd;\n\n            } else {\n\n                cmd = 'open ' + cmd;\n\n            }\n\n        }\n\n        child_process.exec(cmd, callback);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "description": "User controlled data in 'child_process.exec()' can result in Remote OS Command Execution.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

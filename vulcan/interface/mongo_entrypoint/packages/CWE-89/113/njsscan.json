@@ -1,0 +1,151 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 2
+        },
+        "extra": {
+          "line": "    \"globals\": {",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 14,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 7,
+          "line": 1
+        },
+        "extra": {
+          "line": "test*.js",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2011 Sascha Depold",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 202
+        },
+        "extra": {
+          "line": "   limitations under the License.",
+          "message": "Lexical error: WIERD end of file in quoted string"
+        },
+        "path": "/src/docs/assets/vendor/prettify/COPYING",
+        "start": {
+          "col": 1,
+          "line": 202
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            54,
+            60
+          ],
+          "match_position": [
+            7,
+            34
+          ],
+          "match_string": "      var showSchemasSql = self.QueryGenerator.showSchemasQuery()\n\n      self.sequelize.query(showSchemasSql, null, { raw: true }).success(function(schemaNames) {\n\n        self.emit('showAllSchemas', null)\n\n        emitter.emit('success', Utils._.flatten(Utils._.map(schemaNames, function(value){ return value.schema_name })))\n\n      }).error(function(err) {\n\n        self.emit('showAllSchemas', err)\n\n        emitter.emit('error', err)"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            129,
+            135
+          ],
+          "match_position": [
+            7,
+            34
+          ],
+          "match_string": "      var showTablesSql = self.QueryGenerator.showTablesQuery()\n\n      self.sequelize.query(showTablesSql, null, { raw: true }).success(function(tableNames) {\n\n        self.emit('showAllTables', null)\n\n        emitter.emit('success', Utils._.flatten(tableNames))\n\n      }).error(function(err) {\n\n        self.emit('showAllTables', err)\n\n        emitter.emit('error', err)"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            309,
+            310
+          ],
+          "match_position": [
+            7,
+            91
+          ],
+          "match_string": "      var sql = self.QueryGenerator.selectQuery(tableName, options)\n\n        , qry = self.sequelize.query(sql, null, { plain: true, raw: true, type: 'SELECT' })"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/docs/assets/js/apidocs.js",
+          "match_lines": [
+            315,
+            318
+          ],
+          "match_position": [
+            9,
+            37
+          ],
+          "match_string": "        if (hash === win.location.hash) {\n\n            pjax.updateTabState('hashchange');\n\n        } else if (!tab) {\n\n            win.location.hash = hash;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

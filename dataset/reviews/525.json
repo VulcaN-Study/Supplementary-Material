@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 525,
+        "cwe": "CWE-400"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.3.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/cookie.js",
+                    "lineno": 321,
+                    "code": "function parse(str, options) {"
+                },
+                "sink": {
+                    "file": "lib/cookie.js",
+                    "lineno": 330,
+                    "code": "var result = pairRe.exec(firstSemi === -1 ? str : str.substr(0,firstSemi));"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/salesforce/tough-cookie/issues/92#issuecomment-327485502"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/salesforce/tough-cookie/pull/94/commits/0b285e7023a57b1f995bbbf3803145a63b3d806d"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,192 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 3
+        },
+        "extra": {
+          "line": "test/triage/",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintignore",
+        "start": {
+          "col": 1,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 4,
+          "line": 2
+        },
+        "extra": {
+          "line": "**.swp",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 3,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 2
+        },
+        "extra": {
+          "line": "var static = require('node-static');",
+          "message": "Syntax error"
+        },
+        "path": "/src/static.js",
+        "start": {
+          "col": 5,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/utils.js",
+          "match_lines": [
+            342,
+            342
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "  return Math.random().toString().substr(3);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/connection.js",
+          "match_lines": [
+            206,
+            206
+          ],
+          "match_position": [
+            10,
+            31
+          ],
+          "match_string": "    if (!rgxProtocol.test(host)) {"
+        },
+        {
+          "file_path": "/src/lib/connection.js",
+          "match_lines": [
+            252,
+            252
+          ],
+          "match_position": [
+            14,
+            27
+          ],
+          "match_string": "  } else if (/@/.test(host) && /:/.test(host.split('@')[0])) {"
+        },
+        {
+          "file_path": "/src/lib/connection.js",
+          "match_lines": [
+            252,
+            252
+          ],
+          "match_position": [
+            32,
+            58
+          ],
+          "match_string": "  } else if (/@/.test(host) && /:/.test(host.split('@')[0])) {"
+        },
+        {
+          "file_path": "/src/lib/connection.js",
+          "match_lines": [
+            327,
+            327
+          ],
+          "match_position": [
+            8,
+            29
+          ],
+          "match_string": "  if (!rgxProtocol.test(uris)) {"
+        },
+        {
+          "file_path": "/src/lib/model.js",
+          "match_lines": [
+            527,
+            555
+          ],
+          "match_position": [
+            3,
+            53
+          ],
+          "match_string": "  var pop = doc.populated(path, true);\n\n\n\n  if (!pop && doc.$__.selected) {\n\n    // If any array was selected using an $elemMatch projection, we deny the update.\n\n    // NOTE: MongoDB only supports projected $elemMatch on top level array.\n\n    var top = path.split('.')[0];\n\n    if ((doc.$__.selected[top] && doc.$__.selected[top].$elemMatch) ||\n\n        doc.$__.selected[top + '.$']) {\n\n      return top;\n\n    }\n\n  }\n\n\n\n  if (!(pop && array && array.isMongooseArray)) return;\n\n\n\n  // If the array was populated using options that prevented all\n\n  // documents from being returned (match, skip, limit) or they\n\n  // deselected the _id field, $pop and $set of the array are\n\n  // not safe operations. If _id was deselected, we do not know\n\n  // how to remove elements. $pop will pop off the _id from the end\n\n  // of the array in the db which is not guaranteed to be the\n\n  // same as the last element we have here. $set of the entire array\n\n  // would be similarily destructive as we never received all\n\n  // elements of the array and potentially would overwrite data.\n\n  var check = pop.options.match ||\n\n              pop.options.options && hasOwnProperty(pop.options.options, 'limit') || // 0 is not permitted\n\n              pop.options.options && pop.options.options.skip || // 0 is permitted\n\n              pop.options.select && // deselected _id?\n\n                (0 === pop.options.select._id ||\n\n                /\\s?-_id\\s?/.test(pop.options.select));"
+        },
+        {
+          "file_path": "/src/lib/schema.js",
+          "match_lines": [
+            463,
+            463
+          ],
+          "match_position": [
+            12,
+            35
+          ],
+          "match_string": "    return /\\.\\d+\\.?.*$/.test(path)"
+        },
+        {
+          "file_path": "/src/lib/schematype.js",
+          "match_lines": [
+            679,
+            679
+          ],
+          "match_position": [
+            16,
+            36
+          ],
+          "match_string": "      validate(validator.test(value), validatorProperties);"
+        },
+        {
+          "file_path": "/src/lib/schematype.js",
+          "match_lines": [
+            742,
+            742
+          ],
+          "match_position": [
+            16,
+            36
+          ],
+          "match_string": "      validate(validator.test(value), validatorProperties);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,882 @@
+<report_mosca>
+ <Path>/src/lib/odbc.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1217 -      var interval =  setInterval(function () {
+
+ Line: 1232 -      }, 1000);  //setInterval
+
+ Line: 1398 -    setTimeout(function () {
+
+ Line: 1413 -        "odbc.js : pool[%s] : pool.close() - setTimeout() callback", self.index);
+
+ Line: 1463 -    }, 2000);  //setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/odbc.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 12 -    WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+
+ Line: 438 -      //ODBCConnection.query() is the fastest-path querying mechanism.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-query-select-fetch.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -  db.queryResult("select 1 as COLINT, 'some test' as COLTEXT FROM SYSIBM.SYSDUMMY1", function (err, result) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-stress-async-waterfall.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 72 -  		db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+
+ Line: 73 -  		db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+
+ Line: 74 -  		db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+
+ Line: 75 -  		db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+
+ Line: 76 -  		db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+
+ Line: 78 -  		db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+
+ Line: 79 -  		db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+
+ Line: 81 -  		db.query("SELECT * from " + tableOne, scback.bind({expected: expected1}));
+
+ Line: 82 -  		db.query("SELECT * from " + tableTwo, scback.bind({expected: expected2}));
+
+ Line: 84 -  		db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+
+ Line: 85 -  		db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({expected: expected3}));
+
+ Line: 87 -  		db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+
+ Line: 88 -  		db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({expected: []}));
+
+ Line: 90 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({expected: []}));
+
+ Line: 91 -  		db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+
+ Line: 92 -  		db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({expected: []}));
+
+ Line: 94 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({expected: []}));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-ibm-db-issue18.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -  			On successful connection issue the SQL query by calling the query() function on Database
+
+ Line: 23 -  			param 1: The SQL query to be issued
+
+ Line: 26 -  		conn.query("SELECT TIMESTAMP_FORMAT('1999-12-31 23:59:59.123', 'YYYY-MM-DD HH24:MI:SS.FF') AS TD FROM SYSIBM.SYSDUMMY1;", function(err, nodetest, moreResultSets) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-leak-multiple-query-multiple-connections.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 47 -  		db.query("INSERT into " + tableName + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+
+ Line: 48 -  		db.query("INSERT into " + tableName + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+
+ Line: 49 -  		db.query("INSERT into " + tableName + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+
+ Line: 50 -  		db.query("INSERT into " + tableName + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+
+ Line: 51 -  		db.query("INSERT into " + tableName + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+
+ Line: 53 -  		db.query("SELECT * from " + tableName, scback);
+
+ Line: 55 -  		db.query("UPDATE " + tableName + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+
+ Line: 56 -  		db.query("SELECT * from " + tableName + " where C3 = 'QA Intern'", scback);
+
+ Line: 57 -  		db.query("SELECT count(*) from " + tableName + " where PID = 7", scback);
+
+ Line: 58 -  		db.query("DELETE from " + tableName + " where PID = 5", dcback);
+
+ Line: 59 -  		db.query("INSERT into " + tableName + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+
+ Line: 60 -  		db.query("SELECT * from " + tableName + " where PID = 5", scback);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-multi-open-query-close.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 4 -  , queryCallback = 0
+
+ Line: 39 -      var query = "WAITFOR DELAY '00:00:0" + seconds + "'; select " + seconds + " as result from SYSIBM.SYSDUMMY1";
+
+ Line: 43 -        //console.error("Query: %s %s %s %s", ix, openCount, queryCallback, moreResultSets, rows, err);
+
+ Line: 45 -        queryCallback += 1;
+
+ Line: 53 -    if (openCount == queryCallback) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-querySync-select-with-exception.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 11 -    var data = db.querySync("select invalid query");
+
+ Line: 20 -  assert.equal(err.error, "[node-ibm_db] Error in ODBCConnection::QuerySync while executing query.");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-leak-multiple-query-pool-connections.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 59 -  		connection.query("INSERT into " + tableName + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+
+ Line: 60 -  		connection.query("INSERT into " + tableName + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+
+ Line: 61 -  		connection.query("INSERT into " + tableName + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+
+ Line: 62 -  		connection.query("INSERT into " + tableName + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+
+ Line: 63 -  		connection.query("INSERT into " + tableName + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+
+ Line: 65 -  		connection.query("SELECT * from " + tableName, scback);
+
+ Line: 67 -  		connection.query("UPDATE " + tableName + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+
+ Line: 68 -  		connection.query("SELECT * from " + tableName + " where C3 = 'QA Intern'", scback);
+
+ Line: 69 -  		connection.query("SELECT count(*) from " + tableName + " where PID = 7", scback);
+
+ Line: 70 -  		connection.query("DELETE from " + tableName + " where PID = 5", dcback);
+
+ Line: 71 -  		connection.query("INSERT into " + tableName + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+
+ Line: 72 -  		connection.query("SELECT * from " + tableName + " where PID = 5", scback);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-prepare-not.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 34 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-prepare-bindSync-executeNonQuery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 39 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-query-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8 -  db.query("select 1 as \"COLINT\", 'some test' as \"COLTEXT\" FROM SYSIBM.SYSDUMMY1", function (err, data) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-ibm-db-issue14.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 27 -  			On successful connection issue the SQL query by calling the query() function on Database
+
+ Line: 28 -  			param 1: The SQL query to be issued
+
+ Line: 31 -  		conn.query("SELECT * FROM " + testTable, function(err, nodetest, moreResultSets) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-query-select-fetchMode-array.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -  db.query("select 1 as COLINT, 'some test' as COLTEXT FROM SYSIBM.SYSDUMMY1", function (err, data) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 31 -              process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-bad-pool-connection-issue-42.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 12 -  timer = setInterval(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-stress-async-waterfall-multiple-connections.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 78 -  		db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+
+ Line: 79 -  		db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+
+ Line: 80 -  		db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+
+ Line: 81 -  		db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+
+ Line: 82 -  		db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+
+ Line: 84 -  		db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+
+ Line: 85 -  		db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+
+ Line: 87 -  		db.query("SELECT * from " + tableOne, scback.bind({expected: expected1}));
+
+ Line: 88 -  		db.query("SELECT * from " + tableTwo , scback.bind({expected: expected2}));
+
+ Line: 90 -  		db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+
+ Line: 91 -  		db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({expected: expected3}));
+
+ Line: 93 -  		db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+
+ Line: 94 -  		db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({expected: []}));
+
+ Line: 96 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({expected: []}));
+
+ Line: 97 -  		db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+
+ Line: 98 -  		db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({expected: []}));
+
+ Line: 100 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({expected: []}));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/run-tests.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 83 -    var timer = setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-call-stmt.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -  var query = "CaLL " + schema + ".proc1(?, ?, ?)";
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-stress-mixed-query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 52 -  		db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+
+ Line: 53 -  		db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+
+ Line: 54 -  		db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+
+ Line: 55 -  		db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+
+ Line: 56 -  		db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+
+ Line: 58 -  		db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+
+ Line: 59 -  		db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+
+ Line: 61 -  		db.query("SELECT * from " + tableOne, scback.bind({done: false, expected: expected1}));
+
+ Line: 62 -  		db.query("SELECT * from " + tableTwo, scback.bind({done: false, expected: expected2}));
+
+ Line: 64 -  		db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+
+ Line: 65 -  		db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({done: false, expected: expected3}));
+
+ Line: 67 -  		db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+
+ Line: 68 -  		db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({done: false, expected: []}));
+
+ Line: 70 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({done: false, expected: []}));
+
+ Line: 71 -  		db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+
+ Line: 72 -  		db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({done: false, expected: []}));
+
+ Line: 74 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({done: true, expected: []}));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/webapp.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 53 -    conn.query("SELECT id, filename, image FROM imgtab WHERE id=?", [imgid], function(err, rows) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-pool-uncommited.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 28 -  setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-leak-huge-query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 76 -  		db.query("insert into " + tableOne + " " + query, icback);
+
+ Line: 77 -  		db.query("insert into " + tableTwo + " " + query, icback);
+
+ Line: 95 -  			//console.log("INSERT", insertCallBackCount);
+
+ Line: 109 -  			//console.log ("SELECT STATEMENT SUCCESSFUL");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-query-fetchAllSync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 34 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-ibm-db-issue17.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 28 -  			On successful connection issue the SQL query by calling the query() function on Database
+
+ Line: 29 -  			param 1: The SQL query to be issued
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-query-fetch.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 45 -            process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-pool-idle-connection.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 24 -      setTimeout(function () {
+
+ Line: 41 -      }, 2 * 60 * 1000);  //setTimeout 2 minute.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-prepare-bind-executeNonQuery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 44 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-prepare-bindSync-execute-closeSync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 41 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-prepare-bind-execute-closeSync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 51 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-prepare-execute-closeSync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-date.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 12 -    var sql = "SELECT cast('" + dtString + "' as timestamp) as DT1 FROM SYSIBM.SYSDUMMY1";
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-query-fetchAll.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 39 -          process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-querySync-select.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -  var data = db.querySync("select 1 as \"COLINT\", 'some test' as \"COLTEXT\" FROM SYSIBM.SYSDUMMY1");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-issue-54.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 27 -          console.log("Running second query")
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-querySync-fetchArray.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 25 -    process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/disabled/test-querySync-select-unicode.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -    data = db.querySync("select 'ꜨꜢ' as UNICODETEXT FROM SYSIBM.SYSDUMMY1");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/disabled/test-query-select-fetchAllSync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -  db.queryResult("select 1 as COLINT, 'some test' as COLTEXT union select 2, 'something else'  FROM SYSIBM.SYSDUMMY1", function (err, result) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/disabled/test-param-select-with-booleans-only.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -    db.query("select ? as \"TRUECOL\", ? as \"FALSECOL\" FROM SYSIBM.SYSDUMMY1"
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/disabled/test-query-select-fetchAll.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -  db.queryResult("select 1 as COLINT, 'some test' as COLTEXT union select 2, 'something else' FROM SYSIBM.SYSDUMMY1", function (err, result) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/disabled/test-param-select-with-strings-only.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -    db.query("select ? as TEXTCOL, ? as TEXTCOL2, ? as TEXTCOL3 FROM SYSIBM.SYSDUMMY1"
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/disabled/test-query-select-unicode.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8 -  db.query("select '☯ąčęėįšųūž☎áäàéêèóöòüßÄÖÜ€ шчябы Ⅲ ❤' as UNICODETEXT FROM SYSIBM.SYSDUMMY1", function (err, data) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/disabled/test-issue-13.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -  		var query = "select 1234 union select 5345";
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-leak-multiple-query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 40 -  		db.query("INSERT into T1Leak values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+
+ Line: 41 -  		db.query("INSERT into T1Leak values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+
+ Line: 42 -  		db.query("INSERT into T1Leak values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+
+ Line: 43 -  		db.query("INSERT into T1Leak values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+
+ Line: 44 -  		db.query("INSERT into T1Leak values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+
+ Line: 46 -  		db.query("SELECT * from T1Leak", scback);
+
+ Line: 48 -  		db.query("UPDATE T1Leak SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+
+ Line: 49 -  		db.query("SELECT * from T1Leak where C3 = 'QA Intern'", scback);
+
+ Line: 50 -  		db.query("SELECT count(*) from T1Leak where PID = 7", scback);
+
+ Line: 51 -  		db.query("DELETE from T1Leak where PID = 5", dcback);
+
+ Line: 52 -  		db.query("INSERT into T1Leak values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+
+ Line: 53 -  		db.query("SELECT * from T1Leak where PID = 5", scback);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-prepare-executeNonQuery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 38 -        process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-call-async.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 12 -      var query = "CaLL " + schema + ".proc1(?, ?, ?)";
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/bench-querySync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 26 -    process.stdout.write("(" + count + " queries issued in " + elapsed + " seconds, " + (count/elapsed).toFixed(2) + " query/sec)");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/run-nodeEE.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 76 -    var timer = setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/nodeEE-stress-mixed-query-multiple-connections.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 60 -  		db.query("INSERT into " + tableOne + " values (1, 'PersonA', 'LastNameA', 'QA')", icback);
+
+ Line: 61 -  		db.query("INSERT into " + tableOne + " values (2, 'PersonB', 'LastNameB', 'Dev')", icback);
+
+ Line: 62 -  		db.query("INSERT into " + tableOne + " values (3, 'PersonC', 'LastNameC', 'QA')", icback);
+
+ Line: 63 -  		db.query("INSERT into " + tableOne + " values (4, 'PersonD', 'LastNameD', 'QA')", icback);
+
+ Line: 64 -  		db.query("INSERT into " + tableOne + " values (5, 'PersonE', 'LastNameE', 'QA')", icback);
+
+ Line: 66 -  		db.query("INSERT into " + tableTwo + " values (6, 'PersonF', 'LastNameF', 'QA Lead')", icback);
+
+ Line: 67 -  		db.query("INSERT into " + tableTwo + " values (7, 'PersonG', 'LastNameG', 'Dev Lead')", icback);
+
+ Line: 69 -  		db.query("SELECT * from " + tableOne, scback.bind({done: false, expected: expected1}));
+
+ Line: 70 -  		db.query("SELECT * from " + tableTwo , scback.bind({done: false, expected: expected2}));
+
+ Line: 72 -  		db.query("UPDATE " + tableOne + " SET C3 = 'QA Intern' where C2 = 'LastNameD'", ucback);
+
+ Line: 73 -  		db.query("SELECT * from " + tableOne + " where C3 = 'QA Intern'", scback.bind({done: false, expected: expected3}));
+
+ Line: 75 -  		db.query("DELETE from " + tableTwo + " where PID = 7", dcback);
+
+ Line: 76 -  		db.query("SELECT * from " + tableTwo + " where PID = 7", scback.bind({done: false, expected: []}));
+
+ Line: 78 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableTwo + "'", scback.bind({done: false, expected: []}));
+
+ Line: 79 -  		db.query("DELETE from " + tableOne + " where PID = 5", dcback);
+
+ Line: 80 -  		db.query("SELECT * from " + tableOne + " where PID = 5", scback.bind({done: false, expected: []}));
+
+ Line: 82 -  		db.query("SELECT tabname from syscat.tables where tabschema='ELKOREHP' and TABNAME='" + tableOne + "'", scback.bind({done: true, expected: []}));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/test-prepareSync-multiple-execution.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 56 -        setTimeout(function(){
+
+</Result>
+</report_mosca>
+

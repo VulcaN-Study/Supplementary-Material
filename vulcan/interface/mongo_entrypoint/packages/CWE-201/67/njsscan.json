@@ -1,0 +1,181 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 3,
+          "line": 3
+        },
+        "extra": {
+          "line": ".*.swp",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 2,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 11
+        },
+        "extra": {
+          "line": "\t@./node_modules/.bin/mocha \\",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 2,
+          "line": 11
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/WebSocketServer.js",
+          "match_lines": [
+            210,
+            253
+          ],
+          "match_position": [
+            5,
+            13
+          ],
+          "match_string": "    var key = req.headers['sec-websocket-key'];\n\n    var shasum = crypto.createHash('sha1');\n\n    shasum.update(key + \"258EAFA5-E914-47DA-95CA-C5AB0DC85B11\");\n\n    key = shasum.digest('base64');\n\n\n\n    var headers = [\n\n        'HTTP/1.1 101 Switching Protocols'\n\n      , 'Upgrade: websocket'\n\n      , 'Connection: Upgrade'\n\n      , 'Sec-WebSocket-Accept: ' + key\n\n    ];\n\n\n\n    if (typeof protocol != 'undefined') {\n\n      headers.push('Sec-WebSocket-Protocol: ' + protocol);\n\n    }\n\n\n\n    var extensions = {};\n\n    try {\n\n      extensions = acceptExtensions.call(self, extensionsOffer);\n\n    } catch (err) {\n\n      abortConnection(socket, 400, 'Bad Request');\n\n      return;\n\n    }\n\n\n\n    if (Object.keys(extensions).length) {\n\n      var serverExtensions = {};\n\n      Object.keys(extensions).forEach(function(token) {\n\n        serverExtensions[token] = [extensions[token].params]\n\n      });\n\n      headers.push('Sec-WebSocket-Extensions: ' + Extensions.format(serverExtensions));\n\n    }\n\n\n\n    // allows external modification/inspection of handshake headers\n\n    self.emit('headers', headers);\n\n\n\n    socket.setTimeout(0);\n\n    socket.setNoDelay(true);\n\n    try {\n\n      socket.write(headers.concat('', '').join('\\r\\n'));\n\n    }\n\n    catch (e) {\n\n      // if the upgrade write fails, shut the connection down hard\n\n      try { socket.destroy(); } catch (e) {}\n\n      return;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/Sender.js",
+          "match_lines": [
+            311,
+            311
+          ],
+          "match_position": [
+            8,
+            19
+          ],
+          "match_string": "    ~~(Math.random() * 255),"
+        },
+        {
+          "file_path": "/src/lib/Sender.js",
+          "match_lines": [
+            312,
+            312
+          ],
+          "match_position": [
+            8,
+            19
+          ],
+          "match_string": "    ~~(Math.random() * 255),"
+        },
+        {
+          "file_path": "/src/lib/Sender.js",
+          "match_lines": [
+            313,
+            313
+          ],
+          "match_position": [
+            8,
+            19
+          ],
+          "match_string": "    ~~(Math.random() * 255),"
+        },
+        {
+          "file_path": "/src/lib/Sender.js",
+          "match_lines": [
+            314,
+            314
+          ],
+          "match_position": [
+            8,
+            19
+          ],
+          "match_string": "    ~~(Math.random() * 255)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/WebSocketServer.js",
+          "match_lines": [
+            367,
+            367
+          ],
+          "match_position": [
+            17,
+            40
+          ],
+          "match_string": "        , md5 = crypto.createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/WebSocket.js",
+          "match_lines": [
+            596,
+            596
+          ],
+          "match_position": [
+            16,
+            40
+          ],
+          "match_string": "  var shasum = crypto.createHash('sha1');"
+        },
+        {
+          "file_path": "/src/lib/WebSocketServer.js",
+          "match_lines": [
+            211,
+            211
+          ],
+          "match_position": [
+            18,
+            42
+          ],
+          "match_string": "    var shasum = crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,542 @@
+<report_mosca>
+ <Path>/src/lib/change_stream.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 349 -    setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/change_stream.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -   * @param {number} [options.maxAwaitTimeMS] The maximum amount of time for the server to wait on new documents to satisfy a change stream query
+
+ Line: 347 -  const SELECTION_TIMEOUT = 30000;
+
+ Line: 352 -      const timeout = options.timeout || SELECTION_TIMEOUT;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/cursor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -   * allowing for iteration over the results returned from the underlying query. It supports
+
+ Line: 68 -   * @property {string} sortValue Cursor query sort setting.
+
+ Line: 82 -   * collection.find({}).filter({a:1})                              // Set query on the cursor
+
+ Line: 83 -   * collection.find({}).comment('add a comment')                   // Add a comment to the query, allowing to correlate queries
+
+ Line: 96 -   * collection.find({}).sort([['a', 1]])                           // Sets the sort order of the cursor query
+
+ Line: 258 -   * Set the cursor query
+
+ Line: 275 -   * @param {object} maxScan Constrains the query to only scan the specified number of documents when fulfilling the query
+
+ Line: 291 -   * @param {object} hint If specified, then the query system will only consider plans using the hinted index.
+
+ Line: 332 -   * Set the cursor returnKey. If set to true, modifies the cursor to only return the index field or fields for the results of the query, rather than documents. If set to true and the query does not use an index to perform the read operation, the returned documents will not contain any fields.
+
+ Line: 431 -   * Add a query modifier to the cursor query
+
+ Line: 433 -   * @param {string} name The query modifier (must start with $, such as $orderby etc)
+
+ Line: 444 -      throw MongoError.create({ message: `${name} is not a valid query modifier`, driver: true });
+
+ Line: 457 -   * Add a comment to the cursor query allowing for tracking the comment in the log.
+
+ Line: 459 -   * @param {string} value The comment attached to this query.
+
+ Line: 473 -   * Set a maxAwaitTimeMS on a tailing cursor query to allow to customize the timeout value for the option awaitData (Only supported on MongoDB 3.2 or higher, ignored otherwise)
+
+ Line: 475 -   * @param {number} value Number of milliseconds to wait before aborting the tailed query.
+
+ Line: 493 -   * Set a maxTimeMS on the cursor query, allowing for hard timeout limits on queries (Only supported on MongoDB 2.6 or higher)
+
+ Line: 495 -   * @param {number} value Number of milliseconds to wait before aborting the query.
+
+ Line: 515 -   * Sets a field projection for the query.
+
+ Line: 531 -   * Sets the sort order of the cursor query.
+
+ Line: 621 -   * @param {number} value The limit for the cursor query.
+
+ Line: 647 -   * @param {number} value The skip for the cursor query.
+
+ Line: 706 -    // Run the query
+
+ Line: 842 -   * @param {number} [options.maxTimeMS] Number of miliseconds to wait before aborting the query.
+
+ Line: 843 -   * @param {string} [options.hint] An index name hint for the query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/bulk/ordered.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 58 -    if (docType === common.INSERT) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/bulk/unordered.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 35 -    if (docType === common.INSERT) {
+
+ Line: 37 -    } else if (docType === common.UPDATE) {
+
+ Line: 73 -    if (docType === common.INSERT) {
+
+ Line: 79 -    } else if (docType === common.UPDATE) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/bulk/common.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  const INSERT = 1;
+
+ Line: 19 -  const UPDATE = 2;
+
+ Line: 425 -    if (batch.batchType === INSERT && result.n) {
+
+ Line: 456 -    if (batch.batchType === UPDATE && result.n) {
+
+ Line: 564 -      return this.s.options.addToOperationsList(this, UPDATE, document);
+
+ Line: 589 -      return this.s.options.addToOperationsList(this, UPDATE, document);
+
+ Line: 793 -      return this.s.options.addToOperationsList(this, INSERT, document);
+
+ Line: 839 -        return this.s.options.addToOperationsList(this, UPDATE, op[key]);
+
+ Line: 857 -        return this.s.options.addToOperationsList(this, UPDATE, operation);
+
+ Line: 885 -        return this.s.options.addToOperationsList(this, INSERT, op.insertOne);
+
+ Line: 889 -        return this.s.options.addToOperationsList(this, INSERT, op.insertOne.document);
+
+ Line: 896 -          this.s.options.addToOperationsList(this, INSERT, op.insertMany[i]);
+
+ Line: 997 -        if (config.batch.batchType === UPDATE) {
+
+ Line: 1009 -        if (config.batch.batchType === INSERT) {
+
+ Line: 1016 -        } else if (config.batch.batchType === UPDATE) {
+
+ Line: 1107 -    INSERT: INSERT,
+
+ Line: 1108 -    UPDATE: UPDATE,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/collection.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 244 -   * Creates a cursor for a query that can be used to iterate over results from MongoDB
+
+ Line: 246 -   * @param {object} [query={}] The cursor query object.
+
+ Line: 248 -   * @param {number} [options.limit=0] Sets the limit of documents returned in the query.
+
+ Line: 249 -   * @param {(array|object)} [options.sort] Set to sort the documents coming back from the query. Array of indexes, [['a', 1]] etc.
+
+ Line: 250 -   * @param {object} [options.projection] The fields to return in the query. Object of fields to include or exclude (not both), {'a':1}
+
+ Line: 252 -   * @param {number} [options.skip=0] Set to skip N documents ahead in your query (useful for pagination).
+
+ Line: 253 -   * @param {Object} [options.hint] Tell the query to use specific indexes in the query. Object of indexes to use, {'_id':1}
+
+ Line: 254 -   * @param {boolean} [options.explain=false] Explain the query instead of returning the data.
+
+ Line: 255 -   * @param {boolean} [options.snapshot=false] DEPRECATED: Snapshot query.
+
+ Line: 258 -   * @param {number} [options.batchSize=0] Set the batchSize for the getMoreCommand when iterating over the query results.
+
+ Line: 264 -   * @param {string} [options.comment] You can put a $comment field on a query to make looking in the profiler logs simpler.
+
+ Line: 270 -   * @param {boolean} [options.partial=false] Specify if the cursor should return partial results when querying against a sharded system
+
+ Line: 271 -   * @param {number} [options.maxTimeMS] Number of miliseconds to wait before aborting the query.
+
+ Line: 289 -      let selector = query;
+
+ Line: 372 -      // Ensure the query is an object
+
+ Line: 382 -        query: selector
+
+ Line: 980 -   * Fetches the first document that matches the query
+
+ Line: 982 -   * @param {object} query Query for find Operation
+
+ Line: 984 -   * @param {number} [options.limit=0] Sets the limit of documents returned in the query.
+
+ Line: 985 -   * @param {(array|object)} [options.sort] Set to sort the documents coming back from the query. Array of indexes, [['a', 1]] etc.
+
+ Line: 986 -   * @param {object} [options.projection] The fields to return in the query. Object of fields to include or exclude (not both), {'a':1}
+
+ Line: 988 -   * @param {number} [options.skip=0] Set to skip N documents ahead in your query (useful for pagination).
+
+ Line: 989 -   * @param {Object} [options.hint] Tell the query to use specific indexes in the query. Object of indexes to use, {'_id':1}
+
+ Line: 990 -   * @param {boolean} [options.explain=false] Explain the query instead of returning the data.
+
+ Line: 991 -   * @param {boolean} [options.snapshot=false] DEPRECATED: Snapshot query.
+
+ Line: 994 -   * @param {number} [options.batchSize=0] Set the batchSize for the getMoreCommand when iterating over the query results.
+
+ Line: 1000 -   * @param {string} [options.comment] You can put a $comment field on a query to make looking in the profiler logs simpler.
+
+ Line: 1006 -   * @param {boolean} [options.partial=false] Specify if the cursor should return partial results when querying against a sharded system
+
+ Line: 1007 -   * @param {number} [options.maxTimeMS] Number of miliseconds to wait before aborting the query.
+
+ Line: 1025 -      if (typeof query === 'function') (callback = query), (query = {}), (options = {});
+
+ Line: 1027 -      query = query || {};
+
+ Line: 1030 -      return executeOperation(this.s.topology, findOne, [this, query, options, callback]);
+
+ Line: 1170 -   * @param {number} [options.maxTimeMS] Number of miliseconds to wait before aborting the query.
+
+ Line: 1190 -   * @param {number} [options.maxTimeMS] Number of miliseconds to wait before aborting the query.
+
+ Line: 1273 -    // Get the query
+
+ Line: 1274 -    cursor = this.s.topology.cursor(ns, { find: ns, query: { ns: this.s.namespace } }, options);
+
+ Line: 1350 -   * @param {number} result The count of documents that matched the query.
+
+ Line: 1354 -   * Count number of matching documents in the db to a query.
+
+ Line: 1356 -   * @param {object} [query={}] The query for the count.
+
+ Line: 1360 -   * @param {string} [options.hint] An index name hint for the query.
+
+ Line: 1362 -   * @param {number} [options.maxTimeMS] Number of miliseconds to wait before aborting the query.
+
+ Line: 1371 -    query = args.length ? args.shift() || {} : {};
+
+ Line: 1374 -    return executeOperation(this.s.topology, count, [this, query, options, callback]);
+
+ Line: 1398 -   * the following query operators must be replaced:
+
+ Line: 1411 -   * @param {object} [query] the query for the count
+
+ Line: 1429 -    query = args.length ? args.shift() || {} : {};
+
+ Line: 1432 -    return executeOperation(this.s.topology, countDocuments, [this, query, options, callback]);
+
+ Line: 1439 -   * @param {object} query The query for filtering the set of documents to which we apply the distinct filter.
+
+ Line: 1442 -   * @param {number} [options.maxTimeMS] Number of miliseconds to wait before aborting the query.
+
+ Line: 1447 -  Collection.prototype.distinct = function(key, query, options, callback) {
+
+ Line: 1450 -    const queryOption = args.length ? args.shift() || {} : {};
+
+ Line: 1456 -      queryOption,
+
+ Line: 1516 -   * @param {object} [options.sort] Determines which document the operation modifies if the query selects multiple documents.
+
+ Line: 1517 -   * @param {number} [options.maxTimeMS] The maximum amount of time to allow the query to run.
+
+ Line: 1541 -   * @param {object} [options.sort] Determines which document the operation modifies if the query selects multiple documents.
+
+ Line: 1542 -   * @param {number} [options.maxTimeMS] The maximum amount of time to allow the query to run.
+
+ Line: 1576 -   * @param {object} [options.sort] Determines which document the operation modifies if the query selects multiple documents.
+
+ Line: 1577 -   * @param {number} [options.maxTimeMS] The maximum amount of time to allow the query to run.
+
+ Line: 1613 -   * @param {object} query Query object to locate the object to modify.
+
+ Line: 1645 -      query,
+
+ Line: 1656 -   * @param {object} query Query object to locate the object to modify.
+
+ Line: 1673 -    return executeOperation(this.s.topology, findAndRemove, [this, query, sort, options, callback]);
+
+ Line: 1682 -   * @param {object} [options.cursor] Return the query as cursor, on 2.6 > it returns as a real cursor on pre 2.6 it returns as an emulated cursor.
+
+ Line: 1836 -   * @param {number} [options.maxAwaitTimeMS] The maximum amount of time for the server to wait on new documents to satisfy a change stream query
+
+ Line: 1870 -   * @param {number} [options.batchSize] Set the batchSize for the getMoreCommand when iterating over the query results.
+
+ Line: 1907 -   * @param {object} [options.search] Filter the results by a query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/operations/mongo_client_ops.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 155 -   * Note that for replicasets the replicaSet query parameter is required in the 2.0 driver
+
+ Line: 276 -   * Note that for replicasets the replicaSet query parameter is required in the 2.0 driver
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/operations/collection_ops.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 169 -   * Count the number of documents in the collection that match the query.
+
+ Line: 173 -   * @param {object} query The query for the count.
+
+ Line: 177 -  function count(coll, query, options, callback) {
+
+ Line: 189 -      cmd = buildCountCommand(coll, query, options);
+
+ Line: 200 -  function countDocuments(coll, query, options, callback) {
+
+ Line: 205 -    const pipeline = [{ $match: query }];
+
+ Line: 232 -   * @param {object} query The query for the count.
+
+ Line: 235 -  function buildCountCommand(collectionOrCursor, query, options) {
+
+ Line: 240 -    query = query || {};
+
+ Line: 242 -    // Final query
+
+ Line: 245 -      query: query
+
+ Line: 375 -   * @param {object} query The query for filtering the set of documents to which we apply the distinct filter.
+
+ Line: 379 -  function distinct(coll, key, query, options, callback) {
+
+ Line: 387 -      query: query
+
+ Line: 471 -   * @param {object} query Query object to locate the object to modify.
+
+ Line: 478 -  function findAndModify(coll, query, sort, doc, options, callback) {
+
+ Line: 480 -    const queryObject = {
+
+ Line: 482 -      query: query
+
+ Line: 487 -      queryObject.sort = sort;
+
+ Line: 490 -    queryObject.new = options.new ? true : false;
+
+ Line: 491 -    queryObject.remove = options.remove ? true : false;
+
+ Line: 492 -    queryObject.upsert = options.upsert ? true : false;
+
+ Line: 497 -      queryObject.fields = projection;
+
+ Line: 501 -      queryObject.arrayFilters = options.arrayFilters;
+
+ Line: 506 -      queryObject.update = doc;
+
+ Line: 509 -    if (options.maxTimeMS) queryObject.maxTimeMS = options.maxTimeMS;
+
+ Line: 525 -      queryObject.writeConcern = finalOptions.writeConcern;
+
+ Line: 530 -      queryObject.bypassDocumentValidation = finalOptions.bypassDocumentValidation;
+
+ Line: 543 -    executeCommand(coll.s.db, queryObject, finalOptions, (err, result) => {
+
+ Line: 555 -   * @param {object} query Query object to locate the object to modify.
+
+ Line: 561 -  function findAndRemove(coll, query, sort, options, callback) {
+
+ Line: 565 -    findAndModify(coll, query, sort, null, options, callback);
+
+ Line: 569 -   * Fetch the first document that matches the query.
+
+ Line: 573 -   * @param {object} query Query for find Operation
+
+ Line: 577 -  function findOne(coll, query, options, callback) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/gridfs/grid_store.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 905 -    // Create the query
+
+ Line: 906 -    var query =
+
+ Line: 908 -    query = null == self.fileId && self.filename == null ? null : query;
+
+ Line: 1269 -   * @param {Db} db the database to query.
+
+ Line: 1304 -      // Build query
+
+ Line: 1305 -      var query =
+
+ Line: 1311 -      // We have a specific query
+
+ Line: 1317 -        query = fileIdObject;
+
+ Line: 1333 -   * @param {Db} db the database to query.
+
+ Line: 1399 -   * @param {Db} db the database to query.
+
+ Line: 1454 -   * @param {Db} db the database to query.
+
+ Line: 1493 -   * @param {Db} db The database to query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/gridfs-stream/download.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 16 -   * @param {Object} filter The query to use to find the file document
+
+ Line: 18 -   * @param {Number} [options.sort] Optional sort for the file find query
+
+ Line: 19 -   * @param {Number} [options.skip] Optional skip for the file find query
+
+ Line: 290 -        // until the query is done to say we're 'closed' because we can't
+
+ Line: 291 -        // cancel a query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/url_parser.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 140 -    let query_string_part = '';
+
+ Line: 189 -    // Remove query
+
+ Line: 226 -    // If we have a ? mark cut the query elements off
+
+ Line: 228 -      query_string_part = url.substr(url.indexOf('?') + 1);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/admin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 68 -   * @param {number} [options.maxTimeMS] Number of milliseconds to wait before aborting the query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/aggregation_cursor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -   * allowing for iteration over the results returned from the underlying query. It supports
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/mongo_client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 100 -   * @param {string} [options.appname=undefined] The name of the application that created this MongoClient instance. MongoDB 3.4 and newer will print this value in the server log upon establishing each connection. It is also recorded in the slow query log and profile collections
+
+ Line: 153 -   * Note that for replicasets the replicaSet query parameter is required in the 2.0 driver
+
+ Line: 296 -   * Note that for replicasets the replicaSet query parameter is required in the 2.0 driver
+
+ Line: 349 -   * @param {string} [options.appname=undefined] The name of the application that created this MongoClient instance. MongoDB 3.4 and newer will print this value in the server log upon establishing each connection. It is also recorded in the slow query log and profile collections
+
+ Line: 440 -   * @param {number} [options.maxAwaitTimeMS] The maximum amount of time for the server to wait on new documents to satisfy a change stream query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/db.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 887 -   * @param {number} [options.maxAwaitTimeMS] The maximum amount of time for the server to wait on new documents to satisfy a change stream query
+
+</Result>
+</report_mosca>
+

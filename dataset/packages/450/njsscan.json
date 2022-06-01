@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            9,
+            16
+          ],
+          "match_position": [
+            6,
+            30
+          ],
+          "match_string": "     var relpath=path.join(\"html\",request.url);\n\n     fs.exists(relpath,function(error){\n\n         if(!error){\n\n             response.end(\"this file is not find\");\n\n         }else{\n\n             fs.readFile(relpath,function(err,file){\n\n                 response.write(file);\n\n                 response.end();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,426 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"presets\": [",
+          "message": "Syntax error"
+        },
+        "path": "/src/.babelrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# EditorConfig helps developers define and maintain consistent",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 23,
+          "line": 14
+        },
+        "extra": {
+          "line": "        <% attributes.forEach(function(attribute) { %>",
+          "message": "Syntax error"
+        },
+        "path": "/src/lib/assets/migrations/create-table.js",
+        "start": {
+          "col": 9,
+          "line": 14
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 23,
+          "line": 14
+        },
+        "extra": {
+          "line": "        <% attributes.forEach(function(attribute) { %>",
+          "message": "Syntax error"
+        },
+        "path": "/src/src/assets/migrations/create-table.js",
+        "start": {
+          "col": 9,
+          "line": 14
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 25,
+          "line": 8
+        },
+        "extra": {
+          "line": "const config = require(<%= configFile %>)[env];",
+          "message": "Syntax error"
+        },
+        "path": "/src/lib/assets/models/index.js",
+        "start": {
+          "col": 24,
+          "line": 8
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 4
+        },
+        "extra": {
+          "line": "  const <%= name %> = sequelize.define('<%= name %>', {",
+          "message": "Syntax error"
+        },
+        "path": "/src/lib/assets/models/model.js",
+        "start": {
+          "col": 9,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 25,
+          "line": 8
+        },
+        "extra": {
+          "line": "const config = require(<%= configFile %>)[env];",
+          "message": "Syntax error"
+        },
+        "path": "/src/src/assets/models/index.js",
+        "start": {
+          "col": 24,
+          "line": 8
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 4
+        },
+        "extra": {
+          "line": "  const <%= name %> = sequelize.define('<%= name %>', {",
+          "message": "Syntax error"
+        },
+        "path": "/src/src/assets/models/model.js",
+        "start": {
+          "col": 9,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/test/support/config/config.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            21,
+            32
+          ],
+          "match_string": "    return parseInt(Math.random() * 999, 10);"
+        },
+        {
+          "file_path": "/src/test/support/assets/project.js",
+          "match_lines": [
+            4,
+            4
+          ],
+          "match_position": [
+            48,
+            59
+          ],
+          "match_string": "  return sequelize.define('Project' + parseInt(Math.random() * 9999999999999999, 10), {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/test/support/helpers.js",
+          "match_lines": [
+            194,
+            199
+          ],
+          "match_position": [
+            5,
+            67
+          ],
+          "match_string": "    var QueryGenerator =  sequelize.getQueryInterface().QueryGenerator;\n\n\n\n    return sequelize\n\n      .query('SELECT count(*) as count FROM ' + QueryGenerator.quoteTable(table))\n\n      .then(function (result) {\n\n        return callback((result.length === 2) ? result[0] : result );"
+        },
+        {
+          "file_path": "/src/test/support/helpers.js",
+          "match_lines": [
+            196,
+            197
+          ],
+          "match_position": [
+            12,
+            80
+          ],
+          "match_string": "    return sequelize\n\n      .query('SELECT count(*) as count FROM ' + QueryGenerator.quoteTable(table))"
+        },
+        {
+          "file_path": "/src/lib/commands/database.js",
+          "match_lines": [
+            48,
+            74
+          ],
+          "match_position": [
+            5,
+            14
+          ],
+          "match_string": "    const config = _helpers2.default.config.readConfig();\n\n\n\n    switch (command) {\n\n      case 'db:create':\n\n        const options = (0, _lodash.pick)(args, ['charset', 'collate', 'encoding', 'ctype', 'template']);\n\n\n\n        const query = getCreateDatabaseQuery(sequelize, config, options);\n\n\n\n        yield sequelize.query(query, {\n\n          type: sequelize.QueryTypes.RAW\n\n        }).catch(function (e) {\n\n          return _helpers2.default.view.error(e);\n\n        });\n\n\n\n        _helpers2.default.view.log('Database', _cliColor2.default.blueBright(config.database), 'created.');\n\n\n\n        break;\n\n      case 'db:drop':\n\n        yield sequelize.query(`DROP DATABASE ${sequelize.getQueryInterface().quoteIdentifier(config.database)}`, {\n\n          type: sequelize.QueryTypes.RAW\n\n        }).catch(function (e) {\n\n          return _helpers2.default.view.error(e);\n\n        });\n\n\n\n        _helpers2.default.view.log('Database', _cliColor2.default.blueBright(config.database), 'dropped.');\n\n\n\n        break;"
+        },
+        {
+          "file_path": "/src/lib/commands/database.js",
+          "match_lines": [
+            52,
+            59
+          ],
+          "match_position": [
+            9,
+            48
+          ],
+          "match_string": "        const options = (0, _lodash.pick)(args, ['charset', 'collate', 'encoding', 'ctype', 'template']);\n\n\n\n        const query = getCreateDatabaseQuery(sequelize, config, options);\n\n\n\n        yield sequelize.query(query, {\n\n          type: sequelize.QueryTypes.RAW\n\n        }).catch(function (e) {\n\n          return _helpers2.default.view.error(e);"
+        },
+        {
+          "file_path": "/src/lib/commands/database.js",
+          "match_lines": [
+            66,
+            68
+          ],
+          "match_position": [
+            15,
+            10
+          ],
+          "match_string": "        yield sequelize.query(`DROP DATABASE ${sequelize.getQueryInterface().quoteIdentifier(config.database)}`, {\n\n          type: sequelize.QueryTypes.RAW\n\n        }).catch(function (e) {"
+        },
+        {
+          "file_path": "/src/test/db/db-drop.test.js",
+          "match_lines": [
+            28,
+            42
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test_db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:drop',\n\n        () => {\n\n          this.sequelize.query(`SELECT 1 as exists FROM pg_database WHERE datname = '${databaseName}';`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result).to.be.empty;\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-drop.test.js",
+          "match_lines": [
+            48,
+            62
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test_db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:drop',\n\n        () => {\n\n          this.sequelize.query(`SELECT IF('${databaseName}' IN(SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA), 1, 0) AS found;`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].found).to.eql(0);\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            27,
+            41
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test_db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create',\n\n        () => {\n\n          this.sequelize.query(`SELECT 1 as exists FROM pg_database WHERE datname = '${databaseName}';`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].exists).to.eql(1);\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            45,
+            59
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test-db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create',\n\n        () => {\n\n          this.sequelize.query(`SELECT 1 as exists FROM pg_database WHERE datname = '${databaseName}';`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].exists).to.eql(1);\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            63,
+            85
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test-db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create --encoding UTF8 --collate zh_TW.UTF-8 --template template0',\n\n        () => {\n\n          this.sequelize.query(`SELECT\n\n           1 as exists,\n\n           pg_encoding_to_char(encoding) as encoding,\n\n           datcollate as collate,\n\n           datctype as ctype\n\n           FROM pg_database WHERE datname = '${databaseName}';`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].exists).to.eql(1);\n\n            expect(result[0].encoding).to.eql('UTF8');\n\n            expect(result[0].collate).to.eql('zh_TW.UTF-8');\n\n            expect(result[0].ctype).to.eql('en_US.utf8');\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            89,
+            111
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test-db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create --encoding UTF8 --collate zh_TW.UTF-8 --ctype zh_TW.UTF-8 --template template0',\n\n        () => {\n\n          this.sequelize.query(`SELECT\n\n           1 as exists,\n\n           pg_encoding_to_char(encoding) as encoding,\n\n           datcollate as collate,\n\n           datctype as ctype\n\n           FROM pg_database WHERE datname = '${databaseName}';`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].exists).to.eql(1);\n\n            expect(result[0].encoding).to.eql('UTF8');\n\n            expect(result[0].collate).to.eql('zh_TW.UTF-8');\n\n            expect(result[0].ctype).to.eql('zh_TW.UTF-8');\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            117,
+            131
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test_db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create',\n\n        () => {\n\n          this.sequelize.query(`SELECT IF('${databaseName}' IN(SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA), 1, 0) AS found;`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].found).to.eql(1);\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            135,
+            149
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test-db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create',\n\n        () => {\n\n          this.sequelize.query(`SELECT IF('${databaseName}' IN(SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA), 1, 0) AS found;`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].found).to.eql(1);\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            153,
+            171
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test-db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create --charset utf8mb4',\n\n        () => {\n\n          this.sequelize.query(`SELECT\n\n            DEFAULT_CHARACTER_SET_NAME as charset,\n\n            DEFAULT_COLLATION_NAME as collation\n\n            FROM information_schema.SCHEMATA WHERE schema_name = '${databaseName}';`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].charset).to.eql('utf8mb4');\n\n            expect(result[0].collation).to.eql('utf8mb4_general_ci');\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/test/db/db-create.test.js",
+          "match_lines": [
+            176,
+            194
+          ],
+          "match_position": [
+            7,
+            10
+          ],
+          "match_string": "      const databaseName = `my_test-db_${_.random(10000, 99999)}`;\n\n      prepare(\n\n        'db:create --charset utf8mb4 --collate utf8mb4_unicode_ci',\n\n        () => {\n\n          this.sequelize.query(`SELECT\n\n            DEFAULT_CHARACTER_SET_NAME as charset,\n\n            DEFAULT_COLLATION_NAME as collation\n\n            FROM information_schema.SCHEMATA WHERE schema_name = '${databaseName}';`, {\n\n            type: this.sequelize.QueryTypes.SELECT\n\n          }).then(result => {\n\n            expect(result[0].charset).to.eql('utf8mb4');\n\n            expect(result[0].collation).to.eql('utf8mb4_unicode_ci');\n\n            done();\n\n          });\n\n        }, {\n\n          config: {\n\n            database: databaseName\n\n          }\n\n        });"
+        },
+        {
+          "file_path": "/src/src/commands/database.js",
+          "match_lines": [
+            42,
+            78
+          ],
+          "match_position": [
+            3,
+            12
+          ],
+          "match_string": "  const config = helpers.config.readConfig();\n\n\n\n  switch (command) {\n\n    case 'db:create':\n\n      const options = pick(args, [\n\n        'charset',\n\n        'collate',\n\n        'encoding',\n\n        'ctype',\n\n        'template'\n\n      ]);\n\n\n\n      const query = getCreateDatabaseQuery(sequelize, config, options);\n\n\n\n      await sequelize.query(query, {\n\n        type: sequelize.QueryTypes.RAW\n\n      }).catch(e => helpers.view.error(e));\n\n\n\n      helpers.view.log(\n\n        'Database',\n\n        clc.blueBright(config.database),\n\n        'created.'\n\n      );\n\n\n\n      break;\n\n    case 'db:drop':\n\n      await sequelize.query(`DROP DATABASE ${sequelize.getQueryInterface().quoteIdentifier(config.database)}`, {\n\n        type: sequelize.QueryTypes.RAW\n\n      }).catch(e => helpers.view.error(e));\n\n\n\n      helpers.view.log(\n\n        'Database',\n\n        clc.blueBright(config.database),\n\n        'dropped.'\n\n      );\n\n\n\n      break;"
+        },
+        {
+          "file_path": "/src/src/commands/database.js",
+          "match_lines": [
+            68,
+            70
+          ],
+          "match_position": [
+            13,
+            8
+          ],
+          "match_string": "      await sequelize.query(`DROP DATABASE ${sequelize.getQueryInterface().quoteIdentifier(config.database)}`, {\n\n        type: sequelize.QueryTypes.RAW\n\n      }).catch(e => helpers.view.error(e));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

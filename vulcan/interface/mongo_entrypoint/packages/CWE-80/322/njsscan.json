@@ -1,0 +1,167 @@
+{
+  "errors": [],
+  "nodejs": {
+    "handlebars_safestring": {
+      "files": [
+        {
+          "file_path": "/src/client/js/shout.js",
+          "match_lines": [
+            62,
+            62
+          ],
+          "match_position": [
+            11,
+            52
+          ],
+          "match_string": "\t\t\treturn new Handlebars.SafeString(render(id, this));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Handlebars SafeString will not escape the data passed through it. Untrusted user input passing through SafeString can cause XSS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/src/plugins/irc-events/error.js",
+          "match_lines": [
+            17,
+            17
+          ],
+          "match_position": [
+            44,
+            55
+          ],
+          "match_string": "\t\t\t\tvar random = irc.me + Math.floor(10 + (Math.random() * 89));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_logic_bypass": {
+      "files": [
+        {
+          "file_path": "/src/client/js/libs/uri.js",
+          "match_lines": [
+            465,
+            465
+          ],
+          "match_position": [
+            16,
+            62
+          ],
+          "match_string": "    } else if (string.indexOf(':') !== string.lastIndexOf(':')) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-807: Reliance on Untrusted Inputs in a Security Decision",
+        "description": "User controlled data is used for application business logic decision making. This expose protected data or functionality.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/client/js/libs/moment.js",
+          "match_lines": [
+            972,
+            972
+          ],
+          "match_position": [
+            26,
+            59
+          ],
+          "match_string": "        while (i >= 0 && localFormattingTokens.test(format)) {"
+        },
+        {
+          "file_path": "/src/client/js/libs/socket.io.js",
+          "match_lines": [
+            998,
+            998
+          ],
+          "match_position": [
+            10,
+            40
+          ],
+          "match_string": "    if (!/^(https?|wss?):\\/\\//.test(uri)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/client/js/libs/moment.js",
+          "match_lines": [
+            1064,
+            1064
+          ],
+          "match_position": [
+            13,
+            85
+          ],
+          "match_string": "            a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\\\', '')), \"i\"));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/client/views/chat.tpl",
+          "match_position": [
+            500,
+            517
+          ],
+          "match_string": "{{{parse topic}}}"
+        },
+        {
+          "file_path": "/src/client/views/msg.tpl",
+          "match_position": [
+            511,
+            527
+          ],
+          "match_string": "{{{parse text}}}"
+        },
+        {
+          "file_path": "/src/client/views/toggle.tpl",
+          "match_position": [
+            272,
+            282
+          ],
+          "match_string": "{{{head}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

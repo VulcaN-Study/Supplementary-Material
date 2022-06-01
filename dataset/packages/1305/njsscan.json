@@ -1,0 +1,110 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/build/airtable.browser.js",
+          "match_lines": [
+            575,
+            575
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "    var jitteredBackoffTimeMs = Math.random() * clippedBackoffTimeMs;"
+        },
+        {
+          "file_path": "/src/lib/run_action.js",
+          "match_lines": [
+            16,
+            16
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "    var jitteredBackoffTimeMs = Math.random() * clippedBackoffTimeMs;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/build/airtable.browser.js",
+          "match_lines": [
+            203,
+            203
+          ],
+          "match_position": [
+            17,
+            36
+          ],
+          "match_string": "            if (/\\[\\]$/.test(prefix)) {"
+        },
+        {
+          "file_path": "/src/build/airtable.browser.js",
+          "match_lines": [
+            3915,
+            3915
+          ],
+          "match_position": [
+            28,
+            47
+          ],
+          "match_string": "      (type != 'symbol' && reIsUint.test(value))) &&"
+        },
+        {
+          "file_path": "/src/build/airtable.browser.js",
+          "match_lines": [
+            3978,
+            3978
+          ],
+          "match_position": [
+            10,
+            34
+          ],
+          "match_string": "  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||"
+        },
+        {
+          "file_path": "/src/build/airtable.browser.js",
+          "match_lines": [
+            3978,
+            3978
+          ],
+          "match_position": [
+            40,
+            63
+          ],
+          "match_string": "  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||"
+        },
+        {
+          "file_path": "/src/lib/object_to_query_param_string.js",
+          "match_lines": [
+            13,
+            13
+          ],
+          "match_position": [
+            17,
+            36
+          ],
+          "match_string": "            if (/\\[\\]$/.test(prefix)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

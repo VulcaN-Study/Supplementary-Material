@@ -1,0 +1,10 @@
+--- tinyserver2-0.5.2/package/tinyserver.js	2015-06-29 15:56:05.000000000 +0100
++++ tinyserver2-0.6.0/package/tinyserver.js	2017-06-08 14:05:36.000000000 +0100
+@@ -19,6 +19,7 @@
+ {
+   console.log(req.connection.remoteAddress,req.url, "["+(new Date()).toLocaleString()+"]");
+   var myurl=url.parse(req.url);
++  myurl.pathname=myurl.pathname.replace(/\.\./g,"");
+   if(myurl.pathname=="/")
+   {
+     myurl.pathname="/index.html";

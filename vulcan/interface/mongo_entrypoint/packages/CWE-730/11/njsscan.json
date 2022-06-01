@@ -1,0 +1,296 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 18
+        },
+        "extra": {
+          "line": "complexity.md",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 18
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 28,
+          "line": 1
+        },
+        "extra": {
+          "line": "Van Nguyen <the.gol.effect@gmail.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/AUTHORS",
+        "start": {
+          "col": 27,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2011-2013, Walmart.",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 2
+        },
+        "extra": {
+          "line": "\t@node node_modules/lab/bin/lab",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 2,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            356,
+            375
+          ],
+          "match_position": [
+            5,
+            23
+          ],
+          "match_string": "    options.timeout = options.timeout || 5000;                                              // Default timeout to 5 seconds\n\n\n\n    if (!this._started) {\n\n        return Utils.nextTick(callback)();\n\n    }\n\n\n\n    this._started = false;\n\n\n\n    if (this._eventLoopTimer) {\n\n        clearTimeout(this._eventLoopTimer);\n\n    }\n\n\n\n    var timeoutId = setTimeout(function () {\n\n\n\n        Object.keys(self._connections).forEach(function (key) {\n\n\n\n            var connection = self._connections[key];\n\n            return connection && connection.destroy();\n\n        });\n\n    }, options.timeout);"
+        },
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            368,
+            375
+          ],
+          "match_position": [
+            21,
+            23
+          ],
+          "match_string": "    var timeoutId = setTimeout(function () {\n\n\n\n        Object.keys(self._connections).forEach(function (key) {\n\n\n\n            var connection = self._connections[key];\n\n            return connection && connection.destroy();\n\n        });\n\n    }, options.timeout);"
+        },
+        {
+          "file_path": "/src/test/integration/request.js",
+          "match_lines": [
+            47,
+            53
+          ],
+          "match_position": [
+            13,
+            30
+          ],
+          "match_string": "            var t2 = request.addTail('t2');\n\n\n\n            reply('Done');\n\n\n\n            t1();\n\n            t1();                           // Ignored\n\n            setTimeout(t2, 10);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/request.js",
+          "match_lines": [
+            50,
+            50
+          ],
+          "match_position": [
+            58,
+            69
+          ],
+          "match_string": "    this.id = now + '-' + process.pid + '-' + Math.floor(Math.random() * 0x10000);"
+        },
+        {
+          "file_path": "/src/lib/validation.js",
+          "match_lines": [
+            96,
+            96
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "        var currentSample = Math.ceil((Math.random() * 100));"
+        },
+        {
+          "file_path": "/src/test/integration/route.js",
+          "match_lines": [
+            111,
+            111
+          ],
+          "match_position": [
+            36,
+            47
+          ],
+          "match_string": "                var i = Math.floor(Math.random() * (copy.length - 1));"
+        },
+        {
+          "file_path": "/src/test/unit/ext.js",
+          "match_lines": [
+            108,
+            108
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "                    var j = Math.floor(Math.random() * (i + 1));"
+        },
+        {
+          "file_path": "/src/test/unit/server.js",
+          "match_lines": [
+            533,
+            533
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "                    var id = Math.random();"
+        },
+        {
+          "file_path": "/src/test/unit/server.js",
+          "match_lines": [
+            579,
+            579
+          ],
+          "match_position": [
+            31,
+            42
+          ],
+          "match_string": "                    var id1 = Math.random();"
+        },
+        {
+          "file_path": "/src/test/unit/server.js",
+          "match_lines": [
+            584,
+            584
+          ],
+          "match_position": [
+            35,
+            46
+          ],
+          "match_string": "                        var id2 = Math.random();"
+        },
+        {
+          "file_path": "/src/test/unit/server.js",
+          "match_lines": [
+            598,
+            598
+          ],
+          "match_position": [
+            27,
+            38
+          ],
+          "match_string": "                var id1 = Math.random();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/file.js",
+          "match_lines": [
+            117,
+            117
+          ],
+          "match_position": [
+            28,
+            52
+          ],
+          "match_string": "                var hash = Crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/test/unit/templates/layout.html",
+          "match_position": [
+            98,
+            113
+          ],
+          "match_string": "{{{ content }}}"
+        },
+        {
+          "file_path": "/src/test/unit/templates/otherLayout.html",
+          "match_position": [
+            10,
+            25
+          ],
+          "match_string": "{{{ content }}}"
+        },
+        {
+          "file_path": "/src/test/unit/templates/layout/elsewhere.html",
+          "match_position": [
+            10,
+            25
+          ],
+          "match_string": "{{{ content }}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

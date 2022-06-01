@@ -1,0 +1,105 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/cli.js",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 48,
+                  "endLine": 28,
+                  "endColumn": 54,
+                  "offset": 1152,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/cli.js",
+                  "replacements": [
+                    {
+                      "offset": 1152,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/tasks/srv.js",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 55,
+                  "endLine": 32,
+                  "endColumn": 61,
+                  "offset": 802,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/tasks/srv.js",
+                  "replacements": [
+                    {
+                      "offset": 802,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        }
+      ],
+      "rules": {
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        }
+      }
+    }
+  ]
+}

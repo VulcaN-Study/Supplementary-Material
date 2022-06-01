@@ -1,0 +1,284 @@
+/src/lib/dialects/postgres/data-types.js-264-    var b = new Buffer(value, 'hex');
+/src/lib/dialects/postgres/data-types.js:265:    return wkx.Geometry.parse(b).toGeoJSON();
+/src/lib/dialects/postgres/data-types.js-266-  };
+##############################################
+/src/lib/dialects/postgres/data-types.js-296-    var b = new Buffer(value, 'hex');
+/src/lib/dialects/postgres/data-types.js:297:    return wkx.Geometry.parse(b).toGeoJSON();
+/src/lib/dialects/postgres/data-types.js-298-  };
+##############################################
+/src/lib/dialects/postgres/data-types.js-319-    }
+/src/lib/dialects/postgres/data-types.js:320:    return hstore.parse(value);
+/src/lib/dialects/postgres/data-types.js-321-  };
+##############################################
+/src/lib/dialects/postgres/data-types.js-357-
+/src/lib/dialects/postgres/data-types.js:358:    return range.parse(value, parser);
+/src/lib/dialects/postgres/data-types.js-359-  };
+##############################################
+/src/lib/dialects/postgres/connection-manager.js-34-      self.lib.types.setTypeParser(oid, function (value) {
+/src/lib/dialects/postgres/connection-manager.js:35:        return dataType.parse(value, oid, self.lib.types.getTypeParser);
+/src/lib/dialects/postgres/connection-manager.js-36-      });
+##############################################
+/src/lib/dialects/postgres/connection-manager.js-43-        return self.lib.types.arrayParser.create(value, function (value) {
+/src/lib/dialects/postgres/connection-manager.js:44:          return dataType.parse(value, oid, self.lib.types.getTypeParser);
+/src/lib/dialects/postgres/connection-manager.js:45:        }).parse();
+/src/lib/dialects/postgres/connection-manager.js-46-      });
+##############################################
+/src/lib/dialects/postgres/connection-manager.js-83-
+/src/lib/dialects/postgres/connection-manager.js:84:    connection.connect(function(err) {
+/src/lib/dialects/postgres/connection-manager.js-85-      if (err) {
+##############################################
+/src/lib/dialects/postgres/connection-manager.js-112-
+/src/lib/dialects/postgres/connection-manager.js:113:    // If we didn't ever hear from the client.connect() callback the connection timeout, node-postgres does not treat this as an error since no active query was ever emitted
+/src/lib/dialects/postgres/connection-manager.js-114-    connection.on('end', function () {
+##############################################
+/src/lib/dialects/postgres/connection-manager.js-146-    return new Promise(function (resolve, reject) {
+/src/lib/dialects/postgres/connection-manager.js:147:      connection.query(query).on('error', function (err) {
+/src/lib/dialects/postgres/connection-manager.js-148-        reject(err);
+##############################################
+/src/lib/dialects/postgres/hstore.js-11-    if (value === null) return null;
+/src/lib/dialects/postgres/hstore.js:12:    return hstore.parse(value);
+/src/lib/dialects/postgres/hstore.js-13-}
+##############################################
+/src/lib/dialects/postgres/query.js-61-    , receivedError = false
+/src/lib/dialects/postgres/query.js:62:    , query = ((parameters && parameters.length) ? this.client.query(this.sql, parameters) : this.client.query(this.sql))
+/src/lib/dialects/postgres/query.js-63-    , rows = [];
+##############################################
+/src/lib/dialects/mssql/query-interface.js-25-  var findConstraintSql = self.QueryGenerator.getDefaultConstraintQuery(tableName, attributeName);
+/src/lib/dialects/mssql/query-interface.js:26:  return self.sequelize.query(findConstraintSql, { raw: true, logging: options.logging})
+/src/lib/dialects/mssql/query-interface.js-27-    .spread(function (results) {
+##############################################
+/src/lib/dialects/mssql/query-interface.js-32-      var dropConstraintSql = self.QueryGenerator.dropConstraintQuery(tableName, results[0].name);
+/src/lib/dialects/mssql/query-interface.js:33:      return self.sequelize.query(dropConstraintSql, { raw: true, logging: options.logging});
+/src/lib/dialects/mssql/query-interface.js-34-    })
+##############################################
+/src/lib/dialects/mssql/query-interface.js-36-      var removeSql = self.QueryGenerator.removeColumnQuery(tableName, attributeName);
+/src/lib/dialects/mssql/query-interface.js:37:      return self.sequelize.query(removeSql, { raw: true, logging: options.logging});
+/src/lib/dialects/mssql/query-interface.js-38-    });
+##############################################
+/src/lib/dialects/mysql/data-types.js-89-
+/src/lib/dialects/mysql/data-types.js:90:    return wkx.Geometry.parse(value).toGeoJSON();
+/src/lib/dialects/mysql/data-types.js-91-  };
+##############################################
+/src/lib/dialects/mysql/connection-manager.js-68-
+/src/lib/dialects/mysql/connection-manager.js:69:    var connection = self.lib.createConnection(connectionConfig);
+/src/lib/dialects/mysql/connection-manager.js-70-
+/src/lib/dialects/mysql/connection-manager.js:71:    connection.connect(function(err) {
+/src/lib/dialects/mysql/connection-manager.js-72-      if (err) {
+##############################################
+/src/lib/dialects/mysql/connection-manager.js-118-  }).tap(function (connection) {
+/src/lib/dialects/mysql/connection-manager.js:119:    connection.query("SET time_zone = '" + self.sequelize.options.timezone + "'"); /* jshint ignore: line */
+/src/lib/dialects/mysql/connection-manager.js-120-  });
+##############################################
+/src/lib/dialects/mysql/query.js-39-  var promise = new Utils.Promise(function(resolve, reject) {
+/src/lib/dialects/mysql/query.js:40:    self.connection.query(self.sql, function(err, results) {
+/src/lib/dialects/mysql/query.js-41-
+##############################################
+/src/lib/dialects/abstract/connection-manager.js-245-ConnectionManager.prototype.$connect = function(config) {
+/src/lib/dialects/abstract/connection-manager.js:246:  return this.dialect.connectionManager.connect(config);
+/src/lib/dialects/abstract/connection-manager.js-247-};
+##############################################
+/src/lib/dialects/sqlite/query-interface.js-38-    return Promise.each(subQueries, function(subQuery) {
+/src/lib/dialects/sqlite/query-interface.js:39:      return self.sequelize.query(subQuery + ';', { raw: true, logging: options.logging });
+/src/lib/dialects/sqlite/query-interface.js-40-    });
+##############################################
+/src/lib/dialects/sqlite/query-interface.js-70-    return Promise.each(subQueries, function(subQuery) {
+/src/lib/dialects/sqlite/query-interface.js:71:      return self.sequelize.query(subQuery + ';', { raw: true, logging: options.logging });
+/src/lib/dialects/sqlite/query-interface.js-72-    });
+##############################################
+/src/lib/dialects/sqlite/query-interface.js-103-    return Promise.each(subQueries, function(subQuery) {
+/src/lib/dialects/sqlite/query-interface.js:104:      return self.sequelize.query(subQuery + ';', { raw: true, logging: options.logging });
+/src/lib/dialects/sqlite/query-interface.js-105-    });
+##############################################
+/src/lib/query-interface.js-23-  var sql = this.QueryGenerator.createSchema(schema);
+/src/lib/query-interface.js:24:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-25-};
+##############################################
+/src/lib/query-interface.js-29-  var sql = this.QueryGenerator.dropSchema(schema);
+/src/lib/query-interface.js:30:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-31-};
+##############################################
+/src/lib/query-interface.js-56-
+/src/lib/query-interface.js:57:  return this.sequelize.query(showSchemasSql, options).then(function(schemaNames) {
+/src/lib/query-interface.js-58-    return Utils._.flatten(
+##############################################
+/src/lib/query-interface.js-135-                options.supportsSearchPath = false;
+/src/lib/query-interface.js:136:                promises.push(self.sequelize.query(self.QueryGenerator.pgEnumAdd(tableName, keys[i], value, options), options));
+/src/lib/query-interface.js-137-              }
+##############################################
+/src/lib/query-interface.js-157-      return Promise.all(promises).then(function() {
+/src/lib/query-interface.js:158:        return self.sequelize.query(sql, options);
+/src/lib/query-interface.js-159-      });
+##############################################
+/src/lib/query-interface.js-174-
+/src/lib/query-interface.js:175:    return self.sequelize.query(sql, options);
+/src/lib/query-interface.js-176-  }
+##############################################
+/src/lib/query-interface.js-186-
+/src/lib/query-interface.js:187:  return this.sequelize.query(sql, options).then(function() {
+/src/lib/query-interface.js-188-    var promises = [];
+##############################################
+/src/lib/query-interface.js-205-            options.supportsSearchPath = false;
+/src/lib/query-interface.js:206:            promises.push(self.sequelize.query(sql, _.assign({}, options, { raw: true })));
+/src/lib/query-interface.js-207-          }
+##############################################
+/src/lib/query-interface.js-233-    if (self.sequelize.options.dialect === 'sqlite') {
+/src/lib/query-interface.js:234:      return self.sequelize.query('PRAGMA foreign_keys;', options).then(function(result) {
+/src/lib/query-interface.js-235-        var foreignKeysAreEnabled = result.foreign_keys === 1;
+##############################################
+/src/lib/query-interface.js-237-        if (foreignKeysAreEnabled) {
+/src/lib/query-interface.js:238:          return self.sequelize.query('PRAGMA foreign_keys = OFF', options).then(function() {
+/src/lib/query-interface.js-239-            return dropAllTables(tableNames).then(function() {
+/src/lib/query-interface.js:240:              return self.sequelize.query('PRAGMA foreign_keys = ON', options);
+/src/lib/query-interface.js-241-            });
+##############################################
+/src/lib/query-interface.js-258-            var sql = self.QueryGenerator.dropForeignKeyQuery(tableName, foreignKey);
+/src/lib/query-interface.js:259:            promises.push(self.sequelize.query(sql, options));
+/src/lib/query-interface.js-260-          });
+##############################################
+/src/lib/query-interface.js-290-  var sql = this.QueryGenerator.pgListEnums(tableName);
+/src/lib/query-interface.js:291:  return this.sequelize.query(sql, _.assign({}, options, { plain: false, raw: true, type: QueryTypes.SELECT }));
+/src/lib/query-interface.js-292-};
+##############################################
+/src/lib/query-interface.js-296-  var sql = this.QueryGenerator.renameTableQuery(before, after);
+/src/lib/query-interface.js:297:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-298-};
+##############################################
+/src/lib/query-interface.js-307-  var showTablesSql = self.QueryGenerator.showTablesQuery();
+/src/lib/query-interface.js:308:  return self.sequelize.query(showTablesSql, options).then(function(tableNames) {
+/src/lib/query-interface.js-309-    return Utils._.flatten(tableNames);
+##############################################
+/src/lib/query-interface.js-352-  attribute = this.sequelize.normalizeAttribute(attribute);
+/src/lib/query-interface.js:353:  return this.sequelize.query(this.QueryGenerator.addColumnQuery(table, key, attribute), options);
+/src/lib/query-interface.js-354-};
+##############################################
+/src/lib/query-interface.js-366-        var sql = this.QueryGenerator.removeColumnQuery(tableName, attributeName);
+/src/lib/query-interface.js:367:        return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-368-  }
+##############################################
+/src/lib/query-interface.js-389-
+/src/lib/query-interface.js:390:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-391-  }
+##############################################
+/src/lib/query-interface.js-421-      );
+/src/lib/query-interface.js:422:      return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-423-    }
+##############################################
+/src/lib/query-interface.js-443-  var sql = this.QueryGenerator.addIndexQuery(tableName, options, rawTablename);
+/src/lib/query-interface.js:444:  return this.sequelize.query(sql, _.assign({}, options, { supportsSearchPath: false }));
+/src/lib/query-interface.js-445-};
+##############################################
+/src/lib/query-interface.js-448-  var sql = this.QueryGenerator.showIndexesQuery(tableName, options);
+/src/lib/query-interface.js:449:  return this.sequelize.query(sql, _.assign({}, options, { type: QueryTypes.SHOWINDEXES }));
+/src/lib/query-interface.js-450-};
+##############################################
+/src/lib/query-interface.js-464-  return Promise.map(tableNames, function(tableName) {
+/src/lib/query-interface.js:465:    return self.sequelize.query(self.QueryGenerator.getForeignKeysQuery(tableName, self.sequelize.config.database), options).get(0);
+/src/lib/query-interface.js-466-  }).then(function(results) {
+##############################################
+/src/lib/query-interface.js-485-  var sql = this.QueryGenerator.removeIndexQuery(tableName, indexNameOrAttributes);
+/src/lib/query-interface.js:486:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-487-};
+##############################################
+/src/lib/query-interface.js-496-
+/src/lib/query-interface.js:497:  return this.sequelize.query(sql, options).then(function(result) {
+/src/lib/query-interface.js-498-    if (instance) result.isNewRecord = false;
+##############################################
+/src/lib/query-interface.js-546-  var sql = this.QueryGenerator.upsertQuery(tableName, valuesByField, updateValues, where, model.rawAttributes, options);
+/src/lib/query-interface.js:547:  return this.sequelize.query(sql, options).then(function (rowCount) {
+/src/lib/query-interface.js-548-    if (rowCount === undefined) {
+##############################################
+/src/lib/query-interface.js-561-  var sql = this.QueryGenerator.bulkInsertQuery(tableName, records, options, attributes);
+/src/lib/query-interface.js:562:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-563-};
+##############################################
+/src/lib/query-interface.js-589-  options.instance = instance;
+/src/lib/query-interface.js:590:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-591-};
+##############################################
+/src/lib/query-interface.js-599-  options.model = model;
+/src/lib/query-interface.js:600:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-601-};
+##############################################
+/src/lib/query-interface.js-640-    options.instance = instance;
+/src/lib/query-interface.js:641:    return self.sequelize.query(sql, options);
+/src/lib/query-interface.js-642-  });
+##############################################
+/src/lib/query-interface.js-646-  var sql = this.QueryGenerator.deleteQuery(tableName, identifier, Utils._.defaults(options || {}, {limit: null}), model);
+/src/lib/query-interface.js:647:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-648-};
+##############################################
+/src/lib/query-interface.js-667-  options.instance = instance;
+/src/lib/query-interface.js:668:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-669-};
+##############################################
+/src/lib/query-interface.js-690-
+/src/lib/query-interface.js:691:  return this.sequelize.query(sql, options).then(function(data) {
+/src/lib/query-interface.js-692-    if (!options.plain) {
+##############################################
+/src/lib/query-interface.js-721-  if (sql) {
+/src/lib/query-interface.js:722:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-723-  } else {
+##############################################
+/src/lib/query-interface.js-732-  if (sql) {
+/src/lib/query-interface.js:733:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-734-  } else {
+##############################################
+/src/lib/query-interface.js-743-  if (sql) {
+/src/lib/query-interface.js:744:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-745-  } else {
+##############################################
+/src/lib/query-interface.js-754-  if (sql) {
+/src/lib/query-interface.js:755:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-756-  } else {
+##############################################
+/src/lib/query-interface.js-765-  if (sql) {
+/src/lib/query-interface.js:766:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-767-  } else {
+##############################################
+/src/lib/query-interface.js-776-  if (sql) {
+/src/lib/query-interface.js:777:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-778-  } else {
+##############################################
+/src/lib/query-interface.js-832-
+/src/lib/query-interface.js:833:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-834-};
+##############################################
+/src/lib/query-interface.js-854-
+/src/lib/query-interface.js:855:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-856-};
+##############################################
+/src/lib/query-interface.js-868-
+/src/lib/query-interface.js:869:  return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-870-};
+##############################################
+/src/lib/query-interface.js-879-  if (sql) {
+/src/lib/query-interface.js:880:    return this.sequelize.query(sql, options);
+/src/lib/query-interface.js-881-  }
+##############################################
+/src/lib/query-interface.js-900-  var sql = this.QueryGenerator.commitTransactionQuery(transaction);
+/src/lib/query-interface.js:901:  var promise = this.sequelize.query(sql, options);
+/src/lib/query-interface.js-902-
+##############################################
+/src/lib/query-interface.js-918-  var sql = this.QueryGenerator.rollbackTransactionQuery(transaction);
+/src/lib/query-interface.js:919:  var promise = this.sequelize.query(sql, options);
+/src/lib/query-interface.js-920-
+##############################################
+/src/lib/sequelize.js-105-    options = username || {};
+/src/lib/sequelize.js:106:    urlParts = url.parse(arguments[0]);
+/src/lib/sequelize.js-107-    // reset username and password to null so we don't pass the options as the username
+##############################################
+/src/lib/sequelize.js-672- * ```js
+/src/lib/sequelize.js:673: * sequelize.query('SELECT...').spread(function (results, metadata) {
+/src/lib/sequelize.js-674- *   // Raw query - use spread
+##############################################
+/src/lib/sequelize.js-676- *
+/src/lib/sequelize.js:677: * sequelize.query('SELECT...', { type: sequelize.QueryTypes.SELECT }).then(function (results) {
+/src/lib/sequelize.js-678- *   // SELECT query - use then
+##############################################
+/src/lib/sequelize.js-863-
+/src/lib/sequelize.js:864:  return this.query(query, options);
+/src/lib/sequelize.js-865-};
+##############################################
+/src/lib/sequelize.js-1045-Sequelize.prototype.authenticate = function(options) {
+/src/lib/sequelize.js:1046:  return this.query('SELECT 1+1 AS result', Utils._.assign({ raw: true, plain: true }, options)).return();
+/src/lib/sequelize.js-1047-};

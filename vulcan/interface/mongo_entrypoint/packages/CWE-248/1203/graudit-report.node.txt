@@ -1,0 +1,57 @@
+/src/HISTORY.md-2206-* Removed multiple message concept from bson
+/src/HISTORY.md:2207:* Changed db.open(db) to be db.open(err, db)
+/src/HISTORY.md-2208-
+##############################################
+/src/lib/gridfs/grid_store.js-23- *   const gridStore = new GridStore(db, null, "w");
+/src/lib/gridfs/grid_store.js:24: *   gridStore.open(function(err, gridStore) {
+/src/lib/gridfs/grid_store.js-25- *     gridStore.write("hello world!", function(err, gridStore) {
+##############################################
+/src/lib/gridfs/grid_store.js-397-  if (typeof file === 'string') {
+/src/lib/gridfs/grid_store.js:398:    fs.open(file, 'r', function(err, fd) {
+/src/lib/gridfs/grid_store.js-399-      if (err) return callback(err);
+/src/lib/gridfs/grid_store.js:400:      self.writeFile(fd, callback);
+/src/lib/gridfs/grid_store.js-401-    });
+##############################################
+/src/lib/gridfs/grid_store.js-404-
+/src/lib/gridfs/grid_store.js:405:  self.open(function(err, self) {
+/src/lib/gridfs/grid_store.js-406-    if (err) return callback(err, self);
+##############################################
+/src/lib/gridfs/grid_store.js-1428-var readStatic = function(db, name, length, offset, options, callback) {
+/src/lib/gridfs/grid_store.js:1429:  new GridStore(db, name, 'r', options).open(function(err, gridStore) {
+/src/lib/gridfs/grid_store.js-1430-    if (err) return callback(err);
+##############################################
+/src/lib/gridfs/grid_store.js-1482-  var finalSeperator = separator == null ? '\n' : separator;
+/src/lib/gridfs/grid_store.js:1483:  new GridStore(db, name, 'r', options).open(function(err, gridStore) {
+/src/lib/gridfs/grid_store.js-1484-    if (err) return callback(err);
+##############################################
+/src/lib/gridfs/grid_store.js-1522-      ++tc;
+/src/lib/gridfs/grid_store.js:1523:      GridStore.unlink(db, names[i], options, function() {
+/src/lib/gridfs/grid_store.js-1524-        if (--tc === 0) {
+##############################################
+/src/lib/gridfs/grid_store.js-1529-  } else {
+/src/lib/gridfs/grid_store.js:1530:    new GridStore(db, names, 'w', options).open(function(err, gridStore) {
+/src/lib/gridfs/grid_store.js-1531-      if (err) return callback(err);
+##############################################
+/src/lib/gridfs/grid_store.js-1657-  if (!self.gs.isOpen) {
+/src/lib/gridfs/grid_store.js:1658:    self.gs.open(function(err) {
+/src/lib/gridfs/grid_store.js-1659-      if (err) return self.emit('error', err);
+##############################################
+/src/lib/gridfs/grid_store.js-1701-  if (!self.gs.isOpen) {
+/src/lib/gridfs/grid_store.js:1702:    self.gs.open(function(err) {
+/src/lib/gridfs/grid_store.js-1703-      self.totalBytesToRead = self.gs.length - self.gs.position;
+##############################################
+/src/lib/gridfs/grid_store.js-1727-  if (!self.gs.isOpen) {
+/src/lib/gridfs/grid_store.js:1728:    self.gs.open(function() {
+/src/lib/gridfs/grid_store.js-1729-      self.gs.isOpen = true;
+##############################################
+/src/lib/url_parser.js-14-  try {
+/src/lib/url_parser.js:15:    result = parser.parse(url, true);
+/src/lib/url_parser.js-16-  } catch (e) {
+##############################################
+/src/lib/url_parser.js-144-  // Url parser result
+/src/lib/url_parser.js:145:  let result = parser.parse(url, true);
+/src/lib/url_parser.js-146-  if ((result.hostname == null || result.hostname === '') && url.indexOf('.sock') === -1) {
+##############################################
+/src/lib/url_parser.js-213-  for (let i = 0; i < hosts.length; i++) {
+/src/lib/url_parser.js:214:    let r = parser.parse(f('mongodb://%s', hosts[i].trim()));
+/src/lib/url_parser.js-215-    if (r.path && r.path.indexOf('.sock') !== -1) continue;

@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 770,
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/bootstrap-vue/-/bootstrap-vue-2.0.0-rc.11.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/components/form-select/form-select.js",
+                    "lineno": 20,
+                    "code": "const options = this.formOptions.map((option, index) => {"
+                },
+                "sink": {
+                    "file": "src/components/form-select/form-select.js",
+                    "lineno": 24,
+                    "code": "domProps: { innerHTML: option.text, value: option.value }"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/components/form-radio/form-radio-group.js",
+                    "lineno": 22,
+                    "code": "const radios = this.formOptions.map((option, idx) => {"
+                },
+                "sink": {
+                    "file": "src/components/form-radio/form-radio-group.js",
+                    "lineno": 35,
+                    "code": "[h('span', { domProps: { innerHTML: option.text } })]"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues/1974"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/bootstrap-vue/bootstrap-vue/commit/54612897bd8d29678eb30767c72e3aa1d2dca676"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

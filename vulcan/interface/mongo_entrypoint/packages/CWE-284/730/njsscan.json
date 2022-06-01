@@ -1,0 +1,641 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 2
+        },
+        "extra": {
+          "line": ".*",
+          "message": "Syntax error"
+        },
+        "path": "/src/.dockerignore",
+        "start": {
+          "col": 1,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 1
+        },
+        "extra": {
+          "line": "FROM mhart/alpine-node:8",
+          "message": "Syntax error"
+        },
+        "path": "/src/Dockerfile",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            466,
+            466
+          ],
+          "match_position": [
+            21,
+            77
+          ],
+          "match_string": "                    res.redirect('/admin/product/edit/' + req.body.productId);"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            471,
+            471
+          ],
+          "match_position": [
+            17,
+            73
+          ],
+          "match_string": "                res.redirect('/admin/product/edit/' + req.body.productId);"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            477,
+            477
+          ],
+          "match_position": [
+            9,
+            65
+          ],
+          "match_string": "        res.redirect('/admin/product/edit/' + req.body.productId);"
+        },
+        {
+          "file_path": "/src/routes/payments/paypal.js",
+          "match_lines": [
+            39,
+            39
+          ],
+          "match_position": [
+            13,
+            59
+          ],
+          "match_string": "            res.redirect('/payment/' + req.session.orderId);"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            187,
+            187
+          ],
+          "match_position": [
+            13,
+            72
+          ],
+          "match_string": "            res.redirect('/admin/product/edit/' + req.body.frmProductId);"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            195,
+            195
+          ],
+          "match_position": [
+            17,
+            76
+          ],
+          "match_string": "                res.redirect('/admin/product/edit/' + req.body.frmProductId);"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            212,
+            212
+          ],
+          "match_position": [
+            17,
+            76
+          ],
+          "match_string": "                res.redirect('/admin/product/edit/' + req.body.frmProductId);"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            241,
+            241
+          ],
+          "match_position": [
+            29,
+            88
+          ],
+          "match_string": "                            res.redirect('/admin/product/edit/' + req.body.frmProductId);"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            248,
+            248
+          ],
+          "match_position": [
+            33,
+            92
+          ],
+          "match_string": "                                res.redirect('/admin/product/edit/' + req.body.frmProductId);"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            125,
+            125
+          ],
+          "match_position": [
+            21,
+            71
+          ],
+          "match_string": "                    res.redirect('/admin/user/edit/' + req.body.userId);"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            130,
+            130
+          ],
+          "match_position": [
+            21,
+            71
+          ],
+          "match_string": "                    res.redirect('/admin/user/edit/' + req.body.userId);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            436,
+            437
+          ],
+          "match_position": [
+            9,
+            51
+          ],
+          "match_string": "        let file = req.file;\n\n        let source = fs.createReadStream(file.path);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/common.js",
+          "match_lines": [
+            118,
+            147
+          ],
+          "match_position": [
+            5,
+            30
+          ],
+          "match_string": "    db.products.findOne({_id: exports.getId(dir)}, (err, product) => {\n\n        if(err){\n\n            console.error(colors.red('Error getting images', err));\n\n        }\n\n\n\n        // loop files in /public/uploads/\n\n        glob('public/uploads/' + product.productPermalink + '/**', {nosort: true}, (er, files) => {\n\n            // sort array\n\n            files.sort();\n\n\n\n            // declare the array of objects\n\n            let fileList = [];\n\n\n\n            // loop these files\n\n            for(let i = 0; i < files.length; i++){\n\n                // only want files\n\n                if(fs.lstatSync(files[i]).isDirectory() === false){\n\n                    // declare the file object and set its values\n\n                    let file = {\n\n                        id: i,\n\n                        path: files[i].substring(6)\n\n                    };\n\n                    if(product.productImage === files[i].substring(6)){\n\n                        file.productImage = true;\n\n                    }\n\n                    // push the file object into the array\n\n                    fileList.push(file);\n\n                }\n\n            }\n\n            callback(fileList);"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            60,
+            87
+          ],
+          "match_position": [
+            5,
+            48
+          ],
+          "match_string": "    db.users.findOne({userEmail: req.body.email}, (err, user) => {\n\n        if(err){\n\n            req.session.message = 'Cannot find user.';\n\n            req.session.messageType = 'danger';\n\n            res.redirect('/admin/login');\n\n            return;\n\n        }\n\n\n\n        // check if user exists with that email\n\n        if(user === undefined || user === null){\n\n            req.session.message = 'A user with that email does not exist.';\n\n            req.session.messageType = 'danger';\n\n            res.redirect('/admin/login');\n\n        }else{\n\n            // we have a user under that email so we compare the password\n\n            bcrypt.compare(req.body.password, user.userPassword)\n\n            .then((result) => {\n\n                if(result){\n\n                    req.session.user = req.body.email;\n\n                    req.session.usersName = user.usersName;\n\n                    req.session.userId = user._id.toString();\n\n                    req.session.isAdmin = user.isAdmin;\n\n                    res.redirect('/admin');\n\n                }else{\n\n                    // password is not correct\n\n                    req.session.message = 'Access denied. Check password and try again.';\n\n                    req.session.messageType = 'danger';\n\n                    res.redirect('/admin/login');"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            187,
+            206
+          ],
+          "match_position": [
+            5,
+            65
+          ],
+          "match_string": "    db.products.findOne({_id: common.getId(req.body.productId)}, (err, product) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n        if(product.productOptions){\n\n            let optJson = JSON.parse(product.productOptions);\n\n            delete optJson[req.body.optName];\n\n\n\n            db.products.update({_id: common.getImages(req.body.productId)}, {$set: {productOptions: JSON.stringify(optJson)}}, (err, numReplaced) => {\n\n                if(err){\n\n                    console.info(err.stack);\n\n                }\n\n                if(numReplaced === 1){\n\n                    res.status(200).json({message: 'Option successfully removed'});\n\n                }else{\n\n                    res.status(400).json({message: 'Failed to remove option. Please try again.'});\n\n                }\n\n            });\n\n        }else{\n\n            res.status(400).json({message: 'Product not found.'});"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            268,
+            296
+          ],
+          "match_position": [
+            5,
+            14
+          ],
+          "match_string": "    db.pages.findOne({_id: common.getId(req.params.page)}, async (err, page) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n        // page found\n\n        const menu = common.sortMenu(await common.getMenu(db));\n\n        if(page){\n\n            res.render('settings_page_edit', {\n\n                title: 'Static pages',\n\n                page: page,\n\n                button_text: 'Update',\n\n                session: req.session,\n\n                admin: true,\n\n                message: common.clearSessionValue(req.session, 'message'),\n\n                messageType: common.clearSessionValue(req.session, 'messageType'),\n\n                helpers: req.handlebars.helpers,\n\n                config: common.getConfig(),\n\n                menu\n\n            });\n\n        }else{\n\n            // 404 it!\n\n            res.status(404).render('error', {\n\n                title: '404 Error - Page not found',\n\n                config: common.getConfig(),\n\n                message: '404 Error - Page not found',\n\n                helpers: req.handlebars.helpers,\n\n                showFooter: 'showFooter',\n\n                menu\n\n            });"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            314,
+            326
+          ],
+          "match_position": [
+            9,
+            65
+          ],
+          "match_string": "        db.pages.findOne({_id: common.getId(req.body.page_id)}, (err, page) => {\n\n            if(err){\n\n                console.info(err.stack);\n\n            }\n\n            if(page){\n\n                db.pages.update({_id: common.getId(req.body.page_id)}, {$set: doc}, {}, (err, numReplaced) => {\n\n                    if(err){\n\n                        console.info(err.stack);\n\n                    }\n\n                    res.status(200).json({message: 'Page updated successfully', page_id: req.body.page_id});\n\n                });\n\n            }else{\n\n                res.status(400).json({message: 'Page not found'});"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            452,
+            471
+          ],
+          "match_position": [
+            9,
+            73
+          ],
+          "match_string": "        db.products.findOne({_id: common.getId(req.body.productId)}, (err, product) => {\n\n            if(err){\n\n                console.info(err.stack);\n\n            }\n\n            let imagePath = path.join('/uploads', req.body.directory, file.originalname.replace(/ /g, '_'));\n\n\n\n            // if there isn't a product featured image, set this one\n\n            if(!product.productImage){\n\n                db.products.update({_id: common.getId(req.body.productId)}, {$set: {productImage: imagePath}}, {multi: false}, (err, numReplaced) => {\n\n                    if(err){\n\n                        console.info(err.stack);\n\n                    }\n\n                    req.session.message = 'File uploaded successfully';\n\n                    req.session.messageType = 'success';\n\n                    res.redirect('/admin/product/edit/' + req.body.productId);\n\n                });\n\n            }else{\n\n                req.session.message = 'File uploaded successfully';\n\n                req.session.messageType = 'success';\n\n                res.redirect('/admin/product/edit/' + req.body.productId);"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            27,
+            56
+          ],
+          "match_position": [
+            5,
+            14
+          ],
+          "match_string": "    db.customers.findOne({email: req.body.email}, (err, customer) => {\n\n        if(customer){\n\n            res.status(404).json({\n\n                err: 'A customer already exists with that email address'\n\n            });\n\n            return;\n\n        }\n\n        // email is ok to be used.\n\n        db.customers.insertOne(doc, (err, newCustomer) => {\n\n            if(err){\n\n                if(newCustomer){\n\n                    console.error(colors.red('Failed to insert customer: ' + err));\n\n                    res.status(400).json({\n\n                        err: 'A customer already exists with that email address'\n\n                    });\n\n                    return;\n\n                }\n\n                console.error(colors.red('Failed to insert customer: ' + err));\n\n                res.status(400).json({\n\n                    err: 'Customer creation failed.'\n\n                });\n\n                return;\n\n            }\n\n\n\n            // Customer creation successful\n\n            req.session.customer = newCustomer.ops[0];\n\n            res.status(200).json({\n\n                message: 'Successfully logged in',\n\n                customer: newCustomer\n\n            });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            65,
+            80
+          ],
+          "match_position": [
+            5,
+            10
+          ],
+          "match_string": "    db.customers.findOne({_id: common.getId(req.params.id)}, (err, result) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n\n\n        res.render('customer', {\n\n            title: 'View customer',\n\n            result: result,\n\n            admin: true,\n\n            session: req.session,\n\n            message: common.clearSessionValue(req.session, 'message'),\n\n            messageType: common.clearSessionValue(req.session, 'messageType'),\n\n            config: common.getConfig(),\n\n            editor: true,\n\n            helpers: req.handlebars.helpers\n\n        });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            136,
+            170
+          ],
+          "match_position": [
+            5,
+            14
+          ],
+          "match_string": "    db.customers.findOne({email: req.body.loginEmail}, (err, customer) => { // eslint-disable-line\n\n        if(err){\n\n            // An error accurred\n\n            return res.status(400).json({\n\n                err: 'Access denied. Check password and try again.'\n\n            });\n\n        }\n\n\n\n        // check if customer exists with that email\n\n        if(customer === undefined || customer === null){\n\n            return res.status(400).json({\n\n                err: 'A customer with that email does not exist.'\n\n            });\n\n        }\n\n        // we have a customer under that email so we compare the password\n\n        bcrypt.compare(req.body.loginPassword, customer.password)\n\n        .then((result) => {\n\n            if(!result){\n\n                // password is not correct\n\n                return res.status(400).json({\n\n                    err: 'Access denied. Check password and try again.'\n\n                });\n\n            }\n\n\n\n            // Customer login successful\n\n            req.session.customer = customer;\n\n            return res.status(200).json({\n\n                message: 'Successfully logged in',\n\n                customer: customer\n\n            });\n\n        })\n\n        .catch((err) => {\n\n            return res.status(400).json({\n\n                err: 'Access denied. Check password and try again.'\n\n            });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            196,
+            220
+          ],
+          "match_position": [
+            5,
+            47
+          ],
+          "match_string": "    db.customers.findOne({email: req.body.email}, (err, customer) => {\n\n        // if we have a customer, set a token, expiry and email it\n\n        if(customer){\n\n            let tokenExpiry = Date.now() + 3600000;\n\n            db.customers.update({email: req.body.email}, {$set: {resetToken: passwordToken, resetTokenExpiry: tokenExpiry}}, {multi: false}, (err, numReplaced) => {\n\n                // send forgotten password email\n\n                let mailOpts = {\n\n                    to: req.body.email,\n\n                    subject: 'Forgotten password request',\n\n                    body: `You are receiving this because you (or someone else) have requested the reset of the password for your user account.\\n\\n\n\n                        Please click on the following link, or paste this into your browser to complete the process:\\n\\n\n\n                        ${config.baseUrl}/customer/reset/${passwordToken}\\n\\n\n\n                        If you did not request this, please ignore this email and your password will remain unchanged.\\n`\n\n                };\n\n\n\n                // send the email with token to the user\n\n                // TODO: Should fix this to properly handle result\n\n                common.sendEmail(mailOpts.to, mailOpts.subject, mailOpts.body);\n\n                req.session.message = 'An email has been sent to ' + req.body.email + ' with further instructions';\n\n                req.session.message_type = 'success';\n\n                return res.redirect('/customer/forgotten');\n\n            });\n\n        }else{\n\n            req.session.message = 'Account does not exist';\n\n            res.redirect('/customer/forgotten');"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            230,
+            248
+          ],
+          "match_position": [
+            5,
+            10
+          ],
+          "match_string": "    db.customers.findOne({resetToken: req.params.token, resetTokenExpiry: {$gt: Date.now()}}, (err, customer) => {\n\n        if(!customer){\n\n            req.session.message = 'Password reset token is invalid or has expired';\n\n            req.session.message_type = 'danger';\n\n            res.redirect('/forgot');\n\n            return;\n\n        }\n\n\n\n        // show the password reset form\n\n        res.render('reset', {\n\n            title: 'Reset password',\n\n            token: req.params.token,\n\n            route: 'customer',\n\n            config: common.getConfig(),\n\n            message: common.clearSessionValue(req.session, 'message'),\n\n            message_type: common.clearSessionValue(req.session, 'message_type'),\n\n            show_footer: 'show_footer',\n\n            helpers: req.handlebars.helpers\n\n        });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            257,
+            279
+          ],
+          "match_position": [
+            5,
+            17
+          ],
+          "match_string": "    db.customers.findOne({resetToken: req.params.token, resetTokenExpiry: {$gt: Date.now()}}, (err, customer) => {\n\n        if(!customer){\n\n            req.session.message = 'Password reset token is invalid or has expired';\n\n            req.session.message_type = 'danger';\n\n            return res.redirect('/forgot');\n\n        }\n\n\n\n        // update the password and remove the token\n\n        let newPassword = bcrypt.hashSync(req.body.password, 10);\n\n        db.customers.update({email: customer.email}, {$set: {password: newPassword, resetToken: undefined, resetTokenExpiry: undefined}}, {multi: false}, (err, numReplaced) => {\n\n            let mailOpts = {\n\n                to: customer.email,\n\n                subject: 'Password successfully reset',\n\n                body: 'This is a confirmation that the password for your account ' + customer.email + ' has just been changed successfully.\\n'\n\n            };\n\n\n\n            // TODO: Should fix this to properly handle result\n\n            common.sendEmail(mailOpts.to, mailOpts.subject, mailOpts.body);\n\n            req.session.message = 'Password successfully updated';\n\n            req.session.message_type = 'success';\n\n            return res.redirect('/pay');\n\n        });\n\n        return'';"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            15,
+            30
+          ],
+          "match_position": [
+            5,
+            10
+          ],
+          "match_string": "    db.orders.findOne({_id: common.getId(req.params.orderId)}, async (err, result) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n        res.render(`${config.themeViews}payment_complete`, {\n\n            title: 'Payment complete',\n\n            config: common.getConfig(),\n\n            session: req.session,\n\n            pageCloseBtn: common.showCartCloseBtn('payment'),\n\n            result: result,\n\n            message: common.clearSessionValue(req.session, 'message'),\n\n            messageType: common.clearSessionValue(req.session, 'messageType'),\n\n            helpers: req.handlebars.helpers,\n\n            showFooter: 'showFooter',\n\n            menu: common.sortMenu(await common.getMenu(db))\n\n        });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            153,
+            166
+          ],
+          "match_position": [
+            13,
+            34
+          ],
+          "match_string": "            db.products.findOne({_id: common.getId(cartItem.productId)}, (err, product) => {\n\n                if(err){\n\n                    console.error(colors.red('Error updating cart', err));\n\n                }\n\n                if(product){\n\n                    let productPrice = parseFloat(product.productPrice).toFixed(2);\n\n                    if(req.session.cart[cartItem.cartIndex]){\n\n                        req.session.cart[cartItem.cartIndex].quantity = productQuantity;\n\n                        req.session.cart[cartItem.cartIndex].totalItemPrice = productPrice * productQuantity;\n\n                        callback(null);\n\n                    }\n\n                }else{\n\n                    hasError = true;\n\n                    callback(null);"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            221,
+            274
+          ],
+          "match_position": [
+            5,
+            85
+          ],
+          "match_string": "    db.products.findOne({_id: common.getId(req.body.productId)}, (err, product) => {\n\n        if(err){\n\n            console.error(colors.red('Error adding to cart', err));\n\n        }\n\n\n\n        // We item is found, add it to the cart\n\n        if(product){\n\n            let productPrice = parseFloat(product.productPrice).toFixed(2);\n\n\n\n            // Doc used to test if existing in the cart with the options. If not found, we add new.\n\n            let options = {};\n\n            if(req.body.productOptions){\n\n                options = JSON.parse(req.body.productOptions);\n\n            }\n\n            let findDoc = {\n\n                productId: req.body.productId,\n\n                options: options\n\n            };\n\n\n\n            // if exists we add to the existing value\n\n            let cartIndex = _.findIndex(req.session.cart, findDoc);\n\n            if(cartIndex > -1){\n\n                req.session.cart[cartIndex].quantity = parseInt(req.session.cart[cartIndex].quantity) + productQuantity;\n\n                req.session.cart[cartIndex].totalItemPrice = productPrice * parseInt(req.session.cart[cartIndex].quantity);\n\n            }else{\n\n                // Doesnt exist so we add to the cart session\n\n                req.session.cartTotalItems = req.session.cartTotalItems + productQuantity;\n\n\n\n                // new product deets\n\n                let productObj = {};\n\n                productObj.productId = req.body.productId;\n\n                productObj.title = product.productTitle;\n\n                productObj.quantity = productQuantity;\n\n                productObj.totalItemPrice = productPrice * productQuantity;\n\n                productObj.options = options;\n\n                productObj.productImage = product.productImage;\n\n                if(product.productPermalink){\n\n                    productObj.link = product.productPermalink;\n\n                }else{\n\n                    productObj.link = product._id;\n\n                }\n\n\n\n                // merge into the current cart\n\n                req.session.cart.push(productObj);\n\n            }\n\n\n\n            // update total cart amount\n\n            common.updateTotalCartAmount(req, res);\n\n\n\n            // update how many products in the shopping cart\n\n            req.session.cartTotalItems = Object.keys(req.session.cart).length;\n\n            res.status(200).json({message: 'Cart successfully updated', totalCartItems: Object.keys(req.session.cart).length});\n\n        }else{\n\n            res.status(400).json({message: 'Error updating cart. Please try again.'});"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            484,
+            511
+          ],
+          "match_position": [
+            9,
+            18
+          ],
+          "match_string": "        db.pages.findOne({pageSlug: req.params.page, pageEnabled: 'true'}, async (err, page) => {\n\n            if(err){\n\n                console.error(colors.red('Error getting page', err));\n\n            }\n\n            // if we have a page lets render it, else throw 404\n\n            if(page){\n\n                res.render(`${config.themeViews}page`, {\n\n                    title: page.pageName,\n\n                    page: page,\n\n                    session: req.session,\n\n                    message: common.clearSessionValue(req.session, 'message'),\n\n                    messageType: common.clearSessionValue(req.session, 'messageType'),\n\n                    pageCloseBtn: common.showCartCloseBtn('page'),\n\n                    config: common.getConfig(),\n\n                    metaDescription: common.getConfig().cartTitle + ' - ' + page,\n\n                    helpers: req.handlebars.helpers,\n\n                    showFooter: 'showFooter',\n\n                    menu: common.sortMenu(await common.getMenu(db))\n\n                });\n\n            }else{\n\n                res.status(404).render('error', {\n\n                    title: '404 Error - Page not found',\n\n                    config: common.getConfig(),\n\n                    message: '404 Error - Page not found',\n\n                    helpers: req.handlebars.helpers,\n\n                    showFooter: 'showFooter',\n\n                    menu: common.sortMenu(await common.getMenu(db))\n\n                });"
+        },
+        {
+          "file_path": "/src/routes/order.js",
+          "match_lines": [
+            60,
+            79
+          ],
+          "match_position": [
+            5,
+            10
+          ],
+          "match_string": "    db.orders.findOne({_id: common.getId(req.params.id)}, (err, result) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n        let productOptions = '';\n\n        if(result.options !== {}){\n\n            productOptions = result.options;\n\n        }\n\n        res.render('order', {\n\n            title: 'View order',\n\n            result: result,\n\n            productOptions: productOptions,\n\n            config: common.getConfig(),\n\n            session: req.session,\n\n            message: common.clearSessionValue(req.session, 'message'),\n\n            messageType: common.clearSessionValue(req.session, 'messageType'),\n\n            editor: true,\n\n            admin: true,\n\n            helpers: req.handlebars.helpers\n\n        });"
+        },
+        {
+          "file_path": "/src/routes/payments/paypal.js",
+          "match_lines": [
+            43,
+            100
+          ],
+          "match_position": [
+            9,
+            57
+          ],
+          "match_string": "        let paymentOrderId = req.session.orderId;\n\n        let paymentStatus = 'Approved';\n\n\n\n        // fully approved\n\n        if(payment.state === 'approved'){\n\n            paymentApproved = true;\n\n            paymentStatus = 'Paid';\n\n            paymentMessage = 'Your payment was successfully completed';\n\n            paymentDetails = '<p><strong>Order ID: </strong>' + paymentOrderId + '</p><p><strong>Transaction ID: </strong>' + payment.id + '</p>';\n\n\n\n            // clear the cart\n\n            if(req.session.cart){\n\n                req.session.cart = null;\n\n                req.session.orderId = null;\n\n                req.session.totalCartAmount = 0;\n\n            }\n\n        }\n\n\n\n        // failed\n\n        if(payment.failureReason){\n\n            paymentApproved = false;\n\n            paymentMessage = 'Your payment failed - ' + payment.failureReason;\n\n            paymentStatus = 'Declined';\n\n        }\n\n\n\n        // update the order status\n\n        db.orders.update({_id: common.getId(paymentOrderId)}, {$set: {orderStatus: paymentStatus}}, {multi: false}, (err, numReplaced) => {\n\n            if(err){\n\n                console.info(err.stack);\n\n            }\n\n            db.orders.findOne({_id: common.getId(paymentOrderId)}, (err, order) => {\n\n                if(err){\n\n                    console.info(err.stack);\n\n                }\n\n\n\n                // add to lunr index\n\n                common.indexOrders(req.app)\n\n                .then(() => {\n\n                    // set the results\n\n                    req.session.messageType = 'success';\n\n                    req.session.message = paymentMessage;\n\n                    req.session.paymentEmailAddr = order.orderEmail;\n\n                    req.session.paymentApproved = paymentApproved;\n\n                    req.session.paymentDetails = paymentDetails;\n\n\n\n                    let paymentResults = {\n\n                        message: req.session.message,\n\n                        messageType: req.session.messageType,\n\n                        paymentEmailAddr: req.session.paymentEmailAddr,\n\n                        paymentApproved: req.session.paymentApproved,\n\n                        paymentDetails: req.session.paymentDetails\n\n                    };\n\n\n\n                    // send the email with the response\n\n                    // TODO: Should fix this to properly handle result\n\n                    common.sendEmail(req.session.paymentEmailAddr, 'Your payment with ' + config.cartTitle, common.getEmailTemplate(paymentResults));\n\n\n\n                    res.redirect('/payment/' + order._id);"
+        },
+        {
+          "file_path": "/src/routes/payments/paypal.js",
+          "match_lines": [
+            73,
+            100
+          ],
+          "match_position": [
+            13,
+            57
+          ],
+          "match_string": "            db.orders.findOne({_id: common.getId(paymentOrderId)}, (err, order) => {\n\n                if(err){\n\n                    console.info(err.stack);\n\n                }\n\n\n\n                // add to lunr index\n\n                common.indexOrders(req.app)\n\n                .then(() => {\n\n                    // set the results\n\n                    req.session.messageType = 'success';\n\n                    req.session.message = paymentMessage;\n\n                    req.session.paymentEmailAddr = order.orderEmail;\n\n                    req.session.paymentApproved = paymentApproved;\n\n                    req.session.paymentDetails = paymentDetails;\n\n\n\n                    let paymentResults = {\n\n                        message: req.session.message,\n\n                        messageType: req.session.messageType,\n\n                        paymentEmailAddr: req.session.paymentEmailAddr,\n\n                        paymentApproved: req.session.paymentApproved,\n\n                        paymentDetails: req.session.paymentDetails\n\n                    };\n\n\n\n                    // send the email with the response\n\n                    // TODO: Should fix this to properly handle result\n\n                    common.sendEmail(req.session.paymentEmailAddr, 'Your payment with ' + config.cartTitle, common.getEmailTemplate(paymentResults));\n\n\n\n                    res.redirect('/payment/' + order._id);"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            152,
+            173
+          ],
+          "match_position": [
+            9,
+            14
+          ],
+          "match_string": "        db.products.findOne({_id: common.getId(req.params.id)}, (err, result) => {\n\n            if(err){\n\n                console.info(err.stack);\n\n            }\n\n            let options = {};\n\n            if(result.productOptions){\n\n                options = JSON.parse(result.productOptions);\n\n            }\n\n\n\n            res.render('product_edit', {\n\n                title: 'Edit product',\n\n                result: result,\n\n                images: images,\n\n                options: options,\n\n                admin: true,\n\n                session: req.session,\n\n                message: common.clearSessionValue(req.session, 'message'),\n\n                messageType: common.clearSessionValue(req.session, 'messageType'),\n\n                config: common.getConfig(),\n\n                editor: true,\n\n                helpers: req.handlebars.helpers\n\n            });"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            182,
+            248
+          ],
+          "match_position": [
+            5,
+            92
+          ],
+          "match_string": "    db.products.findOne({_id: common.getId(req.body.frmProductId)}, (err, product) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n            req.session.message = 'Failed updating product.';\n\n            req.session.messageType = 'danger';\n\n            res.redirect('/admin/product/edit/' + req.body.frmProductId);\n\n            return;\n\n        }\n\n        db.products.count({'productPermalink': req.body.frmProductPermalink, _id: {$ne: common.getId(product._id)}}, (err, count) => {\n\n            if(err){\n\n                console.info(err.stack);\n\n                req.session.message = 'Failed updating product.';\n\n                req.session.messageType = 'danger';\n\n                res.redirect('/admin/product/edit/' + req.body.frmProductId);\n\n                return;\n\n            }\n\n            if(count > 0 && req.body.frmProductPermalink !== ''){\n\n                // permalink exits\n\n                req.session.message = 'Permalink already exists. Pick a new one.';\n\n                req.session.messageType = 'danger';\n\n\n\n                // keep the current stuff\n\n                req.session.productTitle = req.body.frmProductTitle;\n\n                req.session.productDescription = req.body.frmProductDescription;\n\n                req.session.productPrice = req.body.frmProductPrice;\n\n                req.session.productPermalink = req.body.frmProductPermalink;\n\n                req.session.productTags = req.body.frmProductTags;\n\n                req.session.productOptions = req.body.productOptJson;\n\n\n\n                // redirect to insert\n\n                res.redirect('/admin/product/edit/' + req.body.frmProductId);\n\n            }else{\n\n                common.getImages(req.body.frmProductId, req, res, (images) => {\n\n                    let productDoc = {\n\n                        productTitle: req.body.frmProductTitle,\n\n                        productDescription: req.body.frmProductDescription,\n\n                        productPublished: req.body.frmProductPublished,\n\n                        productPrice: req.body.frmProductPrice,\n\n                        productPermalink: req.body.frmProductPermalink,\n\n                        productTags: req.body.frmProductTags,\n\n                        productOptions: req.body.productOptJson\n\n                    };\n\n\n\n                    // if no featured image\n\n                    if(!product.productImage){\n\n                        if(images.length > 0){\n\n                            productDoc['productImage'] = images[0].path;\n\n                        }else{\n\n                            productDoc['productImage'] = '/uploads/placeholder.png';\n\n                        }\n\n                    }else{\n\n                        productDoc['productImage'] = product.productImage;\n\n                    }\n\n\n\n                    db.products.update({_id: common.getId(req.body.frmProductId)}, {$set: productDoc}, {}, (err, numReplaced) => {\n\n                        if(err){\n\n                            console.error(colors.red('Failed to save product: ' + err));\n\n                            req.session.message = 'Failed to save. Please try again';\n\n                            req.session.messageType = 'danger';\n\n                            res.redirect('/admin/product/edit/' + req.body.frmProductId);\n\n                        }else{\n\n                            // Update the index\n\n                            common.indexProducts(req.app)\n\n                            .then(() => {\n\n                                req.session.message = 'Successfully saved';\n\n                                req.session.messageType = 'success';\n\n                                res.redirect('/admin/product/edit/' + req.body.frmProductId);"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            320,
+            345
+          ],
+          "match_position": [
+            5,
+            81
+          ],
+          "match_string": "    db.products.findOne({_id: common.getId(req.body.product_id)}, (err, product) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n        if(req.body.productImage === product.productImage){\n\n            // set the produt_image to null\n\n            db.products.update({_id: common.getId(req.body.product_id)}, {$set: {productImage: null}}, {multi: false}, (err, numReplaced) => {\n\n                if(err){\n\n                    console.info(err.stack);\n\n                }\n\n                // remove the image from disk\n\n                fs.unlink(path.join('public', req.body.productImage), (err) => {\n\n                    if(err){\n\n                        res.status(400).json({message: 'Image not removed, please try again.'});\n\n                    }else{\n\n                        res.status(200).json({message: 'Image successfully deleted'});\n\n                    }\n\n                });\n\n            });\n\n        }else{\n\n            // remove the image from disk\n\n            fs.unlink(path.join('public', req.body.productImage), (err) => {\n\n                if(err){\n\n                    res.status(400).json({message: 'Image not removed, please try again.'});\n\n                }else{\n\n                    res.status(200).json({message: 'Image successfully deleted'});"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            31,
+            53
+          ],
+          "match_position": [
+            5,
+            10
+          ],
+          "match_string": "    db.users.findOne({_id: common.getId(req.params.id)}, (err, user) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n        // if the user we want to edit is not the current logged in user and the current user is not\n\n        // an admin we render an access denied message\n\n        if(user.userEmail !== req.session.user && req.session.isAdmin === 'false'){\n\n            req.session.message = 'Access denied';\n\n            req.session.messageType = 'danger';\n\n            res.redirect('/Users/');\n\n            return;\n\n        }\n\n\n\n        res.render('user_edit', {\n\n            title: 'User edit',\n\n            user: user,\n\n            admin: true,\n\n            session: req.session,\n\n            message: common.clearSessionValue(req.session, 'message'),\n\n            messageType: common.clearSessionValue(req.session, 'messageType'),\n\n            helpers: req.handlebars.helpers,\n\n            config: common.getConfig()\n\n        });"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            96,
+            130
+          ],
+          "match_position": [
+            5,
+            71
+          ],
+          "match_string": "    db.users.findOne({_id: common.getId(req.body.userId)}, (err, user) => {\n\n        if(err){\n\n            console.info(err.stack);\n\n        }\n\n        // if the user we want to edit is not the current logged in user and the current user is not\n\n        // an admin we render an access denied message\n\n        if(user.userEmail !== req.session.user && req.session.isAdmin === 'false'){\n\n            req.session.message = 'Access denied';\n\n            req.session.messageType = 'danger';\n\n            res.redirect('/admin/users/');\n\n            return;\n\n        }\n\n\n\n        // create the update doc\n\n        let updateDoc = {};\n\n        updateDoc.isAdmin = isAdmin;\n\n        updateDoc.usersName = req.body.usersName;\n\n        if(req.body.userPassword){\n\n            updateDoc.userPassword = bcrypt.hashSync(req.body.userPassword);\n\n        }\n\n\n\n        db.users.update({_id: common.getId(req.body.userId)},\n\n            {\n\n                $set: updateDoc\n\n            }, {multi: false}, (err, numReplaced) => {\n\n                if(err){\n\n                    console.error(colors.red('Failed updating user: ' + err));\n\n                    req.session.message = 'Failed to update user';\n\n                    req.session.messageType = 'danger';\n\n                    res.redirect('/admin/user/edit/' + req.body.userId);\n\n                }else{\n\n                    // show the view\n\n                    req.session.message = 'User account updated.';\n\n                    req.session.messageType = 'success';\n\n                    res.redirect('/admin/user/edit/' + req.body.userId);"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            156,
+            192
+          ],
+          "match_position": [
+            5,
+            40
+          ],
+          "match_string": "    db.users.findOne({'userEmail': req.body.userEmail}, (err, user) => {\n\n        if(user){\n\n            // user already exists with that email address\n\n            console.error(colors.red('Failed to insert user, possibly already exists: ' + err));\n\n            req.session.message = 'A user with that email address already exists';\n\n            req.session.messageType = 'danger';\n\n            res.redirect('/admin/user/new');\n\n            return;\n\n        }\n\n        // email is ok to be used.\n\n        db.users.insert(doc, (err, doc) => {\n\n            // show the view\n\n            if(err){\n\n                if(doc){\n\n                    console.error(colors.red('Failed to insert user: ' + err));\n\n                    req.session.message = 'User exists';\n\n                    req.session.messageType = 'danger';\n\n                    res.redirect('/admin/user/edit/' + doc._id);\n\n                    return;\n\n                }\n\n                console.error(colors.red('Failed to insert user: ' + err));\n\n                req.session.message = 'New user creation failed';\n\n                req.session.messageType = 'danger';\n\n                res.redirect('/admin/user/new');\n\n                return;\n\n            }\n\n            req.session.message = 'User account inserted';\n\n            req.session.messageType = 'success';\n\n\n\n            // if from setup we add user to session and redirect to login.\n\n            // Otherwise we show users screen\n\n            if(urlParts.path === '/admin/setup'){\n\n                req.session.user = req.body.userEmail;\n\n                res.redirect('/admin/login');\n\n                return;\n\n            }\n\n            res.redirect('/admin/users');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/views/page.hbs",
+          "match_position": [
+            2937,
+            2959
+          ],
+          "match_string": "{{{page.pageContent}}}"
+        },
+        {
+          "file_path": "/src/views/product_new.hbs",
+          "match_position": [
+            5419,
+            5440
+          ],
+          "match_string": "{{{this.optOptions}}}"
+        },
+        {
+          "file_path": "/src/views/product.hbs",
+          "match_position": [
+            5265,
+            5289
+          ],
+          "match_string": "{{{productDescription}}}"
+        },
+        {
+          "file_path": "/src/public/themes/Cloth/page.hbs",
+          "match_position": [
+            2937,
+            2959
+          ],
+          "match_string": "{{{page.pageContent}}}"
+        },
+        {
+          "file_path": "/src/views/product_edit.hbs",
+          "match_position": [
+            5679,
+            5700
+          ],
+          "match_string": "{{{this.optOptions}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            7916,
+            7939
+          ],
+          "match_string": "{{{config.footerHtml}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            3878,
+            3900
+          ],
+          "match_string": "{{{config.customCss}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            7245,
+            7255
+          ],
+          "match_string": "{{{body}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            7320,
+            7330
+          ],
+          "match_string": "{{{body}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            3803,
+            3831
+          ],
+          "match_string": "{{{config.googleAnalytics}}}"
+        },
+        {
+          "file_path": "/src/public/themes/Cloth/product.hbs",
+          "match_position": [
+            4075,
+            4099
+          ],
+          "match_string": "{{{productDescription}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

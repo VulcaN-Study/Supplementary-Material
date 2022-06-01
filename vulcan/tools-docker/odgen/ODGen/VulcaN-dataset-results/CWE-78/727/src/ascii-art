@@ -1,0 +1,241 @@
+#!/usr/bin/env node
+var argv;
+var yargs = require('yargs');
+var fs = require('fs');
+var art = require('../ascii-art');
+yargs.usage('Usage: $0 <command> [options] <target>')
+yargs.command('image', 'convert an image to ascii')
+    .command('art', 'get some ascii art from various sites')
+    .command('text', 'add styles and/or font rendering to text')
+    .demand(2)
+    .example('$0 art textfiles.com/spock.art ', 'request the file "spock.art" remotely from "textfiles.com"')
+    .example('$0 install Font.flf ', 'install a figlet font')
+    .example('$0 image foo.jpg ', 'output foo.jpg as inline ascii text with ansi colors')
+    .example('$0 text -F Doom "Some Titles"', 'outputs "Some Titles" in the Doom font')
+    .example('$0 text -s red+underline "Some Titles"', 'outputs "Some Titles" with a red and underlined terminal style')
+    .example('$0 text -F Doom "Some Titles"', 'outputs "Some Titles" in the Doom font')
+    .example('$0 list all', 'show all fonts available at figlet.org')
+    .example('$0 preview weird', 'visit the prieview page for weird.flf at figlet.org')
+    .example('$0 install weird', 'install weird.flf into the local "/Fonts" directory')
+    .example('$0 install weird -g', 'install weird.flf into the currently executing ascii-art instance')
+    .alias('s', 'style')
+    	.nargs('s', 1)
+    	.describe('s', 'render a ansi style onto a string')
+    .alias('F', 'font')
+    	.nargs('F', 1)
+    	.describe('F', 'render the output in the specified font')
+    .alias('g', 'global')
+    	.nargs('g', 0)
+    	.describe('g', 'install the font globally')
+    .alias('o', 'output')
+    	.nargs('o', 1)
+    	.describe('o', 'Save to a file')
+    .alias('a', 'alphabet')
+    	.alias('a', 'alpha')
+    	.nargs('a', 1)
+    	.choices('a', Object.keys(art.valueScales))
+    	.describe('a', 'Which alphabet to use')
+    .help('h')
+    .alias('h', 'help')
+    .epilog('©2016 - Abbey Hawk Sparrow');
+argv = yargs.argv;
+var action = argv._.shift();
+var target = argv._.pop();
+var ftp;
+var request;
+switch(action){
+	case 'image':
+		var options = {
+			filepath: target
+		};
+		if(argv.a) options.alphabet = argv.a;
+        if(
+            process &&
+            process.stdout &&
+            process.stdout.columns
+        ){
+            options.width = process.stdout.columns;
+        }
+		var image = new art.Image(options);
+		image.write(function(err, rendered){
+			if(argv.o){
+				fs.writeFile(argv.o, rendered);
+			}else{
+				console.log(rendered);
+			}
+		})
+		break;
+    case 'art':
+            var parts = (target ||'').split('/');
+            if(!request) request = require('request');
+
+            function page2List(text, base, omit){
+                var matches = text.match(/<A(.*?)<\/A>/g).filter(function(i){
+                    return i.indexOf('?') === -1;
+                }).map(function(line){
+                    var name = line.match(/".*?"/)[0] || '';
+                    var file = line.match(/>.*?</)[0] || '';
+                    return{
+                        name: name.substring(1, name.length-1),
+                        file: base+
+                            file.substring(1, file.length-1)
+                    }
+                }).filter(function(i){
+                    return (omit || []).indexOf(i.name) === -1
+                    && i.name.indexOf('://') === -1
+                    && i.name.toUpperCase() !== i.name;
+                });
+                return matches;
+            }
+
+            var exclusions = [
+                '/apple', '/bbs', 'LOGOS', 'SEQ',
+                '../archives/asciiart.zip', 'NFOS', 'LOGOS',
+                'RTTY', '/piracy'
+            ]
+
+            switch(parts[0]){
+                case 'textfiles.com':
+                    if(parts[1]){
+                        var pre = '';
+                        var post = '';
+                        switch(parts[1]){
+                            case 'NFOS':
+                                post = 'asciiart/';
+                            case 'asciiart':
+                                pre = 'artscene.';
+                                break;
+                            case 'LOGOS':
+                            case 'DECUS':
+                                post = 'art/';
+                                break;
+                            case 'RAZOR':
+                            case 'FAIRLIGHT':
+                            case 'DREAMTEAM':
+                            case 'HUMBLE':
+                            case 'HYBRID':
+                            case 'PRESTIGE':
+                            case 'INC':
+                            case 'TDUJAM':
+                            case 'ANSI':
+                                post = 'piracy/';
+                                break;
+                        }
+                        if(parts[2]){
+                            request('http://'+pre+'textfiles.com/'+post+parts[1]+'/'+parts[2],
+                                function(err, req, data){
+                                    console.log(data);
+                                }
+                            );
+                        }else{
+                            var base = 'http://'+pre+'textfiles.com/'+post+parts[1]+'/';
+                            request(base,
+                                function(err, req, data){
+                                    if(err) throw err;
+                                    var text = data.toString();
+                                    var matches = page2List(text, base, exclusions);
+                                    art.table({data:matches}, function(rendered){
+                                        console.log(rendered);
+                                    });
+                                }
+                            );
+                        }
+                    }else{
+                        art.table({
+                            data:[
+                                {name:'asciiart', detail :'community shared'},
+                                {name:'art', detail :'classic files'},
+                                {name:'RTTY', detail :'Teletype Art'},
+                                {name:'LOGOS', detail :'Classic Logos'},
+                                {name:'DECUS', detail :'Printer Art'},
+                                {name:'RAZOR', detail :'Cracking Group'},
+                                {name:'FAIRLIGHT', detail :'Cracking Group'},
+                                {name:'DREAMTEAM', detail :'Cracking Group'},
+                                {name:'HUMBLE', detail :'Cracking Group'},
+                                {name:'HYBRID', detail :'Cracking Group'},
+                                {name:'PRESTIGE', detail :'Cracking Group'},
+                                {name:'INC', detail :'Cracking Group'},
+                                {name:'TDUJAM', detail :'Cracking Group'},
+                                {name:'ANSI', detail :'Misc ANSI Files'},
+                                {name:'NFOS', detail :'Misc NFO Files'}
+                            ]
+                        }, function(rendered){
+                            console.log(rendered);
+                        });
+                    }
+                    break;
+                case '':
+                    break;
+                default : throw new Error('unknown art source:'+parts[0]);
+            }
+    		var options = {
+    			filepath: target
+    		};
+    		break;
+    case 'text':
+        var output = function(result){ console.log(result) };
+		if(argv.F){
+    		if(argv.s) art.font(target, argv.F, argv.s, output);
+    		else art.font(target, argv.F, output);
+		}else{
+    		console.log(art.style(target, argv.s||'', true));
+        }
+		break;
+    case 'list':
+        var JSFtp = ftp || (ftp = require('jsftp'));
+        var client = new JSFtp({
+            host: "ftp.figlet.org"
+        });
+        var results = [];
+        client.ls("pub/figlet/fonts/ours", function(err, res) {
+            if(!err) results = results.concat(res.map(function(item){
+                return "ours/"+item.name
+            }));
+            client.ls("pub/figlet/fonts/contributed", function(err, res) {
+                if(!err) results = results.concat(res.map(function(item){
+                    return "contributed/"+item.name
+                }));
+                client.raw.quit(function(err, data) {
+                    if (err) return console.error(err);
+                    var names = results.map(function(path){
+                        return path.split('/').pop().split('.').shift();
+                    })
+                    console.log(names);
+                });
+            });
+        });
+        break;
+    case 'preview':
+        var exec = require('child_process').exec;
+        exec('open "http://www.figlet.org/fontdb_example.cgi?font='+target.toLowerCase()+'.flf"')
+        break;
+    case 'install':
+        var JSFtp = ftp || (ftp = require('jsftp'));
+        var ftp = new JSFtp({
+            host: "ftp.figlet.org"
+        });
+        var subdir = 'contributed'
+        var url = 'pub/figlet/fonts/'+subdir+'/'+target.toLowerCase()+'.flf';
+        ftp.get(url, function(err, socket) {
+            if (err) return;
+            var str = '';
+            socket.on("data", function(d) { str += d.toString(); })
+            socket.on("close", function(err) {
+                if (err){
+                    console.error('There was an error retrieving the font '+target);
+                }else{
+                    var dir = argv.g?process.cwd()+'/Fonts/':__dirname+'/../Fonts/';
+                    fs.writeFile(dir+target.toLowerCase()+'.flf', str, function(err){
+                        ftp.raw.quit(function(err, data) {
+                            if (err) return console.error(err);
+                            console.log(target+' written');
+                        });
+                    });
+                }
+
+            });
+            socket.resume();
+        });
+        break;
+    default : throw new Error('unknown action: '+action);
+}

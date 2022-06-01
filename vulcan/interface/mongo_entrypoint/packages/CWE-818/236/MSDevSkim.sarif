@@ -1,0 +1,1096 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/build.sh",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 6,
+                  "endLine": 4,
+                  "endColumn": 12,
+                  "offset": 35,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/build.sh",
+                  "replacements": [
+                    {
+                      "offset": 35,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS185832",
+          "level": "error",
+          "message": "Banned C function detected (strcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/wrapper.hpp",
+                "region": {
+                  "startLine": 520,
+                  "startColumn": 5,
+                  "endLine": 520,
+                  "endColumn": 30,
+                  "offset": 15935,
+                  "length": 25
+                }
+              }
+            }
+          ],
+          "snippet": "strcpy(input, ori.c_str()",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/wrapper.hpp",
+                  "replacements": [
+                    {
+                      "offset": 15935,
+                      "deletedLength": 25,
+                      "insertedBytes": "strcpy_s(input, <size of input>,  ori.c_str()"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/wrapper.hpp",
+                  "replacements": [
+                    {
+                      "offset": 15935,
+                      "deletedLength": 25,
+                      "insertedBytes": "strlcpy(input,  ori.c_str(, <size of input>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS185832",
+          "level": "error",
+          "message": "Banned C function detected (strcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/wrapper.hpp",
+                "region": {
+                  "startLine": 601,
+                  "startColumn": 17,
+                  "endLine": 601,
+                  "endColumn": 42,
+                  "offset": 18764,
+                  "length": 25
+                }
+              }
+            }
+          ],
+          "snippet": "strcpy(input, str.c_str()",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/wrapper.hpp",
+                  "replacements": [
+                    {
+                      "offset": 18764,
+                      "deletedLength": 25,
+                      "insertedBytes": "strcpy_s(input, <size of input>,  str.c_str()"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/wrapper.hpp",
+                  "replacements": [
+                    {
+                      "offset": 18764,
+                      "deletedLength": 25,
+                      "insertedBytes": "strlcpy(input,  str.c_str(, <size of input>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS185832",
+          "level": "error",
+          "message": "Banned C function detected (strcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/wrapper.hpp",
+                "region": {
+                  "startLine": 669,
+                  "startColumn": 17,
+                  "endLine": 669,
+                  "endColumn": 42,
+                  "offset": 21373,
+                  "length": 25
+                }
+              }
+            }
+          ],
+          "snippet": "strcpy(input, str.c_str()",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/wrapper.hpp",
+                  "replacements": [
+                    {
+                      "offset": 21373,
+                      "deletedLength": 25,
+                      "insertedBytes": "strcpy_s(input, <size of input>,  str.c_str()"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/wrapper.hpp",
+                  "replacements": [
+                    {
+                      "offset": 21373,
+                      "deletedLength": 25,
+                      "insertedBytes": "strlcpy(input,  str.c_str(, <size of input>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_ngram_feature.h",
+                "region": {
+                  "startLine": 111,
+                  "startColumn": 13,
+                  "endLine": 111,
+                  "endColumn": 20,
+                  "offset": 3575,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_learner.h",
+                "region": {
+                  "startLine": 215,
+                  "startColumn": 5,
+                  "endLine": 215,
+                  "endColumn": 12,
+                  "offset": 5494,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_learner.h",
+                "region": {
+                  "startLine": 216,
+                  "startColumn": 5,
+                  "endLine": 216,
+                  "endColumn": 12,
+                  "offset": 5545,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_learner.h",
+                "region": {
+                  "startLine": 227,
+                  "startColumn": 18,
+                  "endLine": 227,
+                  "endColumn": 23,
+                  "offset": 5841,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_learner.h",
+                "region": {
+                  "startLine": 252,
+                  "startColumn": 5,
+                  "endLine": 252,
+                  "endColumn": 12,
+                  "offset": 6698,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_learner.h",
+                "region": {
+                  "startLine": 258,
+                  "startColumn": 9,
+                  "endLine": 258,
+                  "endColumn": 16,
+                  "offset": 6826,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_learner.h",
+                "region": {
+                  "startLine": 296,
+                  "startColumn": 21,
+                  "endLine": 296,
+                  "endColumn": 28,
+                  "offset": 8297,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/wb_lattice.h",
+                "region": {
+                  "startLine": 187,
+                  "startColumn": 32,
+                  "endLine": 187,
+                  "endColumn": 36,
+                  "offset": 5504,
+                  "length": 4
+                }
+              }
+            }
+          ],
+          "snippet": "atoi",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/wb_lattice.h",
+                "region": {
+                  "startLine": 190,
+                  "startColumn": 33,
+                  "endLine": 190,
+                  "endColumn": 37,
+                  "offset": 5673,
+                  "length": 4
+                }
+              }
+            }
+          ],
+          "snippet": "atoi",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_decoder.h",
+                "region": {
+                  "startLine": 384,
+                  "startColumn": 18,
+                  "endLine": 384,
+                  "endColumn": 23,
+                  "offset": 10005,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_decoder.h",
+                "region": {
+                  "startLine": 441,
+                  "startColumn": 17,
+                  "endLine": 441,
+                  "endColumn": 23,
+                  "offset": 11545,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_tagging_decoder.h",
+                "region": {
+                  "startLine": 623,
+                  "startColumn": 9,
+                  "endLine": 623,
+                  "endColumn": 15,
+                  "offset": 18207,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/thulac_base.h",
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 24,
+                  "endLine": 102,
+                  "endColumn": 28,
+                  "offset": 2511,
+                  "length": 4
+                }
+              }
+            }
+          ],
+          "snippet": "atoi",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/thulac_base.h",
+                "region": {
+                  "startLine": 110,
+                  "startColumn": 25,
+                  "endLine": 110,
+                  "endColumn": 29,
+                  "offset": 2873,
+                  "length": 4
+                }
+              }
+            }
+          ],
+          "snippet": "atoi",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/thulac_base.h",
+                "region": {
+                  "startLine": 120,
+                  "startColumn": 18,
+                  "endLine": 120,
+                  "endColumn": 23,
+                  "offset": 3066,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/thulac_base.h",
+                "region": {
+                  "startLine": 178,
+                  "startColumn": 10,
+                  "endLine": 178,
+                  "endColumn": 15,
+                  "offset": 4276,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/thulac_base.h",
+                "region": {
+                  "startLine": 180,
+                  "startColumn": 12,
+                  "endLine": 180,
+                  "endColumn": 18,
+                  "offset": 4324,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "fscanf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/preprocess.h",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 17,
+                  "endLine": 101,
+                  "endColumn": 22,
+                  "offset": 3111,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/preprocess.h",
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 4,
+                  "endLine": 103,
+                  "endColumn": 11,
+                  "offset": 3152,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/preprocess.h",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 3,
+                  "endLine": 108,
+                  "endColumn": 9,
+                  "offset": 3354,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "rewind",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/dat.h",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 22,
+                  "endLine": 23,
+                  "endColumn": 27,
+                  "offset": 333,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/dat.h",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 13,
+                  "endLine": 25,
+                  "endColumn": 20,
+                  "offset": 388,
+                  "length": 7
+                }
+              }
+            }
+          ],
+          "snippet": "fprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/dat.h",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 9,
+                  "endLine": 29,
+                  "endColumn": 15,
+                  "offset": 544,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "rewind",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/dat.h",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 22,
+                  "endLine": 46,
+                  "endColumn": 27,
+                  "offset": 1001,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/dat.h",
+                "region": {
+                  "startLine": 329,
+                  "startColumn": 9,
+                  "endLine": 329,
+                  "endColumn": 15,
+                  "offset": 9670,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/dat.h",
+                "region": {
+                  "startLine": 331,
+                  "startColumn": 13,
+                  "endLine": 331,
+                  "endColumn": 19,
+                  "offset": 9763,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/dat.h",
+                "region": {
+                  "startLine": 332,
+                  "startColumn": 9,
+                  "endLine": 332,
+                  "endColumn": 15,
+                  "offset": 9821,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_decoder.h",
+                "region": {
+                  "startLine": 342,
+                  "startColumn": 22,
+                  "endLine": 342,
+                  "endColumn": 40,
+                  "offset": 11316,
+                  "length": 18
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(sizeof(int)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/src/cb_decoder.h",
+                  "replacements": [
+                    {
+                      "offset": 11316,
+                      "deletedLength": 18,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_decoder.h",
+                "region": {
+                  "startLine": 309,
+                  "startColumn": 5,
+                  "endLine": 309,
+                  "endColumn": 10,
+                  "offset": 10331,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "qsort",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_model.h",
+                "region": {
+                  "startLine": 91,
+                  "startColumn": 32,
+                  "endLine": 91,
+                  "endColumn": 50,
+                  "offset": 2998,
+                  "length": 18
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(sizeof(int)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/src/cb_model.h",
+                  "replacements": [
+                    {
+                      "offset": 2998,
+                      "deletedLength": 18,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_model.h",
+                "region": {
+                  "startLine": 92,
+                  "startColumn": 32,
+                  "endLine": 92,
+                  "endColumn": 50,
+                  "offset": 3065,
+                  "length": 18
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(sizeof(int)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/src/cb_model.h",
+                  "replacements": [
+                    {
+                      "offset": 3065,
+                      "deletedLength": 18,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_model.h",
+                "region": {
+                  "startLine": 85,
+                  "startColumn": 15,
+                  "endLine": 85,
+                  "endColumn": 20,
+                  "offset": 2768,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/cb_model.h",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 21,
+                  "endLine": 101,
+                  "endColumn": 26,
+                  "offset": 3348,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "fopen",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        }
+      ],
+      "rules": {
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        },
+        "DS185832": {
+          "id": "DS185832",
+          "name": "Banned C function detected (strcpy)",
+          "fullDescription": "strcpy is frequently dangerous, as it will cause a buffer overflow if the source is larger than the destination.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS185832.md"
+        },
+        "DS154189": {
+          "id": "DS154189",
+          "name": "Banned C function detected",
+          "fullDescription": "These functions are historically error-prone and have been associated with a significant number of vulnerabilities. Most of these functions have safer alternatives, such as replacing 'strcpy' with 'strlcpy' or 'strcpy_s'.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS154189.md"
+        },
+        "DS161085": {
+          "id": "DS161085",
+          "name": "Problematic C function detected (malloc)",
+          "fullDescription": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS161085.md"
+        }
+      }
+    }
+  ]
+}

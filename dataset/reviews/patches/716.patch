@@ -1,0 +1,12 @@
+--- merge-objects.js        2020-10-30 09:30:42.272805882 +0000
++++ patch.js    2020-10-30 09:30:35.860806145 +0000
+@@ -23,6 +23,9 @@
+
+   // merge object2 into object1
+   for (key in object2) {
++    if (key == 'constructor' || key=='__proto__' || key=='prototype') {
++      return;
++    }
+     if ((Array.isArray(object1[key])) && (Array.isArray(object2[key]))) {
+       // concatenate arrays that are values of the same object key
+       object1[key] = object1[key].concat(object2[key]);

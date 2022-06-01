@@ -1,0 +1,269 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 46,
+          "line": 1
+        },
+        "extra": {
+          "line": " Copyright (c) 2010 IBM Corporation <opendev@us.ibm.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 45,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 7,
+          "line": 1
+        },
+        "extra": {
+          "line": "IBM DB Test Suite",
+          "message": "Syntax error"
+        },
+        "path": "/src/test/README",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/test/test-domains-open.js",
+          "match_lines": [
+            12,
+            12
+          ],
+          "match_position": [
+            4,
+            17
+          ],
+          "match_string": "   console.trace();"
+        },
+        {
+          "file_path": "/src/test/test-domains-open.js",
+          "match_lines": [
+            15,
+            15
+          ],
+          "match_position": [
+            7,
+            20
+          ],
+          "match_string": "      console.trace();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/test/test-multi-open-query-close.js",
+          "match_lines": [
+            38,
+            48
+          ],
+          "match_position": [
+            5,
+            17
+          ],
+          "match_string": "    var seconds = connections.length - ix;\n\n    \n\n    var query = \"WAITFOR DELAY '00:00:0\" + seconds + \"'; select \" + seconds + \" as result from SYSIBM.SYSDUMMY1\";\n\n    \n\n    db.query(query, function (err, rows, moreResultSets) {\n\n             \n\n      //console.error(\"Query: %s %s %s %s\", ix, openCount, queryCallback, moreResultSets, rows, err);\n\n    \n\n      queryCallback += 1;\n\n      \n\n      maybeClose();"
+        },
+        {
+          "file_path": "/src/test/test-open-close.js",
+          "match_lines": [
+            8,
+            12
+          ],
+          "match_position": [
+            1,
+            35
+          ],
+          "match_string": "db.query(\"select * from \" + common.tableName, function (err, rs, moreResultSets) {\n\n  assert.deepEqual(err, { message: 'Connection not open.' });\n\n  assert.deepEqual(rs, []);\n\n  assert.equal(moreResultSets, false);\n\n  assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/test-open-close.js",
+          "match_lines": [
+            22,
+            26
+          ],
+          "match_position": [
+            5,
+            39
+          ],
+          "match_string": "    db.query(\"select * from \" + common.tableName, function (err, rs, moreResultSets) {\n\n      assert.deepEqual(err, { message: 'Connection not open.' });\n\n      assert.deepEqual(rs, []);\n\n      assert.equal(moreResultSets, false);\n\n      assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/test-open-connectTimeout.js",
+          "match_lines": [
+            17,
+            21
+          ],
+          "match_position": [
+            5,
+            39
+          ],
+          "match_string": "    db.query(\"select * from \" + common.tableName, function (err, rs, moreResultSets) {\n\n      assert.deepEqual(err, { message: 'Connection not open.' });\n\n      assert.deepEqual(rs, []);\n\n      assert.equal(moreResultSets, false);\n\n      assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/promise-test-open-close.js",
+          "match_lines": [
+            8,
+            8
+          ],
+          "match_position": [
+            1,
+            45
+          ],
+          "match_string": "db.query(\"select * from \" + common.tableName).then(null, function (err) {"
+        },
+        {
+          "file_path": "/src/test/promise-test-open-close.js",
+          "match_lines": [
+            21,
+            21
+          ],
+          "match_position": [
+            5,
+            49
+          ],
+          "match_string": "    db.query(\"select * from \" + common.tableName).then(null, function (err) {"
+        },
+        {
+          "file_path": "/src/test/test-query-insert.js",
+          "match_lines": [
+            13,
+            13
+          ],
+          "match_position": [
+            7,
+            100
+          ],
+          "match_string": "      db.query(\"insert into \" + common.tableName + \" (COLTEXT) values ('sandwich')\", insertCallback);"
+        },
+        {
+          "file_path": "/src/test/test-query-insert.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            7,
+            96
+          ],
+          "match_string": "      db.query(\"insert into \" + common.tableName + \" (COLTEXT) values ('fish')\", insertCallback);"
+        },
+        {
+          "file_path": "/src/test/test-query-insert.js",
+          "match_lines": [
+            15,
+            15
+          ],
+          "match_position": [
+            7,
+            97
+          ],
+          "match_string": "      db.query(\"insert into \" + common.tableName + \" (COLTEXT) values ('scarf')\", insertCallback);"
+        },
+        {
+          "file_path": "/src/test/test-call-async.js",
+          "match_lines": [
+            4,
+            43
+          ],
+          "match_position": [
+            1,
+            27
+          ],
+          "match_string": "var common = require(\"./common\")\n\n  , ibmdb = require(\"../\")\n\n  , assert = require(\"assert\")\n\n  , cn = common.connectionString\n\n  , schema = common.connectionObject.CURRENTSCHEMA;\n\n\n\nif(schema == undefined) schema = \"NEWTON\";\n\nibmdb.open(cn, function (err, conn)\n\n{\n\n    var query = \"CaLL \" + schema + \".proc1(?, ?, ?)\";\n\n    if(err) return console.log(err);\n\n    try {\n\n          conn.querySync(\"drop procedure \" + schema + \".proc1\");\n\n          console.log(\"proc1 dropped.\\n\");\n\n    } catch(e) {}\n\n    conn.querySync(\"create procedure \" + schema + \".proc1 \" +\n\n                   \"(IN v1 INTEGER, OUT v2 INTEGER, INOUT v3 VARCHAR(20)) \" +\n\n                   \"BEGIN set v2 = v1 + 1; set v3 = 'verygood'; END\");\n\n    console.log(\"created proc1...\\n\");\n\n    conn.commitTransactionSync();\n\n    var param1 = {ParamType:\"INPUT\", DataType:1, Data:3};\n\n    var param2 = {ParamType:\"OUTPUT\", DataType:1, Data:0};\n\n    var param3 = {ParamType:\"INOUT\", DataType:1, Data:\"abc\", Length:30};\n\n\n\n    conn.query(query, [param1, param2, param3], function(err, result){\n\n        if(err) console.log(err);\n\n        else {\n\n            console.log(\"return value = \", result[0], result[1]);\n\n        }\n\n        conn.querySync(\"drop procedure \" + schema + \".proc1\");\n\n        conn.closeSync();\n\n        assert.deepEqual(result, [ 4, 'verygood' ]);\n\n    });\n\n    conn.querySync(\"create or replace procedure \" + schema + \".proc2 (IN v1 INTEGER) BEGIN END\");\n\n    conn.query(\"call \" + schema + \".proc2(?)\", [param1], function(err, result){\n\n        if(err) console.log(err);\n\n        conn.querySync(\"drop procedure \" + schema + \".proc2\");\n\n        conn.closeSync();\n\n        assert.equal(result, true);\n\n        console.log('done');"
+        },
+        {
+          "file_path": "/src/test/sql-cli.js",
+          "match_lines": [
+            16,
+            25
+          ],
+          "match_position": [
+            3,
+            29
+          ],
+          "match_string": "\t\tdb.query(strInput.toString(), function (err, rs, moreResultSets) {\n\n\t\t\tif (err) {\n\n\t\t\t\tconsole.log(err);\n\n\t\t\t\tconsole.log(rs);\n\n\t\t\t}\n\n\t\t\telse {\n\n\t\t\t\tconsole.log(rs);\n\n\t\t\t}\n\n\t\t\t\n\n\t\t\tprocess.stdout.write('> ');"
+        },
+        {
+          "file_path": "/src/test/common.js",
+          "match_lines": [
+            64,
+            64
+          ],
+          "match_position": [
+            3,
+            49
+          ],
+          "match_string": "  db.query(\"drop table \" + exports.tableName, cb);"
+        },
+        {
+          "file_path": "/src/test/common.js",
+          "match_lines": [
+            68,
+            68
+          ],
+          "match_position": [
+            3,
+            118
+          ],
+          "match_string": "  db.query(\"create table \" + exports.tableName + \" (COLINT INTEGER, COLDATETIME TIMESTAMP, COLTEXT VARCHAR(255))\", cb);"
+        },
+        {
+          "file_path": "/src/test/test-openSync.js",
+          "match_lines": [
+            8,
+            12
+          ],
+          "match_position": [
+            1,
+            35
+          ],
+          "match_string": "db.query(\"select * from \" + common.tableName, function (err, rs, moreResultSets) {\n\n  assert.deepEqual(err, { message: 'Connection not open.' });\n\n  assert.deepEqual(rs, []);\n\n  assert.equal(moreResultSets, false);\n\n  assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/test-date.js",
+          "match_lines": [
+            12,
+            28
+          ],
+          "match_position": [
+            3,
+            100
+          ],
+          "match_string": "  var dtString = dt.toISOString().replace('Z','').replace('T', ' ') + '000';\n\n  var sql = \"SELECT cast('\" + dtString + \"' as timestamp) as DT1 FROM SYSIBM.SYSDUMMY1\";\n\n  \n\n  console.log(sql);\n\n  \n\n  db.query(sql, function (err, data) {\n\n    assert.equal(err, null);\n\n    assert.equal(data.length, 1);\n\n\n\n    db.close(function () {\n\n      assert.equal(db.connected, false);\n\n      console.log(dt);\n\n      console.log(data);\n\n      \n\n      //test selected data after the connection\n\n      //is closed, in case the assertion fails\n\n\t  assert.equal(data[0].DT1.constructor.name, \"String\", \"DT1 is not an instance of a String object\");"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

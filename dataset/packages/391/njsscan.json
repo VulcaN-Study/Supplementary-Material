@@ -1,0 +1,40 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/DataChannel.js",
+          "match_lines": [
+            472,
+            472
+          ],
+          "match_position": [
+            31,
+            42
+          ],
+          "match_string": "            return Math.round(Math.random() * 60535) + 5000000;"
+        },
+        {
+          "file_path": "/src/DataChannel.js",
+          "match_lines": [
+            641,
+            641
+          ],
+          "match_position": [
+            17,
+            28
+          ],
+          "match_string": "        return (Math.random() * new Date().getTime()).toString(36).replace(/\\./g, '-');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,97 @@
+{
+ "dra": [
+  {
+   "dra": "http://github.com/marak/asciimo",
+   "type": "url",
+   "file": "/src/examples/basic-proxy.js"
+  },
+  {
+   "dra": "http://en.wikipedia.org/wiki/Same_origin_policy",
+   "type": "url",
+   "file": "/src/examples/jsonp-middleware.js"
+  },
+  {
+   "dra": "http://en.wikipedia.org/wiki/JSONP#JSONP",
+   "type": "url",
+   "file": "/src/examples/jsonp-middleware.js"
+  },
+  {
+   "dra": "https://github.com/creationix/stack",
+   "type": "url",
+   "file": "/src/lib/node-http-proxy.js"
+  },
+  {
+   "dra": "https://github.com/senchalabs/connect/blob/master/lib/utils.js#L157",
+   "type": "url",
+   "file": "/src/lib/node-http-proxy.js"
+  },
+  {
+   "dra": "https://github.com/nodejitsu/node-http-proxy/blob/v0.3.1/lib/node-http-proxy.js#L154",
+   "type": "url",
+   "file": "/src/lib/node-http-proxy.js"
+  },
+  {
+   "dra": "https://github.com/pgriess/node-websocket-client",
+   "type": "url",
+   "file": "/src/vendor/websocket.js"
+  },
+  {
+   "dra": "http://dev.w3.org/html5/websockets/",
+   "type": "url",
+   "file": "/src/vendor/websocket.js"
+  },
+  {
+   "dra": "http://www.example.com",
+   "type": "url",
+   "file": "/src/vendor/websocket.js"
+  },
+  {
+   "dra": "pg@std.in",
+   "type": "email",
+   "file": "/src/vendor/websocket.js"
+  }
+ ],
+ "sast": {
+  "name": "http-proxy",
+  "version": "0.6.6",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "298617 Bytes",
+  "numberOfLines": 3640
+ },
+ "libraries": [
+  {
+   "name": "optimist",
+   "current": "0.2.x"
+  },
+  {
+   "name": "pkginfo",
+   "current": "0.2.x"
+  },
+  {
+   "name": "colors",
+   "current": "0.x.x"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 155,
+   "class": "websocket.js (155:23)",
+   "vul_id": "caa0e1a6ff09e4afedecf42fef1c4163",
+   "method": "var hash = crypto.createHash('md5');",
+   "column": 23,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/vendor/websocket.js (155:23)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/examples/latent-websocket-proxy.js",
+    "/examples/standalone-websocket-proxy.js",
+    "/examples/web-socket-proxy.js",
+    "/test/helpers.js",
+    "/test/web-socket-proxy-test.js"
+   ]
+  }
+ ]
+}

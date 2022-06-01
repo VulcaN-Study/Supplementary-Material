@@ -1,0 +1,128 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            189,
+            211
+          ],
+          "match_position": [
+            7,
+            45
+          ],
+          "match_string": "      let range = rangeParser(file.length, req.headers.range || '')\n\n\n\n      if (Array.isArray(range)) {\n\n        res.statusCode = 206 // indicates that range-request was understood\n\n\n\n        // no support for multi-range request, just use the first range\n\n        range = range[0]\n\n\n\n        res.setHeader(\n\n          'Content-Range',\n\n          `bytes ${range.start}-${range.end}/${file.length}`\n\n        )\n\n        res.setHeader('Content-Length', range.end - range.start + 1)\n\n      } else {\n\n        range = null\n\n        res.setHeader('Content-Length', file.length)\n\n      }\n\n\n\n      if (req.method === 'HEAD') {\n\n        return res.end()\n\n      }\n\n\n\n      pump(file.createReadStream(range), res)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/torrent.js",
+          "match_lines": [
+            1344,
+            1344
+          ],
+          "match_position": [
+            17,
+            28
+          ],
+          "match_string": "          salt: Math.random(),"
+        },
+        {
+          "file_path": "/src/lib/torrent.js",
+          "match_lines": [
+            1723,
+            1723
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "  return Math.random() * high | 0"
+        },
+        {
+          "file_path": "/src/lib/rarity-map.js",
+          "match_lines": [
+            55,
+            55
+          ],
+          "match_position": [
+            25,
+            36
+          ],
+          "match_string": "      return candidates[Math.random() * candidates.length | 0]"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/lib/torrent.js",
+          "match_lines": [
+            572,
+            577
+          ],
+          "match_position": [
+            11,
+            50
+          ],
+          "match_string": "          if (hash === this._hashes[index]) {\n\n            if (!this.pieces[index]) return cb(null)\n\n            this._debug('piece verified %s', index)\n\n            this._markVerified(index)\n\n          } else {\n\n            this._debug('piece invalid %s', index)"
+        },
+        {
+          "file_path": "/src/lib/torrent.js",
+          "match_lines": [
+            1519,
+            1538
+          ],
+          "match_position": [
+            9,
+            77
+          ],
+          "match_string": "        if (hash === self._hashes[index]) {\n\n          if (!self.pieces[index]) return\n\n          self._debug('piece verified %s', index)\n\n\n\n          self.pieces[index] = null\n\n          self._reservations[index] = null\n\n          self.bitfield.set(index, true)\n\n\n\n          self.store.put(index, buf)\n\n\n\n          self.wires.forEach(wire => {\n\n            wire.have(index)\n\n          })\n\n\n\n          // We also check `self.destroyed` since `torrent.destroy()` could have been\n\n          // called in the `torrent.on('done')` handler, triggered by `_checkDone()`.\n\n          if (self._checkDone() && !self.destroyed) self.discovery.complete()\n\n        } else {\n\n          self.pieces[index] = new Piece(piece.length)\n\n          self.emit('warning', new Error(`Piece ${index} failed verification`))"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

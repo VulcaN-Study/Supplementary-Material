@@ -1,0 +1,37 @@
+/src/index.js-39-   */
+/src/index.js:40:  function evaluateExpression (expression, functionIdentifier, call) {
+/src/index.js-41-    if (stack++ > MAX_STACK) {
+##############################################
+/src/index.js-49-
+/src/index.js:50:    expression = evaluateNestedExpression(expression, call)
+/src/index.js-51-
+##############################################
+/src/index.js-74-    try {
+/src/index.js:75:      result = eval(toEvaluate)
+/src/index.js-76-    }
+##############################################
+/src/index.js-103-   */
+/src/index.js:104:  function evaluateNestedExpression(expression, call) {
+/src/index.js:105:    var evaluatedPart = ""
+/src/index.js-106-    var nonEvaluatedPart = expression
+##############################################
+/src/index.js-109-      if (matches[0].index > 0) {
+/src/index.js:110:        evaluatedPart += nonEvaluatedPart.substring(0, matches[0].index)
+/src/index.js-111-      }
+##############################################
+/src/index.js-117-
+/src/index.js:118:      var evaluated = evaluateExpression(balancedExpr.body, "", call)
+/src/index.js-119-
+/src/index.js:120:      evaluatedPart += balancedExpr.pre + evaluated
+/src/index.js-121-      nonEvaluatedPart = balancedExpr.post
+##############################################
+/src/index.js-123-
+/src/index.js:124:    return evaluatedPart + nonEvaluatedPart
+/src/index.js-125-  }
+/src/index.js-126-
+/src/index.js:127:  return reduceFunctionCall(value, /((?:\-[a-z]+\-)?calc)\(/, evaluateExpression)
+/src/index.js-128-}
+##############################################
+/src/CHANGELOG.md-37-- Prevent infinite loop by adding a `Call stack overflow`
+/src/CHANGELOG.md:38:- Correctly ignore unrecognized values (safer evaluation for nested expressions,
+/src/CHANGELOG.md-39-  see [postcss/postcss-calc#2](https://github.com/postcss/postcss-calc/issues/2))

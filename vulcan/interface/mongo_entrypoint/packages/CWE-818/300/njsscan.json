@@ -1,0 +1,72 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "This is free and unencumbered software released into the public domain.\r",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/bin/haxeshim.js",
+          "match_lines": [
+            436,
+            437
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "\t\t} else if(token != \".\") {\n\n\t\t\ttarget.push(token);"
+        },
+        {
+          "file_path": "/src/bin/haxelibshim.js",
+          "match_lines": [
+            456,
+            457
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "\t\t} else if(token != \".\") {\n\n\t\t\ttarget.push(token);"
+        },
+        {
+          "file_path": "/src/bin/node/tests.js",
+          "match_lines": [
+            926,
+            927
+          ],
+          "match_position": [
+            10,
+            21
+          ],
+          "match_string": "\t\t} else if(token != \".\") {\n\n\t\t\ttarget.push(token);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

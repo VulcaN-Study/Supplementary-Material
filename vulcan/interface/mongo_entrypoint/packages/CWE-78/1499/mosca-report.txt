@@ -1,0 +1,30 @@
+<report_mosca>
+ <Path>/src/lib/node-rules.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 151 -                  rule.condition = eval("(" + rule.condition + ")");
+
+ Line: 152 -                  rule.consequence = eval("(" + rule.consequence + ")");
+
+ Line: 156 -              rules.condition = eval("(" + rules.condition + ")");
+
+ Line: 157 -              rules.consequence = eval("(" + rules.consequence + ")");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/node-rules.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 23 -  ion")}function Jt(e){return e!=null&&(typeof e==="undefined"?"undefined":r(e))=="object"}var Ht=Y?re(Y):jt;function Kt(e){return Ct(e)?dt(e):mt(e)}function Qt(){return[]}function Xt(){return false}n.exports=Nt}).call(this,n(1),n(0)(e))},function(e,t,n){"use strict";var r=e.exports={};var u;var i;function o(){throw new Error("setTimeout has not been defined")}function a(){throw new Error("clearTimeout has not been defined")}(function(){try{if(typeof setTimeout==="function"){u=setTimeout}else{u=o}}catch(e){u=o}try{if(typeof clearTimeout==="function"){i=clearTimeout}else{i=a}}catch(e){i=a}})();function c(e){if(u===setTimeout){return setTimeout(e,0)}if((u===o||!u)&&setTimeout){u=setTimeout;return setTimeout(e,0)}try{return u(e,0)}catch(t){try{return u.call(null,e,0)}catch(t){return u.call(this,e,0)}}}function f(e){if(i===clearTimeout){return clearTimeout(e)}if((i===a||!i)&&clearTimeout){i=clearTimeout;return clearTimeout(e)}try{return i(e)}catch(t){try{return i.call(null,e)}catch(t){return i.call(this,e)}}}var s=[];var l=false;var p;var d=-1;function h(){if(!l||!p){return}l=false;if(p.length){s=p.concat(s)}else{d=-1}if(s.length){v()}}function v(){if(l){return}var e=c(h);l=true;var t=s.length;while(t){p=s;s=[];while(++d<t){if(p){p[d].run()}}d=-1;t=s.length}p=null;l=false;f(e)}r.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1){for(var n=1;n<arguments.length;n++){t[n-1]=arguments[n]}}s.push(new y(e,t));if(s.length===1&&!l){c(v)}};function y(e,t){this.fun=e;this.array=t}y.prototype.run=function(){this.fun.apply(null,this.array)};r.title="browser";r.browser=true;r.env={};r.argv=[];r.version="";r.versions={};function _(){}r.on=_;r.addListener=_;r.once=_;r.off=_;r.removeListener=_;r.removeAllListeners=_;r.emit=_;r.prependListener=_;r.prependOnceListener=_;r.listeners=function(e){return[]};r.binding=function(e){throw new Error("process.binding is not supported")};r.cwd=function(){return"/"};r.chdir=function(e){throw new Error("process.chdir is not supported")};r.umask=function(){return 0}},function(module,exports,__webpack_require__){"use strict";(function(p</Result>
+</report_mosca>
+

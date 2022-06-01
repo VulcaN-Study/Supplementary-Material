@@ -1,0 +1,811 @@
+<report_mosca>
+ <Path>/src/dist/jquery.mobile.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3 -  "map"===d.nodeName.toLowerCase()?(g=a("img[usemap=#"+f+"]")[0],!!g&&e(g)):!1):(/input|select|textarea|button|object/.test(h)?!b.disabled:"a"===h?b.href||c:c)&&e(b)}function e(b){return a.expr.filters.visible(b)&&!a(b).parents().addBack().filter(function(){return"hidden"===a.css(this,"visibility")}).length}var f=0,g=/^ui-id-\d+$/;a.ui=a.ui||{},a.extend(a.ui,{version:"c0ab71056b936627e8a7821f03c044aec6280a40",keyCode:{BACKSPACE:8,COMMA:188,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,LEFT:37,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SPACE:32,TAB:9,UP:38}}),a.fn.extend({focus:function(b){return function(c,d){return"number"==typeof c?this.each(function(){var b=this;setTimeout(function(){a(b).focus(),d&&d.call(b)},c)}):b.apply(this,arguments)}}(a.fn.focus),scrollParent:function(){var b;return b=a.ui.ie&&/(static|relative)/.test(this.css("position"))||/absolute/.test(this.css("position"))?this.parents().filter(function(){return/(relative|absolute|fixed)/.test(a.css(this,"position"))&&/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0):this.parents().filter(function(){return/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0),/fixed/.test(this.css("position"))||!b.length?a(this[0].ownerDocument||c):b},uniqueId:function(){return this.each(function(){this.id||(this.id="ui-id-"+ ++f)})},removeUniqueId:function(){return this.each(function(){g.test(this.id)&&a(this).removeAttr("id")})}}),a.extend(a.expr[":"],{data:a.expr.createPseudo?a.expr.createPseudo(function(b){return function(c){return!!a.data(c,b)}}):function(b,c,d){return!!a.data(b,d[3])},focusable:function(b){return d(b,!isNaN(a.attr(b,"tabindex")))},tabbable:function(b){var c=a.attr(b,"tabindex"),e=isNaN(c);return(e||c>=0)&&d(b,!e)}}),a("<a>").outerWidth(1).jquery||a.each(["Width","Height"],function(c,d){function e(b,c,d,e){return a.each(f,function(){c-=parseFloat(a.css(b,"padding"+this))||0,d&&(c-=parseFloat(a.css(b,"border"+this+"Width"))||0),e&&(c-=parseFloat(a.css(b,"margin"+this))||0)}),c}var f="Width"===d?["Left","Ri Line: 4 -  ,"Bottom"],g=d.toLowerCase(),h={innerWidth:a.fn.innerWidth,innerHeight:a.fn.innerHeight,outerWidth:a.fn.outerWidth,outerHeight:a.fn.outerHeight};a.fn["inner"+d]=function(c){return c===b?h["inner"+d].call(this):this.each(function(){a(this).css(g,e(this,c)+"px")})},a.fn["outer"+d]=function(b,c){return"number"!=typeof b?h["outer"+d].call(this,b):this.each(function(){a(this).css(g,e(this,b,!0,c)+"px")})}}),a.fn.addBack||(a.fn.addBack=function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}),a("<a>").data("a-b","a").removeData("a-b").data("a-b")&&(a.fn.removeData=function(b){return function(c){return arguments.length?b.call(this,a.camelCase(c)):b.call(this)}}(a.fn.removeData)),a.ui.ie=!!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase()),a.support.selectstart="onselectstart"in c.createElement("div"),a.fn.extend({disableSelection:function(){return this.bind((a.support.selectstart?"selectstart":"mousedown")+".ui-disableSelection",function(a){a.preventDefault()})},enableSelection:function(){return this.unbind(".ui-disableSelection")},zIndex:function(d){if(d!==b)return this.css("zIndex",d);if(this.length)for(var e,f,g=a(this[0]);g.length&&g[0]!==c;){if(e=g.css("position"),("absolute"===e||"relative"===e||"fixed"===e)&&(f=parseInt(g.css("zIndex"),10),!isNaN(f)&&0!==f))return f;g=g.parent()}return 0}}),a.ui.plugin={add:function(b,c,d){var e,f=a.ui[b].prototype;for(e in d)f.plugins[e]=f.plugins[e]||[],f.plugins[e].push([c,d[e]])},call:function(a,b,c,d){var e,f=a.plugins[b];if(f&&(d||a.element[0].parentNode&&11!==a.element[0].parentNode.nodeType))for(e=0;e<f.length;e++)a.options[f[e][0]]&&f[e][1].apply(a.element,c)}}}(a),function(a,b){a.extend(a.mobile,{window:a(b),document:a(c),keyCode:a.ui.keyCode,behaviors:{},silentScroll:function(c){"number"!==a.type(c)&&(c=a.mobile.defaultHomeScroll),a.event.special.scrollstart.enabled=!1,setTimeout(function(){b.scrollTo(0,c),a.mobile.document.trigger("silentscroll",{x:0,y:c})},20),setTimeout(function(){a.event.special.scrollstart.enabled=!0},150)},getClosestBaseUrl:function(b){var c=a(b).closest(".ui-page").jqmData("url"),d=a. Line: 8 -  )return a.widget.extend({},this.options);if("string"==typeof c)if(h={},e=c.split("."),c=e.shift(),e.length){for(f=h[c]=a.widget.extend({},this.options[c]),g=0;g<e.length-1;g++)f[e[g]]=f[e[g]]||{},f=f[e[g]];if(c=e.pop(),d===b)return f[c]===b?null:f[c];f[c]=d}else{if(d===b)return this.options[c]===b?null:this.options[c];h[c]=d}return this._setOptions(h),this},_setOptions:function(a){var b;for(b in a)this._setOption(b,a[b]);return this},_setOption:function(a,b){return this.options[a]=b,"disabled"===a&&(this.widget().toggleClass(this.widgetFullName+"-disabled",!!b),this.hoverable.removeClass("ui-state-hover"),this.focusable.removeClass("ui-state-focus")),this},enable:function(){return this._setOptions({disabled:!1})},disable:function(){return this._setOptions({disabled:!0})},_on:function(b,c,d){var e,f=this;"boolean"!=typeof b&&(d=c,c=b,b=!1),d?(c=e=a(c),this.bindings=this.bindings.add(c)):(d=c,c=this.element,e=this.widget()),a.each(d,function(d,g){function h(){return b||f.options.disabled!==!0&&!a(this).hasClass("ui-state-disabled")?("string"==typeof g?f[g]:g).apply(f,arguments):void 0}"string"!=typeof g&&(h.guid=g.guid=g.guid||h.guid||a.guid++);var i=d.match(/^(\w+)\s*(.*)$/),j=i[1]+f.eventNamespace,k=i[2];k?e.delegate(k,j,h):c.bind(j,h)})},_off:function(a,b){b=(b||"").split(" ").join(this.eventNamespace+" ")+this.eventNamespace,a.unbind(b).undelegate(b)},_delay:function(a,b){function c(){return("string"==typeof a?d[a]:a).apply(d,arguments)}var d=this;return setTimeout(c,b||0)},_hoverable:function(b){this.hoverable=this.hoverable.add(b),this._on(b,{mouseenter:function(b){a(b.currentTarget).addClass("ui-state-hover")},mouseleave:function(b){a(b.currentTarget).removeClass("ui-state-hover")}})},_focusable:function(b){this.focusable=this.focusable.add(b),this._on(b,{focusin:function(b){a(b.currentTarget).addClass("ui-state-focus")},focusout:function(b){a(b.currentTarget).removeClass("ui-state-focus")}})},_trigger:function(b,c,d){var e,f,g=this.options[b];if(d=d||{},c=a.Event(c),c.type=(b===this.widgetEventPrefix?b:this.widgetEventPrefix+b).toLowerCase(),c.target=this.element[0],f=c.o Line: 10 -  ndTo(a.mobile.pageContainer),this.checkLoaderPosition(),this.window.bind("scroll",a.proxy(this.checkLoaderPosition,this))},hide:function(){c.removeClass("ui-loading"),this.options.text&&this.element.removeClass("ui-loader-fakefix"),a.mobile.window.unbind("scroll",this.fakeFixLoader),a.mobile.window.unbind("scroll",this.checkLoaderPosition)}})}(a,this),function(a,b,d){"$:nomunge";function e(a){return a=a||location.href,"#"+a.replace(/^[^#]*#?(.*)$/,"$1")}var f,g="hashchange",h=c,i=a.event.special,j=h.documentMode,k="on"+g in b&&(j===d||j>7);a.fn[g]=function(a){return a?this.bind(g,a):this.trigger(g)},a.fn[g].delay=50,i[g]=a.extend(i[g],{setup:function(){return k?!1:void a(f.start)},teardown:function(){return k?!1:void a(f.stop)}}),f=function(){function c(){var d=e(),h=n(j);d!==j?(m(j=d,h),a(b).trigger(g)):h!==j&&(location.href=location.href.replace(/#.*/,"")+h),f=setTimeout(c,a.fn[g].delay)}var f,i={},j=e(),l=function(a){return a},m=l,n=l;return i.start=function(){f||c()},i.stop=function(){f&&clearTimeout(f),f=d},b.attachEvent&&!b.addEventListener&&!k&&function(){var b,d;i.start=function(){b||(d=a.fn[g].src,d=d&&d+e(),b=a('<iframe tabindex="-1" title="empty"/>').hide().one("load",function(){d||m(e()),c()}).attr("src",d||"javascript:0").insertAfter("body")[0].contentWindow,h.onpropertychange=function(){try{"title"===event.propertyName&&(b.document.title=h.title)}catch(a){}})},i.stop=l,n=function(){return e(b.location.href)},m=function(c,d){var e=b.document,f=a.fn[g].domain;c!==d&&(e.title=h.title,e.open(),f&&e.write('<script>document.domain="'+f+'"</script>'),e.close(),b.location.hash=c)}}(),i}()}(a,this),function(a){b.matchMedia=b.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(c),a.mobile.media=function(a Line: 13 -  d()},isHashChangeEnabled:function(){return a.mobile.hashListeningEnabled===!0},popstate:function(b){var c=new a.Event("navigate"),e=new a.Event("beforenavigate"),f=b.originalEvent.state||{};e.originalEvent=b,d.trigger(e),e.isDefaultPrevented()||(b.historyState&&a.extend(f,b.historyState),c.originalEvent=b,setTimeout(function(){d.trigger(c,{state:f})},0))},hashchange:function(b){var c=new a.Event("navigate"),e=new a.Event("beforenavigate");e.originalEvent=b,d.trigger(e),e.isDefaultPrevented()||(c.originalEvent=b,d.trigger(c,{state:b.hashchangeState||{}}))},setup:function(){c.bound||(c.bound=!0,c.isPushStateEnabled()?(c.originalEventName="popstate",d.bind("popstate.navigate",c.popstate)):c.isHashChangeEnabled()&&(c.originalEventName="hashchange",d.bind("hashchange.navigate",c.hashchange)))}}}(a),function(a,c){var d,e,f="&ui-state=dialog";a.mobile.path=d={uiStateKey:"&ui-state",urlParseRE:/^\s*(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,getLocation:function(a){var b=a?this.parseUrl(a):location,c=this.parseUrl(a||location.href).hash;return c="#"===c?"":c,b.protocol+"//"+b.host+b.pathname+b.search+c},getDocumentUrl:function(b){return b?a.extend({},d.documentUrl):d.documentUrl.href},parseLocation:function(){return this.parseUrl(this.getLocation())},parseUrl:function(b){if("object"===a.type(b))return b;var c=d.urlParseRE.exec(b||"")||[];return{href:c[0]||"",hrefNoHash:c[1]||"",hrefNoSearch:c[2]||"",domain:c[3]||"",protocol:c[4]||"",doubleSlash:c[5]||"",authority:c[6]||"",username:c[8]||"",password:c[9]||"",host:c[10]||"",hostname:c[11]||"",port:c[12]||"",pathname:c[13]||"",directory:c[14]||"",filename:c[15]||"",search:c[16]||"",hash:c[17]||""}},makePathAbsolute:function(a,b){var c,d,e,f;if(a&&"/"===a.charAt(0))return a;for(a=a||"",b=b?b.replace(/^\/|(\/[^\/]*|[^\/]+)$/g,""):"",c=b?b.split("/"):[],d=a.split("/"),e=0;e<d.length;e++)switch(f=d[e]){case".":break;case"..":c.length&&c.pop();break;default:c.push(f)}return"/"+c.join("/")},isSameDomain:function( Line: 18 -  }}))},hashchange:function(b){var e,f;if(a.event.special.navigate.isHashChangeEnabled()&&!a.event.special.navigate.isPushStateEnabled()){if(this.preventNextHashChange)return this.preventNextHashChange=!1,void b.stopImmediatePropagation();e=this.history,f=d.parseLocation().hash,this.history.direct({url:f,present:function(c,d){b.hashchangeState=a.extend({},c),b.hashchangeState.direction=d},missing:function(){e.add(f,{hash:f,title:c.title})}})}}})}(a),function(a){a.mobile.navigate=function(b,c,d){a.mobile.navigate.navigator.go(b,c,d)},a.mobile.navigate.history=new a.mobile.History,a.mobile.navigate.navigator=new a.mobile.Navigator(a.mobile.navigate.history);var b=a.mobile.path.parseLocation();a.mobile.navigate.history.add(b.href,{hash:b.hash})}(a),function(a,b){var d={animation:{},transition:{}},e=c.createElement("a"),f=["","webkit-","moz-","o-"];a.each(["animation","transition"],function(c,g){var h=0===c?g+"-name":g;a.each(f,function(c,f){return e.style[a.camelCase(f+h)]!==b?(d[g].prefix=f,!1):void 0}),d[g].duration=a.camelCase(d[g].prefix+g+"-duration"),d[g].event=a.camelCase(d[g].prefix+g+"-end"),""===d[g].prefix&&(d[g].duration=d[g].duration.toLowerCase(),d[g].event=d[g].event.toLowerCase())}),a.support.cssTransitions=d.transition.prefix!==b,a.support.cssAnimations=d.animation.prefix!==b,a(e).remove(),a.fn.animationComplete=function(e,f,g){var h,i,j=this,k=f&&"animation"!==f?"transition":"animation";return a.support.cssTransitions&&"transition"===k||a.support.cssAnimations&&"animation"===k?(g===b&&(a(this).context!==c&&(i=3e3*parseFloat(a(this).css(d[k].duration))),(0===i||i===b)&&(i=a.fn.animationComplete.default)),h=setTimeout(function(){a(j).off(d[k].event),e.apply(j)},i),a(this).one(d[k].event,function(){clearTimeout(h),e.call(this,arguments)})):(setTimeout(a.proxy(e,this),0),a(this))},a.fn.animationComplete.default=1e3}(a),function(a,b,c,d){function e(a){for(;a&&"undefined"!=typeof a.originalEvent;)a=a.originalEvent;return a}function f(b,c){var f,g,h,i,j,k,l,m,n,o=b.type;if(b=a.Event(b),b.type=c,f=b.originalEvent,g=a.event.props,o.search(/^(mouse|click)/)>-1&&(g=E),f)for( Line: 19 -  l;)i=g[--l],b[i]=f[i];if(o.search(/mouse(down|up)|click/)>-1&&!b.which&&(b.which=1),-1!==o.search(/^touch/)&&(h=e(f),o=h.touches,j=h.changedTouches,k=o&&o.length?o[0]:j&&j.length?j[0]:d))for(m=0,n=C.length;n>m;m++)i=C[m],b[i]=k[i];return b}function g(b){for(var c,d,e={};b;){c=a.data(b,z);for(d in c)c[d]&&(e[d]=e.hasVirtualBinding=!0);b=b.parentNode}return e}function h(b,c){for(var d;b;){if(d=a.data(b,z),d&&(!c||d[c]))return b;b=b.parentNode}return null}function i(){M=!1}function j(){M=!0}function k(){Q=0,K.length=0,L=!1,j()}function l(){i()}function m(){n(),G=setTimeout(function(){G=0,k()},a.vmouse.resetTimerDuration)}function n(){G&&(clearTimeout(G),G=0)}function o(b,c,d){var e;return(d&&d[b]||!d&&h(c.target,b))&&(e=f(c,b),a(c.target).trigger(e)),e}function p(b){var c,d=a.data(b.target,A);L||Q&&Q===d||(c=o("v"+b.type,b),c&&(c.isDefaultPrevented()&&b.preventDefault(),c.isPropagationStopped()&&b.stopPropagation(),c.isImmediatePropagationStopped()&&b.stopImmediatePropagation()))}function q(b){var c,d,f,h=e(b).touches;h&&1===h.length&&(c=b.target,d=g(c),d.hasVirtualBinding&&(Q=P++,a.data(c,A,Q),n(),l(),J=!1,f=e(b).touches[0],H=f.pageX,I=f.pageY,o("vmouseover",b,d),o("vmousedown",b,d)))}function r(a){M||(J||o("vmousecancel",a,g(a.target)),J=!0,m())}function s(b){if(!M){var c=e(b).touches[0],d=J,f=a.vmouse.moveDistanceThreshold,h=g(b.target);J=J||Math.abs(c.pageX-H)>f||Math.abs(c.pageY-I)>f,J&&!d&&o("vmousecancel",b,h),o("vmousemove",b,h),m()}}function t(a){if(!M){j();var b,c,d=g(a.target);o("vmouseup",a,d),J||(b=o("vclick",a,d),b&&b.isDefaultPrevented()&&(c=e(a).changedTouches[0],K.push({touchID:Q,x:c.clientX,y:c.clientY}),L=!0)),o("vmouseout",a,d),J=!1,m()}}function u(b){var c,d=a.data(b,z);if(d)for(c in d)if(d[c])return!0;return!1}function v(){}function w(b){var c=b.substr(1);return{setup:function(){u(this)||a.data(this,z,{});var d=a.data(this,z);d[b]=!0,F[b]=(F[b]||0)+1,1===F[b]&&O.bind(c,p),a(this).bind(c,v),N&&(F.touchstart=(F.touchstart||0)+1,1===F.touchstart&&O.bind("touchstart",q).bind("touchend",t).bind("touchmove",s).bind("scroll",r))},teardown:function(){--F[b],F[b]||O. Line: 20 -  &&(--F.touchstart,F.touchstart||O.unbind("touchstart",q).unbind("touchmove",s).unbind("touchend",t).unbind("scroll",r));var d=a(this),e=a.data(this,z);e&&(e[b]=!1),d.unbind(c,v),u(this)||d.removeData(z)}}}var x,y,z="virtualMouseBindings",A="virtualTouchID",B="vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel".split(" "),C="clientX clientY pageX pageY screenX screenY".split(" "),D=a.event.mouseHooks?a.event.mouseHooks.props:[],E=a.event.props.concat(D),F={},G=0,H=0,I=0,J=!1,K=[],L=!1,M=!1,N="addEventListener"in c,O=a(c),P=1,Q=0;for(a.vmouse={moveDistanceThreshold:10,clickDistanceThreshold:10,resetTimerDuration:1500},y=0;y<B.length;y++)a.event.special[B[y]]=w(B[y]);N&&c.addEventListener("click",function(b){var c,d,e,f,g,h,i=K.length,j=b.target;if(i)for(c=b.clientX,d=b.clientY,x=a.vmouse.clickDistanceThreshold,e=j;e;){for(f=0;i>f;f++)if(g=K[f],h=0,e===j&&Math.abs(g.x-c)<x&&Math.abs(g.y-d)<x||a.data(e,A)===g.touchID)return b.preventDefault(),void b.stopPropagation();e=e.parentNode}},!0)}(a,b,c),function(a,b,d){function e(b,c,e,f){var g=e.type;e.type=c,f?a.event.trigger(e,d,b):a.event.dispatch.call(b,e),e.type=g}var f=a(c),g=a.mobile.support.touch,h="touchmove scroll",i=g?"touchstart":"mousedown",j=g?"touchend":"mouseup",k=g?"touchmove":"mousemove";a.each("touchstart touchmove touchend tap taphold swipe swipeleft swiperight scrollstart scrollstop".split(" "),function(b,c){a.fn[c]=function(a){return a?this.bind(c,a):this.trigger(c)},a.attrFn&&(a.attrFn[c]=!0)}),a.event.special.scrollstart={enabled:!0,setup:function(){function b(a,b){c=b,e(f,c?"scrollstart":"scrollstop",a)}var c,d,f=this,g=a(f);g.bind(h,function(e){a.event.special.scrollstart.enabled&&(c||b(e,!0),clearTimeout(d),d=setTimeout(function(){b(e,!1)},50))})},teardown:function(){a(this).unbind(h)}},a.event.special.tap={tapholdThreshold:750,emitTapOnTaphold:!0,setup:function(){var b=this,c=a(b),d=!1;c.bind("vmousedown",function(g){function h(){clearTimeout(k)}function i(){h(),c.unbind("vclick",j).unbind("vmouseup",h),f.unbind("vmousecancel",i)}function j(a){i(),d||l!==a.target?d&&a.stopPropagation():e(b Line: 21 -  d=!1,g.which&&1!==g.which)return!1;var k,l=g.target;c.bind("vmouseup",h).bind("vclick",j),f.bind("vmousecancel",i),k=setTimeout(function(){a.event.special.tap.emitTapOnTaphold||(d=!0),e(b,"taphold",a.Event("taphold",{target:l}))},a.event.special.tap.tapholdThreshold)})},teardown:function(){a(this).unbind("vmousedown").unbind("vclick").unbind("vmouseup"),f.unbind("vmousecancel")}},a.event.special.swipe={scrollSupressionThreshold:30,durationThreshold:1e3,horizontalDistanceThreshold:30,verticalDistanceThreshold:30,getLocation:function(a){var c=b.pageXOffset,d=b.pageYOffset,e=a.clientX,f=a.clientY;return 0===a.pageY&&Math.floor(f)>Math.floor(a.pageY)||0===a.pageX&&Math.floor(e)>Math.floor(a.pageX)?(e-=c,f-=d):(f<a.pageY-d||e<a.pageX-c)&&(e=a.pageX-c,f=a.pageY-d),{x:e,y:f}},start:function(b){var c=b.originalEvent.touches?b.originalEvent.touches[0]:b,d=a.event.special.swipe.getLocation(c);return{time:(new Date).getTime(),coords:[d.x,d.y],origin:a(b.target)}},stop:function(b){var c=b.originalEvent.touches?b.originalEvent.touches[0]:b,d=a.event.special.swipe.getLocation(c);return{time:(new Date).getTime(),coords:[d.x,d.y]}},handleSwipe:function(b,c,d,f){if(c.time-b.time<a.event.special.swipe.durationThreshold&&Math.abs(b.coords[0]-c.coords[0])>a.event.special.swipe.horizontalDistanceThreshold&&Math.abs(b.coords[1]-c.coords[1])<a.event.special.swipe.verticalDistanceThreshold){var g=b.coords[0]>c.coords[0]?"swipeleft":"swiperight";return e(d,"swipe",a.Event("swipe",{target:f,swipestart:b,swipestop:c}),!0),e(d,g,a.Event(g,{target:f,swipestart:b,swipestop:c}),!0),!0}return!1},eventInProgress:!1,setup:function(){var b,c=this,d=a(c),e={};b=a.data(this,"mobile-events"),b||(b={length:0},a.data(this,"mobile-events",b)),b.length++,b.swipe=e,e.start=function(b){if(!a.event.special.swipe.eventInProgress){a.event.special.swipe.eventInProgress=!0;var d,g=a.event.special.swipe.start(b),h=b.target,i=!1;e.move=function(b){g&&(d=a.event.special.swipe.stop(b),i||(i=a.event.special.swipe.handleSwipe(g,d,c,h),i&&(a.event.special.swipe.eventInProgress=!1)),Math.abs(g.coords[0]-d.coords[0])>a.event.special. Line: 22 -  upressionThreshold&&b.preventDefault())},e.stop=function(){i=!0,a.event.special.swipe.eventInProgress=!1,f.off(k,e.move),e.move=null},f.on(k,e.move).one(j,e.stop)}},d.on(i,e.start)},teardown:function(){var b,c;b=a.data(this,"mobile-events"),b&&(c=b.swipe,delete b.swipe,b.length--,0===b.length&&a.removeData(this,"mobile-events")),c&&(c.start&&a(this).off(i,c.start),c.move&&f.off(k,c.move),c.stop&&f.off(j,c.stop))}},a.each({scrollstop:"scrollstart",taphold:"tap",swipeleft:"swipe",swiperight:"swipe"},function(b,c){a.event.special[b]={setup:function(){a(this).bind(c,a.noop)},teardown:function(){a(this).unbind(c)}}})}(a,this),function(a){a.event.special.throttledresize={setup:function(){a(this).bind("resize",f)},teardown:function(){a(this).unbind("resize",f)}};var b,c,d,e=250,f=function(){c=(new Date).getTime(),d=c-g,d>=e?(g=c,a(this).trigger("throttledresize")):(b&&clearTimeout(b),b=setTimeout(f,e-d))},g=0}(a),function(a,b){function d(){var a=e();a!==f&&(f=a,l.trigger(m))}var e,f,g,h,i,j,k,l=a(b),m="orientationchange",n={0:!0,180:!0};a.support.orientation&&(i=b.innerWidth||l.width(),j=b.innerHeight||l.height(),k=50,g=i>j&&i-j>k,h=n[b.orientation],(g&&h||!g&&!h)&&(n={"-90":!0,90:!0})),a.event.special.orientationchange=a.extend({},a.event.special.orientationchange,{setup:function(){return a.support.orientation&&!a.event.special.orientationchange.disabled?!1:(f=e(),void l.bind("throttledresize",d))},teardown:function(){return a.support.orientation&&!a.event.special.orientationchange.disabled?!1:void l.unbind("throttledresize",d)},add:function(a){var b=a.handler;a.handler=function(a){return a.orientation=e(),b.apply(this,arguments)}}}),a.event.special.orientationchange.orientation=e=function(){var d=!0,e=c.documentElement;return d=a.support.orientation?n[b.orientation]:e&&e.clientWidth/e.clientHeight<1.1,d?"portrait":"landscape"},a.fn[m]=function(a){return a?this.bind(m,a):this.trigger(m)},a.attrFn&&(a.attrFn[m]=!0)}(a,this),function(a){var b=a("head").children("base"),c={element:b.length?b:a("<base>",{href:a.mobile.path.documentBase.hrefNoHash}).prependTo(a("head")),linkSelector:"[sr Line: 25 -  a,b,c,d=this._getActiveHistory();d&&(a=this._getScroll(),b=this._getMinScroll(),c=this._getDefaultScroll(),d.lastScroll=b>a?c:a)}},_delayedRecordScroll:function(){setTimeout(a.proxy(this,"_recordScroll"),100)},_getScroll:function(){return this.window.scrollTop()},_getMinScroll:function(){return a.mobile.minScrollBack},_getDefaultScroll:function(){return a.mobile.defaultHomeScroll},_filterNavigateEvents:function(b,c){var d;b.originalEvent&&b.originalEvent.isDefaultPrevented()||(d=b.originalEvent.type.indexOf("hashchange")>-1?c.state.hash:c.state.url,d||(d=this._getHash()),d&&"#"!==d&&0!==d.indexOf("#"+a.mobile.path.uiStateKey)||(d=location.href),this._handleNavigate(d,c.state))},_getHash:function(){return a.mobile.path.parseLocation().hash},getActivePage:function(){return this.activePage},_getInitialContent:function(){return a.mobile.firstPage},_getHistory:function(){return a.mobile.navigate.history},_getActiveHistory:function(){return a.mobile.navigate.history.getActive()},_getDocumentBase:function(){return a.mobile.path.documentBase},back:function(){this.go(-1)},forward:function(){this.go(1)},go:function(c){if(a.mobile.hashListeningEnabled)b.history.go(c);else{var d=a.mobile.navigate.history.activeIndex,e=d+parseInt(c,10),f=a.mobile.navigate.history.stack[e].url,g=c>=1?"forward":"back";a.mobile.navigate.history.activeIndex=e,a.mobile.navigate.history.previousIndex=d,this.change(f,{direction:g,changeHash:!1,fromHashChange:!0})}},_handleDestination:function(b){var c;return"string"===a.type(b)&&(b=a.mobile.path.stripHash(b)),b&&(c=this._getHistory(),b=a.mobile.path.isPath(b)?b:a.mobile.path.makeUrlAbsolute("#"+b,this._getDocumentBase()),b===a.mobile.path.makeUrlAbsolute("#"+c.initialDst,this._getDocumentBase())&&c.stack.length&&c.stack[0].url!==c.initialDst.replace(a.mobile.dialogHashKey,"")&&(b=this._getInitialContent())),b||this._getInitialContent()},_handleDialog:function(b,c){var d,e,f=this.getActivePage();return f&&!f.hasClass("ui-dialog")?("back"===c.direction?this.back():this.forward(),!1):(d=c.pageUrl,e=this._getActiveHistory(),a.extend(b,{role:e.role,transition:e.transi Line: 26 -  "back"===c.direction}),d)},_handleNavigate:function(b,c){var e=a.mobile.path.stripHash(b),f=this._getHistory(),g=0===f.stack.length?"none":d,h={changeHash:!1,fromHashChange:!0,reverse:"back"===c.direction};a.extend(h,c,{transition:(f.getLast()||{}).transition||g}),f.activeIndex>0&&e.indexOf(a.mobile.dialogHashKey)>-1&&f.initialDst!==e&&(e=this._handleDialog(h,c),e===!1)||this._changeContent(this._handleDestination(e),h)},_changeContent:function(b,c){a.mobile.changePage(b,c)},_getBase:function(){return a.mobile.base},_getNs:function(){return a.mobile.ns},_enhance:function(a,b){return a.page({role:b})},_include:function(a,b){a.appendTo(this.element),this._enhance(a,b.role),a.page("bindRemove")},_find:function(b){var c,d=this._createFileUrl(b),e=this._createDataUrl(b),f=this._getInitialContent();return c=this.element.children("[data-"+this._getNs()+"url='"+e+"']"),0===c.length&&e&&!a.mobile.path.isPath(e)&&(c=this.element.children(a.mobile.path.hashToSelector("#"+e)).attr("data-"+this._getNs()+"url",e).jqmData("url",e)),0===c.length&&a.mobile.path.isFirstPageUrl(d)&&f&&f.parent().length&&(c=a(f)),c},_getLoader:function(){return a.mobile.loading()},_showLoading:function(b,c,d,e){this._loadMsg||(this._loadMsg=setTimeout(a.proxy(function(){this._getLoader().loader("show",c,d,e),this._loadMsg=0},this),b))},_hideLoading:function(){clearTimeout(this._loadMsg),this._loadMsg=0,this._getLoader().loader("hide")},_showError:function(){this._hideLoading(),this._showLoading(0,a.mobile.pageLoadErrorMessageTheme,a.mobile.pageLoadErrorMessage,!0),setTimeout(a.proxy(this,"_hideLoading"),1500)},_parse:function(b,c){var d,e=a("<div></div>");return e.get(0).innerHTML=b,d=e.find(":jqmData(role='page'), :jqmData(role='dialog')").first(),d.length||(d=a("<div data-"+this._getNs()+"role='page'>"+(b.split(/<\/?body[^>]*>/gim)[1]||"")+"</div>")),d.attr("data-"+this._getNs()+"url",a.mobile.path.convertUrlToDataUrl(c)).attr("data-"+this._getNs()+"external-page",!0),d},_setLoadedTitle:function(b,c){var d=c.match(/<title[^>]*>([^<]*)/)&&RegExp.$1;d&&!b.jqmData("title")&&(d=a("<div>"+d+"</div>").text(),b.jqmDat Line: 31 -  =(b.attr("method")||"get").toLowerCase(),d||(d=a.mobile.getClosestBaseUrl(b),"get"===i&&(d=a.mobile.path.parseUrl(d).hrefNoSearch),d===a.mobile.path.documentBase.hrefNoHash&&(d=f.hrefNoSearch)),d=a.mobile.path.makeUrlAbsolute(d,a.mobile.getClosestBaseUrl(b)),a.mobile.path.isExternal(d)&&!a.mobile.path.isPermittedCrossDomainRequest(f,d)?!1:(c||(e=b.serializeArray(),g&&g[0].form===b[0]&&(h=g.attr("name"),h&&(a.each(e,function(a,b){return b.name===h?(h="",!1):void 0}),h&&e.push({name:h,value:g.attr("value")}))),j={url:d,options:{type:i,data:a.param(e),transition:b.jqmData("transition"),reverse:"reverse"===b.jqmData("direction"),reloadPage:!0}}),j))};a.mobile.document.delegate("form","submit",function(b){var c;b.isDefaultPrevented()||(c=e(a(this)),c&&(a.mobile.changePage(c.url,c.options),b.preventDefault()))}),a.mobile.document.bind("vclick",function(b){var c,f,h=b.target,i=!1;if(!(b.which>1)&&a.mobile.linkBindingEnabled){if(g=a(h),a.data(h,"mobile-button")){if(!e(a(h).closest("form"),!0))return;h.parentNode&&(h=h.parentNode)}else{if(h=d(h),!h||"#"===a.mobile.path.parseUrl(h.getAttribute("href")||"#").hash)return;if(!a(h).jqmHijackable().length)return}~h.className.indexOf("ui-link-inherit")?h.parentNode&&(f=a.data(h.parentNode,"buttonElements")):f=a.data(h,"buttonElements"),f?h=f.outer:i=!0,c=a(h),i&&(c=c.closest(".ui-btn")),c.length>0&&!c.hasClass("ui-state-disabled")&&(a.mobile.removeActiveLinkClass(!0),a.mobile.activeClickedLink=c,a.mobile.activeClickedLink.addClass(a.mobile.activeBtnClass))}}),a.mobile.document.bind("click",function(e){if(a.mobile.linkBindingEnabled&&!e.isDefaultPrevented()){var g,h,i,j,k,l,m,n=d(e.target),o=a(n),p=function(){b.setTimeout(function(){a.mobile.removeActiveLinkClass(!0)},200)};if(a.mobile.activeClickedLink&&a.mobile.activeClickedLink[0]===e.target.parentNode&&p(),n&&!(e.which>1)&&o.jqmHijackable().length){if(o.is(":jqmData(rel='back')"))return a.mobile.back(),!1;if(g=a.mobile.getClosestBaseUrl(o),h=a.mobile.path.makeUrlAbsolute(o.attr("href")||"#",g),!a.mobile.ajaxEnabled&&!a.mobile.path.isEmbeddedPage(h))return void p();if(-1!==h.search("#")){if Line: 33 -  ==a.mobile.defaultHomeScroll)&&b.scrollTo(0,this.toScroll),setTimeout(function(){a.event.special.scrollstart.enabled=!0
+
+ Line: 56 -  .unwrap(),this.flipswitch.remove(),this.removeClass("ui-flipswitch-input"))}},a.mobile.behaviors.formReset))}(a),function(a,b){a.widget("mobile.rangeslider",a.extend({options:{theme:null,trackTheme:null,corners:!0,mini:!1,highlight:!0},_create:function(){var b=this.element,c=this.options.mini?"ui-rangeslider ui-mini":"ui-rangeslider",d=b.find("input").first(),e=b.find("input").last(),f=b.find("label").first(),g=a.data(d.get(0),"mobile-slider")||a.data(d.slider().get(0),"mobile-slider"),h=a.data(e.get(0),"mobile-slider")||a.data(e.slider().get(0),"mobile-slider"),i=g.slider,j=h.slider,k=g.handle,l=a("<div class='ui-rangeslider-sliders' />").appendTo(b);d.addClass("ui-rangeslider-first"),e.addClass("ui-rangeslider-last"),b.addClass(c),i.appendTo(l),j.appendTo(l),f.insertBefore(b),k.prependTo(j),a.extend(this,{_inputFirst:d,_inputLast:e,_sliderFirst:i,_sliderLast:j,_label:f,_targetVal:null,_sliderTarget:!1,_sliders:l,_proxy:!1}),this.refresh(),this._on(this.element.find("input.ui-slider-input"),{slidebeforestart:"_slidebeforestart",slidestop:"_slidestop",slidedrag:"_slidedrag",slidebeforechange:"_change",blur:"_change",keyup:"_change"}),this._on({mousedown:"_change"}),this._on(this.element.closest("form"),{reset:"_handleReset"}),this._on(k,{vmousedown:"_dragFirstHandle"})},_handleReset:function(){var a=this;setTimeout(function(){a._updateHighlight()},0)},_dragFirstHandle:function(b){return a.data(this._inputFirst.get(0),"mobile-slider").dragging=!0,a.data(this._inputFirst.get(0),"mobile-slider").refresh(b),!1},_slidedrag:function(b){var c=a(b.target).is(this._inputFirst),d=c?this._inputLast:this._inputFirst;return this._sliderTarget=!1,"first"===this._proxy&&c||"last"===this._proxy&&!c?(a.data(d.get(0),"mobile-slider").dragging=!0,a.data(d.get(0),"mobile-slider").refresh(b),!1):void 0},_slidestop:function(b){var c=a(b.target).is(this._inputFirst);this._proxy=!1,this.element.find("input").trigger("vmouseup"),this._sliderFirst.css("z-index",c?1:"")},_slidebeforestart:function(b){this._sliderTarget=!1,a(b.originalEvent.target).hasClass("ui-slider-track")&&(this._sliderTarget=!0,this Line: 57 -  (b.target).val())},_setOptions:function(a){a.theme!==b&&this._setTheme(a.theme),a.trackTheme!==b&&this._setTrackTheme(a.trackTheme),a.mini!==b&&this._setMini(a.mini),a.highlight!==b&&this._setHighlight(a.highlight),this._super(a),this.refresh()},refresh:function(){var a=this.element,b=this.options;(this._inputFirst.is(":disabled")||this._inputLast.is(":disabled"))&&(this.options.disabled=!0),a.find("input").slider({theme:b.theme,trackTheme:b.trackTheme,disabled:b.disabled,corners:b.corners,mini:b.mini,highlight:b.highlight}).slider("refresh"),this._updateHighlight()},_change:function(b){if("keyup"===b.type)return this._updateHighlight(),!1;var c=this,d=parseFloat(this._inputFirst.val(),10),e=parseFloat(this._inputLast.val(),10),f=a(b.target).hasClass("ui-rangeslider-first"),g=f?this._inputFirst:this._inputLast,h=f?this._inputLast:this._inputFirst;if(this._inputFirst.val()>this._inputLast.val()&&"mousedown"===b.type&&!a(b.target).hasClass("ui-slider-handle"))g.blur();else if("mousedown"===b.type)return;return d>e&&!this._sliderTarget?(g.val(f?e:d).slider("refresh"),this._trigger("normalize")):d>e&&(g.val(this._targetVal).slider("refresh"),setTimeout(function(){h.val(f?d:e).slider("refresh"),a.data(h.get(0),"mobile-slider").handle.focus(),c._sliderFirst.css("z-index",f?"":1),c._trigger("normalize")},0),this._proxy=f?"first":"last"),d===e?(a.data(g.get(0),"mobile-slider").handle.css("z-index",1),a.data(h.get(0),"mobile-slider").handle.css("z-index",0)):(a.data(h.get(0),"mobile-slider").handle.css("z-index",""),a.data(g.get(0),"mobile-slider").handle.css("z-index","")),this._updateHighlight(),d>=e?!1:void 0},_updateHighlight:function(){var b=parseInt(a.data(this._inputFirst.get(0),"mobile-slider").handle.get(0).style.left,10),c=parseInt(a.data(this._inputLast.get(0),"mobile-slider").handle.get(0).style.left,10),d=c-b;this.element.find(".ui-slider-bg").css({"margin-left":b+"%",width:d+"%"})},_setTheme:function(a){this._inputFirst.slider("option","theme",a),this._inputLast.slider("option","theme",a)},_setTrackTheme:function(a){this._inputFirst.slider("option","trackTheme",a),this._i Line: 60 -  :""}),this.window.scrollTop(j)},refresh:function(){this.options.autogrow&&this.isTextarea&&this._updateHeight()},_setOptions:function(a){this._super(a),a.autogrow!==b&&this.isTextarea&&(a.autogrow?this._autogrow():this._unbindAutogrow())}})}(a),function(a){a.widget("mobile.selectmenu",a.extend({initSelector:"select:not( :jqmData(role='slider')):not( :jqmData(role='flipswitch') )",options:{theme:null,icon:"carat-d",iconpos:"right",inline:!1,corners:!0,shadow:!0,iconshadow:!1,overlayTheme:null,dividerTheme:null,hidePlaceholderMenuItems:!0,closeText:"Close",nativeMenu:!0,preventFocusZoom:/iPhone|iPad|iPod/.test(navigator.platform)&&navigator.userAgent.indexOf("AppleWebKit")>-1,mini:!1},_button:function(){return a("<div/>")},_setDisabled:function(a){return this.element.attr("disabled",a),this.button.attr("aria-disabled",a),this._setOption("disabled",a)},_focusButton:function(){var a=this;setTimeout(function(){a.button.focus()},40)},_selectOptions:function(){return this.select.find("option")},_preExtension:function(){var b=this.options.inline||this.element.jqmData("inline"),c=this.options.mini||this.element.jqmData("mini"),d="";~this.element[0].className.indexOf("ui-btn-left")&&(d=" ui-btn-left"),~this.element[0].className.indexOf("ui-btn-right")&&(d=" ui-btn-right"),b&&(d+=" ui-btn-inline"),c&&(d+=" ui-mini"),this.select=this.element.removeClass("ui-btn-left ui-btn-right").wrap("<div class='ui-select"+d+"'>"),this.selectId=this.select.attr("id")||"select-"+this.uuid,this.buttonId=this.selectId+"-button",this.label=a("label[for='"+this.selectId+"']"),this.isMultiple=this.select[0].multiple},_destroy:function(){var a=this.element.parents(".ui-select");a.length>0&&(a.is(".ui-btn-left, .ui-btn-right")&&this.element.addClass(a.hasClass("ui-btn-left")?"ui-btn-left":"ui-btn-right"),this.element.insertAfter(a),a.remove())},_create:function(){this._preExtension(),this.button=this._button();var c=this,d=this.options,e=d.icon?d.iconpos||this.select.jqmData("iconpos"):!1,f=this.button.insertBefore(this.select).attr("id",this.buttonId).addClass("ui-btn"+(d.icon?" ui-icon-"+d.icon+" ui-btn-icon Line: 61 -  hadow?" ui-shadow-icon":""):"")+(d.theme?" ui-btn-"+d.theme:"")+(d.corners?" ui-corner-all":"")+(d.shadow?" ui-shadow":""));this.setButtonText(),d.nativeMenu&&b.opera&&b.opera.version&&f.addClass("ui-select-nativeonly"),this.isMultiple&&(this.buttonCount=a("<span>").addClass("ui-li-count ui-body-inherit").hide().appendTo(f.addClass("ui-li-has-count"))),(d.disabled||this.element.attr("disabled"))&&this.disable(),this.select.change(function(){c.refresh(),d.nativeMenu&&this.blur()}),this._handleFormReset(),this._on(this.button,{keydown:"_handleKeydown"}),this.build()},build:function(){var b=this;this.select.appendTo(b.button).bind("vmousedown",function(){b.button.addClass(a.mobile.activeBtnClass)}).bind("focus",function(){b.button.addClass(a.mobile.focusClass)}).bind("blur",function(){b.button.removeClass(a.mobile.focusClass)}).bind("focus vmouseover",function(){b.button.trigger("vmouseover")}).bind("vmousemove",function(){b.button.removeClass(a.mobile.activeBtnClass)}).bind("change blur vmouseout",function(){b.button.trigger("vmouseout").removeClass(a.mobile.activeBtnClass)}),b.button.bind("vmousedown",function(){b.options.preventFocusZoom&&a.mobile.zoom.disable(!0)}),b.label.bind("click focus",function(){b.options.preventFocusZoom&&a.mobile.zoom.disable(!0)}),b.select.bind("focus",function(){b.options.preventFocusZoom&&a.mobile.zoom.disable(!0)}),b.button.bind("mouseup",function(){b.options.preventFocusZoom&&setTimeout(function(){a.mobile.zoom.enable(!0)},0)}),b.select.bind("blur",function(){b.options.preventFocusZoom&&a.mobile.zoom.enable(!0)})},selected:function(){return this._selectOptions().filter(":selected")},selectedIndices:function(){var a=this;return this.selected().map(function(){return a._selectOptions().index(this)}).get()},setButtonText:function(){var b=this,d=this.selected(),e=this.placeholder,f=a(c.createElement("span"));this.button.children("span").not(".ui-li-count").remove().end().end().prepend(function(){return e=d.length?d.map(function(){return a(this).text()}).get().join(", "):b.placeholder,e?f.text(e):f.html("&#160;"),f.addClass(b.select.attr("class")).add Line: 69 -  -1?d:"#"+d,0===h.activeIndex&&c===h.initialDst&&(c+=d),this.window.one("beforenavigate",function(a){a.preventDefault(),i._open(b),i._bindContainerClose()}),this.urlAltered=!0,a.mobile.navigate(c,{role:"dialog"}),this)):(i._open(b),i._bindContainerClose(),i.element.delegate(j.closeLinkSelector,j.closeLinkEvents,function(a){i.close(),a.preventDefault()}),this))},close:function(){return a.mobile.popup.active!==this?this:(this._scrollTop=this.window.scrollTop(),this.options.history&&this.urlAltered?(a.mobile.back(),this.urlAltered=!1):this._closePopup(),this)}}),a.mobile.popup.handleLink=function(b){var c,d=a.mobile.path,e=a(d.hashToSelector(d.parseUrl(b.attr("href")).hash)).first();e.length>0&&e.data("mobile-popup")&&(c=b.offset(),e.popup("open",{x:c.left+b.outerWidth()/2,y:c.top+b.outerHeight()/2,transition:b.jqmData("transition"),positionTo:b.jqmData("position-to")})),setTimeout(function(){b.removeClass(a.mobile.activeBtnClass)},300)},a.mobile.document.on("pagebeforechange",function(b,c){"popup"===c.options.role&&(a.mobile.popup.handleLink(c.options.link),b.preventDefault())})}(a),function(a,b){var d=".ui-disabled,.ui-state-disabled,.ui-li-divider,.ui-screen-hidden,:jqmData(role='placeholder')",e=function(a,b,c){var e=a[c+"All"]().not(d).first();e.length&&(b.blur().attr("tabindex","-1"),e.find("a").first().focus())};a.widget("mobile.selectmenu",a.mobile.selectmenu,{_create:function(){var a=this.options;return a.nativeMenu=a.nativeMenu||this.element.parents(":jqmData(role='popup'),:mobile-popup").length>0,this._super()},_handleSelectFocus:function(){this.element.blur(),this.button.focus()},_handleKeydown:function(a){this._super(a),this._handleButtonVclickKeydown(a)},_handleButtonVclickKeydown:function(b){this.options.disabled||this.isOpen||("vclick"===b.type||b.keyCode&&(b.keyCode===a.mobile.keyCode.ENTER||b.keyCode===a.mobile.keyCode.SPACE))&&(this._decideFormat(),"overlay"===this.menuType?this.button.attr("href","#"+this.popupId).attr("data-"+(a.mobile.ns||"")+"rel","popup"):this.button.attr("href","#"+this.dialogId).attr("data-"+(a.mobile.ns||"")+"rel","dialog"),this.isOpen=! Line: 78 -  ppendTo(a.mobile.pageContainer),c.nextPage.one("pageshow",function(){g.prependTo(this),f.appendTo(this)})))},_visible:!0,updatePagePadding:function(c){var d=this.element,e="header"===this.role,f=parseFloat(d.css(e?"top":"bottom"));this.options.fullscreen||(c=c&&c.type===b&&c||this.page||d.closest(".ui-page"),c=this.page?this.page:".ui-page-active",a(c).css("padding-"+(e?"top":"bottom"),d.outerHeight()+f))},_useTransition:function(b){var c=this.window,d=this.element,e=c.scrollTop(),f=d.height(),g=this.page?d.closest(".ui-page").height():a(".ui-page-active").height(),h=a.mobile.getScreenHeight();return!b&&(this.options.transition&&"none"!==this.options.transition&&("header"===this.role&&!this.options.fullscreen&&e>f||"footer"===this.role&&!this.options.fullscreen&&g-f>e+h)||this.options.fullscreen)},show:function(a){var b="ui-fixed-hidden",c=this.element;this._useTransition(a)?c.removeClass("out "+b).addClass("in").animationComplete(function(){c.removeClass("in")}):c.removeClass(b),this._visible=!0},hide:function(a){var b="ui-fixed-hidden",c=this.element,d="out"+("slide"===this.options.transition?" reverse":"");this._useTransition(a)?c.addClass(d).removeClass("in").animationComplete(function(){c.addClass(b).removeClass(d)}):c.addClass(b).removeClass(d),this._visible=!1},toggle:function(){this[this._visible?"hide":"show"]()},_bindToggleHandlers:function(){var b,c,d=this,e=d.options,f=!0,g=this.page?this.page:a(".ui-page");g.bind("vclick",function(b){e.tapToggle&&!a(b.target).closest(e.tapToggleBlacklist).length&&d.toggle()}).bind("focusin focusout",function(g){screen.width<1025&&a(g.target).is(e.hideDuringFocus)&&!a(g.target).closest(".ui-header-fixed, .ui-footer-fixed").length&&("focusout"!==g.type||f?"focusin"===g.type&&f&&(clearTimeout(b),f=!1,c=setTimeout(function(){d.hide()},0)):(f=!0,clearTimeout(c),b=setTimeout(function(){d.show()},0)))})},_setRelative:function(){"fixed"!==this.options.position&&a("[data-"+a.mobile.ns+"role='page']").css({position:"relative"})},_destroy:function(){var a=this.element,b=a.hasClass("ui-header");a.closest(".ui-page").css("padding-"+(b?"top":"b Line: 79 -  .removeClass("ui-header-fixed ui-footer-fixed ui-header-fullscreen ui-footer-fullscreen in out fade slidedown slideup ui-fixed-hidden"),a.closest(".ui-page").removeClass("ui-page-header-fixed ui-page-footer-fixed ui-page-header-fullscreen ui-page-footer-fullscreen")}})}(a),function(a){a.widget("mobile.toolbar",a.mobile.toolbar,{_makeFixed:function(){this._super(),this._workarounds()},_workarounds:function(){var a=navigator.userAgent,b=navigator.platform,c=a.match(/AppleWebKit\/([0-9]+)/),d=!!c&&c[1],e=null,f=this;if(b.indexOf("iPhone")>-1||b.indexOf("iPad")>-1||b.indexOf("iPod")>-1)e="ios";else{if(!(a.indexOf("Android")>-1))return;e="android"}if("ios"===e)f._bindScrollWorkaround();else{if(!("android"===e&&d&&534>d))return;f._bindScrollWorkaround(),f._bindListThumbWorkaround()}},_viewportOffset:function(){var a=this.element,b=a.hasClass("ui-header"),c=Math.abs(a.offset().top-this.window.scrollTop());return b||(c=Math.round(c-this.window.height()+a.outerHeight())-60),c},_bindScrollWorkaround:function(){var a=this;this._on(this.window,{scrollstop:function(){var b=a._viewportOffset();b>2&&a._visible&&a._triggerRedraw()}})},_bindListThumbWorkaround:function(){this.element.closest(".ui-page").addClass("ui-android-2x-fixed")},_triggerRedraw:function(){var b=parseFloat(a(".ui-page-active").css("padding-bottom"));a(".ui-page-active").css("padding-bottom",b+1+"px"),setTimeout(function(){a(".ui-page-active").css("padding-bottom",b+"px")},0)},destroy:function(){this._super(),this.element.closest(".ui-page-active").removeClass("ui-android-2x-fix")}})}(a),function(a,b){function c(){var a=e.clone(),b=a.eq(0),c=a.eq(1),d=c.children();return{arEls:c.add(b),gd:b,ct:c,ar:d}}var d=a.mobile.browser.oldIE&&a.mobile.browser.oldIE<=8,e=a("<div class='ui-popup-arrow-guide'></div><div class='ui-popup-arrow-container"+(d?" ie":"")+"'><div class='ui-popup-arrow'></div></div>");a.widget("mobile.popup",a.mobile.popup,{options:{arrow:""},_create:function(){var a,b=this._super();return this.options.arrow&&(this._ui.arrow=a=this._addArrow()),b},_addArrow:function(){var a,b=this.options,d=c();return a=this._th Line: 84 -  mobile.defaultHomeScroll)):c._fixPanel()},_bindFixListener:function(){this._on(a(b),{throttledresize:"_positionPanel"})},_unbindFixListener:function(){this._off(a(b),"throttledresize")},_unfixPanel:function(){this.options.positionFixed&&a.support.fixedPosition&&this.element.removeClass(this.options.classes.panelFixed)},_fixPanel:function(){this.options.positionFixed&&a.support.fixedPosition&&this.element.addClass(this.options.classes.panelFixed)},_bindUpdateLayout:function(){var a=this;a.element.on("updatelayout",function(){a._open&&a._positionPanel()})},_bindLinkListeners:function(){this._on("body",{"click a":"_handleClick"})},_handleClick:function(b){if(b.currentTarget.href.split("#")[1]===this._panelID&&this._panelID!==c){b.preventDefault();var d=a(b.target);return d.hasClass("ui-btn")&&(d.addClass(a.mobile.activeBtnClass),this.element.one("panelopen panelclose",function(){d.removeClass(a.mobile.activeBtnClass)})),this.toggle(),!1}},_bindSwipeEvents:function(){var a=this,b=a._modal?a.element.add(a._modal):a.element;a.options.swipeClose&&("left"===a.options.position?b.on("swipeleft.panel",function(){a.close()}):b.on("swiperight.panel",function(){a.close()}))},_bindPageEvents:function(){var a=this;this.document.on("panelbeforeopen",function(b){a._open&&b.target!==a.element[0]&&a.close()}).on("keyup.panel",function(b){27===b.keyCode&&a._open&&a.close()}),a._parentPage?this.document.on("pagehide",":jqmData(role='page')",function(){a._open&&a.close(!0)}):this.document.on("pagebeforehide",function(){a._open&&a.close(!0)})},_open:!1,_pageContentOpenClasses:null,_modalOpenClasses:null,open:function(b){if(!this._open){var c=this,d=c.options,e=function(){c.document.off("panelclose"),c._page().jqmData("panel","open"),a.support.cssTransform3d&&d.animate&&"overlay"!==d.display&&(c._wrapper().addClass(d.classes.animate),c._fixedToolbars().addClass(d.classes.animate)),!b&&a.support.cssTransform3d&&d.animate?c.element.animationComplete(f,"transition"):setTimeout(f,0),d.theme&&"overlay"!==d.display&&c._page().parent().addClass(d.classes.pageContainer+"-themed "+d.classes.pageContainer+"-"+d Line: 85 -  ment.removeClass(d.classes.panelClosed).addClass(d.classes.panelOpen),c._positionPanel(),c._pageContentOpenClasses=c._getPosDisplayClasses(d.classes.pageContentPrefix),"overlay"!==d.display&&(c._page().parent().addClass(d.classes.pageContainer),c._wrapper().addClass(c._pageContentOpenClasses),c._fixedToolbars().addClass(c._pageContentOpenClasses)),c._modalOpenClasses=c._getPosDisplayClasses(d.classes.modal)+" "+d.classes.modalOpen,c._modal&&c._modal.addClass(c._modalOpenClasses).height(Math.max(c._modal.height(),c.document.height()))},f=function(){"overlay"!==d.display&&(c._wrapper().addClass(d.classes.pageContentPrefix+"-open"),c._fixedToolbars().addClass(d.classes.pageContentPrefix+"-open")),c._bindFixListener(),c._trigger("open")};c._trigger("beforeopen"),"open"===c._page().jqmData("panel")?c.document.on("panelclose",function(){e()}):e(),c._open=!0}},close:function(b){if(this._open){var c=this,d=this.options,e=function(){c.element.removeClass(d.classes.panelOpen),"overlay"!==d.display&&(c._wrapper().removeClass(c._pageContentOpenClasses),c._fixedToolbars().removeClass(c._pageContentOpenClasses)),!b&&a.support.cssTransform3d&&d.animate?c.element.animationComplete(f,"transition"):setTimeout(f,0),c._modal&&c._modal.removeClass(c._modalOpenClasses)},f=function(){d.theme&&"overlay"!==d.display&&c._page().parent().removeClass(d.classes.pageContainer+"-themed "+d.classes.pageContainer+"-"+d.theme),c.element.addClass(d.classes.panelClosed),"overlay"!==d.display&&(c._page().parent().removeClass(d.classes.pageContainer),c._wrapper().removeClass(d.classes.pageContentPrefix+"-open"),c._fixedToolbars().removeClass(d.classes.pageContentPrefix+"-open")),a.support.cssTransform3d&&d.animate&&"overlay"!==d.display&&(c._wrapper().removeClass(d.classes.animate),c._fixedToolbars().removeClass(d.classes.animate)),c._fixPanel(),c._unbindFixListener(),a.mobile.resetActivePageHeight(),c._page().jqmRemoveData("panel"),c._trigger("close")};c._trigger("beforeclose"),e(),c._open=!1}},toggle:function(){this[this._open?"close":"open"]()},_destroy:function(){var b,c=this.options,d=a("body > :mobile-panel" Line: 96 -  le:function(c){var d=this.options.disabled;d!==!1&&(c===b?d=!1:(c=this._getIndex(c),d=a.isArray(d)?a.map(d,function(a){return a!==c?a:null}):a.map(this.tabs,function(a,b){return b!==c?b:null})),this._setupDisabled(d))},disable:function(c){var d=this.options.disabled;if(d!==!0){if(c===b)d=!0;else{if(c=this._getIndex(c),-1!==a.inArray(c,d))return;d=a.isArray(d)?a.merge([c],d).sort():[c]}this._setupDisabled(d)}},load:function(b,c){b=this._getIndex(b);var e=this,f=this.tabs.eq(b),g=f.find(".ui-tabs-anchor"),h=this._getPanelForTab(f),i={tab:f,panel:h};d(g[0])||(this.xhr=a.ajax(this._ajaxSettings(g,c,i)),this.xhr&&"canceled"!==this.xhr.statusText&&(f.addClass("ui-tabs-loading"),h.attr("aria-busy","true"),this.xhr.success(function(a){setTimeout(function(){h.html(a),e._trigger("load",c,i)},1)}).complete(function(a,b){setTimeout(function(){"abort"===b&&e.panels.stop(!1,!0),f.removeClass("ui-tabs-loading"),h.removeAttr("aria-busy"),a===e.xhr&&delete e.xhr},1)})))},_ajaxSettings:function(b,c,d){var e=this;return{url:b.attr("href"),beforeSend:function(b,f){return e._trigger("beforeLoad",c,a.extend({jqXHR:b,ajaxSettings:f},d))}}},_getPanelForTab:function(b){var c=a(b).attr("aria-controls");return this.element.find(this._sanitizeSelector("#"+c))}})}(a),function(){}(a),function(a,b){function c(a){e=a.originalEvent,i=e.accelerationIncludingGravity,f=Math.abs(i.x),g=Math.abs(i.y),h=Math.abs(i.z),!b.orientation&&(f>7||(h>6&&8>g||8>h&&g>6)&&f>5)?d.enabled&&d.disable():d.enabled||d.enable()}a.mobile.iosorientationfixEnabled=!0;var d,e,f,g,h,i,j=navigator.userAgent;return/iPhone|iPad|iPod/.test(navigator.platform)&&/OS [1-5]_[0-9_]* like Mac OS X/i.test(j)&&j.indexOf("AppleWebKit")>-1?(d=a.mobile.zoom,void a.mobile.document.on("mobileinit",function(){a.mobile.iosorientationfixEnabled&&a.mobile.window.bind("orientationchange.iosorientationfix",d.enable).bind("devicemotion.iosorientationfix",c)})):void(a.mobile.iosorientationfixEnabled=!1)}(a,this),function(a,b){function d(){e.removeClass("ui-mobile-rendering")}var e=a("html"),f=a.mobile.window;a(b.document).trigger("mobileinit"),a.mobile.gradeA()&& Line: 97 -  xBlacklist&&(a.mobile.ajaxEnabled=!1),e.addClass("ui-mobile ui-mobile-rendering"),setTimeout(d,5e3),a.extend(a.mobile,{initializePage:function(){var b=a.mobile.path,e=a(":jqmData(role='page'), :jqmData(role='dialog')"),g=b.stripHash(b.stripQueryParams(b.parseLocation().hash)),h=c.getElementById(g);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jquery.mobile.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -  "map"===d.nodeName.toLowerCase()?(g=a("img[usemap=#"+f+"]")[0],!!g&&e(g)):!1):(/input|select|textarea|button|object/.test(h)?!b.disabled:"a"===h?b.href||c:c)&&e(b)}function e(b){return a.expr.filters.visible(b)&&!a(b).parents().addBack().filter(function(){return"hidden"===a.css(this,"visibility")}).length}var f=0,g=/^ui-id-\d+$/;a.ui=a.ui||{},a.extend(a.ui,{version:"c0ab71056b936627e8a7821f03c044aec6280a40",keyCode:{BACKSPACE:8,COMMA:188,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,LEFT:37,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SPACE:32,TAB:9,UP:38}}),a.fn.extend({focus:function(b){return function(c,d){return"number"==typeof c?this.each(function(){var b=this;setTimeout(function(){a(b).focus(),d&&d.call(b)},c)}):b.apply(this,arguments)}}(a.fn.focus),scrollParent:function(){var b;return b=a.ui.ie&&/(static|relative)/.test(this.css("position"))||/absolute/.test(this.css("position"))?this.parents().filter(function(){return/(relative|absolute|fixed)/.test(a.css(this,"position"))&&/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0):this.parents().filter(function(){return/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0),/fixed/.test(this.css("position"))||!b.length?a(this[0].ownerDocument||c):b},uniqueId:function(){return this.each(function(){this.id||(this.id="ui-id-"+ ++f)})},removeUniqueId:function(){return this.each(function(){g.test(this.id)&&a(this).removeAttr("id")})}}),a.extend(a.expr[":"],{data:a.expr.createPseudo?a.expr.createPseudo(function(b){return function(c){return!!a.data(c,b)}}):function(b,c,d){return!!a.data(b,d[3])},focusable:function(b){return d(b,!isNaN(a.attr(b,"tabindex")))},tabbable:function(b){var c=a.attr(b,"tabindex"),e=isNaN(c);return(e||c>=0)&&d(b,!e)}}),a("<a>").outerWidth(1).jquery||a.each(["Width","Height"],function(c,d){function e(b,c,d,e){return a.each(f,function(){c-=parseFloat(a.css(b,"padding"+this))||0,d&&(c-=parseFloat(a.css(b,"border"+this+"Width"))||0),e&&(c-=parseFloat(a.css(b,"margin"+this))||0)}),c}var f="Width"===d?["Left","Ri Line: 54 -  his._popup.outerHeight()-5})},_setOption:function(a,c){this._super(a,c),"showValue"===a?this.handle.html(c&&!this.options.mini?this._value():""):"popupEnabled"===a&&c&&!this._popup&&(this._popup=b().addClass("ui-body-"+(this.options.theme||"a")).hide().insertBefore(this.element))},refresh:function(){this._super.apply(this,arguments),this._refresh()},_refresh:function(){var a,b=this.options;b.popupEnabled&&this.handle.removeAttr("title"),a=this._value(),a!==this._currentValue&&(this._currentValue=a,b.popupEnabled&&this._popup?(this._positionPopup(),this._popup.html(a)):b.showValue&&!this.options.mini&&this.handle.html(a))},_showPopup:function(){this.options.popupEnabled&&!this._popupVisible&&(this.handle.html(""),this._popup.show(),this._positionPopup(),this._popupVisible=!0)},_hidePopup:function(){var a=this.options;a.popupEnabled&&this._popupVisible&&(a.showValue&&!a.mini&&this.handle.html(this._value()),this._popup.hide(),this._popupVisible=!1)}})}(a),function(a,b){a.widget("mobile.flipswitch",a.extend({options:{onText:"On",offText:"Off",theme:null,enhanced:!1,wrapperClass:null,corners:!0,mini:!1},_create:function(){this.options.enhanced?a.extend(this,{flipswitch:this.element.parent(),on:this.element.find(".ui-flipswitch-on").eq(0),off:this.element.find(".ui-flipswitch-off").eq(0),type:this.element.get(0).tagName}):this._enhance(),this._handleFormReset(),this._originalTabIndex=this.element.attr("tabindex"),null!=this._originalTabIndex&&this.on.attr("tabindex",this._originalTabIndex),this.element.attr("tabindex","-1"),this._on({focus:"_handleInputFocus"}),this.element.is(":disabled")&&this._setOptions({disabled:!0}),this._on(this.flipswitch,{click:"_toggle",swipeleft:"_left",swiperight:"_right"}),this._on(this.on,{keydown:"_keydown"}),this._on({change:"refresh"})},_handleInputFocus:function(){this.on.focus()},widget:function(){return this.flipswitch},_left:function(){this.flipswitch.removeClass("ui-flipswitch-active"),"SELECT"===this.type?this.element.get(0).selectedIndex=0:this.element.prop("checked",!1),this.element.trigger("change")},_right:function(){this.flipswitch.addCl Line: 55 -  witch-active"),"SELECT"===this.type?this.element.get(0).selectedIndex=1:this.element.prop("checked",!0),this.element.trigger("change")},_enhance:function(){var b=a("<div>"),c=this.options,d=this.element,e=c.theme?c.theme:"inherit",f=a("<a></a>",{href:"#"}),g=a("<span></span>"),h=d.get(0).tagName,i="INPUT"===h?c.onText:d.find("option").eq(1).text(),j="INPUT"===h?c.offText:d.find("option").eq(0).text();f.addClass("ui-flipswitch-on ui-btn ui-shadow ui-btn-inherit").text(i),g.addClass("ui-flipswitch-off").text(j),b.addClass("ui-flipswitch ui-shadow-inset ui-bar-"+e+" "+(c.wrapperClass?c.wrapperClass:"")+" "+(d.is(":checked")||d.find("option").eq(1).is(":selected")?"ui-flipswitch-active":"")+(d.is(":disabled")?" ui-state-disabled":"")+(c.corners?" ui-corner-all":"")+(c.mini?" ui-mini":"")).append(f,g),d.addClass("ui-flipswitch-input").after(b).appendTo(b),a.extend(this,{flipswitch:b,on:f,off:g,type:h})},_reset:function(){this.refresh()},refresh:function(){var a,b=this.flipswitch.hasClass("ui-flipswitch-active")?"_right":"_left";a="SELECT"===this.type?this.element.get(0).selectedIndex>0?"_right":"_left":this.element.prop("checked")?"_right":"_left",a!==b&&this[a]()},_toggle:function(){var a=this.flipswitch.hasClass("ui-flipswitch-active")?"_left":"_right";this[a]()},_keydown:function(b){b.which===a.mobile.keyCode.LEFT?this._left():b.which===a.mobile.keyCode.RIGHT?this._right():b.which===a.mobile.keyCode.SPACE&&(this._toggle(),b.preventDefault())},_setOptions:function(a){if(a.theme!==b){var c=a.theme?a.theme:"inherit",d=a.theme?a.theme:"inherit";this.widget().removeClass("ui-bar-"+c).addClass("ui-bar-"+d)}a.onText!==b&&this.on.text(a.onText),a.offText!==b&&this.off.text(a.offText),a.disabled!==b&&this.widget().toggleClass("ui-state-disabled",a.disabled),a.mini!==b&&this.widget().toggleClass("ui-mini",a.mini),a.corners!==b&&this.widget().toggleClass("ui-corner-all",a.corners),this._super(a)},_destroy:function(){this.options.enhanced||(null!=this._originalTabIndex?this.element.attr("tabindex",this._originalTabIndex):this.element.removeAttr("tabindex"),this.on.remove(),this.off.remove()</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jquery.mobile.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 274 -  					setTimeout(function() {
+
+ Line: 542 -  			setTimeout(function() {
+
+ Line: 547 -  			setTimeout(function() {
+
+ Line: 1223 -  		return setTimeout( handlerProxy, delay || 0 );
+
+ Line: 1778 -        timeout_id = setTimeout( poll, $.fn[ str_hashchange ].delay );
+
+ Line: 2237 -  			setTimeout(function() {
+
+ Line: 3199 -  			timer = setTimeout( function() {
+
+ Line: 3215 -  			setTimeout( $.proxy( callback, this ), 0 );
+
+ Line: 3384 -  	resetTimerID = setTimeout( function() {
+
+ Line: 3791 -  				timer = setTimeout( function() {
+
+ Line: 3847 -  				timer = setTimeout( function() {
+
+ Line: 4080 -  					heldCall = setTimeout( handler, throttle - diff );
+
+ Line: 4562 -  			setTimeout( $.proxy(this, "_recordScroll"), 100 );
+
+ Line: 4847 -  			this._loadMsg = setTimeout($.proxy(function() {
+
+ Line: 4871 -  			setTimeout( $.proxy(this, "_hideLoading"), 1500 );
+
+ Line: 5921 -  					window.setTimeout(function() { $.mobile.removeActiveLinkClass( true ); }, 200 );
+
+ Line: 6120 -  			setTimeout( function() {
+
+ Line: 9234 -  			setTimeout( function() {
+
+ Line: 9345 -  				setTimeout( function() {
+
+ Line: 9724 -  		setTimeout( function() {
+
+ Line: 9882 -  				setTimeout(function() {
+
+ Line: 10936 -  	setTimeout( function() {
+
+ Line: 12297 -  							delayShow = setTimeout( function() {
+
+ Line: 12304 -  							delayHide = setTimeout( function() {
+
+ Line: 12411 -  			setTimeout( function() {
+
+ Line: 12958 -  						setTimeout( complete, 0 );
+
+ Line: 13030 -  						setTimeout( complete, 0 );
+
+ Line: 14672 -  					setTimeout(function() {
+
+ Line: 14680 -  					setTimeout(function() {
+
+ Line: 14792 -  	setTimeout( hideRenderingClass, 5000 );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jquery.mobile.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 250 -  		DELETE: 46,
+
+ Line: 2146 -  // default enhanced qualifications are media query support OR IE 7+
+
+ Line: 2301 -  			// variants (protocol, site, document, query, and hash), into the various
+
+ Line: 2302 -  			// components (protocol, host, path, query, fragment, etc that make up the
+
+ Line: 2441 -  			//can handle all relative variants (protocol, site, document, query, fragment).
+
+ Line: 2464 -  			//Add search (aka query) params to the specified url.
+
+ Line: 2521 -  			//remove the preceding hash, any query params, and dialog notations
+
+ Line: 2920 -  			// if the url is a path we want to preserve the query params that are available on
+
+ Line: 4108 -  	// Note that we used to use a media query to figure out what the orientation the browser
+
+ Line: 4114 -  	// where the browser *ALWAYS* applied the landscape media query. This bug does not
+
+ Line: 5262 -  			// simplified eg, removing ui-state, and removing query params
+
+ Line: 5263 -  			// from the hash this is so that users who want to use query
+
+ Line: 5294 -  			// simplified eg, removing ui-state, and removing query params from
+
+ Line: 5295 -  			// the hash this is so that users who want to use query params have
+
+ Line: 5769 -  				// NOTE: If the method is "get", we need to strip off the query string
+
+ Line: 9012 -  		if ( this.type === "SELECT" ) {
+
+ Line: 9022 -  		if ( this.type === "SELECT" ) {
+
+ Line: 9089 -  		if ( this.type === "SELECT" ) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/collections/CategoriesCollection.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 66 -              // Uses a setTimeout to mimic a real world application that retrieves data asynchronously
+
+ Line: 67 -              setTimeout( function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/lodash.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 105 -        setTimeout = window.setTimeout;
+
+ Line: 3267 -        timeoutId = setTimeout(delayed, wait);
+
+ Line: 3286 -     * @returns {Number} Returns the `setTimeout` timeout id.
+
+ Line: 3295 -      return setTimeout(function() { return func.apply(undefined, args); }, wait);
+
+ Line: 3307 -     * @returns {Number} Returns the `setTimeout` timeout id.
+
+ Line: 3315 -      return setTimeout(function() { return func.apply(undefined, args); }, 1);
+
+ Line: 3482 -          timeoutId = setTimeout(trailingCall, remaining);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/lodash.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 570 -     * iteration or property name to query.
+
+ Line: 2578 -     * @param {Array} array The array to query.
+
+ Line: 2680 -     * @param {Array} array The array to query.
+
+ Line: 2739 -     * @param {Array} array The array to query.
+
+ Line: 2880 -     * @param {Array} array The array to query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 393 -  			return setTimeout( jQuery.ready, 1 );
+
+ Line: 851 -  			setTimeout( jQuery.ready, 1 );
+
+ Line: 886 -  							return setTimeout( doScrollCheck, 50 );
+
+ Line: 1953 -  			var timeout = setTimeout( next, time );
+
+ Line: 7979 -  				timeoutTimer = setTimeout( function(){
+
+ Line: 8528 -  						setTimeout( callback, 0 );
+
+ Line: 8605 -  	setTimeout(function() {
+
+ Line: 9199 -  		timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 5242 -  			// Only use querySelectorAll when not filtering,
+
+ Line: 7212 -  //key/values into a query string
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1020 -          this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
+
+ Line: 1304 -    // * Use `setTimeout` to batch rapid-fire updates into a single request.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 60 -    // will fake `"PUT"` and `"DELETE"` requests via the `_method` parameter and
+
+ Line: 1295 -      'delete': 'DELETE',
+
+ Line: 1308 -    // Turn on `Backbone.emulateHTTP` in order to send `PUT` and `DELETE` requests
+
+ Line: 1343 -        if (type === 'PUT' || type === 'DELETE') {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/jquerymobile.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 153 -  			setTimeout( function() {
+
+ Line: 158 -  			setTimeout( function() {
+
+ Line: 782 -  		return setTimeout( handlerProxy, delay || 0 );
+
+ Line: 1472 -  			setTimeout(function() {
+
+ Line: 2001 -  		setTimeout($.proxy(function() {
+
+ Line: 2451 -  	resetTimerID = setTimeout( function() {
+
+ Line: 2856 -  				timer = setTimeout( function() {
+
+ Line: 2907 -  				timer = setTimeout( function() {
+
+ Line: 3031 -  					heldCall = setTimeout( handler, throttle - diff );
+
+ Line: 3520 -        timeout_id = setTimeout( poll, $.fn[ str_hashchange ].delay );
+
+ Line: 3649 -  				setTimeout( function() {
+
+ Line: 3978 -  		setTimeout( setLastScroll, 100 );
+
+ Line: 4090 -  			setTimeout( callback, 0 );
+
+ Line: 4243 -  			var loadMsgDelay = setTimeout(function() {
+
+ Line: 4403 -  						setTimeout( $.mobile.hidePageLoadingMsg, 1500 );
+
+ Line: 4893 -  				window.setTimeout(function() { removeActiveLinkClass( true ); }, 200 );
+
+ Line: 5780 -  						hov = setTimeout( function() {
+
+ Line: 5791 -  						foc = setTimeout( function() {
+
+ Line: 7139 -  				timeoutId: setTimeout( $.proxy( this, "_resizeTimeout" ), 200 ),
+
+ Line: 7882 -  		setTimeout( function() {
+
+ Line: 8162 -  				setTimeout( complete, 0 );
+
+ Line: 8210 -  				setTimeout( complete, 0 );
+
+ Line: 8567 -  			setTimeout( function() {
+
+ Line: 8655 -  				keyupTimeout = setTimeout( self._keyup, keyupTimeoutBuffer );
+
+ Line: 9496 -  				setTimeout( function() {
+
+ Line: 9585 -  		setTimeout( function() {
+
+ Line: 9748 -  				setTimeout(function() {
+
+ Line: 10615 -  							delay = setTimeout( function() {
+
+ Line: 10734 -  				setTimeout( function() {
+
+ Line: 10821 -  	setTimeout( hideRenderingClass, 5000 );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/jquerymobile.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 115 -  			DELETE: 46,
+
+ Line: 121 -  			INSERT: 45,
+
+ Line: 1402 -  // default enhanced qualifications are media query support OR IE 7+
+
+ Line: 1534 -  			// variants (protocol, site, document, query, and hash), into the various
+
+ Line: 1535 -  			// components (protocol, host, path, query, fragment, etc that make up the
+
+ Line: 1664 -  			//can handle all relative variants (protocol, site, document, query, fragment).
+
+ Line: 1687 -  			//Add search (aka query) params to the specified url.
+
+ Line: 1744 -  			//remove the preceding hash, any query params, and dialog notations
+
+ Line: 2091 -  			// if the url is a path we want to preserve the query params that are available on
+
+ Line: 3058 -  	// Note that we used to use a media query to figure out what the orientation the browser
+
+ Line: 3064 -  	// where the browser *ALWAYS* applied the landscape media query. This bug does not
+
+ Line: 4449 -  		//       eg, removing ui-state, and removing query params from the hash
+
+ Line: 4450 -  		//       this is so that users who want to use query params have access to them
+
+ Line: 4489 -  			// eg, removing ui-state, and removing query params from the hash
+
+ Line: 4490 -  			// this is so that users who want to use query params have access to them
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/require.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 8 -  /*global window, navigator, document, importScripts, jQuery, setTimeout, opera */
+
+ Line: 682 -                      checkLoadedTimeoutId = setTimeout(function () {
+
+ Line: 1685 -       * that have a better solution than setTimeout.
+
+ Line: 1688 -      req.nextTick = typeof setTimeout !== 'undefined' ? function (fn) {
+
+ Line: 1689 -          setTimeout(fn, 4);
+
+ Line: 1975 -          return eval(text);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/examples/backbone-require/js/libs/require.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 1517 -                  //an URL to a file, or if it starts with a slash, contains a query arg (i.e. ?)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/backbone-requirejs/js/collections/CategoriesCollection.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 66 -              // Uses a setTimeout to mimic a real world application that retrieves data asynchronously
+
+ Line: 67 -              setTimeout( function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/backbone-requirejs/js/libs/lodash.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 105 -        setTimeout = window.setTimeout;
+
+ Line: 3267 -        timeoutId = setTimeout(delayed, wait);
+
+ Line: 3286 -     * @returns {Number} Returns the `setTimeout` timeout id.
+
+ Line: 3295 -      return setTimeout(function() { return func.apply(undefined, args); }, wait);
+
+ Line: 3307 -     * @returns {Number} Returns the `setTimeout` timeout id.
+
+ Line: 3315 -      return setTimeout(function() { return func.apply(undefined, args); }, 1);
+
+ Line: 3482 -          timeoutId = setTimeout(trailingCall, remaining);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/backbone-requirejs/js/libs/lodash.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 570 -     * iteration or property name to query.
+
+ Line: 2578 -     * @param {Array} array The array to query.
+
+ Line: 2680 -     * @param {Array} array The array to query.
+
+ Line: 2739 -     * @param {Array} array The array to query.
+
+ Line: 2880 -     * @param {Array} array The array to query.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/backbone-requirejs/js/libs/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1020 -          this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
+
+ Line: 1304 -    // * Use `setTimeout` to batch rapid-fire updates into a single request.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/backbone-requirejs/js/libs/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 60 -    // will fake `"PUT"` and `"DELETE"` requests via the `_method` parameter and
+
+ Line: 1295 -      'delete': 'DELETE',
+
+ Line: 1308 -    // Turn on `Backbone.emulateHTTP` in order to send `PUT` and `DELETE` requests
+
+ Line: 1343 -        if (type === 'PUT' || type === 'DELETE') {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/backbone-requirejs/js/libs/require.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 8 -  /*global window, navigator, document, importScripts, jQuery, setTimeout, opera */
+
+ Line: 682 -                      checkLoadedTimeoutId = setTimeout(function () {
+
+ Line: 1685 -       * that have a better solution than setTimeout.
+
+ Line: 1688 -      req.nextTick = typeof setTimeout !== 'undefined' ? function (fn) {
+
+ Line: 1689 -          setTimeout(fn, 4);
+
+ Line: 1975 -          return eval(text);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/backbone-requirejs/js/libs/require.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 1517 -                  //an URL to a file, or if it starts with a slash, contains a query arg (i.e. ?)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/js/jquery.mobile.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3 -  "map"===d.nodeName.toLowerCase()?(g=a("img[usemap=#"+f+"]")[0],!!g&&e(g)):!1):(/input|select|textarea|button|object/.test(h)?!b.disabled:"a"===h?b.href||c:c)&&e(b)}function e(b){return a.expr.filters.visible(b)&&!a(b).parents().addBack().filter(function(){return"hidden"===a.css(this,"visibility")}).length}var f=0,g=/^ui-id-\d+$/;a.ui=a.ui||{},a.extend(a.ui,{version:"c0ab71056b936627e8a7821f03c044aec6280a40",keyCode:{BACKSPACE:8,COMMA:188,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,LEFT:37,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SPACE:32,TAB:9,UP:38}}),a.fn.extend({focus:function(b){return function(c,d){return"number"==typeof c?this.each(function(){var b=this;setTimeout(function(){a(b).focus(),d&&d.call(b)},c)}):b.apply(this,arguments)}}(a.fn.focus),scrollParent:function(){var b;return b=a.ui.ie&&/(static|relative)/.test(this.css("position"))||/absolute/.test(this.css("position"))?this.parents().filter(function(){return/(relative|absolute|fixed)/.test(a.css(this,"position"))&&/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0):this.parents().filter(function(){return/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0),/fixed/.test(this.css("position"))||!b.length?a(this[0].ownerDocument||c):b},uniqueId:function(){return this.each(function(){this.id||(this.id="ui-id-"+ ++f)})},removeUniqueId:function(){return this.each(function(){g.test(this.id)&&a(this).removeAttr("id")})}}),a.extend(a.expr[":"],{data:a.expr.createPseudo?a.expr.createPseudo(function(b){return function(c){return!!a.data(c,b)}}):function(b,c,d){return!!a.data(b,d[3])},focusable:function(b){return d(b,!isNaN(a.attr(b,"tabindex")))},tabbable:function(b){var c=a.attr(b,"tabindex"),e=isNaN(c);return(e||c>=0)&&d(b,!e)}}),a("<a>").outerWidth(1).jquery||a.each(["Width","Height"],function(c,d){function e(b,c,d,e){return a.each(f,function(){c-=parseFloat(a.css(b,"padding"+this))||0,d&&(c-=parseFloat(a.css(b,"border"+this+"Width"))||0),e&&(c-=parseFloat(a.css(b,"margin"+this))||0)}),c}var f="Width"===d?["Left","Ri Line: 4 -  ,"Bottom"],g=d.toLowerCase(),h={innerWidth:a.fn.innerWidth,innerHeight:a.fn.innerHeight,outerWidth:a.fn.outerWidth,outerHeight:a.fn.outerHeight};a.fn["inner"+d]=function(c){return c===b?h["inner"+d].call(this):this.each(function(){a(this).css(g,e(this,c)+"px")})},a.fn["outer"+d]=function(b,c){return"number"!=typeof b?h["outer"+d].call(this,b):this.each(function(){a(this).css(g,e(this,b,!0,c)+"px")})}}),a.fn.addBack||(a.fn.addBack=function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}),a("<a>").data("a-b","a").removeData("a-b").data("a-b")&&(a.fn.removeData=function(b){return function(c){return arguments.length?b.call(this,a.camelCase(c)):b.call(this)}}(a.fn.removeData)),a.ui.ie=!!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase()),a.support.selectstart="onselectstart"in c.createElement("div"),a.fn.extend({disableSelection:function(){return this.bind((a.support.selectstart?"selectstart":"mousedown")+".ui-disableSelection",function(a){a.preventDefault()})},enableSelection:function(){return this.unbind(".ui-disableSelection")},zIndex:function(d){if(d!==b)return this.css("zIndex",d);if(this.length)for(var e,f,g=a(this[0]);g.length&&g[0]!==c;){if(e=g.css("position"),("absolute"===e||"relative"===e||"fixed"===e)&&(f=parseInt(g.css("zIndex"),10),!isNaN(f)&&0!==f))return f;g=g.parent()}return 0}}),a.ui.plugin={add:function(b,c,d){var e,f=a.ui[b].prototype;for(e in d)f.plugins[e]=f.plugins[e]||[],f.plugins[e].push([c,d[e]])},call:function(a,b,c,d){var e,f=a.plugins[b];if(f&&(d||a.element[0].parentNode&&11!==a.element[0].parentNode.nodeType))for(e=0;e<f.length;e++)a.options[f[e][0]]&&f[e][1].apply(a.element,c)}}}(a),function(a,b){a.extend(a.mobile,{window:a(b),document:a(c),keyCode:a.ui.keyCode,behaviors:{},silentScroll:function(c){"number"!==a.type(c)&&(c=a.mobile.defaultHomeScroll),a.event.special.scrollstart.enabled=!1,setTimeout(function(){b.scrollTo(0,c),a.mobile.document.trigger("silentscroll",{x:0,y:c})},20),setTimeout(function(){a.event.special.scrollstart.enabled=!0},150)},getClosestBaseUrl:function(b){var c=a(b).closest(".ui-page").jqmData("url"),d=a. Line: 8 -  )return a.widget.extend({},this.options);if("string"==typeof c)if(h={},e=c.split("."),c=e.shift(),e.length){for(f=h[c]=a.widget.extend({},this.options[c]),g=0;g<e.length-1;g++)f[e[g]]=f[e[g]]||{},f=f[e[g]];if(c=e.pop(),d===b)return f[c]===b?null:f[c];f[c]=d}else{if(d===b)return this.options[c]===b?null:this.options[c];h[c]=d}return this._setOptions(h),this},_setOptions:function(a){var b;for(b in a)this._setOption(b,a[b]);return this},_setOption:function(a,b){return this.options[a]=b,"disabled"===a&&(this.widget().toggleClass(this.widgetFullName+"-disabled",!!b),this.hoverable.removeClass("ui-state-hover"),this.focusable.removeClass("ui-state-focus")),this},enable:function(){return this._setOptions({disabled:!1})},disable:function(){return this._setOptions({disabled:!0})},_on:function(b,c,d){var e,f=this;"boolean"!=typeof b&&(d=c,c=b,b=!1),d?(c=e=a(c),this.bindings=this.bindings.add(c)):(d=c,c=this.element,e=this.widget()),a.each(d,function(d,g){function h(){return b||f.options.disabled!==!0&&!a(this).hasClass("ui-state-disabled")?("string"==typeof g?f[g]:g).apply(f,arguments):void 0}"string"!=typeof g&&(h.guid=g.guid=g.guid||h.guid||a.guid++);var i=d.match(/^(\w+)\s*(.*)$/),j=i[1]+f.eventNamespace,k=i[2];k?e.delegate(k,j,h):c.bind(j,h)})},_off:function(a,b){b=(b||"").split(" ").join(this.eventNamespace+" ")+this.eventNamespace,a.unbind(b).undelegate(b)},_delay:function(a,b){function c(){return("string"==typeof a?d[a]:a).apply(d,arguments)}var d=this;return setTimeout(c,b||0)},_hoverable:function(b){this.hoverable=this.hoverable.add(b),this._on(b,{mouseenter:function(b){a(b.currentTarget).addClass("ui-state-hover")},mouseleave:function(b){a(b.currentTarget).removeClass("ui-state-hover")}})},_focusable:function(b){this.focusable=this.focusable.add(b),this._on(b,{focusin:function(b){a(b.currentTarget).addClass("ui-state-focus")},focusout:function(b){a(b.currentTarget).removeClass("ui-state-focus")}})},_trigger:function(b,c,d){var e,f,g=this.options[b];if(d=d||{},c=a.Event(c),c.type=(b===this.widgetEventPrefix?b:this.widgetEventPrefix+b).toLowerCase(),c.target=this.element[0],f=c.o Line: 10 -  ndTo(a.mobile.pageContainer),this.checkLoaderPosition(),this.window.bind("scroll",a.proxy(this.checkLoaderPosition,this))},hide:function(){c.removeClass("ui-loading"),this.options.text&&this.element.removeClass("ui-loader-fakefix"),a.mobile.window.unbind("scroll",this.fakeFixLoader),a.mobile.window.unbind("scroll",this.checkLoaderPosition)}})}(a,this),function(a,b,d){"$:nomunge";function e(a){return a=a||location.href,"#"+a.replace(/^[^#]*#?(.*)$/,"$1")}var f,g="hashchange",h=c,i=a.event.special,j=h.documentMode,k="on"+g in b&&(j===d||j>7);a.fn[g]=function(a){return a?this.bind(g,a):this.trigger(g)},a.fn[g].delay=50,i[g]=a.extend(i[g],{setup:function(){return k?!1:void a(f.start)},teardown:function(){return k?!1:void a(f.stop)}}),f=function(){function c(){var d=e(),h=n(j);d!==j?(m(j=d,h),a(b).trigger(g)):h!==j&&(location.href=location.href.replace(/#.*/,"")+h),f=setTimeout(c,a.fn[g].delay)}var f,i={},j=e(),l=function(a){return a},m=l,n=l;return i.start=function(){f||c()},i.stop=function(){f&&clearTimeout(f),f=d},b.attachEvent&&!b.addEventListener&&!k&&function(){var b,d;i.start=function(){b||(d=a.fn[g].src,d=d&&d+e(),b=a('<iframe tabindex="-1" title="empty"/>').hide().one("load",function(){d||m(e()),c()}).attr("src",d||"javascript:0").insertAfter("body")[0].contentWindow,h.onpropertychange=function(){try{"title"===event.propertyName&&(b.document.title=h.title)}catch(a){}})},i.stop=l,n=function(){return e(b.location.href)},m=function(c,d){var e=b.document,f=a.fn[g].domain;c!==d&&(e.title=h.title,e.open(),f&&e.write('<script>document.domain="'+f+'"</script>'),e.close(),b.location.hash=c)}}(),i}()}(a,this),function(a){b.matchMedia=b.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(c),a.mobile.media=function(a Line: 13 -  d()},isHashChangeEnabled:function(){return a.mobile.hashListeningEnabled===!0},popstate:function(b){var c=new a.Event("navigate"),e=new a.Event("beforenavigate"),f=b.originalEvent.state||{};e.originalEvent=b,d.trigger(e),e.isDefaultPrevented()||(b.historyState&&a.extend(f,b.historyState),c.originalEvent=b,setTimeout(function(){d.trigger(c,{state:f})},0))},hashchange:function(b){var c=new a.Event("navigate"),e=new a.Event("beforenavigate");e.originalEvent=b,d.trigger(e),e.isDefaultPrevented()||(c.originalEvent=b,d.trigger(c,{state:b.hashchangeState||{}}))},setup:function(){c.bound||(c.bound=!0,c.isPushStateEnabled()?(c.originalEventName="popstate",d.bind("popstate.navigate",c.popstate)):c.isHashChangeEnabled()&&(c.originalEventName="hashchange",d.bind("hashchange.navigate",c.hashchange)))}}}(a),function(a,c){var d,e,f="&ui-state=dialog";a.mobile.path=d={uiStateKey:"&ui-state",urlParseRE:/^\s*(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/,getLocation:function(a){var b=a?this.parseUrl(a):location,c=this.parseUrl(a||location.href).hash;return c="#"===c?"":c,b.protocol+"//"+b.host+b.pathname+b.search+c},getDocumentUrl:function(b){return b?a.extend({},d.documentUrl):d.documentUrl.href},parseLocation:function(){return this.parseUrl(this.getLocation())},parseUrl:function(b){if("object"===a.type(b))return b;var c=d.urlParseRE.exec(b||"")||[];return{href:c[0]||"",hrefNoHash:c[1]||"",hrefNoSearch:c[2]||"",domain:c[3]||"",protocol:c[4]||"",doubleSlash:c[5]||"",authority:c[6]||"",username:c[8]||"",password:c[9]||"",host:c[10]||"",hostname:c[11]||"",port:c[12]||"",pathname:c[13]||"",directory:c[14]||"",filename:c[15]||"",search:c[16]||"",hash:c[17]||""}},makePathAbsolute:function(a,b){var c,d,e,f;if(a&&"/"===a.charAt(0))return a;for(a=a||"",b=b?b.replace(/^\/|(\/[^\/]*|[^\/]+)$/g,""):"",c=b?b.split("/"):[],d=a.split("/"),e=0;e<d.length;e++)switch(f=d[e]){case".":break;case"..":c.length&&c.pop();break;default:c.push(f)}return"/"+c.join("/")},isSameDomain:function( Line: 18 -  }}))},hashchange:function(b){var e,f;if(a.event.special.navigate.isHashChangeEnabled()&&!a.event.special.navigate.isPushStateEnabled()){if(this.preventNextHashChange)return this.preventNextHashChange=!1,void b.stopImmediatePropagation();e=this.history,f=d.parseLocation().hash,this.history.direct({url:f,present:function(c,d){b.hashchangeState=a.extend({},c),b.hashchangeState.direction=d},missing:function(){e.add(f,{hash:f,title:c.title})}})}}})}(a),function(a){a.mobile.navigate=function(b,c,d){a.mobile.navigate.navigator.go(b,c,d)},a.mobile.navigate.history=new a.mobile.History,a.mobile.navigate.navigator=new a.mobile.Navigator(a.mobile.navigate.history);var b=a.mobile.path.parseLocation();a.mobile.navigate.history.add(b.href,{hash:b.hash})}(a),function(a,b){var d={animation:{},transition:{}},e=c.createElement("a"),f=["","webkit-","moz-","o-"];a.each(["animation","transition"],function(c,g){var h=0===c?g+"-name":g;a.each(f,function(c,f){return e.style[a.camelCase(f+h)]!==b?(d[g].prefix=f,!1):void 0}),d[g].duration=a.camelCase(d[g].prefix+g+"-duration"),d[g].event=a.camelCase(d[g].prefix+g+"-end"),""===d[g].prefix&&(d[g].duration=d[g].duration.toLowerCase(),d[g].event=d[g].event.toLowerCase())}),a.support.cssTransitions=d.transition.prefix!==b,a.support.cssAnimations=d.animation.prefix!==b,a(e).remove(),a.fn.animationComplete=function(e,f,g){var h,i,j=this,k=f&&"animation"!==f?"transition":"animation";return a.support.cssTransitions&&"transition"===k||a.support.cssAnimations&&"animation"===k?(g===b&&(a(this).context!==c&&(i=3e3*parseFloat(a(this).css(d[k].duration))),(0===i||i===b)&&(i=a.fn.animationComplete.default)),h=setTimeout(function(){a(j).off(d[k].event),e.apply(j)},i),a(this).one(d[k].event,function(){clearTimeout(h),e.call(this,arguments)})):(setTimeout(a.proxy(e,this),0),a(this))},a.fn.animationComplete.default=1e3}(a),function(a,b,c,d){function e(a){for(;a&&"undefined"!=typeof a.originalEvent;)a=a.originalEvent;return a}function f(b,c){var f,g,h,i,j,k,l,m,n,o=b.type;if(b=a.Event(b),b.type=c,f=b.originalEvent,g=a.event.props,o.search(/^(mouse|click)/)>-1&&(g=E),f)for( Line: 19 -  l;)i=g[--l],b[i]=f[i];if(o.search(/mouse(down|up)|click/)>-1&&!b.which&&(b.which=1),-1!==o.search(/^touch/)&&(h=e(f),o=h.touches,j=h.changedTouches,k=o&&o.length?o[0]:j&&j.length?j[0]:d))for(m=0,n=C.length;n>m;m++)i=C[m],b[i]=k[i];return b}function g(b){for(var c,d,e={};b;){c=a.data(b,z);for(d in c)c[d]&&(e[d]=e.hasVirtualBinding=!0);b=b.parentNode}return e}function h(b,c){for(var d;b;){if(d=a.data(b,z),d&&(!c||d[c]))return b;b=b.parentNode}return null}function i(){M=!1}function j(){M=!0}function k(){Q=0,K.length=0,L=!1,j()}function l(){i()}function m(){n(),G=setTimeout(function(){G=0,k()},a.vmouse.resetTimerDuration)}function n(){G&&(clearTimeout(G),G=0)}function o(b,c,d){var e;return(d&&d[b]||!d&&h(c.target,b))&&(e=f(c,b),a(c.target).trigger(e)),e}function p(b){var c,d=a.data(b.target,A);L||Q&&Q===d||(c=o("v"+b.type,b),c&&(c.isDefaultPrevented()&&b.preventDefault(),c.isPropagationStopped()&&b.stopPropagation(),c.isImmediatePropagationStopped()&&b.stopImmediatePropagation()))}function q(b){var c,d,f,h=e(b).touches;h&&1===h.length&&(c=b.target,d=g(c),d.hasVirtualBinding&&(Q=P++,a.data(c,A,Q),n(),l(),J=!1,f=e(b).touches[0],H=f.pageX,I=f.pageY,o("vmouseover",b,d),o("vmousedown",b,d)))}function r(a){M||(J||o("vmousecancel",a,g(a.target)),J=!0,m())}function s(b){if(!M){var c=e(b).touches[0],d=J,f=a.vmouse.moveDistanceThreshold,h=g(b.target);J=J||Math.abs(c.pageX-H)>f||Math.abs(c.pageY-I)>f,J&&!d&&o("vmousecancel",b,h),o("vmousemove",b,h),m()}}function t(a){if(!M){j();var b,c,d=g(a.target);o("vmouseup",a,d),J||(b=o("vclick",a,d),b&&b.isDefaultPrevented()&&(c=e(a).changedTouches[0],K.push({touchID:Q,x:c.clientX,y:c.clientY}),L=!0)),o("vmouseout",a,d),J=!1,m()}}function u(b){var c,d=a.data(b,z);if(d)for(c in d)if(d[c])return!0;return!1}function v(){}function w(b){var c=b.substr(1);return{setup:function(){u(this)||a.data(this,z,{});var d=a.data(this,z);d[b]=!0,F[b]=(F[b]||0)+1,1===F[b]&&O.bind(c,p),a(this).bind(c,v),N&&(F.touchstart=(F.touchstart||0)+1,1===F.touchstart&&O.bind("touchstart",q).bind("touchend",t).bind("touchmove",s).bind("scroll",r))},teardown:function(){--F[b],F[b]||O. Line: 20 -  &&(--F.touchstart,F.touchstart||O.unbind("touchstart",q).unbind("touchmove",s).unbind("touchend",t).unbind("scroll",r));var d=a(this),e=a.data(this,z);e&&(e[b]=!1),d.unbind(c,v),u(this)||d.removeData(z)}}}var x,y,z="virtualMouseBindings",A="virtualTouchID",B="vmouseover vmousedown vmousemove vmouseup vclick vmouseout vmousecancel".split(" "),C="clientX clientY pageX pageY screenX screenY".split(" "),D=a.event.mouseHooks?a.event.mouseHooks.props:[],E=a.event.props.concat(D),F={},G=0,H=0,I=0,J=!1,K=[],L=!1,M=!1,N="addEventListener"in c,O=a(c),P=1,Q=0;for(a.vmouse={moveDistanceThreshold:10,clickDistanceThreshold:10,resetTimerDuration:1500},y=0;y<B.length;y++)a.event.special[B[y]]=w(B[y]);N&&c.addEventListener("click",function(b){var c,d,e,f,g,h,i=K.length,j=b.target;if(i)for(c=b.clientX,d=b.clientY,x=a.vmouse.clickDistanceThreshold,e=j;e;){for(f=0;i>f;f++)if(g=K[f],h=0,e===j&&Math.abs(g.x-c)<x&&Math.abs(g.y-d)<x||a.data(e,A)===g.touchID)return b.preventDefault(),void b.stopPropagation();e=e.parentNode}},!0)}(a,b,c),function(a,b,d){function e(b,c,e,f){var g=e.type;e.type=c,f?a.event.trigger(e,d,b):a.event.dispatch.call(b,e),e.type=g}var f=a(c),g=a.mobile.support.touch,h="touchmove scroll",i=g?"touchstart":"mousedown",j=g?"touchend":"mouseup",k=g?"touchmove":"mousemove";a.each("touchstart touchmove touchend tap taphold swipe swipeleft swiperight scrollstart scrollstop".split(" "),function(b,c){a.fn[c]=function(a){return a?this.bind(c,a):this.trigger(c)},a.attrFn&&(a.attrFn[c]=!0)}),a.event.special.scrollstart={enabled:!0,setup:function(){function b(a,b){c=b,e(f,c?"scrollstart":"scrollstop",a)}var c,d,f=this,g=a(f);g.bind(h,function(e){a.event.special.scrollstart.enabled&&(c||b(e,!0),clearTimeout(d),d=setTimeout(function(){b(e,!1)},50))})},teardown:function(){a(this).unbind(h)}},a.event.special.tap={tapholdThreshold:750,emitTapOnTaphold:!0,setup:function(){var b=this,c=a(b),d=!1;c.bind("vmousedown",function(g){function h(){clearTimeout(k)}function i(){h(),c.unbind("vclick",j).unbind("vmouseup",h),f.unbind("vmousecancel",i)}function j(a){i(),d||l!==a.target?d&&a.stopPropagation():e(b Line: 21 -  d=!1,g.which&&1!==g.which)return!1;var k,l=g.target;c.bind("vmouseup",h).bind("vclick",j),f.bind("vmousecancel",i),k=setTimeout(function(){a.event.special.tap.emitTapOnTaphold||(d=!0),e(b,"taphold",a.Event("taphold",{target:l}))},a.event.special.tap.tapholdThreshold)})},teardown:function(){a(this).unbind("vmousedown").unbind("vclick").unbind("vmouseup"),f.unbind("vmousecancel")}},a.event.special.swipe={scrollSupressionThreshold:30,durationThreshold:1e3,horizontalDistanceThreshold:30,verticalDistanceThreshold:30,getLocation:function(a){var c=b.pageXOffset,d=b.pageYOffset,e=a.clientX,f=a.clientY;return 0===a.pageY&&Math.floor(f)>Math.floor(a.pageY)||0===a.pageX&&Math.floor(e)>Math.floor(a.pageX)?(e-=c,f-=d):(f<a.pageY-d||e<a.pageX-c)&&(e=a.pageX-c,f=a.pageY-d),{x:e,y:f}},start:function(b){var c=b.originalEvent.touches?b.originalEvent.touches[0]:b,d=a.event.special.swipe.getLocation(c);return{time:(new Date).getTime(),coords:[d.x,d.y],origin:a(b.target)}},stop:function(b){var c=b.originalEvent.touches?b.originalEvent.touches[0]:b,d=a.event.special.swipe.getLocation(c);return{time:(new Date).getTime(),coords:[d.x,d.y]}},handleSwipe:function(b,c,d,f){if(c.time-b.time<a.event.special.swipe.durationThreshold&&Math.abs(b.coords[0]-c.coords[0])>a.event.special.swipe.horizontalDistanceThreshold&&Math.abs(b.coords[1]-c.coords[1])<a.event.special.swipe.verticalDistanceThreshold){var g=b.coords[0]>c.coords[0]?"swipeleft":"swiperight";return e(d,"swipe",a.Event("swipe",{target:f,swipestart:b,swipestop:c}),!0),e(d,g,a.Event(g,{target:f,swipestart:b,swipestop:c}),!0),!0}return!1},eventInProgress:!1,setup:function(){var b,c=this,d=a(c),e={};b=a.data(this,"mobile-events"),b||(b={length:0},a.data(this,"mobile-events",b)),b.length++,b.swipe=e,e.start=function(b){if(!a.event.special.swipe.eventInProgress){a.event.special.swipe.eventInProgress=!0;var d,g=a.event.special.swipe.start(b),h=b.target,i=!1;e.move=function(b){g&&(d=a.event.special.swipe.stop(b),i||(i=a.event.special.swipe.handleSwipe(g,d,c,h),i&&(a.event.special.swipe.eventInProgress=!1)),Math.abs(g.coords[0]-d.coords[0])>a.event.special. Line: 22 -  upressionThreshold&&b.preventDefault())},e.stop=function(){i=!0,a.event.special.swipe.eventInProgress=!1,f.off(k,e.move),e.move=null},f.on(k,e.move).one(j,e.stop)}},d.on(i,e.start)},teardown:function(){var b,c;b=a.data(this,"mobile-events"),b&&(c=b.swipe,delete b.swipe,b.length--,0===b.length&&a.removeData(this,"mobile-events")),c&&(c.start&&a(this).off(i,c.start),c.move&&f.off(k,c.move),c.stop&&f.off(j,c.stop))}},a.each({scrollstop:"scrollstart",taphold:"tap",swipeleft:"swipe",swiperight:"swipe"},function(b,c){a.event.special[b]={setup:function(){a(this).bind(c,a.noop)},teardown:function(){a(this).unbind(c)}}})}(a,this),function(a){a.event.special.throttledresize={setup:function(){a(this).bind("resize",f)},teardown:function(){a(this).unbind("resize",f)}};var b,c,d,e=250,f=function(){c=(new Date).getTime(),d=c-g,d>=e?(g=c,a(this).trigger("throttledresize")):(b&&clearTimeout(b),b=setTimeout(f,e-d))},g=0}(a),function(a,b){function d(){var a=e();a!==f&&(f=a,l.trigger(m))}var e,f,g,h,i,j,k,l=a(b),m="orientationchange",n={0:!0,180:!0};a.support.orientation&&(i=b.innerWidth||l.width(),j=b.innerHeight||l.height(),k=50,g=i>j&&i-j>k,h=n[b.orientation],(g&&h||!g&&!h)&&(n={"-90":!0,90:!0})),a.event.special.orientationchange=a.extend({},a.event.special.orientationchange,{setup:function(){return a.support.orientation&&!a.event.special.orientationchange.disabled?!1:(f=e(),void l.bind("throttledresize",d))},teardown:function(){return a.support.orientation&&!a.event.special.orientationchange.disabled?!1:void l.unbind("throttledresize",d)},add:function(a){var b=a.handler;a.handler=function(a){return a.orientation=e(),b.apply(this,arguments)}}}),a.event.special.orientationchange.orientation=e=function(){var d=!0,e=c.documentElement;return d=a.support.orientation?n[b.orientation]:e&&e.clientWidth/e.clientHeight<1.1,d?"portrait":"landscape"},a.fn[m]=function(a){return a?this.bind(m,a):this.trigger(m)},a.attrFn&&(a.attrFn[m]=!0)}(a,this),function(a){var b=a("head").children("base"),c={element:b.length?b:a("<base>",{href:a.mobile.path.documentBase.hrefNoHash}).prependTo(a("head")),linkSelector:"[sr Line: 25 -  a,b,c,d=this._getActiveHistory();d&&(a=this._getScroll(),b=this._getMinScroll(),c=this._getDefaultScroll(),d.lastScroll=b>a?c:a)}},_delayedRecordScroll:function(){setTimeout(a.proxy(this,"_recordScroll"),100)},_getScroll:function(){return this.window.scrollTop()},_getMinScroll:function(){return a.mobile.minScrollBack},_getDefaultScroll:function(){return a.mobile.defaultHomeScroll},_filterNavigateEvents:function(b,c){var d;b.originalEvent&&b.originalEvent.isDefaultPrevented()||(d=b.originalEvent.type.indexOf("hashchange")>-1?c.state.hash:c.state.url,d||(d=this._getHash()),d&&"#"!==d&&0!==d.indexOf("#"+a.mobile.path.uiStateKey)||(d=location.href),this._handleNavigate(d,c.state))},_getHash:function(){return a.mobile.path.parseLocation().hash},getActivePage:function(){return this.activePage},_getInitialContent:function(){return a.mobile.firstPage},_getHistory:function(){return a.mobile.navigate.history},_getActiveHistory:function(){return a.mobile.navigate.history.getActive()},_getDocumentBase:function(){return a.mobile.path.documentBase},back:function(){this.go(-1)},forward:function(){this.go(1)},go:function(c){if(a.mobile.hashListeningEnabled)b.history.go(c);else{var d=a.mobile.navigate.history.activeIndex,e=d+parseInt(c,10),f=a.mobile.navigate.history.stack[e].url,g=c>=1?"forward":"back";a.mobile.navigate.history.activeIndex=e,a.mobile.navigate.history.previousIndex=d,this.change(f,{direction:g,changeHash:!1,fromHashChange:!0})}},_handleDestination:function(b){var c;return"string"===a.type(b)&&(b=a.mobile.path.stripHash(b)),b&&(c=this._getHistory(),b=a.mobile.path.isPath(b)?b:a.mobile.path.makeUrlAbsolute("#"+b,this._getDocumentBase()),b===a.mobile.path.makeUrlAbsolute("#"+c.initialDst,this._getDocumentBase())&&c.stack.length&&c.stack[0].url!==c.initialDst.replace(a.mobile.dialogHashKey,"")&&(b=this._getInitialContent())),b||this._getInitialContent()},_handleDialog:function(b,c){var d,e,f=this.getActivePage();return f&&!f.hasClass("ui-dialog")?("back"===c.direction?this.back():this.forward(),!1):(d=c.pageUrl,e=this._getActiveHistory(),a.extend(b,{role:e.role,transition:e.transi Line: 26 -  "back"===c.direction}),d)},_handleNavigate:function(b,c){var e=a.mobile.path.stripHash(b),f=this._getHistory(),g=0===f.stack.length?"none":d,h={changeHash:!1,fromHashChange:!0,reverse:"back"===c.direction};a.extend(h,c,{transition:(f.getLast()||{}).transition||g}),f.activeIndex>0&&e.indexOf(a.mobile.dialogHashKey)>-1&&f.initialDst!==e&&(e=this._handleDialog(h,c),e===!1)||this._changeContent(this._handleDestination(e),h)},_changeContent:function(b,c){a.mobile.changePage(b,c)},_getBase:function(){return a.mobile.base},_getNs:function(){return a.mobile.ns},_enhance:function(a,b){return a.page({role:b})},_include:function(a,b){a.appendTo(this.element),this._enhance(a,b.role),a.page("bindRemove")},_find:function(b){var c,d=this._createFileUrl(b),e=this._createDataUrl(b),f=this._getInitialContent();return c=this.element.children("[data-"+this._getNs()+"url='"+e+"']"),0===c.length&&e&&!a.mobile.path.isPath(e)&&(c=this.element.children(a.mobile.path.hashToSelector("#"+e)).attr("data-"+this._getNs()+"url",e).jqmData("url",e)),0===c.length&&a.mobile.path.isFirstPageUrl(d)&&f&&f.parent().length&&(c=a(f)),c},_getLoader:function(){return a.mobile.loading()},_showLoading:function(b,c,d,e){this._loadMsg||(this._loadMsg=setTimeout(a.proxy(function(){this._getLoader().loader("show",c,d,e),this._loadMsg=0},this),b))},_hideLoading:function(){clearTimeout(this._loadMsg),this._loadMsg=0,this._getLoader().loader("hide")},_showError:function(){this._hideLoading(),this._showLoading(0,a.mobile.pageLoadErrorMessageTheme,a.mobile.pageLoadErrorMessage,!0),setTimeout(a.proxy(this,"_hideLoading"),1500)},_parse:function(b,c){var d,e=a("<div></div>");return e.get(0).innerHTML=b,d=e.find(":jqmData(role='page'), :jqmData(role='dialog')").first(),d.length||(d=a("<div data-"+this._getNs()+"role='page'>"+(b.split(/<\/?body[^>]*>/gim)[1]||"")+"</div>")),d.attr("data-"+this._getNs()+"url",a.mobile.path.convertUrlToDataUrl(c)).attr("data-"+this._getNs()+"external-page",!0),d},_setLoadedTitle:function(b,c){var d=c.match(/<title[^>]*>([^<]*)/)&&RegExp.$1;d&&!b.jqmData("title")&&(d=a("<div>"+d+"</div>").text(),b.jqmDat Line: 31 -  =(b.attr("method")||"get").toLowerCase(),d||(d=a.mobile.getClosestBaseUrl(b),"get"===i&&(d=a.mobile.path.parseUrl(d).hrefNoSearch),d===a.mobile.path.documentBase.hrefNoHash&&(d=f.hrefNoSearch)),d=a.mobile.path.makeUrlAbsolute(d,a.mobile.getClosestBaseUrl(b)),a.mobile.path.isExternal(d)&&!a.mobile.path.isPermittedCrossDomainRequest(f,d)?!1:(c||(e=b.serializeArray(),g&&g[0].form===b[0]&&(h=g.attr("name"),h&&(a.each(e,function(a,b){return b.name===h?(h="",!1):void 0}),h&&e.push({name:h,value:g.attr("value")}))),j={url:d,options:{type:i,data:a.param(e),transition:b.jqmData("transition"),reverse:"reverse"===b.jqmData("direction"),reloadPage:!0}}),j))};a.mobile.document.delegate("form","submit",function(b){var c;b.isDefaultPrevented()||(c=e(a(this)),c&&(a.mobile.changePage(c.url,c.options),b.preventDefault()))}),a.mobile.document.bind("vclick",function(b){var c,f,h=b.target,i=!1;if(!(b.which>1)&&a.mobile.linkBindingEnabled){if(g=a(h),a.data(h,"mobile-button")){if(!e(a(h).closest("form"),!0))return;h.parentNode&&(h=h.parentNode)}else{if(h=d(h),!h||"#"===a.mobile.path.parseUrl(h.getAttribute("href")||"#").hash)return;if(!a(h).jqmHijackable().length)return}~h.className.indexOf("ui-link-inherit")?h.parentNode&&(f=a.data(h.parentNode,"buttonElements")):f=a.data(h,"buttonElements"),f?h=f.outer:i=!0,c=a(h),i&&(c=c.closest(".ui-btn")),c.length>0&&!c.hasClass("ui-state-disabled")&&(a.mobile.removeActiveLinkClass(!0),a.mobile.activeClickedLink=c,a.mobile.activeClickedLink.addClass(a.mobile.activeBtnClass))}}),a.mobile.document.bind("click",function(e){if(a.mobile.linkBindingEnabled&&!e.isDefaultPrevented()){var g,h,i,j,k,l,m,n=d(e.target),o=a(n),p=function(){b.setTimeout(function(){a.mobile.removeActiveLinkClass(!0)},200)};if(a.mobile.activeClickedLink&&a.mobile.activeClickedLink[0]===e.target.parentNode&&p(),n&&!(e.which>1)&&o.jqmHijackable().length){if(o.is(":jqmData(rel='back')"))return a.mobile.back(),!1;if(g=a.mobile.getClosestBaseUrl(o),h=a.mobile.path.makeUrlAbsolute(o.attr("href")||"#",g),!a.mobile.ajaxEnabled&&!a.mobile.path.isEmbeddedPage(h))return void p();if(-1!==h.search("#")){if Line: 33 -  ==a.mobile.defaultHomeScroll)&&b.scrollTo(0,this.toScroll),setTimeout(function(){a.event.special.scrollstart.enabled=!0
+
+ Line: 56 -  .unwrap(),this.flipswitch.remove(),this.removeClass("ui-flipswitch-input"))}},a.mobile.behaviors.formReset))}(a),function(a,b){a.widget("mobile.rangeslider",a.extend({options:{theme:null,trackTheme:null,corners:!0,mini:!1,highlight:!0},_create:function(){var b=this.element,c=this.options.mini?"ui-rangeslider ui-mini":"ui-rangeslider",d=b.find("input").first(),e=b.find("input").last(),f=b.find("label").first(),g=a.data(d.get(0),"mobile-slider")||a.data(d.slider().get(0),"mobile-slider"),h=a.data(e.get(0),"mobile-slider")||a.data(e.slider().get(0),"mobile-slider"),i=g.slider,j=h.slider,k=g.handle,l=a("<div class='ui-rangeslider-sliders' />").appendTo(b);d.addClass("ui-rangeslider-first"),e.addClass("ui-rangeslider-last"),b.addClass(c),i.appendTo(l),j.appendTo(l),f.insertBefore(b),k.prependTo(j),a.extend(this,{_inputFirst:d,_inputLast:e,_sliderFirst:i,_sliderLast:j,_label:f,_targetVal:null,_sliderTarget:!1,_sliders:l,_proxy:!1}),this.refresh(),this._on(this.element.find("input.ui-slider-input"),{slidebeforestart:"_slidebeforestart",slidestop:"_slidestop",slidedrag:"_slidedrag",slidebeforechange:"_change",blur:"_change",keyup:"_change"}),this._on({mousedown:"_change"}),this._on(this.element.closest("form"),{reset:"_handleReset"}),this._on(k,{vmousedown:"_dragFirstHandle"})},_handleReset:function(){var a=this;setTimeout(function(){a._updateHighlight()},0)},_dragFirstHandle:function(b){return a.data(this._inputFirst.get(0),"mobile-slider").dragging=!0,a.data(this._inputFirst.get(0),"mobile-slider").refresh(b),!1},_slidedrag:function(b){var c=a(b.target).is(this._inputFirst),d=c?this._inputLast:this._inputFirst;return this._sliderTarget=!1,"first"===this._proxy&&c||"last"===this._proxy&&!c?(a.data(d.get(0),"mobile-slider").dragging=!0,a.data(d.get(0),"mobile-slider").refresh(b),!1):void 0},_slidestop:function(b){var c=a(b.target).is(this._inputFirst);this._proxy=!1,this.element.find("input").trigger("vmouseup"),this._sliderFirst.css("z-index",c?1:"")},_slidebeforestart:function(b){this._sliderTarget=!1,a(b.originalEvent.target).hasClass("ui-slider-track")&&(this._sliderTarget=!0,this Line: 57 -  (b.target).val())},_setOptions:function(a){a.theme!==b&&this._setTheme(a.theme),a.trackTheme!==b&&this._setTrackTheme(a.trackTheme),a.mini!==b&&this._setMini(a.mini),a.highlight!==b&&this._setHighlight(a.highlight),this._super(a),this.refresh()},refresh:function(){var a=this.element,b=this.options;(this._inputFirst.is(":disabled")||this._inputLast.is(":disabled"))&&(this.options.disabled=!0),a.find("input").slider({theme:b.theme,trackTheme:b.trackTheme,disabled:b.disabled,corners:b.corners,mini:b.mini,highlight:b.highlight}).slider("refresh"),this._updateHighlight()},_change:function(b){if("keyup"===b.type)return this._updateHighlight(),!1;var c=this,d=parseFloat(this._inputFirst.val(),10),e=parseFloat(this._inputLast.val(),10),f=a(b.target).hasClass("ui-rangeslider-first"),g=f?this._inputFirst:this._inputLast,h=f?this._inputLast:this._inputFirst;if(this._inputFirst.val()>this._inputLast.val()&&"mousedown"===b.type&&!a(b.target).hasClass("ui-slider-handle"))g.blur();else if("mousedown"===b.type)return;return d>e&&!this._sliderTarget?(g.val(f?e:d).slider("refresh"),this._trigger("normalize")):d>e&&(g.val(this._targetVal).slider("refresh"),setTimeout(function(){h.val(f?d:e).slider("refresh"),a.data(h.get(0),"mobile-slider").handle.focus(),c._sliderFirst.css("z-index",f?"":1),c._trigger("normalize")},0),this._proxy=f?"first":"last"),d===e?(a.data(g.get(0),"mobile-slider").handle.css("z-index",1),a.data(h.get(0),"mobile-slider").handle.css("z-index",0)):(a.data(h.get(0),"mobile-slider").handle.css("z-index",""),a.data(g.get(0),"mobile-slider").handle.css("z-index","")),this._updateHighlight(),d>=e?!1:void 0},_updateHighlight:function(){var b=parseInt(a.data(this._inputFirst.get(0),"mobile-slider").handle.get(0).style.left,10),c=parseInt(a.data(this._inputLast.get(0),"mobile-slider").handle.get(0).style.left,10),d=c-b;this.element.find(".ui-slider-bg").css({"margin-left":b+"%",width:d+"%"})},_setTheme:function(a){this._inputFirst.slider("option","theme",a),this._inputLast.slider("option","theme",a)},_setTrackTheme:function(a){this._inputFirst.slider("option","trackTheme",a),this._i Line: 60 -  :""}),this.window.scrollTop(j)},refresh:function(){this.options.autogrow&&this.isTextarea&&this._updateHeight()},_setOptions:function(a){this._super(a),a.autogrow!==b&&this.isTextarea&&(a.autogrow?this._autogrow():this._unbindAutogrow())}})}(a),function(a){a.widget("mobile.selectmenu",a.extend({initSelector:"select:not( :jqmData(role='slider')):not( :jqmData(role='flipswitch') )",options:{theme:null,icon:"carat-d",iconpos:"right",inline:!1,corners:!0,shadow:!0,iconshadow:!1,overlayTheme:null,dividerTheme:null,hidePlaceholderMenuItems:!0,closeText:"Close",nativeMenu:!0,preventFocusZoom:/iPhone|iPad|iPod/.test(navigator.platform)&&navigator.userAgent.indexOf("AppleWebKit")>-1,mini:!1},_button:function(){return a("<div/>")},_setDisabled:function(a){return this.element.attr("disabled",a),this.button.attr("aria-disabled",a),this._setOption("disabled",a)},_focusButton:function(){var a=this;setTimeout(function(){a.button.focus()},40)},_selectOptions:function(){return this.select.find("option")},_preExtension:function(){var b=this.options.inline||this.element.jqmData("inline"),c=this.options.mini||this.element.jqmData("mini"),d="";~this.element[0].className.indexOf("ui-btn-left")&&(d=" ui-btn-left"),~this.element[0].className.indexOf("ui-btn-right")&&(d=" ui-btn-right"),b&&(d+=" ui-btn-inline"),c&&(d+=" ui-mini"),this.select=this.element.removeClass("ui-btn-left ui-btn-right").wrap("<div class='ui-select"+d+"'>"),this.selectId=this.select.attr("id")||"select-"+this.uuid,this.buttonId=this.selectId+"-button",this.label=a("label[for='"+this.selectId+"']"),this.isMultiple=this.select[0].multiple},_destroy:function(){var a=this.element.parents(".ui-select");a.length>0&&(a.is(".ui-btn-left, .ui-btn-right")&&this.element.addClass(a.hasClass("ui-btn-left")?"ui-btn-left":"ui-btn-right"),this.element.insertAfter(a),a.remove())},_create:function(){this._preExtension(),this.button=this._button();var c=this,d=this.options,e=d.icon?d.iconpos||this.select.jqmData("iconpos"):!1,f=this.button.insertBefore(this.select).attr("id",this.buttonId).addClass("ui-btn"+(d.icon?" ui-icon-"+d.icon+" ui-btn-icon Line: 61 -  hadow?" ui-shadow-icon":""):"")+(d.theme?" ui-btn-"+d.theme:"")+(d.corners?" ui-corner-all":"")+(d.shadow?" ui-shadow":""));this.setButtonText(),d.nativeMenu&&b.opera&&b.opera.version&&f.addClass("ui-select-nativeonly"),this.isMultiple&&(this.buttonCount=a("<span>").addClass("ui-li-count ui-body-inherit").hide().appendTo(f.addClass("ui-li-has-count"))),(d.disabled||this.element.attr("disabled"))&&this.disable(),this.select.change(function(){c.refresh(),d.nativeMenu&&this.blur()}),this._handleFormReset(),this._on(this.button,{keydown:"_handleKeydown"}),this.build()},build:function(){var b=this;this.select.appendTo(b.button).bind("vmousedown",function(){b.button.addClass(a.mobile.activeBtnClass)}).bind("focus",function(){b.button.addClass(a.mobile.focusClass)}).bind("blur",function(){b.button.removeClass(a.mobile.focusClass)}).bind("focus vmouseover",function(){b.button.trigger("vmouseover")}).bind("vmousemove",function(){b.button.removeClass(a.mobile.activeBtnClass)}).bind("change blur vmouseout",function(){b.button.trigger("vmouseout").removeClass(a.mobile.activeBtnClass)}),b.button.bind("vmousedown",function(){b.options.preventFocusZoom&&a.mobile.zoom.disable(!0)}),b.label.bind("click focus",function(){b.options.preventFocusZoom&&a.mobile.zoom.disable(!0)}),b.select.bind("focus",function(){b.options.preventFocusZoom&&a.mobile.zoom.disable(!0)}),b.button.bind("mouseup",function(){b.options.preventFocusZoom&&setTimeout(function(){a.mobile.zoom.enable(!0)},0)}),b.select.bind("blur",function(){b.options.preventFocusZoom&&a.mobile.zoom.enable(!0)})},selected:function(){return this._selectOptions().filter(":selected")},selectedIndices:function(){var a=this;return this.selected().map(function(){return a._selectOptions().index(this)}).get()},setButtonText:function(){var b=this,d=this.selected(),e=this.placeholder,f=a(c.createElement("span"));this.button.children("span").not(".ui-li-count").remove().end().end().prepend(function(){return e=d.length?d.map(function(){return a(this).text()}).get().join(", "):b.placeholder,e?f.text(e):f.html("&#160;"),f.addClass(b.select.attr("class")).add Line: 69 -  -1?d:"#"+d,0===h.activeIndex&&c===h.initialDst&&(c+=d),this.window.one("beforenavigate",function(a){a.preventDefault(),i._open(b),i._bindContainerClose()}),this.urlAltered=!0,a.mobile.navigate(c,{role:"dialog"}),this)):(i._open(b),i._bindContainerClose(),i.element.delegate(j.closeLinkSelector,j.closeLinkEvents,function(a){i.close(),a.preventDefault()}),this))},close:function(){return a.mobile.popup.active!==this?this:(this._scrollTop=this.window.scrollTop(),this.options.history&&this.urlAltered?(a.mobile.back(),this.urlAltered=!1):this._closePopup(),this)}}),a.mobile.popup.handleLink=function(b){var c,d=a.mobile.path,e=a(d.hashToSelector(d.parseUrl(b.attr("href")).hash)).first();e.length>0&&e.data("mobile-popup")&&(c=b.offset(),e.popup("open",{x:c.left+b.outerWidth()/2,y:c.top+b.outerHeight()/2,transition:b.jqmData("transition"),positionTo:b.jqmData("position-to")})),setTimeout(function(){b.removeClass(a.mobile.activeBtnClass)},300)},a.mobile.document.on("pagebeforechange",function(b,c){"popup"===c.options.role&&(a.mobile.popup.handleLink(c.options.link),b.preventDefault())})}(a),function(a,b){var d=".ui-disabled,.ui-state-disabled,.ui-li-divider,.ui-screen-hidden,:jqmData(role='placeholder')",e=function(a,b,c){var e=a[c+"All"]().not(d).first();e.length&&(b.blur().attr("tabindex","-1"),e.find("a").first().focus())};a.widget("mobile.selectmenu",a.mobile.selectmenu,{_create:function(){var a=this.options;return a.nativeMenu=a.nativeMenu||this.element.parents(":jqmData(role='popup'),:mobile-popup").length>0,this._super()},_handleSelectFocus:function(){this.element.blur(),this.button.focus()},_handleKeydown:function(a){this._super(a),this._handleButtonVclickKeydown(a)},_handleButtonVclickKeydown:function(b){this.options.disabled||this.isOpen||("vclick"===b.type||b.keyCode&&(b.keyCode===a.mobile.keyCode.ENTER||b.keyCode===a.mobile.keyCode.SPACE))&&(this._decideFormat(),"overlay"===this.menuType?this.button.attr("href","#"+this.popupId).attr("data-"+(a.mobile.ns||"")+"rel","popup"):this.button.attr("href","#"+this.dialogId).attr("data-"+(a.mobile.ns||"")+"rel","dialog"),this.isOpen=! Line: 78 -  ppendTo(a.mobile.pageContainer),c.nextPage.one("pageshow",function(){g.prependTo(this),f.appendTo(this)})))},_visible:!0,updatePagePadding:function(c){var d=this.element,e="header"===this.role,f=parseFloat(d.css(e?"top":"bottom"));this.options.fullscreen||(c=c&&c.type===b&&c||this.page||d.closest(".ui-page"),c=this.page?this.page:".ui-page-active",a(c).css("padding-"+(e?"top":"bottom"),d.outerHeight()+f))},_useTransition:function(b){var c=this.window,d=this.element,e=c.scrollTop(),f=d.height(),g=this.page?d.closest(".ui-page").height():a(".ui-page-active").height(),h=a.mobile.getScreenHeight();return!b&&(this.options.transition&&"none"!==this.options.transition&&("header"===this.role&&!this.options.fullscreen&&e>f||"footer"===this.role&&!this.options.fullscreen&&g-f>e+h)||this.options.fullscreen)},show:function(a){var b="ui-fixed-hidden",c=this.element;this._useTransition(a)?c.removeClass("out "+b).addClass("in").animationComplete(function(){c.removeClass("in")}):c.removeClass(b),this._visible=!0},hide:function(a){var b="ui-fixed-hidden",c=this.element,d="out"+("slide"===this.options.transition?" reverse":"");this._useTransition(a)?c.addClass(d).removeClass("in").animationComplete(function(){c.addClass(b).removeClass(d)}):c.addClass(b).removeClass(d),this._visible=!1},toggle:function(){this[this._visible?"hide":"show"]()},_bindToggleHandlers:function(){var b,c,d=this,e=d.options,f=!0,g=this.page?this.page:a(".ui-page");g.bind("vclick",function(b){e.tapToggle&&!a(b.target).closest(e.tapToggleBlacklist).length&&d.toggle()}).bind("focusin focusout",function(g){screen.width<1025&&a(g.target).is(e.hideDuringFocus)&&!a(g.target).closest(".ui-header-fixed, .ui-footer-fixed").length&&("focusout"!==g.type||f?"focusin"===g.type&&f&&(clearTimeout(b),f=!1,c=setTimeout(function(){d.hide()},0)):(f=!0,clearTimeout(c),b=setTimeout(function(){d.show()},0)))})},_setRelative:function(){"fixed"!==this.options.position&&a("[data-"+a.mobile.ns+"role='page']").css({position:"relative"})},_destroy:function(){var a=this.element,b=a.hasClass("ui-header");a.closest(".ui-page").css("padding-"+(b?"top":"b Line: 79 -  .removeClass("ui-header-fixed ui-footer-fixed ui-header-fullscreen ui-footer-fullscreen in out fade slidedown slideup ui-fixed-hidden"),a.closest(".ui-page").removeClass("ui-page-header-fixed ui-page-footer-fixed ui-page-header-fullscreen ui-page-footer-fullscreen")}})}(a),function(a){a.widget("mobile.toolbar",a.mobile.toolbar,{_makeFixed:function(){this._super(),this._workarounds()},_workarounds:function(){var a=navigator.userAgent,b=navigator.platform,c=a.match(/AppleWebKit\/([0-9]+)/),d=!!c&&c[1],e=null,f=this;if(b.indexOf("iPhone")>-1||b.indexOf("iPad")>-1||b.indexOf("iPod")>-1)e="ios";else{if(!(a.indexOf("Android")>-1))return;e="android"}if("ios"===e)f._bindScrollWorkaround();else{if(!("android"===e&&d&&534>d))return;f._bindScrollWorkaround(),f._bindListThumbWorkaround()}},_viewportOffset:function(){var a=this.element,b=a.hasClass("ui-header"),c=Math.abs(a.offset().top-this.window.scrollTop());return b||(c=Math.round(c-this.window.height()+a.outerHeight())-60),c},_bindScrollWorkaround:function(){var a=this;this._on(this.window,{scrollstop:function(){var b=a._viewportOffset();b>2&&a._visible&&a._triggerRedraw()}})},_bindListThumbWorkaround:function(){this.element.closest(".ui-page").addClass("ui-android-2x-fixed")},_triggerRedraw:function(){var b=parseFloat(a(".ui-page-active").css("padding-bottom"));a(".ui-page-active").css("padding-bottom",b+1+"px"),setTimeout(function(){a(".ui-page-active").css("padding-bottom",b+"px")},0)},destroy:function(){this._super(),this.element.closest(".ui-page-active").removeClass("ui-android-2x-fix")}})}(a),function(a,b){function c(){var a=e.clone(),b=a.eq(0),c=a.eq(1),d=c.children();return{arEls:c.add(b),gd:b,ct:c,ar:d}}var d=a.mobile.browser.oldIE&&a.mobile.browser.oldIE<=8,e=a("<div class='ui-popup-arrow-guide'></div><div class='ui-popup-arrow-container"+(d?" ie":"")+"'><div class='ui-popup-arrow'></div></div>");a.widget("mobile.popup",a.mobile.popup,{options:{arrow:""},_create:function(){var a,b=this._super();return this.options.arrow&&(this._ui.arrow=a=this._addArrow()),b},_addArrow:function(){var a,b=this.options,d=c();return a=this._th Line: 84 -  mobile.defaultHomeScroll)):c._fixPanel()},_bindFixListener:function(){this._on(a(b),{throttledresize:"_positionPanel"})},_unbindFixListener:function(){this._off(a(b),"throttledresize")},_unfixPanel:function(){this.options.positionFixed&&a.support.fixedPosition&&this.element.removeClass(this.options.classes.panelFixed)},_fixPanel:function(){this.options.positionFixed&&a.support.fixedPosition&&this.element.addClass(this.options.classes.panelFixed)},_bindUpdateLayout:function(){var a=this;a.element.on("updatelayout",function(){a._open&&a._positionPanel()})},_bindLinkListeners:function(){this._on("body",{"click a":"_handleClick"})},_handleClick:function(b){if(b.currentTarget.href.split("#")[1]===this._panelID&&this._panelID!==c){b.preventDefault();var d=a(b.target);return d.hasClass("ui-btn")&&(d.addClass(a.mobile.activeBtnClass),this.element.one("panelopen panelclose",function(){d.removeClass(a.mobile.activeBtnClass)})),this.toggle(),!1}},_bindSwipeEvents:function(){var a=this,b=a._modal?a.element.add(a._modal):a.element;a.options.swipeClose&&("left"===a.options.position?b.on("swipeleft.panel",function(){a.close()}):b.on("swiperight.panel",function(){a.close()}))},_bindPageEvents:function(){var a=this;this.document.on("panelbeforeopen",function(b){a._open&&b.target!==a.element[0]&&a.close()}).on("keyup.panel",function(b){27===b.keyCode&&a._open&&a.close()}),a._parentPage?this.document.on("pagehide",":jqmData(role='page')",function(){a._open&&a.close(!0)}):this.document.on("pagebeforehide",function(){a._open&&a.close(!0)})},_open:!1,_pageContentOpenClasses:null,_modalOpenClasses:null,open:function(b){if(!this._open){var c=this,d=c.options,e=function(){c.document.off("panelclose"),c._page().jqmData("panel","open"),a.support.cssTransform3d&&d.animate&&"overlay"!==d.display&&(c._wrapper().addClass(d.classes.animate),c._fixedToolbars().addClass(d.classes.animate)),!b&&a.support.cssTransform3d&&d.animate?c.element.animationComplete(f,"transition"):setTimeout(f,0),d.theme&&"overlay"!==d.display&&c._page().parent().addClass(d.classes.pageContainer+"-themed "+d.classes.pageContainer+"-"+d Line: 85 -  ment.removeClass(d.classes.panelClosed).addClass(d.classes.panelOpen),c._positionPanel(),c._pageContentOpenClasses=c._getPosDisplayClasses(d.classes.pageContentPrefix),"overlay"!==d.display&&(c._page().parent().addClass(d.classes.pageContainer),c._wrapper().addClass(c._pageContentOpenClasses),c._fixedToolbars().addClass(c._pageContentOpenClasses)),c._modalOpenClasses=c._getPosDisplayClasses(d.classes.modal)+" "+d.classes.modalOpen,c._modal&&c._modal.addClass(c._modalOpenClasses).height(Math.max(c._modal.height(),c.document.height()))},f=function(){"overlay"!==d.display&&(c._wrapper().addClass(d.classes.pageContentPrefix+"-open"),c._fixedToolbars().addClass(d.classes.pageContentPrefix+"-open")),c._bindFixListener(),c._trigger("open")};c._trigger("beforeopen"),"open"===c._page().jqmData("panel")?c.document.on("panelclose",function(){e()}):e(),c._open=!0}},close:function(b){if(this._open){var c=this,d=this.options,e=function(){c.element.removeClass(d.classes.panelOpen),"overlay"!==d.display&&(c._wrapper().removeClass(c._pageContentOpenClasses),c._fixedToolbars().removeClass(c._pageContentOpenClasses)),!b&&a.support.cssTransform3d&&d.animate?c.element.animationComplete(f,"transition"):setTimeout(f,0),c._modal&&c._modal.removeClass(c._modalOpenClasses)},f=function(){d.theme&&"overlay"!==d.display&&c._page().parent().removeClass(d.classes.pageContainer+"-themed "+d.classes.pageContainer+"-"+d.theme),c.element.addClass(d.classes.panelClosed),"overlay"!==d.display&&(c._page().parent().removeClass(d.classes.pageContainer),c._wrapper().removeClass(d.classes.pageContentPrefix+"-open"),c._fixedToolbars().removeClass(d.classes.pageContentPrefix+"-open")),a.support.cssTransform3d&&d.animate&&"overlay"!==d.display&&(c._wrapper().removeClass(d.classes.animate),c._fixedToolbars().removeClass(d.classes.animate)),c._fixPanel(),c._unbindFixListener(),a.mobile.resetActivePageHeight(),c._page().jqmRemoveData("panel"),c._trigger("close")};c._trigger("beforeclose"),e(),c._open=!1}},toggle:function(){this[this._open?"close":"open"]()},_destroy:function(){var b,c=this.options,d=a("body > :mobile-panel" Line: 96 -  le:function(c){var d=this.options.disabled;d!==!1&&(c===b?d=!1:(c=this._getIndex(c),d=a.isArray(d)?a.map(d,function(a){return a!==c?a:null}):a.map(this.tabs,function(a,b){return b!==c?b:null})),this._setupDisabled(d))},disable:function(c){var d=this.options.disabled;if(d!==!0){if(c===b)d=!0;else{if(c=this._getIndex(c),-1!==a.inArray(c,d))return;d=a.isArray(d)?a.merge([c],d).sort():[c]}this._setupDisabled(d)}},load:function(b,c){b=this._getIndex(b);var e=this,f=this.tabs.eq(b),g=f.find(".ui-tabs-anchor"),h=this._getPanelForTab(f),i={tab:f,panel:h};d(g[0])||(this.xhr=a.ajax(this._ajaxSettings(g,c,i)),this.xhr&&"canceled"!==this.xhr.statusText&&(f.addClass("ui-tabs-loading"),h.attr("aria-busy","true"),this.xhr.success(function(a){setTimeout(function(){h.html(a),e._trigger("load",c,i)},1)}).complete(function(a,b){setTimeout(function(){"abort"===b&&e.panels.stop(!1,!0),f.removeClass("ui-tabs-loading"),h.removeAttr("aria-busy"),a===e.xhr&&delete e.xhr},1)})))},_ajaxSettings:function(b,c,d){var e=this;return{url:b.attr("href"),beforeSend:function(b,f){return e._trigger("beforeLoad",c,a.extend({jqXHR:b,ajaxSettings:f},d))}}},_getPanelForTab:function(b){var c=a(b).attr("aria-controls");return this.element.find(this._sanitizeSelector("#"+c))}})}(a),function(){}(a),function(a,b){function c(a){e=a.originalEvent,i=e.accelerationIncludingGravity,f=Math.abs(i.x),g=Math.abs(i.y),h=Math.abs(i.z),!b.orientation&&(f>7||(h>6&&8>g||8>h&&g>6)&&f>5)?d.enabled&&d.disable():d.enabled||d.enable()}a.mobile.iosorientationfixEnabled=!0;var d,e,f,g,h,i,j=navigator.userAgent;return/iPhone|iPad|iPod/.test(navigator.platform)&&/OS [1-5]_[0-9_]* like Mac OS X/i.test(j)&&j.indexOf("AppleWebKit")>-1?(d=a.mobile.zoom,void a.mobile.document.on("mobileinit",function(){a.mobile.iosorientationfixEnabled&&a.mobile.window.bind("orientationchange.iosorientationfix",d.enable).bind("devicemotion.iosorientationfix",c)})):void(a.mobile.iosorientationfixEnabled=!1)}(a,this),function(a,b){function d(){e.removeClass("ui-mobile-rendering")}var e=a("html"),f=a.mobile.window;a(b.document).trigger("mobileinit"),a.mobile.gradeA()&& Line: 97 -  xBlacklist&&(a.mobile.ajaxEnabled=!1),e.addClass("ui-mobile ui-mobile-rendering"),setTimeout(d,5e3),a.extend(a.mobile,{initializePage:function(){var b=a.mobile.path,e=a(":jqmData(role='page'), :jqmData(role='dialog')"),g=b.stripHash(b.stripQueryParams(b.parseLocation().hash)),h=c.getElementById(g);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/js/jquery.mobile.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -  "map"===d.nodeName.toLowerCase()?(g=a("img[usemap=#"+f+"]")[0],!!g&&e(g)):!1):(/input|select|textarea|button|object/.test(h)?!b.disabled:"a"===h?b.href||c:c)&&e(b)}function e(b){return a.expr.filters.visible(b)&&!a(b).parents().addBack().filter(function(){return"hidden"===a.css(this,"visibility")}).length}var f=0,g=/^ui-id-\d+$/;a.ui=a.ui||{},a.extend(a.ui,{version:"c0ab71056b936627e8a7821f03c044aec6280a40",keyCode:{BACKSPACE:8,COMMA:188,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,LEFT:37,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SPACE:32,TAB:9,UP:38}}),a.fn.extend({focus:function(b){return function(c,d){return"number"==typeof c?this.each(function(){var b=this;setTimeout(function(){a(b).focus(),d&&d.call(b)},c)}):b.apply(this,arguments)}}(a.fn.focus),scrollParent:function(){var b;return b=a.ui.ie&&/(static|relative)/.test(this.css("position"))||/absolute/.test(this.css("position"))?this.parents().filter(function(){return/(relative|absolute|fixed)/.test(a.css(this,"position"))&&/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0):this.parents().filter(function(){return/(auto|scroll)/.test(a.css(this,"overflow")+a.css(this,"overflow-y")+a.css(this,"overflow-x"))}).eq(0),/fixed/.test(this.css("position"))||!b.length?a(this[0].ownerDocument||c):b},uniqueId:function(){return this.each(function(){this.id||(this.id="ui-id-"+ ++f)})},removeUniqueId:function(){return this.each(function(){g.test(this.id)&&a(this).removeAttr("id")})}}),a.extend(a.expr[":"],{data:a.expr.createPseudo?a.expr.createPseudo(function(b){return function(c){return!!a.data(c,b)}}):function(b,c,d){return!!a.data(b,d[3])},focusable:function(b){return d(b,!isNaN(a.attr(b,"tabindex")))},tabbable:function(b){var c=a.attr(b,"tabindex"),e=isNaN(c);return(e||c>=0)&&d(b,!e)}}),a("<a>").outerWidth(1).jquery||a.each(["Width","Height"],function(c,d){function e(b,c,d,e){return a.each(f,function(){c-=parseFloat(a.css(b,"padding"+this))||0,d&&(c-=parseFloat(a.css(b,"border"+this+"Width"))||0),e&&(c-=parseFloat(a.css(b,"margin"+this))||0)}),c}var f="Width"===d?["Left","Ri Line: 54 -  his._popup.outerHeight()-5})},_setOption:function(a,c){this._super(a,c),"showValue"===a?this.handle.html(c&&!this.options.mini?this._value():""):"popupEnabled"===a&&c&&!this._popup&&(this._popup=b().addClass("ui-body-"+(this.options.theme||"a")).hide().insertBefore(this.element))},refresh:function(){this._super.apply(this,arguments),this._refresh()},_refresh:function(){var a,b=this.options;b.popupEnabled&&this.handle.removeAttr("title"),a=this._value(),a!==this._currentValue&&(this._currentValue=a,b.popupEnabled&&this._popup?(this._positionPopup(),this._popup.html(a)):b.showValue&&!this.options.mini&&this.handle.html(a))},_showPopup:function(){this.options.popupEnabled&&!this._popupVisible&&(this.handle.html(""),this._popup.show(),this._positionPopup(),this._popupVisible=!0)},_hidePopup:function(){var a=this.options;a.popupEnabled&&this._popupVisible&&(a.showValue&&!a.mini&&this.handle.html(this._value()),this._popup.hide(),this._popupVisible=!1)}})}(a),function(a,b){a.widget("mobile.flipswitch",a.extend({options:{onText:"On",offText:"Off",theme:null,enhanced:!1,wrapperClass:null,corners:!0,mini:!1},_create:function(){this.options.enhanced?a.extend(this,{flipswitch:this.element.parent(),on:this.element.find(".ui-flipswitch-on").eq(0),off:this.element.find(".ui-flipswitch-off").eq(0),type:this.element.get(0).tagName}):this._enhance(),this._handleFormReset(),this._originalTabIndex=this.element.attr("tabindex"),null!=this._originalTabIndex&&this.on.attr("tabindex",this._originalTabIndex),this.element.attr("tabindex","-1"),this._on({focus:"_handleInputFocus"}),this.element.is(":disabled")&&this._setOptions({disabled:!0}),this._on(this.flipswitch,{click:"_toggle",swipeleft:"_left",swiperight:"_right"}),this._on(this.on,{keydown:"_keydown"}),this._on({change:"refresh"})},_handleInputFocus:function(){this.on.focus()},widget:function(){return this.flipswitch},_left:function(){this.flipswitch.removeClass("ui-flipswitch-active"),"SELECT"===this.type?this.element.get(0).selectedIndex=0:this.element.prop("checked",!1),this.element.trigger("change")},_right:function(){this.flipswitch.addCl Line: 55 -  witch-active"),"SELECT"===this.type?this.element.get(0).selectedIndex=1:this.element.prop("checked",!0),this.element.trigger("change")},_enhance:function(){var b=a("<div>"),c=this.options,d=this.element,e=c.theme?c.theme:"inherit",f=a("<a></a>",{href:"#"}),g=a("<span></span>"),h=d.get(0).tagName,i="INPUT"===h?c.onText:d.find("option").eq(1).text(),j="INPUT"===h?c.offText:d.find("option").eq(0).text();f.addClass("ui-flipswitch-on ui-btn ui-shadow ui-btn-inherit").text(i),g.addClass("ui-flipswitch-off").text(j),b.addClass("ui-flipswitch ui-shadow-inset ui-bar-"+e+" "+(c.wrapperClass?c.wrapperClass:"")+" "+(d.is(":checked")||d.find("option").eq(1).is(":selected")?"ui-flipswitch-active":"")+(d.is(":disabled")?" ui-state-disabled":"")+(c.corners?" ui-corner-all":"")+(c.mini?" ui-mini":"")).append(f,g),d.addClass("ui-flipswitch-input").after(b).appendTo(b),a.extend(this,{flipswitch:b,on:f,off:g,type:h})},_reset:function(){this.refresh()},refresh:function(){var a,b=this.flipswitch.hasClass("ui-flipswitch-active")?"_right":"_left";a="SELECT"===this.type?this.element.get(0).selectedIndex>0?"_right":"_left":this.element.prop("checked")?"_right":"_left",a!==b&&this[a]()},_toggle:function(){var a=this.flipswitch.hasClass("ui-flipswitch-active")?"_left":"_right";this[a]()},_keydown:function(b){b.which===a.mobile.keyCode.LEFT?this._left():b.which===a.mobile.keyCode.RIGHT?this._right():b.which===a.mobile.keyCode.SPACE&&(this._toggle(),b.preventDefault())},_setOptions:function(a){if(a.theme!==b){var c=a.theme?a.theme:"inherit",d=a.theme?a.theme:"inherit";this.widget().removeClass("ui-bar-"+c).addClass("ui-bar-"+d)}a.onText!==b&&this.on.text(a.onText),a.offText!==b&&this.off.text(a.offText),a.disabled!==b&&this.widget().toggleClass("ui-state-disabled",a.disabled),a.mini!==b&&this.widget().toggleClass("ui-mini",a.mini),a.corners!==b&&this.widget().toggleClass("ui-corner-all",a.corners),this._super(a)},_destroy:function(){this.options.enhanced||(null!=this._originalTabIndex?this.element.attr("tabindex",this._originalTabIndex):this.element.removeAttr("tabindex"),this.on.remove(),this.off.remove()</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/js/jquery.mobile.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 274 -  					setTimeout(function() {
+
+ Line: 542 -  			setTimeout(function() {
+
+ Line: 547 -  			setTimeout(function() {
+
+ Line: 1223 -  		return setTimeout( handlerProxy, delay || 0 );
+
+ Line: 1778 -        timeout_id = setTimeout( poll, $.fn[ str_hashchange ].delay );
+
+ Line: 2237 -  			setTimeout(function() {
+
+ Line: 3199 -  			timer = setTimeout( function() {
+
+ Line: 3215 -  			setTimeout( $.proxy( callback, this ), 0 );
+
+ Line: 3384 -  	resetTimerID = setTimeout( function() {
+
+ Line: 3791 -  				timer = setTimeout( function() {
+
+ Line: 3847 -  				timer = setTimeout( function() {
+
+ Line: 4080 -  					heldCall = setTimeout( handler, throttle - diff );
+
+ Line: 4562 -  			setTimeout( $.proxy(this, "_recordScroll"), 100 );
+
+ Line: 4847 -  			this._loadMsg = setTimeout($.proxy(function() {
+
+ Line: 4871 -  			setTimeout( $.proxy(this, "_hideLoading"), 1500 );
+
+ Line: 5921 -  					window.setTimeout(function() { $.mobile.removeActiveLinkClass( true ); }, 200 );
+
+ Line: 6120 -  			setTimeout( function() {
+
+ Line: 9234 -  			setTimeout( function() {
+
+ Line: 9345 -  				setTimeout( function() {
+
+ Line: 9724 -  		setTimeout( function() {
+
+ Line: 9882 -  				setTimeout(function() {
+
+ Line: 10936 -  	setTimeout( function() {
+
+ Line: 12297 -  							delayShow = setTimeout( function() {
+
+ Line: 12304 -  							delayHide = setTimeout( function() {
+
+ Line: 12411 -  			setTimeout( function() {
+
+ Line: 12958 -  						setTimeout( complete, 0 );
+
+ Line: 13030 -  						setTimeout( complete, 0 );
+
+ Line: 14672 -  					setTimeout(function() {
+
+ Line: 14680 -  					setTimeout(function() {
+
+ Line: 14792 -  	setTimeout( hideRenderingClass, 5000 );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/js/jquery.mobile.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 250 -  		DELETE: 46,
+
+ Line: 2146 -  // default enhanced qualifications are media query support OR IE 7+
+
+ Line: 2301 -  			// variants (protocol, site, document, query, and hash), into the various
+
+ Line: 2302 -  			// components (protocol, host, path, query, fragment, etc that make up the
+
+ Line: 2441 -  			//can handle all relative variants (protocol, site, document, query, fragment).
+
+ Line: 2464 -  			//Add search (aka query) params to the specified url.
+
+ Line: 2521 -  			//remove the preceding hash, any query params, and dialog notations
+
+ Line: 2920 -  			// if the url is a path we want to preserve the query params that are available on
+
+ Line: 4108 -  	// Note that we used to use a media query to figure out what the orientation the browser
+
+ Line: 4114 -  	// where the browser *ALWAYS* applied the landscape media query. This bug does not
+
+ Line: 5262 -  			// simplified eg, removing ui-state, and removing query params
+
+ Line: 5263 -  			// from the hash this is so that users who want to use query
+
+ Line: 5294 -  			// simplified eg, removing ui-state, and removing query params from
+
+ Line: 5295 -  			// the hash this is so that users who want to use query params have
+
+ Line: 5769 -  				// NOTE: If the method is "get", we need to strip off the query string
+
+ Line: 9012 -  		if ( this.type === "SELECT" ) {
+
+ Line: 9022 -  		if ( this.type === "SELECT" ) {
+
+ Line: 9089 -  		if ( this.type === "SELECT" ) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/js/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 420 -  			return setTimeout( jQuery.ready );
+
+ Line: 926 -  			setTimeout( jQuery.ready );
+
+ Line: 961 -  							return setTimeout( doScrollCheck, 50 );
+
+ Line: 4006 -  			var timeout = setTimeout( next, time );
+
+ Line: 8128 -  				timeoutTimer = setTimeout(function() {
+
+ Line: 8787 -  						setTimeout( callback );
+
+ Line: 8871 -  	setTimeout(function() {
+
+ Line: 9519 -  		timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/js/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7492 -  //key/values into a query string
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/_assets/js/h2widget.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 96 -  				setTimeout( function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/_assets/js/jqm-demos.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 128 -  		setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/_assets/js/jqm-demos.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 125 -  	// Search results page get search query string and enter it into filter then trigger keyup to filter
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/_assets/js/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 96 -  				setTimeout( function(){
+
+ Line: 298 -  		setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/demos/_assets/js/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 295 -  	// Search results page get search query string and enter it into filter then trigger keyup to filter
+
+</Result>
+</report_mosca>
+

@@ -1,0 +1,166 @@
+/src/History.md-11- * fix(aggregate): support for array pipeline argument to append #3718 [dbkup](https://github.com/dbkup)
+/src/History.md:12: * docs: clarify `.connect()` callback #3705
+/src/History.md-13- * fix(schema): properly validate nested single nested docs #3702
+##############################################
+/src/History.md-1643-
+/src/History.md:1644:  * fixed; allow goose.connect(uris, dbname, opts) #1144
+/src/History.md-1645-  * docs; persist API private checked state across page loads
+##############################################
+/src/examples/aggregate/aggregate.js-51-
+/src/examples/aggregate/aggregate.js:52:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/aggregate/aggregate.js-53-  if (err) throw err;
+##############################################
+/src/examples/population/population-plain-objects.js-37-
+/src/examples/population/population-plain-objects.js:38:mongoose.connect('mongodb://localhost/console', function(err) {
+/src/examples/population/population-plain-objects.js-39-  // if we failed to connect, abort
+##############################################
+/src/examples/population/population-across-three-collections.js-11-var dbname = 'testing_populateAdInfinitum_' + require('../../lib/utils').random();
+/src/examples/population/population-across-three-collections.js:12:mongoose.connect('localhost', dbname);
+/src/examples/population/population-across-three-collections.js-13-mongoose.connection.on('error', function() {
+##############################################
+/src/examples/population/population-of-existing-doc.js-37-
+/src/examples/population/population-of-existing-doc.js:38:mongoose.connect('mongodb://localhost/console', function(err) {
+/src/examples/population/population-of-existing-doc.js-39-  // if we failed to connect, abort
+##############################################
+/src/examples/population/population-of-multiple-existing-docs.js-37-
+/src/examples/population/population-of-multiple-existing-docs.js:38:mongoose.connect('mongodb://localhost/console', function(err) {
+/src/examples/population/population-of-multiple-existing-docs.js-39-  // if we failed to connect, abort
+##############################################
+/src/examples/population/population-basic.js-37-
+/src/examples/population/population-basic.js:38:mongoose.connect('mongodb://localhost/console', function(err) {
+/src/examples/population/population-basic.js-39-  // if we failed to connect, abort
+##############################################
+/src/examples/population/population-options.js-37-
+/src/examples/population/population-options.js:38:mongoose.connect('mongodb://localhost/console', function(err) {
+/src/examples/population/population-options.js-39-  // if we failed to connect, abort
+##############################################
+/src/examples/geospatial/geospatial.js-56-
+/src/examples/geospatial/geospatial.js:57:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/geospatial/geospatial.js-58-  if (err) throw err;
+##############################################
+/src/examples/geospatial/geoJSONexample.js-22-
+/src/examples/geospatial/geoJSONexample.js:23:mongoose.connect('mongodb://localhost/locations', function(err) {
+/src/examples/geospatial/geoJSONexample.js-24-  if (err) throw err;
+##############################################
+/src/examples/querybuilder/querybuilder.js-41-
+/src/examples/querybuilder/querybuilder.js:42:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/querybuilder/querybuilder.js-43-  if (err) throw err;
+##############################################
+/src/examples/replicasets/replica-sets.js-46-};
+/src/examples/replicasets/replica-sets.js:47:mongoose.connect('mongodb://localhost:27018/persons,localhost:27019,localhost:27020', opts, function(err) {
+/src/examples/replicasets/replica-sets.js-48-  if (err) throw err;
+##############################################
+/src/examples/doc-methods.js-46-
+/src/examples/doc-methods.js:47:mongoose.connect(uri, function(err) {
+/src/examples/doc-methods.js-48-  // if we failed to connect, abort
+##############################################
+/src/examples/statics/statics.js-12-
+/src/examples/statics/statics.js:13:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/statics/statics.js-14-  if (err) throw err;
+##############################################
+/src/examples/promises/promise.js-41-
+/src/examples/promises/promise.js:42:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/promises/promise.js-43-  if (err) throw err;
+##############################################
+/src/examples/lean/lean.js-51-
+/src/examples/lean/lean.js:52:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/lean/lean.js-53-  if (err) throw err;
+##############################################
+/src/examples/express/connection-sharing/app.js-5-var uri = 'mongodb://localhost/mongoose-shared-connection';
+/src/examples/express/connection-sharing/app.js:6:global.db = mongoose.createConnection(uri);
+/src/examples/express/connection-sharing/app.js-7-
+##############################################
+/src/examples/globalschemas/gs_example.js-12-
+/src/examples/globalschemas/gs_example.js:13:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/globalschemas/gs_example.js-14-  if (err) throw err;
+##############################################
+/src/examples/mapreduce/mapreduce.js-45-
+/src/examples/mapreduce/mapreduce.js:46:mongoose.connect('mongodb://localhost/persons', function(err) {
+/src/examples/mapreduce/mapreduce.js-47-  if (err) throw err;
+##############################################
+/src/README.md-56-
+/src/README.md:57:mongoose.connect('mongodb://localhost/my_database');
+/src/README.md-58-```
+##############################################
+/src/README.md-161-
+/src/README.md:162:**Important!** If you opened a separate connection using `mongoose.createConnection()` but attempt to access the model through `mongoose.model('ModelName')` it will not work as expected since it is not hooked up to an active db connection. In this case access your model through the connection you created:
+/src/README.md-163-
+/src/README.md-164-```js
+/src/README.md:165:var conn = mongoose.createConnection('your connection string'),
+/src/README.md-166-    MyModel = conn.model('ModelName', schema),
+##############################################
+/src/README.md-173-```js
+/src/README.md:174:var conn = mongoose.createConnection('your connection string'),
+/src/README.md-175-    MyModel = mongoose.model('ModelName', schema),
+##############################################
+/src/lib/schematype.js-414- *
+/src/lib/schematype.js:415: *     var conn = mongoose.createConnection(..);
+/src/lib/schematype.js-416- *     conn.on('error', handleError);
+##############################################
+/src/lib/index.js-41-  };
+/src/lib/index.js:42:  var conn = this.createConnection(); // default connection
+/src/lib/index.js-43-  conn.models = this.models;
+##############################################
+/src/lib/index.js-141- *     // with mongodb:// URI
+/src/lib/index.js:142: *     db = mongoose.createConnection('mongodb://user:pass@localhost:port/database');
+/src/lib/index.js-143- *
+##############################################
+/src/lib/index.js-145- *     var opts = { db: { native_parser: true }}
+/src/lib/index.js:146: *     db = mongoose.createConnection('mongodb://user:pass@localhost:port/database', opts);
+/src/lib/index.js-147- *
+/src/lib/index.js-148- *     // replica sets
+/src/lib/index.js:149: *     db = mongoose.createConnection('mongodb://user:pass@localhost:port,anotherhost:port,yetanother:port/database');
+/src/lib/index.js-150- *
+##############################################
+/src/lib/index.js-152- *     var opts = { replset: { strategy: 'ping', rs_name: 'testSet' }}
+/src/lib/index.js:153: *     db = mongoose.createConnection('mongodb://user:pass@localhost:port,anotherhost:port,yetanother:port/database', opts);
+/src/lib/index.js-154- *
+/src/lib/index.js-155- *     // with [host, database_name[, port] signature
+/src/lib/index.js:156: *     db = mongoose.createConnection('localhost', 'database', port)
+/src/lib/index.js-157- *
+##############################################
+/src/lib/index.js-159- *     var opts = { server: { auto_reconnect: false }, user: 'username', pass: 'mypassword' }
+/src/lib/index.js:160: *     db = mongoose.createConnection('localhost', 'database', port, opts)
+/src/lib/index.js-161- *
+/src/lib/index.js-162- *     // initialize now, connect later
+/src/lib/index.js:163: *     db = mongoose.createConnection();
+/src/lib/index.js-164- *     db.open('localhost', 'database', port, [opts]);
+##############################################
+/src/lib/index.js-202- *
+/src/lib/index.js:203: *     mongoose.connect('mongodb://user:pass@localhost:port/database');
+/src/lib/index.js-204- *
+##############################################
+/src/lib/index.js-206- *     var uri = 'mongodb://user:pass@localhost:port,anotherhost:port,yetanother:port/mydatabase';
+/src/lib/index.js:207: *     mongoose.connect(uri);
+/src/lib/index.js-208- *
+/src/lib/index.js-209- *     // with options
+/src/lib/index.js:210: *     mongoose.connect(uri, options);
+/src/lib/index.js-211- *
+##############################################
+/src/lib/index.js-214- *     var opts = { mongos: true };
+/src/lib/index.js:215: *     mongoose.connect(uri, opts);
+/src/lib/index.js-216- *
+##############################################
+/src/lib/index.js-218- *     var uri = 'mongodb://nonexistent.domain:27000';
+/src/lib/index.js:219: *     mongoose.connect(uri, function(error) {
+/src/lib/index.js-220- *       // if error is truthy, the initial connection failed.
+##############################################
+/src/lib/index.js-284- *     // create a new connection
+/src/lib/index.js:285: *     var conn = mongoose.createConnection(..);
+/src/lib/index.js-286- *
+##############################################
+/src/lib/index.js-450- *     var mongoose = require('mongoose');
+/src/lib/index.js:451: *     mongoose.connect(...);
+/src/lib/index.js-452- *     mongoose.connection.on('error', cb);
+##############################################
+/src/lib/drivers/node-mongodb-native/collection.js-73-        opts.capped = true;
+/src/lib/drivers/node-mongodb-native/collection.js:74:        self.conn.db.createCollection(self.name, opts, callback);
+/src/lib/drivers/node-mongodb-native/collection.js-75-      }
+##############################################
+/src/lib/connection.js-286- *
+/src/lib/connection.js:287: *     var db = mongoose.createConnection();
+/src/lib/connection.js-288- *     db.openSet("mongodb://user:pwd@localhost:27020/testing,mongodb://example.com:27020,mongodb://localhost:27019");
+##############################################
+/src/lib/connection.js-586- *     var mongoose = require('mongoose');
+/src/lib/connection.js:587: *     var db = mongoose.createConnection(..);
+/src/lib/connection.js-588- *     db.model('Venue', new Schema(..));

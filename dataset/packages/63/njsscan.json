@@ -1,0 +1,224 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 16
+        },
+        "extra": {
+          "line": ".settings",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 16
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2011-2015, Eran Hammer and other contributors.\r",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 7,
+          "line": 1
+        },
+        "extra": {
+          "line": "Ssssh!",
+          "message": "Syntax error"
+        },
+        "path": "/src/test/.hidden",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/connection.js",
+          "match_lines": [
+            200,
+            209
+          ],
+          "match_position": [
+            21,
+            23
+          ],
+          "match_string": "    var timeoutId = setTimeout(function () {\n\n\n\n        Object.keys(self._connections).forEach(function (key) {\n\n\n\n            self._connections[key].destroy();\n\n        });\n\n\n\n\n\n        self._connections = {};\n\n    }, options.timeout);"
+        },
+        {
+          "file_path": "/src/test/request.js",
+          "match_lines": [
+            693,
+            699
+          ],
+          "match_position": [
+            17,
+            34
+          ],
+          "match_string": "                var t2 = request.addTail('t2');\n\n\n\n                reply('Done');\n\n\n\n                t1();\n\n                t1();                           // Ignored\n\n                setTimeout(t2, 10);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/validation.js",
+          "match_lines": [
+            142,
+            142
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "        var currentSample = Math.ceil((Math.random() * 100));"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            805,
+            805
+          ],
+          "match_position": [
+            22,
+            33
+          ],
+          "match_string": "            var id = Math.random();"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            840,
+            840
+          ],
+          "match_position": [
+            22,
+            33
+          ],
+          "match_string": "            var id = Math.random();"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            905,
+            905
+          ],
+          "match_position": [
+            23,
+            34
+          ],
+          "match_string": "            var id1 = Math.random();"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            910,
+            910
+          ],
+          "match_position": [
+            27,
+            38
+          ],
+          "match_string": "                var id2 = Math.random();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_logic_bypass": {
+      "files": [
+        {
+          "file_path": "/src/lib/request.js",
+          "match_lines": [
+            87,
+            87
+          ],
+          "match_position": [
+            9,
+            74
+          ],
+          "match_string": "    if (connection._requestCounter.value > connection._requestCounter.max) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-807: Reliance on Untrusted Inputs in a Security Decision",
+        "description": "User controlled data is used for application business logic decision making. This expose protected data or functionality.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/auth.js",
+          "match_lines": [
+            134,
+            134
+          ],
+          "match_position": [
+            17,
+            49
+          ],
+          "match_string": "            if (/{([^}]+)}/.test(options.scope[i])) {"
+        },
+        {
+          "file_path": "/src/lib/route.js",
+          "match_lines": [
+            40,
+            40
+          ],
+          "match_position": [
+            17,
+            74
+          ],
+          "match_string": "    Hoek.assert(/^[a-zA-Z0-9!#\\$%&'\\*\\+\\-\\.^_`\\|~]+$/.test(options.method), 'Invalid method name:', options.method, options.path);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

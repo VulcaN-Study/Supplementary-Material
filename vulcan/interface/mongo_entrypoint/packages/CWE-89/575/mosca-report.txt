@@ -1,0 +1,311 @@
+<report_mosca>
+ <Path>/src/dist/squel-basic.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 180 -      // Get whether obj is a query builder
+
+ Line: 191 -    // default query builder options
+
+ Line: 219 -      // The string to replace single quotes with in query strings
+
+ Line: 221 -      // String used to join individual blocks in a query when it's stringified
+
+ Line: 223 -      // Function for formatting string values prior to insertion into query string
+
+ Line: 225 -      // Whether to prevent the addition of brackets () when nesting this query builder's output
+
+ Line: 540 -         * Format the given field value for inclusion into the query string
+
+ Line: 648 -         * @param {Boolean} [options.formattingOptions] Formatting options for values in query string.
+
+ Line: 829 -     * SQL expressions are used in WHERE and ON clauses to filter data by various criteria.
+
+ Line: 1103 -    # A building block represents a single build-step within a query building process.
+
+ Line: 1106 -    # optionally specify methods to expose through the query builder interface. They can access all the input data for
+
+ Line: 1107 -    # the query builder and manipulate it as necessary, as well as append to the final query string output.
+
+ Line: 1109 -    # If you wish to customize how queries get built or add proprietary query phrases and content then it is recommended
+
+ Line: 1124 -      # Get input methods to expose within the query builder.
+
+ Line: 1364 -    // target table for DELETE queries, DELETE <??> FROM
+
+ Line: 1417 -    // FROM table
+
+ Line: 1425 -          prefix: 'FROM'
+
+ Line: 1475 -    // (SELECT) Get field
+
+ Line: 1577 -          var queryBuilder = options.queryBuilder,
+
+ Line: 1633 -            // if select query and a table is set then all fields wanted
+
+ Line: 1634 -            var fromTableBlock = queryBuilder && queryBuilder.getBlock(cls.FromTableBlock);
+
+ Line: 1650 -    // Base class for setting fields to values (used for INSERT and UPDATE queries)
+
+ Line: 1772 -    // (UPDATE) SET field=value
+
+ Line: 1838 -    // (INSERT INTO) ... field ... value
+
+ Line: 1909 -    // (INSERT INTO) ... field ... (SELECT ... FROM ...)
+
+ Line: 1977 -        // Add the DISTINCT keyword to the query.
+
+ Line: 2081 -      # Call this will override the previously set offset for this query. Also note that Passing 0 for 'max' will remove
+
+ Line: 2111 -      # Call this will override the previously set limit for this query. Also note that Passing `null` will remove
+
+ Line: 2145 -      # When the final query is constructed all the conditions are combined using the intersection (AND) operator.
+
+ Line: 2226 -    // WHERE
+
+ Line: 2234 -          verb: 'WHERE'
+
+ Line: 2562 -    // UNION
+
+ Line: 2576 -      # Add a UNION with the given table/query.
+
+ Line: 2578 -      # 'table' is the name of the table or query to union with.
+
+ Line: 2580 -      # 'type' must be either one of UNION or UNION ALL.... Default is 'UNION'.
+
+ Line: 2587 -          var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'UNION';
+
+ Line: 2597 -        // Add a UNION ALL with the given table/query.
+
+ Line: 2602 -          this.union(table, 'UNION ALL');
+
+ Line: 2678 -    # Note that the query builder does not check the final query string for correctness.
+
+ Line: 2688 -      # blocks - array of cls.BaseBuilderBlock instances to build the query with.
+
+ Line: 2747 -      # Register a custom value handler for this query builder and all its contained blocks.
+
+ Line: 2787 -        # Update query builder options
+
+ Line: 2790 -        # behaviour of your query builder mid-build.
+
+ Line: 2824 -        // Get the final fully constructed query param obj.
+
+ Line: 2838 -              queryBuilder: _this33
+
+ Line: 2907 -    // SELECT query builder.
+
+ Line: 2916 -        blocks = blocks || [new cls.StringBlock(options, 'SELECT'), new cls.FunctionBlock(options), new cls.DistinctBlock(options), new cls.GetFieldBlock(options), new cls.FromTableBlock(options), new cls.JoinBlock(options), new cls.WhereBlock(options), new cls.GroupByBlock(options), new cls.HavingBlock(options), new cls.OrderByBlock(options), new cls.LimitBlock(options), new cls.OffsetBlock(options), new cls.UnionBlock(options)];
+
+ Line: 2924 -    // UPDATE query builder.
+
+ Line: 2933 -        blocks = blocks || [new cls.StringBlock(options, 'UPDATE'), new cls.UpdateTableBlock(options), new cls.SetFieldBlock(options), new cls.WhereBlock(options), new cls.OrderByBlock(options), new cls.LimitBlock(options)];
+
+ Line: 2941 -    // DELETE query builder.
+
+ Line: 2950 -        blocks = blocks || [new cls.StringBlock(options, 'DELETE'), new cls.TargetTableBlock(options), new cls.FromTableBlock(_extend({}, options, {
+
+ Line: 2960 -    // An INSERT query builder.
+
+ Line: 2969 -        blocks = blocks || [new cls.StringBlock(options, 'INSERT'), new cls.IntoTableBlock(options), new cls.InsertFieldValueBlock(options), new cls.InsertFieldsFromQueryBlock(options)];
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/squel.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -  !==arguments[0]?arguments[0]:{};if(!this._hasTable())throw new Error("table() needs to be called");return h(i.prototype.__proto__||Object.getPrototypeOf(i.prototype),"_toParamString",this).call(this,t)}}]),i}(f.AbstractTableBlock),f.FromTableBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{prefix:"FROM"})))}return e(o,n),v(o,[{key:"from",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;this._table(t,e)}}]),o}(f.AbstractTableBlock),f.IntoTableBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{prefix:"INTO",singleTable:!0})))}return e(o,n),v(o,[{key:"into",value:function(t){this._table(t)}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};if(!this._hasTable())throw new Error("into() needs to be called");return h(o.prototype.__proto__||Object.getPrototypeOf(o.prototype),"_toParamString",this).call(this,t)}}]),o}(f.AbstractTableBlock),f.GetFieldBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._fields=[],n}return e(o,i),v(o,[{key:"fields",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};if(l(t)){var r=!0,n=!1,i=void 0;try{for(var o,a=t[Symbol.iterator]();!(r=(o=a.next()).done);r=!0){var u=o.value;this.field(u,null,e)}}catch(s){n=!0,i=s}finally{try{!r&&a["return"]&&a["return"]()}finally{if(n)throw i}}}else for(var c in t){var f=t[c];this.field(c,f,e)}}},{key:"field",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};e=e?this._sanitizeFieldAlias(e):e,t=this._sanitizeField(t);var n=this._fields.filter(function(r){return r.name===t&&r.alias===e});return n.length?this:void this._fields.push({name:t,alias:e,options:r})}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e=t.queryBuilder,r=t.buildParameterized,i="",o=[],l=!0,a=!1,u=v Line: 11 -  rb:"LIMIT"})))}return e(o,n),v(o,[{key:"limit",value:function(t){this._setValue(t)}}]),o}(f.AbstractVerbSingleValueBlock),f.AbstractConditionBlock=function(n){function i(e){r(this,i);var n=t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e));return n._conditions=[],n}return e(i,n),v(i,[{key:"_condition",value:function(t){t=this._sanitizeExpression(t);for(var e=arguments.length,r=Array(e>1?e-1:0),n=1;n<e;n++)r[n-1]=arguments[n];this._conditions.push({expr:t,values:r||[]})}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e=[],r=[],n=!0,i=!1,o=void 0;try{for(var l,a=this._conditions[Symbol.iterator]();!(n=(l=a.next()).done);n=!0){var u=l.value,s=u.expr,c=u.values,h=f.isSquelBuilder(s)?s._toParamString({buildParameterized:t.buildParameterized}):this._buildString(s,c,{buildParameterized:t.buildParameterized});h.text.length&&e.push(h.text),h.values.forEach(function(t){return r.push(t)})}}catch(v){i=!0,o=v}finally{try{!n&&a["return"]&&a["return"]()}finally{if(i)throw o}}return e.length&&(e=e.join(") AND (")),{text:e.length?this.options.verb+" ("+e+")":"",values:r}}}]),i}(f.Block),f.WhereBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{verb:"WHERE"})))}return e(o,n),v(o,[{key:"where",value:function(t){for(var e=arguments.length,r=Array(e>1?e-1:0),n=1;n<e;n++)r[n-1]=arguments[n];this._condition.apply(this,[t].concat(r))}}]),o}(f.AbstractConditionBlock),f.HavingBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{verb:"HAVING"})))}return e(o,n),v(o,[{key:"having",value:function(t){for(var e=arguments.length,r=Array(e>1?e-1:0),n=1;n<e;n++)r[n-1]=arguments[n];this._condition.apply(this,[t].concat(r))}}]),o}(f.AbstractConditionBlock),f.OrderByBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._orders=[],n}return e(o,i),v(o,[{key:"order",value:function(t,e){t=this._sanitizeField(t),"string"!=typeof e&&(void 0===e?e="ASC":null!==e&&(e=e?"A Line: 13 -  2&&void 0!==arguments[2]?arguments[2]:null;this.join(t,e,r,"FULL")}},{key:"cross_join",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;this.join(t,e,r,"CROSS")}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e="",r=[],i=!0,o=!1,l=void 0;try{for(var a,u=this._joins[Symbol.iterator]();!(i=(a=u.next()).done);i=!0){var s=a.value,c=s.type,h=s.table,v=s.alias,d=s.condition;e=n(e,this.options.separator);var _=void 0;if(f.isSquelBuilder(h)){var p=h._toParamString({buildParameterized:t.buildParameterized,nested:!0});p.values.forEach(function(t){return r.push(t)}),_=p.text}else _=this._formatTableName(h);if(e+=c+" JOIN "+_,v&&(e+=" "+this._formatTableAlias(v)),d){e+=" ON ";var y=void 0;y=f.isSquelBuilder(d)?d._toParamString({buildParameterized:t.buildParameterized}):this._buildString(d,[],{buildParameterized:t.buildParameterized}),e+=this._applyNestingFormatting(y.text),y.values.forEach(function(t){return r.push(t)})}}}catch(g){o=!0,l=g}finally{try{!i&&u["return"]&&u["return"]()}finally{if(o)throw l}}return{text:e,values:r}}}]),o}(f.Block),f.UnionBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._unions=[],n}return e(o,i),v(o,[{key:"union",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"UNION";t=this._sanitizeTable(t),this._unions.push({type:e,table:t})}},{key:"union_all",value:function(t){this.union(t,"UNION ALL")}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e="",r=[],i=!0,o=!1,l=void 0;try{for(var a,u=this._unions[Symbol.iterator]();!(i=(a=u.next()).done);i=!0){var s=a.value,c=s.type,h=s.table;e=n(e,this.options.separator);var v=void 0;if(h instanceof f.BaseBuilder){var d=h._toParamString({buildParameterized:t.buildParameterized,nested:!0});v=d.text,d.values.forEach(function(t){return r.push(t)})}else e=this._formatTableName(h);e+=c+" "+v}}catch(_){o=!0,l=_}finally{try{!i&&u[ Line: 16 -  }},{key:"getBlock",value:function(t){var e=this.blocks.filter(function(e){return e instanceof t});return e[0]}}]),o}(f.BaseBuilder),f.Select=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new f.StringBlock(e,"SELECT"),new f.FunctionBlock(e),new f.DistinctBlock(e),new f.GetFieldBlock(e),new f.FromTableBlock(e),new f.JoinBlock(e),new f.WhereBlock(e),new f.GroupByBlock(e),new f.HavingBlock(e),new f.OrderByBlock(e),new f.LimitBlock(e),new f.OffsetBlock(e),new f.UnionBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(f.QueryBuilder),f.Update=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new f.StringBlock(e,"UPDATE"),new f.UpdateTableBlock(e),new f.SetFieldBlock(e),new f.WhereBlock(e),new f.OrderByBlock(e),new f.LimitBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(f.QueryBuilder),f.Delete=function(n){function o(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,o),n=n||[new f.StringBlock(e,"DELETE"),new f.TargetTableBlock(e),new f.FromTableBlock(i({},e,{singleTable:!0})),new f.JoinBlock(e),new f.WhereBlock(e),new f.OrderByBlock(e),new f.LimitBlock(e)],t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e,n))}return e(o,n),o}(f.QueryBuilder),f.Insert=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new f.StringBlock(e,"INSERT"),new f.IntoTableBlock(e),new f.InsertFieldValueBlock(e),new f.InsertFieldsFromQueryBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(f.QueryBuilder);var p={VERSION:"5.13.0",flavour:c,expr:function(t){return new f.Expression(t)},"case":function(t,e){return new f.Case(t,e)},select:function(t,e){return new f.Select(t,e)},update:function(t,e){return new f.Update(t,e)},insert:function(t,e){return new f.Insert(t,e)},"delete":function(t,e){return new f.Delete(t,e)},str:function(){var t=new f.FunctionBlock;return t Line: 18 -  s,e));return n.limit=a,n}return e(i,n),v(i,[{key:"_toParamString",value:function(){var t="";return this._parent._limits&&this._parent._offsets&&(t="FETCH NEXT "+this._parent._limits+" ROWS ONLY"),{text:t,values:[]}}}]),i}(o.ParentBlock),o.TopBlock=function(n){function i(e){r(this,i);var n=t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e));return n.top=a,n}return e(i,n),v(i,[{key:"_toParamString",value:function(){var t="";return this._parent._limits&&!this._parent._offsets&&(t="TOP ("+this._parent._limits+")"),{text:t,values:[]}}}]),i}(o.ParentBlock),o.OffsetBlock=function(n){function i(){return r(this,i),t(this,(i.__proto__||Object.getPrototypeOf(i)).apply(this,arguments))}return e(i,n),v(i,[{key:"offset",value:function(t){this._parent._offsets=this._sanitizeLimitOffset(t)}},{key:"_toParamString",value:function(){var t="";return this._parent._offsets&&(t="OFFSET "+this._parent._offsets+" ROWS"),{text:t,values:[]}}}]),i}(o.ParentBlock),o}return e(i,n),v(i,[{key:"LIMIT",value:function(){return new this.LimitBlock(this)}},{key:"TOP",value:function(){return new this.TopBlock(this)}},{key:"OFFSET",value:function(){return new this.OffsetBlock(this)}}]),i}(l.Block),l.MssqlUpdateTopBlock=function(n){function i(e){r(this,i);var n=t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e));return n._limits=null,n.limit=n.top=function(t){n._limits=n._sanitizeLimitOffset(t)},n}return e(i,n),v(i,[{key:"_toParamString",value:function(){return{text:this._limits?"TOP ("+this._limits+")":"",values:[]}}}]),i}(l.Block),l.MssqlInsertFieldValueBlock=function(n){function i(e){r(this,i);var n=t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e));return n._outputs=[],n}return e(i,n),v(i,[{key:"output",value:function(t){var e=this;"string"==typeof t?this._outputs.push("INSERTED."+this._sanitizeField(t)):t.forEach(function(t){e._outputs.push("INSERTED."+e._sanitizeField(t))})}},{key:"_toParamString",value:function(t){var e=h(i.prototype.__proto__||Object.getPrototypeOf(i.prototype),"_toParamString",this).call(this,t);if(e.text.length&&0<this._outputs.length){var r="OUTPUT "+this._outp Line: 19 -  )+" ",n=e.text.indexOf("VALUES");e.text=e.text.substr(0,n)+r+e.text.substr(n)}return e}}]),i}(l.InsertFieldValueBlock),l.MssqlUpdateDeleteOutputBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._outputs=[],n}return e(o,i),v(o,[{key:"outputs",value:function(t){for(var e in t)this.output(e,t[e])}},{key:"output",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;t=this._sanitizeField(t),e=e?this._sanitizeFieldAlias(e):e,this._outputs.push({name:this.options.forDelete?"DELETED."+t:"INSERTED."+t,alias:e})}},{key:"_toParamString",value:function(t){var e="";if(this._outputs.length){var r=!0,i=!1,o=void 0;try{for(var l,a=this._outputs[Symbol.iterator]();!(r=(l=a.next()).done);r=!0){var u=l.value;e=n(e,", "),e+=u.name,u.alias&&(e+=" AS "+this._formatFieldAlias(u.alias))}}catch(s){i=!0,o=s}finally{try{!r&&a["return"]&&a["return"]()}finally{if(i)throw o}}e="OUTPUT "+e}return{text:e,values:[]}}}]),o}(l.Block),l.Select=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;r(this,i);var o=new l.MssqlLimitOffsetTopBlock(e);return n=n||[new l.StringBlock(e,"SELECT"),new l.DistinctBlock(e),o.TOP(),new l.GetFieldBlock(e),new l.FromTableBlock(e),new l.JoinBlock(e),new l.WhereBlock(e),new l.GroupByBlock(e),new l.OrderByBlock(e),o.OFFSET(),o.LIMIT(),new l.UnionBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(l.QueryBuilder),l.Update=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new l.StringBlock(e,"UPDATE"),new l.MssqlUpdateTopBlock(e),new l.UpdateTableBlock(e),new l.SetFieldBlock(e),new l.MssqlUpdateDeleteOutputBlock(e),new l.WhereBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(l.QueryBuilder),l.Delete=function(n){function o(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,o),n=n||[new l.StringBlock(e,"DELETE"),new l.TargetTableBlock(e),new l.FromTableBlock(i({},e,{singleTable: Line: 20 -  oinBlock(e),new l.MssqlUpdateDeleteOutputBlock(i({},e,{forDelete:!0})),new l.WhereBlock(e),new l.OrderByBlock(e),new l.LimitBlock(e)],t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e,n))}return e(o,n),o}(l.QueryBuilder),l.Insert=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new l.StringBlock(e,"INSERT"),new l.IntoTableBlock(e),new l.MssqlInsertFieldValueBlock(e),new l.InsertFieldsFromQueryBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(l.QueryBuilder)},_.flavours.mysql=function(i){var o=i.cls;o.MysqlOnDuplicateKeyUpdateBlock=function(i){function o(){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).apply(this,arguments))}return e(o,i),v(o,[{key:"onDupUpdate",value:function(t,e,r){this._set(t,e,r)}},{key:"_toParamString",value:function(){for(var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e="",r=[],i=0;i<this._fields.length;++i){e=n(e,", ");var o=this._fields[i],l=this._values[0][i],a=this._valueOptions[0][i];if("undefined"==typeof l)e+=o;else{var u=this._buildString(o+" = "+this.options.parameterCharacter,[l],{buildParameterized:t.buildParameterized,formattingOptions:a});e+=u.text,u.values.forEach(function(t){return r.push(t)})}}return{text:e.length?"ON DUPLICATE KEY UPDATE "+e:"",values:r}}}]),o}(o.AbstractSetFieldBlock),o.Insert=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new o.StringBlock(e,"INSERT"),new o.IntoTableBlock(e),new o.InsertFieldValueBlock(e),new o.InsertFieldsFromQueryBlock(e),new o.MysqlOnDuplicateKeyUpdateBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(o.QueryBuilder),o.Replace=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new o.StringBlock(e,"REPLACE"),new o.IntoTableBlock(e),new o.InsertFieldValueBlock(e),new o.InsertFieldsFromQueryBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(o.QueryBui Line: 21 -  ce=function(t,e){return new o.Replace(t,e)}},_.flavours.postgres=function(o){var a=o.cls;a.DefaultQueryBuilderOptions.numberedParameters=!0,a.DefaultQueryBuilderOptions.numberedParametersStartAt=1,a.DefaultQueryBuilderOptions.autoQuoteAliasNames=!1,a.DefaultQueryBuilderOptions.useAsForTableAliasNames=!0,a.PostgresOnConflictKeyUpdateBlock=function(i){function o(){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).apply(this,arguments))}return e(o,i),v(o,[{key:"onConflict",value:function(t,e){var r=this;this._onConflict=!0,t&&(l(t)||(t=[t]),this._dupFields=t.map(this._sanitizeField.bind(this)),e&&Object.keys(e).forEach(function(t){r._set(t,e[t])}))}},{key:"_toParamString",value:function(){for(var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e="",r=[],i=0;i<this._fields.length;++i){e=n(e,", ");var o=this._fields[i],l=this._values[0][i],a=this._valueOptions[0][i];if("undefined"==typeof l)e+=o;else{var u=this._buildString(o+" = "+this.options.parameterCharacter,[l],{buildParameterized:t.buildParameterized,formattingOptions:a});e+=u.text,u.values.forEach(function(t){return r.push(t)})}}var s={text:"",values:r};if(this._onConflict){var c=this._dupFields?"("+this._dupFields.join(", ")+") ":"",f=e.length?"UPDATE SET "+e:"NOTHING";s.text="ON CONFLICT "+c+"DO "+f}return s}}]),o}(a.AbstractSetFieldBlock),a.ReturningBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._fields=[],n}return e(o,i),v(o,[{key:"returning",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};e=e?this._sanitizeFieldAlias(e):e,t=this._sanitizeField(t);var n=this._fields.filter(function(r){return r.name===t&&r.alias===e});return n.length?this:void this._fields.push({name:t,alias:e,options:r})}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e=(t.queryBuilder,t.buildParameterized),r="",i=[],o=!0,l=!1,a=void 0;try{for(var u,s=this._fields[Symbol.iterator]();!(o=(u=s.next()).done);o= Line: 22 -  alue;r=n(r,", ");var f=c.name,h=c.alias,v=c.options;if("string"==typeof f)r+=this._formatFieldName(f,v);else{var d=f._toParamString({nested:!0,buildParameterized:e});r+=d.text,d.values.forEach(function(t){return i.push(t)})}h&&(r+=" AS "+this._formatFieldAlias(h))}}catch(_){l=!0,a=_}finally{try{!o&&s["return"]&&s["return"]()}finally{if(l)throw a}}return{text:r.length>0?"RETURNING "+r:"",values:i}}}]),o}(a.Block),a.WithBlock=function(n){function i(e){r(this,i);var n=t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e));return n._tables=[],n}return e(i,n),v(i,[{key:"with",value:function(t,e){this._tables.push({alias:t,table:e})}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e=[],r=[],n=!0,i=!1,o=void 0;try{for(var l,a=this._tables[Symbol.iterator]();!(n=(l=a.next()).done);n=!0){var u=l.value,s=u.alias,c=u.table,f=c._toParamString({buildParameterized:t.buildParameterized,nested:!0});e.push(s+" AS "+f.text),f.values.forEach(function(t){return r.push(t)})}}catch(h){i=!0,o=h}finally{try{!n&&a["return"]&&a["return"]()}finally{if(i)throw o}}return{text:e.length?"WITH "+e.join(", "):"",values:r}}}]),i}(a.Block),a.DistinctOnBlock=function(n){function i(e){r(this,i);var n=t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e));return n._distinctFields=[],n}return e(i,n),v(i,[{key:"distinct",value:function(){var t=this;this._useDistinct=!0;for(var e=arguments.length,r=Array(e),n=0;n<e;n++)r[n]=arguments[n];r.forEach(function(e){t._distinctFields.push(t._sanitizeField(e))})}},{key:"_toParamString",value:function(){var t="";return this._useDistinct&&(t="DISTINCT",this._distinctFields.length&&(t+=" ON ("+this._distinctFields.join(", ")+")")),{text:t,values:[]}}}]),i}(a.Block),a.Select=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new a.WithBlock(e),new a.StringBlock(e,"SELECT"),new a.FunctionBlock(e),new a.DistinctOnBlock(e),new a.GetFieldBlock(e),new a.FromTableBlock(e),new a.JoinBlock(e),new a.WhereBlock(e),new a.GroupByBlock(e),new a.HavingBlock(e),new Line: 23 -  ck(e),new a.LimitBlock(e),new a.OffsetBlock(e),new a.UnionBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(a.QueryBuilder),a.Insert=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new a.WithBlock(e),new a.StringBlock(e,"INSERT"),new a.IntoTableBlock(e),new a.InsertFieldValueBlock(e),new a.InsertFieldsFromQueryBlock(e),new a.PostgresOnConflictKeyUpdateBlock(e),new a.ReturningBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(a.QueryBuilder),a.Update=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new a.WithBlock(e),new a.StringBlock(e,"UPDATE"),new a.UpdateTableBlock(e),new a.SetFieldBlock(e),new a.FromTableBlock(e),new a.WhereBlock(e),new a.OrderByBlock(e),new a.LimitBlock(e),new a.ReturningBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(a.QueryBuilder),a.Delete=function(n){function o(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,o),n=n||[new a.WithBlock(e),new a.StringBlock(e,"DELETE"),new a.TargetTableBlock(e),new a.FromTableBlock(i({},e,{singleTable:!0})),new a.JoinBlock(e),new a.WhereBlock(e),new a.OrderByBlock(e),new a.LimitBlock(e),new a.ReturningBlock(e)],t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e,n))}return e(o,n),o}(a.QueryBuilder)},_});
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/squel.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 180 -      // Get whether obj is a query builder
+
+ Line: 191 -    // default query builder options
+
+ Line: 219 -      // The string to replace single quotes with in query strings
+
+ Line: 221 -      // String used to join individual blocks in a query when it's stringified
+
+ Line: 223 -      // Function for formatting string values prior to insertion into query string
+
+ Line: 225 -      // Whether to prevent the addition of brackets () when nesting this query builder's output
+
+ Line: 540 -         * Format the given field value for inclusion into the query string
+
+ Line: 648 -         * @param {Boolean} [options.formattingOptions] Formatting options for values in query string.
+
+ Line: 829 -     * SQL expressions are used in WHERE and ON clauses to filter data by various criteria.
+
+ Line: 1103 -    # A building block represents a single build-step within a query building process.
+
+ Line: 1106 -    # optionally specify methods to expose through the query builder interface. They can access all the input data for
+
+ Line: 1107 -    # the query builder and manipulate it as necessary, as well as append to the final query string output.
+
+ Line: 1109 -    # If you wish to customize how queries get built or add proprietary query phrases and content then it is recommended
+
+ Line: 1124 -      # Get input methods to expose within the query builder.
+
+ Line: 1364 -    // target table for DELETE queries, DELETE <??> FROM
+
+ Line: 1417 -    // FROM table
+
+ Line: 1425 -          prefix: 'FROM'
+
+ Line: 1475 -    // (SELECT) Get field
+
+ Line: 1577 -          var queryBuilder = options.queryBuilder,
+
+ Line: 1633 -            // if select query and a table is set then all fields wanted
+
+ Line: 1634 -            var fromTableBlock = queryBuilder && queryBuilder.getBlock(cls.FromTableBlock);
+
+ Line: 1650 -    // Base class for setting fields to values (used for INSERT and UPDATE queries)
+
+ Line: 1772 -    // (UPDATE) SET field=value
+
+ Line: 1838 -    // (INSERT INTO) ... field ... value
+
+ Line: 1909 -    // (INSERT INTO) ... field ... (SELECT ... FROM ...)
+
+ Line: 1977 -        // Add the DISTINCT keyword to the query.
+
+ Line: 2081 -      # Call this will override the previously set offset for this query. Also note that Passing 0 for 'max' will remove
+
+ Line: 2111 -      # Call this will override the previously set limit for this query. Also note that Passing `null` will remove
+
+ Line: 2145 -      # When the final query is constructed all the conditions are combined using the intersection (AND) operator.
+
+ Line: 2226 -    // WHERE
+
+ Line: 2234 -          verb: 'WHERE'
+
+ Line: 2562 -    // UNION
+
+ Line: 2576 -      # Add a UNION with the given table/query.
+
+ Line: 2578 -      # 'table' is the name of the table or query to union with.
+
+ Line: 2580 -      # 'type' must be either one of UNION or UNION ALL.... Default is 'UNION'.
+
+ Line: 2587 -          var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'UNION';
+
+ Line: 2597 -        // Add a UNION ALL with the given table/query.
+
+ Line: 2602 -          this.union(table, 'UNION ALL');
+
+ Line: 2678 -    # Note that the query builder does not check the final query string for correctness.
+
+ Line: 2688 -      # blocks - array of cls.BaseBuilderBlock instances to build the query with.
+
+ Line: 2747 -      # Register a custom value handler for this query builder and all its contained blocks.
+
+ Line: 2787 -        # Update query builder options
+
+ Line: 2790 -        # behaviour of your query builder mid-build.
+
+ Line: 2824 -        // Get the final fully constructed query param obj.
+
+ Line: 2838 -              queryBuilder: _this33
+
+ Line: 2907 -    // SELECT query builder.
+
+ Line: 2916 -        blocks = blocks || [new cls.StringBlock(options, 'SELECT'), new cls.FunctionBlock(options), new cls.DistinctBlock(options), new cls.GetFieldBlock(options), new cls.FromTableBlock(options), new cls.JoinBlock(options), new cls.WhereBlock(options), new cls.GroupByBlock(options), new cls.HavingBlock(options), new cls.OrderByBlock(options), new cls.LimitBlock(options), new cls.OffsetBlock(options), new cls.UnionBlock(options)];
+
+ Line: 2924 -    // UPDATE query builder.
+
+ Line: 2933 -        blocks = blocks || [new cls.StringBlock(options, 'UPDATE'), new cls.UpdateTableBlock(options), new cls.SetFieldBlock(options), new cls.WhereBlock(options), new cls.OrderByBlock(options), new cls.LimitBlock(options)];
+
+ Line: 2941 -    // DELETE query builder.
+
+ Line: 2950 -        blocks = blocks || [new cls.StringBlock(options, 'DELETE'), new cls.TargetTableBlock(options), new cls.FromTableBlock(_extend({}, options, {
+
+ Line: 2960 -    // An INSERT query builder.
+
+ Line: 2969 -        blocks = blocks || [new cls.StringBlock(options, 'INSERT'), new cls.IntoTableBlock(options), new cls.InsertFieldValueBlock(options), new cls.InsertFieldsFromQueryBlock(options)];
+
+ Line: 3095 -        # Call this will override the previously set limit for this query. Also note that Passing 0 for 'max' will remove
+
+ Line: 3285 -            this._outputs.push('INSERTED.' + this._sanitizeField(fields));
+
+ Line: 3288 -              _this45._outputs.push('INSERTED.' + _this45._sanitizeField(f));
+
+ Line: 3360 -            name: this.options.forDelete ? 'DELETED.' + _output : 'INSERTED.' + _output,
+
+ Line: 3414 -    // SELECT query builder.
+
+ Line: 3425 -        blocks = blocks || [new cls.StringBlock(options, 'SELECT'), new cls.DistinctBlock(options), limitOffsetTopBlock.TOP(), new cls.GetFieldBlock(options), new cls.FromTableBlock(options), new cls.JoinBlock(options), new cls.WhereBlock(options), new cls.GroupByBlock(options), new cls.OrderByBlock(options), limitOffsetTopBlock.OFFSET(), limitOffsetTopBlock.LIMIT(), new cls.UnionBlock(options)];
+
+ Line: 3435 -    // UPDATE query builder.
+
+ Line: 3444 -        blocks = blocks || [new cls.StringBlock(options, 'UPDATE'), new cls.MssqlUpdateTopBlock(options), new cls.UpdateTableBlock(options), new cls.SetFieldBlock(options), new cls.MssqlUpdateDeleteOutputBlock(options), new cls.WhereBlock(options)];
+
+ Line: 3454 -    // DELETE query builder.
+
+ Line: 3463 -        blocks = blocks || [new cls.StringBlock(options, 'DELETE'), new cls.TargetTableBlock(options), new cls.FromTableBlock(_extend({}, options, { singleTable: true })), new cls.JoinBlock(options), new cls.MssqlUpdateDeleteOutputBlock(_extend({}, options, { forDelete: true })), new cls.WhereBlock(options), new cls.OrderByBlock(options), new cls.LimitBlock(options)];
+
+ Line: 3471 -    // An INSERT query builder.
+
+ Line: 3480 -        blocks = blocks || [new cls.StringBlock(options, 'INSERT'), new cls.IntoTableBlock(options), new cls.MssqlInsertFieldValueBlock(options), new cls.InsertFieldsFromQueryBlock(options)];
+
+ Line: 3494 -    // ON DUPLICATE KEY UPDATE ...
+
+ Line: 3543 -            text: !totalStr.length ? "" : 'ON DUPLICATE KEY UPDATE ' + totalStr,
+
+ Line: 3552 -    // INSERT query builder.
+
+ Line: 3561 -        blocks = blocks || [new cls.StringBlock(options, 'INSERT'), new cls.IntoTableBlock(options), new cls.InsertFieldValueBlock(options), new cls.InsertFieldsFromQueryBlock(options), new cls.MysqlOnDuplicateKeyUpdateBlock(options)];
+
+ Line: 3569 -    // REPLACE query builder.
+
+ Line: 3670 -            var action = totalStr.length ? 'UPDATE SET ' + totalStr : 'NOTHING';
+
+ Line: 3721 -          var queryBuilder = options.queryBuilder,
+
+ Line: 3910 -    // SELECT query builder.
+
+ Line: 3919 -        blocks = blocks || [new cls.WithBlock(options), new cls.StringBlock(options, 'SELECT'), new cls.FunctionBlock(options), new cls.DistinctOnBlock(options), new cls.GetFieldBlock(options), new cls.FromTableBlock(options), new cls.JoinBlock(options), new cls.WhereBlock(options), new cls.GroupByBlock(options), new cls.HavingBlock(options), new cls.OrderByBlock(options), new cls.LimitBlock(options), new cls.OffsetBlock(options), new cls.UnionBlock(options)];
+
+ Line: 3927 -    // INSERT query builder
+
+ Line: 3936 -        blocks = blocks || [new cls.WithBlock(options), new cls.StringBlock(options, 'INSERT'), new cls.IntoTableBlock(options), new cls.InsertFieldValueBlock(options), new cls.InsertFieldsFromQueryBlock(options), new cls.PostgresOnConflictKeyUpdateBlock(options), new cls.ReturningBlock(options)];
+
+ Line: 3944 -    // UPDATE query builder
+
+ Line: 3953 -        blocks = blocks || [new cls.WithBlock(options), new cls.StringBlock(options, 'UPDATE'), new cls.UpdateTableBlock(options), new cls.SetFieldBlock(options), new cls.FromTableBlock(options), new cls.WhereBlock(options), new cls.OrderByBlock(options), new cls.LimitBlock(options), new cls.ReturningBlock(options)];
+
+ Line: 3961 -    // DELETE query builder
+
+ Line: 3970 -        blocks = blocks || [new cls.WithBlock(options), new cls.StringBlock(options, 'DELETE'), new cls.TargetTableBlock(options), new cls.FromTableBlock(_extend({}, options, {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/squel-basic.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -  !==arguments[0]?arguments[0]:{};if(!this._hasTable())throw new Error("table() needs to be called");return h(i.prototype.__proto__||Object.getPrototypeOf(i.prototype),"_toParamString",this).call(this,t)}}]),i}(c.AbstractTableBlock),c.FromTableBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{prefix:"FROM"})))}return e(o,n),v(o,[{key:"from",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;this._table(t,e)}}]),o}(c.AbstractTableBlock),c.IntoTableBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{prefix:"INTO",singleTable:!0})))}return e(o,n),v(o,[{key:"into",value:function(t){this._table(t)}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};if(!this._hasTable())throw new Error("into() needs to be called");return h(o.prototype.__proto__||Object.getPrototypeOf(o.prototype),"_toParamString",this).call(this,t)}}]),o}(c.AbstractTableBlock),c.GetFieldBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._fields=[],n}return e(o,i),v(o,[{key:"fields",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};if(a(t)){var r=!0,n=!1,i=void 0;try{for(var o,l=t[Symbol.iterator]();!(r=(o=l.next()).done);r=!0){var u=o.value;this.field(u,null,e)}}catch(s){n=!0,i=s}finally{try{!r&&l["return"]&&l["return"]()}finally{if(n)throw i}}}else for(var f in t){var c=t[f];this.field(f,c,e)}}},{key:"field",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};e=e?this._sanitizeFieldAlias(e):e,t=this._sanitizeField(t);var n=this._fields.filter(function(r){return r.name===t&&r.alias===e});return n.length?this:void this._fields.push({name:t,alias:e,options:r})}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e=t.queryBuilder,r=t.buildParameterized,i="",o=[],a=!0,l=!1,u=v Line: 11 -  rb:"LIMIT"})))}return e(o,n),v(o,[{key:"limit",value:function(t){this._setValue(t)}}]),o}(c.AbstractVerbSingleValueBlock),c.AbstractConditionBlock=function(n){function i(e){r(this,i);var n=t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e));return n._conditions=[],n}return e(i,n),v(i,[{key:"_condition",value:function(t){t=this._sanitizeExpression(t);for(var e=arguments.length,r=Array(e>1?e-1:0),n=1;n<e;n++)r[n-1]=arguments[n];this._conditions.push({expr:t,values:r||[]})}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e=[],r=[],n=!0,i=!1,o=void 0;try{for(var a,l=this._conditions[Symbol.iterator]();!(n=(a=l.next()).done);n=!0){var u=a.value,s=u.expr,f=u.values,h=c.isSquelBuilder(s)?s._toParamString({buildParameterized:t.buildParameterized}):this._buildString(s,f,{buildParameterized:t.buildParameterized});h.text.length&&e.push(h.text),h.values.forEach(function(t){return r.push(t)})}}catch(v){i=!0,o=v}finally{try{!n&&l["return"]&&l["return"]()}finally{if(i)throw o}}return e.length&&(e=e.join(") AND (")),{text:e.length?this.options.verb+" ("+e+")":"",values:r}}}]),i}(c.Block),c.WhereBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{verb:"WHERE"})))}return e(o,n),v(o,[{key:"where",value:function(t){for(var e=arguments.length,r=Array(e>1?e-1:0),n=1;n<e;n++)r[n-1]=arguments[n];this._condition.apply(this,[t].concat(r))}}]),o}(c.AbstractConditionBlock),c.HavingBlock=function(n){function o(e){return r(this,o),t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,i({},e,{verb:"HAVING"})))}return e(o,n),v(o,[{key:"having",value:function(t){for(var e=arguments.length,r=Array(e>1?e-1:0),n=1;n<e;n++)r[n-1]=arguments[n];this._condition.apply(this,[t].concat(r))}}]),o}(c.AbstractConditionBlock),c.OrderByBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._orders=[],n}return e(o,i),v(o,[{key:"order",value:function(t,e){t=this._sanitizeField(t),"string"!=typeof e&&(void 0===e?e="ASC":null!==e&&(e=e?"A Line: 13 -  2&&void 0!==arguments[2]?arguments[2]:null;this.join(t,e,r,"FULL")}},{key:"cross_join",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;this.join(t,e,r,"CROSS")}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e="",r=[],i=!0,o=!1,a=void 0;try{for(var l,u=this._joins[Symbol.iterator]();!(i=(l=u.next()).done);i=!0){var s=l.value,f=s.type,h=s.table,v=s.alias,d=s.condition;e=n(e,this.options.separator);var _=void 0;if(c.isSquelBuilder(h)){var p=h._toParamString({buildParameterized:t.buildParameterized,nested:!0});p.values.forEach(function(t){return r.push(t)}),_=p.text}else _=this._formatTableName(h);if(e+=f+" JOIN "+_,v&&(e+=" "+this._formatTableAlias(v)),d){e+=" ON ";var y=void 0;y=c.isSquelBuilder(d)?d._toParamString({buildParameterized:t.buildParameterized}):this._buildString(d,[],{buildParameterized:t.buildParameterized}),e+=this._applyNestingFormatting(y.text),y.values.forEach(function(t){return r.push(t)})}}}catch(g){o=!0,a=g}finally{try{!i&&u["return"]&&u["return"]()}finally{if(o)throw a}}return{text:e,values:r}}}]),o}(c.Block),c.UnionBlock=function(i){function o(e){r(this,o);var n=t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e));return n._unions=[],n}return e(o,i),v(o,[{key:"union",value:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"UNION";t=this._sanitizeTable(t),this._unions.push({type:e,table:t})}},{key:"union_all",value:function(t){this.union(t,"UNION ALL")}},{key:"_toParamString",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},e="",r=[],i=!0,o=!1,a=void 0;try{for(var l,u=this._unions[Symbol.iterator]();!(i=(l=u.next()).done);i=!0){var s=l.value,f=s.type,h=s.table;e=n(e,this.options.separator);var v=void 0;if(h instanceof c.BaseBuilder){var d=h._toParamString({buildParameterized:t.buildParameterized,nested:!0});v=d.text,d.values.forEach(function(t){return r.push(t)})}else e=this._formatTableName(h);e+=f+" "+v}}catch(_){o=!0,a=_}finally{try{!i&&u[ Line: 16 -  }},{key:"getBlock",value:function(t){var e=this.blocks.filter(function(e){return e instanceof t});return e[0]}}]),o}(c.BaseBuilder),c.Select=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new c.StringBlock(e,"SELECT"),new c.FunctionBlock(e),new c.DistinctBlock(e),new c.GetFieldBlock(e),new c.FromTableBlock(e),new c.JoinBlock(e),new c.WhereBlock(e),new c.GroupByBlock(e),new c.HavingBlock(e),new c.OrderByBlock(e),new c.LimitBlock(e),new c.OffsetBlock(e),new c.UnionBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(c.QueryBuilder),c.Update=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new c.StringBlock(e,"UPDATE"),new c.UpdateTableBlock(e),new c.SetFieldBlock(e),new c.WhereBlock(e),new c.OrderByBlock(e),new c.LimitBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(c.QueryBuilder),c.Delete=function(n){function o(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,o),n=n||[new c.StringBlock(e,"DELETE"),new c.TargetTableBlock(e),new c.FromTableBlock(i({},e,{singleTable:!0})),new c.JoinBlock(e),new c.WhereBlock(e),new c.OrderByBlock(e),new c.LimitBlock(e)],t(this,(o.__proto__||Object.getPrototypeOf(o)).call(this,e,n))}return e(o,n),o}(c.QueryBuilder),c.Insert=function(n){function i(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;return r(this,i),n=n||[new c.StringBlock(e,"INSERT"),new c.IntoTableBlock(e),new c.InsertFieldValueBlock(e),new c.InsertFieldsFromQueryBlock(e)],t(this,(i.__proto__||Object.getPrototypeOf(i)).call(this,e,n))}return e(i,n),i}(c.QueryBuilder);var p={VERSION:"5.13.0",flavour:f,expr:function(t){return new c.Expression(t)},"case":function(t,e){return new c.Case(t,e)},select:function(t,e){return new c.Select(t,e)},update:function(t,e){return new c.Update(t,e)},insert:function(t,e){return new c.Insert(t,e)},"delete":function(t,e){return new c.Delete(t,e)},str:function(){var t=new c.FunctionBlock;return t</Result>
+</report_mosca>
+

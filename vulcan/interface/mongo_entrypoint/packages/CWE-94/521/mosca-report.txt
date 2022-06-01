@@ -1,0 +1,191 @@
+<report_mosca>
+ <Path>/src/lib/client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 141 -    // hook up query handling events to connection
+
+ Line: 212 -    // delegate rowDescription to active query
+
+ Line: 217 -    // delegate dataRow to active query
+
+ Line: 222 -    // delegate portalSuspended to active query
+
+ Line: 227 -    // deletagate emptyQuery to active query
+
+ Line: 232 -    // delegate commandComplete to active query
+
+ Line: 278 -  Client.prototype.cancel = function (client, query) {
+
+ Line: 279 -    if (client.activeQuery === query) {
+
+ Line: 364 -    // can take in strings, config object or query object
+
+ Line: 365 -    var query
+
+ Line: 368 -      result = query = config
+
+ Line: 370 -        query.callback = query.callback || values
+
+ Line: 373 -      query = new Query(config, values, callback)
+
+ Line: 380 -        query.callback = (err, res) => err ? rejectOut(err) : resolveOut(res)
+
+ Line: 385 -      query.binary = true
+
+ Line: 388 -      query._result._getTypeParser = this._types.getTypeParser.bind(this._types)
+
+ Line: 399 -      // if we have an active query we need to force a disconnect
+
+ Line: 400 -      // on the socket - otherwise a hung query could block end forever
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/result.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 12 -  // result object returned from query
+
+ Line: 92 -    // multiple query statements in 1 action can result in multiple sets
+
+ Line: 106 -      // results in ~60% speedup on large query result sets
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 75 -        throw new Error('circular reference detected while preparing "' + val + '" for query')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/native/client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 94 -          // error will be handled by active query
+
+ Line: 120 -  // send a query to the server
+
+ Line: 122 -  // 1) string query, optional array of parameters, optional function callback
+
+ Line: 123 -  // 2) object query with {
+
+ Line: 124 -  //    string query
+
+ Line: 127 -  //    optional string name to name & cache the query plan
+
+ Line: 132 -      // accept query(new Query(...), (err, res) => { }) style
+
+ Line: 141 -    var query = new NativeQuery(config, values, callback)
+
+ Line: 149 -      query.callback = (err, res) => err ? rejectOut(err) : resolveOut(res)
+
+ Line: 172 -      // send an error to the active query
+
+ Line: 195 -    var query = this._queryQueue.shift()
+
+ Line: 202 -    this._activeQuery = query
+
+ Line: 203 -    query.submit(this)
+
+ Line: 205 -    query.once('_done', function () {
+
+ Line: 210 -  // attempt to cancel an in-progress query
+
+ Line: 212 -    if (this._activeQuery === query) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/native/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 97 -      // handle possible query error
+
+ Line: 129 -    // named query
+
+ Line: 132 -        console.error('Warning! Postgres only supports 63 characters for query names.')
+
+ Line: 138 -      // check if the client has already executed this named query
+
+ Line: 143 -      // plan the named query the first time, then execute it
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 62 -    // then we've already executed one query in a multi-statement simple query
+
+ Line: 74 -  // message with this query object
+
+ Line: 111 -  // if a named prepared statement is created with empty query text
+
+ Line: 149 -      const err = new Error('A query must have either text or a name. Supplying neither is unsupported.')
+
+ Line: 227 -    // if there are no stream (for example when copy to query was sent by
+
+ Line: 228 -    // query method instead of copyTo) error will be handled
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/connection.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 210 -    // normalize missing query names to allow for null
+
+ Line: 211 -    query.name = query.name || ''
+
+ Line: 213 -      console.error('Warning! Postgres only supports 63 characters for query names.')
+
+ Line: 214 -      console.error('You supplied', query.name, '(', query.name.length, ')')
+
+ Line: 218 -    query.types = query.types || []
+
+ Line: 219 -    var len = query.types.length
+
+ Line: 221 -      .addCString(query.name) // name of query
+
+ Line: 222 -      .addCString(query.text) // actual query text
+
+</Result>
+</report_mosca>
+

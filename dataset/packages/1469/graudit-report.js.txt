@@ -1,0 +1,410 @@
+/src/README.md-16-
+/src/README.md:17:var obj = qs.parse('a=c');
+/src/README.md-18-assert.deepEqual(obj, { a: 'c' });
+##############################################
+/src/README.md-27-```javascript
+/src/README.md:28:qs.parse(string, [options]);
+/src/README.md-29-```
+##############################################
+/src/README.md-34-```javascript
+/src/README.md:35:assert.deepEqual(qs.parse('foo[bar]=baz'), {
+/src/README.md-36-  foo: {
+##############################################
+/src/README.md-44-```javascript
+/src/README.md:45:var plainObject = qs.parse('a[hasOwnProperty]=b', { plainObjects: true });
+/src/README.md-46-assert.deepEqual(plainObject, { a: { hasOwnProperty: 'b' } });
+##############################################
+/src/README.md-51-```javascript
+/src/README.md:52:var protoObject = qs.parse('a[hasOwnProperty]=b', { allowPrototypes: true });
+/src/README.md-53-assert.deepEqual(protoObject, { a: { hasOwnProperty: 'b' } });
+##############################################
+/src/README.md-58-```javascript
+/src/README.md:59:assert.deepEqual(qs.parse('a%5Bb%5D=c'), {
+/src/README.md-60-  a: { b: 'c' }
+##############################################
+/src/README.md-66-```javascript
+/src/README.md:67:assert.deepEqual(qs.parse('foo[bar][baz]=foobarbaz'), {
+/src/README.md-68-  foo: {
+##############################################
+/src/README.md-95-var string = 'a[b][c][d][e][f][g][h][i]=j';
+/src/README.md:96:assert.deepEqual(qs.parse(string), expected);
+/src/README.md-97-```
+/src/README.md-98-
+/src/README.md:99:This depth can be overridden by passing a `depth` option to `qs.parse(string, [options])`:
+/src/README.md-100-
+/src/README.md-101-```javascript
+/src/README.md:102:var deep = qs.parse('a[b][c][d][e][f][g][h][i]=j', { depth: 1 });
+/src/README.md-103-assert.deepEqual(deep, { a: { b: { '[c][d][e][f][g][h][i]': 'j' } } });
+##############################################
+/src/README.md-110-```javascript
+/src/README.md:111:var limited = qs.parse('a=b&c=d', { parameterLimit: 1 });
+/src/README.md-112-assert.deepEqual(limited, { a: 'b' });
+##############################################
+/src/README.md-117-```javascript
+/src/README.md:118:var delimited = qs.parse('a=b;c=d', { delimiter: ';' });
+/src/README.md-119-assert.deepEqual(delimited, { a: 'b', c: 'd' });
+##############################################
+/src/README.md-124-```javascript
+/src/README.md:125:var regexed = qs.parse('a=b;c=d,e=f', { delimiter: /[;,]/ });
+/src/README.md-126-assert.deepEqual(regexed, { a: 'b', c: 'd', e: 'f' });
+##############################################
+/src/README.md-131-```javascript
+/src/README.md:132:var withDots = qs.parse('a.b=c', { allowDots: true });
+/src/README.md-133-assert.deepEqual(withDots, { a: { b: 'c' } });
+##############################################
+/src/README.md-140-```javascript
+/src/README.md:141:var withArray = qs.parse('a[]=b&a[]=c');
+/src/README.md-142-assert.deepEqual(withArray, { a: ['b', 'c'] });
+##############################################
+/src/README.md-147-```javascript
+/src/README.md:148:var withIndexes = qs.parse('a[1]=c&a[0]=b');
+/src/README.md-149-assert.deepEqual(withIndexes, { a: ['b', 'c'] });
+##############################################
+/src/README.md-156-```javascript
+/src/README.md:157:var noSparse = qs.parse('a[1]=b&a[15]=c');
+/src/README.md-158-assert.deepEqual(noSparse, { a: ['b', 'c'] });
+##############################################
+/src/README.md-163-```javascript
+/src/README.md:164:var withEmptyString = qs.parse('a[]=&a[]=b');
+/src/README.md-165-assert.deepEqual(withEmptyString, { a: ['', 'b'] });
+/src/README.md-166-
+/src/README.md:167:var withIndexedEmptyString = qs.parse('a[0]=b&a[1]=&a[2]=c');
+/src/README.md-168-assert.deepEqual(withIndexedEmptyString, { a: ['b', '', 'c'] });
+##############################################
+/src/README.md-174-```javascript
+/src/README.md:175:var withMaxIndex = qs.parse('a[100]=b');
+/src/README.md-176-assert.deepEqual(withMaxIndex, { a: { '100': 'b' } });
+##############################################
+/src/README.md-181-```javascript
+/src/README.md:182:var withArrayLimit = qs.parse('a[1]=b', { arrayLimit: 0 });
+/src/README.md-183-assert.deepEqual(withArrayLimit, { a: { '1': 'b' } });
+##############################################
+/src/README.md-188-```javascript
+/src/README.md:189:var noParsingArrays = qs.parse('a[]=b', { parseArrays: false });
+/src/README.md-190-assert.deepEqual(noParsingArrays, { a: { '0': 'b' } });
+##############################################
+/src/README.md-195-```javascript
+/src/README.md:196:var mixedNotation = qs.parse('a[0]=b&a[b]=c');
+/src/README.md-197-assert.deepEqual(mixedNotation, { a: { '0': 'b', b: 'c' } });
+##############################################
+/src/README.md-202-```javascript
+/src/README.md:203:var arraysOfObjects = qs.parse('a[][b]=c');
+/src/README.md-204-assert.deepEqual(arraysOfObjects, { a: [{ b: 'c' }] });
+##############################################
+/src/README.md-241-```javascript
+/src/README.md:242:var decoded = qs.parse('x=z', { decoder: function (str) {
+/src/README.md-243-  // Passed in values `x`, `z`
+##############################################
+/src/README.md-330-```javascript
+/src/README.md:331:var equalsInsensitive = qs.parse('a&b=');
+/src/README.md-332-assert.deepEqual(equalsInsensitive, { a: '', b: '' });
+##############################################
+/src/README.md-345-```javascript
+/src/README.md:346:var parsedStrictNull = qs.parse('a&b=', { strictNullHandling: true });
+/src/README.md-347-assert.deepEqual(parsedStrictNull, { a: null, b: '' });
+##############################################
+/src/README.md-373-var decoder = require('qs-iconv/decoder')('shift_jis');
+/src/README.md:374:var obj = qs.parse('a=%82%B1%82%F1%82%C9%82%BF%82%CD%81I', { decoder: decoder });
+/src/README.md-375-assert.deepEqual(obj, { a: 'こんにちは！' });
+##############################################
+/src/test/parse.js-8-    t.test('parses a simple string', function (st) {
+/src/test/parse.js:9:        st.deepEqual(qs.parse('0=foo'), { '0': 'foo' });
+/src/test/parse.js:10:        st.deepEqual(qs.parse('foo=c++'), { foo: 'c  ' });
+/src/test/parse.js:11:        st.deepEqual(qs.parse('a[>=]=23'), { a: { '>=': '23' } });
+/src/test/parse.js:12:        st.deepEqual(qs.parse('a[<=>]==23'), { a: { '<=>': '=23' } });
+/src/test/parse.js:13:        st.deepEqual(qs.parse('a[==]=23'), { a: { '==': '23' } });
+/src/test/parse.js:14:        st.deepEqual(qs.parse('foo', { strictNullHandling: true }), { foo: null });
+/src/test/parse.js:15:        st.deepEqual(qs.parse('foo'), { foo: '' });
+/src/test/parse.js:16:        st.deepEqual(qs.parse('foo='), { foo: '' });
+/src/test/parse.js:17:        st.deepEqual(qs.parse('foo=bar'), { foo: 'bar' });
+/src/test/parse.js:18:        st.deepEqual(qs.parse(' foo = bar = baz '), { ' foo ': ' bar = baz ' });
+/src/test/parse.js:19:        st.deepEqual(qs.parse('foo=bar=baz'), { foo: 'bar=baz' });
+/src/test/parse.js:20:        st.deepEqual(qs.parse('foo=bar&bar=baz'), { foo: 'bar', bar: 'baz' });
+/src/test/parse.js:21:        st.deepEqual(qs.parse('foo2=bar2&baz2='), { foo2: 'bar2', baz2: '' });
+/src/test/parse.js:22:        st.deepEqual(qs.parse('foo=bar&baz', { strictNullHandling: true }), { foo: 'bar', baz: null });
+/src/test/parse.js:23:        st.deepEqual(qs.parse('foo=bar&baz'), { foo: 'bar', baz: '' });
+/src/test/parse.js:24:        st.deepEqual(qs.parse('cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World'), {
+/src/test/parse.js-25-            cht: 'p3',
+##############################################
+/src/test/parse.js-33-    t.test('allows enabling dot notation', function (st) {
+/src/test/parse.js:34:        st.deepEqual(qs.parse('a.b=c'), { 'a.b': 'c' });
+/src/test/parse.js:35:        st.deepEqual(qs.parse('a.b=c', { allowDots: true }), { a: { b: 'c' } });
+/src/test/parse.js-36-        st.end();
+##############################################
+/src/test/parse.js-38-
+/src/test/parse.js:39:    t.deepEqual(qs.parse('a[b]=c'), { a: { b: 'c' } }, 'parses a single nested string');
+/src/test/parse.js:40:    t.deepEqual(qs.parse('a[b][c]=d'), { a: { b: { c: 'd' } } }, 'parses a double nested string');
+/src/test/parse.js-41-    t.deepEqual(
+/src/test/parse.js:42:        qs.parse('a[b][c][d][e][f][g][h]=i'),
+/src/test/parse.js-43-        { a: { b: { c: { d: { e: { f: { '[g][h]': 'i' } } } } } } },
+##############################################
+/src/test/parse.js-47-    t.test('only parses one level when depth = 1', function (st) {
+/src/test/parse.js:48:        st.deepEqual(qs.parse('a[b][c]=d', { depth: 1 }), { a: { b: { '[c]': 'd' } } });
+/src/test/parse.js:49:        st.deepEqual(qs.parse('a[b][c][d]=e', { depth: 1 }), { a: { b: { '[c][d]': 'e' } } });
+/src/test/parse.js-50-        st.end();
+##############################################
+/src/test/parse.js-52-
+/src/test/parse.js:53:    t.deepEqual(qs.parse('a=b&a=c'), { a: ['b', 'c'] }, 'parses a simple array');
+/src/test/parse.js-54-
+/src/test/parse.js-55-    t.test('parses an explicit array', function (st) {
+/src/test/parse.js:56:        st.deepEqual(qs.parse('a[]=b'), { a: ['b'] });
+/src/test/parse.js:57:        st.deepEqual(qs.parse('a[]=b&a[]=c'), { a: ['b', 'c'] });
+/src/test/parse.js:58:        st.deepEqual(qs.parse('a[]=b&a[]=c&a[]=d'), { a: ['b', 'c', 'd'] });
+/src/test/parse.js-59-        st.end();
+##############################################
+/src/test/parse.js-62-    t.test('parses a mix of simple and explicit arrays', function (st) {
+/src/test/parse.js:63:        st.deepEqual(qs.parse('a=b&a[]=c'), { a: ['b', 'c'] });
+/src/test/parse.js:64:        st.deepEqual(qs.parse('a[]=b&a=c'), { a: ['b', 'c'] });
+/src/test/parse.js:65:        st.deepEqual(qs.parse('a[0]=b&a=c'), { a: ['b', 'c'] });
+/src/test/parse.js:66:        st.deepEqual(qs.parse('a=b&a[0]=c'), { a: ['b', 'c'] });
+/src/test/parse.js:67:        st.deepEqual(qs.parse('a[1]=b&a=c'), { a: ['b', 'c'] });
+/src/test/parse.js:68:        st.deepEqual(qs.parse('a=b&a[1]=c'), { a: ['b', 'c'] });
+/src/test/parse.js-69-        st.end();
+##############################################
+/src/test/parse.js-72-    t.test('parses a nested array', function (st) {
+/src/test/parse.js:73:        st.deepEqual(qs.parse('a[b][]=c&a[b][]=d'), { a: { b: ['c', 'd'] } });
+/src/test/parse.js:74:        st.deepEqual(qs.parse('a[>=]=25'), { a: { '>=': '25' } });
+/src/test/parse.js-75-        st.end();
+##############################################
+/src/test/parse.js-78-    t.test('allows to specify array indices', function (st) {
+/src/test/parse.js:79:        st.deepEqual(qs.parse('a[1]=c&a[0]=b&a[2]=d'), { a: ['b', 'c', 'd'] });
+/src/test/parse.js:80:        st.deepEqual(qs.parse('a[1]=c&a[0]=b'), { a: ['b', 'c'] });
+/src/test/parse.js:81:        st.deepEqual(qs.parse('a[1]=c'), { a: ['c'] });
+/src/test/parse.js-82-        st.end();
+##############################################
+/src/test/parse.js-85-    t.test('limits specific array indices to 20', function (st) {
+/src/test/parse.js:86:        st.deepEqual(qs.parse('a[20]=a'), { a: ['a'] });
+/src/test/parse.js:87:        st.deepEqual(qs.parse('a[21]=a'), { a: { '21': 'a' } });
+/src/test/parse.js-88-        st.end();
+##############################################
+/src/test/parse.js-90-
+/src/test/parse.js:91:    t.deepEqual(qs.parse('a[12b]=c'), { a: { '12b': 'c' } }, 'supports keys that begin with a number');
+/src/test/parse.js-92-
+/src/test/parse.js-93-    t.test('supports encoded = signs', function (st) {
+/src/test/parse.js:94:        st.deepEqual(qs.parse('he%3Dllo=th%3Dere'), { 'he=llo': 'th=ere' });
+/src/test/parse.js-95-        st.end();
+##############################################
+/src/test/parse.js-98-    t.test('is ok with url encoded strings', function (st) {
+/src/test/parse.js:99:        st.deepEqual(qs.parse('a[b%20c]=d'), { a: { 'b c': 'd' } });
+/src/test/parse.js:100:        st.deepEqual(qs.parse('a[b]=c%20d'), { a: { b: 'c d' } });
+/src/test/parse.js-101-        st.end();
+##############################################
+/src/test/parse.js-104-    t.test('allows brackets in the value', function (st) {
+/src/test/parse.js:105:        st.deepEqual(qs.parse('pets=["tobi"]'), { pets: '["tobi"]' });
+/src/test/parse.js:106:        st.deepEqual(qs.parse('operators=[">=", "<="]'), { operators: '[">=", "<="]' });
+/src/test/parse.js-107-        st.end();
+##############################################
+/src/test/parse.js-110-    t.test('allows empty values', function (st) {
+/src/test/parse.js:111:        st.deepEqual(qs.parse(''), {});
+/src/test/parse.js:112:        st.deepEqual(qs.parse(null), {});
+/src/test/parse.js:113:        st.deepEqual(qs.parse(undefined), {});
+/src/test/parse.js-114-        st.end();
+##############################################
+/src/test/parse.js-117-    t.test('transforms arrays to objects', function (st) {
+/src/test/parse.js:118:        st.deepEqual(qs.parse('foo[0]=bar&foo[bad]=baz'), { foo: { '0': 'bar', bad: 'baz' } });
+/src/test/parse.js:119:        st.deepEqual(qs.parse('foo[bad]=baz&foo[0]=bar'), { foo: { bad: 'baz', '0': 'bar' } });
+/src/test/parse.js:120:        st.deepEqual(qs.parse('foo[bad]=baz&foo[]=bar'), { foo: { bad: 'baz', '0': 'bar' } });
+/src/test/parse.js:121:        st.deepEqual(qs.parse('foo[]=bar&foo[bad]=baz'), { foo: { '0': 'bar', bad: 'baz' } });
+/src/test/parse.js:122:        st.deepEqual(qs.parse('foo[bad]=baz&foo[]=bar&foo[]=foo'), { foo: { bad: 'baz', '0': 'bar', '1': 'foo' } });
+/src/test/parse.js:123:        st.deepEqual(qs.parse('foo[0][a]=a&foo[0][b]=b&foo[1][a]=aa&foo[1][b]=bb'), { foo: [{ a: 'a', b: 'b' }, { a: 'aa', b: 'bb' }] });
+/src/test/parse.js-124-
+/src/test/parse.js:125:        st.deepEqual(qs.parse('a[]=b&a[t]=u&a[hasOwnProperty]=c', { allowPrototypes: false }), { a: { 0: 'b', t: 'u' } });
+/src/test/parse.js:126:        st.deepEqual(qs.parse('a[]=b&a[t]=u&a[hasOwnProperty]=c', { allowPrototypes: true }), { a: { 0: 'b', t: 'u', hasOwnProperty: 'c' } });
+/src/test/parse.js:127:        st.deepEqual(qs.parse('a[]=b&a[hasOwnProperty]=c&a[x]=y', { allowPrototypes: false }), { a: { 0: 'b', x: 'y' } });
+/src/test/parse.js:128:        st.deepEqual(qs.parse('a[]=b&a[hasOwnProperty]=c&a[x]=y', { allowPrototypes: true }), { a: { 0: 'b', hasOwnProperty: 'c', x: 'y' } });
+/src/test/parse.js-129-        st.end();
+##############################################
+/src/test/parse.js-132-    t.test('transforms arrays to objects (dot notation)', function (st) {
+/src/test/parse.js:133:        st.deepEqual(qs.parse('foo[0].baz=bar&fool.bad=baz', { allowDots: true }), { foo: [{ baz: 'bar' }], fool: { bad: 'baz' } });
+/src/test/parse.js:134:        st.deepEqual(qs.parse('foo[0].baz=bar&fool.bad.boo=baz', { allowDots: true }), { foo: [{ baz: 'bar' }], fool: { bad: { boo: 'baz' } } });
+/src/test/parse.js:135:        st.deepEqual(qs.parse('foo[0][0].baz=bar&fool.bad=baz', { allowDots: true }), { foo: [[{ baz: 'bar' }]], fool: { bad: 'baz' } });
+/src/test/parse.js:136:        st.deepEqual(qs.parse('foo[0].baz[0]=15&foo[0].bar=2', { allowDots: true }), { foo: [{ baz: ['15'], bar: '2' }] });
+/src/test/parse.js:137:        st.deepEqual(qs.parse('foo[0].baz[0]=15&foo[0].baz[1]=16&foo[0].bar=2', { allowDots: true }), { foo: [{ baz: ['15', '16'], bar: '2' }] });
+/src/test/parse.js:138:        st.deepEqual(qs.parse('foo.bad=baz&foo[0]=bar', { allowDots: true }), { foo: { bad: 'baz', '0': 'bar' } });
+/src/test/parse.js:139:        st.deepEqual(qs.parse('foo.bad=baz&foo[]=bar', { allowDots: true }), { foo: { bad: 'baz', '0': 'bar' } });
+/src/test/parse.js:140:        st.deepEqual(qs.parse('foo[]=bar&foo.bad=baz', { allowDots: true }), { foo: { '0': 'bar', bad: 'baz' } });
+/src/test/parse.js:141:        st.deepEqual(qs.parse('foo.bad=baz&foo[]=bar&foo[]=foo', { allowDots: true }), { foo: { bad: 'baz', '0': 'bar', '1': 'foo' } });
+/src/test/parse.js:142:        st.deepEqual(qs.parse('foo[0].a=a&foo[0].b=b&foo[1].a=aa&foo[1].b=bb', { allowDots: true }), { foo: [{ a: 'a', b: 'b' }, { a: 'aa', b: 'bb' }] });
+/src/test/parse.js-143-        st.end();
+##############################################
+/src/test/parse.js-145-
+/src/test/parse.js:146:    t.deepEqual(qs.parse('a[b]=c&a=d'), { a: { b: 'c', d: true } }, 'can add keys to objects');
+/src/test/parse.js-147-
+/src/test/parse.js-148-    t.test('correctly prunes undefined values when converting an array to an object', function (st) {
+/src/test/parse.js:149:        st.deepEqual(qs.parse('a[2]=b&a[99999999]=c'), { a: { '2': 'b', '99999999': 'c' } });
+/src/test/parse.js-150-        st.end();
+##############################################
+/src/test/parse.js-153-    t.test('supports malformed uri characters', function (st) {
+/src/test/parse.js:154:        st.deepEqual(qs.parse('{%:%}', { strictNullHandling: true }), { '{%:%}': null });
+/src/test/parse.js:155:        st.deepEqual(qs.parse('{%:%}='), { '{%:%}': '' });
+/src/test/parse.js:156:        st.deepEqual(qs.parse('foo=%:%}'), { foo: '%:%}' });
+/src/test/parse.js-157-        st.end();
+##############################################
+/src/test/parse.js-160-    t.test('doesn\'t produce empty keys', function (st) {
+/src/test/parse.js:161:        st.deepEqual(qs.parse('_r=1&'), { '_r': '1' });
+/src/test/parse.js-162-        st.end();
+##############################################
+/src/test/parse.js-165-    t.test('cannot access Object prototype', function (st) {
+/src/test/parse.js:166:        qs.parse('constructor[prototype][bad]=bad');
+/src/test/parse.js:167:        qs.parse('bad[constructor][prototype][bad]=bad');
+/src/test/parse.js-168-        st.equal(typeof Object.prototype.bad, 'undefined');
+##############################################
+/src/test/parse.js-172-    t.test('parses arrays of objects', function (st) {
+/src/test/parse.js:173:        st.deepEqual(qs.parse('a[][b]=c'), { a: [{ b: 'c' }] });
+/src/test/parse.js:174:        st.deepEqual(qs.parse('a[0][b]=c'), { a: [{ b: 'c' }] });
+/src/test/parse.js-175-        st.end();
+##############################################
+/src/test/parse.js-178-    t.test('allows for empty strings in arrays', function (st) {
+/src/test/parse.js:179:        st.deepEqual(qs.parse('a[]=b&a[]=&a[]=c'), { a: ['b', '', 'c'] });
+/src/test/parse.js-180-
+/src/test/parse.js-181-        st.deepEqual(
+/src/test/parse.js:182:            qs.parse('a[0]=b&a[1]&a[2]=c&a[19]=', { strictNullHandling: true, arrayLimit: 20 }),
+/src/test/parse.js-183-            { a: ['b', null, 'c', ''] },
+##############################################
+/src/test/parse.js-186-        st.deepEqual(
+/src/test/parse.js:187:            qs.parse('a[]=b&a[]&a[]=c&a[]=', { strictNullHandling: true, arrayLimit: 0 }),
+/src/test/parse.js-188-            { a: ['b', null, 'c', ''] },
+##############################################
+/src/test/parse.js-192-        st.deepEqual(
+/src/test/parse.js:193:            qs.parse('a[0]=b&a[1]=&a[2]=c&a[19]', { strictNullHandling: true, arrayLimit: 20 }),
+/src/test/parse.js-194-            { a: ['b', '', 'c', null] },
+##############################################
+/src/test/parse.js-197-        st.deepEqual(
+/src/test/parse.js:198:            qs.parse('a[]=b&a[]=&a[]=c&a[]', { strictNullHandling: true, arrayLimit: 0 }),
+/src/test/parse.js-199-            { a: ['b', '', 'c', null] },
+##############################################
+/src/test/parse.js-203-        st.deepEqual(
+/src/test/parse.js:204:            qs.parse('a[]=&a[]=b&a[]=c'),
+/src/test/parse.js-205-            { a: ['', 'b', 'c'] },
+##############################################
+/src/test/parse.js-211-    t.test('compacts sparse arrays', function (st) {
+/src/test/parse.js:212:        st.deepEqual(qs.parse('a[10]=1&a[2]=2'), { a: ['2', '1'] });
+/src/test/parse.js:213:        st.deepEqual(qs.parse('a[1][b][2][c]=1'), { a: [{ b: [{ c: '1' }] }] });
+/src/test/parse.js:214:        st.deepEqual(qs.parse('a[1][2][3][c]=1'), { a: [[[{ c: '1' }]]] });
+/src/test/parse.js:215:        st.deepEqual(qs.parse('a[1][2][3][c][1]=1'), { a: [[[{ c: ['1'] }]]] });
+/src/test/parse.js-216-        st.end();
+##############################################
+/src/test/parse.js-219-    t.test('parses semi-parsed strings', function (st) {
+/src/test/parse.js:220:        st.deepEqual(qs.parse({ 'a[b]': 'c' }), { a: { b: 'c' } });
+/src/test/parse.js:221:        st.deepEqual(qs.parse({ 'a[b]': 'c', 'a[d]': 'e' }), { a: { b: 'c', d: 'e' } });
+/src/test/parse.js-222-        st.end();
+##############################################
+/src/test/parse.js-226-        var b = new Buffer('test');
+/src/test/parse.js:227:        st.deepEqual(qs.parse({ a: b }), { a: b });
+/src/test/parse.js-228-        st.end();
+##############################################
+/src/test/parse.js-231-    t.test('continues parsing when no parent is found', function (st) {
+/src/test/parse.js:232:        st.deepEqual(qs.parse('[]=&a=b'), { '0': '', a: 'b' });
+/src/test/parse.js:233:        st.deepEqual(qs.parse('[]&a=b', { strictNullHandling: true }), { '0': null, a: 'b' });
+/src/test/parse.js:234:        st.deepEqual(qs.parse('[foo]=bar'), { foo: 'bar' });
+/src/test/parse.js-235-        st.end();
+##############################################
+/src/test/parse.js-243-
+/src/test/parse.js:244:        st.doesNotThrow(function () { qs.parse(str); });
+/src/test/parse.js-245-
+##############################################
+/src/test/parse.js-252-        st.doesNotThrow(qs.parse.bind(null, 'a=b'));
+/src/test/parse.js:253:        st.deepEqual(qs.parse('a=b'), { a: 'b' });
+/src/test/parse.js-254-        st.doesNotThrow(qs.parse.bind(null, 'a[][b]=c'));
+/src/test/parse.js:255:        st.deepEqual(qs.parse('a[][b]=c'), { a: [{ b: 'c' }] });
+/src/test/parse.js-256-        delete Object.prototype.crash;
+##############################################
+/src/test/parse.js-261-    t.test('parses a string with an alternative string delimiter', function (st) {
+/src/test/parse.js:262:        st.deepEqual(qs.parse('a=b;c=d', { delimiter: ';' }), { a: 'b', c: 'd' });
+/src/test/parse.js-263-        st.end();
+##############################################
+/src/test/parse.js-266-    t.test('parses a string with an alternative RegExp delimiter', function (st) {
+/src/test/parse.js:267:        st.deepEqual(qs.parse('a=b; c=d', { delimiter: /[;,] */ }), { a: 'b', c: 'd' });
+/src/test/parse.js-268-        st.end();
+##############################################
+/src/test/parse.js-271-    t.test('does not use non-splittable objects as delimiters', function (st) {
+/src/test/parse.js:272:        st.deepEqual(qs.parse('a=b&c=d', { delimiter: true }), { a: 'b', c: 'd' });
+/src/test/parse.js-273-        st.end();
+##############################################
+/src/test/parse.js-276-    t.test('allows overriding parameter limit', function (st) {
+/src/test/parse.js:277:        st.deepEqual(qs.parse('a=b&c=d', { parameterLimit: 1 }), { a: 'b' });
+/src/test/parse.js-278-        st.end();
+##############################################
+/src/test/parse.js-281-    t.test('allows setting the parameter limit to Infinity', function (st) {
+/src/test/parse.js:282:        st.deepEqual(qs.parse('a=b&c=d', { parameterLimit: Infinity }), { a: 'b', c: 'd' });
+/src/test/parse.js-283-        st.end();
+##############################################
+/src/test/parse.js-286-    t.test('allows overriding array limit', function (st) {
+/src/test/parse.js:287:        st.deepEqual(qs.parse('a[0]=b', { arrayLimit: -1 }), { a: { '0': 'b' } });
+/src/test/parse.js:288:        st.deepEqual(qs.parse('a[-1]=b', { arrayLimit: -1 }), { a: { '-1': 'b' } });
+/src/test/parse.js:289:        st.deepEqual(qs.parse('a[0]=b&a[1]=c', { arrayLimit: 0 }), { a: { '0': 'b', '1': 'c' } });
+/src/test/parse.js-290-        st.end();
+##############################################
+/src/test/parse.js-293-    t.test('allows disabling array parsing', function (st) {
+/src/test/parse.js:294:        st.deepEqual(qs.parse('a[0]=b&a[1]=c', { parseArrays: false }), { a: { '0': 'b', '1': 'c' } });
+/src/test/parse.js-295-        st.end();
+##############################################
+/src/test/parse.js-310-
+/src/test/parse.js:311:        var result = qs.parse(input);
+/src/test/parse.js-312-
+##############################################
+/src/test/parse.js-329-
+/src/test/parse.js:330:        var result = qs.parse(input, { allowDots: true });
+/src/test/parse.js-331-
+##############################################
+/src/test/parse.js-348-
+/src/test/parse.js:349:        var result = qs.parse(input);
+/src/test/parse.js-350-
+##############################################
+/src/test/parse.js-357-        delete global.Buffer;
+/src/test/parse.js:358:        var result = qs.parse('a=b&c=d');
+/src/test/parse.js-359-        global.Buffer = tempBuffer;
+##############################################
+/src/test/parse.js-370-        st.doesNotThrow(function () {
+/src/test/parse.js:371:            parsed = qs.parse({ 'foo[bar]': 'baz', 'foo[baz]': a });
+/src/test/parse.js-372-        });
+##############################################
+/src/test/parse.js-385-
+/src/test/parse.js:386:        st.deepEqual(qs.parse(a), { b: 'c' });
+/src/test/parse.js:387:        var result = qs.parse({ a: a });
+/src/test/parse.js-388-        st.equal('a' in result, true, 'result has "a" property');
+##############################################
+/src/test/parse.js-394-        var now = new Date();
+/src/test/parse.js:395:        st.deepEqual(qs.parse({ a: now }), { a: now });
+/src/test/parse.js-396-        st.end();
+##############################################
+/src/test/parse.js-400-        var re = /^test$/;
+/src/test/parse.js:401:        st.deepEqual(qs.parse({ a: re }), { a: re });
+/src/test/parse.js-402-        st.end();
+##############################################
+/src/test/parse.js-405-    t.test('does not allow overwriting prototype properties', function (st) {
+/src/test/parse.js:406:        st.deepEqual(qs.parse('a[hasOwnProperty]=b', { allowPrototypes: false }), {});
+/src/test/parse.js:407:        st.deepEqual(qs.parse('hasOwnProperty=b', { allowPrototypes: false }), {});
+/src/test/parse.js-408-
+/src/test/parse.js-409-        st.deepEqual(
+/src/test/parse.js:410:            qs.parse('toString', { allowPrototypes: false }),
+/src/test/parse.js-411-            {},
+##############################################
+/src/test/parse.js-418-    t.test('can allow overwriting prototype properties', function (st) {
+/src/test/parse.js:419:        st.deepEqual(qs.parse('a[hasOwnProperty]=b', { allowPrototypes: true }), { a: { hasOwnProperty: 'b' } });
+/src/test/parse.js:420:        st.deepEqual(qs.parse('hasOwnProperty=b', { allowPrototypes: true }), { hasOwnProperty: 'b' });
+/src/test/parse.js-421-
+/src/test/parse.js-422-        st.deepEqual(
+/src/test/parse.js:423:            qs.parse('toString', { allowPrototypes: true }),
+/src/test/parse.js-424-            { toString: '' },
+##############################################
+/src/test/parse.js-431-    t.test('params starting with a closing bracket', function (st) {
+/src/test/parse.js:432:        st.deepEqual(qs.parse(']=toString'), { ']': 'toString' });
+/src/test/parse.js-433-        st.end();
+##############################################
+/src/test/parse.js-440-        expected.a.hasOwnProperty = 'd';
+/src/test/parse.js:441:        st.deepEqual(qs.parse('a[b]=c&a[hasOwnProperty]=d', { plainObjects: true }), expected);
+/src/test/parse.js:442:        st.deepEqual(qs.parse(null, { plainObjects: true }), Object.create(null));
+/src/test/parse.js-443-        var expectedArray = Object.create(null);
+##############################################
+/src/test/parse.js-446-        expectedArray.a.c = 'd';
+/src/test/parse.js:447:        st.deepEqual(qs.parse('a[]=b&a[c]=d', { plainObjects: true }), expectedArray);
+/src/test/parse.js-448-        st.end();
+##############################################
+/src/test/parse.js-451-    t.test('can parse with custom encoding', function (st) {
+/src/test/parse.js:452:        st.deepEqual(qs.parse('%8c%a7=%91%e5%8d%e3%95%7b', {
+/src/test/parse.js-453-            decoder: function (str) {
+##############################################
+/src/test/parse.js-469-        st.throws(function () {
+/src/test/parse.js:470:            qs.parse({}, {
+/src/test/parse.js-471-                decoder: 'string'

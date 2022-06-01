@@ -1,0 +1,709 @@
+/src/Gruntfile.js-42-			bannerRelease: '/*!\n' +
+/src/Gruntfile.js:43:			' * Fuel UX v<%= pkg.version %> \n' +
+/src/Gruntfile.js:44:			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+/src/Gruntfile.js:45:			' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
+/src/Gruntfile.js-46-			' */\n',
+/src/Gruntfile.js-47-			banner: '/*!\n' +
+/src/Gruntfile.js:48:			' * Fuel UX EDGE - Built <%= grunt.template.today("yyyy/mm/dd, h:MM:ss TT") %> \n' +
+/src/Gruntfile.js:49:			' * Previous release: v<%= pkg.version %> \n' +
+/src/Gruntfile.js:50:			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+/src/Gruntfile.js:51:			' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
+/src/Gruntfile.js-52-			' */\n',
+##############################################
+/src/grunt/config/prompt.js-13-						config: 'release.remoteRepository',
+/src/grunt/config/prompt.js:14:						default: '<%= release.remoteRepository %>',
+/src/grunt/config/prompt.js-15-						type: 'input',
+##############################################
+/src/grunt/config/prompt.js-26-						type: 'input',
+/src/grunt/config/prompt.js:27:						default: '<%= release.remoteBaseBranch %>',
+/src/grunt/config/prompt.js-28-						message: function () {
+##############################################
+/src/grunt/config/less.js-2-
+/src/grunt/config/less.js:3:	var minifiedOutput = 'dist/css/' + '<%= pkg.name %>' + '.min.css';
+/src/grunt/config/less.js-4-
+##############################################
+/src/grunt/config/less.js-6-		var minifyFiles = {};
+/src/grunt/config/less.js:7:		var output = 'dist/css/' + '<%= pkg.name %>' + '.min.css'
+/src/grunt/config/less.js:8:		minifyFiles[output] = 'dist/css/' + '<%= pkg.name %>' + '.css'
+/src/grunt/config/less.js-9-		return minifyFiles
+##############################################
+/src/grunt/config/less.js-18-				sourceMapURL: grunt.config('pkg.name') + '-dev.css.map',
+/src/grunt/config/less.js:19:				sourceMapFilename: 'dist/css/' + '<%= pkg.name %>' + '-dev.css.map'
+/src/grunt/config/less.js-20-			},
+##############################################
+/src/grunt/config/less.js-29-				outputSourceFiles: true,
+/src/grunt/config/less.js:30:				sourceMapURL: '<%= pkg.name %>' + '.css.map',
+/src/grunt/config/less.js:31:				sourceMapFilename: 'dist/css/' + '<%= pkg.name %>' + '.css.map'
+/src/grunt/config/less.js-32-			},
+##############################################
+/src/grunt/config/qunit.js-16-			options: {
+/src/grunt/config/qunit.js:17:				urls: ['http://localhost:' + '<%= connectTestServerOptionsPort %>' + '/test/browser-globals.html']
+/src/grunt/config/qunit.js-18-			}
+##############################################
+/src/grunt/config/qunit.js-21-			options: {
+/src/grunt/config/qunit.js:22:				urls: ['http://localhost:' + '<%= connectTestServerOptionsPort %>' + '/test/?no-moment=true']
+/src/grunt/config/qunit.js-23-			}
+##############################################
+/src/grunt/config/qunit.js-26-			options: {
+/src/grunt/config/qunit.js:27:				urls: ['http://localhost:'  + '<%= connectTestServerOptionsPort %>' + '/test/']
+/src/grunt/config/qunit.js-28-			}
+##############################################
+/src/grunt/config/qunit.js-31-			options: {
+/src/grunt/config/qunit.js:32:				urls: ['http://localhost:'  + '<%= connectTestServerOptionsPort %>' + '/test/?testdist=true',
+/src/grunt/config/qunit.js:33:					'http://localhost:'  + '<%= connectTestServerOptionsPort %>' +  '/test/commonjs.html'
+/src/grunt/config/qunit.js-34-				]
+##############################################
+/src/grunt/config/shell.js-95-						'scp -i ~/.ssh/fuelcdn -oHostKeyAlgorithms=+ssh-dss -r "' + version + '"/ ' +
+/src/grunt/config/shell.js:96:							'<%= cdnLoginFile.user %>' + '@' + '<%= cdnLoginFile.server %>' + ':' + '<%= cdnLoginFile.folder %>',
+/src/grunt/config/shell.js-97-						'mv "' + version + '" dist',
+##############################################
+/src/grunt/config/concat.js-24-			],
+/src/grunt/config/concat.js:25:			dest: 'dist/js/' + '<%= pkg.name %>' + '.js'
+/src/grunt/config/concat.js-26-		},
+/src/grunt/config/concat.js-27-		options: {
+/src/grunt/config/concat.js:28:			banner: '<%= banner %>' + '\n\n// For more information on UMD visit: https://github.com/umdjs/umd/\n(function (factory) {\n\tif (typeof define === \'function\' && define.amd) {\n\t\tdefine([\'jquery\', \'bootstrap\'], factory);\n\t} else {\n\t\tfactory(jQuery);\n\t}\n}(function (jQuery) {\n\n<%= jqueryCheck %><%= bootstrapCheck %>',
+/src/grunt/config/concat.js-29-			footer: '\n}));',
+##############################################
+/src/grunt/config/connect.js-25-				hostname: '*',
+/src/grunt/config/connect.js:26:				port: '<%= connectTestServerOptionsPort %>',
+/src/grunt/config/connect.js-27-				useAvailablePort: true
+##############################################
+/src/grunt/config/usebanner.js-4-			position: 'top',
+/src/grunt/config/usebanner.js:5:			banner: '<%= banner %>'
+/src/grunt/config/usebanner.js-6-		},
+/src/grunt/config/usebanner.js-7-		files: {
+/src/grunt/config/usebanner.js:8:			src: ['dist/css/<%= pkg.name %>.css',
+/src/grunt/config/usebanner.js:9:				'dist/css/<%= pkg.name %>.min.css'
+/src/grunt/config/usebanner.js-10-			]
+##############################################
+/src/grunt/config/uglify.js-8-			options: {
+/src/grunt/config/uglify.js:9:				banner: '<%= banner %>'
+/src/grunt/config/uglify.js-10-			},
+/src/grunt/config/uglify.js:11:			src: 'dist/js/<%= pkg.name %>.js',
+/src/grunt/config/uglify.js:12:			dest: 'dist/js/<%= pkg.name %>.min.js'
+/src/grunt/config/uglify.js-13-		}
+##############################################
+/src/grunt/config/saucelabs-qunit.js-16-			options: {
+/src/grunt/config/saucelabs-qunit.js:17:				username: '<%= sauceUser %>',
+/src/grunt/config/saucelabs-qunit.js-18-				key: getSaucekey,
+##############################################
+/src/grunt/config/saucelabs-qunit.js-20-				testInterval: 3000,
+/src/grunt/config/saucelabs-qunit.js:21:				tags: [getPackage().version, '<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
+/src/grunt/config/saucelabs-qunit.js-22-				browsers: grunt.file.readYAML('sauce_browsers.yml'),
+/src/grunt/config/saucelabs-qunit.js-23-				build: process.env.TRAVIS_BUILD_NUMBER || getPackage().version,
+/src/grunt/config/saucelabs-qunit.js:24:				testname: process.env.TRAVIS_JOB_ID || getPackage().version + '-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+/src/grunt/config/saucelabs-qunit.js:25:				urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true&hidepassed=true'],
+/src/grunt/config/saucelabs-qunit.js-26-				maxPollRetries: 4,
+##############################################
+/src/grunt/config/saucelabs-qunit.js-32-			options: {
+/src/grunt/config/saucelabs-qunit.js:33:				username: '<%= sauceUser %>',
+/src/grunt/config/saucelabs-qunit.js-34-				key: getSaucekey,
+/src/grunt/config/saucelabs-qunit.js-35-				browsers: grunt.file.readYAML('sauce_browsers.yml'),
+/src/grunt/config/saucelabs-qunit.js:36:				build: process.env.TRAVIS_BUILD_NUMBER || '<%= pkg.version %>',
+/src/grunt/config/saucelabs-qunit.js:37:				testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+/src/grunt/config/saucelabs-qunit.js:38:				urls: '<%= allTestUrls %>'
+/src/grunt/config/saucelabs-qunit.js-39-			}
+##############################################
+/src/grunt/tasks/release.js-76-
+/src/grunt/tasks/release.js:77:		grunt.config('banner', '<%= bannerRelease %>');
+/src/grunt/tasks/release.js-78-
+##############################################
+/src/templates/underscore/bootstrap/input.html-1-<!-- Text input http://getbootstrap.com/css/#forms -->
+/src/templates/underscore/bootstrap/input.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %><% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/bootstrap/input.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/bootstrap/input.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/bootstrap/input.html:5:    <input type="<%= inputtype %>" class="<% if(!horizontal && inputsize.length > 0) {%>input-<%= inputsize %> <% } %>form-control" id="<%= id %>" placeholder="<%= placeholder %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/templates/underscore/bootstrap/input.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/input.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/bootstrap/select.html-2-<div class="form-group">
+/src/templates/underscore/bootstrap/select.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/templates/underscore/bootstrap/select.html-4-  <div class="controls <% if(horizontal) {%> col-sm-10<% } %>">
+/src/templates/underscore/bootstrap/select.html:5:    <select id="<%= id %>" name="<%= id %>" class="form-control<% if(inputsize.length > 0) {%> <%= inputsize %><% } %>"<% if(multiple) {%> multiple <% } %><% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><% _.each(options, function(option) { %>
+/src/templates/underscore/bootstrap/select.html:6:      <option><%= option %></option><% }); %>
+/src/templates/underscore/bootstrap/select.html-7-    </select>
+/src/templates/underscore/bootstrap/select.html:8:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/select.html-9-  </div>
+##############################################
+/src/templates/underscore/bootstrap/button.html-2-<div class="form-group">
+/src/templates/underscore/bootstrap/button.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/templates/underscore/bootstrap/button.html:4:  <div class="<%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/templates/underscore/bootstrap/button.html:5:    <button type="<%= buttontype %>" id="<%= id %>" name="<%= id %>" class='btn <%= buttonstyle %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= label %>"><%= buttonlabel %></button>
+/src/templates/underscore/bootstrap/button.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/button.html-7-  </div>
+##############################################
+/src/templates/underscore/bootstrap/file-button.html-2-<div class="form-group">
+/src/templates/underscore/bootstrap/file-button.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/bootstrap/file-button.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/bootstrap/file-button.html:5:  <input type="file" id="<%= id %>" name="<%= id %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/templates/underscore/bootstrap/file-button.html:6:  <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/file-button.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/bootstrap/textarea.html-1-<!-- Textarea http://getbootstrap.com/css/#textarea -->
+/src/templates/underscore/bootstrap/textarea.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/bootstrap/textarea.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/templates/underscore/bootstrap/textarea.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/bootstrap/textarea.html:5:    <textarea class="form-control" id="<%= id %>" name="<%= id %>" rows="<%= rows %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><%= textarea %></textarea>
+/src/templates/underscore/bootstrap/textarea.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/textarea.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/bootstrap/input-with-text.html-1-<!-- Prepended text http://getbootstrap.com/components/#input-groups -->
+/src/templates/underscore/bootstrap/input-with-text.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/templates/underscore/bootstrap/input-with-text.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/templates/underscore/bootstrap/input-with-text.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/bootstrap/input-with-text.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>">
+/src/templates/underscore/bootstrap/input-with-text.html:6:      <% if(prepend) { %><span id="<%= id %>Prepend" class="input-group-addon<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>"><%= prepend %></span><% } %>
+/src/templates/underscore/bootstrap/input-with-text.html:7:      <input id="<%= id %>" name="<%= id %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="text"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+/src/templates/underscore/bootstrap/input-with-text.html:8:      <% if(append) { %><span id="<%= id %>Append" class="input-group-addon<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>"><%= append %></span><% } %>
+/src/templates/underscore/bootstrap/input-with-text.html-9-    </div>
+/src/templates/underscore/bootstrap/input-with-text.html:10:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/input-with-text.html-11-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-1-<!-- Button Drop Down http://getbootstrap.com/components/#input-groups-buttons-dropdowns -->
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-7-      <div class="input-group-btn">
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:8:        <button type="button" class="btn <%= buttonstyle %> dropdown-toggle<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" data-toggle="dropdown" aria-label="<%= label %> related options" aria-haspopup="true" aria-expanded="false"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><%= buttontext %>&nbsp;<span class="caret"></span>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-9-        </button>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-10-        <ul class="dropdown-menu<% if(placement=="appended") { %> dropdown-menu-right<% } %>"><% _.each(buttonoptions, function(value) { %>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:11:          <li><a href="#"><%= value %></a></li><% }); %>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-12-        </ul>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-13-      </div><!-- /btn-group -->
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:14:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-15-    </div><!-- /input-group -->
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html:16:  <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/input-with-button-dropdown.html-17-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/bootstrap/input-with-checkbox.html-1-<!-- Appended checkbox http://getbootstrap.com/components/#input-groups-checkboxes-radios -->
+/src/templates/underscore/bootstrap/input-with-checkbox.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/templates/underscore/bootstrap/input-with-checkbox.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/templates/underscore/bootstrap/input-with-checkbox.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/bootstrap/input-with-checkbox.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
+/src/templates/underscore/bootstrap/input-with-checkbox.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/templates/underscore/bootstrap/input-with-checkbox.html-7-      <label class="input-group-addon checkbox-custom" data-initialize="checkbox">
+/src/templates/underscore/bootstrap/input-with-checkbox.html:8:        <input class="sr-only" type="checkbox" aria-label="<%= checkboxValue %>" <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>" <% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> >
+/src/templates/underscore/bootstrap/input-with-checkbox.html-9-      </label>
+/src/templates/underscore/bootstrap/input-with-checkbox.html:10:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/templates/underscore/bootstrap/input-with-checkbox.html-11-    </div>
+/src/templates/underscore/bootstrap/input-with-checkbox.html:12:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/input-with-checkbox.html-13-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/bootstrap/button-group.html-2-<div class="form-group">
+/src/templates/underscore/bootstrap/button-group.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/bootstrap/button-group.html:4:  <div class="<%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/templates/underscore/bootstrap/button-group.html:5:    <div id="<%= id %>Group" class="btn-group" role="group" aria-label="<%= label %>">
+/src/templates/underscore/bootstrap/button-group.html:6:      <button type="<%= button1type %>" id="<%= id %>" name="<%= id %>" class='btn <%= button1style %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= button1label %>"><%= button1label %></button>
+/src/templates/underscore/bootstrap/button-group.html:7:      <button type="<%= button2type %>" id="<%= id2 %>" name="<%= id2 %>" class='btn <%= button2style %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= button1label %>"><%= button2label %></button>
+/src/templates/underscore/bootstrap/button-group.html-8-    </div>
+/src/templates/underscore/bootstrap/button-group.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/bootstrap/button-group.html-10-  </div>
+##############################################
+/src/templates/underscore/fuelux/checkboxes.html-1-<!-- Fuel UX Checkboxes http://getfuelux.com/javascript.html#checkbox -->
+/src/templates/underscore/fuelux/checkboxes.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/checkboxes.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/fuelux/checkboxes.html-4-  <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/checkboxes.html-5-    <% _.each(checkboxes, function(checkbox, i){ %><div class="checkbox">
+/src/templates/underscore/fuelux/checkboxes.html:6:      <label class="checkbox-custom<% if(isDisabled) {%> disabled<% } %>" data-initialize="checkbox" id="<%= name+'-'+i %>">
+/src/templates/underscore/fuelux/checkboxes.html:7:        <input class="sr-only" name="<%= name %>" type="checkbox" value="<%= checkbox %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/templates/underscore/fuelux/checkboxes.html:8:        <span class="checkbox-label"><%= checkbox %></span>
+/src/templates/underscore/fuelux/checkboxes.html-9-      </label>
+/src/templates/underscore/fuelux/checkboxes.html-10-    </div><% }); %>
+/src/templates/underscore/fuelux/checkboxes.html:11:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/checkboxes.html-12-  </div>
+##############################################
+/src/templates/underscore/fuelux/search.html-1-<!-- Input With Search http://getfuelux.com/javascript.html#search-->
+/src/templates/underscore/fuelux/search.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/templates/underscore/fuelux/search.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/templates/underscore/fuelux/search.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/fuelux/search.html:5:    <div class="search input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" data-initialize="search" role="search" id="<%= id %>">
+/src/templates/underscore/fuelux/search.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="search"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/templates/underscore/fuelux/search.html-7-      <span class="input-group-btn">
+/src/templates/underscore/fuelux/search.html:8:        <button class="btn btn-default<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" type="button"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/templates/underscore/fuelux/search.html-9-          <span class="glyphicon glyphicon-search"></span>
+##############################################
+/src/templates/underscore/fuelux/search.html-12-      </span>
+/src/templates/underscore/fuelux/search.html:13:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="search"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/templates/underscore/fuelux/search.html-14-    </div>
+/src/templates/underscore/fuelux/search.html:15:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/search.html-16-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/fuelux/spinbox.html-1-<!-- Spinbox http://getfuelux.com/javascript.html#spinbox -->
+/src/templates/underscore/fuelux/spinbox.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/spinbox.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/fuelux/spinbox.html-4-  <div<% if(horizontal) {%> class="col-sm-10"<% } %>>
+/src/templates/underscore/fuelux/spinbox.html:5:    <div class="spinbox" data-initialize="spinbox" id="<%= id %>">
+/src/templates/underscore/fuelux/spinbox.html:6:      <input id="<%= id %>Input" type="text" class="form-control input-mini spinbox-input" value="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/templates/underscore/fuelux/spinbox.html-7-      <div class="spinbox-buttons btn-group btn-group-vertical">
+##############################################
+/src/templates/underscore/fuelux/spinbox.html-15-    </div>
+/src/templates/underscore/fuelux/spinbox.html:16:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/spinbox.html-17-  </div>
+##############################################
+/src/templates/underscore/fuelux/radios.html-1-<!-- Fuel UX Radios http://getfuelux.com/javascript.html#radio -->
+/src/templates/underscore/fuelux/radios.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/radios.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/fuelux/radios.html-4-  <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/radios.html-5-    <% _.each(radios, function(radio, i){ %><div class="radio">
+/src/templates/underscore/fuelux/radios.html:6:      <label class="radio-custom<% if(isDisabled) {%> disabled<% } %>" data-initialize="radio" id="<%= name+'-'+i %>">
+/src/templates/underscore/fuelux/radios.html:7:        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/templates/underscore/fuelux/radios.html:8:        <span class="radio-label"><%= radio %></span>
+/src/templates/underscore/fuelux/radios.html-9-      </label>
+/src/templates/underscore/fuelux/radios.html-10-    </div><% }); %>
+/src/templates/underscore/fuelux/radios.html:11:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/radios.html-12-  </div>
+##############################################
+/src/templates/underscore/fuelux/input-with-combobox.html-1-<!-- Input With Combobox http://getfuelux.com/javascript.html#combobox -->
+/src/templates/underscore/fuelux/input-with-combobox.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %><% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/input-with-combobox.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/templates/underscore/fuelux/input-with-combobox.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/templates/underscore/fuelux/input-with-combobox.html:5:    <div class="input-group <% if(placement=="appended") { %>input-append<% } else { %>input-prepend<% } %> dropdown combobox<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" data-initialize="combobox" id="<%= id %>">
+/src/templates/underscore/fuelux/input-with-combobox.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" aria-label="" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/templates/underscore/fuelux/input-with-combobox.html-7-      <div class="input-group-btn">
+/src/templates/underscore/fuelux/input-with-combobox.html:8:        <button type="button" class="btn <%= buttonstyle %> dropdown-toggle<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" aria-label="<%= label %> autofill suggestions" data-toggle="dropdown"><span class="caret"></span></button>
+/src/templates/underscore/fuelux/input-with-combobox.html-9-        <ul class="dropdown-menu dropdown-menu-right" role="menu"><% _.each(buttonoptions, function(value) { %>
+/src/templates/underscore/fuelux/input-with-combobox.html:10:          <li data-value="<%= value %>"><a href="#"><%= value %></a></li><% }); %>
+/src/templates/underscore/fuelux/input-with-combobox.html-11-        </ul>
+/src/templates/underscore/fuelux/input-with-combobox.html-12-      </div>
+/src/templates/underscore/fuelux/input-with-combobox.html:13:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" aria-label="" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/templates/underscore/fuelux/input-with-combobox.html-14-    </div>
+/src/templates/underscore/fuelux/input-with-combobox.html:15:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/input-with-combobox.html-16-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/templates/underscore/fuelux/checkboxes-inline.html-2-<div class="form-group">
+/src/templates/underscore/fuelux/checkboxes-inline.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/fuelux/checkboxes-inline.html-4-
+/src/templates/underscore/fuelux/checkboxes-inline.html-5-  <div class="checkbox<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/checkboxes-inline.html:6:    <% _.each(checkboxes, function(checkbox, i){ %><label class="checkbox-custom checkbox-inline<% if(isDisabled) {%> disabled<% } %>" data-initialize="checkbox" id="<%= name+'-'+i %>">
+/src/templates/underscore/fuelux/checkboxes-inline.html:7:      <input class="sr-only" name="<%= name %>" type="checkbox" value="<%= checkbox %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>> <span class="checkbox-label"><%= checkbox %></span>
+/src/templates/underscore/fuelux/checkboxes-inline.html-8-    </label><% }); %>
+/src/templates/underscore/fuelux/checkboxes-inline.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/checkboxes-inline.html-10-  </div>
+##############################################
+/src/templates/underscore/fuelux/radios-inline.html-2-<div class="form-group">
+/src/templates/underscore/fuelux/radios-inline.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/templates/underscore/fuelux/radios-inline.html-4-
+/src/templates/underscore/fuelux/radios-inline.html-5-  <div class="radio<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required <% } %>">
+/src/templates/underscore/fuelux/radios-inline.html:6:      <% _.each(radios, function(radio, i){ %><label class="radio-custom radio-inline<% if(isDisabled) {%> disabled<% } %>" data-initialize="radio" id="<%= name+'-'+i %>">
+/src/templates/underscore/fuelux/radios-inline.html:7:        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>> <span class="radio-label"><%= radio %></span>
+/src/templates/underscore/fuelux/radios-inline.html-8-      </label><% }); %>
+/src/templates/underscore/fuelux/radios-inline.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/radios-inline.html-10-  </div>
+##############################################
+/src/templates/underscore/fuelux/selectlist.html-1-<!-- Fuel UX Select http://getfuelux.com/javascript.html#selectlist -->
+/src/templates/underscore/fuelux/selectlist.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/templates/underscore/fuelux/selectlist.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/templates/underscore/fuelux/selectlist.html:4:  <div class="controls <%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/templates/underscore/fuelux/selectlist.html:5:    <div class="btn-group selectlist" data-initialize="selectlist" data-resize="auto" id="<%= id %>">
+/src/templates/underscore/fuelux/selectlist.html:6:      <button class="btn btn-default dropdown-toggle<% if(inputsize.length > 0) {%> <%= inputsize %><% } %>" data-toggle="dropdown" type="button"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/templates/underscore/fuelux/selectlist.html-7-        <span class="selected-label">&nbsp;</span>
+##############################################
+/src/templates/underscore/fuelux/selectlist.html-11-      <ul class="dropdown-menu" role="menu"><% _.each(options, function(option) { %>
+/src/templates/underscore/fuelux/selectlist.html:12:        <li data-value="<%= option %>"><a href="#"><%= option %></a></li><% }); %>
+/src/templates/underscore/fuelux/selectlist.html-13-      </ul>
+/src/templates/underscore/fuelux/selectlist.html:14:      <input class="hidden hidden-field" name="<%= id %>" readonly="readonly" aria-hidden="true" type="text"/>
+/src/templates/underscore/fuelux/selectlist.html-15-    </div>
+/src/templates/underscore/fuelux/selectlist.html:16:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/templates/underscore/fuelux/selectlist.html-17-  </div>
+##############################################
+/src/dist/templates/underscore/bootstrap/input.html-1-<!-- Text input http://getbootstrap.com/css/#forms -->
+/src/dist/templates/underscore/bootstrap/input.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %><% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/bootstrap/input.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/input.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/bootstrap/input.html:5:    <input type="<%= inputtype %>" class="<% if(!horizontal && inputsize.length > 0) {%>input-<%= inputsize %> <% } %>form-control" id="<%= id %>" placeholder="<%= placeholder %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/dist/templates/underscore/bootstrap/input.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/input.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/bootstrap/select.html-2-<div class="form-group">
+/src/dist/templates/underscore/bootstrap/select.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/select.html-4-  <div class="controls <% if(horizontal) {%> col-sm-10<% } %>">
+/src/dist/templates/underscore/bootstrap/select.html:5:    <select id="<%= id %>" name="<%= id %>" class="form-control<% if(inputsize.length > 0) {%> <%= inputsize %><% } %>"<% if(multiple) {%> multiple <% } %><% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><% _.each(options, function(option) { %>
+/src/dist/templates/underscore/bootstrap/select.html:6:      <option><%= option %></option><% }); %>
+/src/dist/templates/underscore/bootstrap/select.html-7-    </select>
+/src/dist/templates/underscore/bootstrap/select.html:8:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/select.html-9-  </div>
+##############################################
+/src/dist/templates/underscore/bootstrap/button.html-2-<div class="form-group">
+/src/dist/templates/underscore/bootstrap/button.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/button.html:4:  <div class="<%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/dist/templates/underscore/bootstrap/button.html:5:    <button type="<%= buttontype %>" id="<%= id %>" name="<%= id %>" class='btn <%= buttonstyle %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= label %>"><%= buttonlabel %></button>
+/src/dist/templates/underscore/bootstrap/button.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/button.html-7-  </div>
+##############################################
+/src/dist/templates/underscore/bootstrap/file-button.html-2-<div class="form-group">
+/src/dist/templates/underscore/bootstrap/file-button.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/file-button.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/bootstrap/file-button.html:5:  <input type="file" id="<%= id %>" name="<%= id %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/dist/templates/underscore/bootstrap/file-button.html:6:  <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/file-button.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/bootstrap/textarea.html-1-<!-- Textarea http://getbootstrap.com/css/#textarea -->
+/src/dist/templates/underscore/bootstrap/textarea.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/bootstrap/textarea.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/textarea.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/bootstrap/textarea.html:5:    <textarea class="form-control" id="<%= id %>" name="<%= id %>" rows="<%= rows %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><%= textarea %></textarea>
+/src/dist/templates/underscore/bootstrap/textarea.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/textarea.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/bootstrap/input-with-text.html-1-<!-- Prepended text http://getbootstrap.com/components/#input-groups -->
+/src/dist/templates/underscore/bootstrap/input-with-text.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/dist/templates/underscore/bootstrap/input-with-text.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/input-with-text.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-text.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>">
+/src/dist/templates/underscore/bootstrap/input-with-text.html:6:      <% if(prepend) { %><span id="<%= id %>Prepend" class="input-group-addon<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>"><%= prepend %></span><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-text.html:7:      <input id="<%= id %>" name="<%= id %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="text"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+/src/dist/templates/underscore/bootstrap/input-with-text.html:8:      <% if(append) { %><span id="<%= id %>Append" class="input-group-addon<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>"><%= append %></span><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-text.html-9-    </div>
+/src/dist/templates/underscore/bootstrap/input-with-text.html:10:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-text.html-11-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-1-<!-- Button Drop Down http://getbootstrap.com/components/#input-groups-buttons-dropdowns -->
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-7-      <div class="input-group-btn">
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:8:        <button type="button" class="btn <%= buttonstyle %> dropdown-toggle<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" data-toggle="dropdown" aria-label="<%= label %> related options" aria-haspopup="true" aria-expanded="false"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><%= buttontext %>&nbsp;<span class="caret"></span>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-9-        </button>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-10-        <ul class="dropdown-menu<% if(placement=="appended") { %> dropdown-menu-right<% } %>"><% _.each(buttonoptions, function(value) { %>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:11:          <li><a href="#"><%= value %></a></li><% }); %>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-12-        </ul>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-13-      </div><!-- /btn-group -->
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:14:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-15-    </div><!-- /input-group -->
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:16:  <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-17-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html-1-<!-- Appended checkbox http://getbootstrap.com/components/#input-groups-checkboxes-radios -->
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html-7-      <label class="input-group-addon checkbox-custom" data-initialize="checkbox">
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html:8:        <input class="sr-only" type="checkbox" aria-label="<%= checkboxValue %>" <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>" <% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> >
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html-9-      </label>
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html:10:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html-11-    </div>
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html:12:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/input-with-checkbox.html-13-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/bootstrap/button-group.html-2-<div class="form-group">
+/src/dist/templates/underscore/bootstrap/button-group.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/bootstrap/button-group.html:4:  <div class="<%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/dist/templates/underscore/bootstrap/button-group.html:5:    <div id="<%= id %>Group" class="btn-group" role="group" aria-label="<%= label %>">
+/src/dist/templates/underscore/bootstrap/button-group.html:6:      <button type="<%= button1type %>" id="<%= id %>" name="<%= id %>" class='btn <%= button1style %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= button1label %>"><%= button1label %></button>
+/src/dist/templates/underscore/bootstrap/button-group.html:7:      <button type="<%= button2type %>" id="<%= id2 %>" name="<%= id2 %>" class='btn <%= button2style %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= button1label %>"><%= button2label %></button>
+/src/dist/templates/underscore/bootstrap/button-group.html-8-    </div>
+/src/dist/templates/underscore/bootstrap/button-group.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/bootstrap/button-group.html-10-  </div>
+##############################################
+/src/dist/templates/underscore/fuelux/checkboxes.html-1-<!-- Fuel UX Checkboxes http://getfuelux.com/javascript.html#checkbox -->
+/src/dist/templates/underscore/fuelux/checkboxes.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/checkboxes.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/fuelux/checkboxes.html-4-  <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/checkboxes.html-5-    <% _.each(checkboxes, function(checkbox, i){ %><div class="checkbox">
+/src/dist/templates/underscore/fuelux/checkboxes.html:6:      <label class="checkbox-custom<% if(isDisabled) {%> disabled<% } %>" data-initialize="checkbox" id="<%= name+'-'+i %>">
+/src/dist/templates/underscore/fuelux/checkboxes.html:7:        <input class="sr-only" name="<%= name %>" type="checkbox" value="<%= checkbox %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/dist/templates/underscore/fuelux/checkboxes.html:8:        <span class="checkbox-label"><%= checkbox %></span>
+/src/dist/templates/underscore/fuelux/checkboxes.html-9-      </label>
+/src/dist/templates/underscore/fuelux/checkboxes.html-10-    </div><% }); %>
+/src/dist/templates/underscore/fuelux/checkboxes.html:11:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/checkboxes.html-12-  </div>
+##############################################
+/src/dist/templates/underscore/fuelux/search.html-1-<!-- Input With Search http://getfuelux.com/javascript.html#search-->
+/src/dist/templates/underscore/fuelux/search.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/dist/templates/underscore/fuelux/search.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/dist/templates/underscore/fuelux/search.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/fuelux/search.html:5:    <div class="search input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" data-initialize="search" role="search" id="<%= id %>">
+/src/dist/templates/underscore/fuelux/search.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="search"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/dist/templates/underscore/fuelux/search.html-7-      <span class="input-group-btn">
+/src/dist/templates/underscore/fuelux/search.html:8:        <button class="btn btn-default<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" type="button"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/dist/templates/underscore/fuelux/search.html-9-          <span class="glyphicon glyphicon-search"></span>
+##############################################
+/src/dist/templates/underscore/fuelux/search.html-12-      </span>
+/src/dist/templates/underscore/fuelux/search.html:13:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="search"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/dist/templates/underscore/fuelux/search.html-14-    </div>
+/src/dist/templates/underscore/fuelux/search.html:15:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/search.html-16-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/fuelux/spinbox.html-1-<!-- Spinbox http://getfuelux.com/javascript.html#spinbox -->
+/src/dist/templates/underscore/fuelux/spinbox.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/spinbox.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/fuelux/spinbox.html-4-  <div<% if(horizontal) {%> class="col-sm-10"<% } %>>
+/src/dist/templates/underscore/fuelux/spinbox.html:5:    <div class="spinbox" data-initialize="spinbox" id="<%= id %>">
+/src/dist/templates/underscore/fuelux/spinbox.html:6:      <input id="<%= id %>Input" type="text" class="form-control input-mini spinbox-input" value="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/dist/templates/underscore/fuelux/spinbox.html-7-      <div class="spinbox-buttons btn-group btn-group-vertical">
+##############################################
+/src/dist/templates/underscore/fuelux/spinbox.html-15-    </div>
+/src/dist/templates/underscore/fuelux/spinbox.html:16:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/spinbox.html-17-  </div>
+##############################################
+/src/dist/templates/underscore/fuelux/radios.html-1-<!-- Fuel UX Radios http://getfuelux.com/javascript.html#radio -->
+/src/dist/templates/underscore/fuelux/radios.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/radios.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/fuelux/radios.html-4-  <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/radios.html-5-    <% _.each(radios, function(radio, i){ %><div class="radio">
+/src/dist/templates/underscore/fuelux/radios.html:6:      <label class="radio-custom<% if(isDisabled) {%> disabled<% } %>" data-initialize="radio" id="<%= name+'-'+i %>">
+/src/dist/templates/underscore/fuelux/radios.html:7:        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/dist/templates/underscore/fuelux/radios.html:8:        <span class="radio-label"><%= radio %></span>
+/src/dist/templates/underscore/fuelux/radios.html-9-      </label>
+/src/dist/templates/underscore/fuelux/radios.html-10-    </div><% }); %>
+/src/dist/templates/underscore/fuelux/radios.html:11:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/radios.html-12-  </div>
+##############################################
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-1-<!-- Input With Combobox http://getfuelux.com/javascript.html#combobox -->
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %><% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:5:    <div class="input-group <% if(placement=="appended") { %>input-append<% } else { %>input-prepend<% } %> dropdown combobox<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" data-initialize="combobox" id="<%= id %>">
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" aria-label="" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-7-      <div class="input-group-btn">
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:8:        <button type="button" class="btn <%= buttonstyle %> dropdown-toggle<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" aria-label="<%= label %> autofill suggestions" data-toggle="dropdown"><span class="caret"></span></button>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-9-        <ul class="dropdown-menu dropdown-menu-right" role="menu"><% _.each(buttonoptions, function(value) { %>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:10:          <li data-value="<%= value %>"><a href="#"><%= value %></a></li><% }); %>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-11-        </ul>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-12-      </div>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:13:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" aria-label="" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-14-    </div>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html:15:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/input-with-combobox.html-16-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html-2-<div class="form-group">
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html-4-
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html-5-  <div class="checkbox<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html:6:    <% _.each(checkboxes, function(checkbox, i){ %><label class="checkbox-custom checkbox-inline<% if(isDisabled) {%> disabled<% } %>" data-initialize="checkbox" id="<%= name+'-'+i %>">
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html:7:      <input class="sr-only" name="<%= name %>" type="checkbox" value="<%= checkbox %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>> <span class="checkbox-label"><%= checkbox %></span>
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html-8-    </label><% }); %>
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/checkboxes-inline.html-10-  </div>
+##############################################
+/src/dist/templates/underscore/fuelux/radios-inline.html-2-<div class="form-group">
+/src/dist/templates/underscore/fuelux/radios-inline.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/dist/templates/underscore/fuelux/radios-inline.html-4-
+/src/dist/templates/underscore/fuelux/radios-inline.html-5-  <div class="radio<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required <% } %>">
+/src/dist/templates/underscore/fuelux/radios-inline.html:6:      <% _.each(radios, function(radio, i){ %><label class="radio-custom radio-inline<% if(isDisabled) {%> disabled<% } %>" data-initialize="radio" id="<%= name+'-'+i %>">
+/src/dist/templates/underscore/fuelux/radios-inline.html:7:        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>> <span class="radio-label"><%= radio %></span>
+/src/dist/templates/underscore/fuelux/radios-inline.html-8-      </label><% }); %>
+/src/dist/templates/underscore/fuelux/radios-inline.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/radios-inline.html-10-  </div>
+##############################################
+/src/dist/templates/underscore/fuelux/selectlist.html-1-<!-- Fuel UX Select http://getfuelux.com/javascript.html#selectlist -->
+/src/dist/templates/underscore/fuelux/selectlist.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/dist/templates/underscore/fuelux/selectlist.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/dist/templates/underscore/fuelux/selectlist.html:4:  <div class="controls <%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/dist/templates/underscore/fuelux/selectlist.html:5:    <div class="btn-group selectlist" data-initialize="selectlist" data-resize="auto" id="<%= id %>">
+/src/dist/templates/underscore/fuelux/selectlist.html:6:      <button class="btn btn-default dropdown-toggle<% if(inputsize.length > 0) {%> <%= inputsize %><% } %>" data-toggle="dropdown" type="button"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/dist/templates/underscore/fuelux/selectlist.html-7-        <span class="selected-label">&nbsp;</span>
+##############################################
+/src/dist/templates/underscore/fuelux/selectlist.html-11-      <ul class="dropdown-menu" role="menu"><% _.each(options, function(option) { %>
+/src/dist/templates/underscore/fuelux/selectlist.html:12:        <li data-value="<%= option %>"><a href="#"><%= option %></a></li><% }); %>
+/src/dist/templates/underscore/fuelux/selectlist.html-13-      </ul>
+/src/dist/templates/underscore/fuelux/selectlist.html:14:      <input class="hidden hidden-field" name="<%= id %>" readonly="readonly" aria-hidden="true" type="text"/>
+/src/dist/templates/underscore/fuelux/selectlist.html-15-    </div>
+/src/dist/templates/underscore/fuelux/selectlist.html:16:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/dist/templates/underscore/fuelux/selectlist.html-17-  </div>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/input.html-1-<!-- Text input http://getbootstrap.com/css/#forms -->
+/src/reference/dist/templates/underscore/bootstrap/input.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %><% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/bootstrap/input.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/input.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input.html:5:    <input type="<%= inputtype %>" class="<% if(!horizontal && inputsize.length > 0) {%>input-<%= inputsize %> <% } %>form-control" id="<%= id %>" placeholder="<%= placeholder %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/reference/dist/templates/underscore/bootstrap/input.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/select.html-2-<div class="form-group">
+/src/reference/dist/templates/underscore/bootstrap/select.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/select.html-4-  <div class="controls <% if(horizontal) {%> col-sm-10<% } %>">
+/src/reference/dist/templates/underscore/bootstrap/select.html:5:    <select id="<%= id %>" name="<%= id %>" class="form-control<% if(inputsize.length > 0) {%> <%= inputsize %><% } %>"<% if(multiple) {%> multiple <% } %><% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><% _.each(options, function(option) { %>
+/src/reference/dist/templates/underscore/bootstrap/select.html:6:      <option><%= option %></option><% }); %>
+/src/reference/dist/templates/underscore/bootstrap/select.html-7-    </select>
+/src/reference/dist/templates/underscore/bootstrap/select.html:8:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/select.html-9-  </div>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/button.html-2-<div class="form-group">
+/src/reference/dist/templates/underscore/bootstrap/button.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/button.html:4:  <div class="<%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/reference/dist/templates/underscore/bootstrap/button.html:5:    <button type="<%= buttontype %>" id="<%= id %>" name="<%= id %>" class='btn <%= buttonstyle %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= label %>"><%= buttonlabel %></button>
+/src/reference/dist/templates/underscore/bootstrap/button.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/button.html-7-  </div>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/file-button.html-2-<div class="form-group">
+/src/reference/dist/templates/underscore/bootstrap/file-button.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/file-button.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/bootstrap/file-button.html:5:  <input type="file" id="<%= id %>" name="<%= id %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/reference/dist/templates/underscore/bootstrap/file-button.html:6:  <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/file-button.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/textarea.html-1-<!-- Textarea http://getbootstrap.com/css/#textarea -->
+/src/reference/dist/templates/underscore/bootstrap/textarea.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/bootstrap/textarea.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/textarea.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/bootstrap/textarea.html:5:    <textarea class="form-control" id="<%= id %>" name="<%= id %>" rows="<%= rows %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><%= textarea %></textarea>
+/src/reference/dist/templates/underscore/bootstrap/textarea.html:6:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/textarea.html-7-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html-1-<!-- Prepended text http://getbootstrap.com/components/#input-groups -->
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>">
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html:6:      <% if(prepend) { %><span id="<%= id %>Prepend" class="input-group-addon<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>"><%= prepend %></span><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html:7:      <input id="<%= id %>" name="<%= id %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="text"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html:8:      <% if(append) { %><span id="<%= id %>Append" class="input-group-addon<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>"><%= append %></span><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html-9-    </div>
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html:10:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-text.html-11-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-1-<!-- Button Drop Down http://getbootstrap.com/components/#input-groups-buttons-dropdowns -->
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-7-      <div class="input-group-btn">
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:8:        <button type="button" class="btn <%= buttonstyle %> dropdown-toggle<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" data-toggle="dropdown" aria-label="<%= label %> related options" aria-haspopup="true" aria-expanded="false"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><%= buttontext %>&nbsp;<span class="caret"></span>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-9-        </button>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-10-        <ul class="dropdown-menu<% if(placement=="appended") { %> dropdown-menu-right<% } %>"><% _.each(buttonoptions, function(value) { %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:11:          <li><a href="#"><%= value %></a></li><% }); %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-12-        </ul>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-13-      </div><!-- /btn-group -->
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:14:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-15-    </div><!-- /input-group -->
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html:16:  <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-button-dropdown.html-17-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html-1-<!-- Appended checkbox http://getbootstrap.com/components/#input-groups-checkboxes-radios -->
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html:5:    <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html-7-      <label class="input-group-addon checkbox-custom" data-initialize="checkbox">
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html:8:        <input class="sr-only" type="checkbox" aria-label="<%= checkboxValue %>" <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>" <% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> >
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html-9-      </label>
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html:10:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html-11-    </div>
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html:12:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/input-with-checkbox.html-13-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/bootstrap/button-group.html-2-<div class="form-group">
+/src/reference/dist/templates/underscore/bootstrap/button-group.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/bootstrap/button-group.html:4:  <div class="<%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/reference/dist/templates/underscore/bootstrap/button-group.html:5:    <div id="<%= id %>Group" class="btn-group" role="group" aria-label="<%= label %>">
+/src/reference/dist/templates/underscore/bootstrap/button-group.html:6:      <button type="<%= button1type %>" id="<%= id %>" name="<%= id %>" class='btn <%= button1style %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= button1label %>"><%= button1label %></button>
+/src/reference/dist/templates/underscore/bootstrap/button-group.html:7:      <button type="<%= button2type %>" id="<%= id2 %>" name="<%= id2 %>" class='btn <%= button2style %><% if(inputsize.length > 0) {%> <%= inputsize %><% } %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= button1label %>"><%= button2label %></button>
+/src/reference/dist/templates/underscore/bootstrap/button-group.html-8-    </div>
+/src/reference/dist/templates/underscore/bootstrap/button-group.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/bootstrap/button-group.html-10-  </div>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html-1-<!-- Fuel UX Checkboxes http://getfuelux.com/javascript.html#checkbox -->
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html-4-  <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html-5-    <% _.each(checkboxes, function(checkbox, i){ %><div class="checkbox">
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html:6:      <label class="checkbox-custom<% if(isDisabled) {%> disabled<% } %>" data-initialize="checkbox" id="<%= name+'-'+i %>">
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html:7:        <input class="sr-only" name="<%= name %>" type="checkbox" value="<%= checkbox %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html:8:        <span class="checkbox-label"><%= checkbox %></span>
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html-9-      </label>
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html-10-    </div><% }); %>
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html:11:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/checkboxes.html-12-  </div>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/search.html-1-<!-- Input With Search http://getfuelux.com/javascript.html#search-->
+/src/reference/dist/templates/underscore/fuelux/search.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %>">
+/src/reference/dist/templates/underscore/fuelux/search.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/search.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/fuelux/search.html:5:    <div class="search input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" data-initialize="search" role="search" id="<%= id %>">
+/src/reference/dist/templates/underscore/fuelux/search.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="search"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/reference/dist/templates/underscore/fuelux/search.html-7-      <span class="input-group-btn">
+/src/reference/dist/templates/underscore/fuelux/search.html:8:        <button class="btn btn-default<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" type="button"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/reference/dist/templates/underscore/fuelux/search.html-9-          <span class="glyphicon glyphicon-search"></span>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/search.html-12-      </span>
+/src/reference/dist/templates/underscore/fuelux/search.html:13:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" type="search"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
+/src/reference/dist/templates/underscore/fuelux/search.html-14-    </div>
+/src/reference/dist/templates/underscore/fuelux/search.html:15:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/search.html-16-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/spinbox.html-1-<!-- Spinbox http://getfuelux.com/javascript.html#spinbox -->
+/src/reference/dist/templates/underscore/fuelux/spinbox.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/spinbox.html:3:  <label for="<%= id %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/spinbox.html-4-  <div<% if(horizontal) {%> class="col-sm-10"<% } %>>
+/src/reference/dist/templates/underscore/fuelux/spinbox.html:5:    <div class="spinbox" data-initialize="spinbox" id="<%= id %>">
+/src/reference/dist/templates/underscore/fuelux/spinbox.html:6:      <input id="<%= id %>Input" type="text" class="form-control input-mini spinbox-input" value="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/reference/dist/templates/underscore/fuelux/spinbox.html-7-      <div class="spinbox-buttons btn-group btn-group-vertical">
+##############################################
+/src/reference/dist/templates/underscore/fuelux/spinbox.html-15-    </div>
+/src/reference/dist/templates/underscore/fuelux/spinbox.html:16:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/spinbox.html-17-  </div>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/radios.html-1-<!-- Fuel UX Radios http://getfuelux.com/javascript.html#radio -->
+/src/reference/dist/templates/underscore/fuelux/radios.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/radios.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/radios.html-4-  <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/radios.html-5-    <% _.each(radios, function(radio, i){ %><div class="radio">
+/src/reference/dist/templates/underscore/fuelux/radios.html:6:      <label class="radio-custom<% if(isDisabled) {%> disabled<% } %>" data-initialize="radio" id="<%= name+'-'+i %>">
+/src/reference/dist/templates/underscore/fuelux/radios.html:7:        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/reference/dist/templates/underscore/fuelux/radios.html:8:        <span class="radio-label"><%= radio %></span>
+/src/reference/dist/templates/underscore/fuelux/radios.html-9-      </label>
+/src/reference/dist/templates/underscore/fuelux/radios.html-10-    </div><% }); %>
+/src/reference/dist/templates/underscore/fuelux/radios.html:11:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/radios.html-12-  </div>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-1-<!-- Input With Combobox http://getfuelux.com/javascript.html#combobox -->
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:2:<div class="form-group<% if(horizontal && inputsize.length > 0) {%> form-group-<%= inputsize %><% } %><% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-4-  <% if(horizontal) {%><div class="col-sm-10"><% } %>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:5:    <div class="input-group <% if(placement=="appended") { %>input-append<% } else { %>input-prepend<% } %> dropdown combobox<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" data-initialize="combobox" id="<%= id %>">
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:6:      <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" aria-label="" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-7-      <div class="input-group-btn">
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:8:        <button type="button" class="btn <%= buttonstyle %> dropdown-toggle<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" aria-label="<%= label %> autofill suggestions" data-toggle="dropdown"><span class="caret"></span></button>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-9-        <ul class="dropdown-menu dropdown-menu-right" role="menu"><% _.each(buttonoptions, function(value) { %>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:10:          <li data-value="<%= value %>"><a href="#"><%= value %></a></li><% }); %>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-11-        </ul>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-12-      </div>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:13:      <% if(placement=="prepended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" aria-label="" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> /><% } %>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-14-    </div>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html:15:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/input-with-combobox.html-16-  <% if(horizontal) {%></div><% } %>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html-2-<div class="form-group">
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html-4-
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html-5-  <div class="checkbox<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html:6:    <% _.each(checkboxes, function(checkbox, i){ %><label class="checkbox-custom checkbox-inline<% if(isDisabled) {%> disabled<% } %>" data-initialize="checkbox" id="<%= name+'-'+i %>">
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html:7:      <input class="sr-only" name="<%= name %>" type="checkbox" value="<%= checkbox %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>> <span class="checkbox-label"><%= checkbox %></span>
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html-8-    </label><% }); %>
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/checkboxes-inline.html-10-  </div>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html-2-<div class="form-group">
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html:3:  <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html-4-
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html-5-  <div class="radio<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required <% } %>">
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html:6:      <% _.each(radios, function(radio, i){ %><label class="radio-custom radio-inline<% if(isDisabled) {%> disabled<% } %>" data-initialize="radio" id="<%= name+'-'+i %>">
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html:7:        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>> <span class="radio-label"><%= radio %></span>
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html-8-      </label><% }); %>
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html:9:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/radios-inline.html-10-  </div>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/selectlist.html-1-<!-- Fuel UX Select http://getfuelux.com/javascript.html#selectlist -->
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:2:<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:3:  <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:4:  <div class="controls <%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:5:    <div class="btn-group selectlist" data-initialize="selectlist" data-resize="auto" id="<%= id %>">
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:6:      <button class="btn btn-default dropdown-toggle<% if(inputsize.length > 0) {%> <%= inputsize %><% } %>" data-toggle="dropdown" type="button"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html-7-        <span class="selected-label">&nbsp;</span>
+##############################################
+/src/reference/dist/templates/underscore/fuelux/selectlist.html-11-      <ul class="dropdown-menu" role="menu"><% _.each(options, function(option) { %>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:12:        <li data-value="<%= option %>"><a href="#"><%= option %></a></li><% }); %>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html-13-      </ul>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:14:      <input class="hidden hidden-field" name="<%= id %>" readonly="readonly" aria-hidden="true" type="text"/>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html-15-    </div>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html:16:    <% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+/src/reference/dist/templates/underscore/fuelux/selectlist.html-17-  </div>

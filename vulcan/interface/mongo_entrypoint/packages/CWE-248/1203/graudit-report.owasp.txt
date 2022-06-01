@@ -1,0 +1,68 @@
+/src/HISTORY.md-1670-----------------
+/src/HISTORY.md:1671:* Fixed db.eval to correctly handle system.js global javascript functions (Issue #709)
+/src/HISTORY.md-1672-* Cleanup of non-closing connections (Issue #706)
+##############################################
+/src/HISTORY.md-1693-----------------
+/src/HISTORY.md:1694:* Fix for eval on replicaset Issue #684
+/src/HISTORY.md-1695-* Use helpful error msg when native parser not compiled (Issue #685, https://github.com/aheckmann)
+##############################################
+/src/HISTORY.md-1839-* Added stats command to collection to retrieve the statistics on a Collection.
+/src/HISTORY.md:1840:* Added listDatabases command to admin object to allow retrieval of all available dbs.
+/src/HISTORY.md-1841-* Changed createCreateIndexCommand to work better with options.
+##############################################
+/src/HISTORY.md-1879-* Pass in poolSize for ReplSetServers to set default poolSize for new replicaset members
+/src/HISTORY.md:1880:* Bug fix for BSON JS deserializer. Isolating the eval functions in separate functions to avoid V8 deoptimizations
+/src/HISTORY.md-1881-* Correct handling of illegal BSON messages during deserialization
+##############################################
+/src/HISTORY.md-1957-* Eval function no accepts options including nolock (Issue #432)
+/src/HISTORY.md:1958:    * eval(code, parameters, options, callback) (where options = {nolock:true})
+/src/HISTORY.md-1959-
+##############################################
+/src/lib/collection.js-1930- * @param {(function|Code)} finalize An optional function to be run on each item in the result set just before the item is returned.
+/src/lib/collection.js:1931: * @param {boolean} command Specify if you wish to run using the internal group command or using eval, default is true.
+/src/lib/collection.js-1932- * @param {object} [options] Optional settings.
+##############################################
+/src/lib/operations/db_ops.js-421- * @param {(object|array)} parameters The parameters for the call.
+/src/lib/operations/db_ops.js:422: * @param {object} [options] Optional settings. See Db.prototype.eval for a list of options.
+/src/lib/operations/db_ops.js-423- * @param {Db~resultCallback} [callback] The results callback
+##############################################
+/src/lib/operations/db_ops.js-425- */
+/src/lib/operations/db_ops.js:426:function evaluate(db, code, parameters, options, callback) {
+/src/lib/operations/db_ops.js-427-  let finalCode = code;
+##############################################
+/src/lib/operations/db_ops.js-443-  // Create execution selector
+/src/lib/operations/db_ops.js:444:  let cmd = { $eval: finalCode, args: finalParameters };
+/src/lib/operations/db_ops.js-445-  // Check if the nolock parameter is passed in
+##############################################
+/src/lib/operations/db_ops.js-459-        callback,
+/src/lib/operations/db_ops.js:460:        MongoError.create({ message: `eval failed: ${result.errmsg}`, driver: true }),
+/src/lib/operations/db_ops.js-461-        null
+##############################################
+/src/lib/operations/db_ops.js-979-  ensureIndex,
+/src/lib/operations/db_ops.js:980:  evaluate,
+/src/lib/operations/db_ops.js-981-  executeCommand,
+##############################################
+/src/lib/operations/collection_ops.js-11-const ensureIndexDb = require('./db_ops').ensureIndex;
+/src/lib/operations/collection_ops.js:12:const evaluate = require('./db_ops').evaluate;
+/src/lib/operations/collection_ops.js-13-const executeCommand = require('./db_ops').executeCommand;
+##############################################
+/src/lib/operations/collection_ops.js-699- * @param {(function|Code)} finalize An optional function to be run on each item in the result set just before the item is returned.
+/src/lib/operations/collection_ops.js:700: * @param {boolean} command Specify if you wish to run using the internal group command or using eval, default is true.
+/src/lib/operations/collection_ops.js-701- * @param {object} [options] Optional settings. See Collection.prototype.group for a list of options.
+##############################################
+/src/lib/operations/collection_ops.js-763-
+/src/lib/operations/collection_ops.js:764:    evaluate(coll.s.db, new Code(groupfn, scope), null, options, (err, results) => {
+/src/lib/operations/collection_ops.js-765-      if (err) return handleCallback(callback, err, null);
+##############################################
+/src/lib/db.js-32-const ensureIndex = require('./operations/db_ops').ensureIndex;
+/src/lib/db.js:33:const evaluate = require('./operations/db_ops').evaluate;
+/src/lib/db.js-34-const executeCommand = require('./operations/db_ops').executeCommand;
+##############################################
+/src/lib/db.js-557- */
+/src/lib/db.js:558:Db.prototype.eval = deprecate(function(code, parameters, options, callback) {
+/src/lib/db.js-559-  const args = Array.prototype.slice.call(arguments, 1);
+##############################################
+/src/lib/db.js-563-
+/src/lib/db.js:564:  return executeOperation(this.s.topology, evaluate, [this, code, parameters, options, callback]);
+/src/lib/db.js:565:}, 'Db.eval is deprecated as of MongoDB version 3.2');
+/src/lib/db.js-566-

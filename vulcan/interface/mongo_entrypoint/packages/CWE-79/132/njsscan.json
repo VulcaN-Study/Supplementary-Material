@@ -1,0 +1,128 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 202
+        },
+        "extra": {
+          "line": "   limitations under the License.",
+          "message": "Lexical error: WIERD end of file in quoted string"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 1,
+          "line": 202
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/test/test.js",
+          "match_lines": [
+            332,
+            332
+          ],
+          "match_position": [
+            28,
+            93
+          ],
+          "match_string": "\t\t\t\t\t\tthis.responseTimer = setTimeout(process, parseResponseTimeOpt(mockHandler.responseTime));"
+        },
+        {
+          "file_path": "/src/test/test.js",
+          "match_lines": [
+            342,
+            342
+          ],
+          "match_position": [
+            26,
+            91
+          ],
+          "match_string": "\t\t\t\tthis.responseTimer = setTimeout(process, parseResponseTimeOpt(mockHandler.responseTime));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/test/test.js",
+          "match_lines": [
+            222,
+            222
+          ],
+          "match_position": [
+            23,
+            34
+          ],
+          "match_string": "\t\t\t\treturn Math.floor(Math.random() * (max - min)) + min;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/test/test.js",
+          "match_lines": [
+            413,
+            413
+          ],
+          "match_position": [
+            30,
+            70
+          ],
+          "match_string": "\t\tif(requestSettings.data && CALLBACK_REGEX.test(requestSettings.data) || CALLBACK_REGEX.test(requestSettings.url)) {"
+        },
+        {
+          "file_path": "/src/test/test.js",
+          "match_lines": [
+            413,
+            413
+          ],
+          "match_position": [
+            75,
+            114
+          ],
+          "match_string": "\t\tif(requestSettings.data && CALLBACK_REGEX.test(requestSettings.data) || CALLBACK_REGEX.test(requestSettings.url)) {"
+        },
+        {
+          "file_path": "/src/test/test.js",
+          "match_lines": [
+            419,
+            420
+          ],
+          "match_position": [
+            4,
+            43
+          ],
+          "match_string": "\t\t\tvar rurl = /^(\\w+:)?\\/\\/([^\\/?#]+)/,\n\n\t\t\t\tparts = rurl.exec( requestSettings.url ),"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

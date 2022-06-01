@@ -1,0 +1,201 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS148264",
+          "level": "error",
+          "message": "Do not use weak/non-cryptographic random number generators",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/speed.js",
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 29,
+                  "endLine": 34,
+                  "endColumn": 34,
+                  "offset": 784,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "rand(",
+          "properties": {
+            "tags": ["Cryptography.PRNG.Weak"]
+          }
+        },
+        {
+          "ruleId": "DS148264",
+          "level": "error",
+          "message": "Do not use weak/non-cryptographic random number generators",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/speed.js",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 29,
+                  "endLine": 41,
+                  "endColumn": 34,
+                  "offset": 976,
+                  "length": 5
+                }
+              }
+            }
+          ],
+          "snippet": "rand(",
+          "properties": {
+            "tags": ["Cryptography.PRNG.Weak"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/vendor/jslitmus.js",
+                "region": {
+                  "startLine": 386,
+                  "startColumn": 64,
+                  "endLine": 386,
+                  "endColumn": 70,
+                  "offset": 11191,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/test/vendor/jslitmus.js",
+                  "replacements": [
+                    {
+                      "offset": 11191,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/vendor/jslitmus.js",
+                "region": {
+                  "startLine": 471,
+                  "startColumn": 32,
+                  "endLine": 471,
+                  "endColumn": 38,
+                  "offset": 13701,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/test/vendor/jslitmus.js",
+                  "replacements": [
+                    {
+                      "offset": 13701,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/vendor/jslitmus.js",
+                "region": {
+                  "startLine": 644,
+                  "startColumn": 15,
+                  "endLine": 644,
+                  "endColumn": 21,
+                  "offset": 19079,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/test/vendor/jslitmus.js",
+                  "replacements": [
+                    {
+                      "offset": 19079,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        }
+      ],
+      "rules": {
+        "DS148264": {
+          "id": "DS148264",
+          "name": "Do not use weak/non-cryptographic random number generators",
+          "fullDescription": "Use cryptographic random numbers generators for anything even close to a security function.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS148264.md"
+        },
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        }
+      }
+    }
+  ]
+}

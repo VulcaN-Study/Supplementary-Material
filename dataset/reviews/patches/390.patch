@@ -1,0 +1,22 @@
+// Patch source documentation: https://nodejs.org/en/knowledge/file-system/security/introduction/
+var http=require("http");
+var fs=require("fs");
+var path = require('path');
+
+http.createServer(function (request,response) {
+    console.log(request.url);
+    
+    var rootDirectory = './';
+    if (request.url.indexOf('\0') !== -1) {
+        return response.end('That was evil.');
+    }
+    var filename = path.join(rootDirectory , request.url);
+    if(filename.indexOf(rootDirectory) !== 0) {
+        return response.end('trying to sneak out?')
+    }
+
+    fs.readFile(path,function
+        (error,data){
+        response.end(data);
+    })
+}).listen("8888");

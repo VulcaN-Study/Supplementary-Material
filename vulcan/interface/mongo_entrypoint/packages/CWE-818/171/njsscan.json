@@ -1,0 +1,201 @@
+{
+  "errors": [],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/lib/monitor/authentication/setup.js",
+          "match_lines": [
+            112,
+            113
+          ],
+          "match_position": [
+            7,
+            40
+          ],
+          "match_string": "      var params = (req.query.redirect) ? '?redirect=' + req.query.redirect : '';\n\n      res.redirect(brokeredUrl + params);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/plugins/core-endpoints/api/postMirror.js",
+          "match_lines": [
+            15,
+            22
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  var mirror = {\n\n    url: req.url,\n\n    headers: req.headers,\n\n    body: req.body,\n\n    params: req.params\n\n  };\n\n\n\n  res.send(mirror);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "layer7_object_dos": {
+      "files": [
+        {
+          "file_path": "/src/monitoring/external/handlebars.js",
+          "match_lines": [
+            540,
+            541
+          ],
+          "match_position": [
+            6,
+            34
+          ],
+          "match_string": "\t    var body = program.body,\n\n\t        bodyLength = body.length;"
+        },
+        {
+          "file_path": "/src/monitoring/external/handlebars.js",
+          "match_lines": [
+            542,
+            543
+          ],
+          "match_position": [
+            6,
+            26
+          ],
+          "match_string": "\t    for (var i = 0; i < bodyLength; i++) {\n\n\t      this.accept(body[i]);"
+        },
+        {
+          "file_path": "/src/monitoring/external/handlebars.js",
+          "match_lines": [
+            3595,
+            3637
+          ],
+          "match_position": [
+            4,
+            58
+          ],
+          "match_string": "\t  for (var i = 0, l = body.length; i < l; i++) {\n\n\t    var current = body[i],\n\n\t        strip = this.accept(current);\n\n\n\n\t    if (!strip) {\n\n\t      continue;\n\n\t    }\n\n\n\n\t    var _isPrevWhitespace = isPrevWhitespace(body, i, isRoot),\n\n\t        _isNextWhitespace = isNextWhitespace(body, i, isRoot),\n\n\t        openStandalone = strip.openStandalone && _isPrevWhitespace,\n\n\t        closeStandalone = strip.closeStandalone && _isNextWhitespace,\n\n\t        inlineStandalone = strip.inlineStandalone && _isPrevWhitespace && _isNextWhitespace;\n\n\n\n\t    if (strip.close) {\n\n\t      omitRight(body, i, true);\n\n\t    }\n\n\t    if (strip.open) {\n\n\t      omitLeft(body, i, true);\n\n\t    }\n\n\n\n\t    if (inlineStandalone) {\n\n\t      omitRight(body, i);\n\n\n\n\t      if (omitLeft(body, i)) {\n\n\t        // If we are on a standalone node, save the indent info for partials\n\n\t        if (current.type === 'PartialStatement') {\n\n\t          // Pull out the whitespace from the final line\n\n\t          current.indent = /([ \\t]+$)/.exec(body[i - 1].original)[1];\n\n\t        }\n\n\t      }\n\n\t    }\n\n\t    if (openStandalone) {\n\n\t      omitRight((current.program || current.inverse).body);\n\n\n\n\t      // Strip out the previous content node if it's whitespace only\n\n\t      omitLeft(body, i);\n\n\t    }\n\n\t    if (closeStandalone) {\n\n\t      // Always strip the next node\n\n\t      omitRight(body, i);\n\n\n\n\t      omitLeft((current.inverse || current.program).body);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "Layer7 Denial of Service. Looping over user controlled objects can result in DoS.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/monitor/authentication/setup.js",
+          "match_lines": [
+            144,
+            144
+          ],
+          "match_position": [
+            12,
+            23
+          ],
+          "match_string": "    return Math.random() + ':';"
+        },
+        {
+          "file_path": "/src/monitoring/external/web-component.js",
+          "match_lines": [
+            404,
+            404
+          ],
+          "match_position": [
+            49,
+            60
+          ],
+          "match_string": "            }, this.refreshTimeSeconds * 1000 + Math.random() * 500);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/monitoring/component/templates/get.component.html",
+          "match_position": [
+            142,
+            152
+          ],
+          "match_string": "{{{data}}}"
+        },
+        {
+          "file_path": "/src/monitoring/templates/page-template.html",
+          "match_position": [
+            1584,
+            1608
+          ],
+          "match_string": "{{{componentTemplates}}}"
+        },
+        {
+          "file_path": "/src/monitoring/templates/page-template.html",
+          "match_position": [
+            884,
+            907
+          ],
+          "match_string": "{{{componentIncludes}}}"
+        },
+        {
+          "file_path": "/src/monitoring/templates/page-template.html",
+          "match_position": [
+            1439,
+            1457
+          ],
+          "match_string": "{{{pageFragment}}}"
+        },
+        {
+          "file_path": "/src/monitoring/templates/page-template.html",
+          "match_position": [
+            1506,
+            1524
+          ],
+          "match_string": "{{{editPageLink}}}"
+        },
+        {
+          "file_path": "/src/monitoring/component/templates/markdown.component.html",
+          "match_position": [
+            25,
+            39
+          ],
+          "match_string": "{{{markdown}}}"
+        },
+        {
+          "file_path": "/src/monitoring/component/templates/code.component.html",
+          "match_position": [
+            21,
+            31
+          ],
+          "match_string": "{{{code}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

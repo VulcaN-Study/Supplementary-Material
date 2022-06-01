@@ -1,0 +1,172 @@
+<report_mosca>
+ <Path>/src/dist/toastui-editor-viewer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 5904 -      TOID = setTimeout(function () {
+
+ Line: 6251 -    setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/toastui-editor-viewer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3074 -  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+
+ Line: 6830 -   * @param {Object} trackingInfo infos for make query string
+
+ Line: 6847 -    var queryString = '';
+
+ Line: 6849 -      queryString += '&' + key + '=' + value;
+
+ Line: 6851 -    queryString = queryString.substring(1);
+
+ Line: 6853 -    trackingElement.src = url + '?' + queryString;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/toastui-editor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 6023 -      TOID = setTimeout(function () {
+
+ Line: 6375 -    setTimeout(function() {
+
+ Line: 6956 -      timer = window.setTimeout(function() {
+
+ Line: 7106 -  Content||s.textContent===K)){c=e._doc.createTextNode(""),S(s,c),s=c;break}for(;c&&c.nodeType===H&&!c.data&&(l=c.nextSibling)&&"BR"!==l.nodeName;)_(c),c=l;if(!c||"BR"===c.nodeName||c.nodeType===H&&!J)break;s=c}n=e.createRange(s,0),e.setSelection(n),e._updatePath(n,!0)},"shift-enter":function(e,t,n){return e._keyHandlers.enter(e,t,n)},backspace:function(e,t,n){var o=e._root;if(e._removeZWS(),e.saveUndoState(n),n.collapsed)if(Re(n,o)){t.preventDefault();var i,r=Le(n,o);if(!r)return;if(b(r.parentNode,o),i=c(r,o)){if(!i.isContentEditable){for(;!i.parentNode.isContentEditable;)i=i.parentNode;return void _(i)}for(B(i,r,n,o),r=i.parentNode;r!==o&&!r.nextSibling;)r=r.parentNode;r!==o&&(r=r.nextSibling)&&O(r,o),e.setSelection(n)}else if(r){if(g(r,o,"UL")||g(r,o,"OL"))return e.decreaseListLevel(n);if(g(r,o,"BLOCKQUOTE"))return e.modifyBlocks(gt,n);e.setSelection(n),e._updatePath(n,!0)}}else e.setSelection(n),setTimeout(function(){Me(e)},0);else t.preventDefault(),Ee(n,o),Me(e,n)},delete:function(e,t,n){var o,i,r,a,s,d,l=e._root;if(e._removeZWS(),e.saveUndoState(n),n.collapsed)if(De(n,l)){if(t.preventDefault(),!(o=Le(n,l)))return;if(b(o.parentNode,l),i=h(o,l)){if(!i.isContentEditable){for(;!i.parentNode.isContentEditable;)i=i.parentNode;return void _(i)}for(B(o,i,n,l),i=o.parentNode;i!==l&&!i.nextSibling;)i=i.parentNode;i!==l&&(i=i.nextSibling)&&O(i,l),e.setSelection(n),e._updatePath(n,!0)}}else{if(r=n.cloneRange(),Ae(n,l,l,l),a=n.endContainer,s=n.endOffset,a.nodeType===M&&(d=a.childNodes[s])&&"IMG"===d.nodeName)return t.preventDefault(),_(d),xe(n),void Me(e,n);e.setSelection(r),setTimeout(function(){Me(e)},0)}else t.preventDefault(),Ee(n,l),Me(e,n)},tab:function(e,t,n){var o,i,r=e._root;if(e._removeZWS(),n.collapsed&&Re(n,r))for(o=Le(n,r);i=o.parentNode;){if("UL"===i.nodeName||"OL"===i.nodeName){t.preventDefault(),e.increaseListLevel(n);break}o=i}},"shift-tab":function(e,t,n){var o,i=e._root;e._removeZWS(),n.collapsed&&Re(n,i)&&(o=n.startContainer,(g(o,i,"UL")||g(o,i,"OL"))&&(t.preventDefault(),e.decreaseListLevel(n)))},space:function(e,t,n){var o,i=e._root;if(e._recordUndoState(n),yt( Line: 7109 -  Nodes,r=o.length;r--;)if(n=o[r],n.nodeType!==M||i(n))n.nodeType!==H||n.data||t.removeChild(n);else{e(n);var s="FIGURE"===n.tagName;!a(n)&&!s||n.firstChild||t.removeChild(n)}},Xe=function(e){return e.nodeType===M?"BR"===e.nodeName||"IMG"===e.nodeName:le.test(e.data)},Je=function(e,t){for(var o,i=e.parentNode;a(i);)i=i.parentNode;return o=new n(i,4|q,Xe),o.currentNode=e,!!o.nextNode()||t&&!o.previousNode()},et=function(e,t,n){var o,i,r,s=e.querySelectorAll("BR"),d=[],l=s.length;for(o=0;o<l;o+=1)d[o]=Je(s[o],n);for(;l--;)i=s[l],(r=i.parentNode)&&(d[l]?a(r)||b(r,t):_(i))},tt=function(e,t,n,o){var i,r,a=t.ownerDocument.body,s=o.willCutCopy;et(t,n,!0),t.setAttribute("style","position:fixed;overflow:hidden;bottom:100%;right:100%;"),a.appendChild(t),i=t.innerHTML,r=t.innerText||t.textContent,s&&(i=s(i)),V&&(r=r.replace(/\r?\n/g,"\r\n")),e.setData("text/html",i),e.setData("text/plain",r),a.removeChild(t)},nt=function(e){var t,n,o,i,r,a,s,d=e.clipboardData,l=this.getSelection(),c=this._root,h=this;if(l.collapsed)return void e.preventDefault();if(this.saveUndoState(l),ee||Q||!d)setTimeout(function(){try{h._ensureBottomLine()}catch(e){h.didError(e)}},0);else{for(t=Le(l,c),n=Be(l,c),o=t===n&&t||c,i=Ee(l,c),r=l.commonAncestorContainer,r.nodeType===H&&(r=r.parentNode);r&&r!==o;)a=r.cloneNode(!1),a.appendChild(i),i=a,r=r.parentNode;s=this.createElement("div"),s.appendChild(i),tt(d,s,c,this._config),e.preventDefault()}this.setSelection(l)},ot=function(e){var t,n,o,i,r,a,s,d=e.clipboardData,l=this.getSelection(),c=this._root;if(!ee&&!Q&&d){for(t=Le(l,c),n=Be(l,c),o=t===n&&t||c,l=l.cloneRange(),xe(l),Ae(l,o,o,c),i=l.cloneContents(),r=l.commonAncestorContainer,r.nodeType===H&&(r=r.parentNode);r&&r!==o;)a=r.cloneNode(!1),a.appendChild(i),i=a,r=r.parentNode;s=this.createElement("div"),s.appendChild(i),tt(d,s,c,this._config),e.preventDefault()}},it=function(e){var t,n,o,i,r,a=e.clipboardData,s=a&&a.items,d=this.isShiftDown,l=!1,c=!1,h=null,f=this;if(ee&&s){for(t=s.length;t--;)!d&&/^image\/.*/.test(s[t].type)&&(c=!0);c||(s=null)}if(s){for(e.preventDefault(),t=s.length;t--;){if(n=s[t],o=n.type,!d&&" Line: 7110 -  return void n.getAsString(function(e){f.insertHTML(e,!0)});"text/plain"===o&&(h=n),!d&&/^image\/.*/.test(o)&&(c=!0)}return void(c?(this.fireEvent("dragover",{dataTransfer:a,preventDefault:function(){l=!0}}),l&&this.fireEvent("drop",{dataTransfer:a})):h&&h.getAsString(function(e){f.insertPlainText(e,!0)}))}if(i=a&&a.types,!ee&&i&&(ce.call(i,"text/html")>-1||!Y&&ce.call(i,"text/plain")>-1&&ce.call(i,"text/rtf")<0))return e.preventDefault(),void(!d&&(r=a.getData("text/html"))?this.insertHTML(r,!0):((r=a.getData("text/plain"))||(r=a.getData("text/uri-list")))&&this.insertPlainText(r,!0));this._awaitingPaste=!0;var u=this._doc.body,p=this.getSelection(),g=p.startContainer,m=p.startOffset,v=p.endContainer,C=p.endOffset,N=this.createElement("DIV",{contenteditable:"true",style:"position:fixed; overflow:hidden; top:0; right:100%; width:1px; height:1px;"});u.appendChild(N),p.selectNodeContents(N),this.setSelection(p),setTimeout(function(){try{f._awaitingPaste=!1;for(var e,t,n="",o=N;N=o;)o=N.nextSibling,_(N),e=N.firstChild,e&&e===N.lastChild&&"DIV"===e.nodeName&&(N=e),n+=N.innerHTML;t=f.createRange(g,m,v,C),f.setSelection(t),n&&f.insertHTML(n,!0)}catch(e){f.didError(e)}},0)},rt=function(e){for(var t=e.dataTransfer.types,n=t.length,o=!1,i=!1;n--;)switch(t[n]){case"text/plain":o=!0;break;case"text/html":i=!0;break;default:return}(i||o)&&this.saveUndoState()},at=P.prototype,st=function(e,t,n){var o=n._doc,i=e?DOMPurify.sanitize(e,{ALLOW_UNKNOWN_PROTOCOLS:!0,WHOLE_DOCUMENT:!1,RETURN_DOM:!0,RETURN_DOM_FRAGMENT:!0}):null;return i?o.importNode(i,!0):o.createDocumentFragment()};at.setConfig=function(e){return e=D({blockTag:"DIV",blockAttributes:null,tagAttributes:{blockquote:null,ul:null,ol:null,li:null,a:null},classNames:{colour:"colour",fontFamily:"font",fontSize:"size",highlight:"highlight"},leafNodeNames:pe,undo:{documentSizeThreshold:-1,undoLimit:-1},isInsertedHTMLSanitized:!0,isSetHTMLSanitized:!0,sanitizeToDOMFragment:"undefined"!=typeof DOMPurify&&DOMPurify.isSupported?st:null,willCutCopy:null,allowedBlocks:[]},e,!0),e.blockTag=e.blockTag.toUpperCase(),this._config=e,this},at.createEl Line: 7114 -  ;(t||o!==this._lastAnchorNode||i!==this._lastFocusNode)&&(this._lastAnchorNode=o,this._lastFocusNode=i,n=o&&i?o===i?C(i,this._root,this._config):"(selection)":"",this._path!==n&&(this._path=n,this.fireEvent("pathChange",{path:n}))),this.fireEvent(e.collapsed?"cursor":"select",{range:e})}},at._updatePathOnEvent=function(e){var t=this;t._isFocused&&!t._willUpdatePath&&(t._willUpdatePath=!0,setTimeout(function(){t._willUpdatePath=!1,t._updatePath(t.getSelection())},0))},at.focus=function(){if(ne){try{this._root.setActive()}catch(e){}this.fireEvent("focus")}else this._root.focus();return this},at.blur=function(){return this._root.blur(),ne&&this.fireEvent("blur"),this};var ht="squire-selection-end";at._saveRangeToBookmark=function(e){var t,n=this.createElement("INPUT",{id:"squire-selection-start",type:"hidden"}),o=this.createElement("INPUT",{id:ht,type:"hidden"});ye(e,n),e.collapse(!1),ye(e,o),2&n.compareDocumentPosition(o)&&(n.id=ht,o.id="squire-selection-start",t=n,n=o,o=t),e.setStartAfter(n),e.setEndBefore(o)},at._getRangeAndRemoveBookmark=function(e){var t=this._root,n=t.querySelector("#squire-selection-start"),o=t.querySelector("#"+ht);if(n&&o){var i=n.parentNode,r=o.parentNode,a=ce.call(i.childNodes,n),s=ce.call(r.childNodes,o);i===r&&(s-=1),_(n),_(o),e||(e=this._doc.createRange()),e.setStart(i,a),e.setEnd(r,s),A(i,e),i!==r&&A(r,e),e.collapsed&&(i=e.startContainer,i.nodeType===H&&(r=i.childNodes[e.startOffset],r&&r.nodeType===H||(r=i.childNodes[e.startOffset-1]),r&&r.nodeType===H&&(e.setStart(r,0),e.collapse(!0))))}return e||null},at._keyUpDetectChange=function(e){var t=e.keyCode;e.ctrlKey||e.metaKey||e.altKey||!(t<16||t>20)||!(t<33||t>45)||this._docWasChanged()},at._docWasChanged=function(){if(de&&(Ne=new WeakMap),!this._ignoreAllChanges){if(se&&this._ignoreChange)return void(this._ignoreChange=!1);this._isInUndoState&&(this._isInUndoState=!1,this.fireEvent("undoStateChange",{canUndo:!0,canRedo:!1})),this.fireEvent("input")}},at._recordUndoState=function(e,t){if(!this._isInUndoState||t){var n,o=this._undoIndex,i=this._undoStack,r=this._config.undo,a=r.documentSizeThreshol Line: 7283 -   * A shim for the requestAnimationFrame which falls back to the setTimeout if
+
+ Line: 7295 -      return function (callback) { return setTimeout(function () { return callback(Date.now()); }, 1000 / 60); };
+
+ Line: 7356 -              setTimeout(timeoutCallback, delay);
+
+ Line: 12036 -      setTimeout(function () {
+
+ Line: 15384 -            _this._removeSelectionTimer = setInterval(function () {
+
+ Line: 15499 -     * Set setTimeout and setInterval timer execution if table selecting situation
+
+ Line: 15512 -     * Clear setTimeout and setInterval timer execution
+
+ Line: 18661 -      setTimeout(function () {
+
+ Line: 22974 -      setTimeout(function () {
+
+ Line: 27268 -    releaseTimer = setTimeout(function () {
+
+ Line: 27292 -        currentTimeoutId = setTimeout(step, 1);
+
+ Line: 27659 -      setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/toastui-editor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3193 -  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+
+ Line: 7014 -   * @param {Object} trackingInfo infos for make query string
+
+ Line: 7031 -    var queryString = '';
+
+ Line: 7033 -      queryString += '&' + key + '=' + value;
+
+ Line: 7035 -    queryString = queryString.substring(1);
+
+ Line: 7037 -    trackingElement.src = url + '?' + queryString;
+
+ Line: 9702 -  'SELECT', // [41]
+
+ Line: 9706 -  'INSERT', // [45]
+
+ Line: 9707 -  'DELETE', // [46]
+
+ Line: 13795 -  var TABLE_CELL_SELECTED_CLASS_NAME = 'te-cell-selected';
+
+ Line: 13918 -        dom["a" /* default */].findAll(clipboardContainer, "." + TABLE_CELL_SELECTED_CLASS_NAME).forEach(function (cell) {
+
+ Line: 13919 -          removeClass_default()(cell, TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 14009 -        DELETE: function DELETE(ev, range, keymap) {
+
+ Line: 15218 -      var isDeleteOperation = keymap === 'BACK_SPACE' || keymap === 'DELETE';
+
+ Line: 15302 -  var wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME = 'te-cell-selected';
+
+ Line: 15378 -        var isTextSelect = _this._isTextSelect(range, isSameCell) && !hasClass_default()(selectionStart, wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 15413 -        var isTextSelect = _this._isTextSelect(range, isSameCell) && !hasClass_default()(selectionStart, wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 15449 -        var isSelectedCell = !!selectionStart && hasClass_default()(selectionStart, wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 15671 -            removeClass_default()(cell, wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 15673 -            addClass_default()(cell, wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 15684 -      var cells = dom["a" /* default */].findAll(this.wwe.getBody(), "td." + wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME + ",th." + wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 15686 -        removeClass_default()(node, wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 15700 -      return this.wwe.getBody().querySelectorAll("." + wwTableSelectionManager_TABLE_CELL_SELECTED_CLASS_NAME);
+
+ Line: 17976 -      this.addKeyEventHandler('DELETE', function (ev, range, keymap) {
+
+ Line: 21870 -  var CLASS_TABLE_SELECTION = 'te-table-selection';
+
+ Line: 21873 -  var CLASS_SELECTION_AREA = 'te-selection-area';
+
+ Line: 21875 -  var popupAddTable_POPUP_CONTENT = "\n    <div class=\"" + CLASS_TABLE_SELECTION + "\">\n        <div class=\"" + CLASS_TABLE_HEADER + "\"></div>\n        <div class=\"" + CLASS_TABLE_BODY + "\"></div>\n        <div class=\"" + CLASS_SELECTION_AREA + "\"></div>\n    </div>\n    <p class=\"" + CLASS_DESCRIPTION + "\"></p>\n";
+
+ Line: 21882 -  var MIN_ROW_SELECTION_INDEX = 1;
+
+ Line: 21883 -  var MIN_COL_SELECTION_INDEX = 1;
+
+ Line: 21951 -      this.on("mousemove ." + CLASS_TABLE_SELECTION, this._eventHandlers.onMousedown);
+
+ Line: 21952 -      this.on("click ." + CLASS_TABLE_SELECTION, this._eventHandlers.onClick);
+
+ Line: 22008 -        var _this$el$querySelecto = _this.el.querySelector("." + CLASS_TABLE_SELECTION).getBoundingClientRect(),
+
+ Line: 22027 -      this.selection = this.el.querySelector("." + CLASS_SELECTION_AREA);
+
+ Line: 22152 -      if (bound.row < MIN_ROW_SELECTION_INDEX) {
+
+ Line: 22153 -        bound.row = MIN_ROW_SELECTION_INDEX;
+
+ Line: 22158 -      if (bound.col < MIN_COL_SELECTION_INDEX) {
+
+ Line: 22159 -        bound.col = MIN_COL_SELECTION_INDEX;
+
+ Line: 22256 -      this.off("mousemove ." + CLASS_TABLE_SELECTION, this._eventHandlers.onMousedown);
+
+ Line: 22257 -      this.off("click ." + CLASS_TABLE_SELECTION, this._eventHandlers.onClick);
+
+ Line: 22267 -  popupAddTable_PopupAddTable.MIN_ROW_SELECTION_INDEX = MIN_ROW_SELECTION_INDEX;
+
+ Line: 22268 -  popupAddTable_PopupAddTable.MIN_COL_SELECTION_INDEX = MIN_COL_SELECTION_INDEX;
+
+</Result>
+</report_mosca>
+

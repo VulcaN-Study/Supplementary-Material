@@ -1,0 +1,127 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 25,
+          "line": 2
+        },
+        "extra": {
+          "line": "    space-before-blocks: [2, \"never\"]",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintrc",
+        "start": {
+          "col": 24,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 1
+        },
+        "extra": {
+          "line": "FROM node:4.5",
+          "message": "Syntax error"
+        },
+        "path": "/src/Dockerfile",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2014, OptimalBits",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "hello masda!",
+          "message": "Syntax error"
+        },
+        "path": "/src/hl-tests/letsencrypt/certs/dash/.well-known/acme-challenge/abc",
+        "start": {
+          "col": 7,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/hl-tests/64/proxy.js",
+          "match_lines": [
+            47,
+            47
+          ],
+          "match_position": [
+            3,
+            20
+          ],
+          "match_string": "  res.write(req.url);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/test/test_custom_resolver.js",
+          "match_lines": [
+            10,
+            10
+          ],
+          "match_position": [
+            27,
+            38
+          ],
+          "match_string": "  port: 10000 + Math.ceil(Math.random() * 55535)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,129 @@
+<report_mosca>
+ <Path>/src/src/root.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 147 -                  setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/rpc/service.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 88 -          setTimeout(function() { callback(Error("already ended")); }, 0);
+
+ Line: 123 -          setTimeout(function() { callback(err); }, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/cli/lib/tsd-jsdoc/publish.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 32 -      // query overrides options
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/protobuf.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 877 -          var mod = eval("quire".replace(/^/,"re"))(moduleName); // eslint-disable-line no-eval
+
+ Line: 5342 -                  setTimeout(function() {
+
+ Line: 5693 -          setTimeout(function() { callback(Error("already ended")); }, 0);
+
+ Line: 5728 -          setTimeout(function() { callback(err); }, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/light/protobuf.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 877 -          var mod = eval("quire".replace(/^/,"re"))(moduleName); // eslint-disable-line no-eval
+
+ Line: 4168 -                  setTimeout(function() {
+
+ Line: 4519 -          setTimeout(function() { callback(Error("already ended")); }, 0);
+
+ Line: 4554 -          setTimeout(function() { callback(err); }, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/light/protobuf.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 23 -   i=new l(r.fullName,r.id,r.type,r.rule,e,r.options);return i.declaringField=r,r.extensionField=i,n.add(i),!0}return!1}r.exports=n;var s=t(21);((n.prototype=Object.create(s.prototype)).constructor=n).className="Root";var a,u,f,l=t(15),p=t(14),h=t(23),c=t(33);n.fromJSON=function(t,e){return e||(e=new n),t.options&&e.setOptions(t.options),e.addJSON(t.nested)},n.prototype.resolvePath=c.path.resolve,n.prototype.load=function t(r,n,o){function s(t,e){if(o){var r=o;if(o=null,h)throw t;r(t,e)}}function a(t,e){try{if(c.isString(e)&&"{"===e.charAt(0)&&(e=JSON.parse(e)),c.isString(e)){u.filename=t;var r,i=u(e,p,n),o=0;if(i.imports)for(;o<i.imports.length;++o)(r=p.resolvePath(t,i.imports[o]))&&l(r);if(i.weakImports)for(o=0;o<i.weakImports.length;++o)(r=p.resolvePath(t,i.weakImports[o]))&&l(r,!0)}else p.setOptions(e.options).addJSON(e.nested)}catch(t){s(t)}h||d||s(null,p)}function l(t,e){var r=t.lastIndexOf("google/protobuf/");if(r>-1){var n=t.substring(r);n in f&&(t=n)}if(!(p.files.indexOf(t)>-1)){if(p.files.push(t),t in f)return void(h?a(t,f[t]):(++d,setTimeout(function(){--d,a(t,f[t])})));if(h){var i;try{i=c.fs.readFileSync(t).toString("utf8")}catch(t){return void(e||s(t))}a(t,i)}else++d,c.fetch(t,function(r,n){if(--d,o)return r?void(e?d||s(null,p):s(r)):void a(t,n)})}}"function"==typeof n&&(o=n,n=e);var p=this;if(!o)return c.asPromise(t,p,r,n);var h=o===i,d=0;c.isString(r)&&(r=[r]);for(var y,m=0;m<r.length;++m)(y=p.resolvePath("",r[m]))&&l(y);return h?p:(d||s(null,p),e)},n.prototype.loadSync=function(t,e){if(!c.isNode)throw Error("not supported");return this.load(t,e,i)},n.prototype.resolveAll=function(){if(this.deferred.length)throw Error("unresolvable extensions: "+this.deferred.map(function(t){return"'extend "+t.extend+"' in "+t.parent.fullName}).join(", "));return s.prototype.resolveAll.call(this)};var d=/^[A-Z]/;n.prototype.g=function(t){if(t instanceof l)t.extend===e||t.extensionField||o(this,t)||this.deferred.push(t);else if(t instanceof p)d.test(t.name)&&(t.parent[t.name]=t.values);else if(!(t instanceof h)){if(t instanceof a)for(var r=0;r<this.deferred.length;)o(this,this.defe Line: 24 -  .deferred.splice(r,1):++r;for(var n=0;n<t.nestedArray.length;++n)this.g(t.f[n]);d.test(t.name)&&(t.parent[t.name]=t)}},n.prototype.h=function(t){if(t instanceof l){if(t.extend!==e)if(t.extensionField)t.extensionField.parent.remove(t.extensionField),t.extensionField=null;else{var r=this.deferred.indexOf(t);r>-1&&this.deferred.splice(r,1)}}else if(t instanceof p)d.test(t.name)&&delete t.parent[t.name];else if(t instanceof s){for(var n=0;n<t.nestedArray.length;++n)this.h(t.f[n]);d.test(t.name)&&delete t.parent[t.name]}},n.e=function(t,e,r){a=t,u=e,f=r}},{14:14,15:15,21:21,23:23,33:33}],27:[function(t,e){e.exports={}},{}],28:[function(t,e,r){r.Service=t(29)},{29:29}],29:[function(t,r){function n(t,e,r){if("function"!=typeof t)throw TypeError("rpcImpl must be a function");i.EventEmitter.call(this),this.rpcImpl=t,this.requestDelimited=!!e,this.responseDelimited=!!r}r.exports=n;var i=t(35);(n.prototype=Object.create(i.EventEmitter.prototype)).constructor=n,n.prototype.rpcCall=function t(r,n,o,s,a){if(!s)throw TypeError("request must be specified");var u=this;if(!a)return i.asPromise(t,u,r,n,o,s);if(!u.rpcImpl)return setTimeout(function(){a(Error("already ended"))},0),e;try{return u.rpcImpl(r,n[u.requestDelimited?"encodeDelimited":"encode"](s).finish(),function(t,n){if(t)return u.emit("error",t,r),a(t);if(null===n)return u.end(!0),e;if(!(n instanceof o))try{n=o[u.responseDelimited?"decodeDelimited":"decode"](n)}catch(t){return u.emit("error",t,r),a(t)}return u.emit("data",n,r),a(null,n)})}catch(t){return u.emit("error",t,r),setTimeout(function(){a(t)},0),e}},n.prototype.end=function(t){return this.rpcImpl&&(t||this.rpcImpl(null,null,null),this.rpcImpl=null,this.emit("end").off()),this}},{35:35}],30:[function(t,r){function n(t,e){o.call(this,t,e),this.methods={},this.j=null}function i(t){return t.j=null,t}r.exports=n;var o=t(21);((n.prototype=Object.create(o.prototype)).constructor=n).className="Service";var s=t(20),a=t(33),u=t(28);n.fromJSON=function(t,e){var r=new n(t,e.options);if(e.methods)for(var i=Object.keys(e.methods),o=0;o<i.length;++o)r.add(s.fromJSON(i[o],e.methods[i[o]]));r</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/protobuf.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 27 -  &l(r,!0)}else c.setOptions(t.options).addJSON(t.nested)}catch(e){s(e)}p||d||s(null,c)}function l(e,t){var r=e.lastIndexOf("google/protobuf/");if(r>-1){var n=e.substring(r);n in f&&(e=n)}if(!(c.files.indexOf(e)>-1)){if(c.files.push(e),e in f)return void(p?a(e,f[e]):(++d,setTimeout(function(){--d,a(e,f[e])})));if(p){var i;try{i=h.fs.readFileSync(e).toString("utf8")}catch(e){return void(t||s(e))}a(e,i)}else++d,h.fetch(e,function(r,n){if(--d,o)return r?void(t?d||s(null,c):s(r)):void a(e,n)})}}"function"==typeof n&&(o=n,n=t);var c=this;if(!o)return h.asPromise(e,c,r,n);var p=o===i,d=0;h.isString(r)&&(r=[r]);for(var y,m=0;m<r.length;++m)(y=c.resolvePath("",r[m]))&&l(y);return p?c:(d||s(null,c),t)},n.prototype.loadSync=function(e,t){if(!h.isNode)throw Error("not supported");return this.load(e,t,i)},n.prototype.resolveAll=function(){if(this.deferred.length)throw Error("unresolvable extensions: "+this.deferred.map(function(e){return"'extend "+e.extend+"' in "+e.parent.fullName}).join(", "));return s.prototype.resolveAll.call(this)};var d=/^[A-Z]/;n.prototype.g=function(e){if(e instanceof l)e.extend===t||e.extensionField||o(this,e)||this.deferred.push(e);else if(e instanceof c)d.test(e.name)&&(e.parent[e.name]=e.values);else if(!(e instanceof p)){if(e instanceof a)for(var r=0;r<this.deferred.length;)o(this,this.deferred[r])?this.deferred.splice(r,1):++r;for(var n=0;n<e.nestedArray.length;++n)this.g(e.f[n]);d.test(e.name)&&(e.parent[e.name]=e)}},n.prototype.h=function(e){if(e instanceof l){if(e.extend!==t)if(e.extensionField)e.extensionField.parent.remove(e.extensionField),e.extensionField=null;else{var r=this.deferred.indexOf(e);r>-1&&this.deferred.splice(r,1)}}else if(e instanceof c)d.test(e.name)&&delete e.parent[e.name];else if(e instanceof s){for(var n=0;n<e.nestedArray.length;++n)this.h(e.f[n]);d.test(e.name)&&delete e.parent[e.name]}},n.e=function(e,t,r){a=e,u=t,f=r}},{15:15,16:16,23:23,25:25,37:37}],30:[function(e,t){t.exports={}},{}],31:[function(e,t,r){r.Service=e(32)},{32:32}],32:[function(e,r){function n(e,t,r){if("function"!=typeof e)throw TypeError("rpcImpl must be a functi Line: 28 -  mitter.call(this),this.rpcImpl=e,this.requestDelimited=!!t,this.responseDelimited=!!r}r.exports=n;var i=e(39);(n.prototype=Object.create(i.EventEmitter.prototype)).constructor=n,n.prototype.rpcCall=function e(r,n,o,s,a){if(!s)throw TypeError("request must be specified");var u=this;if(!a)return i.asPromise(e,u,r,n,o,s);if(!u.rpcImpl)return setTimeout(function(){a(Error("already ended"))},0),t;try{return u.rpcImpl(r,n[u.requestDelimited?"encodeDelimited":"encode"](s).finish(),function(e,n){if(e)return u.emit("error",e,r),a(e);if(null===n)return u.end(!0),t;if(!(n instanceof o))try{n=o[u.responseDelimited?"decodeDelimited":"decode"](n)}catch(e){return u.emit("error",e,r),a(e)}return u.emit("data",n,r),a(null,n)})}catch(e){return u.emit("error",e,r),setTimeout(function(){a(e)},0),t}},n.prototype.end=function(e){return this.rpcImpl&&(e||this.rpcImpl(null,null,null),this.rpcImpl=null,this.emit("end").off()),this}},{39:39}],33:[function(e,r){function n(e,t){o.call(this,e,t),this.methods={},this.j=null}function i(e){return e.j=null,e}r.exports=n;var o=e(23);((n.prototype=Object.create(o.prototype)).constructor=n).className="Service";var s=e(22),a=e(37),u=e(31);n.fromJSON=function(e,t){var r=new n(e,t.options);if(t.methods)for(var i=Object.keys(t.methods),o=0;o<i.length;++o)r.add(s.fromJSON(i[o],t.methods[i[o]]));return t.nested&&r.addJSON(t.nested),r.comment=t.comment,r},n.prototype.toJSON=function(e){var r=o.prototype.toJSON.call(this,e),n=!!e&&!!e.keepComments;return a.toObject(["options",r&&r.options||t,"methods",o.arrayToJSON(this.methodsArray,e)||{},"nested",r&&r.nested||t,"comment",n?this.comment:t])},Object.defineProperty(n.prototype,"methodsArray",{get:function(){return this.j||(this.j=a.toArray(this.methods))}}),n.prototype.get=function(e){return this.methods[e]||o.prototype.get.call(this,e)},n.prototype.resolveAll=function(){for(var e=this.methodsArray,t=0;t<e.length;++t)e[t].resolve();return o.prototype.resolve.call(this)},n.prototype.add=function(e){if(this.get(e.name))throw Error("duplicate name '"+e.name+"' in "+this);return e instanceof s?(this.methods[e.name]=e,e.paren</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/minimal/protobuf.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 659 -          var mod = eval("quire".replace(/^/,"re"))(moduleName); // eslint-disable-line no-eval
+
+ Line: 1463 -          setTimeout(function() { callback(Error("already ended")); }, 0);
+
+ Line: 1498 -          setTimeout(function() { callback(err); }, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/minimal/protobuf.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  s.pos)}return this},n.b=function(t){u=t;var r=f.Long?"toLong":"toNumber";f.merge(n.prototype,{int64:function(){return i.call(this)[r](!1)},uint64:function(){return i.call(this)[r](!0)},sint64:function(){return i.call(this).zzDecode()[r](!1)},fixed64:function(){return s.call(this)[r](!0)},sfixed64:function(){return s.call(this)[r](!1)}})}},{15:15}],10:[function(t,r){function e(t){n.call(this,t)}r.exports=e;var n=t(9);(e.prototype=Object.create(n.prototype)).constructor=e;var i=t(15);i.Buffer&&(e.prototype.c=i.Buffer.prototype.slice),e.prototype.string=function(){var t=this.uint32();return this.buf.utf8Slice(this.pos,this.pos=Math.min(this.pos+t,this.len))}},{15:15,9:9}],11:[function(t,r){r.exports={}},{}],12:[function(t,r,e){e.Service=t(13)},{13:13}],13:[function(t,e){function n(t,r,e){if("function"!=typeof t)throw TypeError("rpcImpl must be a function");i.EventEmitter.call(this),this.rpcImpl=t,this.requestDelimited=!!r,this.responseDelimited=!!e}e.exports=n;var i=t(15);(n.prototype=Object.create(i.EventEmitter.prototype)).constructor=n,n.prototype.rpcCall=function t(e,n,o,s,u){if(!s)throw TypeError("request must be specified");var f=this;if(!u)return i.asPromise(t,f,e,n,o,s);if(!f.rpcImpl)return setTimeout(function(){u(Error("already ended"))},0),r;try{return f.rpcImpl(e,n[f.requestDelimited?"encodeDelimited":"encode"](s).finish(),function(t,n){if(t)return f.emit("error",t,e),u(t);if(null===n)return f.end(!0),r;if(!(n instanceof o))try{n=o[f.responseDelimited?"decodeDelimited":"decode"](n)}catch(t){return f.emit("error",t,e),u(t)}return f.emit("data",n,e),u(null,n)})}catch(t){return f.emit("error",t,e),setTimeout(function(){u(t)},0),r}},n.prototype.end=function(t){return this.rpcImpl&&(t||this.rpcImpl(null,null,null),this.rpcImpl=null,this.emit("end").off()),this}},{15:15}],14:[function(t,r){function e(t,r){this.lo=t>>>0,this.hi=r>>>0}r.exports=e;var n=t(15),i=e.zero=new e(0,0);i.toNumber=function(){return 0},i.zzEncode=i.zzDecode=function(){return this},i.length=function(){return 1};var o=e.zeroHash="\0\0\0\0\0\0\0\0";e.fromNumber=function(t){if(0===t)return i;var r=t<0;r&&(t</Result>
+</report_mosca>
+

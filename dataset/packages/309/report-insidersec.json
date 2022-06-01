@@ -1,0 +1,158 @@
+{
+ "dra": [
+  {
+   "dra": "http://www.apache.org/licenses/LICENSE-2.0",
+   "type": "url",
+   "file": "/src/index.js"
+  },
+  {
+   "dra": "http://tools.ietf.org/html/rfc2617#section-3",
+   "type": "url",
+   "file": "/src/lib/auth.js"
+  },
+  {
+   "dra": "https://github.com/bagder/curl/blob/master/lib/http_digest.c",
+   "type": "url",
+   "file": "/src/lib/auth.js"
+  },
+  {
+   "dra": "http://lynx.isc.org/current/breakout/lynx_help/keystrokes/environments.html",
+   "type": "url",
+   "file": "/src/lib/getProxyFromURI.js"
+  },
+  {
+   "dra": "https://github.com/bagder/curl/blob/6beb0eee/lib/http.c#L710",
+   "type": "url",
+   "file": "/src/lib/redirect.js"
+  },
+  {
+   "dra": "https://github.com/rvagg/bl/issues/13",
+   "type": "url",
+   "file": "/src/request.js"
+  }
+ ],
+ "sast": {
+  "name": "request",
+  "version": "2.67.0",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "185547 Bytes",
+  "numberOfLines": 2763
+ },
+ "libraries": [
+  {
+   "name": "json-stringify-safe",
+   "current": "~5.0.1"
+  },
+  {
+   "name": "aws-sign2",
+   "current": "~0.6.0"
+  },
+  {
+   "name": "combined-stream",
+   "current": "~1.0.5"
+  },
+  {
+   "name": "isstream",
+   "current": "~0.1.2"
+  },
+  {
+   "name": "tunnel-agent",
+   "current": "~0.4.1"
+  },
+  {
+   "name": "is-typedarray",
+   "current": "~1.0.0"
+  },
+  {
+   "name": "oauth-sign",
+   "current": "~0.8.0"
+  },
+  {
+   "name": "stringstream",
+   "current": "~0.0.4"
+  },
+  {
+   "name": "caseless",
+   "current": "~0.11.0"
+  },
+  {
+   "name": "extend",
+   "current": "~3.0.0"
+  },
+  {
+   "name": "form-data",
+   "current": "~1.0.0-rc3"
+  },
+  {
+   "name": "qs",
+   "current": "~5.2.0"
+  },
+  {
+   "name": "tough-cookie",
+   "current": "~2.2.0"
+  },
+  {
+   "name": "http-signature",
+   "current": "~1.1.0"
+  },
+  {
+   "name": "hawk",
+   "current": "~3.1.0"
+  },
+  {
+   "name": "har-validator",
+   "current": "~2.0.2"
+  },
+  {
+   "name": "bl",
+   "current": "~1.0.0"
+  },
+  {
+   "name": "forever-agent",
+   "current": "~0.6.1"
+  },
+  {
+   "name": "mime-types",
+   "current": "~2.1.7"
+  },
+  {
+   "name": "node-uuid",
+   "current": "~1.4.7"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 38,
+   "class": "helpers.js (38:17)",
+   "vul_id": "3dd8aee29412f9baed129b0f82b3dfb8",
+   "method": "return crypto.createHash('md5').update(str).digest('hex')",
+   "column": 17,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/helpers.js (38:17)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/index.js",
+    "/lib/auth.js",
+    "/request.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 69,
+   "class": "oauth.js (69:23)",
+   "vul_id": "2a651c6d462ee325af6b2bf4b5185f64",
+   "method": "var shasum = crypto.createHash('sha1')",
+   "column": 23,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/oauth.js (69:23)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/request.js"
+   ]
+  }
+ ]
+}

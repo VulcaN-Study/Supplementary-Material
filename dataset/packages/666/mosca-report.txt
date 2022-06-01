@@ -1,0 +1,35 @@
+<report_mosca>
+ <Path>/src/lib/base.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 40 -  						connection.query('INSERT INTO ' + table + ' SET ?', object, function (err, result) {
+
+ Line: 65 -  						connection.query('UPDATE ' + table + ' SET ? WHERE '+name_id+'='+id, object, function (err, result) {
+
+ Line: 91 -  						connection.query('UPDATE ' + table + ' SET '+status_name+'='+status_val+' WHERE '+name_id+'='+id, function (err, result) {
+
+ Line: 114 -  						connection.query('DELETE FROM ' + table + ' WHERE '+name_id+'=' + id, function (err, result) {
+
+ Line: 135 -  						connection.query('SELECT * FROM ' + table, function (err, rows, fields) {
+
+ Line: 155 -  						connection.query('SELECT * FROM ' + table + ' WHERE '+ status_name +'='+ status_val, function (err, rows, fields) {
+
+ Line: 175 -  						connection.query("SELECT * FROM " + table + " WHERE " +name_id+"='"+ id+"'", function (err, rows, fields) {
+
+ Line: 196 -  						connection.query("SELECT * FROM " + table + " WHERE " +name_id+"='"+id+"'", function (err, rows, fields) {
+
+ Line: 230 -  										connection.query("SELECT * FROM " + table + " WHERE " +param_name_1+"='"+param_id_1+"' AND "+param_name_2+"='"+param_id_2+"'", function (err, rows, fields) {
+
+ Line: 265 -  							parametersString = ' WHERE ' + parametersString;
+
+ Line: 272 -  						connection.query('SELECT * FROM ' + table + parametersString + paginationString, function (err, rows, fields) {
+
+ Line: 280 -  										connection.query('SELECT COUNT(*) AS total_results FROM ' + table + parametersString, function (secondErr, secondRows, secondFields) {
+
+</Result>
+</report_mosca>
+

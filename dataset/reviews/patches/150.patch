@@ -1,0 +1,14 @@
+diff --git a/bitty-0.2.10/package/index.js b/patched_bitty.js
+index cb37d82..d3764db 100644
+--- a/bitty-0.2.10/package/index.js
++++ b/patched_bitty.js
+@@ -30,7 +30,8 @@ if (index > -1) {
+ }
+ 
+ function file(req, res) {
+-  var filepath = path.join(program.directory, req.url);
++  var url = req.url.replace(/\.\./g,"");
++  var filepath = path.join(program.directory, url);
+   
+   fs.exists(filepath, function(exists) {
+     if (exists) {

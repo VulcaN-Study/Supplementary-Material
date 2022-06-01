@@ -1,0 +1,18 @@
+--- package/index.js	2016-05-16 22:31:08.000000000 -0400
++++ package/index.js	2020-10-30 09:26:23.564000000 -0400
+@@ -2,9 +2,14 @@
+ //a.fun();
+ var http=require("http");
+ var fs=require("fs");
++const path = require('path');
+ http.createServer(function(request,response){
+-    var path="./"+request.url;
+-    fs.readFile(path,function(error,data){
++    var basePath="./"
++    var unsafeSuffix = request.url;
++    var safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, '');
++    var safePath = path.join(basePath, safeSuffix);
++    fs.readFile(safePath,function(error,data){
+         response.end(data);
+     })
+ }).listen("8888");

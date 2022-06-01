@@ -1,0 +1,108 @@
+{
+ "dra": [],
+ "sca": [
+  {
+   "cwe": "CWE-400",
+   "cves": "CVE-2015-8315",
+   "sast": "",
+   "title": "Regular Expression Denial of Service - ms",
+   "severity": "moderate",
+   "advisoryId": 46,
+   "description": "Versions of `ms` prior to 0.7.1 are affected by a regular expression denial of service vulnerability when extremely long version strings are parsed.\n\n## Proof of Concept\n```javascript\nvar ms = require('ms');\nvar genstr = function (len, chr) {\n   var result = \"\";\n   for (i=0; i\u003c=len; i++) {\n       result = result + chr;\n   }\n\n   return result;\n}\n\nms(genstr(process.argv[2], \"5\") + \" minutea\");\n\n```\n\n### Results\nShowing increase in execution time based on the input string.\n```\n$ time node ms.js 10000\n\nreal\t0m0.758s\nuser\t0m0.724s\nsys\t0m0.031s\n\n$ time node ms.js 20000\n\nreal\t0m2.580s\nuser\t0m2.494s\nsys\t0m0.047s\n\n$ time node ms.js 30000\n\nreal\t0m5.747s\nuser\t0m5.483s\nsys\t0m0.080s\n\n$ time node ms.js 80000\n\nreal\t0m41.022s\nuser\t0m38.894s\nsys\t0m0.529s\n```\n",
+   "recomendation": "Update to version 0.7.1 or later.\nAlternatively, apply a reasonable length limit to parsed version strings."
+  },
+  {
+   "cwe": "CWE-400",
+   "cves": "CVE-2017-16119",
+   "sast": "",
+   "title": "Regular Expression Denial of Service - fresh",
+   "severity": "high",
+   "advisoryId": 526,
+   "description": "Affected versions of `fresh` are vulnerable to regular expression denial of service when parsing specially crafted user input.",
+   "recomendation": "Update to version 0.5.2 or later."
+  },
+  {
+   "cwe": "CWE-400",
+   "cves": "CVE-2017-16137",
+   "sast": "",
+   "title": "Regular Expression Denial of Service - debug",
+   "severity": "low",
+   "advisoryId": 534,
+   "description": "Affected versions of `debug` are vulnerable to regular expression denial of service when untrusted user input is passed into the `o` formatter. \n\nAs it takes 50,000 characters to block the event loop for 2 seconds, this issue is a low severity issue.",
+   "recomendation": "Version 2.x.x: Update to version 2.6.9 or later.\nVersion 3.x.x: Update to version 3.1.0 or later.\n"
+  },
+  {
+   "cwe": "CWE-400",
+   "cves": "CVE-2017-16138",
+   "sast": "",
+   "title": "Regular Expression Denial of Service - mime",
+   "severity": "moderate",
+   "advisoryId": 535,
+   "description": "Affected versions of `mime` are vulnerable to regular expression denial of service when a mime lookup is performed on untrusted user input.",
+   "recomendation": "Update to version 2.0.3 or later."
+  }
+ ],
+ "sast": {
+  "name": "send",
+  "version": "0.8.3",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "27150 Bytes",
+  "numberOfLines": 796
+ },
+ "libraries": [
+  {
+   "name": "depd",
+   "current": "0.4.4"
+  },
+  {
+   "name": "destroy",
+   "current": "1.0.3"
+  },
+  {
+   "name": "escape-html",
+   "current": "1.0.1"
+  },
+  {
+   "name": "fresh",
+   "current": "0.2.2"
+  },
+  {
+   "name": "on-finished",
+   "current": "2.1.0"
+  },
+  {
+   "name": "debug",
+   "current": "1.0.4"
+  },
+  {
+   "name": "mime",
+   "current": "1.2.11"
+  },
+  {
+   "name": "ms",
+   "current": "0.6.2"
+  },
+  {
+   "name": "range-parser",
+   "current": "~1.0.0"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 20,
+   "class": "utils.js (20:6)",
+   "vul_id": "165ba907fe7c06efae434f74d617ca26",
+   "method": ".createHash('md5')",
+   "column": 6,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/utils.js (20:6)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/send.js"
+   ]
+  }
+ ]
+}

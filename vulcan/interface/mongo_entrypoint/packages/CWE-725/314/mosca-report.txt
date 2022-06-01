@@ -1,0 +1,220 @@
+<report_mosca>
+ <Path>/src/lib/request.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 247 -   * returns the raw query string
+
+ Line: 253 -      // always return a string, because this is the raw query string.
+
+ Line: 254 -      // if the queryParser plugin is used, req.query will provide an empty
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/response.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 497 -              query: parsedUri.query,
+
+ Line: 515 -          // then add query params
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 170 -          DELETE: [],
+
+ Line: 205 -   * takes an object of route params and query params, and 'renders' a URL.
+
+ Line: 210 -   * @param    {Object} query     an object of query params
+
+ Line: 213 -  Router.prototype.render = function render(routeName, params, query) {
+
+ Line: 223 -      function queryItem(key) {
+
+ Line: 237 -      var queryString = items.length > 0 ? ('?' + items.join('&')) : '';
+
+ Line: 238 -      return (_url + queryString);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/form_body_parser.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 5 -  var querystring = require('qs');
+
+ Line: 43 -              var params = querystring.parse(req.body);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/throttle.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 93 -   * Rather than do some whacky setTimeout() deal, we just approximate refilling
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/conditional_request.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 119 -          // PUT or DELETE seems like returning 412 is sane
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/audit.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 51 -                      // account for native and queryParser plugin usage
+
+ Line: 52 -                      query: (typeof req.query === 'function') ?
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 21 -      queryParser: require('./query'),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/jsonp.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -          // If the query plugin wasn't used, we need to hack it in now
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/query.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -   * Returns a plugin that will parse the query string, and merge the results
+
+ Line: 14 -   * @function queryParser
+
+ Line: 18 -  function queryParser(options) {
+
+ Line: 50 -  module.exports = queryParser;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 49 -   * Merges two query parameter objects. Merges to array
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/clients/http_client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 126 -          connectionTimer = setTimeout(function connectTimeout() {
+
+ Line: 237 -                  requestTimer = setTimeout(function requestTimeout() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/clients/http_client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -  var querystring = require('querystring');
+
+ Line: 485 -      var opts = this._options('DELETE', options);
+
+ Line: 623 -          opts.path += '?' + querystring.stringify(options.query);
+
+ Line: 646 -      if (method === 'GET' || method === 'HEAD' || method === 'DELETE') {
+
+ Line: 655 -          if (opts.headers['content-length'] && method !== 'DELETE') {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/server.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 467 -                  method = 'DELETE';
+
+</Result>
+</report_mosca>
+

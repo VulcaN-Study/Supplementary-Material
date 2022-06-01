@@ -1,0 +1,82 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 41,
+          "line": 3
+        },
+        "extra": {
+          "line": "Copyright (c) 2013 James Halliday (mail@substack.net)",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 40,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            33,
+            33
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "    TOKEN += (Math.pow(16,8)*Math.random()).toString(16);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            67,
+            67
+          ],
+          "match_position": [
+            13,
+            47
+          ],
+          "match_string": "        if (RegExp('^' + CONTROL + '$').test(s)) {"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            165,
+            165
+          ],
+          "match_position": [
+            22,
+            51
+          ],
+          "match_string": "            else if (/[*@#?$!_\\-]/.test(s.charAt(i))) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

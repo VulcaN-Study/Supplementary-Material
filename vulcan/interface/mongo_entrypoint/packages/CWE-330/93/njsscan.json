@@ -1,0 +1,40 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/benchmark/benchmark.js",
+          "match_lines": [
+            61,
+            61
+          ],
+          "match_position": [
+            116,
+            127
+          ],
+          "match_string": "for (var i = 0, t = Date.now(); i < N; i++) 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(s,r){r=Math.random()*16|0;return (s=='x'?r:r&0x3|0x8).toString(16)});"
+        },
+        {
+          "file_path": "/src/uuid.js",
+          "match_lines": [
+            43,
+            43
+          ],
+          "match_position": [
+            35,
+            46
+          ],
+          "match_string": "        if ((i & 0x03) === 0) r = Math.random() * 0x100000000;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,87 @@
+/src/eslint.json-26-        "no-eq-null": 0,
+/src/eslint.json:27:        "no-eval": 0,
+/src/eslint.json-28-        "no-ex-assign": 2,
+##############################################
+/src/eslint.json-37-        "no-implicit-coercion": 0,
+/src/eslint.json:38:        "no-implied-eval": 0,
+/src/eslint.json-39-        "no-inline-comments": 0,
+##############################################
+/src/shtool-80-do
+/src/shtool:81:    if (set +x; test -z "`(eval $var=C; export $var) 2>&1`"); then
+/src/shtool:82:        eval $var=C; export $var
+/src/shtool-83-    else
+##############################################
+/src/shtool-248-#   parse argument specification string
+/src/shtool:249:eval `echo $arg_spec |\
+/src/shtool-250-      sed -e 's/^\([0-9]*\)\([+=]\)/arg_NUMS=\1; arg_MODE=\2/'`
+##############################################
+/src/shtool-252-#   parse option specification string
+/src/shtool:253:eval `echo h.$opt_spec |\
+/src/shtool-254-      sed -e 's/\([a-zA-Z0-9]\)\([.:+]\)/opt_MODE_\1=\2;/g'`
+##############################################
+/src/shtool-256-#   parse option alias string
+/src/shtool:257:eval `echo h:help,$opt_alias |\
+/src/shtool-258-      sed -e 's/-/_/g' -e 's/\([a-zA-Z0-9]\):\([^,]*\),*/opt_ALIAS_\2=\1;/g'`
+##############################################
+/src/shtool-280-            --[a-zA-Z0-9]*=*)
+/src/shtool:281:                eval `echo "x$1" |\
+/src/shtool-282-                      sed -e 's/^x--\([a-zA-Z0-9-]*\)=\(.*\)$/opt_OPT="\1";opt_ARG="\2"/'`
+/src/shtool-283-                opt_STR=`echo $opt_OPT | sed -e 's/-/_/g'`
+/src/shtool:284:                eval "opt_OPT=\${opt_ALIAS_${opt_STR}-${opt_OPT}}"
+/src/shtool-285-                ;;
+##############################################
+/src/shtool-288-                opt_STR=`echo $opt_OPT | sed -e 's/-/_/g'`
+/src/shtool:289:                eval "opt_OPT=\${opt_ALIAS_${opt_STR}-${opt_OPT}}"
+/src/shtool-290-                opt_ARG=''
+##############################################
+/src/shtool-292-            -[a-zA-Z0-9]*)
+/src/shtool:293:                eval `echo "x$1" |\
+/src/shtool-294-                      sed -e 's/^x-\([a-zA-Z0-9]\)/opt_OPT="\1";/' \
+##############################################
+/src/shtool-310-    #   determine whether option needs an argument
+/src/shtool:311:    eval "opt_MODE=\$opt_MODE_${opt_OPT}"
+/src/shtool-312-    if [ ".$opt_ARG" = . ] && [ ".$opt_ARG_OK" != .yes ]; then
+##############################################
+/src/shtool-322-            #   boolean option
+/src/shtool:323:            eval "opt_${opt_OPT}=yes"
+/src/shtool-324-            ;;
+##############################################
+/src/shtool-326-            #   option with argument (multiple occurances override)
+/src/shtool:327:            eval "opt_${opt_OPT}=\"\$opt_ARG\""
+/src/shtool-328-            ;;
+##############################################
+/src/shtool-330-            #   option with argument (multiple occurances append)
+/src/shtool:331:            eval "opt_${opt_OPT}=\"\$opt_${opt_OPT}\${ASC_NL}\$opt_ARG\""
+/src/shtool-332-            ;;
+##############################################
+/src/shtool-608-            if [ -f /etc/lsb-release ]; then
+/src/shtool:609:                eval `( . /etc/lsb-release
+/src/shtool-610-                    echo "SC=\"LSB${LSB_VERSION}\""
+##############################################
+/src/shtool-847-            unset v1; unset v2; unset v3
+/src/shtool:848:            eval `echo "${UNAME_RELEASE}" |\
+/src/shtool-849-                  sed -e 's/^/#/' \
+##############################################
+/src/shtool-866-                unset v1; unset v2; unset v3
+/src/shtool:867:                eval `echo "${v}" |\
+/src/shtool-868-                      sed -e 's/^/#/' \
+##############################################
+/src/shtool-888-            unset v1; unset v2; unset v3
+/src/shtool:889:            eval `echo "${UNAME_RELEASE}" |\
+/src/shtool-890-                  sed -e 's/^/#/' \
+##############################################
+/src/shtool-956-            var_uc=`util_upper "$var_lc"`
+/src/shtool:957:            eval "val=\"\$${var_uc}\""
+/src/shtool-958-            val_V=""; val_N=""; val_C=""
+##############################################
+/src/shtool-968-                               -e "s;%%;${opt_C};g"`
+/src/shtool:969:                    eval "${var_uc}_V=\"\${val_V}\""
+/src/shtool-970-                    ;;
+##############################################
+/src/shtool-981-                               -e "s;%%;${opt_C};g"`
+/src/shtool:982:                    eval "${var_uc}_N=\"\${val_N}\""
+/src/shtool-983-                    ;;
+##############################################
+/src/shtool-994-                               -e "s;%%;${opt_C};g"`
+/src/shtool:995:                    eval "${var_uc}_C=\"\${val_C}\""
+/src/shtool-996-                    ;;

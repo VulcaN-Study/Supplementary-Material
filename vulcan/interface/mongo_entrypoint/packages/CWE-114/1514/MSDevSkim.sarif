@@ -1,0 +1,1644 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/base64.c",
+                "region": {
+                  "startLine": 93,
+                  "startColumn": 16,
+                  "endLine": 93,
+                  "endColumn": 29,
+                  "offset": 2847,
+                  "length": 13
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(value)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 2847,
+                      "deletedLength": 13,
+                      "insertedBytes": "strlen_s(value, <size of value>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 2847,
+                      "deletedLength": 13,
+                      "insertedBytes": "strnlen(value, <size of value>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/base64.c",
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 28,
+                  "endLine": 57,
+                  "endColumn": 45,
+                  "offset": 1791,
+                  "length": 17
+                }
+              }
+            }
+          ],
+          "snippet": "malloc((vlen * 4)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 1791,
+                      "deletedLength": 17,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/base64.c",
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 45,
+                  "endLine": 94,
+                  "endColumn": 62,
+                  "offset": 2906,
+                  "length": 17
+                }
+              }
+            }
+          ],
+          "snippet": "malloc((vlen * 3)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 2906,
+                      "deletedLength": 17,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/base64.c",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 5,
+                  "endLine": 28,
+                  "endColumn": 11,
+                  "offset": 810,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 168,
+                  "startColumn": 23,
+                  "endLine": 168,
+                  "endColumn": 38,
+                  "offset": 5325,
+                  "length": 15
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(service)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 5325,
+                      "deletedLength": 15,
+                      "insertedBytes": "strlen_s(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 5325,
+                      "deletedLength": 15,
+                      "insertedBytes": "strnlen(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 179,
+                  "startColumn": 28,
+                  "endLine": 179,
+                  "endColumn": 53,
+                  "offset": 5677,
+                  "length": 25
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(credentials_cache)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 5677,
+                      "deletedLength": 25,
+                      "insertedBytes": "strlen_s(credentials_cache, <size of credentials_cache>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 5677,
+                      "deletedLength": 25,
+                      "insertedBytes": "strnlen(credentials_cache, <size of credentials_cache>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 350,
+                  "startColumn": 35,
+                  "endLine": 350,
+                  "endColumn": 59,
+                  "offset": 11011,
+                  "length": 24
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(credential_cache)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 11011,
+                      "deletedLength": 24,
+                      "insertedBytes": "strlen_s(credential_cache, <size of credential_cache>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 11011,
+                      "deletedLength": 24,
+                      "insertedBytes": "strnlen(credential_cache, <size of credential_cache>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 482,
+                  "startColumn": 30,
+                  "endLine": 482,
+                  "endColumn": 42,
+                  "offset": 14948,
+                  "length": 12
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(user)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 14948,
+                      "deletedLength": 12,
+                      "insertedBytes": "strlen_s(user, <size of user>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 14948,
+                      "deletedLength": 12,
+                      "insertedBytes": "strnlen(user, <size of user>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 540,
+                  "startColumn": 26,
+                  "endLine": 540,
+                  "endColumn": 41,
+                  "offset": 16800,
+                  "length": 15
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(service)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 16800,
+                      "deletedLength": 15,
+                      "insertedBytes": "strlen_s(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 16800,
+                      "deletedLength": 15,
+                      "insertedBytes": "strnlen(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 544,
+                  "startColumn": 29,
+                  "endLine": 544,
+                  "endColumn": 44,
+                  "offset": 16913,
+                  "length": 15
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(service)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 16913,
+                      "deletedLength": 15,
+                      "insertedBytes": "strlen_s(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 16913,
+                      "deletedLength": 15,
+                      "insertedBytes": "strnlen(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 582,
+                  "startColumn": 22,
+                  "endLine": 582,
+                  "endColumn": 38,
+                  "offset": 18320,
+                  "length": 16
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(username)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 18320,
+                      "deletedLength": 16,
+                      "insertedBytes": "strlen_s(username, <size of username>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 18320,
+                      "deletedLength": 16,
+                      "insertedBytes": "strnlen(username, <size of username>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 877,
+                  "startColumn": 20,
+                  "endLine": 877,
+                  "endColumn": 35,
+                  "offset": 27050,
+                  "length": 15
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(service)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 27050,
+                      "deletedLength": 15,
+                      "insertedBytes": "strlen_s(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 27050,
+                      "deletedLength": 15,
+                      "insertedBytes": "strnlen(service, <size of service>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 1095,
+                  "startColumn": 27,
+                  "endLine": 1095,
+                  "endColumn": 42,
+                  "offset": 32654,
+                  "length": 15
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(\"FILE:\")",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 32654,
+                      "deletedLength": 15,
+                      "insertedBytes": "strlen_s(\"FILE:\", <size of \"FILE:\">)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 32654,
+                      "deletedLength": 15,
+                      "insertedBytes": "strnlen(\"FILE:\", <size of \"FILE:\">)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 477,
+                  "startColumn": 5,
+                  "endLine": 477,
+                  "endColumn": 30,
+                  "offset": 14734,
+                  "length": 25
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(buf, &buf_size, 4)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 14734,
+                      "deletedLength": 25,
+                      "insertedBytes": "memcpy_s(buf, <size of buf>,  &buf_size,  4)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 310,
+                  "startColumn": 33,
+                  "endLine": 310,
+                  "endColumn": 62,
+                  "offset": 9912,
+                  "length": 29
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(name_token.length + 1)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 9912,
+                      "deletedLength": 29,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 756,
+                  "startColumn": 31,
+                  "endLine": 756,
+                  "endColumn": 62,
+                  "offset": 23382,
+                  "length": 31
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(output_token.length + 1)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 23382,
+                      "deletedLength": 31,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 778,
+                  "startColumn": 30,
+                  "endLine": 778,
+                  "endColumn": 61,
+                  "offset": 24255,
+                  "length": 31
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(output_token.length + 1)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 24255,
+                      "deletedLength": 31,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 1220,
+                  "startColumn": 11,
+                  "endLine": 1220,
+                  "endColumn": 25,
+                  "offset": 35996,
+                  "length": 14
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(needed)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 35996,
+                      "deletedLength": 14,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS111237",
+          "level": "error",
+          "message": "Banned C function detected (strncpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 312,
+                  "startColumn": 7,
+                  "endLine": 312,
+                  "endColumn": 76,
+                  "offset": 10017,
+                  "length": 69
+                }
+              }
+            }
+          ],
+          "snippet": "strncpy(state->username, (char*) name_token.value, name_token.length)",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 10017,
+                      "deletedLength": 69,
+                      "insertedBytes": "strcpy_s(state->username,  name_token.length,  (char*) name_token.value)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 10017,
+                      "deletedLength": 69,
+                      "insertedBytes": "strlcpy(state->username,  (char*) name_token.value,  name_token.length)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS111237",
+          "level": "error",
+          "message": "Banned C function detected (strncpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 480,
+                  "startColumn": 5,
+                  "endLine": 480,
+                  "endColumn": 39,
+                  "offset": 14849,
+                  "length": 34
+                }
+              }
+            }
+          ],
+          "snippet": "strncpy(buf + 4, user, sizeof(buf)",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 14849,
+                      "deletedLength": 34,
+                      "insertedBytes": "strcpy_s(buf + 4,  sizeof(buf,  user)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 14849,
+                      "deletedLength": 34,
+                      "insertedBytes": "strlcpy(buf + 4,  user,  sizeof(buf)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS111237",
+          "level": "error",
+          "message": "Banned C function detected (strncpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 757,
+                  "startColumn": 5,
+                  "endLine": 757,
+                  "endColumn": 78,
+                  "offset": 23419,
+                  "length": 73
+                }
+              }
+            }
+          ],
+          "snippet": "strncpy(state->username, (char*) output_token.value, output_token.length)",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 23419,
+                      "deletedLength": 73,
+                      "insertedBytes": "strcpy_s(state->username,  output_token.length,  (char*) output_token.value)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 23419,
+                      "deletedLength": 73,
+                      "insertedBytes": "strlcpy(state->username,  (char*) output_token.value,  output_token.length)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS111237",
+          "level": "error",
+          "message": "Banned C function detected (strncpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 779,
+                  "startColumn": 2,
+                  "endLine": 779,
+                  "endColumn": 77,
+                  "offset": 24289,
+                  "length": 75
+                }
+              }
+            }
+          ],
+          "snippet": "strncpy(state->targetname, (char*) output_token.value, output_token.length)",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 24289,
+                      "deletedLength": 75,
+                      "insertedBytes": "strcpy_s(state->targetname,  output_token.length,  (char*) output_token.value)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/kerberosgss.c",
+                  "replacements": [
+                    {
+                      "offset": 24289,
+                      "deletedLength": 75,
+                      "insertedBytes": "strlcpy(state->targetname,  (char*) output_token.value,  output_token.length)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 5,
+                  "endLine": 43,
+                  "endColumn": 11,
+                  "offset": 1120,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 468,
+                  "startColumn": 5,
+                  "endLine": 468,
+                  "endColumn": 11,
+                  "offset": 14318,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 472,
+                  "startColumn": 5,
+                  "endLine": 472,
+                  "endColumn": 11,
+                  "offset": 14565,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 1097,
+                  "startColumn": 46,
+                  "endLine": 1097,
+                  "endColumn": 54,
+                  "offset": 32735,
+                  "length": 8
+                }
+              }
+            }
+          ],
+          "snippet": "strerror",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 1217,
+                  "startColumn": 14,
+                  "endLine": 1217,
+                  "endColumn": 23,
+                  "offset": 35934,
+                  "length": 9
+                }
+              }
+            }
+          ],
+          "snippet": "vsnprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/kerberosgss.c",
+                "region": {
+                  "startLine": 1222,
+                  "startColumn": 5,
+                  "endLine": 1222,
+                  "endColumn": 14,
+                  "offset": 36064,
+                  "length": 9
+                }
+              }
+            }
+          ],
+          "snippet": "vsnprintf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/base64.c",
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 21,
+                  "endLine": 80,
+                  "endColumn": 34,
+                  "offset": 2618,
+                  "length": 13
+                }
+              }
+            }
+          ],
+          "snippet": "strlen(value)",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/win32/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 2618,
+                      "deletedLength": 13,
+                      "insertedBytes": "strlen_s(value, <size of value>)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/win32/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 2618,
+                      "deletedLength": 13,
+                      "insertedBytes": "strnlen(value, <size of value>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/base64.c",
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 28,
+                  "endLine": 45,
+                  "endColumn": 45,
+                  "offset": 1619,
+                  "length": 17
+                }
+              }
+            }
+          ],
+          "snippet": "malloc((vlen * 4)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/win32/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 1619,
+                      "deletedLength": 17,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/base64.c",
+                "region": {
+                  "startLine": 81,
+                  "startColumn": 45,
+                  "endLine": 81,
+                  "endColumn": 62,
+                  "offset": 2677,
+                  "length": 17
+                }
+              }
+            }
+          ],
+          "snippet": "malloc((vlen * 3)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/win32/base64.c",
+                  "replacements": [
+                    {
+                      "offset": 2677,
+                      "deletedLength": 17,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 5,
+                  "endLine": 22,
+                  "endColumn": 11,
+                  "offset": 717,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 5,
+                  "endLine": 54,
+                  "endColumn": 11,
+                  "offset": 1805,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 5,
+                  "endLine": 89,
+                  "endColumn": 11,
+                  "offset": 2830,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 114,
+                  "startColumn": 5,
+                  "endLine": 114,
+                  "endColumn": 11,
+                  "offset": 3551,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 136,
+                  "startColumn": 5,
+                  "endLine": 136,
+                  "endColumn": 11,
+                  "offset": 4226,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 171,
+                  "startColumn": 5,
+                  "endLine": 171,
+                  "endColumn": 11,
+                  "offset": 5430,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 205,
+                  "startColumn": 5,
+                  "endLine": 205,
+                  "endColumn": 11,
+                  "offset": 6493,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 238,
+                  "startColumn": 5,
+                  "endLine": 238,
+                  "endColumn": 11,
+                  "offset": 7542,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/win32/kerberos_sspi.c",
+                "region": {
+                  "startLine": 246,
+                  "startColumn": 5,
+                  "endLine": 246,
+                  "endColumn": 11,
+                  "offset": 7791,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        }
+      ],
+      "rules": {
+        "DS140021": {
+          "id": "DS140021",
+          "name": "Problematic C function detected (strlen)",
+          "fullDescription": "If a string is missing a null terminator, strlen will read past the end of the buffer",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS140021.md"
+        },
+        "DS161085": {
+          "id": "DS161085",
+          "name": "Problematic C function detected (malloc)",
+          "fullDescription": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS161085.md"
+        },
+        "DS154189": {
+          "id": "DS154189",
+          "name": "Banned C function detected",
+          "fullDescription": "These functions are historically error-prone and have been associated with a significant number of vulnerabilities. Most of these functions have safer alternatives, such as replacing 'strcpy' with 'strlcpy' or 'strcpy_s'.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS154189.md"
+        },
+        "DS121708": {
+          "id": "DS121708",
+          "name": "Problematic C function detected (memcpy)",
+          "fullDescription": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS121708.md"
+        },
+        "DS111237": {
+          "id": "DS111237",
+          "name": "Banned C function detected (strncpy)",
+          "fullDescription": "strncpy is dangerous, as if the source contains 'n' or more characters, it will not null terminate the destination.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS111237.md"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 968,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-23",
+    "correct_package_link": "https://registry.npmjs.org/simplehttpserver/-/simplehttpserver-0.1.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "simplehttpserver.js",
+                    "lineno": 57,
+                    "code": "mainapp.get('*', function(req, res) {"
+                },
+                "sink": {
+                    "file": "simplehttpserver.js",
+                    "lineno": 89,
+                    "code": "send(res, indexpath)"
+                }
+            },
+            {
+                "source": {
+                    "file": "simplehttpserver.js",
+                    "lineno": 57,
+                    "code": "mainapp.get('*', function(req, res) {"
+                },
+                "sink": {
+                    "file": "simplehttpserver.js",
+                    "lineno": 95,
+                    "code": "fs.readdir(pathname, function(err, list) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/357109"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/tikonen/blog/commit/d85f8cf0634aac25b058f47dd6d5a291fce7840c"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

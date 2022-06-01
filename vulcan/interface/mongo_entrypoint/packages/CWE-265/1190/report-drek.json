@@ -1,0 +1,232 @@
+[
+ {
+  "id": 1,
+  "file": "/src/dist/realms-shim.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "\n  document.body.appendChild(iframe);\n  const unsafeGlobal = iframe.contentWindow.eval(unsafeGlobalSrc);\n\n  // We keep the iframe attached to the DOM because removing it\n  // causes its global object to lose intrinsics, its eval()\n  // function to evaluate code, etc.\n\n  // TODO: can we remove and garbage-collect the iframes?\n\n  return unsafeGlobal;",
+  "line": 655,
+  "start": 650,
+  "end": 661
+ },
+ {
+  "id": 2,
+  "file": "/src/dist/realms-shim.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": " * - ensure the Proxy invariants despite some global properties being frozen.\n */\nfunction createScopeHandler(unsafeRec, safeGlobal, sloppyGlobals) {\n  const { unsafeGlobal, unsafeEval } = unsafeRec;\n\n  // This flag allow us to determine if the eval() call is an done by the\n  // realm's code or if it is user-land invocation, so we can react differently.\n  let useUnsafeEvaluator = false;\n\n  return {\n    // The scope handler throws if any trap other than get/set/has are run",
+  "line": 876,
+  "start": 871,
+  "end": 882
+ },
+ {
+  "id": 3,
+  "file": "/src/dist/realms-shim.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  return unsafeFunction(`\n    with (arguments[0]) {\n      ${optimizer}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `);\n}\n",
+  "line": 1138,
+  "start": 1133,
+  "end": 1144
+ },
+ {
+  "id": 4,
+  "file": "/src/dist/realms-shim.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      ...realmTransforms,\n      ...mandatoryTransforms\n    ];\n\n    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;",
+  "line": 1170,
+  "start": 1165,
+  "end": 1176
+ },
+ {
+  "id": 5,
+  "file": "/src/dist/realms-shim.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;\n        // Rewrite the source, threading through rewriter state as necessary.\n        const rewriterState = allTransforms.reduce(\n          (rs, transform) => (transform.rewrite ? transform.rewrite(rs) : rs),\n          { src, endowments }",
+  "line": 1174,
+  "start": 1169,
+  "end": 1180
+ },
+ {
+  "id": 6,
+  "file": "/src/dist/realms-shim.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    value: Realm,\n    writable: true,\n    configurable: true\n  };\n\n  // Creating the realmRec provides the global object, eval() and Function()\n  // to the realm.\n  const realmRec = createRealmRec(unsafeRec, transforms, sloppyGlobals);\n\n  // Apply all shims in the new RootRealm. We don't do this for compartments.\n  const { safeEvalWhichTakesEndowments } = realmRec;",
+  "line": 1456,
+  "start": 1451,
+  "end": 1462
+ },
+ {
+  "id": 7,
+  "file": "/src/dist/realms-shim.cjs.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  registerRealmRecForRealmInstance(self, realmRec);\n}\n\n/**\n * A compartment shares the intrinsics of its root realm. Here, only a\n * realmRec is necessary to hold the global object, eval() and Function().\n */\nfunction initCompartment(unsafeRec, self, options = {}) {\n  // note: 'self' is the instance of the Realm.\n\n  const { transforms, sloppyGlobals } = options;",
+  "line": 1472,
+  "start": 1467,
+  "end": 1478
+ },
+ {
+  "id": 8,
+  "file": "/src/dist/realms-shim.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "\n  document.body.appendChild(iframe);\n  const unsafeGlobal = iframe.contentWindow.eval(unsafeGlobalSrc);\n\n  // We keep the iframe attached to the DOM because removing it\n  // causes its global object to lose intrinsics, its eval()\n  // function to evaluate code, etc.\n\n  // TODO: can we remove and garbage-collect the iframes?\n\n  return unsafeGlobal;",
+  "line": 653,
+  "start": 648,
+  "end": 659
+ },
+ {
+  "id": 9,
+  "file": "/src/dist/realms-shim.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": " * - ensure the Proxy invariants despite some global properties being frozen.\n */\nfunction createScopeHandler(unsafeRec, safeGlobal, sloppyGlobals) {\n  const { unsafeGlobal, unsafeEval } = unsafeRec;\n\n  // This flag allow us to determine if the eval() call is an done by the\n  // realm's code or if it is user-land invocation, so we can react differently.\n  let useUnsafeEvaluator = false;\n\n  return {\n    // The scope handler throws if any trap other than get/set/has are run",
+  "line": 874,
+  "start": 869,
+  "end": 880
+ },
+ {
+  "id": 10,
+  "file": "/src/dist/realms-shim.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  return unsafeFunction(`\n    with (arguments[0]) {\n      ${optimizer}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `);\n}\n",
+  "line": 1136,
+  "start": 1131,
+  "end": 1142
+ },
+ {
+  "id": 11,
+  "file": "/src/dist/realms-shim.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      ...realmTransforms,\n      ...mandatoryTransforms\n    ];\n\n    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;",
+  "line": 1168,
+  "start": 1163,
+  "end": 1174
+ },
+ {
+  "id": 12,
+  "file": "/src/dist/realms-shim.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    // We use the the concise method syntax to create an eval without a\n    // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n    // TypeError: eval is not a constructor\"), but which still accepts a\n    // 'this' binding.\n    const safeEval = {\n      eval(src) {\n        src = `${src}`;\n        // Rewrite the source, threading through rewriter state as necessary.\n        const rewriterState = allTransforms.reduce(\n          (rs, transform) => (transform.rewrite ? transform.rewrite(rs) : rs),\n          { src, endowments }",
+  "line": 1172,
+  "start": 1167,
+  "end": 1178
+ },
+ {
+  "id": 13,
+  "file": "/src/dist/realms-shim.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    value: Realm,\n    writable: true,\n    configurable: true\n  };\n\n  // Creating the realmRec provides the global object, eval() and Function()\n  // to the realm.\n  const realmRec = createRealmRec(unsafeRec, transforms, sloppyGlobals);\n\n  // Apply all shims in the new RootRealm. We don't do this for compartments.\n  const { safeEvalWhichTakesEndowments } = realmRec;",
+  "line": 1454,
+  "start": 1449,
+  "end": 1460
+ },
+ {
+  "id": 14,
+  "file": "/src/dist/realms-shim.esm.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "  registerRealmRecForRealmInstance(self, realmRec);\n}\n\n/**\n * A compartment shares the intrinsics of its root realm. Here, only a\n * realmRec is necessary to hold the global object, eval() and Function().\n */\nfunction initCompartment(unsafeRec, self, options = {}) {\n  // note: 'self' is the instance of the Realm.\n\n  const { transforms, sloppyGlobals } = options;",
+  "line": 1470,
+  "start": 1465,
+  "end": 1476
+ },
+ {
+  "id": 15,
+  "file": "/src/dist/realms-shim.esm.min.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "function throwTantrum(a,b=void 0){const c=`please report internal shim error: ${a}`;console.error(c),b&&(console.error(`${b}`),console.error(`${b.stack}`));debugger;throw c}function assert(a,b){a||throwTantrum(b)}function cleanupSource(a){return a}function buildChildRealm(a,b){function c(a,...b){try{return a(...b)}catch(a){if(Object(a)!==a)throw a;let b,c,d;try{b=`${a.name}`,c=`${a.message}`,d=`${a.stack||c}`}catch(a){throw new Error(\"unknown error\")}const e=j.get(b)||Error;try{throw new e(c)}catch(a){throw a.stack=d,a}}}const{initRootRealm:d,initCompartment:e,getRealmGlobal:f,realmEvaluate:g}=b,{create:h,defineProperties:i}=Object,j=new Map([[\"EvalError\",EvalError],[\"RangeError\",RangeError],[\"ReferenceError\",ReferenceError],[\"SyntaxError\",SyntaxError],[\"TypeError\",TypeError],[\"URIError\",URIError]]);class k{constructor(){throw new TypeError(\"Realm is not a constructor\")}static makeRootRealm(b={}){const e=h(k.prototype);return c(d,a,e,b),e}static makeCompartment(b={}){const d=h(k.prototype);return c(e,a,d,b),d}get global(){return c(f,this)}evaluate(a,b,d={}){return c(g,this,a,b,d)}}return i(k,{toString:{value:()=>\"function Realm() { [shim code] }\",writable:!1,enumerable:!1,configurable:!0}}),i(k.prototype,{toString:{value:()=>\"[object Realm]\",writable:!1,enumerable:!1,configurable:!0}}),k}const buildChildRealmString=cleanupSource(`'use strict'; (${buildChildRealm})`);function createRealmFacade(a,b){const{unsafeEval:c}=a;return c(buildChildRealmString)(a,b)}const{assign,create,freeze,defineProperties,getOwnPropertyDescriptor,getOwnPropertyDescriptors,getOwnPropertyNames,getPrototypeOf,setPrototypeOf}=Object,{apply,ownKeys}=Reflect,uncurryThis=a=>(b,...c)=>apply(a,b,c),objectHasOwnProperty=uncurryThis(Object.prototype.hasOwnProperty),arrayFilter=uncurryThis(Array.prototype.filter),arrayPop=uncurryThis(Array.prototype.pop),arrayJoin=uncurryThis(Array.prototype.join),arrayConcat=uncurryThis(Array.prototype.concat),regexpTest=uncurryThis(RegExp.prototype.test),stringIncludes=uncurryThis(String.prototype.includes),frozenGlobalPropertyNames=[\"Infinity\",\"NaN\",\"undefined\"],stableGlobalPropertyNames=[\"isFinite\",\"isNaN\",\"parseFloat\",\"parseInt\",\"decodeURI\",\"decodeURIComponent\",\"encodeURI\",\"encodeURIComponent\",\"Array\",\"ArrayBuffer\",\"Boolean\",\"DataView\",\"EvalError\",\"Float32Array\",\"Float64Array\",\"Int8Array\",\"Int16Array\",\"Int32Array\",\"Map\",\"Number\",\"Object\",\"RangeError\",\"ReferenceError\",\"Set\",\"String\",\"Symbol\",\"SyntaxError\",\"TypeError\",\"Uint8Array\",\"Uint8ClampedArray\",\"Uint16Array\",\"Uint32Array\",\"URIError\",\"WeakMap\",\"WeakSet\",\"JSON\",\"Math\",\"Reflect\",\"escape\",\"unescape\"],unstableGlobalPropertyNames=[\"Date\",\"Error\",\"Promise\",\"Proxy\",\"RegExp\",\"Intl\"];function getSharedGlobalDescs(a){function b(b,d,e,f){for(const g of b){const b=getOwnPropertyDescriptor(a,g);b&&(assert(\"value\"in b,`unexpected accessor on global property: ${g}`),c[g]={value:b.value,writable:d,enumerable:e,configurable:f})}}const c={};return b(frozenGlobalPropertyNames,!1,!1,!1),b(stableGlobalPropertyNames,!1,!1,!1),b(unstableGlobalPropertyNames,!0,!1,!0),c}function repairAccessors(){function a(a){if(a===void 0||null===a)throw new TypeError(`can't convert undefined or null to object`);return Object(a)}function b(a){return\"symbol\"==typeof a?a:`${a}`}function c(a,b){if(\"function\"!=typeof a)throw TypeError(`invalid ${b} usage`);return a}const{defineProperty:d,defineProperties:e,getOwnPropertyDescriptor:f,getPrototypeOf:g,prototype:h}=Object;try{(0,h.__lookupGetter__)(\"x\")}catch(a){return}e(h,{__defineGetter__:{value:function(b,e){const f=a(this);d(f,b,{get:c(e,\"getter\"),enumerable:!0,configurable:!0})}},__defineSetter__:{value:function(b,e){const f=a(this);d(f,b,{set:c(e,\"setter\"),enumerable:!0,configurable:!0})}},__lookupGetter__:{value:function(c){let d=a(this);c=b(c);let e;for(;d&&!(e=f(d,c));)d=g(d);return e&&e.get}},__lookupSetter__:{value:function(c){let d=a(this);c=b(c);let e;for(;d&&!(e=f(d,c));)d=g(d);return e&&e.set}}})}const globalEval=eval;function repairFunctions(){function a(a,e){let f;try{f=globalEval(e)}catch(a){if(a instanceof SyntaxError)return;throw a}const g=c(f),h=function(){throw new TypeError(\"Not available\")};b(h,{name:{value:a}}),b(g,{constructor:{value:h}}),b(h,{prototype:{value:g}}),h!==Function.prototype.constructor&&d(h,Function.prototype.constructor)}const{defineProperties:b,getPrototypeOf:c,setPrototypeOf:d}=Object;a(\"Function\",\"(function(){})\"),a(\"GeneratorFunction\",\"(function*(){})\"),a(\"AsyncFunction\",\"(async function(){})\"),a(\"AsyncGeneratorFunction\",\"(async function*(){})\")}const unsafeGlobalSrc=\"'use strict'; this\",unsafeGlobalEvalSrc=`(0, eval)(\"'use strict'; this\")`;function createNewUnsafeGlobalForNode(){const a=new Function(\"try {return this===global}catch(e){return false}\")();if(!a)return;const b=require(\"vm\"),c=b.runInNewContext(unsafeGlobalEvalSrc);return c}function createNewUnsafeGlobalForBrowser(){if(\"undefined\"!=typeof document){const a=document.createElement(\"iframe\");a.style.display=\"none\",document.body.appendChild(a);const b=a.contentWindow.eval(unsafeGlobalSrc);return b}}const getNewUnsafeGlobal=()=>{const a=createNewUnsafeGlobalForBrowser(),b=createNewUnsafeGlobalForNode();if(!a&&!b||a&&b)throw new Error(\"unexpected platform, unable to create Realm\");return a||b};function createUnsafeRec(a,b=[]){const c=getSharedGlobalDescs(a);return freeze({unsafeGlobal:a,sharedGlobalDescs:c,unsafeEval:a.eval,unsafeFunction:a.Function,allShims:b})}const repairAccessorsShim=cleanupSource(`\"use strict\"; (${repairAccessors})();`),repairFunctionsShim=cleanupSource(`\"use strict\"; const globalEval = eval; (${repairFunctions})();`);function createNewUnsafeRec(a){const b=getNewUnsafeGlobal();return b.eval(repairAccessorsShim),b.eval(repairFunctionsShim),createUnsafeRec(b,a)}function createCurrentUnsafeRec(){const a=(0,eval)(unsafeGlobalSrc);return repairAccessors(),repairFunctions(),createUnsafeRec(a)}const identifierPattern=/^[a-zA-Z_$][\\w$]*$/,keywords=new Set([\"await\",\"break\",\"case\",\"catch\",\"class\",\"const\",\"continue\",\"debugger\",\"default\",\"delete\",\"do\",\"else\",\"export\",\"extends\",\"finally\",\"for\",\"function\",\"if\",\"import\",\"in\",\"instanceof\",\"new\",\"return\",\"super\",\"switch\",\"this\",\"throw\",\"try\",\"typeof\",\"var\",\"void\",\"while\",\"with\",\"yield\",\"let\",\"static\",\"enum\",\"implements\",\"package\",\"protected\",\"interface\",\"private\",\"public\",\"await\",\"null\",\"true\",\"false\",\"this\",\"arguments\"]);function getOptimizableGlobals(a){const b=getOwnPropertyDescriptors(a),c=arrayFilter(getOwnPropertyNames(b),a=>{if(\"eval\"===a||keywords.has(a)||!regexpTest(identifierPattern,a))return!1;const c=b[a];return!1===c.configurable&&!1===c.writable&&objectHasOwnProperty(c,\"value\")});return c}const alwaysThrowHandler=new Proxy(freeze({}),{get(a,b){throwTantrum(`unexpected scope handler trap called: ${b}`)}});function createScopeHandler(a,b,c){const{unsafeGlobal:d,unsafeEval:e}=a;let f=!1;return{__proto__:alwaysThrowHandler,allowUnsafeEvaluatorOnce(){f=!0},unsafeEvaluatorAllowed(){return f},get(a,b){return\"eval\"===b?!0===f?(f=!1,e):a.eval:b===Symbol.unscopables?void 0:b in a?a[b]:void 0},set(a,c,d){if(objectHasOwnProperty(a,c))throw new TypeError(`do not modify endowments like ${c+\"\"}`);return b[c]=d,!0},has(a,b){return!!c||!!(\"eval\"===b||b in a||b in d)}}}const htmlCommentPattern=/(?:<!--|-->)/;function rejectHtmlComments(a){const b=a.search(htmlCommentPattern);if(-1!==b){const c=a.slice(0,b).split(\"\\n\").length;throw new SyntaxError(`possible html comment syntax rejected around line ${c}`)}}const importPattern=/\\bimport\\s*(?:\\(|\\/[/*])/;function rejectImportExpressions(a){const b=a.search(importPattern);if(-1!==b){const c=a.slice(0,b).split(\"\\n\").length;throw new SyntaxError(`possible import expression rejected around line ${c}`)}}const someDirectEvalPattern=/\\beval\\s*(?:\\(|\\/[/*])/;function rejectSomeDirectEvalExpressions(a){const b=a.search(someDirectEvalPattern);if(-1!==b){const c=a.slice(0,b).split(\"\\n\").length;throw new SyntaxError(`possible direct eval expression rejected around line ${c}`)}}function rejectDangerousSources(a){rejectHtmlComments(a),rejectImportExpressions(a),rejectSomeDirectEvalExpressions(a)}const rejectDangerousSourcesTransform={rewrite(a){return rejectDangerousSources(a.src),a}};function buildOptimizer(a){return 0===a.length?\"\":`const {${arrayJoin(a,\",\")}} = this;`}function createScopedEvaluatorFactory(a,b){const{unsafeFunction:c}=a,d=buildOptimizer(b);return c(`\n    with (arguments[0]) {\n      ${d}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `)}function createSafeEvaluatorFactory(a,b,c,d){const{unsafeFunction:e}=a,f=getOptimizableGlobals(b),g=createScopedEvaluatorFactory(a,f);return function(f={},h={}){const i=h.transforms||[],j=[...i,...(c||[]),...[rejectDangerousSourcesTransform]],k={eval(c){c=`${c}`;const e=j.reduce((a,b)=>b.rewrite?b.rewrite(a):a,{src:c,endowments:f});c=e.src;const h=create(b,getOwnPropertyDescriptors(e.endowments)),i=createScopeHandler(a,b,d),k=new Proxy(h,i),l=apply(g,b,[k]);i.allowUnsafeEvaluatorOnce();let m;try{return apply(l,b,[c])}catch(a){throw m=a,a}finally{i.unsafeEvaluatorAllowed()&&throwTantrum(\"handler did not revoke useUnsafeEvaluator\",m)}}}.eval;return setPrototypeOf(k,e.prototype),assert(getPrototypeOf(k).constructor!==Function,\"hide Function\"),assert(getPrototypeOf(k).constructor!==e,\"hide unsafeFunction\"),defineProperties(k,{toString:{value:k(\"() => 'function eval' + '() { [shim code] }'\"),writable:!1,enumerable:!1,configurable:!0}}),k}}function createSafeEvaluator(a){return a()}function createSafeEvaluatorWhichTakesEndowments(a){return(b,c,d={})=>a(c,d)(b)}function createFunctionEvaluator(a,b){const{unsafeFunction:c,unsafeGlobal:d}=a,e=function(...a){const e=`${arrayPop(a)||\"\"}`;let f=`${arrayJoin(a,\",\")}`;if(!regexpTest(/^[\\w\\s,]*$/,f))throw new d.SyntaxError(\"shim limitation: Function arg must be simple ASCII identifiers, possibly separated by commas: no default values, pattern matches, or non-ASCII parameter names\");if(new c(e),stringIncludes(f,\")\"))throw new d.SyntaxError(\"shim limitation: Function arg string contains parenthesis\");0<f.length&&(f+=\"\\n/*``*/\");const g=`(function(${f}){\\n${e}\\n})`;return b(g)};return setPrototypeOf(e,c.prototype),assert(getPrototypeOf(e).constructor!==Function,\"hide Function\"),assert(getPrototypeOf(e).constructor!==c,\"hide unsafeFunction\"),defineProperties(e,{prototype:{value:c.prototype},toString:{value:b(\"() => 'function Function() { [shim code] }'\"),writable:!1,enumerable:!1,configurable:!0}}),e}const RealmRecForRealmInstance=new WeakMap;function getRealmRecForRealmInstance(a){return assert(Object(a)===a,\"bad object, not a Realm instance\"),assert(RealmRecForRealmInstance.has(a),\"Realm instance has no record\"),RealmRecForRealmInstance.get(a)}function registerRealmRecForRealmInstance(a,b){assert(Object(a)===a,\"bad object, not a Realm instance\"),assert(!RealmRecForRealmInstance.has(a),\"Realm instance already has a record\"),RealmRecForRealmInstance.set(a,b)}function setDefaultBindings(a,b,c){defineProperties(a,{eval:{value:b,writable:!0,configurable:!0},Function:{value:c,writable:!0,configurable:!0}})}function createRealmRec(a,b,c){const{sharedGlobalDescs:d,unsafeGlobal:e}=a,f=create(e.Object.prototype,d),g=createSafeEvaluatorFactory(a,f,b,c),h=createSafeEvaluator(g),i=createSafeEvaluatorWhichTakesEndowments(g),j=createFunctionEvaluator(a,h);setDefaultBindings(f,h,j);const k=freeze({safeGlobal:f,safeEval:h,safeEvalWhichTakesEndowments:i,safeFunction:j});return k}function initRootRealm(a,b,c){const{shims:d,transforms:e,sloppyGlobals:f}=c,g=arrayConcat(a.allShims,d),h=createNewUnsafeRec(g),i=createRealmFacade(h,BaseRealm);h.sharedGlobalDescs.Realm={value:i,writable:!0,configurable:!0};const j=createRealmRec(h,e,f),{safeEvalWhichTakesEndowments:k}=j;for(const d of g)k(d);registerRealmRecForRealmInstance(b,j)}function initCompartment(a,b,c={}){const{transforms:d,sloppyGlobals:e}=c,f=createRealmRec(a,d,e);registerRealmRecForRealmInstance(b,f)}function getRealmGlobal(a){const{safeGlobal:b}=getRealmRecForRealmInstance(a);return b}function realmEvaluate(a,b,c={},d={}){const{safeEvalWhichTakesEndowments:e}=getRealmRecForRealmInstance(a);return e(b,c,d)}const BaseRealm={initRootRealm,initCompartment,getRealmGlobal,realmEvaluate},currentUnsafeRec=createCurrentUnsafeRec(),Realm=buildChildRealm(currentUnsafeRec,BaseRealm);export default Realm;\n//# sourceMappingURL=realms-shim.esm.min.js.map\n",
+  "line": 6,
+  "start": 1,
+  "end": 12
+ },
+ {
+  "id": 16,
+  "file": "/src/dist/realms-shim.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "\n    document.body.appendChild(iframe);\n    const unsafeGlobal = iframe.contentWindow.eval(unsafeGlobalSrc);\n\n    // We keep the iframe attached to the DOM because removing it\n    // causes its global object to lose intrinsics, its eval()\n    // function to evaluate code, etc.\n\n    // TODO: can we remove and garbage-collect the iframes?\n\n    return unsafeGlobal;",
+  "line": 659,
+  "start": 654,
+  "end": 665
+ },
+ {
+  "id": 17,
+  "file": "/src/dist/realms-shim.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "   * - ensure the Proxy invariants despite some global properties being frozen.\n   */\n  function createScopeHandler(unsafeRec, safeGlobal, sloppyGlobals) {\n    const { unsafeGlobal, unsafeEval } = unsafeRec;\n\n    // This flag allow us to determine if the eval() call is an done by the\n    // realm's code or if it is user-land invocation, so we can react differently.\n    let useUnsafeEvaluator = false;\n\n    return {\n      // The scope handler throws if any trap other than get/set/has are run",
+  "line": 880,
+  "start": 875,
+  "end": 886
+ },
+ {
+  "id": 18,
+  "file": "/src/dist/realms-shim.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    return unsafeFunction(`\n    with (arguments[0]) {\n      ${optimizer}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `);\n  }\n",
+  "line": 1142,
+  "start": 1137,
+  "end": 1148
+ },
+ {
+  "id": 19,
+  "file": "/src/dist/realms-shim.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "        ...realmTransforms,\n        ...mandatoryTransforms\n      ];\n\n      // We use the the concise method syntax to create an eval without a\n      // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n      // TypeError: eval is not a constructor\"), but which still accepts a\n      // 'this' binding.\n      const safeEval = {\n        eval(src) {\n          src = `${src}`;",
+  "line": 1174,
+  "start": 1169,
+  "end": 1180
+ },
+ {
+  "id": 20,
+  "file": "/src/dist/realms-shim.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      // We use the the concise method syntax to create an eval without a\n      // [[Construct]] behavior (such that the invocation \"new eval()\" throws\n      // TypeError: eval is not a constructor\"), but which still accepts a\n      // 'this' binding.\n      const safeEval = {\n        eval(src) {\n          src = `${src}`;\n          // Rewrite the source, threading through rewriter state as necessary.\n          const rewriterState = allTransforms.reduce(\n            (rs, transform) => (transform.rewrite ? transform.rewrite(rs) : rs),\n            { src, endowments }",
+  "line": 1178,
+  "start": 1173,
+  "end": 1184
+ },
+ {
+  "id": 21,
+  "file": "/src/dist/realms-shim.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "      value: Realm,\n      writable: true,\n      configurable: true\n    };\n\n    // Creating the realmRec provides the global object, eval() and Function()\n    // to the realm.\n    const realmRec = createRealmRec(unsafeRec, transforms, sloppyGlobals);\n\n    // Apply all shims in the new RootRealm. We don't do this for compartments.\n    const { safeEvalWhichTakesEndowments } = realmRec;",
+  "line": 1460,
+  "start": 1455,
+  "end": 1466
+ },
+ {
+  "id": 22,
+  "file": "/src/dist/realms-shim.umd.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    registerRealmRecForRealmInstance(self, realmRec);\n  }\n\n  /**\n   * A compartment shares the intrinsics of its root realm. Here, only a\n   * realmRec is necessary to hold the global object, eval() and Function().\n   */\n  function initCompartment(unsafeRec, self, options = {}) {\n    // note: 'self' is the instance of the Realm.\n\n    const { transforms, sloppyGlobals } = options;",
+  "line": 1476,
+  "start": 1471,
+  "end": 1482
+ },
+ {
+  "id": 23,
+  "file": "/src/dist/realms-shim.umd.min.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "(function(a,b){\"object\"==typeof exports&&\"undefined\"!=typeof module?module.exports=b():\"function\"==typeof define&&define.amd?define(b):(a=a||self,a.Realm=b())})(this,function(){'use strict';function a(a,b=void 0){const c=`please report internal shim error: ${a}`;console.error(c),b&&(console.error(`${b}`),console.error(`${b.stack}`));debugger;throw c}function b(b,c){b||a(c)}function c(a){return a}function d(a,b){function c(a,...b){try{return a(...b)}catch(a){if(Object(a)!==a)throw a;let b,c,d;try{b=`${a.name}`,c=`${a.message}`,d=`${a.stack||c}`}catch(a){throw new Error(\"unknown error\")}const e=j.get(b)||Error;try{throw new e(c)}catch(a){throw a.stack=d,a}}}const{initRootRealm:d,initCompartment:e,getRealmGlobal:f,realmEvaluate:g}=b,{create:h,defineProperties:i}=Object,j=new Map([[\"EvalError\",EvalError],[\"RangeError\",RangeError],[\"ReferenceError\",ReferenceError],[\"SyntaxError\",SyntaxError],[\"TypeError\",TypeError],[\"URIError\",URIError]]);class k{constructor(){throw new TypeError(\"Realm is not a constructor\")}static makeRootRealm(b={}){const e=h(k.prototype);return c(d,a,e,b),e}static makeCompartment(b={}){const d=h(k.prototype);return c(e,a,d,b),d}get global(){return c(f,this)}evaluate(a,b,d={}){return c(g,this,a,b,d)}}return i(k,{toString:{value:()=>\"function Realm() { [shim code] }\",writable:!1,enumerable:!1,configurable:!0}}),i(k.prototype,{toString:{value:()=>\"[object Realm]\",writable:!1,enumerable:!1,configurable:!0}}),k}function e(a,b){const{unsafeEval:c}=a;return c(C)(a,b)}function f(a){function c(c,e,f,g){for(const h of c){const c=H(a,h);c&&(b(\"value\"in c,`unexpected accessor on global property: ${h}`),d[h]={value:c.value,writable:e,enumerable:f,configurable:g})}}const d={};return c(W,!1,!1,!1),c(X,!1,!1,!1),c(Y,!0,!1,!0),d}function g(){function a(a){if(a===void 0||null===a)throw new TypeError(`can't convert undefined or null to object`);return Object(a)}function b(a){return\"symbol\"==typeof a?a:`${a}`}function c(a,b){if(\"function\"!=typeof a)throw TypeError(`invalid ${b} usage`);return a}const{defineProperty:d,defineProperties:e,getOwnPropertyDescriptor:f,getPrototypeOf:g,prototype:h}=Object;try{(0,h.__lookupGetter__)(\"x\")}catch(a){return}e(h,{__defineGetter__:{value:function(b,e){const f=a(this);d(f,b,{get:c(e,\"getter\"),enumerable:!0,configurable:!0})}},__defineSetter__:{value:function(b,e){const f=a(this);d(f,b,{set:c(e,\"setter\"),enumerable:!0,configurable:!0})}},__lookupGetter__:{value:function(c){let d=a(this);c=b(c);let e;for(;d&&!(e=f(d,c));)d=g(d);return e&&e.get}},__lookupSetter__:{value:function(c){let d=a(this);c=b(c);let e;for(;d&&!(e=f(d,c));)d=g(d);return e&&e.set}}})}function h(){function a(a,e){let f;try{f=Z(e)}catch(a){if(a instanceof SyntaxError)return;throw a}const g=c(f),h=function(){throw new TypeError(\"Not available\")};b(h,{name:{value:a}}),b(g,{constructor:{value:h}}),b(h,{prototype:{value:g}}),h!==Function.prototype.constructor&&d(h,Function.prototype.constructor)}const{defineProperties:b,getPrototypeOf:c,setPrototypeOf:d}=Object;a(\"Function\",\"(function(){})\"),a(\"GeneratorFunction\",\"(function*(){})\"),a(\"AsyncFunction\",\"(async function(){})\"),a(\"AsyncGeneratorFunction\",\"(async function*(){})\")}function i(){const a=new Function(\"try {return this===global}catch(e){return false}\")();if(!a)return;const b=require(\"vm\"),c=b.runInNewContext(_);return c}function j(){if(\"undefined\"!=typeof document){const a=document.createElement(\"iframe\");a.style.display=\"none\",document.body.appendChild(a);const b=a.contentWindow.eval($);return b}}function k(a,b=[]){const c=f(a);return F({unsafeGlobal:a,sharedGlobalDescs:c,unsafeEval:a.eval,unsafeFunction:a.Function,allShims:b})}function l(a){const b=aa();return b.eval(ba),b.eval(ca),k(b,a)}function m(a){const b=I(a),c=Q(J(b),a=>{if(\"eval\"===a||ea.has(a)||!U(da,a))return!1;const c=b[a];return!1===c.configurable&&!1===c.writable&&P(c,\"value\")});return c}function n(a,b,c){const{unsafeGlobal:d,unsafeEval:e}=a;let f=!1;return{__proto__:fa,allowUnsafeEvaluatorOnce(){f=!0},unsafeEvaluatorAllowed(){return f},get(a,b){return\"eval\"===b?!0===f?(f=!1,e):a.eval:b===Symbol.unscopables?void 0:b in a?a[b]:void 0},set(a,c,d){if(P(a,c))throw new TypeError(`do not modify endowments like ${c+\"\"}`);return b[c]=d,!0},has(a,b){return!!c||!!(\"eval\"===b||b in a||b in d)}}}function o(a){const b=a.search(ga);if(-1!==b){const c=a.slice(0,b).split(\"\\n\").length;throw new SyntaxError(`possible html comment syntax rejected around line ${c}`)}}function p(a){const b=a.search(ha);if(-1!==b){const c=a.slice(0,b).split(\"\\n\").length;throw new SyntaxError(`possible import expression rejected around line ${c}`)}}function q(a){const b=a.search(ia);if(-1!==b){const c=a.slice(0,b).split(\"\\n\").length;throw new SyntaxError(`possible direct eval expression rejected around line ${c}`)}}function r(a){o(a),p(a),q(a)}function s(a){return 0===a.length?\"\":`const {${S(a,\",\")}} = this;`}function t(a,b){const{unsafeFunction:c}=a,d=s(b);return c(`\n    with (arguments[0]) {\n      ${d}\n      return function() {\n        'use strict';\n        return eval(arguments[0]);\n      };\n    }\n  `)}function u(c,d,e,f){const{unsafeFunction:g}=c,h=m(d),i=t(c,h);return function(h={},j={}){const k=j.transforms||[],l=[...k,...(e||[]),...[ja]],m={eval(b){b=`${b}`;const e=l.reduce((a,b)=>b.rewrite?b.rewrite(a):a,{src:b,endowments:h});b=e.src;const g=E(d,I(e.endowments)),j=n(c,d,f),k=new Proxy(g,j),m=M(i,d,[k]);j.allowUnsafeEvaluatorOnce();let o;try{return M(m,d,[b])}catch(a){throw o=a,a}finally{j.unsafeEvaluatorAllowed()&&a(\"handler did not revoke useUnsafeEvaluator\",o)}}}.eval;return L(m,g.prototype),b(K(m).constructor!==Function,\"hide Function\"),b(K(m).constructor!==g,\"hide unsafeFunction\"),G(m,{toString:{value:m(\"() => 'function eval' + '() { [shim code] }'\"),writable:!1,enumerable:!1,configurable:!0}}),m}}function v(a){return a()}function w(a){return(b,c,d={})=>a(c,d)(b)}function x(a,c){const{unsafeFunction:d,unsafeGlobal:e}=a,f=function(...a){const b=`${R(a)||\"\"}`;let f=`${S(a,\",\")}`;if(!U(/^[\\w\\s,]*$/,f))throw new e.SyntaxError(\"shim limitation: Function arg must be simple ASCII identifiers, possibly separated by commas: no default values, pattern matches, or non-ASCII parameter names\");if(new d(b),V(f,\")\"))throw new e.SyntaxError(\"shim limitation: Function arg string contains parenthesis\");0<f.length&&(f+=\"\\n/*``*/\");const g=`(function(${f}){\\n${b}\\n})`;return c(g)};return L(f,d.prototype),b(K(f).constructor!==Function,\"hide Function\"),b(K(f).constructor!==d,\"hide unsafeFunction\"),G(f,{prototype:{value:d.prototype},toString:{value:c(\"() => 'function Function() { [shim code] }'\"),writable:!1,enumerable:!1,configurable:!0}}),f}function y(a){return b(Object(a)===a,\"bad object, not a Realm instance\"),b(ka.has(a),\"Realm instance has no record\"),ka.get(a)}function z(a,c){b(Object(a)===a,\"bad object, not a Realm instance\"),b(!ka.has(a),\"Realm instance already has a record\"),ka.set(a,c)}function A(a,b,c){G(a,{eval:{value:b,writable:!0,configurable:!0},Function:{value:c,writable:!0,configurable:!0}})}function B(a,b,c){const{sharedGlobalDescs:d,unsafeGlobal:e}=a,f=E(e.Object.prototype,d),g=u(a,f,b,c),h=v(g),i=w(g),j=x(a,h);A(f,h,j);const k=F({safeGlobal:f,safeEval:h,safeEvalWhichTakesEndowments:i,safeFunction:j});return k}const C=c(`'use strict'; (${d})`),{assign:D,create:E,freeze:F,defineProperties:G,getOwnPropertyDescriptor:H,getOwnPropertyDescriptors:I,getOwnPropertyNames:J,getPrototypeOf:K,setPrototypeOf:L}=Object,{apply:M,ownKeys:N}=Reflect,O=a=>(b,...c)=>M(a,b,c),P=O(Object.prototype.hasOwnProperty),Q=O(Array.prototype.filter),R=O(Array.prototype.pop),S=O(Array.prototype.join),T=O(Array.prototype.concat),U=O(RegExp.prototype.test),V=O(String.prototype.includes),W=[\"Infinity\",\"NaN\",\"undefined\"],X=[\"isFinite\",\"isNaN\",\"parseFloat\",\"parseInt\",\"decodeURI\",\"decodeURIComponent\",\"encodeURI\",\"encodeURIComponent\",\"Array\",\"ArrayBuffer\",\"Boolean\",\"DataView\",\"EvalError\",\"Float32Array\",\"Float64Array\",\"Int8Array\",\"Int16Array\",\"Int32Array\",\"Map\",\"Number\",\"Object\",\"RangeError\",\"ReferenceError\",\"Set\",\"String\",\"Symbol\",\"SyntaxError\",\"TypeError\",\"Uint8Array\",\"Uint8ClampedArray\",\"Uint16Array\",\"Uint32Array\",\"URIError\",\"WeakMap\",\"WeakSet\",\"JSON\",\"Math\",\"Reflect\",\"escape\",\"unescape\"],Y=[\"Date\",\"Error\",\"Promise\",\"Proxy\",\"RegExp\",\"Intl\"],Z=eval,$=\"'use strict'; this\",_=`(0, eval)(\"'use strict'; this\")`,aa=()=>{const a=j(),b=i();if(!a&&!b||a&&b)throw new Error(\"unexpected platform, unable to create Realm\");return a||b},ba=c(`\"use strict\"; (${g})();`),ca=c(`\"use strict\"; const globalEval = eval; (${h})();`),da=/^[a-zA-Z_$][\\w$]*$/,ea=new Set([\"await\",\"break\",\"case\",\"catch\",\"class\",\"const\",\"continue\",\"debugger\",\"default\",\"delete\",\"do\",\"else\",\"export\",\"extends\",\"finally\",\"for\",\"function\",\"if\",\"import\",\"in\",\"instanceof\",\"new\",\"return\",\"super\",\"switch\",\"this\",\"throw\",\"try\",\"typeof\",\"var\",\"void\",\"while\",\"with\",\"yield\",\"let\",\"static\",\"enum\",\"implements\",\"package\",\"protected\",\"interface\",\"private\",\"public\",\"await\",\"null\",\"true\",\"false\",\"this\",\"arguments\"]),fa=new Proxy(F({}),{get(b,c){a(`unexpected scope handler trap called: ${c}`)}}),ga=/(?:<!--|-->)/,ha=/\\bimport\\s*(?:\\(|\\/[/*])/,ia=/\\beval\\s*(?:\\(|\\/[/*])/,ja={rewrite(a){return r(a.src),a}},ka=new WeakMap,la={initRootRealm:function(a,b,c){const{shims:d,transforms:f,sloppyGlobals:g}=c,h=T(a.allShims,d),i=l(h),j=e(i,la);i.sharedGlobalDescs.Realm={value:j,writable:!0,configurable:!0};const k=B(i,f,g),{safeEvalWhichTakesEndowments:m}=k;for(const d of h)m(d);z(b,k)},initCompartment:function(a,b,c={}){const{transforms:d,sloppyGlobals:e}=c,f=B(a,d,e);z(b,f)},getRealmGlobal:function(a){const{safeGlobal:b}=y(a);return b},realmEvaluate:function(a,b,c={},d={}){const{safeEvalWhichTakesEndowments:e}=y(a);return e(b,c,d)}},ma=function(){const a=(0,eval)($);return g(),h(),k(a)}(),na=d(ma,la);return na});\n//# sourceMappingURL=realms-shim.umd.min.js.map\n",
+  "line": 6,
+  "start": 1,
+  "end": 12
+ }
+]

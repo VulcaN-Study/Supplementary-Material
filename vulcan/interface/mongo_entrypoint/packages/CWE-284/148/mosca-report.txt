@@ -1,0 +1,290 @@
+<report_mosca>
+ <Path>/src/lib/router/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 206 -    sails.log.silly('Handling virtual request :: Running virtual querystring parser...');
+
+ Line: 395 -  // Extremely simple query string parser (`req.query`)
+
+ Line: 397 -    var queryStringPos = req.url.indexOf('?');
+
+ Line: 417 -    if (req.method === 'GET' || req.method === 'HEAD' || req.method === 'DELETE'){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/router/req.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 34 -    // Attempt to parse the URL in _req, so that we can get the querystring
+
+ Line: 83 -      // Req stream ends automatically if this is a GET or HEAD or DELETE request
+
+ Line: 85 -      if (req.method !== 'GET' && req.method !== 'HEAD' && req.method !== 'DELETE') {
+
+ Line: 115 -      query: (_req && _req.query) || require('querystring').parse(parsedUrl.query) || {},
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/app/request.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 31 -    // Body params may be passed in to DELETE, HEAD, and GET requests,
+
+ Line: 33 -    // (this method just serializes them as if they were sent in the querystring)
+
+ Line: 83 -    // Parse query string (`req.query`)
+
+ Line: 84 -    var queryStringPos = url.indexOf('?');
+
+ Line: 86 -    // If this is a GET, HEAD, or DELETE request, treat the "body"
+
+ Line: 87 -    // as parameters which should be serialized into the querystring.
+
+ Line: 88 -    if (_.isObject(body) && _.contains(['GET', 'HEAD', 'DELETE'], method)) {
+
+ Line: 95 -        url = url.substring(0, queryStringPos) + '?' + stringifiedParams;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/app/private/bootstrap.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 33 -    var timer = setTimeout(function bootstrapTookTooLong() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/app/private/loadHooks.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 79 -          hookTimeout = setTimeout(function tooLong() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/app/lower.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 89 -            timeOut = setTimeout(function() {
+
+ Line: 141 -              timeOut = setTimeout(sails.hooks.http.destroy, options.delay);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/cors/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 32 -          methods: 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/blueprints/actions/find.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 39 -    var query = Model.find()
+
+ Line: 44 -    query = actionUtil.populateRequest(query, req);
+
+ Line: 45 -    query.exec(function found(err, matchingRecords) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/blueprints/actions/update.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 47 -    // (Note: this could be achieved in a single query, but a separate `findOne`
+
+ Line: 50 -    var query = Model.findOne(pk);
+
+ Line: 52 -    query = actionUtil.populateRequest(query, req);
+
+ Line: 54 -    query.exec(function found(err, matchingRecord) {
+
+ Line: 87 -        // Do a final query to populate the associations of the record.
+
+ Line: 89 -        // (Note: again, this extra query could be eliminated, but it is
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/blueprints/actions/findOne.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 25 -    var query = Model.findOne(pk);
+
+ Line: 26 -    query = actionUtil.populateRequest(query, req);
+
+ Line: 27 -    query.exec(function found(err, matchingRecord) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/blueprints/actions/destroy.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 25 -    var query = Model.findOne(pk);
+
+ Line: 26 -    query = actionUtil.populateRequest(query, req);
+
+ Line: 27 -    query.exec(function foundRecord (err, record) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/blueprints/actionUtil.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 27 -     * Given a Waterline query and an express request, populate
+
+ Line: 32 -     * @param  {Query} query         [waterline query object]
+
+ Line: 85 -     * Given a Waterline query and Waterline model, populate the
+
+ Line: 89 -     * @param  {Query} query         [waterline query object]
+
+ Line: 99 -    * Given a Waterline query, populate the appropriate/specified
+
+ Line: 103 -    * @param  {Query} query         [waterline query object]
+
+ Line: 112 -        return query.populate(association.alias, {
+
+ Line: 115 -      }, query);
+
+ Line: 206 -     * @return {Object}            the WHERE criteria object
+
+ Line: 233 -        // to build a proper where query
+
+ Line: 236 -        // Omit built-in runtime config (like query modifiers)
+
+ Line: 291 -        // Omit properties that are in the blacklist (like query modifiers)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/request/params.all.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 12 -   * whether they're in the path (req.params), query string (req.query),
+
+ Line: 33 -      // Combines parameters from the query string, and encoded request body
+
+ Line: 35 -      var queryParams = _.cloneDeep(req.query) || {};
+
+ Line: 38 -      defaultsDeep(allParams, queryParams);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/http/start.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 42 -          liftAbortTimer = setTimeout(failedToStart, liftTimeout);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/http/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 114 -            // This option allows artificial query params to be passed to trick
+
+ Line: 117 -            // PUT or DELETE requests
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/hooks/http/get-configured-http-middleware-fns.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 85 -              var isMethodImplicitMatch = disabledRouteInfo.method === '' && _.contains(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], req.method);
+
+ Line: 205 -      // Allow simulation of PUT and DELETE HTTP methods for user agents
+
+</Result>
+</report_mosca>
+

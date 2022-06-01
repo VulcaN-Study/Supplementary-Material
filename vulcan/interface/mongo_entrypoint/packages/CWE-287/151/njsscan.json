@@ -1,0 +1,171 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "node_modules/**/*.js",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintignore",
+        "start": {
+          "col": 18,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"extends\": \"oniyi\"",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 2
+        },
+        "extra": {
+          "line": ".idea/",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/samlutils.js",
+          "match_lines": [
+            172,
+            172
+          ],
+          "match_position": [
+            42,
+            53
+          ],
+          "match_string": "    uniqueID += chars.substr(Math.floor((Math.random() * 15)), 1);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/wsfedsaml.js",
+          "match_lines": [
+            81,
+            81
+          ],
+          "match_position": [
+            26,
+            50
+          ],
+          "match_string": "          const shasum = crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_ssrf": {
+      "files": [
+        {
+          "file_path": "/src/lib/metadata.js",
+          "match_lines": [
+            151,
+            170
+          ],
+          "match_position": [
+            3,
+            16
+          ],
+          "match_string": "  const jwksUri = doc.jwks_uri;\n\n\n\n  log.info('Algorithm retrieved was: ', self.oidc.algorithms);\n\n  log.info('Issuer we are using is: ', self.oidc.issuer);\n\n  log.info('Key Endpoint we will use is: ', jwksUri);\n\n  log.info('Authentication endpoint we will use is: ', self.oidc.auth_endpoint);\n\n  log.info('Token endpoint we will use is: ', self.oidc.token_endpoint);\n\n  log.info('User info endpoint we will use is: ', self.oidc.userinfo_endpoint);\n\n  log.info('The logout endpoint we will use is: ', self.oidc.end_session_endpoint);\n\n\n\n  // fetch the signing keys\n\n  request.get(jwksUri, { json: true }, (err, response, body) => {\n\n    if (err) {\n\n      return next(err);\n\n    }\n\n    if (response.statusCode !== 200) {\n\n      return next(new Error(`Error: ${response.statusCode} Cannot get AAD Signing Keys`));\n\n    }\n\n    self.oidc.keys = body.keys;\n\n    return next();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-918: Server-Side Request Forgery (SSRF)",
+        "description": "User controlled URL in http client libraries can result in Server Side Request Forgery (SSRF).",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/oidcconfig.js",
+          "match_lines": [
+            32,
+            32
+          ],
+          "match_position": [
+            14,
+            34
+          ],
+          "match_string": "    baseUrl: /\\/$/.test(issuerUrl) ? issuerUrl : `${issuerUrl}/`,"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

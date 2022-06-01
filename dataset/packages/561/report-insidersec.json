@@ -1,0 +1,158 @@
+{
+ "dra": [],
+ "sca": [
+  {
+   "cwe": "CWE-471",
+   "cves": "",
+   "sast": "",
+   "title": "Prototype Pollution - handlebars",
+   "severity": "critical",
+   "advisoryId": 755,
+   "description": "Versions of `handlebars` prior to 4.0.14 are vulnerable to Prototype Pollution. Templates may alter an Objects' prototype, thus allowing an attacker to execute arbitrary code on the server.",
+   "recomendation": "For handlebars 4.1.x upgrade to 4.1.2 or later.\nFor handlebars 4.0.x upgrade to 4.0.14 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "CVE-2019-19919",
+   "sast": "",
+   "title": "Prototype Pollution - handlebars",
+   "severity": "high",
+   "advisoryId": 1164,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.3.0 are vulnerable to Prototype Pollution leading to Remote Code Execution. Templates may alter an Objects' `__proto__` and `__defineGetter__` properties, which may allow an attacker to execute arbitrary code through crafted payloads.",
+   "recomendation": "Upgrade to version 3.0.8, 4.3.0 or later."
+  },
+  {
+   "cwe": "CWE-400",
+   "cves": "",
+   "sast": "",
+   "title": "Denial of Service - handlebars",
+   "severity": "moderate",
+   "advisoryId": 1300,
+   "description": "Affected versions of `handlebars` are vulnerable to Denial of Service. The package's parser may be forced into an endless loop while processing specially-crafted templates. This may allow attackers to exhaust system resources leading to Denial of Service.",
+   "recomendation": "Upgrade to version 4.4.5 or later."
+  },
+  {
+   "cwe": "CWE-79",
+   "cves": "",
+   "sast": "",
+   "title": "Arbitrary Code Execution - handlebars",
+   "severity": "high",
+   "advisoryId": 1316,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.5.2 are vulnerable to Arbitrary Code Execution. The package's lookup helper fails to properly validate templates, allowing attackers to submit templates that execute arbitrary JavaScript in the system. It can be used to run arbitrary code in a server processing Handlebars templates or on a victim's browser (effectively serving as Cross-Site Scripting).\n\nThe following template can be used to demonstrate the vulnerability:  \n```{{#with \"constructor\"}}\n\t{{#with split as |a|}}\n\t\t{{pop (push \"alert('Vulnerable Handlebars JS');\")}}\n\t\t{{#with (concat (lookup join (slice 0 1)))}}\n\t\t\t{{#each (slice 2 3)}}\n\t\t\t\t{{#with (apply 0 a)}}\n\t\t\t\t\t{{.}}\n\t\t\t\t{{/with}}\n\t\t\t{{/each}}\n\t\t{{/with}}\n\t{{/with}}\n{{/with}}```",
+   "recomendation": "Upgrade to version 3.0.8, 4.5.2 or later."
+  },
+  {
+   "cwe": "CWE-79",
+   "cves": "",
+   "sast": "",
+   "title": "Arbitrary Code Execution - handlebars",
+   "severity": "high",
+   "advisoryId": 1324,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.5.3 are vulnerable to Arbitrary Code Execution. The package's lookup helper fails to properly validate templates, allowing attackers to submit templates that execute arbitrary JavaScript in the system. It is due to an incomplete fix for a [previous issue](https://www.npmjs.com/advisories/1316). This vulnerability can be used to run arbitrary code in a server processing Handlebars templates or on a victim's browser (effectively serving as Cross-Site Scripting).",
+   "recomendation": "Upgrade to version 3.0.8, 4.5.3 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "",
+   "sast": "",
+   "title": "Prototype Pollution - handlebars",
+   "severity": "high",
+   "advisoryId": 1325,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.5.3 are vulnerable to prototype pollution. It is possible to add or modify properties to the Object prototype through a malicious template. This may allow attackers to crash the application or execute Arbitrary Code in specific conditions.",
+   "recomendation": "Upgrade to version 3.0.8, 4.5.3 or later."
+  }
+ ],
+ "sast": {
+  "name": "serve",
+  "version": "6.4.8",
+  "securityScore": 100,
+  "size": "27290 Bytes",
+  "numberOfLines": 663
+ },
+ "libraries": [
+  {
+   "name": "@zeit/check-updates",
+   "current": "1.0.5"
+  },
+  {
+   "name": "basic-auth",
+   "current": "2.0.0"
+  },
+  {
+   "name": "bluebird",
+   "current": "3.5.1"
+  },
+  {
+   "name": "chalk",
+   "current": "2.3.0"
+  },
+  {
+   "name": "filesize",
+   "current": "3.5.11"
+  },
+  {
+   "name": "handlebars",
+   "current": "4.0.11"
+  },
+  {
+   "name": "ip",
+   "current": "1.1.5"
+  },
+  {
+   "name": "micro-compress",
+   "current": "1.0.0"
+  },
+  {
+   "name": "openssl-self-signed-certificate",
+   "current": "1.1.6"
+  },
+  {
+   "name": "path-type",
+   "current": "3.0.0"
+  },
+  {
+   "name": "boxen",
+   "current": "1.3.0"
+  },
+  {
+   "name": "dargs",
+   "current": "5.1.0"
+  },
+  {
+   "name": "detect-port",
+   "current": "1.2.2"
+  },
+  {
+   "name": "fs-extra",
+   "current": "5.0.0"
+  },
+  {
+   "name": "micro",
+   "current": "9.1.0"
+  },
+  {
+   "name": "mime-types",
+   "current": "2.1.17"
+  },
+  {
+   "name": "node-version",
+   "current": "1.1.0"
+  },
+  {
+   "name": "send",
+   "current": "0.16.1"
+  },
+  {
+   "name": "args",
+   "current": "3.0.8"
+  },
+  {
+   "name": "clipboardy",
+   "current": "1.2.2"
+  },
+  {
+   "name": "opn",
+   "current": "5.1.0"
+  }
+ ]
+}

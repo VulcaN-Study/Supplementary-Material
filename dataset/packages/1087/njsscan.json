@@ -1,0 +1,40 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/dist/otpauth.js",
+          "match_lines": [
+            767,
+            767
+          ],
+          "match_position": [
+            41,
+            52
+          ],
+          "match_string": "              arr[i] = Math.floor(256 * Math.random());"
+        },
+        {
+          "file_path": "/src/src/crypto.js",
+          "match_lines": [
+            85,
+            85
+          ],
+          "match_position": [
+            25,
+            36
+          ],
+          "match_string": "\t\t\t\tarr[i] = Math.floor(Math.random() * 256);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/base.js",
+          "match_lines": [
+            220,
+            247
+          ],
+          "match_position": [
+            7,
+            45
+          ],
+          "match_string": "\t\t\t\t\t\tvar names_ids = Object.keys(params); //[ 'road_id' ]\n\n\t\t\t\t\t\tconsole.log(names_ids);\n\n\t\t\t\t\t\tif(names_ids.length == 2){\n\n\t\t\t\t\t\t\t\t//Obtenemos el valor del array \n\n\t\t\t\t\t\t\tvar param_name_1 = names_ids[0]; // road_id\n\n\t\t\t\t\t\t\tvar param_name_2 = names_ids[1];\n\n\t\t\t\t\t\t\t//obtenemos el valor para pasarlo como identificar\n\n\t\t\t\t\t\t\tvar param_id_1 = params[param_name_1];\n\n\t\t\t\t\t\t\tvar param_id_2 = params[param_name_2];\n\n\t\t\t\t\t\t\tconnect(function (connected) {\n\n\t\t\t\t\t\t\t\tif (connected) {\n\n\t\t\t\t\t\t\t\t\t\tconnection.query(\"SELECT * FROM \" + table + \" WHERE \" +param_name_1+\"='\"+param_id_1+\"' AND \"+param_name_2+\"='\"+param_id_2+\"'\", function (err, rows, fields) {\n\n\t\t\t\t\t\t\t\t\t\t\tconnection.end();\n\n\t\t\t\t\t\t\t\t\t\t\tconsole.log(\"fetchByTwoParametersAnd\");\n\n\t\t\t\t\t\t\t\t\t\t\t//if (err) throw err;\n\n\t\t\t\t\t\t\t\t\t\t\tif (err) {\n\n\t\t\t\t\t\t\t\t\t\t\t\tcallback(\"error\", null);\n\n\t\t\t\t\t\t\t\t\t\t\t}else{\t\t\t\t\t\t\n\n\t\t\t\t\t\t\t\t\t\t\t\tcallback(\"success\", rows);\n\n\t\t\t\t\t\t\t\t\t\t\t};\n\n\t\t\t\t\t\t\t\t\t\t})//function\n\n\n\n\t\t\t\t\t\t\t\t\t}else{\n\n\t\t\t\t\t\t\t\t\t\tcallback(\"error_connection\", null);\n\n\t\t\t\t\t\t\t\t\t};\n\n\t\t\t\t\t\t\t})//conect\n\n\t\t\t\t\t\t}else{\n\n\t\t\t\t\t\t\tcallback(\"moreparameters\", parameters);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,281 @@
+<report_mosca>
+ <Path>/src/dist/mermaid.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2085 -          touchending = setTimeout(function() { touchending = null; }, 500); // Ghost clicks are delayed!
+
+ Line: 4415 -      touchending = setTimeout(function() { touchending = null; }, 500); // Ghost clicks are delayed!
+
+ Line: 4562 -      setTimeout(function() { selection.on("click.drag", null); }, 0);
+
+ Line: 24391 -      setFrame = typeof window === "object" && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function(f) { setTimeout(f, 17); };
+
+ Line: 24484 -      if (time < Infinity) timeout = setTimeout(wake, time - clock.now() - clockSkew);
+
+ Line: 24487 -      if (!interval) clockLast = clock.now(), interval = setInterval(poke, pokeDelay);
+
+ Line: 27348 -      g.wheel = setTimeout(wheelidled, wheelDelay);
+
+ Line: 27428 -        touchstarting = setTimeout(function() { touchstarting = null; }, touchDelay);
+
+ Line: 27468 -      touchending = setTimeout(function() { touchending = null; }, touchDelay);
+
+ Line: 31290 -      '_', 'clearTimeout', 'isFinite', 'parseInt', 'setTimeout'
+
+ Line: 32407 -     * var defer = _.runInContext({ 'setTimeout': setImmediate }).defer;
+
+ Line: 32489 -          ctxSetTimeout = context.setTimeout !== root.setTimeout && context.setTimeout;
+
+ Line: 33753 -        return setTimeout(function() { func.apply(undefined, args); }, wait);
+
+ Line: 37641 -       * A simple wrapper around the global [`setTimeout`](https://mdn.io/setTimeout).
+
+ Line: 37648 -      var setTimeout = ctxSetTimeout || function(func, wait) {
+
+ Line: 37649 -        return root.setTimeout(func, wait);
+
+ Line: 41269 -       * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+
+ Line: 41344 -          timerId = setTimeout(timerExpired, wait);
+
+ Line: 41376 -          timerId = setTimeout(timerExpired, remainingWait(time));
+
+ Line: 41418 -              timerId = setTimeout(timerExpired, wait);
+
+ Line: 41423 -            timerId = setTimeout(timerExpired, wait);
+
+ Line: 41871 -       * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+
+ Line: 48469 -      throw new Error('setTimeout has not been defined');
+
+ Line: 48476 -          if (typeof setTimeout === 'function') {
+
+ Line: 48477 -              cachedSetTimeout = setTimeout;
+
+ Line: 48495 -      if (cachedSetTimeout === setTimeout) {
+
+ Line: 48497 -          return setTimeout(fun, 0);
+
+ Line: 48499 -      // if setTimeout wasn't available but was latter defined
+
+ Line: 48500 -      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+
+ Line: 48501 -          cachedSetTimeout = setTimeout;
+
+ Line: 48502 -          return setTimeout(fun, 0);
+
+ Line: 48505 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 48530 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 48538 -              // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mermaid.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 215 -        // this implementation is not 100% perfect for weird media query combinations
+
+ Line: 18900 -    querySelector: function(selector) { return this._parent.querySelector(selector); },
+
+ Line: 18901 -    querySelectorAll: function(selector) { return this._parent.querySelectorAll(selector); }
+
+ Line: 29960 -  //  * Node id query functions should return string ids for the nodes
+
+ Line: 29961 -  //  * Edge id query functions should return an "edgeObj", edge object, that is
+
+ Line: 31891 -     * @param {Object} object The object to query.
+
+ Line: 31989 -     * @param {Object} object The object to query.
+
+ Line: 32018 -     * @param {Object} object The object to query.
+
+ Line: 32032 -     * @param {Object} cache The cache to query.
+
+ Line: 32127 -     * @param {Object} [object] The object to query.
+
+ Line: 33382 -       * @param {*} value The value to query.
+
+ Line: 34027 -       * @param {Object} object The object to query.
+
+ Line: 34049 -       * @param {Object} object The object to query.
+
+ Line: 34063 -       * @param {*} value The value to query.
+
+ Line: 34092 -       * @param {Object} [object] The object to query.
+
+ Line: 34104 -       * @param {Object} [object] The object to query.
+
+ Line: 34211 -       * @param {Object} object The object to query.
+
+ Line: 34482 -       * @param {Object} object The object to query.
+
+ Line: 34502 -       * @param {Object} object The object to query.
+
+ Line: 34702 -       * @param {Array} array The array to query.
+
+ Line: 35337 -       * @param {Array} array The array to query.
+
+ Line: 35455 -       * @param {Object} [object] The object to query keys on.
+
+ Line: 36851 -       * @param {Object} object The object to query.
+
+ Line: 36863 -       * @param {Object} object The object to query.
+
+ Line: 36874 -       * @param {Function} func The function to query.
+
+ Line: 36885 -       * @param {Function} func The function to query.
+
+ Line: 36936 -       * @param {Object} map The map to query.
+
+ Line: 36951 -       * @param {Object} object The object to query.
+
+ Line: 36971 -       * @param {Object} object The object to query.
+
+ Line: 36984 -       * @param {*} value The value to query.
+
+ Line: 37011 -       * @param {Object} object The object to query.
+
+ Line: 37028 -       * @param {Object} object The object to query.
+
+ Line: 37044 -       * @param {*} value The value to query.
+
+ Line: 37117 -       * @param {Object} object The object to query.
+
+ Line: 37302 -       * @param {Object} [object] The object to query keys on.
+
+ Line: 37516 -       * @param {Object} object The object to query.
+
+ Line: 37574 -       * @param {Object} object The object to query.
+
+ Line: 37608 -       * @param {Object} object The object to query.
+
+ Line: 38032 -       * @param {Array} array The array to query.
+
+ Line: 38066 -       * @param {Array} array The array to query.
+
+ Line: 38103 -       * @param {Array} array The array to query.
+
+ Line: 38144 -       * @param {Array} array The array to query.
+
+ Line: 38416 -       * @param {Array} array The array to query.
+
+ Line: 38472 -       * @param {Array} array The array to query.
+
+ Line: 38605 -       * @param {Array} array The array to query.
+
+ Line: 38661 -       * @param {Array} array The array to query.
+
+ Line: 39135 -       * @param {Array} array The array to query.
+
+ Line: 39154 -       * @param {Array} array The array to query.
+
+ Line: 39187 -       * @param {Array} array The array to query.
+
+ Line: 39224 -       * @param {Array} array The array to query.
+
+ Line: 39265 -       * @param {Array} array The array to query.
+
+ Line: 44112 -       * @param {Object} object The object to query.
+
+ Line: 44141 -       * @param {Object} object The object to query.
+
+ Line: 44172 -       * @param {Object} object The object to query.
+
+ Line: 44268 -       * @param {Object} object The object to query.
+
+ Line: 44292 -       * @param {Object} object The object to query.
+
+ Line: 44322 -       * @param {Object} object The object to query.
+
+ Line: 44606 -       * @param {Object} object The object to query.
+
+ Line: 44719 -       * @param {Object} object The object to query.
+
+ Line: 44745 -       * @param {Object} object The object to query.
+
+ Line: 44914 -       * @param {Object} object The object to query.
+
+ Line: 44945 -       * @param {Object} object The object to query.
+
+ Line: 46639 -       * @param {Object} object The object to query.
+
+ Line: 46900 -       * @param {Object} object The object to query.
+
+ Line: 48239 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mermaid.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  ion(t){var e=t.document.documentElement,n=ie(t).on("dragstart.drag",ye,!0);"onselectstart"in e?n.on("selectstart.drag",ye,!0):(e.__noselect=e.style.MozUserSelect,e.style.MozUserSelect="none")};function ve(t,e){var n=t.document.documentElement,r=ie(t).on("dragstart.drag",null);e&&(r.on("click.drag",ye,!0),setTimeout(function(){r.on("click.drag",null)},0)),"onselectstart"in n?r.on("selectstart.drag",null):(n.style.MozUserSelect=n.__noselect,delete n.__noselect)}var be=function(t){return function(){return t}};function _e(t,e,n,r,i,a,o,u,s,c){this.target=t,this.type=e,this.subject=n,this.identifier=r,this.active=i,this.x=a,this.y=o,this.dx=u,this.dy=s,this._=c}function xe(){return!Gt.button}function we(){return this.parentNode}function ke(t){return null==t?{x:Gt.x,y:Gt.y}:t}function Ee(){return"ontouchstart"in this}_e.prototype.on=function(){var t=this._.on.apply(this._,arguments);return t===this._?this:t};var Ae=function(){var t,e,n,r,i=xe,a=we,o=ke,u=Ee,s={},c=ht("start","drag","end"),l=0,f=0;function h(t){t.on("mousedown.drag",d).filter(u).on("touchstart.drag",y).on("touchmove.drag",m).on("touchend.drag touchcancel.drag",v).style("touch-action","none").style("-webkit-tap-highlight-color","rgba(0,0,0,0)")}function d(){if(!r&&i.apply(this,arguments)){var o=b("mouse",a.apply(this,arguments),fe,this,arguments);o&&(ie(Gt.view).on("mousemove.drag",p,!0).on("mouseup.drag",g,!0),me(Gt.view),ge(),n=!1,t=Gt.clientX,e=Gt.clientY,o("start"))}}function p(){if(ye(),!n){var r=Gt.clientX-t,i=Gt.clientY-e;n=r*r+i*i>f}s.mouse("drag")}function g(){ie(Gt.view).on("mousemove.drag mouseup.drag",null),ve(Gt.view,n),ye(),s.mouse("end")}function y(){if(i.apply(this,arguments)){var t,e,n=Gt.changedTouches,r=a.apply(this,arguments),o=n.length;for(t=0;t<o;++t)(e=b(n[t].identifier,r,de,this,arguments))&&(ge(),e("start"))}}function m(){var t,e,n=Gt.changedTouches,r=n.length;for(t=0;t<r;++t)(e=s[n[t].identifier])&&(ye(),e("drag"))}function v(){var t,e,n=Gt.changedTouches,i=n.length;for(r&&clearTimeout(r),r=setTimeout(function(){r=null},500),t=0;t<i;++t)(e=s[n[t].identifier])&&(ge(),e("end"))}function b(t,e,n Line: 20 -   _r(t,e){for(var n=0,r=e.length-1,i=e[0],a=new Array(r<0?0:r);n<r;)a[n]=t(i,i=e[++n]);return function(t){var e=Math.max(0,Math.min(r-1,Math.floor(t*=r)));return a[e](t-e)}}var xr,wr,kr=function(t,e){for(var n=new Array(e),r=0;r<e;++r)n[r]=t(r/(e-1));return n},Er=0,Ar=0,Tr=0,Dr=1e3,Sr=0,Mr=0,Cr=0,Or="object"==typeof performance&&performance.now?performance:Date,Lr="object"==typeof window&&window.requestAnimationFrame?window.requestAnimationFrame.bind(window):function(t){setTimeout(t,17)};function Nr(){return Mr||(Lr(Rr),Mr=Or.now()+Cr)}function Rr(){Mr=0}function Fr(){this._call=this._time=this._next=null}function Pr(t,e,n){var r=new Fr;return r.restart(t,e,n),r}function Br(){Nr(),++Er;for(var t,e=xr;e;)(t=Mr-e._time)>=0&&e._call.call(null,t),e=e._next;--Er}function Ir(){Mr=(Sr=Or.now())+Cr,Er=Ar=0;try{Br()}finally{Er=0,function(){var t,e,n=xr,r=1/0;for(;n;)n._call?(r>n._time&&(r=n._time),t=n,n=n._next):(e=n._next,n._next=null,n=t?t._next=e:xr=e);wr=t,Ur(r)}(),Mr=0}}function qr(){var t=Or.now(),e=t-Sr;e>Dr&&(Cr-=e,Sr=t)}function Ur(t){Er||(Ar&&(Ar=clearTimeout(Ar)),t-Mr>24?(t<1/0&&(Ar=setTimeout(Ir,t-Or.now()-Cr)),Tr&&(Tr=clearInterval(Tr))):(Tr||(Sr=Or.now(),Tr=setInterval(qr,Dr)),Er=1,Lr(Ir)))}Fr.prototype=Pr.prototype={constructor:Fr,restart:function(t,e,n){if("function"!=typeof t)throw new TypeError("callback is not a function");n=(null==n?Nr():+n)+(null==e?0:+e),this._next||wr===this||(wr?wr._next=this:xr=this,wr=this),this._call=t,this._time=n,Ur()},stop:function(){this._call&&(this._call=null,this._time=1/0,Ur())}};var jr=function(t,e,n){var r=new Fr;return e=null==e?0:+e,r.restart(function(n){r.stop(),t(n+e)},e,n),r},Yr=function(t,e,n){var r=new Fr,i=e;return null==e?(r.restart(t,e,n),r):(e=+e,n=null==n?Nr():+n,r.restart(function a(o){o+=i,r.restart(a,i+=e,n),t(o)},e,n),r)},zr=ht("start","end","interrupt"),Vr=[],$r=0,Hr=1,Gr=2,Wr=3,Zr=4,Xr=5,Jr=6,Kr=function(t,e,n,r,i,a){var o=t.__transition;if(o){if(n in o)return}else t.__transition={};!function(t,e,n){var r,i=t.__transition;function a(s){var c,l,f,h;if(n.state!==Hr)return u();for(c in i)if((h=i[c]).name===n.name){if(h Line: 29 -  lection),y&&(i=A[0][0],l=A[1][0]),m&&(o=A[0][1],h=A[1][1]),A[0][0]===i&&A[0][1]===o&&A[1][0]===l&&A[1][1]===h||(k.selection=[[i,o],[l,h]],u.call(v),N.brush())}function q(){if(ia(),Gt.touches){if(Gt.touches.length)return;e&&clearTimeout(e),e=setTimeout(function(){e=null},500),R.on("touchmove.brush touchend.brush touchcancel.brush",null)}else ve(Gt.view,g),P.on("keydown.brush keyup.brush mousemove.brush mouseup.brush",null);R.attr("pointer-events","all"),F.attr("cursor",da.overlay),k.selection&&(A=k.selection),wa(A)&&(k.selection=null,u.call(v)),N.end()}}function f(){var e=this.__brush||{selection:null};return e.extent=n.apply(this,arguments),e.dim=t,e}return o.move=function(e,n){e.selection?e.on("start.brush",function(){s(this,arguments).beforestart().start()}).on("interrupt.brush end.brush",function(){s(this,arguments).end()}).tween("brush",function(){var e=this,r=e.__brush,i=s(e,arguments),a=r.selection,o=t.input("function"==typeof n?n.apply(this,arguments):n,r.extent),c=Jn(a,o);function l(t){r.selection=1===t&&wa(o)?null:c(t),u.call(e),i.brush()}return a&&o?l:l(1)}):e.each(function(){var e=arguments,r=this.__brush,i=t.input("function"==typeof n?n.apply(this,e):n,r.extent),a=s(this,e).beforestart();ni(this),r.selection=null==i||wa(i)?null:i,u.call(this),a.start().brush().end()})},c.prototype={beforestart:function(){return 1==++this.active&&(this.state.emitter=this,this.starting=!0),this},start:function(){return this.starting&&(this.starting=!1,this.emit("start")),this},brush:function(){return this.emit("brush"),this},end:function(){return 0==--this.active&&(delete this.state.emitter,this.emit("end")),this},emit:function(e){Kt(new ra(o,e,t.output(this.state.selection)),i.apply,i,[e,this.that,this.args])}},o.extent=function(t){return arguments.length?(n="function"==typeof t?t:na([[+t[0][0],+t[0][1]],[+t[1][0],+t[1][1]]]),o):n},o.filter=function(t){return arguments.length?(r="function"==typeof t?t:na(!!t),o):r},o.handleSize=function(t){return arguments.length?(a=+t,o):a},o.on=function(){var t=i.on.apply(i,arguments);return t===i?o:t},o}var Sa=Math.cos,Ma=Math.sin,Ca=Math.PI,Oa=C Line: 106 -  ===t.k?t:new mw(e,t.x,t.y)}function v(t,e,n){var r=e[0]-n[0]*t.k,i=e[1]-n[1]*t.k;return r===t.x&&i===t.y?t:new mw(t.k,r,i)}function b(t){return[(+t[0][0]+ +t[1][0])/2,(+t[0][1]+ +t[1][1])/2]}function _(t,e,n){t.on("start.zoom",function(){x(this,arguments).start()}).on("interrupt.zoom end.zoom",function(){x(this,arguments).end()}).tween("zoom",function(){var t=arguments,i=x(this,t),a=r.apply(this,t),o=n||b(a),u=Math.max(a[1][0]-a[0][0],a[1][1]-a[0][1]),s=this.__zoom,c="function"==typeof e?e.apply(this,t):e,f=l(s.invert(o).concat(u/s.k),c.invert(o).concat(u/c.k));return function(t){if(1===t)t=c;else{var e=f(t),n=u/e[2];t=new mw(n,o[0]-e[0]*n,o[1]-e[1]*n)}i.zoom(null,t)}})}function x(t,e){for(var n,r=0,i=f.length;r<i;++r)if((n=f[r]).that===t)return n;return new w(t,e)}function w(t,e){this.that=t,this.args=e,this.index=-1,this.active=0,this.extent=r.apply(t,e)}function k(){if(n.apply(this,arguments)){var t=x(this,arguments),e=this.__zoom,r=Math.max(u[0],Math.min(u[1],e.k*Math.pow(2,a.apply(this,arguments)))),o=fe(this);if(t.wheel)t.mouse[0][0]===o[0]&&t.mouse[0][1]===o[1]||(t.mouse[1]=e.invert(t.mouse[0]=o)),clearTimeout(t.wheel);else{if(e.k===r)return;t.mouse=[o,e.invert(o)],ni(this),t.start()}xw(),t.wheel=setTimeout(function(){t.wheel=null,t.end()},p),t.zoom("mouse",i(v(m(e,r),t.mouse[0],t.mouse[1]),t.extent,s))}}function E(){if(!e&&n.apply(this,arguments)){var t=x(this,arguments),r=ie(Gt.view).on("mousemove.zoom",function(){if(xw(),!t.moved){var e=Gt.clientX-o,n=Gt.clientY-u;t.moved=e*e+n*n>g}t.zoom("mouse",i(v(t.that.__zoom,t.mouse[0]=fe(t.that),t.mouse[1]),t.extent,s))},!0).on("mouseup.zoom",function(){r.on("mousemove.zoom mouseup.zoom",null),ve(Gt.view,t.moved),xw(),t.end()},!0),a=fe(this),o=Gt.clientX,u=Gt.clientY;me(Gt.view),_w(),t.mouse=[a,this.__zoom.invert(a)],ni(this),t.start()}}function A(){if(n.apply(this,arguments)){var t=this.__zoom,e=fe(this),a=t.invert(e),o=t.k*(Gt.shiftKey?.5:2),u=i(v(m(t,o),e,a),r.apply(this,arguments),s);xw(),c>0?ie(this).transition().duration(c).call(_,u,e):ie(this).call(y.transform,u)}}function T(){if(n.apply(this,arguments)){var e,r,i,a,o= Line: 107 -  ts),u=Gt.changedTouches,s=u.length;for(_w(),r=0;r<s;++r)i=u[r],a=[a=de(this,u,i.identifier),this.__zoom.invert(a),i.identifier],o.touch0?o.touch1||(o.touch1=a):(o.touch0=a,e=!0);if(t&&(t=clearTimeout(t),!o.touch1))return o.end(),void((a=ie(this).on("dblclick.zoom"))&&a.apply(this,arguments));e&&(t=setTimeout(function(){t=null},d),ni(this),o.start())}}function D(){var e,n,r,a,o=x(this,arguments),u=Gt.changedTouches,c=u.length;for(xw(),t&&(t=clearTimeout(t)),e=0;e<c;++e)n=u[e],r=de(this,u,n.identifier),o.touch0&&o.touch0[2]===n.identifier?o.touch0[0]=r:o.touch1&&o.touch1[2]===n.identifier&&(o.touch1[0]=r);if(n=o.that.__zoom,o.touch1){var l=o.touch0[0],f=o.touch0[1],h=o.touch1[0],d=o.touch1[1],p=(p=h[0]-l[0])*p+(p=h[1]-l[1])*p,g=(g=d[0]-f[0])*g+(g=d[1]-f[1])*g;n=m(n,Math.sqrt(p/g)),r=[(l[0]+h[0])/2,(l[1]+h[1])/2],a=[(f[0]+d[0])/2,(f[1]+d[1])/2]}else{if(!o.touch0)return;r=o.touch0[0],a=o.touch0[1]}o.zoom("touch",i(v(n,r,a),o.extent,s))}function S(){var t,n,r=x(this,arguments),i=Gt.changedTouches,a=i.length;for(_w(),e&&clearTimeout(e),e=setTimeout(function(){e=null},d),t=0;t<a;++t)n=i[t],r.touch0&&r.touch0[2]===n.identifier?delete r.touch0:r.touch1&&r.touch1[2]===n.identifier&&delete r.touch1;r.touch1&&!r.touch0&&(r.touch0=r.touch1,delete r.touch1),r.touch0?r.touch0[1]=this.__zoom.invert(r.touch0[0]):r.end()}return y.transform=function(t,e){var n=t.selection?t.selection():t;n.property("__zoom",Ew),t!==n?_(t,e):n.interrupt().each(function(){x(this,arguments).start().zoom(null,"function"==typeof e?e.apply(this,arguments):e).end()})},y.scaleBy=function(t,e){y.scaleTo(t,function(){return this.__zoom.k*("function"==typeof e?e.apply(this,arguments):e)})},y.scaleTo=function(t,e){y.transform(t,function(){var t=r.apply(this,arguments),n=this.__zoom,a=b(t),o=n.invert(a),u="function"==typeof e?e.apply(this,arguments):e;return i(v(m(n,u),a,o),t,s)})},y.translateBy=function(t,e,n){y.transform(t,function(){return i(this.__zoom.translate("function"==typeof e?e.apply(this,arguments):e,"function"==typeof n?n.apply(this,arguments):n),r.apply(this,arguments),s)})},y.translateTo=function(t,e,n){y.tra Line: 127 -  \u206f \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000",Kt="[\\ud800-\\udfff]",Qt="["+Jt+"]",te="["+Xt+"]",ee="\\d+",ne="[\\u2700-\\u27bf]",re="[a-z\\xdf-\\xf6\\xf8-\\xff]",ie="[^\\ud800-\\udfff"+Jt+ee+"\\u2700-\\u27bfa-z\\xdf-\\xf6\\xf8-\\xffA-Z\\xc0-\\xd6\\xd8-\\xde]",ae="\\ud83c[\\udffb-\\udfff]",oe="[^\\ud800-\\udfff]",ue="(?:\\ud83c[\\udde6-\\uddff]){2}",se="[\\ud800-\\udbff][\\udc00-\\udfff]",ce="[A-Z\\xc0-\\xd6\\xd8-\\xde]",le="(?:"+re+"|"+ie+")",fe="(?:"+ce+"|"+ie+")",he="(?:"+te+"|"+ae+")"+"?",de="[\\ufe0e\\ufe0f]?"+he+("(?:\\u200d(?:"+[oe,ue,se].join("|")+")[\\ufe0e\\ufe0f]?"+he+")*"),pe="(?:"+[ne,ue,se].join("|")+")"+de,ge="(?:"+[oe+te+"?",te,ue,se,Kt].join("|")+")",ye=RegExp("['’]","g"),me=RegExp(te,"g"),ve=RegExp(ae+"(?="+ae+")|"+ge+de,"g"),be=RegExp([ce+"?"+re+"+(?:['’](?:d|ll|m|re|s|t|ve))?(?="+[Qt,ce,"$"].join("|")+")",fe+"+(?:['’](?:D|LL|M|RE|S|T|VE))?(?="+[Qt,ce+le,"$"].join("|")+")",ce+"?"+le+"+(?:['’](?:d|ll|m|re|s|t|ve))?",ce+"+(?:['’](?:D|LL|M|RE|S|T|VE))?","\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])","\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])",ee,pe].join("|"),"g"),_e=RegExp("[\\u200d\\ud800-\\udfff"+Xt+"\\ufe0e\\ufe0f]"),xe=/[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/,we=["Array","Buffer","DataView","Date","Error","Float32Array","Float64Array","Function","Int8Array","Int16Array","Int32Array","Map","Math","Object","Promise","RegExp","Set","String","Symbol","TypeError","Uint8Array","Uint8ClampedArray","Uint16Array","Uint32Array","WeakMap","_","clearTimeout","isFinite","parseInt","setTimeout"],ke=-1,Ee={};Ee[st]=Ee[ct]=Ee[lt]=Ee[ft]=Ee[ht]=Ee[dt]=Ee[pt]=Ee[gt]=Ee[yt]=!0,Ee[q]=Ee[U]=Ee[ot]=Ee[Y]=Ee[ut]=Ee[z]=Ee[$]=Ee[H]=Ee[W]=Ee[Z]=Ee[J]=Ee[Q]=Ee[tt]=Ee[et]=Ee[it]=!1;var Ae={};Ae[q]=Ae[U]=Ae[ot]=Ae[ut]=Ae[Y]=Ae[z]=Ae[st]=Ae[ct]=Ae[lt]=Ae[ft]=Ae[ht]=Ae[W]=Ae[Z]=Ae[J]=Ae[Q]=Ae[tt]=Ae[et]=Ae[nt]=Ae[dt]=Ae[pt]=Ae[gt]=Ae[yt]=!0,Ae[$]=Ae[H]=Ae[it]=!1;var Te={"\\":"\\","'":"'","\n":"n","\r":"r","\u2028":"u2028" Line: 131 -  Pn=Jt&&Jt.now!==Oe.Date.now&&Jt.now,Bn=e.setTimeout!==Oe.setTimeout&&e.setTimeout,In=te.ceil,qn=te.floor,Un=ee.getOwnPropertySymbols,jn=_e?_e.isBuffer:r,Yn=e.isFinite,zn=ae.join,Vn=An(ee.keys,ee),$n=te.max,Hn=te.min,Gn=Jt.now,Wn=e.parseInt,Zn=te.random,Xn=ae.reverse,Jn=Ia(e,"DataView"),Kn=Ia(e,"Map"),Qn=Ia(e,"Promise"),tr=Ia(e,"Set"),er=Ia(e,"WeakMap"),nr=Ia(ee,"create"),rr=er&&new er,ir={},ar=lo(Jn),or=lo(Kn),ur=lo(Qn),sr=lo(tr),cr=lo(er),lr=Te?Te.prototype:r,fr=lr?lr.valueOf:r,hr=lr?lr.toString:r;function dr(t){if(Su(t)&&!mu(t)&&!(t instanceof mr)){if(t instanceof yr)return t;if(le.call(t,"__wrapped__"))return fo(t)}return new yr(t)}var pr=function(){function t(){}return function(e){if(!Du(e))return{};if(Ne)return Ne(e);t.prototype=e;var n=new t;return t.prototype=r,n}}();function gr(){}function yr(t,e){this.__wrapped__=t,this.__actions__=[],this.__chain__=!!e,this.__index__=0,this.__values__=r}function mr(t){this.__wrapped__=t,this.__actions__=[],this.__dir__=1,this.__filtered__=!1,this.__iteratees__=[],this.__takeCount__=F,this.__views__=[]}function vr(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function br(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function _r(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function xr(t){var e=-1,n=null==t?0:t.length;for(this.__data__=new _r;++e<n;)this.add(t[e])}function wr(t){var e=this.__data__=new br(t);this.size=e.size}function kr(t,e){var n=mu(t),r=!n&&yu(t),i=!n&&!r&&xu(t),a=!n&&!r&&!i&&Pu(t),o=n||r||i||a,u=o?pn(t.length,re):[],s=u.length;for(var c in t)!e&&!le.call(t,c)||o&&("length"==c||i&&("offset"==c||"parent"==c)||a&&("buffer"==c||"byteLength"==c||"byteOffset"==c)||$a(c,s))||u.push(c);return u}function Er(t){var e=t.length;return e?t[xi(0,e-1)]:r}function Ar(t,e){return uo(na(t),Rr(e,0,t.length))}function Tr(t){return uo(na(t))}function Dr(t,e,n){(n===r||du(t[e],n))&&(n!==r||e in t)||Lr(t,e,n)}function Sr(t,e,n){var i=t[e];le.call(t,e)&&du(i,n)&&(n!==r||e in t)||Lr(t,e,n)}function Mr(t,e){for Line: 143 -  gth-1:e,0),function(){for(var r=arguments,i=-1,a=$n(r.length-e,0),o=Xt(a);++i<a;)o[i]=r[e+i];i=-1;for(var u=Xt(e+1);++i<e;)u[i]=r[i];return u[e]=n(o),ze(t,this,u)}}function to(t,e){return e.length<2?t:Xr(t,Ci(e,0,-1))}function eo(t,e){if(("constructor"!==e||"function"!=typeof t[e])&&"__proto__"!=e)return t[e]}var no=oo(Di),ro=Bn||function(t,e){return Oe.setTimeout(t,e)},io=oo(Si);function ao(t,e,n){var r=e+"";return io(t,function(t,e){var n=e.length;if(!n)return t;var r=n-1;return e[r]=(n>1?"& ":"")+e[r],e=e.join(n>2?", ":" "),t.replace(Ft,"{\n/* [wrapped with "+e+"] */\n")}(r,function(t,e){return $e(I,function(n){var r="_."+n[0];e&n[1]&&!Ze(t,r)&&t.push(r)}),t.sort()}(function(t){var e=t.match(Pt);return e?e[1].split(Bt):[]}(r),n)))}function oo(t){var e=0,n=0;return function(){var i=Gn(),a=S-(i-n);if(n=i,a>0){if(++e>=D)return arguments[0]}else e=0;return t.apply(r,arguments)}}function uo(t,e){var n=-1,i=t.length,a=i-1;for(e=e===r?i:e;++n<e;){var o=xi(n,a),u=t[o];t[o]=t[n],t[n]=u}return t.length=e,t}var so=function(t){var e=uu(t,function(t){return n.size===s&&n.clear(),t}),n=e.cache;return e}(function(t){var e=[];return 46===t.charCodeAt(0)&&e.push(""),t.replace(Mt,function(t,n,r,i){e.push(r?i.replace(qt,"$1"):n||t)}),e});function co(t){if("string"==typeof t||Fu(t))return t;var e=t+"";return"0"==e&&1/t==-O?"-0":e}function lo(t){if(null!=t){try{return ce.call(t)}catch(t){}try{return t+""}catch(t){}}return""}function fo(t){if(t instanceof mr)return t.clone();var e=new yr(t.__wrapped__,t.__chain__);return e.__actions__=na(t.__actions__),e.__index__=t.__index__,e.__values__=t.__values__,e}var ho=ki(function(t,e){return _u(t)?Ir(t,Vr(e,1,_u,!0)):[]}),po=ki(function(t,e){var n=ko(e);return _u(n)&&(n=r),_u(t)?Ir(t,Vr(e,1,_u,!0),Fa(n,2)):[]}),go=ki(function(t,e){var n=ko(e);return _u(n)&&(n=r),_u(t)?Ir(t,Vr(e,1,_u,!0),r,n):[]});function yo(t,e,n){var r=null==t?0:t.length;if(!r)return-1;var i=null==n?0:ju(n);return i<0&&(i=$n(r+i,0)),an(t,Fa(e,3),i)}function mo(t,e,n){var i=null==t?0:t.length;if(!i)return-1;var a=i-1;return n!==r&&(a=ju(n),a=n<0?$n(i+a,0):Hn(a,i-1)),an(t,Fa(e,3),a,!0) Line: 197 -  ,e,n,r){switch(n){case 0:return 10;case 1:case 2:case 3:break;case 4:this.begin("href");break;case 5:this.popState();break;case 6:return 23;case 7:this.begin("callbackname");break;case 8:this.popState();break;case 9:this.popState(),this.begin("callbackargs");break;case 10:return 21;case 11:this.popState();break;case 12:return 22;case 13:this.begin("click");break;case 14:this.popState();break;case 15:return 20;case 16:return 4;case 17:return 11;case 18:return 12;case 19:return 13;case 20:return 14;case 21:return"date";case 22:return 15;case 23:return 16;case 24:return 18;case 25:return 19;case 26:return":";case 27:return 6;case 28:return"INVALID"}},rules:[/^(?:[\n]+)/i,/^(?:\s+)/i,/^(?:#[^\n]*)/i,/^(?:%[^\n]*)/i,/^(?:href[\s]+["])/i,/^(?:["])/i,/^(?:[^"]*)/i,/^(?:call[\s]+)/i,/^(?:\([\s]*\))/i,/^(?:\()/i,/^(?:[^(]*)/i,/^(?:\))/i,/^(?:[^)]*)/i,/^(?:click[\s]+)/i,/^(?:[\s\n])/i,/^(?:[^\s\n]*)/i,/^(?:gantt\b)/i,/^(?:dateFormat\s[^#\n;]+)/i,/^(?:inclusiveEndDates\b)/i,/^(?:axisFormat\s[^#\n;]+)/i,/^(?:excludes\s[^#\n;]+)/i,/^(?:\d\d\d\d-\d\d-\d\d\b)/i,/^(?:title\s[^#\n;]+)/i,/^(?:section\s[^#:\n;]+)/i,/^(?:[^#:\n;]+)/i,/^(?::[^#\n;]+)/i,/^(?::)/i,/^(?:$)/i,/^(?:.)/i],conditions:{callbackargs:{rules:[11,12],inclusive:!1},callbackname:{rules:[8,9,10],inclusive:!1},href:{rules:[5,6],inclusive:!1},click:{rules:[14,15],inclusive:!1},INITIAL:{rules:[0,1,2,3,4,7,13,16,17,18,19,20,21,22,23,24,25,26,27,28],inclusive:!0}}};function h(){this.yy={}}return l.lexer=f,h.prototype=l,l.Parser=h,new h}();e.parser=i,e.Parser=i.Parser,e.parse=function(){return i.parse.apply(i,arguments)},e.main=function(r){r[1]||(console.log("Usage: "+r[0]+" FILE"),t.exit(1));var i=n(9).readFileSync(n(10).normalize(r[1]),"utf8");return e.parser.parse(i)},n.c[n.s]===r&&e.main(t.argv.slice(1))}).call(this,n(8),n(6)(t))},function(t,e){var n,r,i=t.exports={};function a(){throw new Error("setTimeout has not been defined")}function o(){throw new Error("clearTimeout has not been defined")}function u(t){if(n===setTimeout)return setTimeout(t,0);if((n===a||!n)&&setTimeout)return n=setTimeout,setTimeout(t,0);try{return n(t,0)}c Line: 198 -  turn n.call(null,t,0)}catch(e){return n.call(this,t,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:a}catch(t){n=a}try{r="function"==typeof clearTimeout?clearTimeout:o}catch(t){r=o}}();var s,c=[],l=!1,f=-1;function h(){l&&s&&(l=!1,s.length?c=s.concat(c):f=-1,c.length&&d())}function d(){if(!l){var t=u(h);l=!0;for(var e=c.length;e;){for(s=c,c=[];++f<e;)s&&s[f].run();f=-1,e=c.length}s=null,l=!1,function(t){if(r===clearTimeout)return clearTimeout(t);if((r===o||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(t);try{r(t)}catch(e){try{return r.call(null,t)}catch(e){return r.call(this,t)}}}(t)}}function p(t,e){this.fun=t,this.array=e}function g(){}i.nextTick=function(t){var e=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)e[n-1]=arguments[n];c.push(new p(t,e)),1!==c.length||l||u(d)},p.prototype.run=function(){this.fun.apply(null,this.array)},i.title="browser",i.browser=!0,i.env={},i.argv=[],i.version="",i.versions={},i.on=g,i.addListener=g,i.once=g,i.off=g,i.removeListener=g,i.removeAllListeners=g,i.emit=g,i.prependListener=g,i.prependOnceListener=g,i.listeners=function(t){return[]},i.binding=function(t){throw new Error("process.binding is not supported")},i.cwd=function(){return"/"},i.chdir=function(t){throw new Error("process.chdir is not supported")},i.umask=function(){return 0}},function(t,e){},function(t,e,n){(function(t){function n(t,e){for(var n=0,r=t.length-1;r>=0;r--){var i=t[r];"."===i?t.splice(r,1):".."===i?(t.splice(r,1),n++):n&&(t.splice(r,1),n--)}if(e)for(;n--;n)t.unshift("..");return t}var r=/^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/,i=function(t){return r.exec(t).slice(1)};function a(t,e){if(t.filter)return t.filter(e);for(var n=[],r=0;r<t.length;r++)e(t[r],r,t)&&n.push(t[r]);return n}e.resolve=function(){for(var e="",r=!1,i=arguments.length-1;i>=-1&&!r;i--){var o=i>=0?arguments[i]:t.cwd();if("string"!=typeof o)throw new TypeError("Arguments to path.resolve must be strings");o&&(e=o+"/"+e,r="/"===o.charAt(0))}return(r?"/":"")+(e=n(a(e.split("/"),function(t){return!!t}),!r).join("/"))||".</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mermaid.core.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 529 -      throw new Error('setTimeout has not been defined');
+
+ Line: 536 -          if (typeof setTimeout === 'function') {
+
+ Line: 537 -              cachedSetTimeout = setTimeout;
+
+ Line: 555 -      if (cachedSetTimeout === setTimeout) {
+
+ Line: 557 -          return setTimeout(fun, 0);
+
+ Line: 559 -      // if setTimeout wasn't available but was latter defined
+
+ Line: 560 -      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+
+ Line: 561 -          cachedSetTimeout = setTimeout;
+
+ Line: 562 -          return setTimeout(fun, 0);
+
+ Line: 565 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 590 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 598 -              // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mermaid.core.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 215 -        // this implementation is not 100% perfect for weird media query combinations
+
+ Line: 299 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+

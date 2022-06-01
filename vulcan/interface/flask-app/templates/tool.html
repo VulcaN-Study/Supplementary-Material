@@ -1,0 +1,131 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>VulcaN - Vulnerability Database</title>
+    <meta name="description" content="VulcaN - Vulnerability Database">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+        body {
+            font-family: 'Open Sans', serif;
+            font-size: 14pt;
+            background-color: #f7f7f7;
+        }
+
+        div.container {
+            max-width: 1600pt;
+            border: 20pt;
+            padding: 10pt;
+            background-color: #f7f7f7;
+        }
+
+        .center {
+            margin: auto;
+            width: 50%;
+            border-width: 1px;
+            border-top-width: 0px;
+            padding: 10pt;
+            background-color: white;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .1);
+            border-bottom-left-radius: .25rem;
+            border-bottom-right-radius: .25rem;
+        }
+
+        .banner {
+            margin: auto;
+            width: 50%;
+            padding: 10pt;
+            color: #b25454;
+        }
+
+        .header {
+            margin: auto;
+            width: 50%;
+            border-width: 1px;
+            padding: 10pt;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .1);
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            background-color: #e5e5e5;
+        }
+
+        .right {
+            position: absolute;
+            right: 20pt;
+            width: 300px;
+            margin-top: 20pt;
+            border-width: 1px;
+            padding: 10pt;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .1);
+            background-color: white;
+            border-radius: .25rem;
+        }
+
+        .version_time {
+            color: gray;
+        }
+
+        h1,
+        h2,
+        h3 {
+            text-align: center;
+        }
+
+        h4,
+        h5 {
+            font-weight: bold;
+            color: #4c4c4c;
+        }
+
+        a {
+            color: #cb3837;
+        }
+
+        img {
+            width: 14pt;
+            height: 14pt;
+            vertical-align: middle;
+            margin: auto;
+        }
+        code {
+            font-family: Consolas,"courier new";
+            color: crimson;
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="banner">
+            <h1>VulcaN - Vulnerability Database</h1>
+        </div>
+        <div class="header">
+            <h1><a href="https://npmjs.com/advisories/{{ advisory_id }}">Advisory {{ advisory_id }}</a></h1>
+            <h2>Tool Report - <a href="{{ tool['tool_documentation'] }}">{{ tool['tool']}}</a></h2>
+        </div>
+        <div class="center">
+            <h4>Executed Commands </h4>
+                {% for entry in tool['executed_commands'] %}
+                <code>
+                    <b>$</b> {{entry}} 
+                </code>
+                <br><br>
+                {% endfor %}
+            <h4>Tool reports</h4>
+                {% for entry in tool['tool_reports'] %}
+                    <ul>
+                        <a href="/report?path={{ entry }}"> {{ entry }} </a>
+                    </ul>
+                {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

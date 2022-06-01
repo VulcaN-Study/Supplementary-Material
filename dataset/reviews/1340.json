@@ -1,0 +1,86 @@
+{
+    "advisory": {
+        "id": 1340,
+        "cwe": "CWE-693"
+    },
+    "correct_cwe": "CWE-693",
+    "correct_package_link": "https://registry.npmjs.org/localeval/-/localeval-13.06.10.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "localeval.js",
+                    "lineno": 26,
+                    "code": "return function(code, sandbox, timeout, cb) {"
+                },
+                "sink": {
+                    "file": "localeval.js",
+                    "lineno": 46,
+                    "code": "return vm.runInNewContext(code, sandbox);"
+                }
+            },
+            {
+                "source": {
+                    "file": "localeval.js",
+                    "lineno": 141,
+                    "code": "function localeval(source, sandbox, timeout, cb) {"
+                },
+                "sink": {
+                    "file": "localeval.js",
+                    "lineno": 131,
+                    "code": "JSON.stringify(source) + ')').bind(Object.create(null))(sandbox);"
+                }
+            },
+            {
+                "source": {
+                    "file": "localeval.js",
+                    "lineno": 141,
+                    "code": "function localeval(source, sandbox, timeout, cb) {"
+                },
+                "sink": {
+                    "file": "worker.js",
+                    "lineno": 90,
+                    "code": "JSON.stringify(source) + ')').bind(Object.create(null))(sandbox);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/espadrine/localeval/issues/9"
+        }
+    ],
+    "patch": [],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "B"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

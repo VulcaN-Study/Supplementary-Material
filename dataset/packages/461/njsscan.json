@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            21,
+            45
+          ],
+          "match_position": [
+            5,
+            56
+          ],
+          "match_string": "    var fileRequested = path.normalize('.' + request.url);\n\n\n\n    fs.exists(fileRequested, function (status) {\n\n        if (!status) {\n\n            response.writeHead(404);\n\n            response.end();\n\n        }\n\n        else {\n\n            fs.stat(fileRequested, function (error, stats) {\n\n                if (!error) {\n\n                    if (stats.isDirectory()) {\n\n                        response.writeHead(403);\n\n                        response.end();\n\n                    } else {\n\n                        var stream = fs.createReadStream(fileRequested, {\n\n                            bufferSize: 1024000\n\n                        });\n\n\n\n                        response.writeHead(200, header);\n\n\n\n                        stream.pipe(response);\n\n                        stream.on('end', function() {\n\n                            response.end();\n\n\n\n                            console.log('Stream Ended!');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/utilities.js",
+          "match_lines": [
+            10,
+            10
+          ],
+          "match_position": [
+            9,
+            20
+          ],
+          "match_string": "        Math.random() * (maximum - minimum ) + minimum);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

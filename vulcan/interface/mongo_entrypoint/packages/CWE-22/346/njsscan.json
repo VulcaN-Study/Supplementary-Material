@@ -1,0 +1,414 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2013, shy2850",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/nodeLib/index.js",
+          "match_lines": [
+            75,
+            148
+          ],
+          "match_position": [
+            9,
+            30
+          ],
+          "match_string": "        setTimeout( function(){\n\n            try{    // \u6b22\u8fce\u9875\u9762\u5904\u7406\n\n                if( conf.welcome && fs.statSync(pathname).isDirectory() ){\n\n                    pathname += '/' + conf.welcome;\n\n                    resp.cdnPath = req.headers.host + pathname; // cdn \u7d22\u5f15 \u9700\u8981\u4fee\u6539\n\n                }\n\n            }catch(e){\n\n                other(req, resp, handle, conf, pathurl);\n\n                return;\n\n            }\n\n            resp.gzip = conf.gzip && mime.isTXT(pathname) && !req.data._build_; //\u6784\u5efa\u9636\u6bb5\u7981\u7528\n\n\n\n            fs.stat(pathname,function(error, stats){\n\n                if(stats && stats.isFile()){  //\u5982\u679curl\u5bf9\u5e94\u7684\u8d44\u6e90\u6587\u4ef6\u5b58\u5728\uff0c\u6839\u636e\u540e\u7f00\u540d\u5199\u5165MIME\u7c7b\u578b\n\n                    if( req.method === \"POST\" ){    // POST\u8bf7\u6c42 \u6dfb\u52a0target\u53c2\u6570\u4ee5\u540e, \u4f7f\u7528 upload \u63d2\u4ef6\u8fdb\u884c\u89e3\u6790\u3002\n\n                        req.data.target = pathurl;\n\n                        modules.get(\"upload\").execute(req,resp,root,handle,conf);\n\n                        return;\n\n                    }\n\n\n\n                    if( !conf.cdn || req.data._build_){    // cdn \u7981\u7528\u542f\u7528\uff0c \u6784\u5efa\u9636\u6bb5\u7981\u7528\n\n                        cdn.disabled( host[0] );\n\n                    }else{\n\n                        cdn.enable( host[0] );\n\n                        if( cdn.execute(req, resp, stats) ){\n\n                            return;\n\n                        }\n\n                    }\n\n\n\n                    var expires = new Date();\n\n                    expires.setTime( expires.getTime() + (conf.expires || 0) );\n\n                    var baseHeader = {\n\n                        \"Content-Type\": mime.get(pathname),\n\n                        \"Content-Encoding\": resp.gzip ? \"gzip\" : \"utf-8\",\n\n                        \"Expires\": expires.toUTCString(),\n\n                        \"Server\": version,\n\n                        \"Last-Modified\": new Date( +stats.mtime ).toUTCString()\n\n                    };\n\n                    resp.writeHead(200, _.extend(baseHeader, conf.headers));\n\n\n\n                    var rs = fs.createReadStream(pathname), s = '', dataArr = [], ware;\n\n                    rs.on('error',function(err){\n\n                        throw err;\n\n                    }).on('data',function(d){\n\n                        s += d;\n\n                        dataArr.push(d);\n\n                    });\n\n\n\n                    if( conf.middleware && (req.data.middleware !== \"false\") && (ware = middleware.get(pathname)) ){  //\u4e2d\u95f4\u4ef6\u5904\u7406, MIME\u9700\u8981mime.type\u4e2d\u4fee\u6539\n\n                        rs.on('end',function(){\n\n                            ware(req,resp,s,pathname,DEBUG);\n\n                        });\n\n                    }else if( conf.handle && mime.isTXT(pathname) && !( /[\\.\\-]min\\.(js|css)$/.test(pathurl) ) && req.data.handle !== \"false\" ){    //handle\n\n                        rs.on('end',function(){\n\n                            handle.execute(req,resp,root,s, mini ,DEBUG, conf);\n\n                        });\n\n                    }else{\n\n                        if( resp.gzip ){\n\n                            rs.on(\"end\", function(){\n\n                                var cdnBuf = Buffer.concat(dataArr, s.length );\n\n                                cdn.set( resp, resp.gzip ? zlib.gzipSync(cdnBuf) : cdnBuf, +stats.mtime );\n\n                            });\n\n                            rs.pipe( zlib.createGzip() ).pipe(resp);\n\n                        }else{\n\n                            rs.pipe(resp);\n\n                        }\n\n                    }\n\n                } else if(conf.fs_mod && stats && stats.isDirectory()){  //\u5982\u679c\u5f53\u524durl\u88ab\u6210\u529f\u6620\u5c04\u5230\u670d\u52a1\u5668\u7684\u6587\u4ef6\u5939\uff0c\u521b\u5efa\u4e00\u6bb5\u5217\u8868\u5b57\u7b26\u4e32\u5199\u51fa\n\n                    require('./filter/directory').execute(req,resp,root,pathname,pathurl,conf,DEBUG);\n\n                } else{\n\n                    other(req, resp, handle, conf, pathurl);\n\n                }\n\n            });\n\n        }, req.data.delay | 0 );// \u589e\u52a0delay\u53c2\u6570\uff0c\u4f7f\u5f97\u6240\u6709GET\u8bf7\u6c42\u53ef\u4ee5\u52a8\u6001\u5ef6\u65f6"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/nodeLib/common/handle.js",
+          "match_lines": [
+            22,
+            22
+          ],
+          "match_position": [
+            13,
+            39
+          ],
+          "match_string": "            console.trace(compileError);"
+        },
+        {
+          "file_path": "/src/nodeLib/common/handle.js",
+          "match_lines": [
+            23,
+            23
+          ],
+          "match_position": [
+            13,
+            73
+          ],
+          "match_string": "            console.trace(req.$.title + \": \u6a21\u677f\u5f15\u64ce\u6e32\u67d3\u5f02\u5e38\uff01 \");"
+        },
+        {
+          "file_path": "/src/nodeLib/common/handle.js",
+          "match_lines": [
+            50,
+            50
+          ],
+          "match_position": [
+            13,
+            39
+          ],
+          "match_string": "            console.trace(compileError);"
+        },
+        {
+          "file_path": "/src/nodeLib/common/handle.js",
+          "match_lines": [
+            51,
+            51
+          ],
+          "match_position": [
+            13,
+            73
+          ],
+          "match_string": "            console.trace(req.$.title + \": \u6a21\u677f\u5f15\u64ce\u6e32\u67d3\u5f02\u5e38\uff01 \");"
+        },
+        {
+          "file_path": "/src/nodeLib/config/conf.js",
+          "match_lines": [
+            152,
+            152
+          ],
+          "match_position": [
+            21,
+            36
+          ],
+          "match_string": "                    console.trace(e);"
+        },
+        {
+          "file_path": "/src/nodeLib/config/conf.js",
+          "match_lines": [
+            153,
+            153
+          ],
+          "match_position": [
+            21,
+            83
+          ],
+          "match_string": "                    console.trace(\"\u914d\u7f6e\u6587\u4ef6\u8bed\u6cd5\u9519\u8bef\uff01\uff1a\\n\" + f2eConfPath);"
+        },
+        {
+          "file_path": "/src/nodeLib/config/conf.js",
+          "match_lines": [
+            159,
+            159
+          ],
+          "match_position": [
+            5,
+            63
+          ],
+          "match_string": "    console.trace(\"\u914d\u7f6e\u6587\u4ef6\u9519\u8bef\uff0c\u4f7f\u7528\u9ed8\u8ba4\u914d\u7f6e\uff01\");"
+        },
+        {
+          "file_path": "/src/nodeLib/filter/agent.js",
+          "match_lines": [
+            137,
+            137
+          ],
+          "match_position": [
+            11,
+            26
+          ],
+          "match_string": "          console.trace(e);"
+        },
+        {
+          "file_path": "/src/nodeLib/filter/middleware.js",
+          "match_lines": [
+            31,
+            31
+          ],
+          "match_position": [
+            17,
+            35
+          ],
+          "match_string": "                console.trace( err );"
+        },
+        {
+          "file_path": "/src/nodeLib/filter/middleware.js",
+          "match_lines": [
+            125,
+            125
+          ],
+          "match_position": [
+            13,
+            28
+          ],
+          "match_string": "            console.trace(e);"
+        },
+        {
+          "file_path": "/src/nodeLib/index.js",
+          "match_lines": [
+            66,
+            66
+          ],
+          "match_position": [
+            47,
+            64
+          ],
+          "match_string": "                        if( _conf.notFound ){ console.trace(err); }"
+        },
+        {
+          "file_path": "/src/nodeLib/index.js",
+          "match_lines": [
+            150,
+            150
+          ],
+          "match_position": [
+            9,
+            32
+          ],
+          "match_string": "        console.trace(err.stack);"
+        },
+        {
+          "file_path": "/src/nodeLib/index.js",
+          "match_lines": [
+            162,
+            162
+          ],
+          "match_position": [
+            5,
+            21
+          ],
+          "match_string": "    console.trace( e );"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            58,
+            58
+          ],
+          "match_position": [
+            17,
+            34
+          ],
+          "match_string": "                console.trace(err);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            86,
+            86
+          ],
+          "match_position": [
+            13,
+            28
+          ],
+          "match_string": "            console.trace(e);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            90,
+            90
+          ],
+          "match_position": [
+            9,
+            24
+          ],
+          "match_string": "        console.trace(e);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            145,
+            145
+          ],
+          "match_position": [
+            37,
+            75
+          ],
+          "match_string": "                                    console.trace('uploading...\\t' + path1);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            147,
+            147
+          ],
+          "match_position": [
+            41,
+            107
+          ],
+          "match_string": "                                        console.trace((e ? '!upload error\\t' : 'upload success\\t') + path1);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            157,
+            157
+          ],
+          "match_position": [
+            25,
+            40
+          ],
+          "match_string": "                        console.trace(e);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            175,
+            175
+          ],
+          "match_position": [
+            29,
+            67
+          ],
+          "match_string": "                            console.trace('uploading...\\t' + path1);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            177,
+            177
+          ],
+          "match_position": [
+            33,
+            99
+          ],
+          "match_string": "                                console.trace((e ? '!upload error\\t' : 'upload success\\t') + path1);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            235,
+            235
+          ],
+          "match_position": [
+            13,
+            28
+          ],
+          "match_string": "            console.trace(e);"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            240,
+            240
+          ],
+          "match_position": [
+            13,
+            53
+          ],
+          "match_string": "            console.trace('\\nftp upload finished!\\n');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/nodeLib/common/rename.js",
+          "match_lines": [
+            16,
+            16
+          ],
+          "match_position": [
+            10,
+            33
+          ],
+          "match_string": "  return crypto.createHash('md5').update(text).digest('hex');"
+        },
+        {
+          "file_path": "/src/nodeLib/plugins/build.js",
+          "match_lines": [
+            31,
+            31
+          ],
+          "match_position": [
+            10,
+            33
+          ],
+          "match_string": "  return crypto.createHash('md5').update(text).digest('hex');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/nodeLib/common/handle.js",
+          "match_lines": [
+            15,
+            15
+          ],
+          "match_position": [
+            83,
+            120
+          ],
+          "match_string": "            if( !conf.template || !conf.template.get || (conf.template.filter && !conf.template.filter.test(req.$.title) ) ){"
+        },
+        {
+          "file_path": "/src/nodeLib/common/handle.js",
+          "match_lines": [
+            43,
+            43
+          ],
+          "match_position": [
+            83,
+            120
+          ],
+          "match_string": "            if( !conf.template || !conf.template.get || (conf.template.filter && !conf.template.filter.test(req.$.title) ) ){"
+        },
+        {
+          "file_path": "/src/nodeLib/filter/middleware.js",
+          "match_lines": [
+            239,
+            239
+          ],
+          "match_position": [
+            12,
+            40
+          ],
+          "match_string": "    return /\\b(php|jsp|asp)$/.test(path) || /\\b(text|xml|javascript|json)\\b/.test( this.get(path, fallback) );"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

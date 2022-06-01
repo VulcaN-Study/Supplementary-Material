@@ -1,0 +1,139 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"title\": \"More About Managing Datalogs\",",
+          "message": "Syntax error"
+        },
+        "path": "/src/pages/more-about-managing-datalogs",
+        "start": {
+          "col": 10,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"title\": \"More About Timing Accuracy\",",
+          "message": "Syntax error"
+        },
+        "path": "/src/pages/more-about-timing-accuracy",
+        "start": {
+          "col": 10,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"title\": \"About Datalog Plugin\",",
+          "message": "Syntax error"
+        },
+        "path": "/src/pages/about-datalog-plugin",
+        "start": {
+          "col": 10,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"title\": \"More About Datalog Assets\",",
+          "message": "Syntax error"
+        },
+        "path": "/src/pages/more-about-datalog-assets",
+        "start": {
+          "col": 10,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_cors": {
+      "files": [
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            15,
+            15
+          ],
+          "match_position": [
+            5,
+            50
+          ],
+          "match_string": "    res.header('Access-Control-Allow-Origin', '*')"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-346: Origin Validation Error",
+        "description": "Access-Control-Allow-Origin response header is set to \"*\". This will disable CORS Same Origin Policy restrictions.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            228,
+            228
+          ],
+          "match_position": [
+            18,
+            29
+          ],
+          "match_string": "        uniform: Math.random(),"
+        },
+        {
+          "file_path": "/src/server/server.js",
+          "match_lines": [
+            229,
+            229
+          ],
+          "match_position": [
+            46,
+            57
+          ],
+          "match_string": "        gaussian: tries.reduce((sum,_)=>sum+=Math.random())/tries.length"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

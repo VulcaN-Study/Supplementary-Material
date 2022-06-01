@@ -1,0 +1,204 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 3,
+          "line": 1
+        },
+        "extra": {
+          "line": "[*.js]",
+          "message": "Syntax error"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 2,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 5
+        },
+        "extra": {
+          "line": "bin/*",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.jshintignore",
+        "start": {
+          "col": 1,
+          "line": 5
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"node\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 9,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/dist/showdown.js",
+          "match_lines": [
+            930,
+            930
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "      ch = encode[Math.floor(Math.random() * 2)](ch);"
+        },
+        {
+          "file_path": "/src/dist/showdown.js",
+          "match_lines": [
+            932,
+            932
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "      var r = Math.random();"
+        },
+        {
+          "file_path": "/src/src/helpers.js",
+          "match_lines": [
+            354,
+            354
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "      ch = encode[Math.floor(Math.random() * 2)](ch);"
+        },
+        {
+          "file_path": "/src/src/helpers.js",
+          "match_lines": [
+            356,
+            356
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "      var r = Math.random();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/showdown.js",
+          "match_lines": [
+            3996,
+            4002
+          ],
+          "match_position": [
+            5,
+            58
+          ],
+          "match_string": "    listStr = listStr.replace(/\\n{2,}$/, '\\n');\n\n\n\n    // attacklab: add sentinel to emulate \\z\n\n    listStr += '\u00a80';\n\n\n\n    var rgx = /(\\n)?(^ {0,3})([*+-]|\\d+[.])[ \\t]+((\\[(x|X| )?])?[ \\t]*[^\\r]+?(\\n{1,2}))(?=\\n*(\u00a80| {0,3}([*+-]|\\d+[.])[ \\t]+))/gm,\n\n        isParagraphed = (/\\n[ \\t]*\\n(?!\u00a80)/.test(listStr));"
+        },
+        {
+          "file_path": "/src/dist/showdown.js",
+          "match_lines": [
+            4002,
+            4002
+          ],
+          "match_position": [
+            26,
+            58
+          ],
+          "match_string": "        isParagraphed = (/\\n[ \\t]*\\n(?!\u00a80)/.test(listStr));"
+        },
+        {
+          "file_path": "/src/dist/showdown.js",
+          "match_lines": [
+            4361,
+            4361
+          ],
+          "match_position": [
+            10,
+            29
+          ],
+          "match_string": "    if (!/\\n\\n\u00a8K/.test(text)) {"
+        },
+        {
+          "file_path": "/src/src/subParsers/lists.js",
+          "match_lines": [
+            38,
+            44
+          ],
+          "match_position": [
+            5,
+            58
+          ],
+          "match_string": "    listStr = listStr.replace(/\\n{2,}$/, '\\n');\n\n\n\n    // attacklab: add sentinel to emulate \\z\n\n    listStr += '\u00a80';\n\n\n\n    var rgx = /(\\n)?(^ {0,3})([*+-]|\\d+[.])[ \\t]+((\\[(x|X| )?])?[ \\t]*[^\\r]+?(\\n{1,2}))(?=\\n*(\u00a80| {0,3}([*+-]|\\d+[.])[ \\t]+))/gm,\n\n        isParagraphed = (/\\n[ \\t]*\\n(?!\u00a80)/.test(listStr));"
+        },
+        {
+          "file_path": "/src/src/subParsers/lists.js",
+          "match_lines": [
+            44,
+            44
+          ],
+          "match_position": [
+            26,
+            58
+          ],
+          "match_string": "        isParagraphed = (/\\n[ \\t]*\\n(?!\u00a80)/.test(listStr));"
+        },
+        {
+          "file_path": "/src/src/subParsers/spanGamut.js",
+          "match_lines": [
+            39,
+            39
+          ],
+          "match_position": [
+            10,
+            29
+          ],
+          "match_string": "    if (!/\\n\\n\u00a8K/.test(text)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

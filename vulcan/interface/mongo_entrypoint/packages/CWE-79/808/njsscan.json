@@ -1,0 +1,1080 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 2
+        },
+        "extra": {
+          "line": ".*",
+          "message": "Syntax error"
+        },
+        "path": "/src/.dockerignore",
+        "start": {
+          "col": 1,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 14,
+          "line": 2
+        },
+        "extra": {
+          "line": "pm2.config.js",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.eslintignore",
+        "start": {
+          "col": 14,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 1
+        },
+        "extra": {
+          "line": "FROM mhart/alpine-node:8",
+          "message": "Syntax error"
+        },
+        "path": "/src/Dockerfile",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/routes/payments/paypal.js",
+          "match_lines": [
+            40,
+            40
+          ],
+          "match_position": [
+            13,
+            59
+          ],
+          "match_string": "            res.redirect('/payment/' + req.session.orderId);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            623,
+            655
+          ],
+          "match_position": [
+            9,
+            53
+          ],
+          "match_string": "        const file = req.file;\n\n\n\n        // Get the mime type of the file\n\n        const mimeType = mime.lookup(file.originalname);\n\n\n\n        // Check for allowed mime type and file size\n\n        if(!common.allowedMimeType.includes(mimeType) || file.size > common.fileSizeLimit){\n\n            // Remove temp file\n\n            fs.unlinkSync(file.path);\n\n\n\n            // Return error\n\n            res.status(400).json({ message: 'File type not allowed or too large. Please try again.' });\n\n            return;\n\n        }\n\n\n\n        // get the product form the DB\n\n        const product = await db.products.findOne({ _id: common.getId(req.body.productId) });\n\n        if(!product){\n\n            // delete the temp file.\n\n            fs.unlinkSync(file.path);\n\n\n\n            // Return error\n\n            res.status(400).json({ message: 'File upload error. Please try again.' });\n\n            return;\n\n        }\n\n\n\n        const productPath = product._id.toString();\n\n        const uploadDir = path.join('public/uploads', productPath);\n\n\n\n        // Check directory and create (if needed)\n\n        common.checkDirectorySync(uploadDir);\n\n\n\n        const source = fs.createReadStream(file.path);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_logic_bypass": {
+      "files": [
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            99,
+            99
+          ],
+          "match_position": [
+            8,
+            46
+          ],
+          "match_string": "    if(req.session.userId === req.body.userId){"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-807: Reliance on Untrusted Inputs in a Security Decision",
+        "description": "User controlled data is used for application business logic decision making. This expose protected data or functionality.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/auth.js",
+          "match_lines": [
+            1,
+            64
+          ],
+          "match_position": [
+            1,
+            32
+          ],
+          "match_string": "const ObjectId = require('mongodb').ObjectID;\n\nconst _ = require('lodash');\n\n\n\nconst restrictedRoutes = [\n\n    { route: '/admin/product/new', response: 'redirect' },\n\n    { route: '/admin/product/insert', response: 'redirect' },\n\n    { route: '/admin/product/edit/:id', response: 'redirect' },\n\n    { route: '/admin/product/update', response: 'redirect' },\n\n    { route: '/admin/product/delete/:id', response: 'redirect' },\n\n    { route: '/admin/product/publishedState', response: 'json' },\n\n    { route: '/admin/product/setasmainimage', response: 'json' },\n\n    { route: '/admin/product/deleteimage', response: 'json' },\n\n    { route: '/admin/product/removeoption', response: 'json' },\n\n    { route: '/admin/order/statusupdate', response: 'json' },\n\n    { route: '/admin/settings/update', response: 'json' },\n\n    { route: '/admin/settings/pages/new', response: 'redirect' },\n\n    { route: '/admin/settings/pages/edit/:page', response: 'redirect' },\n\n    { route: '/admin/settings/pages', response: 'json' },\n\n    { route: '/admin/settings/page/delete/:page', response: 'json' },\n\n    { route: '/admin/settings/menu/new', response: 'json' },\n\n    { route: '/admin/settings/menu/update', response: 'json' },\n\n    { route: '/admin/settings/menu/delete', response: 'json' },\n\n    { route: '/admin/settings/menu/saveOrder', response: 'json' },\n\n    { route: '/admin/file/upload', response: 'json' }\n\n];\n\n\n\nconst restrict = (req, res, next) => {\n\n    checkLogin(req, res, next);\n\n};\n\n\n\nconst checkLogin = async (req, res, next) => {\n\n    const db = req.app.db;\n\n    // if not protecting we check for public pages and don't checkLogin\n\n    if(req.session.needsSetup === true){\n\n        res.redirect('/admin/setup');\n\n        return;\n\n    }\n\n\n\n    // If API key, check for a user\n\n    if(req.headers.apikey){\n\n        try{\n\n            const user = await db.users.findOne({\n\n                apiKey: ObjectId(req.headers.apikey),\n\n                isAdmin: true\n\n            });\n\n            if(!user){\n\n                res.status(400).json({ message: 'Access denied' });\n\n                return;\n\n            }\n\n            // Set API authenticated in the req\n\n            req.apiAuthenticated = true;\n\n            next();\n\n            return;\n\n        }catch(ex){\n\n            res.status(400).json({ message: 'Access denied' });\n\n            return;\n\n        }\n\n    }\n\n\n\n    if(req.session.user){\n\n        next();\n\n        return;\n\n    }\n\n    res.redirect('/admin/login');"
+        },
+        {
+          "file_path": "/src/lib/auth.js",
+          "match_lines": [
+            42,
+            45
+          ],
+          "match_position": [
+            13,
+            14
+          ],
+          "match_string": "            const user = await db.users.findOne({\n\n                apiKey: ObjectId(req.headers.apikey),\n\n                isAdmin: true\n\n            });"
+        },
+        {
+          "file_path": "/src/lib/common.js",
+          "match_lines": [
+            148,
+            148
+          ],
+          "match_position": [
+            9,
+            87
+          ],
+          "match_string": "        const discount = await db.discounts.findOne({ code: req.session.discountCode });"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            73,
+            73
+          ],
+          "match_position": [
+            5,
+            92
+          ],
+          "match_string": "    const user = await db.users.findOne({ userEmail: common.mongoSanitize(req.body.email) });"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            306,
+            306
+          ],
+          "match_position": [
+            5,
+            79
+          ],
+          "match_string": "    const page = await db.pages.findOne({ _id: common.getId(req.params.page) });"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            348,
+            348
+          ],
+          "match_position": [
+            9,
+            83
+          ],
+          "match_string": "        const page = await db.pages.findOne({ _id: common.getId(req.body.pageId) });"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            376,
+            376
+          ],
+          "match_position": [
+            5,
+            79
+          ],
+          "match_string": "    const page = await db.pages.findOne({ _id: common.getId(req.body.pageId) });"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            475,
+            475
+          ],
+          "match_position": [
+            5,
+            85
+          ],
+          "match_string": "    const discount = await db.discounts.findOne({ _id: common.getId(req.params.id) });"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            639,
+            639
+          ],
+          "match_position": [
+            9,
+            92
+          ],
+          "match_string": "        const product = await db.products.findOne({ _id: common.getId(req.body.productId) });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            50,
+            50
+          ],
+          "match_position": [
+            5,
+            74
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ email: req.body.email });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            186,
+            186
+          ],
+          "match_position": [
+            5,
+            87
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ _id: getId(req.session.customerId) });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            252,
+            252
+          ],
+          "match_position": [
+            5,
+            84
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ _id: getId(req.body.customerId) });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            284,
+            284
+          ],
+          "match_position": [
+            5,
+            84
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ _id: getId(req.body.customerId) });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            308,
+            308
+          ],
+          "match_position": [
+            5,
+            78
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ _id: getId(req.params.id) });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            398,
+            401
+          ],
+          "match_position": [
+            5,
+            73
+          ],
+          "match_string": "    const customerEmail = req.body.customerEmail;\n\n\n\n    // Search for a customer\n\n    const customer = await db.customers.findOne({ email: customerEmail });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            444,
+            444
+          ],
+          "match_position": [
+            5,
+            94
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ email: mongoSanitize(req.body.loginEmail) });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            510,
+            510
+          ],
+          "match_position": [
+            5,
+            74
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ email: req.body.email });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            549,
+            549
+          ],
+          "match_position": [
+            5,
+            120
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ resetToken: req.params.token, resetTokenExpiry: { $gt: Date.now() } });"
+        },
+        {
+          "file_path": "/src/routes/customer.js",
+          "match_lines": [
+            575,
+            575
+          ],
+          "match_position": [
+            5,
+            120
+          ],
+          "match_string": "    const customer = await db.customers.findOne({ resetToken: req.params.token, resetTokenExpiry: { $gt: Date.now() } });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            31,
+            31
+          ],
+          "match_position": [
+            5,
+            77
+          ],
+          "match_string": "    const order = await db.orders.findOne({ _id: getId(req.params.orderId) });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            40,
+            40
+          ],
+          "match_position": [
+            13,
+            90
+          ],
+          "match_string": "            const dbProduct = await db.products.findOne({ _id: getId(product.productId) });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            273,
+            273
+          ],
+          "match_position": [
+            5,
+            80
+          ],
+          "match_string": "    const discount = await db.discounts.findOne({ code: req.body.discountCode });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            370,
+            370
+          ],
+          "match_position": [
+            5,
+            76
+          ],
+          "match_string": "    const cart = await db.cart.findOne({ sessionId: getId(req.session.id) });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            379,
+            387
+          ],
+          "match_position": [
+            5,
+            81
+          ],
+          "match_string": "    const cartItem = req.body;\n\n\n\n    // Check cart exists\n\n    if(!req.session.cart){\n\n        emptyCart(req, res, 'json', 'There are no items if your cart or your cart is expired');\n\n        return;\n\n    }\n\n\n\n    const product = await db.products.findOne({ _id: getId(cartItem.productId) });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            387,
+            387
+          ],
+          "match_position": [
+            5,
+            81
+          ],
+          "match_string": "    const product = await db.products.findOne({ _id: getId(cartItem.productId) });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            498,
+            498
+          ],
+          "match_position": [
+            5,
+            81
+          ],
+          "match_string": "    const product = await db.products.findOne({ _id: getId(req.body.productId) });"
+        },
+        {
+          "file_path": "/src/routes/index.js",
+          "match_lines": [
+            857,
+            857
+          ],
+          "match_position": [
+            9,
+            95
+          ],
+          "match_string": "        const page = await db.pages.findOne({ pageSlug: req.params.page, pageEnabled: 'true' });"
+        },
+        {
+          "file_path": "/src/routes/order.js",
+          "match_lines": [
+            87,
+            87
+          ],
+          "match_position": [
+            5,
+            72
+          ],
+          "match_string": "    const order = await db.orders.findOne({ _id: getId(req.params.id) });"
+        },
+        {
+          "file_path": "/src/routes/payments/blockonomics.js",
+          "match_lines": [
+            17,
+            65
+          ],
+          "match_position": [
+            3,
+            11
+          ],
+          "match_string": "  const address = req.query.addr || 'na';\n\n  const amount = (req.query.value || 0) / 1e8;\n\n  const txid = req.query.txid || 'na';\n\n\n\n  if(Number(status) === 2){\n\n    // we are interested only in final confirmations\n\n    const order = await db.orders.findOne({ orderPaymentId: address });\n\n    if(order){\n\n      if(amount >= order.orderExpectedBtc){\n\n        try{\n\n            await db.orders.updateOne({\n\n                _id: order._id },\n\n                { $set: { orderStatus: 'Paid', orderReceivedBtc: amount, orderBlockonomicsTxid: txid }\n\n            }, { multi: false });\n\n            // if approved, send email etc\n\n                    // set payment results for email\n\n            const paymentResults = {\n\n                message: 'Your payment was successfully completed',\n\n                messageType: 'success',\n\n                paymentEmailAddr: order.orderEmail,\n\n                paymentApproved: true,\n\n                paymentDetails: '<p><strong>Order ID: </strong>' + order._id + '</p><p><strong>Transaction ID: </strong>' + order.orderPaymentId + '</p>'\n\n            };\n\n\n\n            // send the email with the response\n\n            // TODO: Should fix this to properly handle result\n\n            common.sendEmail(req.session.paymentEmailAddr, 'Your payment with ' + config.cartTitle, common.getEmailTemplate(paymentResults));\n\n            res.status(200).json({ err: '' });\n\n        }catch(ex){\n\n            console.info('Error updating status success blockonomics', ex);\n\n            res.status(200).json({ err: 'Error updating status' });\n\n        }\n\n        return;\n\n      }\n\n      console.info('Amount not sufficient blockonomics', address);\n\n      try{\n\n          await db.orders.updateOne({\n\n              _id: order._id },\n\n              { $set: { orderStatus: 'Declined', orderReceivedBtc: amount }\n\n          }, { multi: false });\n\n      }catch(ex){\n\n          console.info('Error updating status insufficient blockonomics', ex);\n\n      }\n\n      res.status(200).json({ err: 'Amount not sufficient' });\n\n      return;\n\n    }\n\n    res.status(200).json({ err: 'Order not found' });\n\n    console.info('Order not found blockonomics', address);\n\n    return;"
+        },
+        {
+          "file_path": "/src/routes/payments/paypal.js",
+          "match_lines": [
+            44,
+            99
+          ],
+          "match_position": [
+            9,
+            57
+          ],
+          "match_string": "        const paymentOrderId = req.session.orderId;\n\n        let paymentStatus = 'Approved';\n\n\n\n        // fully approved\n\n        if(payment.state === 'approved'){\n\n            paymentApproved = true;\n\n            paymentStatus = 'Paid';\n\n            paymentMessage = 'Your payment was successfully completed';\n\n            paymentDetails = '<p><strong>Order ID: </strong>' + paymentOrderId + '</p><p><strong>Transaction ID: </strong>' + payment.id + '</p>';\n\n\n\n            // clear the cart\n\n            if(req.session.cart){\n\n                common.emptyCart(req, res, 'function');\n\n            }\n\n        }\n\n\n\n        // failed\n\n        if(payment.failureReason){\n\n            paymentApproved = false;\n\n            paymentMessage = 'Your payment failed - ' + payment.failureReason;\n\n            paymentStatus = 'Declined';\n\n        }\n\n\n\n        // update the order status\n\n        db.orders.updateOne({ _id: common.getId(paymentOrderId) }, { $set: { orderStatus: paymentStatus } }, { multi: false }, (err, numReplaced) => {\n\n            if(err){\n\n                console.info(err.stack);\n\n            }\n\n            db.orders.findOne({ _id: common.getId(paymentOrderId) }, (err, order) => {\n\n                if(err){\n\n                    console.info(err.stack);\n\n                }\n\n\n\n                // add to lunr index\n\n                indexOrders(req.app)\n\n                .then(() => {\n\n                    // set the results\n\n                    req.session.messageType = 'success';\n\n                    req.session.message = paymentMessage;\n\n                    req.session.paymentEmailAddr = order.orderEmail;\n\n                    req.session.paymentApproved = paymentApproved;\n\n                    req.session.paymentDetails = paymentDetails;\n\n\n\n                    const paymentResults = {\n\n                        message: req.session.message,\n\n                        messageType: req.session.messageType,\n\n                        paymentEmailAddr: req.session.paymentEmailAddr,\n\n                        paymentApproved: req.session.paymentApproved,\n\n                        paymentDetails: req.session.paymentDetails\n\n                    };\n\n\n\n                    // send the email with the response\n\n                    // TODO: Should fix this to properly handle result\n\n                    common.sendEmail(req.session.paymentEmailAddr, 'Your payment with ' + config.cartTitle, common.getEmailTemplate(paymentResults));\n\n\n\n                    res.redirect('/payment/' + order._id);"
+        },
+        {
+          "file_path": "/src/routes/payments/paypal.js",
+          "match_lines": [
+            72,
+            99
+          ],
+          "match_position": [
+            13,
+            57
+          ],
+          "match_string": "            db.orders.findOne({ _id: common.getId(paymentOrderId) }, (err, order) => {\n\n                if(err){\n\n                    console.info(err.stack);\n\n                }\n\n\n\n                // add to lunr index\n\n                indexOrders(req.app)\n\n                .then(() => {\n\n                    // set the results\n\n                    req.session.messageType = 'success';\n\n                    req.session.message = paymentMessage;\n\n                    req.session.paymentEmailAddr = order.orderEmail;\n\n                    req.session.paymentApproved = paymentApproved;\n\n                    req.session.paymentDetails = paymentDetails;\n\n\n\n                    const paymentResults = {\n\n                        message: req.session.message,\n\n                        messageType: req.session.messageType,\n\n                        paymentEmailAddr: req.session.paymentEmailAddr,\n\n                        paymentApproved: req.session.paymentApproved,\n\n                        paymentDetails: req.session.paymentDetails\n\n                    };\n\n\n\n                    // send the email with the response\n\n                    // TODO: Should fix this to properly handle result\n\n                    common.sendEmail(req.session.paymentEmailAddr, 'Your payment with ' + config.cartTitle, common.getEmailTemplate(paymentResults));\n\n\n\n                    res.redirect('/payment/' + order._id);"
+        },
+        {
+          "file_path": "/src/routes/payments/stripe.js",
+          "match_lines": [
+            153,
+            156
+          ],
+          "match_position": [
+            5,
+            6
+          ],
+          "match_string": "    const order = await db.orders.findOne({\n\n        orderCustomer: hook.data.object.customer,\n\n        orderType: 'Subscription'\n\n    });"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            153,
+            153
+          ],
+          "match_position": [
+            5,
+            83
+          ],
+          "match_string": "    const product = await db.products.findOne({ _id: common.getId(req.params.id) });"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            197,
+            197
+          ],
+          "match_position": [
+            5,
+            88
+          ],
+          "match_string": "    const product = await db.products.findOne({ _id: common.getId(req.body.productId) });"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            222,
+            222
+          ],
+          "match_position": [
+            5,
+            88
+          ],
+          "match_string": "    const product = await db.products.findOne({ _id: common.getId(req.body.productId) });"
+        },
+        {
+          "file_path": "/src/routes/product.js",
+          "match_lines": [
+            343,
+            343
+          ],
+          "match_position": [
+            5,
+            89
+          ],
+          "match_string": "    const product = await db.products.findOne({ _id: common.getId(req.body.product_id) });"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            34,
+            34
+          ],
+          "match_position": [
+            5,
+            77
+          ],
+          "match_string": "    const user = await db.users.findOne({ _id: common.getId(req.params.id) });"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            104,
+            104
+          ],
+          "match_position": [
+            5,
+            79
+          ],
+          "match_string": "    const user = await db.users.findOne({ _id: common.getId(req.body.userId) });"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            136,
+            136
+          ],
+          "match_position": [
+            5,
+            79
+          ],
+          "match_string": "    const user = await db.users.findOne({ _id: common.getId(req.body.userId) });"
+        },
+        {
+          "file_path": "/src/routes/user.js",
+          "match_lines": [
+            226,
+            226
+          ],
+          "match_position": [
+            5,
+            74
+          ],
+          "match_string": "    const user = await db.users.findOne({ userEmail: req.body.userEmail });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            736,
+            736
+          ],
+          "match_position": [
+            8,
+            44
+          ],
+          "match_string": "    if(emailRegex.test(req.body.searchValue)){"
+        },
+        {
+          "file_path": "/src/routes/admin.js",
+          "match_lines": [
+            739,
+            739
+          ],
+          "match_position": [
+            14,
+            52
+          ],
+          "match_string": "    }else if(numericRegex.test(req.body.searchValue)){"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/views/settings-menu.hbs",
+          "match_position": [
+            618,
+            638
+          ],
+          "match_string": "{{{feather 'move'}}}"
+        },
+        {
+          "file_path": "/src/views/settings-menu.hbs",
+          "match_position": [
+            1399,
+            1419
+          ],
+          "match_string": "{{{feather 'save'}}}"
+        },
+        {
+          "file_path": "/src/views/settings-menu.hbs",
+          "match_position": [
+            1194,
+            1217
+          ],
+          "match_string": "{{{feather 'trash-2'}}}"
+        },
+        {
+          "file_path": "/src/views/settings-menu.hbs",
+          "match_position": [
+            2030,
+            2050
+          ],
+          "match_string": "{{{feather 'plus'}}}"
+        },
+        {
+          "file_path": "/src/views/orders.hbs",
+          "match_position": [
+            2800,
+            2823
+          ],
+          "match_string": "{{{feather 'trash-2'}}}"
+        },
+        {
+          "file_path": "/src/views/orders.hbs",
+          "match_position": [
+            715,
+            740
+          ],
+          "match_string": "{{{feather 'x-octagon'}}}"
+        },
+        {
+          "file_path": "/src/views/product-edit.hbs",
+          "match_position": [
+            6344,
+            6365
+          ],
+          "match_string": "{{{this.optOptions}}}"
+        },
+        {
+          "file_path": "/src/views/product-new.hbs",
+          "match_position": [
+            5656,
+            5677
+          ],
+          "match_string": "{{{this.optOptions}}}"
+        },
+        {
+          "file_path": "/src/views/partials/globalSearchModal.hbs",
+          "match_position": [
+            668,
+            690
+          ],
+          "match_string": "{{{feather 'search'}}}"
+        },
+        {
+          "file_path": "/src/views/settings.hbs",
+          "match_position": [
+            7237,
+            7277
+          ],
+          "match_string": "{{{ @root.__ \"Google_Analytics_Info\" }}}"
+        },
+        {
+          "file_path": "/src/views/settings.hbs",
+          "match_position": [
+            6186,
+            6222
+          ],
+          "match_string": "{{{ @root.__ \"Menu_Enabled_Info\" }}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            10258,
+            10279
+          ],
+          "match_string": "{{{feather 'globe'}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            11732,
+            11761
+          ],
+          "match_string": "{{{feather 'shopping-cart'}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            11536,
+            11556
+          ],
+          "match_string": "{{{feather 'user'}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            9795,
+            9815
+          ],
+          "match_string": "{{{feather 'menu'}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            8779,
+            8801
+          ],
+          "match_string": "{{{config.customCss}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            12671,
+            12688
+          ],
+          "match_string": "{{{feather 'x'}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            12006,
+            12035
+          ],
+          "match_string": "{{{feather 'shopping-cart'}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            13607,
+            13617
+          ],
+          "match_string": "{{{body}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            11019,
+            11039
+          ],
+          "match_string": "{{{feather 'user'}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            73,
+            94
+          ],
+          "match_string": "{{{config.injectJs}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            14528,
+            14557
+          ],
+          "match_string": "{{{@root.config.footerHtml}}}"
+        },
+        {
+          "file_path": "/src/views/layouts/layout.hbs",
+          "match_position": [
+            8703,
+            8731
+          ],
+          "match_string": "{{{config.googleAnalytics}}}"
+        },
+        {
+          "file_path": "/src/views/themes/Cloth/page.hbs",
+          "match_position": [
+            136,
+            158
+          ],
+          "match_string": "{{{page.pageContent}}}"
+        },
+        {
+          "file_path": "/src/views/themes/Cloth/product.hbs",
+          "match_position": [
+            523,
+            552
+          ],
+          "match_string": "{{{feather 'chevron-right'}}}"
+        },
+        {
+          "file_path": "/src/views/themes/Cloth/product.hbs",
+          "match_position": [
+            301,
+            329
+          ],
+          "match_string": "{{{feather 'chevron-left'}}}"
+        },
+        {
+          "file_path": "/src/views/themes/Cloth/product.hbs",
+          "match_position": [
+            5194,
+            5233
+          ],
+          "match_string": "{{{fixTags result.productDescription}}}"
+        },
+        {
+          "file_path": "/src/views/themes/Cloth/checkout-payment.hbs",
+          "match_position": [
+            3017,
+            3034
+          ],
+          "match_string": "{{{feather 'x'}}}"
+        },
+        {
+          "file_path": "/src/views/themes/Cloth/cart.hbs",
+          "match_position": [
+            3117,
+            3140
+          ],
+          "match_string": "{{{feather 'trash-2'}}}"
+        },
+        {
+          "file_path": "/src/views/users.hbs",
+          "match_position": [
+            844,
+            864
+          ],
+          "match_string": "{{{feather 'edit'}}}"
+        },
+        {
+          "file_path": "/src/views/users.hbs",
+          "match_position": [
+            945,
+            968
+          ],
+          "match_string": "{{{feather 'trash-2'}}}"
+        },
+        {
+          "file_path": "/src/views/customers.hbs",
+          "match_position": [
+            590,
+            615
+          ],
+          "match_string": "{{{feather 'x-octagon'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            2409,
+            2429
+          ],
+          "match_string": "{{{feather 'plus'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            3044,
+            3064
+          ],
+          "match_string": "{{{feather 'menu'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            522,
+            547
+          ],
+          "match_string": "{{{feather 'bar-chart'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            3881,
+            3904
+          ],
+          "match_string": "{{{feather 'log-out'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            1822,
+            1842
+          ],
+          "match_string": "{{{feather 'plus'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            1997,
+            2018
+          ],
+          "match_string": "{{{feather 'users'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            3570,
+            3590
+          ],
+          "match_string": "{{{feather 'code'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            3273,
+            3298
+          ],
+          "match_string": "{{{feather 'file-text'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            2233,
+            2253
+          ],
+          "match_string": "{{{feather 'user'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            1380,
+            1399
+          ],
+          "match_string": "{{{feather 'tag'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            1185,
+            1205
+          ],
+          "match_string": "{{{feather 'plus'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            1638,
+            1661
+          ],
+          "match_string": "{{{feather 'package'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            362,
+            384
+          ],
+          "match_string": "{{{feather 'search'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            1004,
+            1023
+          ],
+          "match_string": "{{{feather 'tag'}}}"
+        },
+        {
+          "file_path": "/src/views/partials/menu.hbs",
+          "match_position": [
+            2801,
+            2824
+          ],
+          "match_string": "{{{feather 'sliders'}}}"
+        },
+        {
+          "file_path": "/src/views/products.hbs",
+          "match_position": [
+            570,
+            595
+          ],
+          "match_string": "{{{feather 'x-octagon'}}}"
+        },
+        {
+          "file_path": "/src/views/products.hbs",
+          "match_position": [
+            1494,
+            1517
+          ],
+          "match_string": "{{{feather 'trash-2'}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

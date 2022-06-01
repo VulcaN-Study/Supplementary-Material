@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 994,
+        "cwe": "CWE-29"
+    },
+    "correct_cwe": "CWE-29",
+    "correct_package_link": "https://registry.npmjs.org/adm-zip/-/adm-zip-0.4.8.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "adm-zip.js",
+                    "lineno": 13,
+                    "code": "module.exports = function(/*String*/input) {"
+                },
+                "sink": {
+                    "file": "adm-zip.js",
+                    "lineno": 451,
+                    "code": "Utils.writeFileTo(pth.resolve(targetPath, entryName), content, overwrite);"
+                }
+            },
+            {
+                "source": {
+                    "file": "adm-zip.js",
+                    "lineno": 13,
+                    "code": "module.exports = function(/*String*/input) {"
+                },
+                "sink": {
+                    "file": "adm-zip.js",
+                    "lineno": 499,
+                    "code": "Utils.writeFileToAsync(pth.resolve(targetPath, entryName), content, overwrite, function(succ) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://snyk.io/research/zip-slip-vulnerability"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

@@ -1,0 +1,163 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 9,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"env\": {",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintrc",
+        "start": {
+          "col": 8,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 30,
+          "line": 1
+        },
+        "extra": {
+          "line": "source 'https://rubygems.org'",
+          "message": "Syntax error"
+        },
+        "path": "/src/Gemfile",
+        "start": {
+          "col": 8,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 4
+        },
+        "extra": {
+          "line": "# the default rule when someone runs simply `make`",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 1,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 2
+        },
+        "extra": {
+          "line": "layout: api",
+          "message": "Syntax error"
+        },
+        "path": "/src/_docs/header",
+        "start": {
+          "col": 7,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/docs/assets/leaflet-hash.js",
+          "match_lines": [
+            86,
+            88
+          ],
+          "match_position": [
+            4,
+            25
+          ],
+          "match_string": "\t\t\tif (this.lastHash != hash) {\n\n\t\t\t\tlocation.replace(hash);\n\n\t\t\t\tthis.lastHash = hash;"
+        },
+        {
+          "file_path": "/src/docs/assets/leaflet-hash.js",
+          "match_lines": [
+            95,
+            96
+          ],
+          "match_position": [
+            4,
+            11
+          ],
+          "match_string": "\t\t\tif (hash === this.lastHash) {\n\n\t\t\t\treturn;"
+        },
+        {
+          "file_path": "/src/test/manual/leaflet-hash.js",
+          "match_lines": [
+            86,
+            88
+          ],
+          "match_position": [
+            4,
+            25
+          ],
+          "match_string": "\t\t\tif (this.lastHash != hash) {\n\n\t\t\t\tlocation.replace(hash);\n\n\t\t\t\tthis.lastHash = hash;"
+        },
+        {
+          "file_path": "/src/test/manual/leaflet-hash.js",
+          "match_lines": [
+            95,
+            96
+          ],
+          "match_position": [
+            4,
+            11
+          ],
+          "match_string": "\t\t\tif (hash === this.lastHash) {\n\n\t\t\t\treturn;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/docs/assets/csv2geojson.js",
+          "match_lines": [
+            18,
+            61
+          ],
+          "match_position": [
+            9,
+            36
+          ],
+          "match_string": "        var EOL = {}, // sentinel value for end-of-line\n\n        EOF = {}, // sentinel value for end-of-file\n\n        rows = [], // output rows\n\n        re = /\\r\\n|[,\\r\\n]/g, // field separator regex\n\n        n = 0, // the current line number\n\n        t, // the current token\n\n        eol; // is the current token followed by EOL?\n\n\n\n        re.lastIndex = 0; // work-around bug in FF 3.6\n\n\n\n        /** @private Returns the next token. */\n\n        function token() {\n\n            if (re.lastIndex >= text.length) return EOF; // special case: end of file\n\n            if (eol) { eol = false; return EOL; } // special case: end of line\n\n\n\n            // special case: quotes\n\n            var j = re.lastIndex;\n\n            if (text.charCodeAt(j) === 34) {\n\n                var i = j;\n\n                while (i++ < text.length) {\n\n                    if (text.charCodeAt(i) === 34) {\n\n                        if (text.charCodeAt(i + 1) !== 34) break;\n\n                        i++;\n\n                    }\n\n                }\n\n                re.lastIndex = i + 2;\n\n                var c = text.charCodeAt(i + 1);\n\n                if (c === 13) {\n\n                    eol = true;\n\n                    if (text.charCodeAt(i + 2) === 10) re.lastIndex++;\n\n                } else if (c === 10) {\n\n                    eol = true;\n\n                }\n\n                return text.substring(j + 1, i).replace(/\"\"/g, \"\\\"\");\n\n            }\n\n\n\n            // common case\n\n            var m = re.exec(text);\n\n            if (m) {\n\n                eol = m[0].charCodeAt(0) !== 44;\n\n                return text.substring(j, m.index);\n\n            }\n\n            re.lastIndex = text.length;\n\n            return text.substring(j);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

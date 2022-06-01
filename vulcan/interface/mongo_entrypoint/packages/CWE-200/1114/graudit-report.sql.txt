@@ -1,0 +1,35 @@
+/src/lib/Controllers/LoggerController.js-252-    options = LoggerController.parseOptions(options);
+/src/lib/Controllers/LoggerController.js:253:    return this.adapter.query(options);
+/src/lib/Controllers/LoggerController.js-254-  }
+##############################################
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-37-const storageAdapterAllCollections = mongoAdapter => {
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js:38:  return mongoAdapter.connect().then(() => mongoAdapter.database.collections()).then(collections => {
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-39-    return collections.filter(collection => {
+##############################################
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-131-    const encodedUri = (0, _mongodbUrl.format)((0, _mongodbUrl.parse)(this._uri));
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js:132:    this.connectionPromise = MongoClient.connect(encodedUri, this._mongoOptions).then(client => {
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-133-      // Starting mongoDB 3.0, the MongoClient.connect don't return a DB anymore but a client
+##############################################
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-182-  _adaptiveCollection(name) {
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js:183:    return this.connect().then(() => this.database.collection(this._collectionPrefix + name)).then(rawCollection => new _MongoCollection.default(rawCollection)).catch(err => this.handleError(err));
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-184-  }
+##############################################
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-186-  _schemaCollection() {
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js:187:    return this.connect().then(() => this._adaptiveCollection(MongoSchemaCollectionName)).then(collection => new _MongoSchemaCollection.default(collection));
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-188-  }
+##############################################
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-190-  classExists(name) {
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js:191:    return this.connect().then(() => {
+/src/lib/Adapters/Storage/Mongo/MongoStorageAdapter.js-192-      return this.database.listCollections({
+##############################################
+/src/lib/Adapters/Files/GridFSBucketAdapter.js-35-    if (!this._connectionPromise) {
+/src/lib/Adapters/Files/GridFSBucketAdapter.js:36:      this._connectionPromise = _mongodb.MongoClient.connect(this._databaseURI, this._mongoOptions).then(client => client.db(client.s.options.dbName));
+/src/lib/Adapters/Files/GridFSBucketAdapter.js-37-    }
+##############################################
+/src/lib/Adapters/Files/GridStoreAdapter.js-36-    if (!this._connectionPromise) {
+/src/lib/Adapters/Files/GridStoreAdapter.js:37:      this._connectionPromise = _mongodb.MongoClient.connect(this._databaseURI, this._mongoOptions).then(client => client.db(client.s.options.dbName));
+/src/lib/Adapters/Files/GridStoreAdapter.js-38-    }
+##############################################
+/src/lib/Adapters/Logger/WinstonLoggerAdapter.js-52-    return new Promise((resolve, reject) => {
+/src/lib/Adapters/Logger/WinstonLoggerAdapter.js:53:      _WinstonLogger.logger.query(queryOptions, (err, res) => {
+/src/lib/Adapters/Logger/WinstonLoggerAdapter.js-54-        if (err) {

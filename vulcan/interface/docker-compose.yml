@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:    
+    mongo:
+        image: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: MongoDB2020!
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./mongo_entrypoint:/docker-entrypoint-initdb.d/
+        networks:
+            - compose-network
+    webapp:
+      build: ./flask-app
+      ports:
+        - 8080:8080
+      depends_on:
+        - mongo
+      links:
+        - mongo
+      volumes:
+        - ./mongo_entrypoint/packages:/packages/
+      networks:
+        - compose-network
+
+networks:
+    compose-network:
+        driver: bridge

@@ -1,0 +1,40 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/fileServer.js",
+          "match_lines": [
+            7,
+            15
+          ],
+          "match_position": [
+            3,
+            17
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n    if (err) {\n\n      res.writeHead(404);\n\n      res.end(JSON.stringify(err));\n\n      return;\n\n    }\n\n    res.writeHead(200);\n\n    res.end(data);"
+        },
+        {
+          "file_path": "/src/weatherServer.js",
+          "match_lines": [
+            7,
+            42
+          ],
+          "match_position": [
+            3,
+            19
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  console.log(\"URL path \"+urlObj.pathname);\n\n  console.log(\"URL search \"+urlObj.search);\n\n  console.log(\"URL query \"+JSON.stringify(urlObj.query));\n\n\n\n  if (urlObj.pathname == \"/getCity\") {\n\n    console.log(\"In ReST Services\");\n\n    var jsonResult = [];\n\n    var cityRegex = new RegExp(\"^\"+urlObj.query[\"q\"],\"i\");\n\n    console.log(\"Regex: \" + cityRegex);\n\n    fs.readFile('lib/cities.dat.txt', function (err, data) {\n\n      if(err) {\n\n\tres.writeHead(404);\n\n\tres.end(JSON.stringify(err));\n\n\treturn;\n\n      }\n\n      cities = data.toString().split(\"\\n\");\n\n      for(var i = 0; i < cities.length; i++) {\n\n\tif (cities[i].search(cityRegex) != -1) {\n\n\t  jsonResult.push({city:cities[i]});\n\n\t  console.log(cities[i]);\n\n\t}\n\n      }\n\n      console.log(\"Read the result!\" + JSON.stringify(jsonResult));\n\n      res.writeHead(200);\n\n      res.end(JSON.stringify(jsonResult));\n\n    });\n\n  } else {\n\n    fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n      if (err) {\n\n        res.writeHead(404);\n\n        res.end(JSON.stringify(err));\n\n        return;\n\n      }\n\n      res.writeHead(200);\n\n      res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

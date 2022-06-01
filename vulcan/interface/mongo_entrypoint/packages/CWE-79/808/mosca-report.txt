@@ -1,0 +1,177 @@
+<report_mosca>
+ <Path>/src/app.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 97 -      queryParameter: 'lang',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/public/javascripts/admin.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -  edState",data:{id:this.id,state:this.checked}}).done(function(e){showNotification(e.message,"success")}).fail(function(e){showNotification(e.responseJSON.message,"danger")})}),$("#updateCustomer").validator().on("click",function(e){e.preventDefault(),0===$("#customer-form").validator("validate").has(".has-error").length&&$.ajax({method:"POST",url:"/admin/customer/update",data:{customerId:$("#customerId").val(),email:$("#email").val(),firstName:$("#firstName").val(),lastName:$("#lastName").val(),address1:$("#address1").val(),address2:$("#address2").val(),country:$("#country").val(),state:$("#state").val(),postcode:$("#postcode").val(),phone:$("#phone").val()}}).done(function(e){showNotification(e.message,"success")}).fail(function(e){showNotification(e.responseJSON.message,"danger")})}),$("#deleteCustomer").on("click",function(e){e.preventDefault(),$.ajax({method:"DELETE",url:"/admin/customer",data:{customerId:$("#customerId").val()}}).done(function(e){showNotification(e.message,"success",!1,"/admin/customers")}).fail(function(e){showNotification(e.responseJSON.message,"danger")})}),$("#footerHtml").length){var e=window.CodeMirror.fromTextArea(document.getElementById("footerHtml"),{mode:"xml",tabMode:"indent",theme:"flatly",lineNumbers:!0,htmlMode:!0,fixedGutter:!1});e.setValue(e.getValue())}if($("#googleAnalytics").length&&window.CodeMirror.fromTextArea(document.getElementById("googleAnalytics"),{mode:"xml",tabMode:"indent",theme:"flatly",lineNumbers:!0,htmlMode:!0,fixedGutter:!1}),$("#customCss").length){var t=window.CodeMirror.fromTextArea(document.getElementById("customCss"),{mode:"text/css",tabMode:"indent",theme:"flatly",lineNumbers:!0}),a=window.cssbeautify(t.getValue(),{indent:"   ",autosemicolon:!0});t.setValue(a)}$(document).on("click","#btnPageUpdate",function(e){e.preventDefault(),$.ajax({method:"POST",url:"/admin/settings/page",data:{pageId:$("#pageId").val(),pageName:$("#pageName").val(),pageSlug:$("#pageSlug").val(),pageEnabled:$("#pageEnabled").is(":checked"),pageContent:$("#pageContent").val()}}).done(function(e){showNotification(e.message,"success",!0)}).fail(f Line: 7 -  howNotification(e.responseJSON.message,"danger")})}),$(document).on("click","#btnPageDelete",function(e){e.preventDefault(),confirm("Are you sure?")&&$.ajax({method:"POST",url:"/admin/settings/page/delete",data:{pageId:$(this).attr("data-id")}}).done(function(e){showNotification(e.message,"success",!0)}).fail(function(e){showNotification(e.message,"danger",!0)})}),$("#discountNewForm").validator().on("submit",function(e){e.isDefaultPrevented()||(e.preventDefault(),$.ajax({method:"POST",url:"/admin/settings/discount/create",data:{code:$("#discountCode").val(),type:$("#discountType").val(),value:$("#discountValue").val(),start:$("#discountStart").val(),end:$("#discountEnd").val()}}).done(function(e){showNotification(e.message,"success",!1,"/admin/settings/discount/edit/"+e.discountId)}).fail(function(e){showNotification(e.responseJSON.message,"danger")}))}),$("#discountEditForm").validator().on("submit",function(e){e.isDefaultPrevented()||(e.preventDefault(),$.ajax({method:"POST",url:"/admin/settings/discount/update",data:{discountId:$("#discountId").val(),code:$("#discountCode").val(),type:$("#discountType").val(),value:$("#discountValue").val(),start:$("#discountStart").val(),end:$("#discountEnd").val()}}).done(function(e){showNotification(e.message,"success")}).fail(function(e){showNotification(e.responseJSON.message,"danger")}))}),$("#discountStart").datetimepicker({uiLibrary:"bootstrap4",footer:!0,modal:!0,format:"dd/mm/yyyy HH:MM",showOtherMonths:!0}),$("#discountEnd").datetimepicker({uiLibrary:"bootstrap4",footer:!0,modal:!0,format:"dd/mm/yyyy HH:MM"}),$(document).on("click","#btnDiscountDelete",function(e){e.preventDefault(),confirm("Are you sure?")&&$.ajax({method:"DELETE",url:"/admin/settings/discount/delete",data:{discountId:$(this).attr("data-id")}}).done(function(e){showNotification(e.message,"success",!0)}).fail(function(e){showNotification(e.message,"danger",!0)})}),$(document).on("click","#settings-menu-new",function(e){e.preventDefault(),$.ajax({method:"POST",url:"/admin/settings/menu/new",data:{navMenu:$("#newNavMenu").val(),navLink:$("#newNavLink").val()}}).don</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/public/javascripts/expressCart.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Logic fail</Title>
+ <Description>Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake.</Description>
+ <Level> Low</Level>
+ <Reference> https://en.wikipedia.org/wiki/Logic_error</Reference>
+ <Match> if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\)</Match>
+ <Result> Line: 415 -          if($(this).attr('data-has-options') === 'true'){
+
+ Line: 468 -          if($('#frm_search').val().trim() === ''){
+
+ Line: 475 -      if($('#input_notify_message').val() !== ''){
+
+ Line: 568 -          if($(element).val() !== ''){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/public/javascripts/expressCart.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 497 -          setTimeout(function (){
+
+ Line: 505 -          var blcountdown = setInterval(function (){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/public/javascripts/expressCart.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  #confirmModal").modal("hide")}),$(".qty-btn-minus").on("click",function(){var t=parseInt($("#product_quantity").val())-1;$("#product_quantity").val(t>0?t:1)}),$(".qty-btn-plus").on("click",function(){$("#product_quantity").val(parseInt($("#product_quantity").val())+1)}),$(".thumbnail-image").on("click",function(){$("#product-title-image").attr("src",$(this).attr("src"))}),$(document).on("click","#btn_search_reset",function(t){window.location.replace("/")}),$(document).on("click","#btn_search",function(t){t.preventDefault(),""===$("#frm_search").val().trim()?showNotification("Please enter a search value","danger"):window.location.href="/search/"+$("#frm_search").val()}),""!==$("#input_notify_message").val()){var s=$("#input_notify_message").val(),c=$("#input_notify_messageType").val();$("#input_notify_message").val(""),$("#input_notify_messageType").val(""),showNotification(s,c||"danger",!1)}if($("#blockonomics_div").length>0){var d=$("#blockonomics_div").data("orderid")||"",l=$("#blockonomics_div").data("timestamp")||-1,u=$("#blockonomics_div").data("address")||"",m=new WebSocket("wss://www.blockonomics.co/payment/"+u+"?timestamp="+l);m.onopen=function(t){};setTimeout(function(){$("#blockonomics_waiting").html("<b>Payment expired</b><br><br><b><a href='/checkout/payment'>Click here</a></b> to try again.<br><br>If you already paid, your order will be processed automatically."),showNotification("Payment expired","danger"),m.close()},6e5);var p=$("#blockonomics_timeout"),f=new Date((new Date).getTime()+6e5),v=setInterval(function(){var t=(new Date).getTime(),a=f-t;if(a<0)clearInterval(v);else{var e=Math.floor(a%36e5/6e4),n=Math.floor(a%6e4/1e3);p.html(e+"m "+n+"s")}},1e3);m.onmessage=function(t){var a=JSON.parse(t.data);if(0===a.status||1===a.status||2===a.status){var e='<br>View <b><a href="/payment/'+d+'">Order</a></b>';$("#blockonomics_waiting").html("Payment detected (<b>"+a.value/1e8+" BTC</b>)."+e),showNotification("Payment detected","success"),$("#cart-count").html("0"),m.close(),$.ajax({method:"POST",url:"/product/emptycart"}).done(function(){window.location.replace("/paym</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/public/javascripts/admin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Logic fail</Title>
+ <Description>Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake.</Description>
+ <Level> Low</Level>
+ <Reference> https://en.wikipedia.org/wiki/Logic_error</Reference>
+ <Match> if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\)</Match>
+ <Result> Line: 50 -          if($('#productOptions').val() !== '' && $('#productOptions').val() !== '"{}"'){
+
+ Line: 197 -              if($('#productPermalink').val() === '' && $('#productTitle').val() !== ''){
+
+ Line: 234 -              if($('#productPermalink').val() === '' && $('#productTitle').val() !== ''){
+
+ Line: 318 -          if($('#productPermalink').val() !== ''){
+
+ Line: 337 -          if($('#product_filter').val() !== ''){
+
+ Line: 346 -          if($('#order_filter').val() !== ''){
+
+ Line: 355 -          if($('#customer_filter').val() !== ''){
+
+ Line: 761 -          if($('#global-search-value').val() === ''){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/public/javascripts/admin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 484 -              method: 'DELETE',
+
+ Line: 642 -                  method: 'DELETE',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/public/javascripts/jquery.dotdotdot.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 14 -  entDefault(),t.stopPropagation(),o.unwatch().unbind_events().contents().detach().end().append(i).attr("style",o.data("dotdotdot-style")||"").removeClass("is-truncated").data("dotdotdot",!1)}),o},o.unbind_events=function(){return o.unbind(".dot"),o},o.watch=function(){if(o.unwatch(),"window"==l.watch){var e=t(window),n=e.width(),r=e.height();e.bind("resize.dot"+s.dotId,function(){n==e.width()&&r==e.height()&&l.windowResizeFix||(n=e.width(),r=e.height(),u&&clearInterval(u),u=setTimeout(function(){o.trigger("update.dot")},100))})}else c=d(o),u=setInterval(function(){if(o.is(":visible")){var t=d(o);c.width==t.width&&c.height==t.height||(o.trigger("update.dot"),c=t)}},500);return o},o.unwatch=function(){return t(window).unbind("resize.dot"+s.dotId),u&&clearInterval(u),o};var l=t.extend(!0,{},t.fn.dotdotdot.defaults,e),s={},c={},u=null,g=null;return l.lastCharacter.remove instanceof Array||(l.lastCharacter.remove=t.fn.dotdotdot.defaultArrays.lastCharacter.remove),l.lastCharacter.noEllipsis instanceof Array||(l.lastCharacter.noEllipsis=t.fn.dotdotdot.defaultArrays.lastCharacter.noEllipsis),s.afterElement=h(l.after,o),s.isTruncated=!1,s.dotId=p++,o.data("dotdotdot",!0).bind_events().trigger("update.dot"),l.watch&&o.watch(),o},t.fn.dotdotdot.defaults={ellipsis:"... ",wrap:"word",fallbackToLetter:!0,lastCharacter:{},tolerance:0,callback:null,after:null,height:null,watch:!1,windowResizeFix:!0},t.fn.dotdotdot.defaultArrays={lastCharacter:{remove:[" ","　",",",";",".","!","?"],noEllipsis:[]}},t.fn.dotdotdot.debug=function(t){};var p=1,g=t.fn.html;t.fn.html=function(n){return n!=e&&!t.isFunction(n)&&this.data("dotdotdot")?this.trigger("update",[n]):g.apply(this,arguments)};var v=t.fn.text;t.fn.text=function(n){return n!=e&&!t.isFunction(n)&&this.data("dotdotdot")?(n=t("<div />").text(n).html(),this.trigger("update",[n])):v.apply(this,arguments)}}}(jQuery),jQuery(document).ready(function(t){t(".dot-ellipsis").each(function(){var e=t(this).hasClass("dot-resize-update"),n=t(this).hasClass("dot-timer-update"),r=0,o=t(this).attr("class").split(/\s+/);t.each(o,function(t,e){var n=e.match(/^dot-h</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/routes/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 337 -      // If JSON query param return json instead
+
+ Line: 648 -          // If JSON query param return json instead
+
+ Line: 703 -              // If JSON query param return json instead
+
+ Line: 783 -              // If JSON query param return json instead
+
+ Line: 824 -                  // If JSON query param return json instead
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/routes/admin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 436 -      let query = {};
+
+ Line: 438 -          query = { productPermalink: req.body.permalink };
+
+ Line: 440 -          query = { productPermalink: req.body.permalink, _id: { $ne: common.getId(req.body.docId) } };
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/common.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 623 -   * @param  {object} query // The mongo query
+
+ Line: 626 -  const paginateData = (frontend, req, page, collection, query, sort) => {
+
+ Line: 640 -          query = {};
+
+</Result>
+</report_mosca>
+

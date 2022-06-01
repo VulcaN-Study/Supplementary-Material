@@ -1,0 +1,91 @@
+/src/History.md-56- * Added `.responseType()` to Node version (Kornel Lesiński)
+/src/History.md:57: * Added `.parse()` to browser version (jakepearson)
+/src/History.md-58- * Fixed parse error when using `responseType('blob')` (Kornel Lesiński)
+##############################################
+/src/History.md-116-
+/src/History.md:117:  * Browser: The `.parse()` method has been renamed to `.serialize()` for consistency with NodeJS version.
+/src/History.md-118-  * Browser: Query string keys without a value used to be parsed as `'undefined'`, now their value is `''` (empty string) (shura, Kornel Lesiński).
+##############################################
+/src/History.md-139-  * Fixed parsing of `vnd+json` MIME types (Kornel Lesiński)
+/src/History.md:140:  * Aliased browser implementation of `.parse()` as `.serialize()` for forward compatibility
+/src/History.md-141-
+##############################################
+/src/History.md-482-
+/src/History.md:483:  * add .parse(fn) support
+/src/History.md-484-  * fix socket hangup with dates in querystring. Closes #146
+##############################################
+/src/superagent.js-1766-    if (this.username && this.password) {
+/src/superagent.js:1767:      xhr.open(this.method, this.url, true, this.username, this.password);
+/src/superagent.js-1768-    } else {
+/src/superagent.js:1769:      xhr.open(this.method, this.url, true);
+/src/superagent.js-1770-    }
+##############################################
+/src/Readme.md-85-* [1.x to 2.x](https://github.com/visionmedia/superagent/releases/tag/v2.0.0):
+/src/Readme.md:86:  - If you use `.parse()` in the *browser* version, rename it to `.serialize()`.
+/src/Readme.md-87-  - If you rely on `undefined` in query-string values being sent literally as the text "undefined", switch to checking for missing value instead. `?key=undefined` is now `?key` (without a value).
+##############################################
+/src/lib/client.js-734-    if (this.username && this.password) {
+/src/lib/client.js:735:      xhr.open(this.method, this.url, true, this.username, this.password);
+/src/lib/client.js-736-    } else {
+/src/lib/client.js:737:      xhr.open(this.method, this.url, true);
+/src/lib/client.js-738-    }
+##############################################
+/src/lib/node/parsers/urlencoded.js-13-    try {
+/src/lib/node/parsers/urlencoded.js:14:      fn(null, qs.parse(res.text));
+/src/lib/node/parsers/urlencoded.js-15-    } catch (err) {
+##############################################
+/src/lib/node/parsers/json.js-7-    try {
+/src/lib/node/parsers/json.js:8:      var body = res.text && JSON.parse(res.text);
+/src/lib/node/parsers/json.js-9-    } catch (e) {
+##############################################
+/src/lib/node/index.js-198-      debug('creating `fs.ReadStream` instance for file: %s', file);
+/src/lib/node/index.js:199:      file = fs.createReadStream(file);
+/src/lib/node/index.js-200-    } else if (!o.filename && file.path) {
+##############################################
+/src/lib/node/index.js-820-      } else if (multipart) {
+/src/lib/node/index.js:821:        var form = new formidable.IncomingForm();
+/src/lib/node/index.js-822-        parser = form.parse.bind(form);
+##############################################
+/src/docs/index.md-303-
+/src/docs/index.md:304:You can set a custom parser (that takes precedence over built-in parsers) with the `.buffer(true).parse(fn)` method. If response buffering is not enabled (`.buffer(false)`) then the `response` event will be emitted without waiting for the body parser to finish, so `response.body` won't be available.
+/src/docs/index.md-305-
+##############################################
+/src/docs/index.md-465-
+/src/docs/index.md:466:    const stream = fs.createReadStream('path/to/my.json');
+/src/docs/index.md-467-    const req = request.post('/somewhere');
+##############################################
+/src/docs/test.html-514-            <dd><pre><code>request
+/src/docs/test.html:515:.get(url.parse('http://localhost:5000/login'))
+/src/docs/test.html-516-.end(function(err, res){
+##############################################
+/src/docs/test.html-1024-  agent
+/src/docs/test.html:1025:  .get(url.parse('https://localhost:8443/'))
+/src/docs/test.html-1026-  .end(function(err, res){
+##############################################
+/src/docs/test.html-1354-    <section class="suite">
+/src/docs/test.html:1355:      <h1>req.parse(fn)</h1>
+/src/docs/test.html-1356-      <dl>
+##############################################
+/src/docs/test.html-1359-.get('http://localhost:3033/manny')
+/src/docs/test.html:1360:.parse(request.parse['application/json'])
+/src/docs/test.html-1361-.end(function(err, res){
+##############################################
+/src/docs/test.html-1369-.get('http://localhost:3033/image')
+/src/docs/test.html:1370:.parse(function(res, fn) {
+/src/docs/test.html-1371-  res.on('data', function() {});
+##############################################
+/src/docs/test.html-1381-.get('http://localhost:3033/manny')
+/src/docs/test.html:1382:.parse(function() {
+/src/docs/test.html-1383-  throw new Error('I am broken');
+##############################################
+/src/docs/test.html-1392-.get('http://localhost:3033/manny')
+/src/docs/test.html:1393:.parse(function(res, fn) {
+/src/docs/test.html-1394-  fn(new Error('I am broken'));
+##############################################
+/src/docs/test.html-1445-        <dd><pre><code>var req = request.post('http://localhost:3020');
+/src/docs/test.html:1446:var stream = fs.createReadStream('test/node/fixtures/user.json');
+/src/docs/test.html-1447-req.type('json');
+##############################################
+/src/docs/test.html-1457-req.on('end', function(){
+/src/docs/test.html:1458:  JSON.parse(fs.readFileSync('test/node/fixtures/tmp.json', 'utf8')).should.eql({ name: 'tobi' });
+/src/docs/test.html-1459-  done();

@@ -1,0 +1,262 @@
+Binary file /src/bindings/linux-x64/0.9.7/binding.node matches
+Binary file /src/bindings/linux-x64/0.8.0/binding.node matches
+Binary file /src/bindings/linux-x64/0.9.11/binding.node matches
+Binary file /src/bindings/linux-x64/0.9.3/binding.node matches
+Binary file /src/bindings/linux-ia32/0.9.7/binding.node matches
+Binary file /src/bindings/linux-ia32/0.8.0/binding.node matches
+Binary file /src/bindings/linux-ia32/0.9.11/binding.node matches
+Binary file /src/bindings/linux-ia32/0.9.3/binding.node matches
+Binary file /src/bindings/darwin-x64/0.9.7/binding.node matches
+Binary file /src/bindings/darwin-x64/0.8.0/binding.node matches
+Binary file /src/bindings/darwin-x64/0.9.11/binding.node matches
+Binary file /src/bindings/darwin-x64/0.9.3/binding.node matches
+##############################################
+/src/binding.gyp-14-            'libsass/error_handling.cpp',
+/src/binding.gyp:15:            'libsass/eval.cpp',
+/src/binding.gyp-16-            'libsass/expand.cpp',
+##############################################
+/src/libsass/functions.cpp-8-#include "inspect.hpp"
+/src/libsass/functions.cpp:9:#include "eval.hpp"
+/src/libsass/functions.cpp-10-#include "util.hpp"
+##############################################
+/src/libsass/functions.cpp-1384-      Function_Call* func = new (ctx.mem) Function_Call(path, position, name, args);
+/src/libsass/functions.cpp:1385:      Eval eval(ctx, &d_env, backtrace);
+/src/libsass/functions.cpp:1386:      return func->perform(&eval);
+/src/libsass/functions.cpp-1387-
+##############################################
+/src/libsass/functions.cpp-1402-    {
+/src/libsass/functions.cpp:1403:      Eval eval(ctx, &d_env, backtrace);
+/src/libsass/functions.cpp:1404:      bool is_true = !ARG("$condition", Expression)->perform(&eval)->is_false();
+/src/libsass/functions.cpp-1405-      if (is_true) {
+/src/libsass/functions.cpp:1406:        return ARG("$if-true", Expression)->perform(&eval);
+/src/libsass/functions.cpp-1407-      }
+/src/libsass/functions.cpp-1408-      else {
+/src/libsass/functions.cpp:1409:        return ARG("$if-false", Expression)->perform(&eval);
+/src/libsass/functions.cpp-1410-      }
+##############################################
+/src/libsass/eval.hpp-38-    virtual ~Eval();
+/src/libsass/eval.hpp:39:    Eval* with(Env* e, Backtrace* bt); // for setting the env before eval'ing an expression
+/src/libsass/eval.hpp-40-    using Operation<Expression*>::operator();
+/src/libsass/eval.hpp-41-
+/src/libsass/eval.hpp:42:    // for evaluating function bodies
+/src/libsass/eval.hpp-43-    Expression* operator()(Block*);
+##############################################
+/src/libsass/test-driver-121-# sh-indentation: 2
+/src/libsass/test-driver:122:# eval: (add-hook 'write-file-hooks 'time-stamp)
+/src/libsass/test-driver-123-# time-stamp-start: "scriptversion="
+##############################################
+/src/libsass/Makefile.am-22-	error_handling.cpp \
+/src/libsass/Makefile.am:23:	eval.cpp \
+/src/libsass/Makefile.am-24-	expand.cpp \
+##############################################
+/src/libsass/Makefile-36-	error_handling.cpp \
+/src/libsass/Makefile:37:	eval.cpp \
+/src/libsass/Makefile-38-	expand.cpp \
+##############################################
+/src/libsass/eval.cpp:1:#include "eval.hpp"
+/src/libsass/eval.cpp-2-#include "ast.hpp"
+##############################################
+/src/libsass/eval.cpp-34-
+/src/libsass/eval.cpp:35:  Eval* Eval::with(Env* e, Backtrace* bt) // for setting the env before eval'ing an expression
+/src/libsass/eval.cpp-36-  {
+##############################################
+/src/libsass/eval.cpp-202-    Binary_Expression::Type op_type = b->type();
+/src/libsass/eval.cpp:203:    // don't eval delayed expressions (the '/' when used as a separator)
+/src/libsass/eval.cpp-204-    if (op_type == Binary_Expression::DIV && b->is_delayed()) return b;
+##############################################
+/src/libsass/eval.cpp-218-    }
+/src/libsass/eval.cpp:219:    // not a logical connective, so go ahead and eval the rhs
+/src/libsass/eval.cpp-220-    Expression* rhs = b->right()->perform(this);
+##############################################
+/src/libsass/eval.cpp-263-      To_String to_string;
+/src/libsass/eval.cpp:264:      // Special cases: +/- variables which evaluate to null ouput just +/-,
+/src/libsass/eval.cpp-265-      // but +/- null itself outputs the string
+##############################################
+/src/libsass/eval.cpp-319-
+/src/libsass/eval.cpp:320:    // if it's user-defined, eval the body
+/src/libsass/eval.cpp-321-    if (body) {
+##############################################
+/src/libsass/eval.cpp-403-  {
+/src/libsass/eval.cpp:404:    Expression* evaluated_name = s->name()->perform(this);
+/src/libsass/eval.cpp:405:    Expression* evaluated_args = s->arguments()->perform(this);
+/src/libsass/eval.cpp-406-    String_Schema* ss = new (ctx.mem) String_Schema(s->path(), s->position(), 2);
+/src/libsass/eval.cpp:407:    (*ss) << evaluated_name << evaluated_args;
+/src/libsass/eval.cpp-408-    return ss->perform(this);
+##############################################
+/src/libsass/error_handling.hpp-13-  struct Error {
+/src/libsass/error_handling.hpp:14:    enum Type { read, write, syntax, evaluation };
+/src/libsass/error_handling.hpp-15-
+##############################################
+/src/libsass/context.cpp-21-#include "expand.hpp"
+/src/libsass/context.cpp:22:#include "eval.hpp"
+/src/libsass/context.cpp-23-#include "contextualize.hpp"
+##############################################
+/src/libsass/context.cpp-224-    }
+/src/libsass/context.cpp:225:    Eval eval(*this, &tge, &backtrace);
+/src/libsass/context.cpp:226:    Contextualize contextualize(*this, &eval, &tge, &backtrace);
+/src/libsass/context.cpp:227:    Expand expand(*this, &eval, &contextualize, &tge, &backtrace);
+/src/libsass/context.cpp-228-    // Inspect inspect(this);
+##############################################
+/src/libsass/contextualize.hpp-34-    Context&   ctx;
+/src/libsass/contextualize.hpp:35:    Eval*      eval;
+/src/libsass/contextualize.hpp-36-    Env*       env;
+##############################################
+/src/libsass/expand.hpp-30-    Context&          ctx;
+/src/libsass/expand.hpp:31:    Eval*             eval;
+/src/libsass/expand.hpp-32-    Contextualize*    contextualize;
+##############################################
+/src/libsass/expand.cpp-2-#include "bind.hpp"
+/src/libsass/expand.cpp:3:#include "eval.hpp"
+/src/libsass/expand.cpp-4-#include "contextualize.hpp"
+##############################################
+/src/libsass/expand.cpp-18-
+/src/libsass/expand.cpp:19:  Expand::Expand(Context& ctx, Eval* eval, Contextualize* contextualize, Env* env, Backtrace* bt)
+/src/libsass/expand.cpp-20-  : ctx(ctx),
+/src/libsass/expand.cpp:21:    eval(eval),
+/src/libsass/expand.cpp-22-    contextualize(contextualize),
+##############################################
+/src/libsass/expand.cpp-72-                         << new (ctx.mem) String_Constant(p->path(), p->position(), "-")
+/src/libsass/expand.cpp:73:                         << dec->property(); // TODO: eval the prop into a string constant
+/src/libsass/expand.cpp-74-        }
+##############################################
+/src/libsass/expand.cpp-92-  {
+/src/libsass/expand.cpp:93:    Expression* media_queries = m->media_queries()->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-94-    Media_Block* mm = new (ctx.mem) Media_Block(m->path(),
+##############################################
+/src/libsass/expand.cpp-108-    if (as) as = as->perform(contextualize->with(0, env, backtrace));
+/src/libsass/expand.cpp:109:    else if (av) av = av->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-110-    Block* bb = ab ? ab->perform(this)->block() : 0;
+##############################################
+/src/libsass/expand.cpp-123-    String* old_p = d->property();
+/src/libsass/expand.cpp:124:    String* new_p = static_cast<String*>(old_p->perform(eval->with(env, backtrace)));
+/src/libsass/expand.cpp-125-    return new (ctx.mem) Declaration(d->path(),
+##############################################
+/src/libsass/expand.cpp-127-                                     new_p,
+/src/libsass/expand.cpp:128:                                     d->value()->perform(eval->with(env, backtrace)),
+/src/libsass/expand.cpp-129-                                     d->is_important());
+##############################################
+/src/libsass/expand.cpp-135-    if (env->has(var)) {
+/src/libsass/expand.cpp:136:      if(!a->is_guarded()) (*env)[var] = a->value()->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-137-    }
+/src/libsass/expand.cpp-138-    else {
+/src/libsass/expand.cpp:139:      env->current_frame()[var] = a->value()->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-140-    }
+##############################################
+/src/libsass/expand.cpp-147-    for ( size_t i = 0, S = imp->urls().size(); i < S; ++i) {
+/src/libsass/expand.cpp:148:      result->urls().push_back(imp->urls()[i]->perform(eval->with(env, backtrace)));
+/src/libsass/expand.cpp-149-    }
+##############################################
+/src/libsass/expand.cpp-160-  {
+/src/libsass/expand.cpp:161:    // eval handles this too, because warnings may occur in functions
+/src/libsass/expand.cpp:162:    w->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-163-    return 0;
+##############################################
+/src/libsass/expand.cpp-167-  {
+/src/libsass/expand.cpp:168:    // TODO: eval the text, once we're parsing/storing it as a String_Schema
+/src/libsass/expand.cpp:169:    return new (ctx.mem) Comment(c->path(), c->position(), static_cast<String*>(c->text()->perform(eval->with(env, backtrace))));
+/src/libsass/expand.cpp-170-  }
+##############################################
+/src/libsass/expand.cpp-173-  {
+/src/libsass/expand.cpp:174:    if (*i->predicate()->perform(eval->with(env, backtrace))) {
+/src/libsass/expand.cpp-175-      append_block(i->consequent());
+##############################################
+/src/libsass/expand.cpp-186-    string variable(f->variable());
+/src/libsass/expand.cpp:187:    Expression* low = f->lower_bound()->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-188-    if (low->concrete_type() != Expression::NUMBER) {
+##############################################
+/src/libsass/expand.cpp-190-    }
+/src/libsass/expand.cpp:191:    Expression* high = f->upper_bound()->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-192-    if (high->concrete_type() != Expression::NUMBER) {
+##############################################
+/src/libsass/expand.cpp-214-    string variable(e->variable());
+/src/libsass/expand.cpp:215:    Expression* expr = e->list()->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-216-    List* list = 0;
+##############################################
+/src/libsass/expand.cpp-229-    for (size_t i = 0, L = list->length(); i < L; ++i) {
+/src/libsass/expand.cpp:230:      (*env)[variable] = (*list)[i]->perform(eval->with(env, backtrace));
+/src/libsass/expand.cpp-231-      append_block(body);
+##############################################
+/src/libsass/expand.cpp-240-    Block* body = w->block();
+/src/libsass/expand.cpp:241:    while (*pred->perform(eval->with(env, backtrace))) {
+/src/libsass/expand.cpp-242-      append_block(body);
+##############################################
+/src/libsass/expand.cpp-300-    Arguments* args = static_cast<Arguments*>(c->arguments()
+/src/libsass/expand.cpp:301:                                               ->perform(eval->with(env, backtrace)));
+/src/libsass/expand.cpp-302-    Backtrace here(backtrace, c->path(), c->position(), ", in mixin `" + c->name() + "`");
+##############################################
+/src/libsass/expand.cpp-316-    }
+/src/libsass/expand.cpp:317:    bind("mixin " + c->name(), params, args, ctx, &new_env, eval);
+/src/libsass/expand.cpp-318-    Env* old_env = env;
+##############################################
+/src/libsass/contextualize.cpp-2-#include "ast.hpp"
+/src/libsass/contextualize.cpp:3:#include "eval.hpp"
+/src/libsass/contextualize.cpp-4-#include "backtrace.hpp"
+##############################################
+/src/libsass/contextualize.cpp-9-
+/src/libsass/contextualize.cpp:10:  Contextualize::Contextualize(Context& ctx, Eval* eval, Env* env, Backtrace* bt, Selector* placeholder, Selector* extender)
+/src/libsass/contextualize.cpp:11:  : ctx(ctx), eval(eval), env(env), parent(0), backtrace(bt), placeholder(placeholder), extender(extender)
+/src/libsass/contextualize.cpp-12-  { }
+##############################################
+/src/libsass/contextualize.cpp-31-    To_String to_string;
+/src/libsass/contextualize.cpp:32:    string result_str(s->contents()->perform(eval->with(env, backtrace))->perform(&to_string));
+/src/libsass/contextualize.cpp-33-    result_str += '{'; // the parser looks for a brace to end the selector
+##############################################
+/src/libsass/contextualize.cpp-120-  {
+/src/libsass/contextualize.cpp:121:    // the value might be interpolated; evaluate it
+/src/libsass/contextualize.cpp-122-    String* v = s->value();
+/src/libsass/contextualize.cpp:123:    if (v && eval) {
+/src/libsass/contextualize.cpp:124:      v = static_cast<String*>(v->perform(eval->with(env, backtrace)));
+/src/libsass/contextualize.cpp-125-    }
+##############################################
+/src/libsass/bind.cpp-3-#include "context.hpp"
+/src/libsass/bind.cpp:4:#include "eval.hpp"
+/src/libsass/bind.cpp-5-#include <map>
+##############################################
+/src/libsass/bind.cpp-12-
+/src/libsass/bind.cpp:13:  void bind(string callee, Parameters* ps, Arguments* as, Context& ctx, Env* env, Eval* eval)
+/src/libsass/bind.cpp-14-  {
+##############################################
+/src/libsass/bind.cpp-17-    // Set up a map to ensure named arguments refer to actual parameters. Also
+/src/libsass/bind.cpp:18:    // eval each default value left-to-right, wrt env, populating env as we go.
+/src/libsass/bind.cpp-19-    for (size_t i = 0, L = ps->length(); i < L; ++i) {
+##############################################
+/src/libsass/bind.cpp-22-      // if (p->default_value()) {
+/src/libsass/bind.cpp:23:      //   env->current_frame()[p->name()] = p->default_value()->perform(eval->with(env));
+/src/libsass/bind.cpp-24-      // }
+##############################################
+/src/libsass/bind.cpp-148-        else if (leftover->default_value()) {
+/src/libsass/bind.cpp:149:          // make sure to eval the default value in the env that we've been populating
+/src/libsass/bind.cpp:150:          Env* old_env = eval->env;
+/src/libsass/bind.cpp:151:          Backtrace* old_bt = eval->backtrace;
+/src/libsass/bind.cpp:152:          Expression* dv = leftover->default_value()->perform(eval->with(env, eval->backtrace));
+/src/libsass/bind.cpp:153:          eval->env = old_env;
+/src/libsass/bind.cpp:154:          eval->backtrace = old_bt;
+/src/libsass/bind.cpp-155-          // dv->perform(&to_string);
+##############################################
+/src/libsass/configure.ac-29-AC_ARG_ENABLE(tests, AS_HELP_STRING([--enable-tests], [enable testing the build]),
+/src/libsass/configure.ac:30:              [enable_tests="$enableval"], [enable_tests=no])
+/src/libsass/configure.ac-31-
+##############################################
+/src/libsass/configure.ac-74-    [enable coverage report for test suite])],
+/src/libsass/configure.ac:75:    [enable_cov=$enableval],
+/src/libsass/configure.ac-76-    [enable_cov=no])
+##############################################
+/src/libsass/ast.hpp-505-  // represents elements in value contexts, which exist primarily to be
+/src/libsass/ast.hpp:506:  // evaluated and returned.
+/src/libsass/ast.hpp-507-  //////////////////////////////////////////////////////////////////////
+##############################################
+/src/libsass/ast.hpp-521-  private:
+/src/libsass/ast.hpp:522:    // expressions in some contexts shouldn't be evaluated
+/src/libsass/ast.hpp-523-    ADD_PROPERTY(bool, is_delayed);
+##############################################
+/src/libsass/ast.hpp-679-  ////////////////////////////////////////////////////////////////////////////
+/src/libsass/ast.hpp:680:  // Textual (i.e., unevaluated) numeric data. Variants are distinguished with
+/src/libsass/ast.hpp-681-  // a type tag.
+##############################################
+/src/libsass/ast.hpp-861-  // Interpolated strings. Meant to be reduced to flat strings during the
+/src/libsass/ast.hpp:862:  // evaluation phase.
+/src/libsass/ast.hpp-863-  ///////////////////////////////////////////////////////////////////////
+##############################################
+/src/libsass/ast.hpp-946-  /////////////////////////////////
+/src/libsass/ast.hpp:947:  // Thunks for delayed evaluation.
+/src/libsass/ast.hpp-948-  /////////////////////////////////

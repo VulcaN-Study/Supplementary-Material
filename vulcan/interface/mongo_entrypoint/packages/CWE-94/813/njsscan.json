@@ -1,0 +1,60 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 9,
+          "line": 1
+        },
+        "extra": {
+          "line": "(The MIT License)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/js-yaml.js",
+          "match_lines": [
+            3236,
+            3241
+          ],
+          "match_position": [
+            3,
+            73
+          ],
+          "match_string": "  res = object.toString(10);\n\n\n\n  // JS stringifier can build scientific format without dots: 5e-100,\n\n  // while YAML requres dot: 5.e-100. Fix it with simple hack\n\n\n\n  return SCIENTIFIC_WITHOUT_DOT.test(res) ? res.replace('e', '.e') : res;"
+        },
+        {
+          "file_path": "/src/lib/js-yaml/type/float.js",
+          "match_lines": [
+            96,
+            101
+          ],
+          "match_position": [
+            3,
+            73
+          ],
+          "match_string": "  res = object.toString(10);\n\n\n\n  // JS stringifier can build scientific format without dots: 5e-100,\n\n  // while YAML requres dot: 5.e-100. Fix it with simple hack\n\n\n\n  return SCIENTIFIC_WITHOUT_DOT.test(res) ? res.replace('e', '.e') : res;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

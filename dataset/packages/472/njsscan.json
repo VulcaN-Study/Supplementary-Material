@@ -1,0 +1,70 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 5,
+          "line": 1
+        },
+        "extra": {
+          "line": "byu#1",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/html/testfile",
+        "start": {
+          "col": 4,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/http_static_simple.js",
+          "match_lines": [
+            6,
+            40
+          ],
+          "match_position": [
+            3,
+            17
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  // Install route for get city\n\n  // console.log(urlObj);\n\n  console.log(\"URL path \" + urlObj.pathname);\n\n  console.log(\"URL search \" + urlObj.search);\n\n  console.log(\"URL query \" + urlObj.query[\"q\"]);\n\n  if(urlObj.pathname.indexOf(\"getcity\") != -1) {\n\n    console.log(\"in Getcity\");\n\n    var myRe = new RegExp(\"^\"+urlObj.query[\"q\"]);\n\n    var jsonresult = [];\n\n    fs.readFile(\"cities.dat.txt\", function (err,data) {\n\n      if(err) throw err;\n\n      cities = data.toString().split(\"\\n\");\n\n      for(var i = 0; i <cities.length; i++) {\n\n        var result = cities[i].search(myRe);\n\n        if(result != -1) {\n\n          console.log(cities[i]);\n\n          jsonresult.push({city:cities[i]});\n\n        }\n\n      }\n\n      // console.log(\"City \"+cities[i]);\n\n      console.log(jsonresult);\n\n      console.log(JSON.stringify(jsonresult));\n\n      res.writeHead(200);\n\n      res.end(JSON.stringify(jsonresult));\n\n    });\n\n  } else {\n\n    fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n    if (err) {\n\n      res.writeHead(404);\n\n      res.end(JSON.stringify(err));\n\n      return;\n\n    }\n\n    res.writeHead(200);\n\n    res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/http_static_simple.js",
+          "match_lines": [
+            6,
+            40
+          ],
+          "match_position": [
+            3,
+            17
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  // Install route for get city\n\n  // console.log(urlObj);\n\n  console.log(\"URL path \" + urlObj.pathname);\n\n  console.log(\"URL search \" + urlObj.search);\n\n  console.log(\"URL query \" + urlObj.query[\"q\"]);\n\n  if(urlObj.pathname.indexOf(\"getcity\") != -1) {\n\n    console.log(\"in Getcity\");\n\n    var myRe = new RegExp(\"^\"+urlObj.query[\"q\"]);\n\n    var jsonresult = [];\n\n    fs.readFile(\"cities.dat.txt\", function (err,data) {\n\n      if(err) throw err;\n\n      cities = data.toString().split(\"\\n\");\n\n      for(var i = 0; i <cities.length; i++) {\n\n        var result = cities[i].search(myRe);\n\n        if(result != -1) {\n\n          console.log(cities[i]);\n\n          jsonresult.push({city:cities[i]});\n\n        }\n\n      }\n\n      // console.log(\"City \"+cities[i]);\n\n      console.log(jsonresult);\n\n      console.log(JSON.stringify(jsonresult));\n\n      res.writeHead(200);\n\n      res.end(JSON.stringify(jsonresult));\n\n    });\n\n  } else {\n\n    fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n    if (err) {\n\n      res.writeHead(404);\n\n      res.end(JSON.stringify(err));\n\n      return;\n\n    }\n\n    res.writeHead(200);\n\n    res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

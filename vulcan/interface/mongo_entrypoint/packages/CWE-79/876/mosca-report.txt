@@ -1,0 +1,82 @@
+<report_mosca>
+ <Path>/src/release/wangEditor.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):e.wangEditor=t()}(this,function(){"use strict";function e(e){var t=void 0;return t=document.createElement("div"),t.innerHTML=e,t.children}function t(e){return!!e&&(e instanceof HTMLCollection||e instanceof NodeList)}function n(e){var n=document.querySelectorAll(e);return t(n)?n:[n]}function i(o){if(o){if(o instanceof i)return o;this.selector=o;var A=o.nodeType,r=[];9===A?r=[o]:1===A?r=[o]:t(o)||o instanceof Array?r=o:"string"==typeof o&&(o=o.replace("/\n/mg","").trim(),r=0===o.indexOf("<")?e(o):n(o));var c=r.length;if(!c)return this;var a=void 0;for(a=0;a<c;a++)this[a]=r[a];this.length=c}}function o(e){return new i(e)}function A(e,t){var n=void 0;for(n in e)if(e.hasOwnProperty(n)&&!1===t.call(e,n,e[n]))break}function r(e,t){var n=void 0,i=void 0,o=e.length||0;for(n=0;n<o&&(i=e[n],!1!==t.call(e,i,n));n++);}function c(e){return e+Math.random().toString().slice(2)}function a(e){return null==e?"":e.replace(/</gm,"&lt;").replace(/>/gm,"&gt;").replace(/"/gm,"&quot;").replace(/(\r\n|\r|\n)/g,"<br/>")}function s(e){return"function"==typeof e}function l(e){this.editor=e,this.$elem=o('<div class="w-e-menu">\n            <i class="w-e-icon-bold"></i>\n        </div>'),this.type="click",this._active=!1}function d(e,t){var n=this,i=e.editor;this.menu=e,this.opt=t;var A=o('<div class="w-e-droplist"></div>'),r=t.$title,c=void 0;r&&(c=r.html(),c=O(i,c),r.html(c),r.addClass("w-e-dp-title"),A.append(r));var a=t.list||[],s=t.type||"list",l=t.onClick||$,d=o('<ul class="'+("list"===s?"w-e-list":"w-e-block")+'"></ul>');A.append(d),a.forEach(function(e){var t=e.$elem,A=t.html();A=O(i,A),t.html(A);var r=e.value,c=o('<li class="w-e-item"></li>');t&&(c.append(t),d.append(c),c.on("click",function(e){l(r),n.hideTimeoutId=setTimeout(function(){n.hide()},0)}))}),A.on("mouseleave",function(e){n.hideTimeoutId=setTimeout(function(){n.hide()},0)}),this.$container=A,this._rendered=!1,this._show=!1}function u(e){var t=this;this.editor=e,this.$elem=o('<div class="w-e-menu"><i class Line: 16 -  tpl:'<div>\n                    <input id="'+r+'" type="text" class="block" placeholder="图片链接"/></td>\n                    <div class="w-e-button-container">\n                        <button id="'+a+'" class="right">插入</button>\n                    </div>\n                </div>',events:[{selector:"#"+a,type:"click",fn:function(){var e=o("#"+r),n=e.val().trim();return n&&t.insertLinkImg(n),!0}}]}],l=[];(n.uploadImgShowBase64||n.uploadImgServer||n.customUploadImg)&&window.FileReader&&l.push(s[0]),n.showLinkImg&&l.push(s[1]);var d=new f(this,{width:300,tabs:l});d.show(),this.panel=d},tryChangeActive:function(e){var t=this.editor,n=this.$elem;t._selectedImg?(this._active=!0,n.addClass("w-e-active")):(this._active=!1,n.removeClass("w-e-active"))}};var q={};q.bold=l,q.head=u,q.fontSize=h,q.fontName=p,q.link=m,q.italic=g,q.redo=w,q.strikeThrough=v,q.underline=E,q.undo=b,q.list=B,q.justify=y,q.foreColor=C,q.backColor=x,q.quote=I,q.code=Q,q.emoticon=M,q.table=S,q.video=k,q.image=D,_.prototype={constructor:_,init:function(){var e=this,t=this.editor;((t.config||{}).menus||[]).forEach(function(n){var i=q[n];i&&"function"==typeof i&&(e.menus[n]=new i(t))}),this._addToToolbar(),this._bindEvent()},_addToToolbar:function(){var e=this.editor,t=e.$toolbarElem,n=this.menus,i=e.config,o=i.zIndex+1;A(n,function(e,n){var i=n.$elem;i&&(i.css("z-index",o),t.append(i))})},_bindEvent:function(){var e=this.menus,t=this.editor;A(e,function(e,n){var i=n.type;if(i){var o=n.$elem,A=n.droplist;n.panel;"click"===i&&n.onClick&&o.on("click",function(e){null!=t.selection.getRange()&&n.onClick(e)}),"droplist"===i&&A&&o.on("mouseenter",function(e){null!=t.selection.getRange()&&(A.showTimeoutId=setTimeout(function(){A.show()},200))}).on("mouseleave",function(e){A.hideTimeoutId=setTimeout(function(){A.hide()},0)}),"panel"===i&&n.onClick&&o.on("click",function(e){e.stopPropagation(),null!=t.selection.getRange()&&n.onClick(e)})}})},changeActive:function(){A(this.menus,function(e,t){t.tryChangeActive&&setTimeout(function(){t.tryChangeActive()},100)})}},U.prototype={constructor:U,init:function(){this._bindE Line: 20 -  ction:function(){var e=window.getSelection();e.removeAllRanges(),e.addRange(this._currentRange)},createEmptyRange:function(){var e=this.editor,t=this.getRange(),n=void 0;if(t&&this.isSelectionEmpty())try{J.isWebkit()?(e.cmd.do("insertHTML","&#8203;"),t.setEnd(t.endContainer,t.endOffset+1),this.saveRange(t)):(n=o("<strong>&#8203;</strong>"),e.cmd.do("insertElem",n),this.createRangeByElem(n,!0))}catch(e){}},createRangeByElem:function(e,t,n){if(e.length){var i=e[0],o=document.createRange();n?o.selectNodeContents(i):o.selectNode(i),"boolean"==typeof t&&o.collapse(t),this.saveRange(o)}}},H.prototype={constructor:H,show:function(e){var t=this;if(!this._isShow){this._isShow=!0;var n=this.$bar;if(this._isRender)this._isRender=!0;else{this.$textContainer.append(n)}Date.now()-this._time>100&&e<=1&&(n.css("width",100*e+"%"),this._time=Date.now());var i=this._timeoutId;i&&clearTimeout(i),i=setTimeout(function(){t._hide()},500)}},_hide:function(){this.$bar.remove(),this._time=0,this._isShow=!1,this._isRender=!1}};var X="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};L.prototype={constructor:L,_alert:function(e,t){var n=this.editor,i=n.config.debug,o=n.config.customAlert;if(i)throw new Error("wangEditor: "+(t||e));o&&"function"==typeof o?o(e):alert(e)},insertLinkImg:function(e){var t=this;if(e){var n=this.editor,i=n.config,o=i.linkImgCheck,A=void 0;if(o&&"function"==typeof o&&"string"==typeof(A=o(e)))return void alert(A);n.cmd.do("insertHTML",'<img src="'+e+'" style="max-width:100%;"/>');var r=document.createElement("img");r.onload=function(){var t=i.linkImgCallback;t&&"function"==typeof t&&t(e),r=null},r.onerror=function(){r=null,t._alert("插入图片错误",'wangEditor: 插入图片出错，图片链接是 "'+e+'"，下载该链接失败')},r.onabort=function(){r=null},r.src=e}},uploadImg:function(e){var t=this;if(e&&e.length){var n=this.editor,i=n.config,o=i.uploadImgServer,c=i.uploadImgShowBase64,a=i.uploadImgMaxSize,s=a/1024/1024,l=i Line: 23 -  nit()},initSelection:function(e){var t=this.$textElem,n=t.children();if(!n.length)return t.append(o("<p><br></p>")),void this.initSelection();var i=n.last();if(e){var A=i.html().toLowerCase(),r=i.getNodeName();if("<br>"!==A&&"<br/>"!==A||"P"!==r)return t.append(o("<p><br></p>")),void this.initSelection()}this.selection.createRangeByElem(i,!1,!0),this.selection.restoreSelection()},_bindEvent:function(){var e=0,t=this.txt.html(),n=this.config,i=n.onchangeTimeout;(!(i=parseInt(i,10))||i<=0)&&(i=200);var o=n.onchange;o&&"function"==typeof o&&(this.change=function(){var n=this.txt.html();n.length===t.length&&n===t||(e&&clearTimeout(e),e=setTimeout(function(){o(n),t=n},i))});var A=n.onblur;A&&"function"==typeof A&&(this.onblur=function(){var e=this.txt.html();A(e)});var r=n.onfocus;r&&"function"==typeof r&&(this.onfocus=function(){r()})},create:function(){this._initConfig(),this._initDom(),this._initCommand(),this._initSelectionAPI(),this._initText(),this._initMenus(),this._initUploadImg(),this.initSelection(!0),this._bindEvent()},_offAllEvent:function(){o.offAll()}};try{document}catch(e){throw new Error("请在浏览器环境下运行")}!function(){"function"!=typeof Object.assign&&(Object.assign=function(e,t){if(null==e)throw new TypeError("Cannot convert undefined or null to object");for(var n=Object(e),i=1;i<arguments.length;i++){var o=arguments[i];if(null!=o)for(var A in o)Object.prototype.hasOwnProperty.call(o,A)&&(n[A]=o[A])}return n}),Element.prototype.matches||(Element.prototype.matches=Element.prototype.matchesSelector||Element.prototype.mozMatchesSelector||Element.prototype.msMatchesSelector||Element.prototype.oMatchesSelector||Element.prototype.webkitMatchesSelector||function(e){for(var t=(this.document||this.ownerDocument).querySelectorAll(e),n=t.length;--n>=0&&t.item(n)!==this;);return n>-1})}();var Z=document.createElement("style");return Z.type="text/css",
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/release/wangEditor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Logic fail</Title>
+ <Description>Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake.</Description>
+ <Level> Low</Level>
+ <Reference> https://en.wikipedia.org/wiki/Logic_error</Reference>
+ <Match> if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\)</Match>
+ <Result> Line: 1478 -          if ($selectionELem.getNodeName() === 'A') {
+
+ Line: 1746 -          if ($selectionElem.getNodeName() === 'LI') {
+
+ Line: 2099 -          if ($selectionELem.getNodeName() === 'CODE' && $parentElem.getNodeName() === 'PRE') {
+
+ Line: 3292 -              if ($parentElem.html() === '<code><br></code>') {
+
+ Line: 3603 -              if ($img.attr('data-w-e') === '1') {
+
+ Line: 3796 -          if ($containerElem.attr('contenteditable') === 'false' || $containerElem.parentUntil('[contenteditable=false]')) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/release/wangEditor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 921 -                  _this.hideTimeoutId = setTimeout(function () {
+
+ Line: 930 -          _this.hideTimeoutId = setTimeout(function () {
+
+ Line: 2980 -                      droplist.showTimeoutId = setTimeout(function () {
+
+ Line: 2985 -                      droplist.hideTimeoutId = setTimeout(function () {
+
+ Line: 3010 -                  setTimeout(function () {
+
+ Line: 3985 -          timeoutId = setTimeout(function () {
+
+ Line: 4587 -                  onChangeTimeoutId = setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/release/wangEditor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 75 -  function querySelectorAll(selector) {
+
+ Line: 120 -              selectorResult = querySelectorAll(selector);
+
+ Line: 3740 -      queryCommandValue: function queryCommandValue(name) {
+
+ Line: 3745 -      queryCommandState: function queryCommandState(name) {
+
+ Line: 3750 -      queryCommandSupported: function queryCommandSupported(name) {
+
+</Result>
+</report_mosca>
+

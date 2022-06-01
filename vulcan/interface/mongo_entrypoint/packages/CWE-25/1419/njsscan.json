@@ -1,0 +1,610 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 41,
+          "line": 3
+        },
+        "extra": {
+          "line": "Copyright (c) 2014-2019 bluefox<dogafox@gmail.com>,\r",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 40,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/objects/objectsInMemServer.js",
+          "match_lines": [
+            2743,
+            2743
+          ],
+          "match_position": [
+            17,
+            69
+          ],
+          "match_string": "        let f = eval('(' + func.map.replace(/emit/g, '_emit_') + ')');"
+        },
+        {
+          "file_path": "/src/lib/objects/objectsInRedis.js",
+          "match_lines": [
+            1548,
+            1548
+          ],
+          "match_position": [
+            25,
+            77
+          ],
+          "match_string": "                let f = eval('(' + func.map.replace(/emit/g, '_emit_') + ')');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/controller.js",
+          "match_lines": [
+            2770,
+            2789
+          ],
+          "match_position": [
+            9,
+            87
+          ],
+          "match_string": "        try {\n\n            if (!fs.existsSync(__dirname + '/../../package.json')) {\n\n                fs.writeFileSync(__dirname + '/../../package.json', JSON.stringify({\n\n                    name: 'iobroker.core',\n\n                    version: '1.0.0',\n\n                    private: true\n\n                }, null, 2));\n\n            } else {\n\n                // npm3 requires version attribute\n\n                let p = JSON.parse(fs.readFileSync(__dirname + '/../../package.json').toString());\n\n                if (!p.version) {\n\n                    fs.writeFileSync(__dirname + '/../../package.json', JSON.stringify({\n\n                        name: 'iobroker.core',\n\n                        version: '1.0.0',\n\n                        private: true\n\n                    }, null, 2));\n\n                }\n\n            }\n\n        } catch (e) {\n\n            console.error('Cannot create \"' + __dirname + '/../../package.json\": ' + e);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            5393,
+            5399
+          ],
+          "match_position": [
+            13,
+            67
+          ],
+          "match_string": "            try {\n\n                // if error handler in the adapter returned exactly true,\n\n                // we expect the error to be handled and do nothing more\n\n                const wasHandled = options.error(err);\n\n                if (wasHandled === true) return;\n\n            } catch (e) {\n\n                console.error(`Error in adapter error handler: ${e}`);"
+        },
+        {
+          "file_path": "/src/lib/objects/objectsInMemServer.js",
+          "match_lines": [
+            1426,
+            1435
+          ],
+          "match_position": [
+            17,
+            83
+          ],
+          "match_string": "                try {\n\n                    let _files = fs.readdirSync(objectsDir + id + '/' + dirs[d]);\n\n\n\n                    if (_files.length) {\n\n                        console.log('Directory ' + id + '/' + dirs[d] + ' is not empty');\n\n                    } else {\n\n                        fs.rmdirSync(objectsDir + id + '/' + dirs[d]);\n\n                    }\n\n                } catch (e) {\n\n                    console.error('Cannot delete ' + id + '/' + dirs[d] + ': ' + e);"
+        },
+        {
+          "file_path": "/src/lib/restart.js",
+          "match_lines": [
+            13,
+            21
+          ],
+          "match_position": [
+            1,
+            22
+          ],
+          "match_string": "try {\n\n    var dir = __dirname + '/../' + tools.getDefaultDataDir() + '../log';\n\n    if (!fs.existsSync(dir)) fs.mkdirSync(dir);\n\n    logFile = dir + '/restart.log';\n\n    console.log(require('path').normalize(logFile));\n\n    if (fs.existsSync(logFile)) fs.unlinkSync(logFile);\n\n    fs.writeFileSync(logFile, 'started\\n');\n\n} catch (err) {\n\n    console.error(err);"
+        },
+        {
+          "file_path": "/src/lib/setup/setupInstall.js",
+          "match_lines": [
+            289,
+            294
+          ],
+          "match_position": [
+            13,
+            72
+          ],
+          "match_string": "            try {\n\n                npmVersion = child_process.execSync('npm -v', {encoding: 'utf8'});\n\n                if (npmVersion) npmVersion = semver.valid(npmVersion.trim());\n\n                console.log('NPM version: ' + npmVersion);\n\n            } catch (e) {\n\n                console.error('Error trying to check npm version: ' + e);"
+        },
+        {
+          "file_path": "/src/lib/setup/setupInstall.js",
+          "match_lines": [
+            1119,
+            1140
+          ],
+          "match_position": [
+            9,
+            28
+          ],
+          "match_string": "        try {\n\n            const obj = yield getObjectAsync(`system.adapter.${adapter}`);\n\n            if (obj) {\n\n                if (obj.common && obj.common.nondeletable) {\n\n                    // If the adapter is non-deletable, mark it as not installed\n\n                    console.log('host.' + hostname + ' Adapter ' + adapter + ' cannot be deleted completely, because it is marked non-deletable.');\n\n                    obj.installedVersion = '';\n\n                    obj.from = 'system.host.' + tools.getHostName() + '.cli';\n\n                    obj.ts = Date.now();\n\n                    yield setObjectAsync(obj._id, obj);\n\n\n\n                    return 22;\n\n                } else {\n\n                    // The adapter is deletable, remember it for deletion\n\n                    knownObjIDs.push(obj._id);\n\n                    console.log(`host.${hostname} Counted 1 adapter for ${adapter}`);\n\n\n\n                    return 0;\n\n                }\n\n            }\n\n        } catch (e) {\n\n            console.error(e);"
+        },
+        {
+          "file_path": "/src/lib/setup/setupInstall.js",
+          "match_lines": [
+            1272,
+            1285
+          ],
+          "match_position": [
+            13,
+            32
+          ],
+          "match_string": "            try {\n\n                const ids = yield getKeysAsync(pattern);\n\n                if (ids && ids.length) {\n\n                    // add non-duplicates to the list\n\n                    const newStates = ids\n\n                        .filter(id => knownStateIDs.indexOf(id) === -1)\n\n                        ;\n\n                    knownStateIDs.push.apply(knownStateIDs, newStates);\n\n                    if (newStates.length > 0) {\n\n                        console.log(`host.${hostname} Counted ${newStates.length} states (${pattern}) from states`);\n\n                    }\n\n                }\n\n            } catch (e) {\n\n                console.error(e);"
+        },
+        {
+          "file_path": "/src/reinstall.js",
+          "match_lines": [
+            49,
+            53
+          ],
+          "match_position": [
+            9,
+            65
+          ],
+          "match_string": "        try {\n\n            const pack = JSON.parse(fs.readFileSync(fileName).toString());\n\n            return {name: pack.name, version: pack.version};\n\n        } catch (e) {\n\n            console.error(`Cannot read or parse ${fileName}: ${e}`);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/multihostServer.js",
+          "match_lines": [
+            139,
+            139
+          ],
+          "match_position": [
+            32,
+            43
+          ],
+          "match_string": "                        salt: (Math.random() * 1000000 + ts).toString().substring(0, 16),"
+        },
+        {
+          "file_path": "/src/lib/setup/setupInstall.js",
+          "match_lines": [
+            207,
+            207
+          ],
+          "match_position": [
+            31,
+            42
+          ],
+          "match_string": "            name = Math.floor(Math.random() * 0xFFFFFFE);"
+        },
+        {
+          "file_path": "/src/lib/states/statesInMemServer.js",
+          "match_lines": [
+            53,
+            53
+          ],
+          "match_position": [
+            38,
+            49
+          ],
+          "match_string": "    let globalMessageId = Math.round(Math.random() * 100000000);"
+        },
+        {
+          "file_path": "/src/lib/states/statesInMemServer.js",
+          "match_lines": [
+            54,
+            54
+          ],
+          "match_position": [
+            38,
+            49
+          ],
+          "match_string": "    let globalLogId     = Math.round(Math.random() * 100000000);"
+        },
+        {
+          "file_path": "/src/lib/states/statesInRedis.js",
+          "match_lines": [
+            26,
+            26
+          ],
+          "match_position": [
+            41,
+            52
+          ],
+          "match_string": "    let globalMessageId    = Math.round(Math.random() * 100000000);"
+        },
+        {
+          "file_path": "/src/lib/states/statesInRedis.js",
+          "match_lines": [
+            27,
+            27
+          ],
+          "match_position": [
+            41,
+            52
+          ],
+          "match_string": "    let globalLogId        = Math.round(Math.random() * 100000000);"
+        },
+        {
+          "file_path": "/src/lib/tools.js",
+          "match_lines": [
+            13,
+            13
+          ],
+          "match_position": [
+            29,
+            40
+          ],
+          "match_string": "const randomID = Math.round(Math.random() * 10000000000000);  // Used for creation of User-Agent"
+        },
+        {
+          "file_path": "/src/lib/tools.js",
+          "match_lines": [
+            317,
+            317
+          ],
+          "match_position": [
+            50,
+            61
+          ],
+          "match_string": "            b += ((a * 51) & 52) ? (a ^ 15 ? 8 ^ Math.random() * (a ^ 20 ? 16 : 4) : 4).toString(16) : '-';"
+        },
+        {
+          "file_path": "/src/lib/tools.js",
+          "match_lines": [
+            398,
+            398
+          ],
+          "match_position": [
+            74,
+            85
+          ],
+          "match_string": "        const tmpFile = __dirname + '/../tmp/' + (fileName || Math.floor(Math.random() * 0xFFFFFFE) + '.zip');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/letsencryptStore.js",
+          "match_lines": [
+            382,
+            382
+          ],
+          "match_position": [
+            24,
+            58
+          ],
+          "match_string": "                return require('crypto').createHash('md5').update(keypair.publicKeyPem).digest('hex');"
+        },
+        {
+          "file_path": "/src/lib/tools.js",
+          "match_lines": [
+            307,
+            307
+          ],
+          "match_position": [
+            24,
+            58
+          ],
+          "match_string": "        const md5sum = require('crypto').createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_password": {
+      "files": [
+        {
+          "file_path": "/src/lib/setup/setupMultihost.js",
+          "match_lines": [
+            95,
+            95
+          ],
+          "match_position": [
+            13,
+            50
+          ],
+          "match_string": "            config.multihostService.password = '';"
+        },
+        {
+          "file_path": "/src/lib/setup/setupMultihost.js",
+          "match_lines": [
+            100,
+            100
+          ],
+          "match_position": [
+            13,
+            50
+          ],
+          "match_string": "            config.multihostService.password = '';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded password in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    },
+    "node_ssrf": {
+      "files": [
+        {
+          "file_path": "/src/lib/setup/setupUpload.js",
+          "match_lines": [
+            161,
+            194
+          ],
+          "match_position": [
+            9,
+            89
+          ],
+          "match_string": "        source = source.replace(/\\\\/g, '/');\n\n        if (target[0] === '/') target = target.substring(1);\n\n        if (target[target.length - 1] === '/') {\n\n            let name = source.split('/').pop();\n\n            name = name.split('?')[0];\n\n            if (name.indexOf('.') === -1) name = 'index.html';\n\n            target += name;\n\n        }\n\n        let parts = target.split('/');\n\n        const adapter = parts[0];\n\n        parts.splice(0, 1);\n\n        target = parts.join('/');\n\n\n\n        if (source.match(/^http:\\/\\/|^https:\\/\\//)) {\n\n            request(source, (error, response, body) => {\n\n                if (!error && response.statusCode === 200) {\n\n                    objects.writeFile(adapter, target, body, err => {\n\n                        if (err) console.error(err);\n\n                        if (typeof callback === 'function') callback(err, adapter + '/' + target);\n\n                    });\n\n                } else {\n\n                    console.error('Cannot get URL: ' + error || response.statusCode);\n\n                    if (typeof callback === 'function') callback(error || response.statusCode, adapter + '/' + target);\n\n                }\n\n            });\n\n        } else {\n\n            try {\n\n                objects.writeFile(adapter, target, fs.readFileSync(source), err => {\n\n                    if (err) console.error(err);\n\n                    if (typeof callback === 'function') callback(err, adapter + '/' + target);\n\n                });\n\n            } catch (err) {\n\n                console.error('Cannot read file \"' + source + '\": ' + err);\n\n                if (typeof callback === 'function') callback(err, adapter + '/' + target);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-918: Server-Side Request Forgery (SSRF)",
+        "description": "User controlled URL in http client libraries can result in Server Side Request Forgery (SSRF).",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/lib/tools.js",
+          "match_lines": [
+            71,
+            79
+          ],
+          "match_position": [
+            13,
+            50
+          ],
+          "match_string": "            if (oldObject.nonEdit.passHash !== hash) {\n\n                delete newObject.nonEdit;\n\n                return false;\n\n            } else {\n\n                oldObject.nonEdit = JSON.parse(JSON.stringify(newObject.nonEdit));\n\n                delete oldObject.nonEdit.password;\n\n                delete newObject.nonEdit.password;\n\n                oldObject.nonEdit.passHash = hash;\n\n                newObject.nonEdit.passHash = hash;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            322,
+            322
+          ],
+          "match_position": [
+            22,
+            39
+          ],
+          "match_string": "        if (user && !regUser.test(user)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            361,
+            361
+          ],
+          "match_position": [
+            22,
+            39
+          ],
+          "match_string": "        if (user && !regUser.test(user)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            411,
+            411
+          ],
+          "match_position": [
+            22,
+            39
+          ],
+          "match_string": "        if (user && !regUser.test(user)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            540,
+            540
+          ],
+          "match_position": [
+            14,
+            31
+          ],
+          "match_string": "        if (!regUser.test(user)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            979,
+            979
+          ],
+          "match_position": [
+            68,
+            97
+          ],
+          "match_string": "                if ((options.noNamespace || config.noNamespace) && that._namespaceRegExp.test(id)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            1018,
+            1018
+          ],
+          "match_position": [
+            22,
+            51
+          ],
+          "match_string": "                if (!that._namespaceRegExp.test(id)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            2251,
+            2251
+          ],
+          "match_position": [
+            18,
+            55
+          ],
+          "match_string": "            if (!that._namespaceRegExp.test(deviceName)) deviceName = that.namespace + '.' + deviceName;"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            2529,
+            2529
+          ],
+          "match_position": [
+            21,
+            60
+          ],
+          "match_string": "                if (this._namespaceRegExp.test(parentDevice)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            2638,
+            2638
+          ],
+          "match_position": [
+            21,
+            60
+          ],
+          "match_string": "                if (that._namespaceRegExp.test(parentDevice)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            2717,
+            2717
+          ],
+          "match_position": [
+            33,
+            72
+          ],
+          "match_string": "            if (parentDevice && that._namespaceRegExp.test(parentDevice)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            2762,
+            2762
+          ],
+          "match_position": [
+            21,
+            60
+          ],
+          "match_string": "                if (that._namespaceRegExp.test(parentDevice)) {"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            3694,
+            3694
+          ],
+          "match_position": [
+            72,
+            101
+          ],
+          "match_string": "                    if ((options.noNamespace || config.noNamespace) && that._namespaceRegExp.test(id)) {"
+        },
+        {
+          "file_path": "/src/lib/objects/objectsInMemServer.js",
+          "match_lines": [
+            1873,
+            1873
+          ],
+          "match_position": [
+            13,
+            28
+          ],
+          "match_string": "        if (regUser.test(id) || regGroup.test(id)) {"
+        },
+        {
+          "file_path": "/src/lib/objects/objectsInMemServer.js",
+          "match_lines": [
+            1873,
+            1873
+          ],
+          "match_position": [
+            33,
+            49
+          ],
+          "match_string": "        if (regUser.test(id) || regGroup.test(id)) {"
+        },
+        {
+          "file_path": "/src/lib/objects/objectsInMemServer.js",
+          "match_lines": [
+            2526,
+            2526
+          ],
+          "match_position": [
+            20,
+            38
+          ],
+          "match_string": "        if (!id || regCheckId.test(id)) {"
+        },
+        {
+          "file_path": "/src/lib/objects/objectsInMemServer.js",
+          "match_lines": [
+            2931,
+            2931
+          ],
+          "match_position": [
+            20,
+            38
+          ],
+          "match_string": "        if (!id || regCheckId.test(id)) {"
+        },
+        {
+          "file_path": "/src/lib/setup/setupBackup.js",
+          "match_lines": [
+            579,
+            579
+          ],
+          "match_position": [
+            18,
+            33
+          ],
+          "match_string": "            if (!regEx.test(name)) name += '_backup' + tools.appName;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

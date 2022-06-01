@@ -1,0 +1,130 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"presets\": [\"es2015\"]\r",
+          "message": "Syntax error"
+        },
+        "path": "/src/.babelrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 2
+        },
+        "extra": {
+          "line": "\t\"preset\": \"google\",\r",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jscsrc",
+        "start": {
+          "col": 10,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 2
+        },
+        "extra": {
+          "line": "\t\"undef\": true,\r",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 9,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/api/component/src/build/js/build-js.js",
+          "match_lines": [
+            173,
+            176
+          ],
+          "match_position": [
+            2,
+            20
+          ],
+          "match_string": "\ttry{\n\n\t\treturn require(path.join(componentPath, 'package.json')).name;\n\n\t}catch(err){\n\n\t\tconsole.error(err)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/api/utils/genDynHash.js",
+          "match_lines": [
+            2,
+            2
+          ],
+          "match_position": [
+            16,
+            27
+          ],
+          "match_string": "\treturn (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/api/component/src/build/js/build-js.js",
+          "match_lines": [
+            120,
+            120
+          ],
+          "match_position": [
+            13,
+            37
+          ],
+          "match_string": "\tif(file && templateRegexp.test(file)){"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

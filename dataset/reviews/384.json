@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 384,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/hftp/-/hftp-0.0.6.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/static_server.js",
+                    "lineno": 40,
+                    "code": "var uri = qs.unescape( url.parse(request.url).pathname ),"
+                },
+                "sink": {
+                    "file": "lib/static_server.js",
+                    "lineno": 91,
+                    "code": "fs.createReadStream(filename).pipe(response);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/static_server.js",
+                    "lineno": 40,
+                    "code": "var uri = qs.unescape( url.parse(request.url).pathname ),"
+                },
+                "sink": {
+                    "file": "lib/static_server.js",
+                    "lineno": 60,
+                    "code": "var files = fs.readdirSync(filename);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/hftp/PoC.sh"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "E"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

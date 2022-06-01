@@ -1,0 +1,12 @@
+diff '--color=auto' -ur package/index.js package-fixed/index.js
+--- package/index.js	2015-11-07 07:16:14.000000000 +0000
++++ package-fixed/index.js	2020-10-30 17:23:30.708000000 +0000
+@@ -18,7 +18,7 @@
+     "Content-Type": 'video/x-ms-wmv'
+ };
+ var server = http.createServer(function (request, response) {
+-    var fileRequested = path.normalize('.' + request.url);
++    var fileRequested = path.normalize('.' + request.url.replace(/\/\.\.(\/|$)/g, "\/"));
+ 
+     fs.exists(fileRequested, function (status) {
+         if (!status) {

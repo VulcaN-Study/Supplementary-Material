@@ -1,0 +1,60 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/bin/serve.js",
+          "match_lines": [
+            193,
+            197
+          ],
+          "match_position": [
+            4,
+            58
+          ],
+          "match_string": "\t\t\ttry {\n\n\t\t\t\tconst {address: ip} = await lookup(os.hostname());\n\n\t\t\t\tnetworkAddress = `http://${ip}:${details.port}`;\n\n\t\t\t} catch (err) {\n\n\t\t\t\tconsole.error(error(`DNS lookup failed: ${err.message}`));"
+        },
+        {
+          "file_path": "/src/bin/serve.js",
+          "match_lines": [
+            220,
+            224
+          ],
+          "match_position": [
+            5,
+            66
+          ],
+          "match_string": "\t\t\t\ttry {\n\n\t\t\t\t\tawait copy(localAddress);\n\n\t\t\t\t\tmessage += `\\n\\n${chalk.grey('Copied local address to clipboard!')}`;\n\n\t\t\t\t} catch (err) {\n\n\t\t\t\t\tconsole.error(error(`Cannot copy to clipboard: ${err.message}`));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

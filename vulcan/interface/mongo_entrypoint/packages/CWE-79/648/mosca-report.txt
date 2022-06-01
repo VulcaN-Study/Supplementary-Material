@@ -1,0 +1,24 @@
+<report_mosca>
+ <Path>/src/dist/ReactSVG.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 17 -  !function(o,i){"use strict";var a="file:"===o.location.protocol,s=i.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure","1.1");var l=Array.prototype.forEach||function(e,t){if(void 0===this||null===this||"function"!=typeof e)throw new TypeError;var r,n=this.length>>>0;for(r=0;r<n;++r)r in this&&e.call(t,this[r],r,this)},u={},c=0,f=[],p=[],d={},v=function(e){return e.cloneNode(!0)},h=function(e,t){p[e]=p[e]||[],p[e].push(t)},y=function(e,t){if(void 0!==u[e])u[e]instanceof SVGSVGElement?t(v(u[e])):h(e,t);else{if(!o.XMLHttpRequest)return t("Browser does not support XMLHttpRequest"),!1;u[e]={},h(e,t);var r=new XMLHttpRequest;r.onreadystatechange=function(){if(4===r.readyState){if(404===r.status||null===r.responseXML)return t("Unable to load SVG file: "+e),a&&t("Note: SVG injection ajax calls do not work locally without adjusting security setting in your browser. Or consider using a local webserver."),t(),!1;if(!(200===r.status||a&&0===r.status))return t("There was a problem injecting the SVG: "+r.status+" "+r.statusText),!1;if(r.responseXML instanceof Document)u[e]=r.responseXML.documentElement;else if(DOMParser&&DOMParser instanceof Function){var n;try{n=(new DOMParser).parseFromString(r.responseText,"text/xml")}catch(e){n=void 0}if(!n||n.getElementsByTagName("parsererror").length)return t("Unable to parse SVG file: "+e),!1;u[e]=n.documentElement}!function(e){for(var t=0,r=p[e].length;t<r;t++)!function(t){setTimeout(function(){p[e][t](v(u[e]))},0)}(t)}(e)}},r.open("GET",e),r.overrideMimeType&&r.overrideMimeType("text/xml"),r.send()}},m=function(e,t,r,n){var i=e.getAttribute("data-src")||e.getAttribute("src");if(/\.svg/i.test(i))if(s)-1===f.indexOf(e)&&(f.push(e),e.setAttribute("src",""),y(i,function(r){if(void 0===r||"string"==typeof r)return n(r),!1;var a=e.getAttribute("id");a&&r.setAttribute("id",a);var s=e.getAttribute("title");s&&r.setAttribute("title",s);var u=[].concat(r.getAttribute("class")||[],"injected-svg",e.getAttribute("class")||[]).join(" ");r.setAttribute("class",function(e){for(var t={},r=(e=e.split(" ")).length,n=[];r--;)t.hasOwnProperty</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/ReactSVG.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 509 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+

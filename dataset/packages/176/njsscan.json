@@ -1,0 +1,79 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# Logs",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 40,
+          "line": 3
+        },
+        "extra": {
+          "line": "Copyright (c) 2015 vmolsa <ville.molsa@gmail.com> (http://github.com/vmolsa) ",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 39,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/test/bwtest.js",
+          "match_lines": [
+            95,
+            166
+          ],
+          "match_position": [
+            5,
+            31
+          ],
+          "match_string": "    options.bufferedDelayMs = options.bufferedDelayMs || 5;\n\n    options.congestHighThreshold = options.congestHighThreshold || 1024 * 1024;\n\n    options.congestLowThreshold = options.congestLowThreshold || 256 * 1024;\n\n    options.iceConfig = options.iceConfig || defaultIceConfig();\n\n\n\n    var n = 0;\n\n    var congested = 0;\n\n    var stats = {\n\n        startTime: 0,\n\n        count: 0,\n\n        bytes: 0,\n\n        congestCount: 0,\n\n        congestTime: 0\n\n    };\n\n\n\n    // setup two peers with simple-peer\n\n    var peer1 = new SimplePeer({\n\n        wrtc: wrtc\n\n    });\n\n    var peer2 = new SimplePeer({\n\n        wrtc: wrtc,\n\n        initiator: true,\n\n        config: options.iceConfig\n\n    });\n\n\n\n    // when peer1 has signaling data, give it to peer2, and vice versa\n\n    peer1.on('signal', peer2.signal.bind(peer2));\n\n    peer2.on('signal', peer1.signal.bind(peer1));\n\n\n\n    // wait for 'connect' event before using the data channel\n\n    peer1.on('error', failure);\n\n    peer2.on('error', failure);\n\n    peer1.on('connect', start);\n\n    peer2.on('data', receive);\n\n\n\n\n\n\n\n    // functions //\n\n\n\n    /**\n\n     * start the test once peers are connected\n\n     */\n\n    function start() {\n\n        stats.startTime = Date.now();\n\n        send();\n\n    }\n\n\n\n\n\n    /**\n\n     * send next packet and recurse\n\n     */\n\n    function send() {\n\n        if (n >= options.packetCount) {\n\n            console.log('SEND DONE!', info());\n\n            return;\n\n        }\n\n        if (n % 100 === 0) {\n\n            console.log('SENDING:', info());\n\n        }\n\n        if (congestion()) {\n\n            setTimeout(send, options.bufferedDelayMs);\n\n            return;\n\n        }\n\n        // TODO allocating new buffer per send as workaround to repeated Externalize()\n\n        // after fixing the issues around that we can move back to higher scope.\n\n        var buffer = new ArrayBuffer(options.packetSize);\n\n        peer1.send(buffer);\n\n        n += 1;\n\n        if (global.setImmediate) {\n\n            global.setImmediate(send);\n\n        } else {\n\n            setTimeout(send, 0);"
+        },
+        {
+          "file_path": "/src/test/bwtest.js",
+          "match_lines": [
+            155,
+            155
+          ],
+          "match_position": [
+            13,
+            53
+          ],
+          "match_string": "            setTimeout(send, options.bufferedDelayMs);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

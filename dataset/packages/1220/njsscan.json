@@ -1,0 +1,94 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/dist/SimpleCrypto.js",
+          "match_lines": [
+            411,
+            411
+          ],
+          "match_position": [
+            39,
+            50
+          ],
+          "match_string": "\t                    return result * (Math.random() > .5 ? 1 : -1);"
+        },
+        {
+          "file_path": "/src/dist/SimpleCrypto.js",
+          "match_lines": [
+            416,
+            416
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "\t                var _r = r((rcache || Math.random()) * 0x100000000);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/build/SimpleCrypto.js",
+          "match_lines": [
+            6,
+            7
+          ],
+          "match_position": [
+            9,
+            89
+          ],
+          "match_string": "        if (secret === void 0) {\n\n            throw new Error('SimpleCrypto object MUST BE initialised with a SECRET KEY.');"
+        },
+        {
+          "file_path": "/src/dist/SimpleCrypto.js",
+          "match_lines": [
+            3381,
+            3382
+          ],
+          "match_position": [
+            9,
+            89
+          ],
+          "match_string": "        if (secret === void 0) {\n\n            throw new Error('SimpleCrypto object MUST BE initialised with a SECRET KEY.');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

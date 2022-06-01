@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/plugin/github.js",
+          "match_lines": [
+            28,
+            33
+          ],
+          "match_position": [
+            5,
+            62
+          ],
+          "match_string": "    var quote = html.charAt(position)\n\n    var substring = html.slice(position + 1)\n\n\n\n    // now that we've found the first delimiting quotation mark, match\n\n    // everything up to the next instance of the same quotation mark\n\n    var src = substring.match(new RegExp('^[^' + quote + ']*'))"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

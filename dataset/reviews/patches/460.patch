@@ -1,0 +1,39 @@
+--- package/package.json	2020-10-21 16:21:07.739369994 +0100
++++ patch/package.json	2020-10-21 16:22:46.906820748 +0100
+@@ -3,7 +3,16 @@
+   "version": "1.2.0",
+   "main": "desafio.js",
+   "dependencies": {
+-    "package": "^1.0.1"
++    "package": "^1.0.1",
++    "path": {
++      "version": "0.12.7",
++      "resolved": "https://registry.npmjs.org/path/-/path-0.12.7.tgz",
++      "integrity": "sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=",
++      "requires": {
++        "process": "^0.11.1",
++        "util": "^0.10.3"
++      }
++    }
+   },
+   "devDependencies": {},
+   "scripts": {
+--- package/desafio.js	2020-10-21 16:21:15.446097506 +0100
++++ patch/desafio.js	2020-10-21 16:20:48.319216740 +0100
+@@ -1,6 +1,7 @@
+ var http = require('http');
+ var fs = require('fs');
+ var url = require('url');
++var p = require('path');
+ 
+ // Retorna o endereço local do arquivo no projeto.
+ var diretorio = function(arquivo){
+@@ -28,7 +29,7 @@
+   var pathname = url.parse(request.url).pathname;
+   
+   // Processando roteamento do pathname
+-  var pagina = rotear(pathname);
++  var pagina = rotear(p.normalize(pathname));
+ 
+   // Renderizando a pagina html
+   fs.readFile(pagina, function(err, html){

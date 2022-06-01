@@ -1,0 +1,156 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/src/node/lang.js",
+          "match_lines": [
+            11,
+            40
+          ],
+          "match_position": [
+            5,
+            48
+          ],
+          "match_string": "    var lang = req.options.lang,\n\n        langfile = lang + '.traineddata.gz';\n\n    \n\n    // langPath defaults to a URL where languages can be downloaded. If a custom path is specified\n\n    // and it is a local path, use that instead\n\n    var localPath = isURL(req.workerOptions.langPath) ? \n\n        lang + '.traineddata' : \n\n        path.join(req.workerOptions.langPath, lang + '.traineddata');\n\n\n\n    var fetchProtocol = req.workerOptions.langPath.startsWith('http://') ? http : https;\n\n\n\n    fs.readFile(localPath, function (err, data) {\n\n        if(!err) return cb(new Uint8Array(data));\n\n\n\n        fetchProtocol.get(req.workerOptions.langPath + langfile, stream => {\n\n            var received_bytes = 0;\n\n            stream.on('data', function(chunk) {\n\n                received_bytes += chunk.length;\n\n                res.progress({ \n\n                    status: 'downloading ' + langfile, \n\n                    loaded: received_bytes,\n\n                    progress: Math.min(1, received_bytes / langdata[lang])\n\n                });\n\n\n\n            });\n\n\n\n            var gunzip = zlib.createGunzip();\n\n            stream.pipe(gunzip).pipe(fs.createWriteStream(lang + '.traineddata'))\n\n            gunzip.on('end',() => {\n\n                getLanguageData(req, stream, cb)"
+        },
+        {
+          "file_path": "/src/src/node/lang.js",
+          "match_lines": [
+            16,
+            40
+          ],
+          "match_position": [
+            5,
+            48
+          ],
+          "match_string": "    var localPath = isURL(req.workerOptions.langPath) ? \n\n        lang + '.traineddata' : \n\n        path.join(req.workerOptions.langPath, lang + '.traineddata');\n\n\n\n    var fetchProtocol = req.workerOptions.langPath.startsWith('http://') ? http : https;\n\n\n\n    fs.readFile(localPath, function (err, data) {\n\n        if(!err) return cb(new Uint8Array(data));\n\n\n\n        fetchProtocol.get(req.workerOptions.langPath + langfile, stream => {\n\n            var received_bytes = 0;\n\n            stream.on('data', function(chunk) {\n\n                received_bytes += chunk.length;\n\n                res.progress({ \n\n                    status: 'downloading ' + langfile, \n\n                    loaded: received_bytes,\n\n                    progress: Math.min(1, received_bytes / langdata[lang])\n\n                });\n\n\n\n            });\n\n\n\n            var gunzip = zlib.createGunzip();\n\n            stream.pipe(gunzip).pipe(fs.createWriteStream(lang + '.traineddata'))\n\n            gunzip.on('end',() => {\n\n                getLanguageData(req, stream, cb)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/dist/tesseract.js",
+          "match_lines": [
+            247,
+            247
+          ],
+          "match_position": [
+            109,
+            120
+          ],
+          "match_string": "    defaultOptions.workerPath = location.protocol + '//' + location.host + '/dist/worker.dev.js?nocache=' + Math.random().toString(36).slice(3);"
+        },
+        {
+          "file_path": "/src/dist/tesseract.js",
+          "match_lines": [
+            435,
+            435
+          ],
+          "match_position": [
+            49,
+            60
+          ],
+          "match_string": "        this.id = 'Job-' + ++jobCounter + '-' + Math.random().toString(16).slice(3, 8);"
+        },
+        {
+          "file_path": "/src/src/browser/index.js",
+          "match_lines": [
+            9,
+            9
+          ],
+          "match_position": [
+            109,
+            120
+          ],
+          "match_string": "    defaultOptions.workerPath = location.protocol + '//' + location.host + '/dist/worker.dev.js?nocache=' + Math.random().toString(36).slice(3)"
+        },
+        {
+          "file_path": "/src/src/common/job.js",
+          "match_lines": [
+            7,
+            7
+          ],
+          "match_position": [
+            51,
+            62
+          ],
+          "match_string": "        this.id = 'Job-' + (++jobCounter) + '-' + Math.random().toString(16).slice(3, 8)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/tesseract.js",
+          "match_lines": [
+            285,
+            285
+          ],
+          "match_position": [
+            13,
+            29
+          ],
+          "match_string": "        if (/^\\#/.test(image)) {"
+        },
+        {
+          "file_path": "/src/dist/tesseract.js",
+          "match_lines": [
+            288,
+            288
+          ],
+          "match_position": [
+            20,
+            46
+          ],
+          "match_string": "        } else if (/(blob|data)\\:/.test(image)) {"
+        },
+        {
+          "file_path": "/src/src/browser/index.js",
+          "match_lines": [
+            49,
+            49
+          ],
+          "match_position": [
+            12,
+            28
+          ],
+          "match_string": "        if(/^\\#/.test(image)){"
+        },
+        {
+          "file_path": "/src/src/browser/index.js",
+          "match_lines": [
+            52,
+            52
+          ],
+          "match_position": [
+            18,
+            44
+          ],
+          "match_string": "        }else if(/(blob|data)\\:/.test(image)){"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

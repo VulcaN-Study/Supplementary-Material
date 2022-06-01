@@ -1,0 +1,19 @@
+diff -urN ./node.js nodepatch.js 
+--- ./node.js   2016-05-17 03:50:04.000000000 +0100
++++ nodepatch.js        2020-10-30 20:54:25.290598268 +0000
+@@ -1,8 +1,10 @@
+ var http=require("http");
+ var fs=require("fs");
++var path=require("path");
+ http.createServer(function(request,response){
+-    var path="./"+request.url;
+-    fs.readFile(path,function (error,data) {
++    var safeSuffix = path.normalize(request.url).replace(/^(\.\.(\/|\\|$))+/, '');                                                                             
++    var pathname = path.join("./", safeSuffix);
++    fs.readFile(pathname,function (error,data) {
+         response.end(data);
+     })
+-}).listen("9987");
+\ No newline at end of file
++}).listen("9987");
+

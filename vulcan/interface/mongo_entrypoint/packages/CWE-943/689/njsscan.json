@@ -1,0 +1,152 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/server/apps/routes/auth.js",
+          "match_lines": [
+            104,
+            112
+          ],
+          "match_position": [
+            5,
+            36
+          ],
+          "match_string": "    const token = req.query.t\n\n    const user = await User.findOne({ token })\n\n\n\n    if (!user) {\n\n      res.redirect('/admin')\n\n      return\n\n    }\n\n\n\n    res.redirect(`/admin/sp/${token}`)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/server/utils/compile-sass.js",
+          "match_lines": [
+            27,
+            27
+          ],
+          "match_position": [
+            41,
+            52
+          ],
+          "match_string": "    retVal += charset.charAt(Math.floor(Math.random() * n))"
+        },
+        {
+          "file_path": "/src/server/utils/generate-env-file.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            41,
+            52
+          ],
+          "match_string": "    retVal += charset.charAt(Math.floor(Math.random() * n))"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/server/graphql/queries/entries/multiple.js",
+          "match_lines": [
+            32,
+            32
+          ],
+          "match_position": [
+            7,
+            98
+          ],
+          "match_string": "      const section = await Section.findOne({ slug: args.sectionSlug }).select('_id').lean().exec()"
+        },
+        {
+          "file_path": "/src/server/graphql/queries/entries/single.js",
+          "match_lines": [
+            44,
+            44
+          ],
+          "match_position": [
+            7,
+            98
+          ],
+          "match_string": "      const section = await Section.findOne({ slug: args.sectionSlug }).select('_id').lean().exec()"
+        },
+        {
+          "file_path": "/src/server/utils/register-plugins.js",
+          "match_lines": [
+            26,
+            26
+          ],
+          "match_position": [
+            5,
+            70
+          ],
+          "match_string": "    const foundPlugin = await Plugin.findOne({ uid: PluginClass.uid })"
+        },
+        {
+          "file_path": "/src/server/utils/template-routes.js",
+          "match_lines": [
+            19,
+            19
+          ],
+          "match_position": [
+            3,
+            74
+          ],
+          "match_string": "  const page = await Page.findOne({ route: req.originalUrl }).lean().exec()"
+        },
+        {
+          "file_path": "/src/server/apps/routes/auth.js",
+          "match_lines": [
+            104,
+            105
+          ],
+          "match_position": [
+            5,
+            46
+          ],
+          "match_string": "    const token = req.query.t\n\n    const user = await User.findOne({ token })"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,299 @@
+<report_mosca>
+ <Path>/src/lib/utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 78 -    var query = '';
+
+ Line: 81 -      query = 'SELECT ';
+
+ Line: 87 -            query += opt + ', ';
+
+ Line: 91 -          query += criteria.groupBy + ', ';
+
+ Line: 99 -            query += 'SUM(' + opt + ') AS ' + opt + ', ';
+
+ Line: 103 -          query += 'SUM(' + criteria.sum + ') AS ' + criteria.sum + ', ';
+
+ Line: 111 -            query += 'AVG(' + opt + ') AS ' + opt + ', ';
+
+ Line: 115 -          query += 'AVG(' + criteria.average + ') AS ' + criteria.average + ', ';
+
+ Line: 123 -            query += 'MAX(' + opt + ') AS ' + opt + ', ';
+
+ Line: 127 -          query += 'MAX(' + criteria.max + ') AS ' + criteria.max + ', ';
+
+ Line: 135 -            query += 'MIN(' + opt + ') AS ' + opt + ', ';
+
+ Line: 139 -          query += 'MIN(' + criteria.min + ') AS ' + criteria.min + ', ';
+
+ Line: 144 -      query = query.slice(0, -2) + ' ';
+
+ Line: 146 -      // Add FROM clause
+
+ Line: 147 -      return query += 'FROM `' + table + '` ';
+
+ Line: 151 -     * If no aggregate options lets just build a normal query
+
+ Line: 156 -    query += 'SELECT ';
+
+ Line: 192 -      query += '`' + select.table + '`.`' + select.key + '`, ';
+
+ Line: 202 -      // of the query. This will result in a selected column like: "user"."id" AS "user_id__id"
+
+ Line: 204 -        return query += mysql.escapeId(alias) + '.' + mysql.escapeId(select.key) + ' AS ' +
+
+ Line: 209 -      // select query.
+
+ Line: 211 -        return query += mysql.escapeId(alias) + '.' + mysql.escapeId(select.key) + ' AS ' +
+
+ Line: 216 -      return query += mysql.escapeId(alias) + '.' + mysql.escapeId(select.key) + ' AS ' +
+
+ Line: 221 -    query = query.slice(0, -2) + ' FROM `' + table + '` ';
+
+ Line: 223 -    return query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/sql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 44 -    // @returns ALTER query for adding a column
+
+ Line: 57 -    // @returns ALTER query for dropping a column
+
+ Line: 67 -      var query = 'SELECT count(*) as count from `' + collectionName + '`';
+
+ Line: 68 -      return query += sql.serializeOptions(collectionName, options, tableDefs);
+
+ Line: 71 -    // Create a schema csv for a DDL query
+
+ Line: 112 -    // Create an attribute csv for a DQL query
+
+ Line: 117 -    // Create a value csv for a DQL query
+
+ Line: 195 -    // Recursively parse a predicate calculus and build a SQL query
+
+ Line: 197 -      var queryPart = '';
+
+ Line: 206 -        queryPart = sql.build(collectionName, criterion, sql.where, ' OR ');
+
+ Line: 207 -        return ' ( ' + queryPart + ' ) ';
+
+ Line: 212 -        queryPart = sql.build(collectionName, criterion, sql.where, ' AND ');
+
+ Line: 213 -        return ' ( ' + queryPart + ' ) ';
+
+ Line: 218 -        queryPart = sql.prepareAttribute(collectionName, null, key) + " IN (" + sql.values(collectionName, criterion, key) + ")";
+
+ Line: 219 -        return queryPart;
+
+ Line: 272 -      var queryPart = '';
+
+ Line: 275 -        queryPart += 'WHERE ' + sql.where(collectionName, options.where) + ' ';
+
+ Line: 279 -        queryPart += 'GROUP BY ';
+
+ Line: 285 -          queryPart += key + ', ';
+
+ Line: 289 -        queryPart = queryPart.slice(0, -2) + ' ';
+
+ Line: 293 -        queryPart += 'ORDER BY ';
+
+ Line: 298 -          queryPart += sql.prepareAttribute(collectionName, null, attrName) + ' ';
+
+ Line: 302 -            queryPart += 'ASC, ';
+
+ Line: 304 -            queryPart += 'DESC, ';
+
+ Line: 310 -          queryPart = queryPart.slice(0, -2) + ' ';
+
+ Line: 315 -        queryPart += 'LIMIT ' + options.limit + ' ';
+
+ Line: 322 -            queryPart += 'LIMIT 18446744073709551610 ';
+
+ Line: 324 -        queryPart += 'OFFSET ' + options.skip + ' ';
+
+ Line: 327 -      return queryPart;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/adapter.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 85 -      // Direct access to query
+
+ Line: 86 -      query: function(connectionName, collectionName, query, data, cb, connection) {
+
+ Line: 101 -          // Run query
+
+ Line: 128 -          var query = 'DESCRIBE ' + tableName;
+
+ Line: 129 -          var pkQuery = 'SHOW INDEX FROM ' + tableName;
+
+ Line: 131 -          // Run query
+
+ Line: 133 -            console.log('\nExecuting MySQL query: ',query);
+
+ Line: 206 -          // Iterate through each attribute, building a query string
+
+ Line: 209 -          // Build query
+
+ Line: 210 -          var query = 'CREATE TABLE ' + tableName + ' (' + schema + ')';
+
+ Line: 213 -            query += ' DEFAULT CHARSET ' + connectionObject.config.charset;
+
+ Line: 217 -            if(!connectionObject.config.charset) query += ' DEFAULT ';
+
+ Line: 218 -            query += ' COLLATE ' + connectionObject.config.collation;
+
+ Line: 222 -          // Run query
+
+ Line: 224 -            console.log('\nExecuting MySQL query: ',query);
+
+ Line: 268 -            // Build query
+
+ Line: 269 -            var query = 'DROP TABLE ' + tableName;
+
+ Line: 272 -              console.log('\nExecuting MySQL query: ',query);
+
+ Line: 275 -            // Run query
+
+ Line: 309 -          var query = sql.addColumn(tableName, attrName, attrDef);
+
+ Line: 311 -          // Run query
+
+ Line: 313 -            console.log('\nExecuting MySQL query: ',query);
+
+ Line: 316 -          // Run query
+
+ Line: 342 -          var query = sql.removeColumn(tableName, attrName);
+
+ Line: 345 -            console.log('\nExecuting MySQL query: ',query);
+
+ Line: 348 -          // Run query
+
+ Line: 390 -          // Build a query for the specific query strategy
+
+ Line: 397 -          // Run query
+
+ Line: 452 -            // Build a query for the specific query strategy
+
+ Line: 459 -            // Run query
+
+ Line: 476 -            // then skip the query altogether- we don't need to look anything up
+
+ Line: 482 -            var query = 'SELECT * FROM ' + mysql.escapeId(tableName) + ' WHERE ' + mysql.escapeId(pk) + ' IN (' + records + ');';
+
+ Line: 486 -              console.log('\ncreateEach() :: Executing MySQL query: ',query);
+
+ Line: 547 -             * Given a strategy type, build up and execute a SQL query for it.
+
+ Line: 577 -              // Build a query for the specific query strategy
+
+ Line: 681 -                  // Remove the parent query
+
+ Line: 698 -                        qs += q.qs.replace('^?^', parent[pk]) + ' UNION ';
+
+ Line: 700 -                        qs += q.qs.replace('^?^', '"' + parent[pk] + '"') + ' UNION ';
+
+ Line: 704 -                    // Remove the last UNION
+
+ Line: 807 -          // Check if this is an aggregate query and that there is something to return
+
+ Line: 817 -          // Build find query
+
+ Line: 823 -          // Build a query for the specific query strategy
+
+ Line: 830 -          // Run query
+
+ Line: 832 -            console.log('\nExecuting MySQL query: ',_query);
+
+ Line: 856 -          // Check if this is an aggregate query and that there is something to return
+
+ Line: 867 -          // Build a copy of the schema to send w/ the query
+
+ Line: 873 -          // Build find query
+
+ Line: 874 -          var query = sql.countQuery(tableName, options, localSchema);
+
+ Line: 876 -          // Run query
+
+ Line: 879 -            // Return the count from the simplified query
+
+ Line: 902 -          // Build find query
+
+ Line: 903 -          var query = sql.selectQuery(tableName, options);
+
+ Line: 905 -          // Run query
+
+ Line: 937 -          return spawnConnection(connectionName, __UPDATE__, cb);
+
+ Line: 939 -          __UPDATE__(connection, cb);
+
+ Line: 942 -        function __UPDATE__(connection, cb) {
+
+ Line: 947 -          // Build find query
+
+ Line: 953 -          // Build a query for the specific query strategy
+
+ Line: 985 -            // Build query
+
+ Line: 992 -            // Run query
+
+ Line: 1005 -              // Build a query for the specific query strategy
+
+ Line: 1012 -              // Run query
+
+ Line: 1038 -          // Build query
+
+ Line: 1044 -          // Build a query for the specific query strategy
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/connections/spawn.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 36 -    // logic for the query.
+
+ Line: 54 -     * Run the actual query logic (`fn`) now that we have our live connection,
+
+ Line: 84 -      // with the live MySQL connection (probably send a query).
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/connections/release.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -   * Functions for freeing/terminating a MySQL connection when a query is complete.
+
+</Result>
+</report_mosca>
+

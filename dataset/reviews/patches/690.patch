@@ -1,0 +1,11 @@
+--- lib/cryo.js	2020-10-25 03:00:49.655397039 +0000
++++ lib/cryo.js	2020-10-30 16:12:27.055320223 +0000
+@@ -88,6 +88,8 @@
+         var container = unwrapConstructor(ref.value);
+         var contents = ref.contents;
+         for (var key in contents) {
++          if (typeof(key) === 'string' && key === "__proto__")
++            throw "nice try with __proto__";
+           container[key] = rebuildFromReferences(contents[key], references, callback, restoredItems);
+         }
+         restoredItems[referenceIndex] = container;

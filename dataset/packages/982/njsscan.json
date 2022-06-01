@@ -1,0 +1,180 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"presets\": [ \"env\" ]",
+          "message": "Syntax error"
+        },
+        "path": "/src/.babelrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "FatalError",
+        "end": {
+          "col": 1,
+          "line": 1
+        },
+        "extra": {
+          "line": "export * from './helper';",
+          "message": "Fatal Error: Ast_js_build.UnhandledConstruct(\"reexporting namespace\", _)"
+        },
+        "path": "/src/test/TestHelper.js",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/util/IdGenerator.js",
+          "match_lines": [
+            15,
+            15
+          ],
+          "match_position": [
+            60,
+            71
+          ],
+          "match_string": "  this._prefix = (prefix ? prefix + '-' : '') + Math.floor(Math.random() * 1000000000) + '-';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/layout/ManhattanLayout.js",
+          "match_lines": [
+            34,
+            41
+          ],
+          "match_position": [
+            11,
+            37
+          ],
+          "match_string": "  return !{\n\n    t: /top/,\n\n    r: /right/,\n\n    b: /bottom/,\n\n    l: /left/,\n\n    h: /./,\n\n    v: /./\n\n  }[startDirection].test(orientation);"
+        },
+        {
+          "file_path": "/src/lib/features/resize/ResizeUtil.js",
+          "match_lines": [
+            130,
+            130
+          ],
+          "match_position": [
+            14,
+            34
+          ],
+          "match_string": "    value = (/top|left/.test(attr) ? min : max)(value, minValue);"
+        },
+        {
+          "file_path": "/src/lib/features/resize/ResizeUtil.js",
+          "match_lines": [
+            134,
+            134
+          ],
+          "match_position": [
+            14,
+            34
+          ],
+          "match_string": "    value = (/top|left/.test(attr) ? max : min)(value, maxValue);"
+        },
+        {
+          "file_path": "/src/lib/features/resize/ResizeUtil.js",
+          "match_lines": [
+            162,
+            162
+          ],
+          "match_position": [
+            10,
+            28
+          ],
+          "match_string": "    top: /n/.test(direction) ? currentBox.bottom - minDimensions.height : currentBox.top,"
+        },
+        {
+          "file_path": "/src/lib/features/resize/ResizeUtil.js",
+          "match_lines": [
+            163,
+            163
+          ],
+          "match_position": [
+            11,
+            29
+          ],
+          "match_string": "    left: /w/.test(direction) ? currentBox.right - minDimensions.width : currentBox.left,"
+        },
+        {
+          "file_path": "/src/lib/features/resize/ResizeUtil.js",
+          "match_lines": [
+            164,
+            164
+          ],
+          "match_position": [
+            13,
+            31
+          ],
+          "match_string": "    bottom: /s/.test(direction) ? currentBox.top + minDimensions.height : currentBox.bottom,"
+        },
+        {
+          "file_path": "/src/lib/features/resize/ResizeUtil.js",
+          "match_lines": [
+            165,
+            165
+          ],
+          "match_position": [
+            12,
+            30
+          ],
+          "match_string": "    right: /e/.test(direction) ? currentBox.left + minDimensions.width : currentBox.right"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/server.js",
+          "match_lines": [
+            10,
+            46
+          ],
+          "match_position": [
+            2,
+            16
+          ],
+          "match_string": "\tvar url_obj = url.parse(req.url, true, false);\n\n\t//console.log(url_obj.pathname);\n\n\tif (url_obj.pathname == GET_CITY) {\n\n\t\t//console.log(\"In REST Service\");\n\n\t\tvar search = url_obj.query['q'];\n\n\t\tif (search == \"\") return;\n\n\t\t//console.log(search);\n\n\t\tvar found = [];\n\n\t\tfs.readFile(CITIES_FILE, function(err, data) {\n\n\t\t\tif (err) throw err;\n\n\t\t\tcities = data.toString().split(\"\\n\");\n\n\t\t\tfound = [];\n\n\t\t\tcities.forEach(function (city_name, index) {\n\n\t\t\t\t//console.log(city_name);\n\n\t\t\t\tvar search_length = search.length;\n\n\t\t\t\tvar city_pre = city_name.substring(0, search_length);\n\n\t\t\t\t//console.log(city_pre);\n\n\t\t\t\tif (city_pre == search) {\n\n\t\t\t\t\t//console.log(city_name);\n\n\t\t\t\t\tvar city_obj = { city:city_name }\n\n\t\t\t\t\tfound.push(city_obj);\n\n\t\t\t\t}\n\n\t\t\t});\n\n\t\t\t//console.log(found);\n\n\t\t\tres.writeHead(200);\n\n\t\t\tres.end(JSON.stringify(found));\n\n\t\t});\n\n\t}\n\n\telse {\n\n\t\tfs.readFile(ROOT_DIR + url_obj.pathname, function (err,data) {\n\n\t\t\tif (err) {\n\n\t\t\t\tres.writeHead(404);\n\n\t\t\t\tres.end(JSON.stringify(err));\n\n\t\t\t\treturn;\n\n\t\t\t}\n\n\t\t\tres.writeHead(200);\n\n\t\t\tres.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

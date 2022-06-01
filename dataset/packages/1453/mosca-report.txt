@@ -1,0 +1,89 @@
+<report_mosca>
+ <Path>/src/angular.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3077 -      win.setTimeout(action);
+
+ Line: 3099 -        setTimeout(trigger);
+
+ Line: 5744 -        setTimeout = window.setTimeout,
+
+ Line: 6028 -     * Executes a fn asynchronously via `setTimeout(fn, delay)`.
+
+ Line: 6030 -     * Unlike when calling `setTimeout` directly, in test this function is mocked and instead of using
+
+ Line: 6031 -     * `setTimeout` in tests, the fns are queued in an array, which can be programmatically flushed
+
+ Line: 6038 -      timeoutId = setTimeout(function() {
+
+ Line: 11477 -        * Angular's wrapper for `window.setInterval`. The `fn` function is executed every `delay`
+
+ Line: 11600 -            setInterval = $window.setInterval,
+
+ Line: 11613 -        promise.$$intervalId = setInterval(function tick() {
+
+ Line: 14835 -   *       setTimeout(function() {
+
+ Line: 14873 -   *     setTimeout(function() {
+
+ Line: 16441 -         * framework. (For example from browser DOM events, setTimeout, XHR or third party libraries).
+
+ Line: 18228 -        * Angular's wrapper for `window.setTimeout`. The `fn` function is wrapped into a try/catch
+
+ Line: 23948 -                      eval('1+2');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/angular.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 331 -          // as on IE8 the result of querySelectorAll is an object without a hasOwnProperty function
+
+ Line: 1355 -   * Parses an escaped url query string into key-value pairs.
+
+ Line: 1422 -   * This method is intended for encoding *key* or *value* parts of query component. We need a custom
+
+ Line: 1425 -   *    query       = *( pchar / "/" / "?" )
+
+ Line: 3934 -   * Allows the user to query if the particular service exists.
+
+ Line: 3936 -   * @param {string} name Name of the service to query.
+
+ Line: 9569 -        //WILL TAKE YEARS AWAY FROM YOUR LIFE.
+
+ Line: 10670 -       * Shortcut method to perform `DELETE` request.
+
+ Line: 29000 -   * HTML `SELECT` element with angular data-binding.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/angular.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 33 -  L(b)?b:[b];a;){for(var c=0,e=b.length;c<e;c++)if(u(d=D.data(a,b[c])))return d;a=a.parentNode||11===a.nodeType&&a.host}}function Qc(a){for(tb(a,!0);a.firstChild;)a.removeChild(a.firstChild)}function Xb(a,b){b||tb(a);var d=a.parentNode;d&&d.removeChild(a)}function Nf(a,b){b=b||R;if("complete"===b.document.readyState)b.setTimeout(a);else D(b).on("load",a)}function Rc(a,b){var d=Bb[b.toLowerCase()];return d&&Sc[oa(a)]&&d}function Of(a,b){var d=function(c,d){c.isDefaultPrevented=function(){return c.defaultPrevented};
+
+ Line: 43 -  function f(){F=null;g();h()}function g(){a:{try{q=l.state;break a}catch(a){}q=void 0}q=r(q)?null:q;la(q,C)&&(q=C);C=q}function h(){if(w!==k.url()||y!==q)w=k.url(),y=q,p(Q,function(a){a(k.url(),q)})}var k=this,m=a.location,l=a.history,n=a.setTimeout,J=a.clearTimeout,z={};k.isMock=!1;var t=0,A=[];k.$$completeOutstandingRequest=e;k.$$incOutstandingRequestCount=function(){t++};k.notifyWhenNoOutstandingRequests=function(a){0===t?a():A.push(a)};var q,y,w=m.href,V=b.find("base"),F=null;g();y=q;k.url=function(b,
+
+ Line: 96 -  f,d!==e?c:f,a);c=f})}})}}var k=a.length,m=b.length,l=new RegExp(a.replace(/./g,f),"g"),n=new RegExp(b.replace(/./g,f),"g");h.startSymbol=function(){return a};h.endSymbol=function(){return b};return h}]}function jf(){this.$get=["$rootScope","$window","$q","$$q",function(a,b,d,c){function e(e,h,k,m){var l=4<arguments.length,n=l?ta.call(arguments,4):[],J=b.setInterval,z=b.clearInterval,t=0,A=u(m)&&!m,q=(A?c:d).defer(),y=q.promise;k=u(k)?k:0;y.then(null,null,l?function(){e.apply(null,n)}:e);y.$$intervalId=
+
+ Line: 177 -  ja.th=ja.td;var Rf=Node.prototype.contains||function(a){return!!(this.compareDocumentPosition(a)&16)},Qa=S.prototype={ready:function(a){function b(){d||(d=!0,a())}var d=!1;"complete"===U.readyState?setTimeout(b):(this.on("DOMContentLoaded",b),S(R).on("load",b))},toString:function(){var a=[];p(this,function(b){a.push(""+b)});return"["+a.join(", ")+"]"},eq:function(a){return 0<=a?D(this[a]):D(this[this.length+a])},length:0,push:wg,sort:[].sort,splice:[].splice},Bb={};p("multiple selected checked disabled readOnly required open".split(" "),
+
+</Result>
+</report_mosca>
+

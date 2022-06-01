@@ -1,0 +1,50 @@
+/src/README.md-3-
+/src/README.md:4:Evalulate javascript like the built-in javascript `eval()` method but **safely**. 
+/src/README.md-5-
+/src/README.md:6:This module uses [esprima](https://github.com/ariya/esprima) to parse the javascript AST then walks each node and evaluates the result. 
+/src/README.md-7-
+/src/README.md:8:Like built-in `eval`, the result of the last expression will be returned. Unlike built-in, there is no access to global objects, only the context that is passed in as the second object.
+/src/README.md-9-
+/src/README.md:10:Built in types such as `Object` and `String` are still available, but they are wrapped so that any changes to prototypes are contained in the eval instance.
+/src/README.md-11-
+##############################################
+/src/package.json-3-  "version": "1.3.2",
+/src/package.json:4:  "description": "Evalulate javascript like the built-in eval() method but safely",
+/src/package.json-5-  "main": "index.js",
+##############################################
+/src/package.json-13-  "keywords": [
+/src/package.json:14:    "eval",
+/src/package.json-15-    "sandbox",
+##############################################
+/src/index.js-7-module.exports = safeEval
+/src/index.js:8:module.exports.eval = safeEval
+/src/index.js-9-module.exports.FunctionFactory = FunctionFactory
+##############################################
+/src/index.js-13-
+/src/index.js:14:// 'eval' with a controlled environment
+/src/index.js-15-function safeEval(src, parentContext){
+##############################################
+/src/index.js-17-  var context = Object.create(parentContext || {})
+/src/index.js:18:  return finalValue(evaluateAst(tree, context))
+/src/index.js-19-}
+##############################################
+/src/index.js-43-
+/src/index.js:44:// evaluate an AST in the given context
+/src/index.js:45:function evaluateAst(tree, context){
+/src/index.js-46-
+##############################################
+/src/index.js-68-
+/src/index.js:69:  // recursively evalutate the node of an AST
+/src/index.js-70-  function walk(node, traceNode){
+##############################################
+/src/index.js-511-        })
+/src/index.js:512:        var result = evaluateAst(body, context)
+/src/index.js-513-    
+##############################################
+/src/test/literals.js-59-  var result = run('')
+/src/test/literals.js:60:  t.deepEqual(result, undefined) //same as eval('')
+/src/test/literals.js-61-  t.end()
+##############################################
+/src/test/literals.js-65-  var result = run(';')
+/src/test/literals.js:66:  t.deepEqual(result, undefined) //same as eval(';')
+/src/test/literals.js-67-  t.end()

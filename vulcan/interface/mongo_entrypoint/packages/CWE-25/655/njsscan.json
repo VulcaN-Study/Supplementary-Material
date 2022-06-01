@@ -1,0 +1,48 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"extends\": [\"dck\"]",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/lib/app.js",
+          "match_lines": [
+            11,
+            35
+          ],
+          "match_position": [
+            7,
+            23
+          ],
+          "match_string": "      const url = req.url\n\n\n\n      if (url.indexOf('?') != -1) {\n\n        url = url.split('?')[0]\n\n      }\n\n\n\n      const file = url === '/' ? '/index.html' : url.replace(/(\\.\\.[\\/\\\\])+/g, '')\n\n      const rootPath = path.normalize(process.cwd())\n\n\n\n      fs.readFile(`${rootPath}${file}`, (err, data) => {\n\n        if (!!err) {\n\n          console.error('Error loading : ' + url)\n\n          res.writeHead(404)\n\n          res.end()\n\n        } else {\n\n          var type = path.extname(file)\n\n\n\n          if (type === '.js') {\n\n            contentType = 'application/javascript'\n\n          } else {\n\n            contentType = 'text/' + type.slice(1, type.length)\n\n          }\n\n\n\n          res.setHeader('content-type', contentType)\n\n          res.end(data)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

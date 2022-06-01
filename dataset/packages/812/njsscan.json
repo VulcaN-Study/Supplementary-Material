@@ -1,0 +1,74 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/marked.js",
+          "match_lines": [
+            913,
+            913
+          ],
+          "match_position": [
+            9,
+            20
+          ],
+          "match_string": "    if (Math.random() > 0.5) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/marked.js",
+          "match_lines": [
+            1331,
+            1331
+          ],
+          "match_position": [
+            9,
+            36
+          ],
+          "match_string": "    if (escape.escapeTest.test(html)) {"
+        },
+        {
+          "file_path": "/src/lib/marked.js",
+          "match_lines": [
+            1335,
+            1335
+          ],
+          "match_position": [
+            9,
+            44
+          ],
+          "match_string": "    if (escape.escapeTestNoEncode.test(html)) {"
+        },
+        {
+          "file_path": "/src/lib/marked.js",
+          "match_lines": [
+            1415,
+            1415
+          ],
+          "match_position": [
+            9,
+            37
+          ],
+          "match_string": "    if (/^[^:]+:\\/*[^/]*$/.test(base)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

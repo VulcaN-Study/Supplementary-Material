@@ -1,0 +1,562 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (C) 2017 JakubPawlowicz.com",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "layer7_object_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/optimizer/level-2/merge-adjacent.js",
+          "match_lines": [
+            25,
+            45
+          ],
+          "match_position": [
+            3,
+            24
+          ],
+          "match_string": "  for (var i = 0, l = tokens.length; i < l; i++) {\n\n    var token = tokens[i];\n\n\n\n    if (token[0] != Token.RULE) {\n\n      lastToken = [null, [], []];\n\n      continue;\n\n    }\n\n\n\n    if (lastToken[0] == Token.RULE && serializeRules(token[1]) == serializeRules(lastToken[1])) {\n\n      Array.prototype.push.apply(lastToken[2], token[2]);\n\n      optimizeProperties(lastToken[2], true, true, context);\n\n      token[2] = [];\n\n    } else if (lastToken[0] == Token.RULE && serializeBody(token[2]) == serializeBody(lastToken[2]) &&\n\n        isMergeable(serializeRules(token[1]), mergeablePseudoClasses, mergeablePseudoElements, multiplePseudoMerging) &&\n\n        isMergeable(serializeRules(lastToken[1]), mergeablePseudoClasses, mergeablePseudoElements, multiplePseudoMerging) &&\n\n        lastToken[1].length < mergeLimit) {\n\n      lastToken[1] = tidyRules(lastToken[1].concat(token[1]), false, adjacentSpace, false, context.warnings);\n\n      lastToken[1] = lastToken.length > 1 ? sortSelectors(lastToken[1], selectorsSortingMethod) : lastToken[1];\n\n      token[2] = [];\n\n    } else {\n\n      lastToken = token;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/merge-non-adjacent-by-body.js",
+          "match_lines": [
+            29,
+            34
+          ],
+          "match_position": [
+            3,
+            29
+          ],
+          "match_string": "  for (var body in candidates) {\n\n    var right = candidates[body];\n\n    var rightSelector = withoutModifier(serializeRules(right[1]));\n\n\n\n    if (rightSelector.indexOf(leftSelector) > -1 || leftSelector.indexOf(rightSelector) > -1)\n\n      delete candidates[body];"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/merge-non-adjacent-by-body.js",
+          "match_lines": [
+            48,
+            76
+          ],
+          "match_position": [
+            3,
+            48
+          ],
+          "match_string": "  for (var i = tokens.length - 1; i >= 0; i--) {\n\n    var token = tokens[i];\n\n    if (token[0] != Token.RULE)\n\n      continue;\n\n\n\n    if (token[2].length > 0 && (!mergeSemantically && unsafeSelector(serializeRules(token[1]))))\n\n      candidates = {};\n\n\n\n    if (token[2].length > 0 && mergeSemantically && isBemElement(token))\n\n      removeAnyUnsafeElements(token, candidates);\n\n\n\n    var candidateBody = serializeBody(token[2]);\n\n    var oldToken = candidates[candidateBody];\n\n    if (oldToken &&\n\n        isMergeable(serializeRules(token[1]), mergeablePseudoClasses, mergeablePseudoElements, multiplePseudoMerging) &&\n\n        isMergeable(serializeRules(oldToken[1]), mergeablePseudoClasses, mergeablePseudoElements, multiplePseudoMerging)) {\n\n\n\n      if (token[2].length > 0) {\n\n        token[1] = tidyRules(oldToken[1].concat(token[1]), false, adjacentSpace, false, context.warnings);\n\n        token[1] = token[1].length > 1 ? sortSelectors(token[1], selectorsSortingMethod) : token[1];\n\n      } else {\n\n        token[1] = oldToken[1].concat(token[1]);\n\n      }\n\n\n\n      oldToken[2] = [];\n\n      candidates[candidateBody] = null;\n\n    }\n\n\n\n    candidates[serializeBody(token[2])] = token;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            28,
+            51
+          ],
+          "match_position": [
+            3,
+            58
+          ],
+          "match_string": "  for (i = 0, l = properties.length; i < l; i++) {\n\n    property = properties[i];\n\n    descriptor = compactable[property.name];\n\n\n\n    if (property.unused) {\n\n      continue;\n\n    }\n\n\n\n    if (property.hack) {\n\n      continue;\n\n    }\n\n\n\n    if (property.block) {\n\n      continue;\n\n    }\n\n\n\n    invalidateOrCompact(properties, i, candidates, validator);\n\n\n\n    if (descriptor && descriptor.componentOf) {\n\n      for (j = 0, m = descriptor.componentOf.length; j < m; j++) {\n\n        componentOf = descriptor.componentOf[j];\n\n\n\n        candidates[componentOf] = candidates[componentOf] || {};\n\n        candidates[componentOf][property.name] = property;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            65,
+            96
+          ],
+          "match_position": [
+            3,
+            85
+          ],
+          "match_string": "  for (shorthandName in candidates) {\n\n    if (undefined !== invalidatedBy && shorthandName == invalidatedBy.name) {\n\n      continue;\n\n    }\n\n\n\n    shorthandDescriptor = compactable[shorthandName];\n\n    candidateComponents = candidates[shorthandName];\n\n    if (invalidatedBy && invalidates(candidates, shorthandName, invalidatedBy)) {\n\n      delete candidates[shorthandName];\n\n      continue;\n\n    }\n\n\n\n    if (shorthandDescriptor.components.length > Object.keys(candidateComponents).length) {\n\n      continue;\n\n    }\n\n\n\n    if (mixedImportance(candidateComponents)) {\n\n      continue;\n\n    }\n\n\n\n    if (!overridable(candidateComponents, shorthandName, validator)) {\n\n      continue;\n\n    }\n\n\n\n    if (!mergeable(candidateComponents)) {\n\n      continue;\n\n    }\n\n\n\n    if (mixedInherit(candidateComponents)) {\n\n      replaceWithInheritBestFit(properties, candidateComponents, shorthandName, validator);\n\n    } else {\n\n      replaceWithShorthand(properties, candidateComponents, shorthandName, validator);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            150,
+            155
+          ],
+          "match_position": [
+            3,
+            19
+          ],
+          "match_string": "  for (i = 0, l = descriptor.components.length; i < l; i++) {\n\n    component = components[descriptor.components[i]];\n\n    mayOverride = compactable[component.name].canOverride;\n\n\n\n    if (!everyValuesPair(mayOverride.bind(null, validator), newProperty.components[i], component)) {\n\n      return false;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            234,
+            246
+          ],
+          "match_position": [
+            3,
+            35
+          ],
+          "match_string": "  for (componentName in candidateComponents) {\n\n    oldComponent = candidateComponents[componentName];\n\n    oldComponent.unused = true;\n\n\n\n    if (oldComponent.name in newComponents) {\n\n      newComponent = newComponents[oldComponent.name];\n\n      newToken = findTokenIn(newTokensSequence, componentName);\n\n\n\n      newComponent.position = all.length;\n\n      newComponent.all = all;\n\n      newComponent.all.push(newToken);\n\n\n\n      properties.push(newComponent);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            270,
+            288
+          ],
+          "match_position": [
+            3,
+            55
+          ],
+          "match_string": "  for (i = 0, l = descriptor.components.length; i < l; i++) {\n\n    component = components[descriptor.components[i]];\n\n\n\n    if (hasInherit(component)) {\n\n      longhandToken = component.all[component.position].slice(0, 2);\n\n      Array.prototype.push.apply(longhandToken, component.value);\n\n      tokensSequence.push(longhandToken);\n\n\n\n      newComponent = deepClone(component);\n\n      newComponent.value = inferComponentValue(components, newComponent.name);\n\n\n\n      newProperty.components[i] = newComponent;\n\n      inheritComponents[component.name] = deepClone(component);\n\n    } else {\n\n      newComponent = deepClone(component);\n\n      newComponent.all = component.all;\n\n      newProperty.components[i] = newComponent;\n\n\n\n      nonInheritComponents[component.name] = component;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            322,
+            327
+          ],
+          "match_position": [
+            3,
+            59
+          ],
+          "match_string": "  for (componentName in components) {\n\n    component = components[componentName];\n\n    originalValue = component.all[component.position];\n\n    componentMetadata = originalValue[at][originalValue[at].length - 1];\n\n\n\n    Array.prototype.push.apply(metadata, componentMetadata);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            367,
+            377
+          ],
+          "match_position": [
+            3,
+            65
+          ],
+          "match_string": "  for (i = 0, l = descriptor.components.length; i < l; i++) {\n\n    component = components[descriptor.components[i]];\n\n\n\n    if (hasInherit(component)) {\n\n      inheritComponents[component.name] = component;\n\n    } else {\n\n      longhandToken = component.all[component.position].slice(0, 2);\n\n      Array.prototype.push.apply(longhandToken, component.value);\n\n      tokensSequence.push(longhandToken);\n\n\n\n      nonInheritComponents[component.name] = deepClone(component);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            395,
+            397
+          ],
+          "match_position": [
+            3,
+            22
+          ],
+          "match_string": "  for (i = 0, l = tokens.length; i < l; i++) {\n\n    if (tokens[i][1][1] == componentName) {\n\n      return tokens[i];"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            419,
+            425
+          ],
+          "match_position": [
+            3,
+            24
+          ],
+          "match_string": "  for (var i = 0, l = descriptor.components.length; i < l; i++) {\n\n    var component = candidateComponents[descriptor.components[i]];\n\n\n\n    newProperty.components[i] = deepClone(component);\n\n    newProperty.important = component.important;\n\n\n\n    all = component.all;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/properties/merge-into-shorthands.js",
+          "match_lines": [
+            428,
+            429
+          ],
+          "match_position": [
+            3,
+            53
+          ],
+          "match_string": "  for (var componentName in candidateComponents) {\n\n    candidateComponents[componentName].unused = true;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/reduce-non-adjacent.js",
+          "match_lines": [
+            20,
+            50
+          ],
+          "match_position": [
+            3,
+            8
+          ],
+          "match_string": "  for (var i = tokens.length - 1; i >= 0; i--) {\n\n    var token = tokens[i];\n\n\n\n    if (token[0] != Token.RULE) {\n\n      continue;\n\n    } else if (token[2].length === 0) {\n\n      continue;\n\n    }\n\n\n\n    var selectorAsString = serializeRules(token[1]);\n\n    var isComplexAndNotSpecial = token[1].length > 1 &&\n\n      isMergeable(selectorAsString, mergeablePseudoClasses, mergeablePseudoElements, multiplePseudoMerging);\n\n    var wrappedSelectors = wrappedSelectorsFrom(token[1]);\n\n    var selectors = isComplexAndNotSpecial ?\n\n      [selectorAsString].concat(wrappedSelectors) :\n\n      [selectorAsString];\n\n\n\n    for (var j = 0, m = selectors.length; j < m; j++) {\n\n      var selector = selectors[j];\n\n\n\n      if (!candidates[selector])\n\n        candidates[selector] = [];\n\n      else\n\n        repeated.push(selector);\n\n\n\n      candidates[selector].push({\n\n        where: i,\n\n        list: wrappedSelectors,\n\n        isPartial: isComplexAndNotSpecial && j > 0,\n\n        isComplex: isComplexAndNotSpecial && j === 0\n\n      });"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/reduce-non-adjacent.js",
+          "match_lines": [
+            37,
+            50
+          ],
+          "match_position": [
+            5,
+            8
+          ],
+          "match_string": "    for (var j = 0, m = selectors.length; j < m; j++) {\n\n      var selector = selectors[j];\n\n\n\n      if (!candidates[selector])\n\n        candidates[selector] = [];\n\n      else\n\n        repeated.push(selector);\n\n\n\n      candidates[selector].push({\n\n        where: i,\n\n        list: wrappedSelectors,\n\n        isPartial: isComplexAndNotSpecial && j > 0,\n\n        isComplex: isComplexAndNotSpecial && j === 0\n\n      });"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/reduce-non-adjacent.js",
+          "match_lines": [
+            78,
+            85
+          ],
+          "match_position": [
+            3,
+            24
+          ],
+          "match_string": "  for (var i = 0, l = repeated.length; i < l; i++) {\n\n    var selector = repeated[i];\n\n    var data = candidates[selector];\n\n\n\n    reduceSelector(tokens, data, {\n\n      filterOut: filterOut,\n\n      callback: reduceBody\n\n    }, options, context);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/reduce-non-adjacent.js",
+          "match_lines": [
+            121,
+            136
+          ],
+          "match_position": [
+            5,
+            30
+          ],
+          "match_string": "    for (var j = 0, m = selectors.length; j < m; j++) {\n\n      var selector = selectors[j];\n\n      var data = candidates[selector];\n\n\n\n      if (data.length < 2)\n\n        continue allSelectors;\n\n\n\n      localContext.data = data;\n\n\n\n      reduceSelector(tokens, data, {\n\n        filterOut: filterOut,\n\n        callback: collectReducedBodies\n\n      }, options, context);\n\n\n\n      if (serializeBody(reducedBodies[reducedBodies.length - 1]) != serializeBody(reducedBodies[0]))\n\n        continue allSelectors;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/reduce-non-adjacent.js",
+          "match_lines": [
+            148,
+            158
+          ],
+          "match_position": [
+            3,
+            31
+          ],
+          "match_string": "  for (var j = data.length - 1; j >= 0; j--) {\n\n    if (context.filterOut(j, bodies))\n\n      continue;\n\n\n\n    var where = data[j].where;\n\n    var token = tokens[where];\n\n    var clonedBody = cloneArray(token[2]);\n\n\n\n    bodies = bodies.concat(clonedBody);\n\n    bodiesAsList.push(clonedBody);\n\n    processedTokens.push(where);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            39,
+            45
+          ],
+          "match_position": [
+            5,
+            14
+          ],
+          "match_string": "    for (var i = allFits.length - 1; i >= 0; i--) {\n\n      var fit = allFits[i][0];\n\n      var id = addToCache(movedProperty, fit);\n\n\n\n      if (multiPropertyMoveCache[id].length > 1 && processMultiPropertyMove(position, multiPropertyMoveCache[id])) {\n\n        removeAllMatchingFromCache(id);\n\n        break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            62,
+            67
+          ],
+          "match_position": [
+            5,
+            16
+          ],
+          "match_string": "    for (var id in multiPropertyMoveCache) {\n\n      var selectors = id.split(ID_JOIN_CHARACTER);\n\n      for (i = selectors.length - 1; i >= 0; i--) {\n\n        if (matchSelectors.indexOf(selectors[i]) > -1) {\n\n          forRemoval.push(id);\n\n          break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            64,
+            67
+          ],
+          "match_position": [
+            7,
+            16
+          ],
+          "match_string": "      for (i = selectors.length - 1; i >= 0; i--) {\n\n        if (matchSelectors.indexOf(selectors[i]) > -1) {\n\n          forRemoval.push(id);\n\n          break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            72,
+            73
+          ],
+          "match_position": [
+            5,
+            49
+          ],
+          "match_string": "    for (i = forRemoval.length - 1; i >= 0; i--) {\n\n      delete multiPropertyMoveCache[forRemoval[i]];"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            79,
+            80
+          ],
+          "match_position": [
+            5,
+            47
+          ],
+          "match_string": "    for (var i = 0, l = cachedTokens.length; i < l; i++) {\n\n      id.push(serializeRules(cachedTokens[i][1]));"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            89,
+            96
+          ],
+          "match_position": [
+            5,
+            49
+          ],
+          "match_string": "    for (var i = sourceTokens.length - 1; i >= 0; i--) {\n\n      if (!isMergeable(serializeRules(sourceTokens[i][1]), mergeablePseudoClasses, mergeablePseudoElements, multiplePseudoMerging)) {\n\n        continue;\n\n      }\n\n\n\n      mergeableTokens.unshift(sourceTokens[i]);\n\n      if (sourceTokens[i][2].length > 0 && uniqueTokensWithBody.indexOf(sourceTokens[i]) == -1)\n\n        uniqueTokensWithBody.push(sourceTokens[i]);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            121,
+            123
+          ],
+          "match_position": [
+            5,
+            43
+          ],
+          "match_string": "    for (var i = bestFit[0].length - 1; i >=0; i--) {\n\n      allSelectors = bestFit[0][i][1].concat(allSelectors);\n\n      qualifiedTokens.unshift(bestFit[0][i]);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            154,
+            155
+          ],
+          "match_position": [
+            5,
+            121
+          ],
+          "match_string": "    for (var i = tokensVariant.length - 1; i >= 0; i--) {\n\n      allSelectorsSize += tokensVariant[i][2].length > propertiesCount ? serializeRules(tokensVariant[i][1]).length : -1;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            164,
+            178
+          ],
+          "match_position": [
+            5,
+            18
+          ],
+          "match_string": "    for (i = mergeableTokens.length - 1; i >= 0; i--) {\n\n      var mergeableToken = mergeableTokens[i];\n\n\n\n      for (j = mergeableToken[2].length - 1; j >= 0; j--) {\n\n        var mergeableProperty = mergeableToken[2][j];\n\n\n\n        for (k = 0, m = properties.length; k < m; k++) {\n\n          var property = properties[k];\n\n\n\n          var mergeablePropertyName = mergeableProperty[1][1];\n\n          var propertyName = property[0];\n\n          var propertyBody = property[4];\n\n          if (mergeablePropertyName == propertyName && serializeBody([mergeableProperty]) == propertyBody) {\n\n            mergeableToken[2].splice(j, 1);\n\n            break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            167,
+            178
+          ],
+          "match_position": [
+            7,
+            18
+          ],
+          "match_string": "      for (j = mergeableToken[2].length - 1; j >= 0; j--) {\n\n        var mergeableProperty = mergeableToken[2][j];\n\n\n\n        for (k = 0, m = properties.length; k < m; k++) {\n\n          var property = properties[k];\n\n\n\n          var mergeablePropertyName = mergeableProperty[1][1];\n\n          var propertyName = property[0];\n\n          var propertyBody = property[4];\n\n          if (mergeablePropertyName == propertyName && serializeBody([mergeableProperty]) == propertyBody) {\n\n            mergeableToken[2].splice(j, 1);\n\n            break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            170,
+            178
+          ],
+          "match_position": [
+            9,
+            18
+          ],
+          "match_string": "        for (k = 0, m = properties.length; k < m; k++) {\n\n          var property = properties[k];\n\n\n\n          var mergeablePropertyName = mergeableProperty[1][1];\n\n          var propertyName = property[0];\n\n          var propertyBody = property[4];\n\n          if (mergeablePropertyName == propertyName && serializeBody([mergeableProperty]) == propertyBody) {\n\n            mergeableToken[2].splice(j, 1);\n\n            break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            184,
+            185
+          ],
+          "match_position": [
+            5,
+            44
+          ],
+          "match_string": "    for (i = properties.length - 1; i >= 0; i--) {\n\n      allProperties.unshift(properties[i][3]);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            216,
+            218
+          ],
+          "match_position": [
+            7,
+            31
+          ],
+          "match_string": "      for (j = mergeableTokens.length - 1; j >= 0; j--) {\n\n        if (tokensList.indexOf(mergeableTokens[j]) == -1)\n\n          continue movableLoop;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            227,
+            231
+          ],
+          "match_position": [
+            5,
+            16
+          ],
+          "match_string": "    for (j = candidates.length - 1; j >= 0; j--) {\n\n      for (k = movedProperties.length - 1; k >= 0; k--) {\n\n        if (movedProperties[k][4] == candidates[j]) {\n\n          propertiesAndMergableTokens.unshift([movedProperties[k], mergeableTokens]);\n\n          break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            244,
+            249
+          ],
+          "match_position": [
+            5,
+            31
+          ],
+          "match_string": "    for (var i = propertiesAndMergableTokens.length - 1; i >= 0; i--) {\n\n      property = propertiesAndMergableTokens[i][0];\n\n      var fullValue = property[4];\n\n      valueSize += fullValue.length + (i > 0 ? 1 : 0);\n\n\n\n      properties.push(property);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            259,
+            261
+          ],
+          "match_position": [
+            5,
+            43
+          ],
+          "match_string": "    for (i = bestFit[0].length - 1; i >= 0; i--) {\n\n      allSelectors = bestFit[0][i][1].concat(allSelectors);\n\n      qualifiedTokens.unshift(bestFit[0][i]);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            267,
+            274
+          ],
+          "match_position": [
+            5,
+            36
+          ],
+          "match_string": "    for (i = properties.length - 1; i >= 0; i--) {\n\n      property = properties[i];\n\n      var index = movedProperties.indexOf(property);\n\n\n\n      delete movableTokens[property[4]];\n\n\n\n      if (index > -1 && movedToBeDropped.indexOf(index) == -1)\n\n        movedToBeDropped.push(index);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            291,
+            372
+          ],
+          "match_position": [
+            3,
+            39
+          ],
+          "match_string": "  for (var i = tokens.length - 1; i >= 0; i--) {\n\n    var token = tokens[i];\n\n    var isRule;\n\n    var j, k, m;\n\n    var samePropertyAt;\n\n\n\n    if (token[0] == Token.RULE) {\n\n      isRule = true;\n\n    } else if (token[0] == Token.NESTED_BLOCK) {\n\n      isRule = false;\n\n    } else {\n\n      continue;\n\n    }\n\n\n\n    // We cache movedProperties.length as it may change in the loop\n\n    var movedCount = movedProperties.length;\n\n\n\n    var properties = extractProperties(token);\n\n    movedToBeDropped = [];\n\n\n\n    var unmovableInCurrentToken = [];\n\n    for (j = properties.length - 1; j >= 0; j--) {\n\n      for (k = j - 1; k >= 0; k--) {\n\n        if (!canReorderSingle(properties[j], properties[k], specificityCache)) {\n\n          unmovableInCurrentToken.push(j);\n\n          break;\n\n        }\n\n      }\n\n    }\n\n\n\n    for (j = properties.length - 1; j >= 0; j--) {\n\n      var property = properties[j];\n\n      var movedSameProperty = false;\n\n\n\n      for (k = 0; k < movedCount; k++) {\n\n        var movedProperty = movedProperties[k];\n\n\n\n        if (movedToBeDropped.indexOf(k) == -1 && (!canReorderSingle(property, movedProperty, specificityCache) && !boundToAnotherPropertyInCurrrentToken(property, movedProperty, token) ||\n\n            movableTokens[movedProperty[4]] && movableTokens[movedProperty[4]].length === mergeLimit)) {\n\n          dropPropertiesAt(i + 1, movedProperty, token);\n\n\n\n          if (movedToBeDropped.indexOf(k) == -1) {\n\n            movedToBeDropped.push(k);\n\n            delete movableTokens[movedProperty[4]];\n\n          }\n\n        }\n\n\n\n        if (!movedSameProperty) {\n\n          movedSameProperty = property[0] == movedProperty[0] && property[1] == movedProperty[1];\n\n\n\n          if (movedSameProperty) {\n\n            samePropertyAt = k;\n\n          }\n\n        }\n\n      }\n\n\n\n      if (!isRule || unmovableInCurrentToken.indexOf(j) > -1)\n\n        continue;\n\n\n\n      var key = property[4];\n\n\n\n      if (movedSameProperty && movedProperties[samePropertyAt][5].length + property[5].length > mergeLimit) {\n\n        dropPropertiesAt(i + 1, movedProperties[samePropertyAt]);\n\n        movedProperties.splice(samePropertyAt, 1);\n\n        movableTokens[key] = [token];\n\n        movedSameProperty = false;\n\n      } else {\n\n        movableTokens[key] = movableTokens[key] || [];\n\n        movableTokens[key].push(token);\n\n      }\n\n\n\n      if (movedSameProperty) {\n\n        movedProperties[samePropertyAt] = cloneAndMergeSelectors(movedProperties[samePropertyAt], property);\n\n      } else {\n\n        movedProperties.push(property);\n\n      }\n\n    }\n\n\n\n    movedToBeDropped = movedToBeDropped.sort(naturalSorter);\n\n    for (j = 0, m = movedToBeDropped.length; j < m; j++) {\n\n      var dropAt = movedToBeDropped[j] - j;\n\n      movedProperties.splice(dropAt, 1);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            312,
+            316
+          ],
+          "match_position": [
+            5,
+            16
+          ],
+          "match_string": "    for (j = properties.length - 1; j >= 0; j--) {\n\n      for (k = j - 1; k >= 0; k--) {\n\n        if (!canReorderSingle(properties[j], properties[k], specificityCache)) {\n\n          unmovableInCurrentToken.push(j);\n\n          break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            321,
+            365
+          ],
+          "match_position": [
+            5,
+            38
+          ],
+          "match_string": "    for (j = properties.length - 1; j >= 0; j--) {\n\n      var property = properties[j];\n\n      var movedSameProperty = false;\n\n\n\n      for (k = 0; k < movedCount; k++) {\n\n        var movedProperty = movedProperties[k];\n\n\n\n        if (movedToBeDropped.indexOf(k) == -1 && (!canReorderSingle(property, movedProperty, specificityCache) && !boundToAnotherPropertyInCurrrentToken(property, movedProperty, token) ||\n\n            movableTokens[movedProperty[4]] && movableTokens[movedProperty[4]].length === mergeLimit)) {\n\n          dropPropertiesAt(i + 1, movedProperty, token);\n\n\n\n          if (movedToBeDropped.indexOf(k) == -1) {\n\n            movedToBeDropped.push(k);\n\n            delete movableTokens[movedProperty[4]];\n\n          }\n\n        }\n\n\n\n        if (!movedSameProperty) {\n\n          movedSameProperty = property[0] == movedProperty[0] && property[1] == movedProperty[1];\n\n\n\n          if (movedSameProperty) {\n\n            samePropertyAt = k;\n\n          }\n\n        }\n\n      }\n\n\n\n      if (!isRule || unmovableInCurrentToken.indexOf(j) > -1)\n\n        continue;\n\n\n\n      var key = property[4];\n\n\n\n      if (movedSameProperty && movedProperties[samePropertyAt][5].length + property[5].length > mergeLimit) {\n\n        dropPropertiesAt(i + 1, movedProperties[samePropertyAt]);\n\n        movedProperties.splice(samePropertyAt, 1);\n\n        movableTokens[key] = [token];\n\n        movedSameProperty = false;\n\n      } else {\n\n        movableTokens[key] = movableTokens[key] || [];\n\n        movableTokens[key].push(token);\n\n      }\n\n\n\n      if (movedSameProperty) {\n\n        movedProperties[samePropertyAt] = cloneAndMergeSelectors(movedProperties[samePropertyAt], property);\n\n      } else {\n\n        movedProperties.push(property);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            325,
+            342
+          ],
+          "match_position": [
+            7,
+            31
+          ],
+          "match_string": "      for (k = 0; k < movedCount; k++) {\n\n        var movedProperty = movedProperties[k];\n\n\n\n        if (movedToBeDropped.indexOf(k) == -1 && (!canReorderSingle(property, movedProperty, specificityCache) && !boundToAnotherPropertyInCurrrentToken(property, movedProperty, token) ||\n\n            movableTokens[movedProperty[4]] && movableTokens[movedProperty[4]].length === mergeLimit)) {\n\n          dropPropertiesAt(i + 1, movedProperty, token);\n\n\n\n          if (movedToBeDropped.indexOf(k) == -1) {\n\n            movedToBeDropped.push(k);\n\n            delete movableTokens[movedProperty[4]];\n\n          }\n\n        }\n\n\n\n        if (!movedSameProperty) {\n\n          movedSameProperty = property[0] == movedProperty[0] && property[1] == movedProperty[1];\n\n\n\n          if (movedSameProperty) {\n\n            samePropertyAt = k;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            370,
+            372
+          ],
+          "match_position": [
+            5,
+            39
+          ],
+          "match_string": "    for (j = 0, m = movedToBeDropped.length; j < m; j++) {\n\n      var dropAt = movedToBeDropped[j] - j;\n\n      movedProperties.splice(dropAt, 1);"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            377,
+            381
+          ],
+          "match_position": [
+            3,
+            12
+          ],
+          "match_string": "  for (; position < tokens.length - 1; position++) {\n\n    var isImportRule = tokens[position][0] === Token.AT_RULE && tokens[position][1].indexOf('@import') === 0;\n\n    var isComment = tokens[position][0] === Token.COMMENT;\n\n    if (!(isImportRule || isComment))\n\n      break;"
+        },
+        {
+          "file_path": "/src/lib/optimizer/level-2/restructure.js",
+          "match_lines": [
+            384,
+            385
+          ],
+          "match_position": [
+            3,
+            49
+          ],
+          "match_string": "  for (i = 0; i < movedProperties.length; i++) {\n\n    dropPropertiesAt(position, movedProperties[i]);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "Layer7 Denial of Service. Looping over user controlled objects can result in DoS.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/optimizer/level-1/tidy-rules.js",
+          "match_lines": [
+            63,
+            63
+          ],
+          "match_position": [
+            27,
+            60
+          ],
+          "match_string": "  var withCaseAttribute = CASE_ATTRIBUTE_PATTERN.test(value);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,84 @@
+{
+ "dra": [
+  {
+   "dra": "http://chromedriver.storage.googleapis.com/LATEST_RELEASE",
+   "type": "url",
+   "file": "/src/lib/chromedriver/version.js"
+  },
+  {
+   "dra": "https://chromedriver.storage.googleapis.com/",
+   "type": "url",
+   "file": "/src/lib/chromedriver/version.js"
+  },
+  {
+   "dra": "http://selenium-release.storage.googleapis.com/",
+   "type": "url",
+   "file": "/src/lib/selenium/version.js"
+  },
+  {
+   "dra": "http://selenium-release.storage.googleapis.com/?delimiter=/\u0026prefix=",
+   "type": "url",
+   "file": "/src/lib/selenium/version.js"
+  }
+ ],
+ "sast": {
+  "name": "selenium-download",
+  "version": "2.0.6",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "35713 Bytes",
+  "numberOfLines": 794
+ },
+ "libraries": [
+  {
+   "name": "request",
+   "current": "^2.34.0"
+  },
+  {
+   "name": "xml2js",
+   "current": "~0.4.1"
+  },
+  {
+   "name": "adm-zip",
+   "current": "~0.4.4"
+  },
+  {
+   "name": "async",
+   "current": "~0.2.10"
+  },
+  {
+   "name": "debug",
+   "current": "^2.2.0"
+  },
+  {
+   "name": "fs.extra",
+   "current": "^1.2.1"
+  },
+  {
+   "name": "lodash",
+   "current": "^4.6.1"
+  },
+  {
+   "name": "mkdirp",
+   "current": "~0.3.5"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 37,
+   "class": "checksum.js (37:14)",
+   "vul_id": "e74f73d887086bf28a51415a815189a4",
+   "method": "var hash = createHash('md5');",
+   "column": 14,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/checksum.js (37:14)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/chromedriver/download.js",
+    "/lib/selenium/download.js"
+   ]
+  }
+ ]
+}

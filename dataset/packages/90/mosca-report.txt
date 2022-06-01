@@ -1,0 +1,235 @@
+<report_mosca>
+ <Path>/src/modules/jquery/dist/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3445 -  			setTimeout( jQuery.ready );
+
+ Line: 6326 -  	setTimeout(function() {
+
+ Line: 6881 -  		timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+
+ Line: 6905 -  		var timeout = setTimeout( next, time );
+
+ Line: 8158 -  				timeoutTimer = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jquery/dist/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8451 -  // key/values into a query string
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jquery/dist/jquery.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -   H||(H=n.Deferred(),"complete"===l.readyState?setTimeout(n.ready):(l.addEventListener("DOMContentLoaded",I,!1),a.addEventListener("load",I,!1))),H.promise(b)},n.ready.promise();var J=n.access=function(a,b,c,d,e,f,g){var h=0,i=a.length,j=null==c;if("object"===n.type(c)){e=!0;for(h in c)n.access(a,b,h,c[h],!0,f,g)}else if(void 0!==d&&(e=!0,n.isFunction(d)||(g=!0),j&&(g?(b.call(a,d),b=null):(j=b,b=function(a,b,c){return j.call(n(a),c)})),b))for(;i>h;h++)b(a[h],c,g?d:d.call(a[h],h,b(a[h],c)));return e?a:j?b.call(a):i?b(a[0],c):f};n.acceptData=function(a){return 1===a.nodeType||9===a.nodeType||!+a.nodeType};function K(){Object.defineProperty(this.cache={},0,{get:function(){return{}}}),this.expando=n.expando+K.uid++}K.uid=1,K.accepts=n.acceptData,K.prototype={key:function(a){if(!K.accepts(a))return 0;var b={},c=a[this.expando];if(!c){c=K.uid++;try{b[this.expando]={value:c},Object.defineProperties(a,b)}catch(d){b[this.expando]=c,n.extend(a,b)}}return this.cache[c]||(this.cache[c]={}),c},set:function(a,b,c){var d,e=this.key(a),f=this.cache[e];if("string"==typeof b)f[b]=c;else if(n.isEmptyObject(f))n.extend(this.cache[e],b);else for(d in b)f[d]=b[d];return f},get:function(a,b){var c=this.cache[this.key(a)];return void 0===b?c:c[b]},access:function(a,b,c){var d;return void 0===b||b&&"string"==typeof b&&void 0===c?(d=this.get(a,b),void 0!==d?d:this.get(a,n.camelCase(b))):(this.set(a,b,c),void 0!==c?c:b)},remove:function(a,b){var c,d,e,f=this.key(a),g=this.cache[f];if(void 0===b)this.cache[f]={};else{n.isArray(b)?d=b.concat(b.map(n.camelCase)):(e=n.camelCase(b),b in g?d=[b,e]:(d=e,d=d in g?[d]:d.match(E)||[])),c=d.length;while(c--)delete g[d[c]]}},hasData:function(a){return!n.isEmptyObject(this.cache[a[this.expando]]||{})},discard:function(a){a[this.expando]&&delete this.cache[a[this.expando]]}};var L=new K,M=new K,N=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,O=/([A-Z])/g;function P(a,b,c){var d;if(void 0===c&&1===a.nodeType)if(d="data-"+b.replace(O,"-$1").toLowerCase(),c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:N.test(c)?n.parseJSON(c):c} Line: 29 -  &--i)}return e&&(g=c.start=+g||+d||0,c.unit=f,c.end=e[1]?g+(e[1]+1)*e[2]:+e[2]),c}]};function Sa(){return setTimeout(function(){La=void 0}),La=n.now()}function Ta(a,b){var c,d=0,e={height:a};for(b=b?1:0;4>d;d+=2-b)c=R[d],e["margin"+c]=e["padding"+c]=a;return b&&(e.opacity=e.width=a),e}function Ua(a,b,c){for(var d,e=(Ra[b]||[]).concat(Ra["*"]),f=0,g=e.length;g>f;f++)if(d=e[f].call(c,b,a))return d}function Va(a,b,c){var d,e,f,g,h,i,j,k,l=this,m={},o=a.style,p=a.nodeType&&S(a),q=L.get(a,"fxshow");c.queue||(h=n._queueHooks(a,"fx"),null==h.unqueued&&(h.unqueued=0,i=h.empty.fire,h.empty.fire=function(){h.unqueued||i()}),h.unqueued++,l.always(function(){l.always(function(){h.unqueued--,n.queue(a,"fx").length||h.empty.fire()})})),1===a.nodeType&&("height"in b||"width"in b)&&(c.overflow=[o.overflow,o.overflowX,o.overflowY],j=n.css(a,"display"),k="none"===j?L.get(a,"olddisplay")||ta(a.nodeName):j,"inline"===k&&"none"===n.css(a,"float")&&(o.display="inline-block")),c.overflow&&(o.overflow="hidden",l.always(function(){o.overflow=c.overflow[0],o.overflowX=c.overflow[1],o.overflowY=c.overflow[2]}));for(d in b)if(e=b[d],Na.exec(e)){if(delete b[d],f=f||"toggle"===e,e===(p?"hide":"show")){if("show"!==e||!q||void 0===q[d])continue;p=!0}m[d]=q&&q[d]||n.style(a,d)}else j=void 0;if(n.isEmptyObject(m))"inline"===("none"===j?ta(a.nodeName):j)&&(o.display=j);else{q?"hidden"in q&&(p=q.hidden):q=L.access(a,"fxshow",{}),f&&(q.hidden=!p),p?n(a).show():l.done(function(){n(a).hide()}),l.done(function(){var b;L.remove(a,"fxshow");for(b in m)n.style(a,b,m[b])});for(d in m)g=Ua(p?q[d]:0,d,l),d in q||(q[d]=g.start,p&&(g.end=g.start,g.start="width"===d||"height"===d?1:0))}}function Wa(a,b){var c,d,e,f,g;for(c in a)if(d=n.camelCase(c),e=b[d],f=a[c],n.isArray(f)&&(e=f[1],f=a[c]=f[0]),c!==d&&(a[d]=f,delete a[c]),g=n.cssHooks[d],g&&"expand"in g){f=g.expand(f),delete a[d];for(c in f)c in a||(a[c]=f[c],b[c]=e)}else b[d]=e}function Xa(a,b,c){var d,e,f=0,g=Qa.length,h=n.Deferred().always(function(){delete i.elem}),i=function(){if(e)return!1;for(var b=La||Sa(),c=Math.max(0,j.startTime+j.duration-b),d=c/j.duration||0,f=1 Line: 31 -  )g[e]&&g[e].stop&&d(g[e]);else for(e in g)g[e]&&g[e].stop&&Pa.test(e)&&d(g[e]);for(e=f.length;e--;)f[e].elem!==this||null!=a&&f[e].queue!==a||(f[e].anim.stop(c),b=!1,f.splice(e,1));(b||!c)&&n.dequeue(this,a)})},finish:function(a){return a!==!1&&(a=a||"fx"),this.each(function(){var b,c=L.get(this),d=c[a+"queue"],e=c[a+"queueHooks"],f=n.timers,g=d?d.length:0;for(c.finish=!0,n.queue(this,a,[]),e&&e.stop&&e.stop.call(this,!0),b=f.length;b--;)f[b].elem===this&&f[b].queue===a&&(f[b].anim.stop(!0),f.splice(b,1));for(b=0;g>b;b++)d[b]&&d[b].finish&&d[b].finish.call(this);delete c.finish})}}),n.each(["toggle","show","hide"],function(a,b){var c=n.fn[b];n.fn[b]=function(a,d,e){return null==a||"boolean"==typeof a?c.apply(this,arguments):this.animate(Ta(b,!0),a,d,e)}}),n.each({slideDown:Ta("show"),slideUp:Ta("hide"),slideToggle:Ta("toggle"),fadeIn:{opacity:"show"},fadeOut:{opacity:"hide"},fadeToggle:{opacity:"toggle"}},function(a,b){n.fn[a]=function(a,c,d){return this.animate(b,a,c,d)}}),n.timers=[],n.fx.tick=function(){var a,b=0,c=n.timers;for(La=n.now();b<c.length;b++)a=c[b],a()||c[b]!==a||c.splice(b--,1);c.length||n.fx.stop(),La=void 0},n.fx.timer=function(a){n.timers.push(a),a()?n.fx.start():n.timers.pop()},n.fx.interval=13,n.fx.start=function(){Ma||(Ma=setInterval(n.fx.tick,n.fx.interval))},n.fx.stop=function(){clearInterval(Ma),Ma=null},n.fx.speeds={slow:600,fast:200,_default:400},n.fn.delay=function(a,b){return a=n.fx?n.fx.speeds[a]||a:a,b=b||"fx",this.queue(b,function(b,c){var d=setTimeout(b,a);c.stop=function(){clearTimeout(d)}})},function(){var a=l.createElement("input"),b=l.createElement("select"),c=b.appendChild(l.createElement("option"));a.type="checkbox",k.checkOn=""!==a.value,k.optSelected=c.selected,b.disabled=!0,k.optDisabled=!c.disabled,a=l.createElement("input"),a.value="t",a.type="radio",k.radioValue="t"===a.value}();var Ya,Za,$a=n.expr.attrHandle;n.fn.extend({attr:function(a,b){return J(this,n.attr,a,b,arguments.length>1)},removeAttr:function(a){return this.each(function(){n.removeAttr(this,a)})}}),n.extend({attr:function(a,b,c){var d,e,f=a.nodeType;if(a&&3!==f&&8!==f&& Line: 38 -  &k.timeout>0&&(g=setTimeout(function(){v.abort("timeout")},k.timeout));try{t=1,c.send(r,x)}catch(w){if(!(2>t))throw w;x(-1,w)}}else x(-1,"No Transport");function x(a,b,f,h){var j,r,s,u,w,x=b;2!==t&&(t=2,g&&clearTimeout(g),c=void 0,e=h||"",v.readyState=a>0?4:0,j=a>=200&&300>a||304===a,f&&(u=tb(k,v,f)),u=ub(k,u,v,j),j?(k.ifModified&&(w=v.getResponseHeader("Last-Modified"),w&&(n.lastModified[d]=w),w=v.getResponseHeader("etag"),w&&(n.etag[d]=w)),204===a||"HEAD"===k.type?x="nocontent":304===a?x="notmodified":(x=u.state,r=u.data,s=u.error,j=!s)):(s=x,(a||!x)&&(x="error",0>a&&(a=0))),v.status=a,v.statusText=(b||x)+"",j?o.resolveWith(l,[r,x,v]):o.rejectWith(l,[v,x,s]),v.statusCode(q),q=void 0,i&&m.trigger(j?"ajaxSuccess":"ajaxError",[v,k,j?r:s]),p.fireWith(l,[v,x]),i&&(m.trigger("ajaxComplete",[v,k]),--n.active||n.event.trigger("ajaxStop")))}return v},getJSON:function(a,b,c){return n.get(a,b,c,"json")},getScript:function(a,b){return n.get(a,void 0,b,"script")}}),n.each(["get","post"],function(a,b){n[b]=function(a,c,d,e){return n.isFunction(c)&&(e=e||d,d=c,c=void 0),n.ajax({url:a,type:b,dataType:e,data:c,success:d})}}),n._evalUrl=function(a){return n.ajax({url:a,type:"GET",dataType:"script",async:!1,global:!1,"throws":!0})},n.fn.extend({wrapAll:function(a){var b;return n.isFunction(a)?this.each(function(b){n(this).wrapAll(a.call(this,b))}):(this[0]&&(b=n(a,this[0].ownerDocument).eq(0).clone(!0),this[0].parentNode&&b.insertBefore(this[0]),b.map(function(){var a=this;while(a.firstElementChild)a=a.firstElementChild;return a}).append(this)),this)},wrapInner:function(a){return this.each(n.isFunction(a)?function(b){n(this).wrapInner(a.call(this,b))}:function(){var b=n(this),c=b.contents();c.length?c.wrapAll(a):b.append(a)})},wrap:function(a){var b=n.isFunction(a);return this.each(function(c){n(this).wrapAll(b?a.call(this,c):a)})},unwrap:function(){return this.parent().each(function(){n.nodeName(this,"body")||n(this).replaceWith(this.childNodes)}).end()}}),n.expr.filters.hidden=function(a){return a.offsetWidth<=0&&a.offsetHeight<=0},n.expr.filters.visible=function(a){return!n.expr.filters.hid</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/lib/jqconsole.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 784 -                return setTimeout(fn, 0);
+
+ Line: 800 -            setTimeout(removeClass, 100);
+
+ Line: 806 -            return setTimeout(hideTextInput, 500);
+
+ Line: 821 -            return setTimeout(addClass, 100);
+
+ Line: 835 -            return setTimeout(handlePaste, 0);
+
+ Line: 844 -            return setTimeout((function() {
+
+ Line: 877 -        setTimeout($.proxy(this._CheckMatchings, this), 0);
+
+ Line: 1169 -        setTimeout($.proxy(this._ScrollToEnd, this), 0);
+
+ Line: 1272 -        return setTimeout(this.ScrollWindowToPrompt.bind(this), 50);
+
+ Line: 1466 -        return setTimeout(this._UpdateComposition, 0);
+
+ Line: 1490 -        return setTimeout(cb, 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/lib/jqconsole.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8 -    var $, Ansi, CLASS_ANSI, CLASS_BLURRED, CLASS_CURSOR, CLASS_HEADER, CLASS_INPUT, CLASS_OLD_PROMPT, CLASS_PREFIX, CLASS_PROMPT, DEFAULT_INDENT_WIDTH, DEFAULT_PROMPT_CONINUE_LABEL, DEFAULT_PROMPT_LABEL, EMPTY_DIV, EMPTY_SELECTOR, EMPTY_SPAN, ESCAPE_CHAR, ESCAPE_SYNTAX, E_KEYPRESS, JQConsole, KEY_BACKSPACE, KEY_DELETE, KEY_DOWN, KEY_END, KEY_ENTER, KEY_HOME, KEY_LEFT, KEY_PAGE_DOWN, KEY_PAGE_UP, KEY_RIGHT, KEY_TAB, KEY_UP, NEWLINE, STATE_INPUT, STATE_OUTPUT, STATE_PROMPT, spanHtml,
+
+ Line: 24 -    KEY_DELETE = 46;
+
+ Line: 64 -    EMPTY_SELECTOR = ':empty';
+
+ Line: 914 -            case KEY_DELETE:
+
+ Line: 954 -          case KEY_DELETE:
+
+ Line: 1072 -        if ($prompt_relative.is(EMPTY_SELECTOR)) {
+
+ Line: 1112 -        } else if (!$prompt_relative.is(EMPTY_SELECTOR)) {
+
+ Line: 1136 -          while (!($prompt_relative.is(EMPTY_SELECTOR) && $prompt_which.text() === '')) {
+
+ Line: 1161 -        } else if (!this.$prompt_after.is(EMPTY_SELECTOR)) {
+
+ Line: 1182 -        } else if (!this.$prompt_before.is(EMPTY_SELECTOR)) {
+
+ Line: 1224 -        old_prompt = this._SelectPromptLabel(!this.$prompt_before.is(EMPTY_SELECTOR));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/test/vendor/coffeescript.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  n})},e}(),w=["true","false","null","this","new","delete","typeof","in","instanceof","return","throw","break","continue","debugger","if","else","switch","for","while","do","try","catch","finally","class","extends","super"],a=["undefined","then","unless","until","loop","of","by","when"],o={and:"&&",or:"||",is:"==",isnt:"!=",not:"!",yes:"true",no:"false",on:"true",off:"false"},r=function(){var e;e=[];for(W in o)e.push(W);return e}(),a=a.concat(r),$=["case","default","function","var","void","with","const","let","enum","export","import","native","__hasProp","__extends","__slice","__bind","__indexOf","implements","interface","package","private","protected","public","static","yield"],B=["arguments","eval"],v=w.concat($).concat(B),e.RESERVED=$.concat(w).concat(a).concat(B),e.STRICT_PROSCRIBED=B,t=65279,b=/^([$A-Za-z_\x7f-\uffff][$\w\x7f-\uffff]*)([^\n\S]*:(?!:))?/,R=/^0b[01]+|^0o[0-7]+|^0x[\da-f]+|^\d*\.?\d+(?:e[+-]?\d+)?/i,u=/^("""|''')([\s\S]*?)(?:\n[^\n\S]*)?\1/,A=/^(?:[-=]>|[-+*\/%<>&|^!?=]=|>>>=?|([-+:])\1|([&|<>])\2=?|\?(\.|::)|\.{2,3})/,U=/^[^\n\S]+/,c=/^###([^#][\s\S]*?)(?:###[^\n\S]*|(?:###)$)|^(?:\s*#(?!##[^#]).*)+/,s=/^[-=]>/,E=/^(?:\n[^\n\S]*)+/,M=/^'[^\\']*(?:\\.[^\\']*)*'/,y=/^`[^\\`]*(?:\\.[^\\`]*)*`/,I=/^(\/(?![\s=])[^[\/\n\\]*(?:(?:\\[\s\S]|\[[^\]\n\\]*(?:\\[\s\S][^\]\n\\]*)*])[^[\/\n\\]*)*\/)([imgy]{0,4})(?!\w)/,f=/^\/{3}([\s\S]+?)\/{3}([imgy]{0,4})(?!\w)/,m=/\s+(?:#.*)?/g,x=/\n/g,d=/\n+([^\n\S]*)/g,p=/\*\//,C=/^\s*(?:,|\??\.(?![.\d])|::)/,V=/\s+$/,l=["-=","+=","/=","*=","%=","||=","&&=","?=","<<=",">>=",">>>=","&=","^=","|="],P=["!","~","NEW","TYPEOF","DELETE","DO"],F=["&&","||","&","|","^"],j=["<<",">>",">>>"],h=["==","!=","<",">","<=",">="],N=["*","/","%"],_=["IN","OF","INSTANCEOF"],n=["TRUE","FALSE"],D=["NUMBER","REGEX","BOOL","NULL","UNDEFINED","++","--"],S=D.concat(")","}","THIS","IDENTIFIER","STRING","]"),i=["IDENTIFIER","STRING","REGEX",")","]","}","?","::","@","THIS","SUPER"],k=i.concat("NUMBER","BOOL","NULL","UNDEFINED"),T=["INDENT","OUTDENT","TERMINATOR"]}.call(this),t.exports}(),require["./parser"]=function(){var e={},t={exports:e},n=function(){function e</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/test/vendor/assert.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -  // ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/test/vendor/jquery-2.1.0.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3392 -        setTimeout( jQuery.ready );
+
+ Line: 6242 -    setTimeout(function() {
+
+ Line: 6791 -      timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+
+ Line: 6815 -      var timeout = setTimeout( next, time );
+
+ Line: 8076 -          timeoutTimer = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/test/vendor/jquery-2.1.0.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8377 -  // key/values into a query string
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/test/vendor/mocha.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1660 -    , setTimeout = global.setTimeout
+
+ Line: 1661 -    , setInterval = global.setInterval
+
+ Line: 2229 -    , setTimeout = global.setTimeout
+
+ Line: 2230 -    , setInterval = global.setInterval
+
+ Line: 3721 -    , setTimeout = global.setTimeout
+
+ Line: 3722 -    , setInterval = global.setInterval
+
+ Line: 3844 -    , setTimeout = global.setTimeout
+
+ Line: 3845 -    , setInterval = global.setInterval
+
+ Line: 3902 -    if (this.timer) this.resetTimeout();
+
+ Line: 3966 -  Runnable.prototype.resetTimeout = function(){
+
+ Line: 3972 -      this.timer = setTimeout(function(){
+
+ Line: 3999 -        this.timer = setTimeout(function(){
+
+ Line: 4023 -    // for .resetTimeout()
+
+ Line: 4076 -    'setTimeout',
+
+ Line: 4078 -    'setInterval',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/test/vendor/mocha.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 5330 -      var query = Mocha.utils.parseQuery(window.location.search || '');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/modules/jq-console/jqconsole.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 6 -  o(this.$prompt_current);this.$prompt_right=t(m).appendTo(this.$prompt_current);this.$prompt_right.css({position:"relative"});this.$prompt_cursor=t(A(r,"&nbsp;"));this.$prompt_cursor.insertBefore(this.$prompt_right);this.$prompt_cursor.css({color:"transparent",display:"inline",zIndex:0});if(!this.isMobile){return this.$prompt_cursor.css("position","absolute")}};i.prototype._SetupEvents=function(){if(this.isMobile){this.$console.click(function(t){return function(e){e.preventDefault();return t.Focus()}}(this))}else{this.$console.mouseup(function(t){return function(e){var i;if(e.which===2){return t.Focus()}else{i=function(){if(!window.getSelection().toString()){e.preventDefault();return t.Focus()}};return setTimeout(i,0)}}}(this))}this.$input_source.focus(function(t){return function(){var e,i;t._ScrollToEnd();t.$console_focused=true;t.$console.removeClass(s);i=function(){if(t.$console_focused){return t.$console.removeClass(s)}};setTimeout(i,100);e=function(){if(t.isIos&&t.$console_focused){return t.$input_source.hide()}};return setTimeout(e,500)}}(this));this.$input_source.blur(function(t){return function(){var e;t.$console_focused=false;if(t.isIos){t.$input_source.show()}e=function(){if(!t.$console_focused){return t.$console.addClass(s)}};return setTimeout(e,100)}}(this));this.$input_source.bind("paste",function(t){return function(){var e;e=function(){if(t.in_composition){return}t._AppendPromptText(t.$input_source.val());t.$input_source.val("");return t.Focus()};return setTimeout(e,0)}}(this));this.$input_source.keypress(this._HandleChar);this.$input_source.keydown(this._HandleKey);this.$input_source.keydown(this._CheckComposition);this.$input_source.bind("compositionstart",this._StartComposition);this.$input_source.bind("compositionend",function(t){return function(e){return setTimeout(function(){return t._EndComposition(e)},0)}}(this));if(this.isAndroid){this.$input_source.bind("input",this._StartComposition);return this.$input_source.bind("input",this._UpdateComposition)}else{return this.$input_source.bind("text",this._UpdateComposition)}};i.prototype._HandleChar=function(t){var Line: 7 -  tate===W||t.metaKey||t.ctrlKey){return true}e=t.which;if(e===8||e===9||e===13){return false}this.$prompt_left.text(this.$prompt_left.text()+String.fromCharCode(e));this._ScrollToEnd();return false};i.prototype._HandleKey=function(e){var i;if(this.state===W){return true}i=e.keyCode||e.which;setTimeout(t.proxy(this._CheckMatchings,this),0);if(e.altKey){return true}else if(e.ctrlKey||e.metaKey){return this._HandleCtrlShortcut(i)}else if(e.shiftKey){switch(i){case w:this._HandleEnter(true);break;case H:this._Unindent();break;case E:this._MoveUp();break;case b:this._MoveDown();break;case M:this._ScrollPage("up");break;case S:this._ScrollPage("down");break;default:return true}return false}else{switch(i){case w:this._HandleEnter(false);break;case H:this._Indent();break;case x:this._Delete(false);break;case g:this._Backspace(false);break;case T:this._MoveLeft(false);break;case P:this._MoveRight(false);break;case E:this._HistoryPrevious();break;case b:this._HistoryNext();break;case C:this.MoveToStart(false);break;case k:this.MoveToEnd(false);break;case M:this._ScrollPage("up");break;case S:this._ScrollPage("down");break;default:return true}return false}};i.prototype._HandleCtrlShortcut=function(t){var e,i,s,r;switch(t){case x:this._Delete(true);break;case g:this._Backspace(true);break;case T:this._MoveLeft(true);break;case P:this._MoveRight(true);break;case E:this._MoveUp();break;case b:this._MoveDown();break;case k:this.MoveToEnd(true);break;case C:this.MoveToStart(true);break;default:if(t in this.shortcuts){r=this.shortcuts[t];for(i=0,s=r.length;i<s;i++){e=r[i];e.call(this)}return false}else{return true}}return false};i.prototype._HandleEnter=function(t){var e,i;this._EndComposition();if(t){return this._InsertNewLine(true)}else{i=this.GetPromptText();e=function(t){return function(e){var s,r,o,n,h,c;if(e!==false){t.MoveToEnd(true);t._InsertNewLine(true);c=[];for(o=n=0,h=Math.abs(e);0<=h?n<h:n>h;o=0<=h?++n:--n){if(e>0){c.push(t._Indent())}else{c.push(t._Unindent())}}return c}else{r=t.state===I?"input":"prompt";t.Write(t.GetPromptText(true)+L,""+p+"old-"+r);t.ClearPromptText(true);if(t.h Line: 9 -  HorizontalMove(t,true)};i.prototype._MoveRight=function(t){return this._HorizontalMove(t)};i.prototype._MoveTo=function(t,e){var i,s,r,o,n,h,p;h=this._GetDirectionals(e),r=h.$prompt_which,i=h.$prompt_opposite,s=h.$prompt_relative,n=h.MoveToLimit,o=h.MoveDirection;if(t){p=[];while(!(s.is(f)&&r.text()==="")){n(false);p.push(o(false))}return p}else{i.text(this.$prompt_left.text()+this.$prompt_right.text());return r.text("")}};i.prototype._Delete=function(t){var e,i,s;i=this.$prompt_right.text();if(i){if(t){s=i.match(/^\w*\W*/);if(!s){return}s=s[0];return this.$prompt_right.text(i.slice(s.length))}else{return this.$prompt_right.text(i.slice(1))}}else if(!this.$prompt_after.is(f)){e=this.$prompt_after.children().first().detach();return this.$prompt_right.text(e.children().last().text())}};i.prototype._Backspace=function(e){var i,s,r;setTimeout(t.proxy(this._ScrollToEnd,this),0);s=this.$prompt_left.text();if(s){if(e){r=s.match(/\w*\W*$/);if(!r){return}r=r[0];return this.$prompt_left.text(s.slice(0,-r.length))}else{return this.$prompt_left.text(s.slice(0,-1))}}else if(!this.$prompt_before.is(f)){i=this.$prompt_before.children().last().detach();this.$prompt_label.text(i.children().first().text());return this.$prompt_left.text(i.children().last().text())}};i.prototype._Indent=function(){var t;return this.$prompt_left.prepend(function(){var e,i,s;s=[];for(t=e=1,i=this.indent_width;1<=i?e<=i:e>=i;t=1<=i?++e:--e){s.push(" ")}return s}.call(this).join(""))};i.prototype._Unindent=function(){var t,e,i,s,r;t=this.$prompt_left.text()+this.$prompt_right.text();r=[];for(e=i=1,s=this.indent_width;1<=s?i<=s:i>=s;e=1<=s?++i:--i){if(!/^ /.test(t)){break}if(this.$prompt_left.text()){this.$prompt_left.text(this.$prompt_left.text().slice(1))}else{this.$prompt_right.text(this.$prompt_right.text().slice(1))}r.push(t=t.slice(1))}return r};i.prototype._InsertNewLine=function(e){var i,s,r;if(e==null){e=false}r=this._SelectPromptLabel(!this.$prompt_before.is(f));i=t(m).appendTo(this.$prompt_before);i.append(t(m).text(r));i.append(t(m).text(this.$prompt_left.text()));this.$prompt_label.text(this._SelectPromptL Line: 10 -  if(e&&(s=this.$prompt_left.text().match(/^\s+/))){this.$prompt_left.text(s[0])}else{this.$prompt_left.text("")}return this._ScrollToEnd()};i.prototype._AppendPromptText=function(t){var e,i,s,r,o,n;i=t.split(L);this.$prompt_left.text(this.$prompt_left.text()+i[0]);o=i.slice(1);n=[];for(s=0,r=o.length;s<r;s++){e=o[s];this._InsertNewLine();n.push(this.$prompt_left.text(e))}return n};i.prototype._ScrollPage=function(t){var e;e=this.$container[0].scrollTop;if(t==="up"){e-=this.$container.height()}else{e+=this.$container.height()}return this.$container.stop().animate({scrollTop:e},"fast")};i.prototype._ScrollToEnd=function(){var t;this.$container.scrollTop(this.$container[0].scrollHeight);t=this.$prompt_cursor.position();this.$input_container.css({left:t.left,top:t.top});return setTimeout(this.ScrollWindowToPrompt.bind(this),50)};i.prototype.ScrollWindowToPrompt=function(){var t,e,i,s,r,o;e=this.$prompt_cursor.height();o=this.$window.scrollTop();r=this.$window.scrollLeft();t=document.documentElement.clientHeight;s=this.$prompt_cursor.offset();i=s.top-2*e;if(this.isMobile&&(typeof orientation!=="undefined"&&orientation!==null)){if(o<s.top||o>s.top){return this.$window.scrollTop(i)}}else{if(o+t<s.top){return this.$window.scrollTop(s.top-t+e)}else if(o>i){return this.$window.scrollTop(s.top)}}};i.prototype._SelectPromptLabel=function(t){if(this.state===D){if(t){return" \n"+this.prompt_label_continue}else{return this.prompt_label_main}}else{if(t){return"\n "}else{return" "}}};i.prototype._Wrap=function(t,e,i){var s,r;r=t.html();s=r.slice(0,e)+A(i,r[e])+r.slice(e+1);return t.html(s)};i.prototype._WalkCharacters=function(t,e,i,s,r){var o,n,h;n=r?t.length:0;t=t.split("");h=function(){var e,i,s,o;if(r){s=t,t=2<=s.length?R.call(s,0,i=s.length-1):(i=0,[]),e=s[i++]}else{o=t,e=o[0],t=2<=o.length?R.call(o,1):[]}if(e){n=n+(r?-1:+1)}return e};while(o=h()){if(o===e){s++}else if(o===i){s--}if(s===0){return{index:n,current_count:s}}}return{index:-1,current_count:s}};i.prototype._ProcessMatch=function(e,i,s){var r,o,n,h,p,c,a,u,l,_,f,m;_=i?[e["closing_char"],e["opening_char"]]:[e["opening_char"],e["cl Line: 11 -  ,h=_[0],u=_[1];f=this._GetDirectionals(i),n=f.$prompt_which,o=f.$prompt_relative;p=1;c=false;l=n.html();if(!i){l=l.slice(1)}if(s&&i){l=l.slice(0,-1)}m=this._WalkCharacters(l,h,u,p,i),a=m.index,p=m.current_count;if(a>-1){this._Wrap(n,a,e.cls);c=true}else{r=o.children();r=i?Array.prototype.reverse.call(r):r;r.each(function(s){return function(r,o){var n,_;n=t(o).children().last();l=n.html();_=s._WalkCharacters(l,h,u,p,i),a=_.index,p=_.current_count;if(a>-1){if(!i){a--}s._Wrap(n,a,e.cls);c=true;return false}}}(this))}return c};i.prototype._CheckMatchings=function(e){var i,s,r,o,n,h,p;r=e?this.$prompt_left.text().slice(this.$prompt_left.text().length-1):this.$prompt_right.text()[0];p=this.matchings.clss;for(n=0,h=p.length;n<h;n++){i=p[n];t("."+i,this.$console).contents().unwrap()}if(s=this.matchings.closings[r]){o=this._ProcessMatch(s,true,e)}else if(s=this.matchings.openings[r]){o=this._ProcessMatch(s,false,e)}else if(!e){this._CheckMatchings(true)}if(e){if(o){return this._Wrap(this.$prompt_left,this.$prompt_left.html().length-1,s.cls)}}else{if(o){return this._Wrap(this.$prompt_right,0,s.cls)}}};i.prototype._HistoryPrevious=function(){if(!this.history_active){return}if(this.history_index<=0){return}if(this.history_index===this.history.length){this.history_new=this.GetPromptText()}return this.SetPromptText(this.history[--this.history_index])};i.prototype._HistoryNext=function(){if(!this.history_active){return}if(this.history_index>=this.history.length){return}if(this.history_index===this.history.length-1){this.history_index++;return this.SetPromptText(this.history_new)}else{return this.SetPromptText(this.history[++this.history_index])}};i.prototype._CheckComposition=function(t){var e;e=t.keyCode||t.which;if(e===229){if(this.in_composition){return this._UpdateComposition()}else{return this._StartComposition()}}};i.prototype._StartComposition=function(){if(this.in_composition){return}this.in_composition=true;this._ShowComposition();return setTimeout(this._UpdateComposition,0)};i.prototype._EndComposition=function(){if(!this.in_composition){return}this._HideComposition();this.$prompt_ Line: 12 -  s.$prompt_left.text()+this.$composition.text());this.$composition.text("");this.$input_source.val("");return this.in_composition=false};i.prototype._UpdateComposition=function(t){var e;e=function(t){return function(){if(!t.in_composition){return}return t.$composition.text(t.$input_source.val())}}(this);return setTimeout(e,0)};i.prototype._ShowComposition=function(){this.$composition.css("height",this.$prompt_cursor.height());this.$composition.empty();return this.$composition.appendTo(this.$prompt_left)};i.prototype._HideComposition=function(){return this.$composition.detach()};return i}();t.fn.jqconsole=function(t,e,i){return new v(this,t,e,i)};t.fn.jqconsole.JQConsole=v;t.fn.jqconsole.Ansi=e}).call(this);
+</Result>
+</report_mosca>
+

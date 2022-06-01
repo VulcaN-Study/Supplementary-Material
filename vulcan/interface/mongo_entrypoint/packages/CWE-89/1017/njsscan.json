@@ -1,0 +1,1096 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 5,
+          "line": 13
+        },
+        "extra": {
+          "line": "site",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.dockerignore",
+        "start": {
+          "col": 5,
+          "line": 13
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# EditorConfig helps developers define and maintain consistent",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"bitwise\":false,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 1
+        },
+        "extra": {
+          "line": "FROM node:5",
+          "message": "Syntax error"
+        },
+        "path": "/src/Dockerfile",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2014-2016 Sequelize contributors",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/dialects/mssql/query-interface.js",
+          "match_lines": [
+            25,
+            61
+          ],
+          "match_position": [
+            3,
+            84
+          ],
+          "match_string": "  var findConstraintSql = self.QueryGenerator.getDefaultConstraintQuery(tableName, attributeName);\n\n  return self.sequelize.query(findConstraintSql, { raw: true, logging: options.logging})\n\n    .spread(function (results) {\n\n      if (!results.length) {\n\n        // No default constraint found -- we can cleanly remove the column\n\n        return;\n\n      }\n\n      var dropConstraintSql = self.QueryGenerator.dropConstraintQuery(tableName, results[0].name);\n\n      return self.sequelize.query(dropConstraintSql, { raw: true, logging: options.logging});\n\n    })\n\n    .then(function () {\n\n      var findForeignKeySql = self.QueryGenerator.getForeignKeyQuery(tableName, attributeName);\n\n      return self.sequelize.query(findForeignKeySql , { raw: true, logging: options.logging});\n\n    })\n\n    .spread(function (results) {\n\n      if (!results.length) {\n\n        // No foreign key constraints found, so we can remove the column\n\n        return;\n\n      }\n\n      var dropForeignKeySql = self.QueryGenerator.dropForeignKeyQuery(tableName, results[0].constraint_name);\n\n      return self.sequelize.query(dropForeignKeySql , { raw: true, logging: options.logging});\n\n    })\n\n    .then(function() {\n\n      //Check if the current column is a primaryKey\n\n      var primaryKeyConstraintSql = self.QueryGenerator.getPrimaryKeyConstraintQuery(tableName, attributeName);\n\n      return self.sequelize.query(primaryKeyConstraintSql, { raw: true, logging: options.logging });\n\n    })\n\n    .spread(function(result) {\n\n      if (!result.length) {\n\n        return;\n\n      }\n\n      var dropConstraintSql = self.QueryGenerator.dropConstraintQuery(tableName, result[0].constraintName);\n\n      return self.sequelize.query(dropConstraintSql, { raw: true, logging: options.logging});\n\n    })\n\n    .then(function () {\n\n      var removeSql = self.QueryGenerator.removeColumnQuery(tableName, attributeName);\n\n      return self.sequelize.query(removeSql, { raw: true, logging: options.logging});"
+        },
+        {
+          "file_path": "/src/lib/dialects/mssql/query-interface.js",
+          "match_lines": [
+            32,
+            33
+          ],
+          "match_position": [
+            7,
+            92
+          ],
+          "match_string": "      var dropConstraintSql = self.QueryGenerator.dropConstraintQuery(tableName, results[0].name);\n\n      return self.sequelize.query(dropConstraintSql, { raw: true, logging: options.logging});"
+        },
+        {
+          "file_path": "/src/lib/dialects/mssql/query-interface.js",
+          "match_lines": [
+            36,
+            37
+          ],
+          "match_position": [
+            7,
+            93
+          ],
+          "match_string": "      var findForeignKeySql = self.QueryGenerator.getForeignKeyQuery(tableName, attributeName);\n\n      return self.sequelize.query(findForeignKeySql , { raw: true, logging: options.logging});"
+        },
+        {
+          "file_path": "/src/lib/dialects/mssql/query-interface.js",
+          "match_lines": [
+            44,
+            45
+          ],
+          "match_position": [
+            7,
+            93
+          ],
+          "match_string": "      var dropForeignKeySql = self.QueryGenerator.dropForeignKeyQuery(tableName, results[0].constraint_name);\n\n      return self.sequelize.query(dropForeignKeySql , { raw: true, logging: options.logging});"
+        },
+        {
+          "file_path": "/src/lib/dialects/mssql/query-interface.js",
+          "match_lines": [
+            49,
+            50
+          ],
+          "match_position": [
+            7,
+            99
+          ],
+          "match_string": "      var primaryKeyConstraintSql = self.QueryGenerator.getPrimaryKeyConstraintQuery(tableName, attributeName);\n\n      return self.sequelize.query(primaryKeyConstraintSql, { raw: true, logging: options.logging });"
+        },
+        {
+          "file_path": "/src/lib/dialects/mssql/query-interface.js",
+          "match_lines": [
+            56,
+            57
+          ],
+          "match_position": [
+            7,
+            92
+          ],
+          "match_string": "      var dropConstraintSql = self.QueryGenerator.dropConstraintQuery(tableName, result[0].constraintName);\n\n      return self.sequelize.query(dropConstraintSql, { raw: true, logging: options.logging});"
+        },
+        {
+          "file_path": "/src/lib/dialects/mssql/query-interface.js",
+          "match_lines": [
+            60,
+            61
+          ],
+          "match_position": [
+            7,
+            84
+          ],
+          "match_string": "      var removeSql = self.QueryGenerator.removeColumnQuery(tableName, attributeName);\n\n      return self.sequelize.query(removeSql, { raw: true, logging: options.logging});"
+        },
+        {
+          "file_path": "/src/lib/dialects/mysql/connection-manager.js",
+          "match_lines": [
+            123,
+            123
+          ],
+          "match_position": [
+            5,
+            81
+          ],
+          "match_string": "    connection.query(\"SET time_zone = '\" + self.sequelize.options.timezone + \"'\"); /* jshint ignore: line */"
+        },
+        {
+          "file_path": "/src/lib/dialects/mysql/query-interface.js",
+          "match_lines": [
+            26,
+            28
+          ],
+          "match_position": [
+            10,
+            38
+          ],
+          "match_string": "  return self.sequelize.query(\n\n      self.QueryGenerator.getForeignKeyQuery(tableName, columnName),\n\n      _.assign({ raw: true }, options)"
+        },
+        {
+          "file_path": "/src/lib/dialects/mysql/query-interface.js",
+          "match_lines": [
+            36,
+            38
+          ],
+          "match_position": [
+            14,
+            42
+          ],
+          "match_string": "      return self.sequelize.query(\n\n          self.QueryGenerator.dropForeignKeyQuery(tableName, results[0].constraint_name),\n\n          _.assign({ raw: true }, options)"
+        },
+        {
+          "file_path": "/src/lib/dialects/mysql/query-interface.js",
+          "match_lines": [
+            42,
+            44
+          ],
+          "match_position": [
+            14,
+            42
+          ],
+          "match_string": "      return self.sequelize.query(\n\n          self.QueryGenerator.removeColumnQuery(tableName, columnName),\n\n          _.assign({ raw: true }, options)"
+        },
+        {
+          "file_path": "/src/lib/dialects/mysql/query.js",
+          "match_lines": [
+            40,
+            51
+          ],
+          "match_position": [
+            5,
+            43
+          ],
+          "match_string": "    self.connection.query(self.sql, function(err, results) {\n\n\n\n      if (benchmark) {\n\n        self.sequelize.log('Executed (' + (self.connection.uuid || 'default') + '): ' + self.sql, (Date.now() - queryBegin), self.options);\n\n      }\n\n\n\n      if (err) {\n\n        err.sql = sql;\n\n\n\n        reject(self.formatError(err));\n\n      } else {\n\n        resolve(self.formatResults(results));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            24,
+            25
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.createSchema(schema);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            30,
+            31
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.dropSchema(schema);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            55,
+            60
+          ],
+          "match_position": [
+            3,
+            64
+          ],
+          "match_string": "  var showSchemasSql = self.QueryGenerator.showSchemasQuery();\n\n\n\n  return this.sequelize.query(showSchemasSql, options).then(function(schemaNames) {\n\n    return Utils._.flatten(\n\n      Utils._.map(schemaNames, function(value) {\n\n        return (!!value.schema_name ? value.schema_name : value);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            67,
+            69
+          ],
+          "match_position": [
+            10,
+            55
+          ],
+          "match_string": "  return this.sequelize.query(\n\n    this.QueryGenerator.versionQuery(),\n\n    _.assign({}, options, { type: QueryTypes.VERSION })"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            74,
+            216
+          ],
+          "match_position": [
+            3,
+            45
+          ],
+          "match_string": "  var keys = Object.keys(attributes)\n\n    , keyLen = keys.length\n\n    , self = this\n\n    , sql = ''\n\n    , i = 0;\n\n\n\n  options = _.clone(options) || {};\n\n\n\n  attributes = Utils._.mapValues(attributes, function(attribute) {\n\n    if (!Utils._.isPlainObject(attribute)) {\n\n      attribute = { type: attribute, allowNull: true };\n\n    }\n\n\n\n    attribute = self.sequelize.normalizeAttribute(attribute);\n\n\n\n    return attribute;\n\n  });\n\n\n\n  // Postgres requires a special SQL command for enums\n\n  if (self.sequelize.options.dialect === 'postgres') {\n\n    var promises = [];\n\n\n\n    for (i = 0; i < keyLen; i++) {\n\n      var attribute = attributes[keys[i]];\n\n      var type = attribute.type;\n\n\n\n      if (\n\n        type instanceof DataTypes.ENUM ||\n\n        (type instanceof DataTypes.ARRAY && type.type instanceof DataTypes.ENUM) //ARRAY sub type is ENUM\n\n      ) {\n\n        sql = self.QueryGenerator.pgListEnums(tableName, attribute.field || keys[i], options);\n\n        promises.push(self.sequelize.query(\n\n          sql,\n\n          _.assign({}, options, { plain: true, raw: true, type: QueryTypes.SELECT })\n\n        ));\n\n      }\n\n    }\n\n\n\n    return Promise.all(promises).then(function(results) {\n\n      var promises = []\n\n        , enumIdx = 0;\n\n\n\n      for (i = 0; i < keyLen; i++) {\n\n        var attribute = attributes[keys[i]];\n\n        var type = attribute.type;\n\n        var enumType = type.type || type;\n\n\n\n        if (\n\n          type instanceof DataTypes.ENUM ||\n\n          (type instanceof DataTypes.ARRAY && type.type instanceof DataTypes.ENUM) //ARRAY sub type is ENUM\n\n        ) {\n\n\n\n          // If the enum type doesn't exist then create it\n\n          if (!results[enumIdx]) {\n\n            sql = self.QueryGenerator.pgEnum(tableName, attribute.field || keys[i], enumType, options);\n\n\n\n            promises.push(self.sequelize.query(\n\n              sql,\n\n              _.assign({}, options, { raw: true })\n\n            ));\n\n          } else if (!!results[enumIdx] && !!model) {\n\n            var enumVals = self.QueryGenerator.fromArray(results[enumIdx].enum_value)\n\n              , vals = enumType.values;\n\n\n\n            vals.forEach(function(value, idx) {\n\n              // reset out after/before options since it's for every enum value\n\n              var valueOptions = _.clone(options);\n\n              valueOptions.before = null;\n\n              valueOptions.after = null;\n\n\n\n              if (enumVals.indexOf(value) === -1) {\n\n                if (!!vals[idx + 1]) {\n\n                  valueOptions.before = vals[idx + 1];\n\n                }\n\n                else if (!!vals[idx - 1]) {\n\n                  valueOptions.after = vals[idx - 1];\n\n                }\n\n                valueOptions.supportsSearchPath = false;\n\n                promises.push(self.sequelize.query(self.QueryGenerator.pgEnumAdd(tableName, attribute.field || keys[i], value, valueOptions), valueOptions));\n\n              }\n\n            });\n\n            enumIdx++;\n\n          }\n\n        }\n\n      }\n\n\n\n      if (!tableName.schema &&\n\n        (options.schema || (!!model && model.$schema))) {\n\n        tableName = self.QueryGenerator.addSchema({\n\n          tableName: tableName,\n\n          $schema: (!!model && model.$schema) || options.schema\n\n        });\n\n      }\n\n\n\n      attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n        context: 'createTable'\n\n      });\n\n\n\n      sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n      return Promise.all(promises)\n\n        .then(function() {\n\n          // if no enum was processed, then return\n\n          if (!promises.length) return;\n\n\n\n          // fetch OIDs ENUM, refresh them\n\n          return self.sequelize.query(\n\n            'SELECT typname, typtype, oid, typarray FROM pg_type WHERE typtype = \\'e\\';',\n\n            _.assign({}, options, { raw: true, type: QueryTypes.SELECT })\n\n          ).then(function (results) {\n\n            var dataType = DataTypes.postgres.ENUM;\n\n\n\n            dataType.types.postgres.oids = [];\n\n            dataType.types.postgres.array_oids = [];\n\n\n\n            results.forEach(function (row) {\n\n              dataType.types.postgres.oids.push(row.oid);\n\n              dataType.types.postgres.array_oids.push(row.typarray);\n\n            });\n\n\n\n            self.sequelize.dialect.connectionManager.$refreshTypeParser(dataType);\n\n            self.sequelize.refreshTypes(DataTypes.postgres);\n\n          });\n\n        })\n\n        .then(function() {\n\n          return self.sequelize.query(sql, options);\n\n        });\n\n    });\n\n  } else {\n\n    if (!tableName.schema &&\n\n      (options.schema || (!!model && model.$schema))) {\n\n      tableName = self.QueryGenerator.addSchema({\n\n        tableName: tableName,\n\n        $schema: (!!model && model.$schema) || options.schema\n\n      });\n\n    }\n\n\n\n    attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n      context: 'createTable'\n\n    });\n\n    sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n    return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            80,
+            216
+          ],
+          "match_position": [
+            3,
+            45
+          ],
+          "match_string": "  options = _.clone(options) || {};\n\n\n\n  attributes = Utils._.mapValues(attributes, function(attribute) {\n\n    if (!Utils._.isPlainObject(attribute)) {\n\n      attribute = { type: attribute, allowNull: true };\n\n    }\n\n\n\n    attribute = self.sequelize.normalizeAttribute(attribute);\n\n\n\n    return attribute;\n\n  });\n\n\n\n  // Postgres requires a special SQL command for enums\n\n  if (self.sequelize.options.dialect === 'postgres') {\n\n    var promises = [];\n\n\n\n    for (i = 0; i < keyLen; i++) {\n\n      var attribute = attributes[keys[i]];\n\n      var type = attribute.type;\n\n\n\n      if (\n\n        type instanceof DataTypes.ENUM ||\n\n        (type instanceof DataTypes.ARRAY && type.type instanceof DataTypes.ENUM) //ARRAY sub type is ENUM\n\n      ) {\n\n        sql = self.QueryGenerator.pgListEnums(tableName, attribute.field || keys[i], options);\n\n        promises.push(self.sequelize.query(\n\n          sql,\n\n          _.assign({}, options, { plain: true, raw: true, type: QueryTypes.SELECT })\n\n        ));\n\n      }\n\n    }\n\n\n\n    return Promise.all(promises).then(function(results) {\n\n      var promises = []\n\n        , enumIdx = 0;\n\n\n\n      for (i = 0; i < keyLen; i++) {\n\n        var attribute = attributes[keys[i]];\n\n        var type = attribute.type;\n\n        var enumType = type.type || type;\n\n\n\n        if (\n\n          type instanceof DataTypes.ENUM ||\n\n          (type instanceof DataTypes.ARRAY && type.type instanceof DataTypes.ENUM) //ARRAY sub type is ENUM\n\n        ) {\n\n\n\n          // If the enum type doesn't exist then create it\n\n          if (!results[enumIdx]) {\n\n            sql = self.QueryGenerator.pgEnum(tableName, attribute.field || keys[i], enumType, options);\n\n\n\n            promises.push(self.sequelize.query(\n\n              sql,\n\n              _.assign({}, options, { raw: true })\n\n            ));\n\n          } else if (!!results[enumIdx] && !!model) {\n\n            var enumVals = self.QueryGenerator.fromArray(results[enumIdx].enum_value)\n\n              , vals = enumType.values;\n\n\n\n            vals.forEach(function(value, idx) {\n\n              // reset out after/before options since it's for every enum value\n\n              var valueOptions = _.clone(options);\n\n              valueOptions.before = null;\n\n              valueOptions.after = null;\n\n\n\n              if (enumVals.indexOf(value) === -1) {\n\n                if (!!vals[idx + 1]) {\n\n                  valueOptions.before = vals[idx + 1];\n\n                }\n\n                else if (!!vals[idx - 1]) {\n\n                  valueOptions.after = vals[idx - 1];\n\n                }\n\n                valueOptions.supportsSearchPath = false;\n\n                promises.push(self.sequelize.query(self.QueryGenerator.pgEnumAdd(tableName, attribute.field || keys[i], value, valueOptions), valueOptions));\n\n              }\n\n            });\n\n            enumIdx++;\n\n          }\n\n        }\n\n      }\n\n\n\n      if (!tableName.schema &&\n\n        (options.schema || (!!model && model.$schema))) {\n\n        tableName = self.QueryGenerator.addSchema({\n\n          tableName: tableName,\n\n          $schema: (!!model && model.$schema) || options.schema\n\n        });\n\n      }\n\n\n\n      attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n        context: 'createTable'\n\n      });\n\n\n\n      sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n      return Promise.all(promises)\n\n        .then(function() {\n\n          // if no enum was processed, then return\n\n          if (!promises.length) return;\n\n\n\n          // fetch OIDs ENUM, refresh them\n\n          return self.sequelize.query(\n\n            'SELECT typname, typtype, oid, typarray FROM pg_type WHERE typtype = \\'e\\';',\n\n            _.assign({}, options, { raw: true, type: QueryTypes.SELECT })\n\n          ).then(function (results) {\n\n            var dataType = DataTypes.postgres.ENUM;\n\n\n\n            dataType.types.postgres.oids = [];\n\n            dataType.types.postgres.array_oids = [];\n\n\n\n            results.forEach(function (row) {\n\n              dataType.types.postgres.oids.push(row.oid);\n\n              dataType.types.postgres.array_oids.push(row.typarray);\n\n            });\n\n\n\n            self.sequelize.dialect.connectionManager.$refreshTypeParser(dataType);\n\n            self.sequelize.refreshTypes(DataTypes.postgres);\n\n          });\n\n        })\n\n        .then(function() {\n\n          return self.sequelize.query(sql, options);\n\n        });\n\n    });\n\n  } else {\n\n    if (!tableName.schema &&\n\n      (options.schema || (!!model && model.$schema))) {\n\n      tableName = self.QueryGenerator.addSchema({\n\n        tableName: tableName,\n\n        $schema: (!!model && model.$schema) || options.schema\n\n      });\n\n    }\n\n\n\n    attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n      context: 'createTable'\n\n    });\n\n    sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n    return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            82,
+            216
+          ],
+          "match_position": [
+            3,
+            45
+          ],
+          "match_string": "  attributes = Utils._.mapValues(attributes, function(attribute) {\n\n    if (!Utils._.isPlainObject(attribute)) {\n\n      attribute = { type: attribute, allowNull: true };\n\n    }\n\n\n\n    attribute = self.sequelize.normalizeAttribute(attribute);\n\n\n\n    return attribute;\n\n  });\n\n\n\n  // Postgres requires a special SQL command for enums\n\n  if (self.sequelize.options.dialect === 'postgres') {\n\n    var promises = [];\n\n\n\n    for (i = 0; i < keyLen; i++) {\n\n      var attribute = attributes[keys[i]];\n\n      var type = attribute.type;\n\n\n\n      if (\n\n        type instanceof DataTypes.ENUM ||\n\n        (type instanceof DataTypes.ARRAY && type.type instanceof DataTypes.ENUM) //ARRAY sub type is ENUM\n\n      ) {\n\n        sql = self.QueryGenerator.pgListEnums(tableName, attribute.field || keys[i], options);\n\n        promises.push(self.sequelize.query(\n\n          sql,\n\n          _.assign({}, options, { plain: true, raw: true, type: QueryTypes.SELECT })\n\n        ));\n\n      }\n\n    }\n\n\n\n    return Promise.all(promises).then(function(results) {\n\n      var promises = []\n\n        , enumIdx = 0;\n\n\n\n      for (i = 0; i < keyLen; i++) {\n\n        var attribute = attributes[keys[i]];\n\n        var type = attribute.type;\n\n        var enumType = type.type || type;\n\n\n\n        if (\n\n          type instanceof DataTypes.ENUM ||\n\n          (type instanceof DataTypes.ARRAY && type.type instanceof DataTypes.ENUM) //ARRAY sub type is ENUM\n\n        ) {\n\n\n\n          // If the enum type doesn't exist then create it\n\n          if (!results[enumIdx]) {\n\n            sql = self.QueryGenerator.pgEnum(tableName, attribute.field || keys[i], enumType, options);\n\n\n\n            promises.push(self.sequelize.query(\n\n              sql,\n\n              _.assign({}, options, { raw: true })\n\n            ));\n\n          } else if (!!results[enumIdx] && !!model) {\n\n            var enumVals = self.QueryGenerator.fromArray(results[enumIdx].enum_value)\n\n              , vals = enumType.values;\n\n\n\n            vals.forEach(function(value, idx) {\n\n              // reset out after/before options since it's for every enum value\n\n              var valueOptions = _.clone(options);\n\n              valueOptions.before = null;\n\n              valueOptions.after = null;\n\n\n\n              if (enumVals.indexOf(value) === -1) {\n\n                if (!!vals[idx + 1]) {\n\n                  valueOptions.before = vals[idx + 1];\n\n                }\n\n                else if (!!vals[idx - 1]) {\n\n                  valueOptions.after = vals[idx - 1];\n\n                }\n\n                valueOptions.supportsSearchPath = false;\n\n                promises.push(self.sequelize.query(self.QueryGenerator.pgEnumAdd(tableName, attribute.field || keys[i], value, valueOptions), valueOptions));\n\n              }\n\n            });\n\n            enumIdx++;\n\n          }\n\n        }\n\n      }\n\n\n\n      if (!tableName.schema &&\n\n        (options.schema || (!!model && model.$schema))) {\n\n        tableName = self.QueryGenerator.addSchema({\n\n          tableName: tableName,\n\n          $schema: (!!model && model.$schema) || options.schema\n\n        });\n\n      }\n\n\n\n      attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n        context: 'createTable'\n\n      });\n\n\n\n      sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n      return Promise.all(promises)\n\n        .then(function() {\n\n          // if no enum was processed, then return\n\n          if (!promises.length) return;\n\n\n\n          // fetch OIDs ENUM, refresh them\n\n          return self.sequelize.query(\n\n            'SELECT typname, typtype, oid, typarray FROM pg_type WHERE typtype = \\'e\\';',\n\n            _.assign({}, options, { raw: true, type: QueryTypes.SELECT })\n\n          ).then(function (results) {\n\n            var dataType = DataTypes.postgres.ENUM;\n\n\n\n            dataType.types.postgres.oids = [];\n\n            dataType.types.postgres.array_oids = [];\n\n\n\n            results.forEach(function (row) {\n\n              dataType.types.postgres.oids.push(row.oid);\n\n              dataType.types.postgres.array_oids.push(row.typarray);\n\n            });\n\n\n\n            self.sequelize.dialect.connectionManager.$refreshTypeParser(dataType);\n\n            self.sequelize.refreshTypes(DataTypes.postgres);\n\n          });\n\n        })\n\n        .then(function() {\n\n          return self.sequelize.query(sql, options);\n\n        });\n\n    });\n\n  } else {\n\n    if (!tableName.schema &&\n\n      (options.schema || (!!model && model.$schema))) {\n\n      tableName = self.QueryGenerator.addSchema({\n\n        tableName: tableName,\n\n        $schema: (!!model && model.$schema) || options.schema\n\n      });\n\n    }\n\n\n\n    attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n      context: 'createTable'\n\n    });\n\n    sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n    return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            104,
+            107
+          ],
+          "match_position": [
+            9,
+            84
+          ],
+          "match_string": "        sql = self.QueryGenerator.pgListEnums(tableName, attribute.field || keys[i], options);\n\n        promises.push(self.sequelize.query(\n\n          sql,\n\n          _.assign({}, options, { plain: true, raw: true, type: QueryTypes.SELECT })"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            119,
+            155
+          ],
+          "match_position": [
+            9,
+            22
+          ],
+          "match_string": "        var enumType = type.type || type;\n\n\n\n        if (\n\n          type instanceof DataTypes.ENUM ||\n\n          (type instanceof DataTypes.ARRAY && type.type instanceof DataTypes.ENUM) //ARRAY sub type is ENUM\n\n        ) {\n\n\n\n          // If the enum type doesn't exist then create it\n\n          if (!results[enumIdx]) {\n\n            sql = self.QueryGenerator.pgEnum(tableName, attribute.field || keys[i], enumType, options);\n\n\n\n            promises.push(self.sequelize.query(\n\n              sql,\n\n              _.assign({}, options, { raw: true })\n\n            ));\n\n          } else if (!!results[enumIdx] && !!model) {\n\n            var enumVals = self.QueryGenerator.fromArray(results[enumIdx].enum_value)\n\n              , vals = enumType.values;\n\n\n\n            vals.forEach(function(value, idx) {\n\n              // reset out after/before options since it's for every enum value\n\n              var valueOptions = _.clone(options);\n\n              valueOptions.before = null;\n\n              valueOptions.after = null;\n\n\n\n              if (enumVals.indexOf(value) === -1) {\n\n                if (!!vals[idx + 1]) {\n\n                  valueOptions.before = vals[idx + 1];\n\n                }\n\n                else if (!!vals[idx - 1]) {\n\n                  valueOptions.after = vals[idx - 1];\n\n                }\n\n                valueOptions.supportsSearchPath = false;\n\n                promises.push(self.sequelize.query(self.QueryGenerator.pgEnumAdd(tableName, attribute.field || keys[i], value, valueOptions), valueOptions));\n\n              }\n\n            });\n\n            enumIdx++;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            128,
+            132
+          ],
+          "match_position": [
+            13,
+            50
+          ],
+          "match_string": "            sql = self.QueryGenerator.pgEnum(tableName, attribute.field || keys[i], enumType, options);\n\n\n\n            promises.push(self.sequelize.query(\n\n              sql,\n\n              _.assign({}, options, { raw: true })"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            140,
+            152
+          ],
+          "match_position": [
+            15,
+            155
+          ],
+          "match_string": "              var valueOptions = _.clone(options);\n\n              valueOptions.before = null;\n\n              valueOptions.after = null;\n\n\n\n              if (enumVals.indexOf(value) === -1) {\n\n                if (!!vals[idx + 1]) {\n\n                  valueOptions.before = vals[idx + 1];\n\n                }\n\n                else if (!!vals[idx - 1]) {\n\n                  valueOptions.after = vals[idx - 1];\n\n                }\n\n                valueOptions.supportsSearchPath = false;\n\n                promises.push(self.sequelize.query(self.QueryGenerator.pgEnumAdd(tableName, attribute.field || keys[i], value, valueOptions), valueOptions));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            152,
+            152
+          ],
+          "match_position": [
+            31,
+            155
+          ],
+          "match_string": "                promises.push(self.sequelize.query(self.QueryGenerator.pgEnumAdd(tableName, attribute.field || keys[i], value, valueOptions), valueOptions));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            168,
+            199
+          ],
+          "match_position": [
+            7,
+            51
+          ],
+          "match_string": "      attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n        context: 'createTable'\n\n      });\n\n\n\n      sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n      return Promise.all(promises)\n\n        .then(function() {\n\n          // if no enum was processed, then return\n\n          if (!promises.length) return;\n\n\n\n          // fetch OIDs ENUM, refresh them\n\n          return self.sequelize.query(\n\n            'SELECT typname, typtype, oid, typarray FROM pg_type WHERE typtype = \\'e\\';',\n\n            _.assign({}, options, { raw: true, type: QueryTypes.SELECT })\n\n          ).then(function (results) {\n\n            var dataType = DataTypes.postgres.ENUM;\n\n\n\n            dataType.types.postgres.oids = [];\n\n            dataType.types.postgres.array_oids = [];\n\n\n\n            results.forEach(function (row) {\n\n              dataType.types.postgres.oids.push(row.oid);\n\n              dataType.types.postgres.array_oids.push(row.typarray);\n\n            });\n\n\n\n            self.sequelize.dialect.connectionManager.$refreshTypeParser(dataType);\n\n            self.sequelize.refreshTypes(DataTypes.postgres);\n\n          });\n\n        })\n\n        .then(function() {\n\n          return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            172,
+            199
+          ],
+          "match_position": [
+            7,
+            51
+          ],
+          "match_string": "      sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n      return Promise.all(promises)\n\n        .then(function() {\n\n          // if no enum was processed, then return\n\n          if (!promises.length) return;\n\n\n\n          // fetch OIDs ENUM, refresh them\n\n          return self.sequelize.query(\n\n            'SELECT typname, typtype, oid, typarray FROM pg_type WHERE typtype = \\'e\\';',\n\n            _.assign({}, options, { raw: true, type: QueryTypes.SELECT })\n\n          ).then(function (results) {\n\n            var dataType = DataTypes.postgres.ENUM;\n\n\n\n            dataType.types.postgres.oids = [];\n\n            dataType.types.postgres.array_oids = [];\n\n\n\n            results.forEach(function (row) {\n\n              dataType.types.postgres.oids.push(row.oid);\n\n              dataType.types.postgres.array_oids.push(row.typarray);\n\n            });\n\n\n\n            self.sequelize.dialect.connectionManager.$refreshTypeParser(dataType);\n\n            self.sequelize.refreshTypes(DataTypes.postgres);\n\n          });\n\n        })\n\n        .then(function() {\n\n          return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            211,
+            216
+          ],
+          "match_position": [
+            5,
+            45
+          ],
+          "match_string": "    attributes = self.QueryGenerator.attributesToSQL(attributes, {\n\n      context: 'createTable'\n\n    });\n\n    sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n    return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            214,
+            216
+          ],
+          "match_position": [
+            5,
+            45
+          ],
+          "match_string": "    sql = self.QueryGenerator.createTableQuery(tableName, attributes, options);\n\n\n\n    return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            222,
+            253
+          ],
+          "match_position": [
+            3,
+            39
+          ],
+          "match_string": "  options = _.clone(options) || {};\n\n  options.cascade = options.cascade || options.force || false;\n\n\n\n  var sql = this.QueryGenerator.dropTableQuery(tableName, options)\n\n    , self = this;\n\n\n\n  return this.sequelize.query(sql, options).then(function() {\n\n    var promises = [];\n\n\n\n    // Since postgres has a special case for enums, we should drop the related\n\n    // enum type within the table and attribute\n\n    if (self.sequelize.options.dialect === 'postgres') {\n\n      var instanceTable = self.sequelize.modelManager.getModel(tableName, { attribute: 'tableName' });\n\n\n\n      if (!!instanceTable) {\n\n        var getTableName = (!options || !options.schema || options.schema === 'public' ? '' : options.schema + '_') + tableName;\n\n\n\n        var keys = Object.keys(instanceTable.rawAttributes)\n\n          , keyLen = keys.length\n\n          , i = 0;\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (instanceTable.rawAttributes[keys[i]].type instanceof DataTypes.ENUM) {\n\n            sql = self.QueryGenerator.pgEnumDrop(getTableName, keys[i]);\n\n            options.supportsSearchPath = false;\n\n            promises.push(self.sequelize.query(sql, _.assign({}, options, { raw: true })));\n\n          }\n\n        }\n\n      }\n\n    }\n\n\n\n    return Promise.all(promises).get(0);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            225,
+            253
+          ],
+          "match_position": [
+            3,
+            39
+          ],
+          "match_string": "  var sql = this.QueryGenerator.dropTableQuery(tableName, options)\n\n    , self = this;\n\n\n\n  return this.sequelize.query(sql, options).then(function() {\n\n    var promises = [];\n\n\n\n    // Since postgres has a special case for enums, we should drop the related\n\n    // enum type within the table and attribute\n\n    if (self.sequelize.options.dialect === 'postgres') {\n\n      var instanceTable = self.sequelize.modelManager.getModel(tableName, { attribute: 'tableName' });\n\n\n\n      if (!!instanceTable) {\n\n        var getTableName = (!options || !options.schema || options.schema === 'public' ? '' : options.schema + '_') + tableName;\n\n\n\n        var keys = Object.keys(instanceTable.rawAttributes)\n\n          , keyLen = keys.length\n\n          , i = 0;\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (instanceTable.rawAttributes[keys[i]].type instanceof DataTypes.ENUM) {\n\n            sql = self.QueryGenerator.pgEnumDrop(getTableName, keys[i]);\n\n            options.supportsSearchPath = false;\n\n            promises.push(self.sequelize.query(sql, _.assign({}, options, { raw: true })));\n\n          }\n\n        }\n\n      }\n\n    }\n\n\n\n    return Promise.all(promises).get(0);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            237,
+            247
+          ],
+          "match_position": [
+            9,
+            88
+          ],
+          "match_string": "        var getTableName = (!options || !options.schema || options.schema === 'public' ? '' : options.schema + '_') + tableName;\n\n\n\n        var keys = Object.keys(instanceTable.rawAttributes)\n\n          , keyLen = keys.length\n\n          , i = 0;\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (instanceTable.rawAttributes[keys[i]].type instanceof DataTypes.ENUM) {\n\n            sql = self.QueryGenerator.pgEnumDrop(getTableName, keys[i]);\n\n            options.supportsSearchPath = false;\n\n            promises.push(self.sequelize.query(sql, _.assign({}, options, { raw: true })));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            239,
+            247
+          ],
+          "match_position": [
+            9,
+            88
+          ],
+          "match_string": "        var keys = Object.keys(instanceTable.rawAttributes)\n\n          , keyLen = keys.length\n\n          , i = 0;\n\n\n\n        for (i = 0; i < keyLen; i++) {\n\n          if (instanceTable.rawAttributes[keys[i]].type instanceof DataTypes.ENUM) {\n\n            sql = self.QueryGenerator.pgEnumDrop(getTableName, keys[i]);\n\n            options.supportsSearchPath = false;\n\n            promises.push(self.sequelize.query(sql, _.assign({}, options, { raw: true })));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            245,
+            247
+          ],
+          "match_position": [
+            13,
+            88
+          ],
+          "match_string": "            sql = self.QueryGenerator.pgEnumDrop(getTableName, keys[i]);\n\n            options.supportsSearchPath = false;\n\n            promises.push(self.sequelize.query(sql, _.assign({}, options, { raw: true })));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            299,
+            300
+          ],
+          "match_position": [
+            13,
+            60
+          ],
+          "match_string": "            var sql = self.QueryGenerator.dropForeignKeyQuery(tableName, foreignKey);\n\n            promises.push(self.sequelize.query(sql, options));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            322,
+            324
+          ],
+          "match_position": [
+            12,
+            42
+          ],
+          "match_string": "    return self.sequelize.query(\n\n      self.QueryGenerator.pgEnumDrop(null, null, self.QueryGenerator.pgEscapeAndQuote(result.enum_name)),\n\n      _.assign({}, options, { raw: true })"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            331,
+            332
+          ],
+          "match_position": [
+            3,
+            110
+          ],
+          "match_string": "  var sql = this.QueryGenerator.pgListEnums(tableName);\n\n  return this.sequelize.query(sql, _.assign({}, options, { plain: false, raw: true, type: QueryTypes.SELECT }));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            337,
+            338
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.renameTableQuery(before, after);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            348,
+            350
+          ],
+          "match_position": [
+            3,
+            38
+          ],
+          "match_string": "  var showTablesSql = self.QueryGenerator.showTablesQuery();\n\n  return self.sequelize.query(showTablesSql, options).then(function(tableNames) {\n\n    return Utils._.flatten(tableNames);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            370,
+            382
+          ],
+          "match_position": [
+            3,
+            34
+          ],
+          "match_string": "  var sql = this.QueryGenerator.describeTableQuery(tableName, schema, schemaDelimiter);\n\n\n\n  return this.sequelize.query(\n\n    sql,\n\n    _.assign({}, options, { type: QueryTypes.DESCRIBE })\n\n  ).then(function(data) {\n\n    // If no data is returned from the query, then the table name may be wrong.\n\n    // Query generators that use information_schema for retrieving table info will just return an empty result set,\n\n    // it will not throw an error like built-ins do (e.g. DESCRIBE on MySql).\n\n    if (Utils._.isEmpty(data)) {\n\n      return Promise.reject('No description found for \"' + tableName + '\" table. Check the table name and schema; remember, they _are_ case sensitive.');\n\n    } else {\n\n      return Promise.resolve(data);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            393,
+            394
+          ],
+          "match_position": [
+            3,
+            97
+          ],
+          "match_string": "  attribute = this.sequelize.normalizeAttribute(attribute);\n\n  return this.sequelize.query(this.QueryGenerator.addColumnQuery(table, key, attribute), options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            394,
+            394
+          ],
+          "match_position": [
+            10,
+            97
+          ],
+          "match_string": "  return this.sequelize.query(this.QueryGenerator.addColumnQuery(table, key, attribute), options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            411,
+            412
+          ],
+          "match_position": [
+            9,
+            49
+          ],
+          "match_string": "        var sql = this.QueryGenerator.removeColumnQuery(tableName, attributeName);\n\n        return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            432,
+            435
+          ],
+          "match_position": [
+            5,
+            45
+          ],
+          "match_string": "    var query = this.QueryGenerator.attributesToSQL(attributes)\n\n      , sql = this.QueryGenerator.changeColumnQuery(tableName, query);\n\n\n\n    return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            462,
+            467
+          ],
+          "match_position": [
+            7,
+            47
+          ],
+          "match_string": "      var sql = this.QueryGenerator.renameColumnQuery(\n\n        tableName,\n\n        attrNameBefore,\n\n        this.QueryGenerator.attributesToSQL(_options)\n\n      );\n\n      return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            486,
+            489
+          ],
+          "match_position": [
+            3,
+            87
+          ],
+          "match_string": "  options = Utils.cloneDeep(options);\n\n  options.fields = attributes;\n\n  var sql = this.QueryGenerator.addIndexQuery(tableName, options, rawTablename);\n\n  return this.sequelize.query(sql, _.assign({}, options, { supportsSearchPath: false }));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            488,
+            489
+          ],
+          "match_position": [
+            3,
+            87
+          ],
+          "match_string": "  var sql = this.QueryGenerator.addIndexQuery(tableName, options, rawTablename);\n\n  return this.sequelize.query(sql, _.assign({}, options, { supportsSearchPath: false }));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            493,
+            494
+          ],
+          "match_position": [
+            3,
+            90
+          ],
+          "match_string": "  var sql = this.QueryGenerator.showIndexesQuery(tableName, options);\n\n  return this.sequelize.query(sql, _.assign({}, options, { type: QueryTypes.SHOWINDEXES }));"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            510,
+            510
+          ],
+          "match_position": [
+            12,
+            124
+          ],
+          "match_string": "    return self.sequelize.query(self.QueryGenerator.getForeignKeysQuery(tableName, self.sequelize.config.database), options).get(0);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            530,
+            531
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.removeIndexQuery(tableName, indexNameOrAttributes);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            535,
+            544
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  options = Utils.cloneDeep(options);\n\n  options.hasTrigger = instance && instance.Model.options.hasTrigger;\n\n  var sql = this.QueryGenerator.insertQuery(tableName, values, instance && instance.Model.rawAttributes, options);\n\n\n\n  options.type = QueryTypes.INSERT;\n\n  options.instance = instance;\n\n\n\n  return this.sequelize.query(sql, options).then(function(result) {\n\n    if (instance) result.isNewRecord = false;\n\n    return result;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            537,
+            544
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  var sql = this.QueryGenerator.insertQuery(tableName, values, instance && instance.Model.rawAttributes, options);\n\n\n\n  options.type = QueryTypes.INSERT;\n\n  options.instance = instance;\n\n\n\n  return this.sequelize.query(sql, options).then(function(result) {\n\n    if (instance) result.isNewRecord = false;\n\n    return result;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            554,
+            601
+          ],
+          "match_position": [
+            3,
+            26
+          ],
+          "match_string": "  options = _.clone(options);\n\n\n\n  if (!Utils._.isEmpty(where)) {\n\n    wheres.push(where);\n\n  }\n\n\n\n  // Lets combine uniquekeys and indexes into one\n\n  indexes = Utils._.map(model.options.uniqueKeys, function (value) {\n\n    return value.fields;\n\n  });\n\n\n\n  Utils._.each(model.options.indexes, function (value) {\n\n    if (value.unique === true) {\n\n      // fields in the index may both the strings or objects with an attribute property - lets sanitize that\n\n      indexFields = Utils._.map(value.fields, function (field) {\n\n        if (Utils._.isPlainObject(field)) {\n\n          return field.attribute;\n\n        }\n\n        return field;\n\n      });\n\n      indexes.push(indexFields);\n\n    }\n\n  });\n\n\n\n  indexes.forEach(function (index) {\n\n    if (Utils._.intersection(attributes, index).length === index.length) {\n\n      where = {};\n\n      index.forEach(function (field) {\n\n        where[field] = valuesByField[field];\n\n      });\n\n      wheres.push(where);\n\n    }\n\n  });\n\n\n\n  where = { $or: wheres };\n\n\n\n  options.type = QueryTypes.UPSERT;\n\n  options.raw = true;\n\n\n\n  var sql = this.QueryGenerator.upsertQuery(tableName, valuesByField, updateValues, where, model.rawAttributes, options);\n\n  return this.sequelize.query(sql, options).then(function (rowCount) {\n\n    if (rowCount === undefined) {\n\n      return rowCount;\n\n    }\n\n\n\n    // MySQL returns 1 for inserted, 2 for updated http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html. Postgres has been modded to do the same\n\n\n\n    return rowCount === 1;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            593,
+            601
+          ],
+          "match_position": [
+            3,
+            26
+          ],
+          "match_string": "  var sql = this.QueryGenerator.upsertQuery(tableName, valuesByField, updateValues, where, model.rawAttributes, options);\n\n  return this.sequelize.query(sql, options).then(function (rowCount) {\n\n    if (rowCount === undefined) {\n\n      return rowCount;\n\n    }\n\n\n\n    // MySQL returns 1 for inserted, 2 for updated http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html. Postgres has been modded to do the same\n\n\n\n    return rowCount === 1;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            606,
+            609
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  options = _.clone(options) || {};\n\n  options.type = QueryTypes.INSERT;\n\n  var sql = this.QueryGenerator.bulkInsertQuery(tableName, records, options, attributes);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            608,
+            609
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.bulkInsertQuery(tableName, records, options, attributes);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            613,
+            637
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  options = _.clone(options || {});\n\n  options.hasTrigger = !!(instance && instance.$modelOptions && instance.$modelOptions.hasTrigger);\n\n\n\n\n\n  var self = this\n\n    , restrict = false\n\n    , sql = self.QueryGenerator.updateQuery(tableName, values, identifier, options, instance.Model.rawAttributes);\n\n\n\n\n\n  options.type = QueryTypes.UPDATE;\n\n\n\n  // Check for a restrict field\n\n  if (!!instance.Model && !!instance.Model.associations) {\n\n    var keys = Object.keys(instance.Model.associations)\n\n      , length = keys.length;\n\n\n\n    for (var i = 0; i < length; i++) {\n\n      if (instance.Model.associations[keys[i]].options && instance.Model.associations[keys[i]].options.onUpdate && instance.Model.associations[keys[i]].options.onUpdate === 'restrict') {\n\n        restrict = true;\n\n      }\n\n    }\n\n  }\n\n\n\n  options.instance = instance;\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            617,
+            637
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var self = this\n\n    , restrict = false\n\n    , sql = self.QueryGenerator.updateQuery(tableName, values, identifier, options, instance.Model.rawAttributes);\n\n\n\n\n\n  options.type = QueryTypes.UPDATE;\n\n\n\n  // Check for a restrict field\n\n  if (!!instance.Model && !!instance.Model.associations) {\n\n    var keys = Object.keys(instance.Model.associations)\n\n      , length = keys.length;\n\n\n\n    for (var i = 0; i < length; i++) {\n\n      if (instance.Model.associations[keys[i]].options && instance.Model.associations[keys[i]].options.onUpdate && instance.Model.associations[keys[i]].options.onUpdate === 'restrict') {\n\n        restrict = true;\n\n      }\n\n    }\n\n  }\n\n\n\n  options.instance = instance;\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            641,
+            649
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  options = Utils.cloneDeep(options);\n\n  if (typeof identifier === 'object') identifier = Utils.cloneDeep(identifier);\n\n\n\n  var sql = this.QueryGenerator.updateQuery(tableName, values, identifier, options, attributes)\n\n    , table = Utils._.isObject(tableName) ? tableName : { tableName: tableName }\n\n    , model = Utils._.find(this.sequelize.modelManager.models, { tableName: table.tableName });\n\n\n\n  options.model = model;\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            644,
+            649
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.updateQuery(tableName, values, identifier, options, attributes)\n\n    , table = Utils._.isObject(tableName) ? tableName : { tableName: tableName }\n\n    , model = Utils._.find(this.sequelize.modelManager.models, { tableName: table.tableName });\n\n\n\n  options.model = model;\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            653,
+            690
+          ],
+          "match_position": [
+            3,
+            45
+          ],
+          "match_string": "  var self = this\n\n    , cascades = []\n\n    , sql = self.QueryGenerator.deleteQuery(tableName, identifier, null, instance.Model);\n\n\n\n  options = _.clone(options) || {};\n\n\n\n  // Check for a restrict field\n\n  if (!!instance.Model && !!instance.Model.associations) {\n\n    var keys = Object.keys(instance.Model.associations)\n\n      , length = keys.length\n\n      , association;\n\n\n\n    for (var i = 0; i < length; i++) {\n\n      association = instance.Model.associations[keys[i]];\n\n      if (association.options && association.options.onDelete &&\n\n        association.options.onDelete.toLowerCase() === 'cascade' &&\n\n        association.options.useHooks === true) {\n\n        cascades.push(association.accessors.get);\n\n      }\n\n    }\n\n  }\n\n\n\n  return Promise.each(cascades, function (cascade) {\n\n    return instance[cascade](options).then(function (instances) {\n\n      // Check for hasOne relationship with non-existing associate (\"has zero\")\n\n      if (!instances) {\n\n        return Promise.resolve();\n\n      }\n\n\n\n      if (!Array.isArray(instances)) instances = [instances];\n\n\n\n      return Promise.each(instances, function (instance) {\n\n        return instance.destroy(options);\n\n      });\n\n    });\n\n  }).then(function () {\n\n    options.instance = instance;\n\n    return self.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            695,
+            700
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  options = Utils.cloneDeep(options);\n\n  options = _.defaults(options, {limit: null});\n\n  if (typeof identifier === 'object') identifier = Utils.cloneDeep(identifier);\n\n\n\n  var sql = this.QueryGenerator.deleteQuery(tableName, identifier, options, model);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            696,
+            700
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  options = _.defaults(options, {limit: null});\n\n  if (typeof identifier === 'object') identifier = Utils.cloneDeep(identifier);\n\n\n\n  var sql = this.QueryGenerator.deleteQuery(tableName, identifier, options, model);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            699,
+            700
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.deleteQuery(tableName, identifier, options, model);\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            704,
+            710
+          ],
+          "match_position": [
+            3,
+            12
+          ],
+          "match_string": "  options = Utils.cloneDeep(options);\n\n  options.type = QueryTypes.SELECT;\n\n  options.model = model;\n\n\n\n  return this.sequelize.query(\n\n    this.QueryGenerator.selectQuery(tableName, options, model),\n\n    options"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            708,
+            710
+          ],
+          "match_position": [
+            10,
+            12
+          ],
+          "match_string": "  return this.sequelize.query(\n\n    this.QueryGenerator.selectQuery(tableName, options, model),\n\n    options"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            715,
+            721
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.incrementQuery(tableName, values, identifier, options.attributes);\n\n\n\n  options = _.clone(options) || {};\n\n\n\n  options.type = QueryTypes.UPDATE;\n\n  options.instance = instance;\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            732,
+            768
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  options = Utils.cloneDeep(options);\n\n  options = _.defaults(options, {\n\n    raw: true,\n\n    plain: true,\n\n    type: QueryTypes.SELECT\n\n  });\n\n\n\n  var sql = this.QueryGenerator.selectQuery(tableName, options, Model);\n\n\n\n  if (attributeSelector === undefined) {\n\n    throw new Error('Please pass an attribute selector!');\n\n  }\n\n\n\n  return this.sequelize.query(sql, options).then(function(data) {\n\n    if (!options.plain) {\n\n      return data;\n\n    }\n\n\n\n    var result = data ? data[attributeSelector] : null;\n\n\n\n    if (options && options.dataType) {\n\n      var dataType = options.dataType;\n\n\n\n      if (dataType instanceof DataTypes.DECIMAL || dataType instanceof DataTypes.FLOAT) {\n\n        result = parseFloat(result);\n\n      } else if (dataType instanceof DataTypes.INTEGER || dataType instanceof DataTypes.BIGINT) {\n\n        result = parseInt(result, 10);\n\n      } else if (dataType instanceof DataTypes.DATE) {\n\n        if (!Utils._.isNull(result) && !Utils._.isDate(result)) {\n\n          result = new Date(result);\n\n        }\n\n      } else if (dataType instanceof DataTypes.STRING) {\n\n        // Nothing to do, result is already a string.\n\n      }\n\n    }\n\n\n\n    return result;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            733,
+            768
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  options = _.defaults(options, {\n\n    raw: true,\n\n    plain: true,\n\n    type: QueryTypes.SELECT\n\n  });\n\n\n\n  var sql = this.QueryGenerator.selectQuery(tableName, options, Model);\n\n\n\n  if (attributeSelector === undefined) {\n\n    throw new Error('Please pass an attribute selector!');\n\n  }\n\n\n\n  return this.sequelize.query(sql, options).then(function(data) {\n\n    if (!options.plain) {\n\n      return data;\n\n    }\n\n\n\n    var result = data ? data[attributeSelector] : null;\n\n\n\n    if (options && options.dataType) {\n\n      var dataType = options.dataType;\n\n\n\n      if (dataType instanceof DataTypes.DECIMAL || dataType instanceof DataTypes.FLOAT) {\n\n        result = parseFloat(result);\n\n      } else if (dataType instanceof DataTypes.INTEGER || dataType instanceof DataTypes.BIGINT) {\n\n        result = parseInt(result, 10);\n\n      } else if (dataType instanceof DataTypes.DATE) {\n\n        if (!Utils._.isNull(result) && !Utils._.isDate(result)) {\n\n          result = new Date(result);\n\n        }\n\n      } else if (dataType instanceof DataTypes.STRING) {\n\n        // Nothing to do, result is already a string.\n\n      }\n\n    }\n\n\n\n    return result;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            739,
+            768
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  var sql = this.QueryGenerator.selectQuery(tableName, options, Model);\n\n\n\n  if (attributeSelector === undefined) {\n\n    throw new Error('Please pass an attribute selector!');\n\n  }\n\n\n\n  return this.sequelize.query(sql, options).then(function(data) {\n\n    if (!options.plain) {\n\n      return data;\n\n    }\n\n\n\n    var result = data ? data[attributeSelector] : null;\n\n\n\n    if (options && options.dataType) {\n\n      var dataType = options.dataType;\n\n\n\n      if (dataType instanceof DataTypes.DECIMAL || dataType instanceof DataTypes.FLOAT) {\n\n        result = parseFloat(result);\n\n      } else if (dataType instanceof DataTypes.INTEGER || dataType instanceof DataTypes.BIGINT) {\n\n        result = parseInt(result, 10);\n\n      } else if (dataType instanceof DataTypes.DATE) {\n\n        if (!Utils._.isNull(result) && !Utils._.isDate(result)) {\n\n          result = new Date(result);\n\n        }\n\n      } else if (dataType instanceof DataTypes.STRING) {\n\n        // Nothing to do, result is already a string.\n\n      }\n\n    }\n\n\n\n    return result;"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            773,
+            778
+          ],
+          "match_position": [
+            3,
+            27
+          ],
+          "match_string": "  var sql = this.QueryGenerator.createTrigger(tableName, triggerName, timingType, fireOnArray, functionName, functionParams, optionsArray);\n\n  options = options || {};\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);\n\n  } else {\n\n    return Promise.resolve();"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            783,
+            789
+          ],
+          "match_position": [
+            3,
+            27
+          ],
+          "match_string": "  var sql = this.QueryGenerator.dropTrigger(tableName, triggerName);\n\n  options = options || {};\n\n\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);\n\n  } else {\n\n    return Promise.resolve();"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            794,
+            800
+          ],
+          "match_position": [
+            3,
+            27
+          ],
+          "match_string": "  var sql = this.QueryGenerator.renameTrigger(tableName, oldTriggerName, newTriggerName);\n\n  options = options || {};\n\n\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);\n\n  } else {\n\n    return Promise.resolve();"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            805,
+            811
+          ],
+          "match_position": [
+            3,
+            27
+          ],
+          "match_string": "  var sql = this.QueryGenerator.createFunction(functionName, params, returnType, language, body, options);\n\n  options = options || {};\n\n\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);\n\n  } else {\n\n    return Promise.resolve();"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            816,
+            822
+          ],
+          "match_position": [
+            3,
+            27
+          ],
+          "match_string": "  var sql = this.QueryGenerator.dropFunction(functionName, params);\n\n  options = options || {};\n\n\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);\n\n  } else {\n\n    return Promise.resolve();"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            827,
+            833
+          ],
+          "match_position": [
+            3,
+            27
+          ],
+          "match_string": "  var sql = this.QueryGenerator.renameFunction(oldFunctionName, params, newFunctionName);\n\n  options = options || {};\n\n\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);\n\n  } else {\n\n    return Promise.resolve();"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            881,
+            887
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.setAutocommitQuery(value, {\n\n    parent: transaction.parent\n\n  });\n\n\n\n  if (!sql) return Promise.resolve();\n\n\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            903,
+            909
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.setIsolationLevelQuery(value, {\n\n    parent: transaction.parent\n\n  });\n\n\n\n  if (!sql) return Promise.resolve();\n\n\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            921,
+            923
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  var sql = this.QueryGenerator.startTransactionQuery(transaction);\n\n\n\n  return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            927,
+            934
+          ],
+          "match_position": [
+            3,
+            45
+          ],
+          "match_string": "  options = _.assign({}, options, {\n\n    transaction: transaction.parent || transaction\n\n  });\n\n\n\n  var sql = this.QueryGenerator.deferConstraintsQuery(options);\n\n\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            931,
+            934
+          ],
+          "match_position": [
+            3,
+            45
+          ],
+          "match_string": "  var sql = this.QueryGenerator.deferConstraintsQuery(options);\n\n\n\n  if (sql) {\n\n    return this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            954,
+            955
+          ],
+          "match_position": [
+            3,
+            50
+          ],
+          "match_string": "  var sql = this.QueryGenerator.commitTransactionQuery(transaction);\n\n  var promise = this.sequelize.query(sql, options);"
+        },
+        {
+          "file_path": "/src/lib/query-interface.js",
+          "match_lines": [
+            972,
+            973
+          ],
+          "match_position": [
+            3,
+            50
+          ],
+          "match_string": "  var sql = this.QueryGenerator.rollbackTransactionQuery(transaction);\n\n  var promise = this.sequelize.query(sql, options);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

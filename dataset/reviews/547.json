@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 547,
+        "cwe": "CWE-601"
+    },
+    "correct_cwe": "CWE-601",
+    "correct_package_link": "https://registry.npmjs.org/st/-/st-1.2.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "st.js",
+                    "lineno": 218,
+                    "code": "Mount.prototype.serve = function (req, res, next) {"
+                },
+                "sink": {
+                    "file": "st.js",
+                    "lineno": 351,
+                    "code": "res.setHeader('location', req.sturl + '/')"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "curl -v http://localhost:1337//cve.mitre.com/%2e%2e"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/isaacs/st/commit/579960c629f12a27428e2da84c54f517e37b0a16"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "B"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

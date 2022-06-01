@@ -1,0 +1,31 @@
+--- http-file-server.js	2020-10-26 17:39:56.468719827 +0000
++++ patch.js	2020-10-26 17:38:01.272724551 +0000
+@@ -165,15 +165,15 @@
+             dirsList.forEach(function (name) {
+                 listElements += listElementTemplate
+                     .replace(/#TYPE#/g, '[D]')
+-                    .replace(/#LINK#/g, './'+name+'/')
+-                    .replace(/#TITLE#/g, name);
++                    .replace(/#LINK#/g, './'+htmlEncode(name))
++                    .replace(/#TITLE#/g, htmlEncode(name));
+             });
+ 
+             filesList.forEach(function (name) {
+                 listElements += listElementTemplate
+                     .replace(/#TYPE#/g, '[F]')
+-                    .replace(/#LINK#/g, './'+name)
+-                    .replace(/#TITLE#/g, name);
++                    .replace(/#LINK#/g, './'+htmlEncode(name))
++                    .replace(/#TITLE#/g, htmlEncode(name));
+             });
+ 
+             var html = template
+@@ -298,5 +298,7 @@
+         spawn('xdg-open', [httpAddr], { stdio: 'inherit' });
+     }
+ });
+-
++function htmlEncode(str) {
++    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
++}
+ // vim: set fenc=utf-8 ts=4 sw=4 expandtab :

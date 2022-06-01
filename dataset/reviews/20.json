@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 20,
+        "cwe": "CWE-77"
+    },
+    "correct_cwe": "CWE-77",
+    "correct_package_link": "https://registry.npmjs.org/libnotify/-/libnotify-1.0.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/libnotify.js",
+                    "lineno": 56,
+                    "code": "exports.notify = function(msg, options, callback) {"
+                },
+                "sink": {
+                    "file": "lib/libnotify.js",
+                    "lineno": 70,
+                    "code": "child_process.exec(args.join(' '), callback)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/mytrile/node-libnotify/issues/3"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/mytrile/node-libnotify/commit/dfe7801d73a0dda10663a0ff3d0ec8b4d5f0d448"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

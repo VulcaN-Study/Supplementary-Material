@@ -1,0 +1,17 @@
+/src/README.md-122-
+/src/README.md:123:### uuid.parse(id[, buffer[, offset]])
+/src/README.md-124-### uuid.unparse(buffer[, offset])
+##############################################
+/src/README.md-134-```javascript
+/src/README.md:135:var bytes = uuid.parse('797ff043-11eb-11e1-80d6-510998755d10'); // -> <Buffer 79 7f f0 43 11 eb 11 e1 80 d6 51 09 98 75 5d 10>
+/src/README.md-136-var string = uuid.unparse(bytes); // -> '797ff043-11eb-11e1-80d6-510998755d10'
+##############################################
+/src/test/test.js-123-id = '00112233445566778899aabbccddeeff';
+/src/test/test.js:124:assert(uuid.unparse(uuid.parse(id.substr(0,10))) ==
+/src/test/test.js-125-  '00112233-4400-0000-0000-000000000000', 'Short parse');
+/src/test/test.js:126:assert(uuid.unparse(uuid.parse('(this is the uuid -> ' + id + id)) ==
+/src/test/test.js-127-  '00112233-4455-6677-8899-aabbccddeeff', 'Dirty parse');
+##############################################
+/src/test/test.js-165-
+/src/test/test.js:166:    if (id != uuid.unparse(uuid.parse(id))) {
+/src/test/test.js-167-      assert(fail, id + ' is not a valid id');

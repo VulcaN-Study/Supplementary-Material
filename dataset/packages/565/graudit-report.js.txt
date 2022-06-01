@@ -1,0 +1,66 @@
+/src/README.md-44-// Parsing and serializing
+/src/README.md:45:const parsed = ssri.parse(integrity)
+/src/README.md-46-ssri.stringify(parsed) // === integrity (works on non-Integrity objects)
+##############################################
+/src/README.md-49-// Async stream functions
+/src/README.md:50:ssri.checkStream(fs.createReadStream('./my-file'), integrity).then(...)
+/src/README.md:51:ssri.fromStream(fs.createReadStream('./my-file')).then(sri => {
+/src/README.md-52-  sri.toString() === integrity
+/src/README.md-53-})
+/src/README.md:54:fs.createReadStream('./my-file').pipe(ssri.createCheckerStream(sri))
+/src/README.md-55-
+##############################################
+/src/README.md-82-
+/src/README.md:83:#### <a name="parse"></a> `> ssri.parse(sri, [opts]) -> Integrity`
+/src/README.md-84-
+##############################################
+/src/README.md-114-```javascript
+/src/README.md:115:ssri.parse('sha512-9KhgCRIx/AmzC8xqYJTZRrnO8OW2Pxyl2DIMZSBOr0oDvtEFyht3xpp71j/r/pAe1DM+JI/A+line3jUBgzQ7A==?foo') // -> Integrity object
+/src/README.md-116-```
+##############################################
+/src/README.md-202-
+/src/README.md:203:ssri.parse(integrity).toString() === integrity
+/src/README.md-204-```
+##############################################
+/src/README.md-218-
+/src/README.md:219:JSON.stringify(ssri.parse(integrity)) === integrity
+/src/README.md-220-```
+##############################################
+/src/README.md-232-
+/src/README.md:233:ssri.parse(integrity).match(integrity)
+/src/README.md-234-// Hash {
+##############################################
+/src/README.md-238-
+/src/README.md:239:ssri.parse(integrity).match('sha1-deadbeef')
+/src/README.md-240-// false
+##############################################
+/src/README.md-256-```javascript
+/src/README.md:257:ssri.parse('sha1-WEakDigEST sha512-yzd8ELD1piyANiWnmdnpCL5F52f10UfUdEkHywVZeqTt0ymgrxR63Qz0GB7TKPoeeZQmWCaz7T1').pickAlgorithm() // sha512
+/src/README.md-258-```
+##############################################
+/src/README.md-268-```javascript
+/src/README.md:269:ssri.parse('sha1-deadbeef').hexDigest() // '75e69d6de79f'
+/src/README.md-270-```
+##############################################
+/src/README.md-347-```javascript
+/src/README.md:348:ssri.fromStream(fs.createReadStream('index.js'), {
+/src/README.md-349-  algorithms: ['sha1', 'sha512']
+/src/README.md-350-}).then(integrity => {
+/src/README.md:351:  return ssri.checkStream(fs.createReadStream('index.js'), integrity)
+/src/README.md-352-}) // succeeds
+##############################################
+/src/README.md-427-ssri.checkStream(
+/src/README.md:428:  fs.createReadStream('index.js'),
+/src/README.md-429-  integrity
+##############################################
+/src/README.md-437-ssri.checkStream(
+/src/README.md:438:  fs.createReadStream('index.js'),
+/src/README.md-439-  'sha256-l981iLWj8kurw4UbNy8Lpxqdzd7UOxS50Glhv8FwfZ0'
+##############################################
+/src/README.md-442-ssri.checkStream(
+/src/README.md:443:  fs.createReadStream('index.js'),
+/src/README.md-444-  'sha1-BaDDigEST'
+##############################################
+/src/README.md-481-const integrity = ssri.fromData(fs.readFileSync('index.js'))
+/src/README.md:482:fs.createReadStream('index.js')
+/src/README.md-483-.pipe(ssri.checkStream(integrity))

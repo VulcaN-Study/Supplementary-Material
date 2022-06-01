@@ -1,0 +1,471 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 46,
+          "line": 1
+        },
+        "extra": {
+          "line": "                               Apache License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 39,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 49,
+          "line": 4
+        },
+        "extra": {
+          "line": "Copyright (C) 2013-2017 Jos de Jong <wjosdejong@gmail.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/NOTICE",
+        "start": {
+          "col": 48,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/function/matrix/partitionSelect.js",
+          "match_lines": [
+            103,
+            103
+          ],
+          "match_position": [
+            34,
+            45
+          ],
+          "match_string": "      var pivot = arr[Math.floor(Math.random() * (to - from + 1)) + from];"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            500,
+            508
+          ],
+          "match_position": [
+            5,
+            66
+          ],
+          "match_string": "    if (token != '') {\n\n      if (token_type == TOKENTYPE.DELIMITER) {\n\n        // user entered a not existing operator like \"//\"\n\n\n\n        // TODO: give hints for aliases, for example with \"<>\" give as hint \" did you mean != ?\"\n\n        throw createError('Unexpected operator ' + token);\n\n      }\n\n      else {\n\n        throw createSyntaxError('Unexpected part \"' + token + '\"');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            581,
+            617
+          ],
+          "match_position": [
+            5,
+            80
+          ],
+          "match_string": "    if (token == '=') {\n\n      if (type.isSymbolNode(node)) {\n\n        // parse a variable assignment like 'a = 2/3'\n\n        name = node.name;\n\n        getTokenSkipNewline();\n\n        value = parseAssignment();\n\n        return new AssignmentNode(new SymbolNode(name), value);\n\n      }\n\n      else if (type.isAccessorNode(node)) {\n\n        // parse a matrix subset assignment like 'A[1,2] = 4'\n\n        getTokenSkipNewline();\n\n        value = parseAssignment();\n\n        return new AssignmentNode(node.object, node.index, value);\n\n      }\n\n      else if (type.isFunctionNode(node)) {\n\n        // parse function assignment like 'f(x) = x^2'\n\n        valid = true;\n\n        args = [];\n\n\n\n        name = node.name;\n\n        node.args.forEach(function (arg, index) {\n\n          if (type.isSymbolNode(arg)) {\n\n            args[index] = arg.name;\n\n          }\n\n          else {\n\n            valid = false;\n\n          }\n\n        });\n\n\n\n        if (valid) {\n\n          getTokenSkipNewline();\n\n          value = parseAssignment();\n\n          return new FunctionAssignmentNode(name, args, value);\n\n        }\n\n      }\n\n\n\n      throw createSyntaxError('Invalid left hand side of assignment operator =');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            646,
+            646
+          ],
+          "match_position": [
+            7,
+            96
+          ],
+          "match_string": "      if (token != ':') throw createSyntaxError('False part of conditional expression expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            859,
+            865
+          ],
+          "match_position": [
+            5,
+            30
+          ],
+          "match_string": "    if (token == ':') {\n\n      // implicit start=1 (one-based)\n\n      node = new ConstantNode('1', 'number');\n\n    }\n\n    else {\n\n      // explicit start\n\n      node = parseAddSubtract();"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1094,
+            1114
+          ],
+          "match_position": [
+            7,
+            17
+          ],
+          "match_string": "      if (token == '(') {\n\n        params = [];\n\n\n\n        openParams();\n\n        getToken();\n\n\n\n        if (token != ')') {\n\n          params.push(parseAssignment());\n\n\n\n          // parse a list with parameters\n\n          while (token == ',') {\n\n            getToken();\n\n            params.push(parseAssignment());\n\n          }\n\n        }\n\n\n\n        if (token != ')') {\n\n          throw createSyntaxError('Parenthesis ) expected');\n\n        }\n\n        closeParams();\n\n        getToken();"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1100,
+            1106
+          ],
+          "match_position": [
+            9,
+            40
+          ],
+          "match_string": "        if (token != ')') {\n\n          params.push(parseAssignment());\n\n\n\n          // parse a list with parameters\n\n          while (token == ',') {\n\n            getToken();\n\n            params.push(parseAssignment());"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1110,
+            1111
+          ],
+          "match_position": [
+            9,
+            59
+          ],
+          "match_string": "        if (token != ')') {\n\n          throw createSyntaxError('Parenthesis ) expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1168,
+            1233
+          ],
+          "match_position": [
+            7,
+            72
+          ],
+          "match_string": "      if (token === '(') {\n\n        if (type.isSymbolNode(node) || type.isAccessorNode(node) || type.isFunctionNode(node)) {\n\n          // function invocation like fn(2, 3)\n\n          openParams();\n\n          getToken();\n\n\n\n          if (token !== ')') {\n\n            params.push(parseAssignment());\n\n\n\n            // parse a list with parameters\n\n            while (token === ',') {\n\n              getToken();\n\n              params.push(parseAssignment());\n\n            }\n\n          }\n\n\n\n          if (token !== ')') {\n\n            throw createSyntaxError('Parenthesis ) expected');\n\n          }\n\n          closeParams();\n\n          getToken();\n\n\n\n          node = new FunctionNode(node, params);\n\n        }\n\n        else {\n\n          // implicit multiplication like (2+3)(4+5)\n\n          // don't parse it here but let it be handled by parseMultiplyDivide\n\n          // with correct precedence\n\n          return node;\n\n        }\n\n      }\n\n      else if (token === '[') {\n\n        // index notation like variable[2, 3]\n\n        openParams();\n\n        getToken();\n\n\n\n        if (token !== ']') {\n\n          params.push(parseAssignment());\n\n\n\n          // parse a list with parameters\n\n          while (token === ',') {\n\n            getToken();\n\n            params.push(parseAssignment());\n\n          }\n\n        }\n\n\n\n        if (token !== ']') {\n\n          throw createSyntaxError('Parenthesis ] expected');\n\n        }\n\n        closeParams();\n\n        getToken();\n\n\n\n        node = new AccessorNode(node, new IndexNode(params));\n\n      }\n\n      else {\n\n        // dot notation like variable.prop\n\n        getToken();\n\n\n\n        if (token_type !== TOKENTYPE.SYMBOL) {\n\n          throw createSyntaxError('Property name expected after dot');\n\n        }\n\n        params.push(new ConstantNode(token));\n\n        getToken();\n\n\n\n        var dotNotation = true;\n\n        node = new AccessorNode(node, new IndexNode(params, dotNotation));"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1174,
+            1180
+          ],
+          "match_position": [
+            11,
+            42
+          ],
+          "match_string": "          if (token !== ')') {\n\n            params.push(parseAssignment());\n\n\n\n            // parse a list with parameters\n\n            while (token === ',') {\n\n              getToken();\n\n              params.push(parseAssignment());"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1184,
+            1185
+          ],
+          "match_position": [
+            11,
+            61
+          ],
+          "match_string": "          if (token !== ')') {\n\n            throw createSyntaxError('Parenthesis ) expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1199,
+            1233
+          ],
+          "match_position": [
+            12,
+            72
+          ],
+          "match_string": "      else if (token === '[') {\n\n        // index notation like variable[2, 3]\n\n        openParams();\n\n        getToken();\n\n\n\n        if (token !== ']') {\n\n          params.push(parseAssignment());\n\n\n\n          // parse a list with parameters\n\n          while (token === ',') {\n\n            getToken();\n\n            params.push(parseAssignment());\n\n          }\n\n        }\n\n\n\n        if (token !== ']') {\n\n          throw createSyntaxError('Parenthesis ] expected');\n\n        }\n\n        closeParams();\n\n        getToken();\n\n\n\n        node = new AccessorNode(node, new IndexNode(params));\n\n      }\n\n      else {\n\n        // dot notation like variable.prop\n\n        getToken();\n\n\n\n        if (token_type !== TOKENTYPE.SYMBOL) {\n\n          throw createSyntaxError('Property name expected after dot');\n\n        }\n\n        params.push(new ConstantNode(token));\n\n        getToken();\n\n\n\n        var dotNotation = true;\n\n        node = new AccessorNode(node, new IndexNode(params, dotNotation));"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1204,
+            1210
+          ],
+          "match_position": [
+            9,
+            40
+          ],
+          "match_string": "        if (token !== ']') {\n\n          params.push(parseAssignment());\n\n\n\n          // parse a list with parameters\n\n          while (token === ',') {\n\n            getToken();\n\n            params.push(parseAssignment());"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1214,
+            1215
+          ],
+          "match_position": [
+            9,
+            59
+          ],
+          "match_string": "        if (token !== ']') {\n\n          throw createSyntaxError('Parenthesis ] expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1249,
+            1258
+          ],
+          "match_position": [
+            5,
+            18
+          ],
+          "match_string": "    if (token == '\"') {\n\n      str = parseStringToken();\n\n\n\n      // create constant\n\n      node = new ConstantNode(str, 'string');\n\n\n\n      // parse index parameters\n\n      node = parseAccessors(node);\n\n\n\n      return node;"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1283,
+            1284
+          ],
+          "match_position": [
+            5,
+            57
+          ],
+          "match_string": "    if (token != '\"') {\n\n      throw createSyntaxError('End of string \" expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1299,
+            1356
+          ],
+          "match_position": [
+            5,
+            34
+          ],
+          "match_string": "    if (token == '[') {\n\n      // matrix [...]\n\n      openParams();\n\n      getToken();\n\n\n\n      if (token != ']') {\n\n        // this is a non-empty matrix\n\n        var row = parseRow();\n\n\n\n        if (token == ';') {\n\n          // 2 dimensional array\n\n          rows = 1;\n\n          params = [row];\n\n\n\n          // the rows of the matrix are separated by dot-comma's\n\n          while (token == ';') {\n\n            getToken();\n\n\n\n            params[rows] = parseRow();\n\n            rows++;\n\n          }\n\n\n\n          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');\n\n          }\n\n          closeParams();\n\n          getToken();\n\n\n\n          // check if the number of columns matches in all rows\n\n          cols = params[0].items.length;\n\n          for (var r = 1; r < rows; r++) {\n\n            if (params[r].items.length != cols) {\n\n              throw createError('Column dimensions mismatch ' +\n\n                  '(' + params[r].items.length + ' != ' + cols + ')');\n\n            }\n\n          }\n\n\n\n          array = new ArrayNode(params);\n\n        }\n\n        else {\n\n          // 1 dimensional vector\n\n          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');\n\n          }\n\n          closeParams();\n\n          getToken();\n\n\n\n          array = row;\n\n        }\n\n      }\n\n      else {\n\n        // this is an empty matrix \"[ ]\"\n\n        closeParams();\n\n        getToken();\n\n        array = new ArrayNode([]);\n\n      }\n\n\n\n      return parseAccessors(array);"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1304,
+            1353
+          ],
+          "match_position": [
+            7,
+            33
+          ],
+          "match_string": "      if (token != ']') {\n\n        // this is a non-empty matrix\n\n        var row = parseRow();\n\n\n\n        if (token == ';') {\n\n          // 2 dimensional array\n\n          rows = 1;\n\n          params = [row];\n\n\n\n          // the rows of the matrix are separated by dot-comma's\n\n          while (token == ';') {\n\n            getToken();\n\n\n\n            params[rows] = parseRow();\n\n            rows++;\n\n          }\n\n\n\n          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');\n\n          }\n\n          closeParams();\n\n          getToken();\n\n\n\n          // check if the number of columns matches in all rows\n\n          cols = params[0].items.length;\n\n          for (var r = 1; r < rows; r++) {\n\n            if (params[r].items.length != cols) {\n\n              throw createError('Column dimensions mismatch ' +\n\n                  '(' + params[r].items.length + ' != ' + cols + ')');\n\n            }\n\n          }\n\n\n\n          array = new ArrayNode(params);\n\n        }\n\n        else {\n\n          // 1 dimensional vector\n\n          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');\n\n          }\n\n          closeParams();\n\n          getToken();\n\n\n\n          array = row;\n\n        }\n\n      }\n\n      else {\n\n        // this is an empty matrix \"[ ]\"\n\n        closeParams();\n\n        getToken();\n\n        array = new ArrayNode([]);"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1308,
+            1346
+          ],
+          "match_position": [
+            9,
+            22
+          ],
+          "match_string": "        if (token == ';') {\n\n          // 2 dimensional array\n\n          rows = 1;\n\n          params = [row];\n\n\n\n          // the rows of the matrix are separated by dot-comma's\n\n          while (token == ';') {\n\n            getToken();\n\n\n\n            params[rows] = parseRow();\n\n            rows++;\n\n          }\n\n\n\n          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');\n\n          }\n\n          closeParams();\n\n          getToken();\n\n\n\n          // check if the number of columns matches in all rows\n\n          cols = params[0].items.length;\n\n          for (var r = 1; r < rows; r++) {\n\n            if (params[r].items.length != cols) {\n\n              throw createError('Column dimensions mismatch ' +\n\n                  '(' + params[r].items.length + ' != ' + cols + ')');\n\n            }\n\n          }\n\n\n\n          array = new ArrayNode(params);\n\n        }\n\n        else {\n\n          // 1 dimensional vector\n\n          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');\n\n          }\n\n          closeParams();\n\n          getToken();\n\n\n\n          array = row;"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1321,
+            1322
+          ],
+          "match_position": [
+            11,
+            63
+          ],
+          "match_string": "          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1340,
+            1341
+          ],
+          "match_position": [
+            11,
+            63
+          ],
+          "match_string": "          if (token != ']') {\n\n            throw createSyntaxError('End of matrix ] expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1387,
+            1429
+          ],
+          "match_position": [
+            5,
+            18
+          ],
+          "match_string": "    if (token == '{') {\n\n      var key;\n\n\n\n      var properties = {};\n\n      do {\n\n        getToken();\n\n\n\n        if (token != '}') {\n\n          // parse key\n\n          if (token == '\"') {\n\n            key = parseStringToken();\n\n          }\n\n          else if (token_type == TOKENTYPE.SYMBOL) {\n\n            key = token;\n\n            getToken();\n\n          }\n\n          else {\n\n            throw createSyntaxError('Symbol or string expected as object key');\n\n          }\n\n\n\n          // parse key/value separator\n\n          if (token != ':') {\n\n            throw createSyntaxError('Colon : expected after object key');\n\n          }\n\n          getToken();\n\n\n\n          // parse key\n\n          properties[key] = parseAssignment();\n\n        }\n\n      }\n\n      while (token == ',');\n\n\n\n      if (token != '}') {\n\n        throw createSyntaxError('Comma , or bracket } expected after object value');\n\n      }\n\n      getToken();\n\n\n\n      var node = new ObjectNode(properties);\n\n\n\n      // parse index parameters\n\n      node = parseAccessors(node);\n\n\n\n      return node;"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1394,
+            1414
+          ],
+          "match_position": [
+            9,
+            44
+          ],
+          "match_string": "        if (token != '}') {\n\n          // parse key\n\n          if (token == '\"') {\n\n            key = parseStringToken();\n\n          }\n\n          else if (token_type == TOKENTYPE.SYMBOL) {\n\n            key = token;\n\n            getToken();\n\n          }\n\n          else {\n\n            throw createSyntaxError('Symbol or string expected as object key');\n\n          }\n\n\n\n          // parse key/value separator\n\n          if (token != ':') {\n\n            throw createSyntaxError('Colon : expected after object key');\n\n          }\n\n          getToken();\n\n\n\n          // parse key\n\n          properties[key] = parseAssignment();"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1396,
+            1404
+          ],
+          "match_position": [
+            11,
+            78
+          ],
+          "match_string": "          if (token == '\"') {\n\n            key = parseStringToken();\n\n          }\n\n          else if (token_type == TOKENTYPE.SYMBOL) {\n\n            key = token;\n\n            getToken();\n\n          }\n\n          else {\n\n            throw createSyntaxError('Symbol or string expected as object key');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1408,
+            1409
+          ],
+          "match_position": [
+            11,
+            72
+          ],
+          "match_string": "          if (token != ':') {\n\n            throw createSyntaxError('Colon : expected after object key');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1419,
+            1420
+          ],
+          "match_position": [
+            7,
+            83
+          ],
+          "match_string": "      if (token != '}') {\n\n        throw createSyntaxError('Comma , or bracket } expected after object value');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1463,
+            1478
+          ],
+          "match_position": [
+            5,
+            18
+          ],
+          "match_string": "    if (token == '(') {\n\n      // parentheses (...)\n\n      openParams();\n\n      getToken();\n\n\n\n      node = parseAssignment(); // start again\n\n\n\n      if (token != ')') {\n\n        throw createSyntaxError('Parenthesis ) expected');\n\n      }\n\n      closeParams();\n\n      getToken();\n\n\n\n      node = new ParenthesisNode(node);\n\n      node = parseAccessors(node);\n\n      return node;"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1470,
+            1471
+          ],
+          "match_position": [
+            7,
+            57
+          ],
+          "match_string": "      if (token != ')') {\n\n        throw createSyntaxError('Parenthesis ) expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1490,
+            1496
+          ],
+          "match_position": [
+            5,
+            47
+          ],
+          "match_string": "    if (token == '') {\n\n      // syntax error or unexpected end of expression\n\n      throw createSyntaxError('Unexpected end of expression');\n\n    } else if (token === \"'\") {\n\n      throw createSyntaxError('Value expected. Note: strings must be enclosed by double quotes');\n\n    } else {\n\n      throw createSyntaxError('Value expected');"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            1493,
+            1496
+          ],
+          "match_position": [
+            12,
+            47
+          ],
+          "match_string": "    } else if (token === \"'\") {\n\n      throw createSyntaxError('Value expected. Note: strings must be enclosed by double quotes');\n\n    } else {\n\n      throw createSyntaxError('Value expected');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/test/cli/cli.js",
+          "match_lines": [
+            26,
+            26
+          ],
+          "match_position": [
+            22,
+            47
+          ],
+          "match_string": "        assert.equal(/^Error/g.test(e.toString()),true)"
+        },
+        {
+          "file_path": "/src/test/expression/parse.test.js",
+          "match_lines": [
+            1971,
+            1971
+          ],
+          "match_position": [
+            16,
+            37
+          ],
+          "match_string": "        return /^[a-zA-Z_$]$/.test(c)"
+        },
+        {
+          "file_path": "/src/lib/expression/parse.js",
+          "match_lines": [
+            440,
+            440
+          ],
+          "match_position": [
+            12,
+            34
+          ],
+          "match_string": "    return /^[\\uD835]$/.test(high) &&"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

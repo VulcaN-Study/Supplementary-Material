@@ -1,0 +1,243 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 5
+        },
+        "extra": {
+          "line": "test",
+          "message": "Lexical error: WIERD end of file in regexp"
+        },
+        "path": "/src/.jshintignore",
+        "start": {
+          "col": 1,
+          "line": 5
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 9,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"asi\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 8,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "*.0",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 18
+        },
+        "extra": {
+          "line": "\t# get jquery",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 2,
+          "line": 18
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            125,
+            132
+          ],
+          "match_position": [
+            3,
+            36
+          ],
+          "match_string": "  where = plusWhere(where, (req.agent_name ? 'name = ?' : ''))\n\n\n\n  shared.sql.query(\n\n    'SELECT name FROM agent' + where +\n\n    ' ORDER BY name LIMIT ? OFFSET ?', args,\n\n  function(err, result) {\n\n    if (err) return cb(err)\n\n    cb(null, result.map(renderAgent))"
+        },
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            232,
+            239
+          ],
+          "match_position": [
+            3,
+            36
+          ],
+          "match_string": "  where = plusWhere(where, (req.suite_name ? ' name = ?' : ''))\n\n\n\n  shared.sql.query(\n\n    'SELECT name FROM suite' + where +\n\n    ' ORDER BY name LIMIT ? OFFSET ?', args,\n\n  function(err, result) {\n\n    if (err) return cb(err)\n\n    cb(null, result.map(renderSuite))"
+        },
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            314,
+            329
+          ],
+          "match_position": [
+            3,
+            35
+          ],
+          "match_string": "  where = plusWhere(where, (req.test_name ? ' AND t.name = ?' : ''))\n\n\n\n  shared.sql.query(\n\n    'SELECT' +\n\n    '  s.name AS suite,' +\n\n    '  t.name AS name,' +\n\n    '  t.test_id AS id' +\n\n    '  FROM test t' +\n\n    '  LEFT JOIN suite s' +\n\n    '    ON t.suite_id = s.suite_id' +\n\n    '  ' + where +\n\n    '  ORDER BY t.name ASC' +\n\n    '  LIMIT ? OFFSET ?', args,\n\n  function(err, result) {\n\n    if (err) return cb(err)\n\n    cb(null, result.map(renderTest))"
+        },
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            359,
+            386
+          ],
+          "match_position": [
+            3,
+            41
+          ],
+          "match_string": "  where = plusWhere(where, (req.test_result_id ? ' AND tr.test_result_id = ?' : ''))\n\n\n\n  shared.sql.query(\n\n    'SELECT' +\n\n    '  tr.test_result_id AS id,' +\n\n    '  tr.duration AS duration,' +\n\n    '  tr.pass AS pass,' +\n\n    '  tr.fail AS fail,' +\n\n    '  tr.create_time AS time,' +\n\n    '  sr.suite_result_id AS suite_result,' +\n\n    '  s.name AS suite,' +\n\n    '  t.name AS test,' +\n\n    '  a.name AS agent' +\n\n    '  FROM test_result tr' +\n\n    '  LEFT JOIN test t' +\n\n    '    ON t.test_id = tr.test_id' +\n\n    '  LEFT JOIN suite_result sr' +\n\n    '    ON tr.suite_result_id = sr.suite_result_id' +\n\n    '  LEFT JOIN suite s' +\n\n    '    ON sr.suite_id = s.suite_id' +\n\n    '  LEFT JOIN agent a' +\n\n    '    ON sr.agent_id = a.agent_id' +\n\n    '  ' + where +\n\n    '  ORDER BY tr.test_result_id DESC' +\n\n    '  LIMIT ? OFFSET ?', args,\n\n  function(err, result) {\n\n    if (err) return cb(err)\n\n    cb(null, result.map(renderTestResult))"
+        },
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            421,
+            449
+          ],
+          "match_position": [
+            3,
+            46
+          ],
+          "match_string": "  where = plusWhere(where, (req.assertion_result_id ? 'ar.assertion_result_id = ?' : ''), 'AND')\n\n\n\n  shared.sql.query(\n\n    'SELECT ar.assertion_result_id as id, ar.create_time AS time, ar.ok AS ok,' +\n\n    '  a.message AS message, st.value AS stack_trace,' +\n\n    '  tr.test_result_id AS test_result,' +\n\n    '  sr.suite_result_id AS suite_result, s.name AS suite,' +\n\n    '  t.name AS test, ag.name AS agent' +\n\n    '  FROM assertion_result ar' +\n\n    '  LEFT JOIN assertion a' +\n\n    '    ON a.assertion_id = ar.assertion_id' +\n\n    '  LEFT JOIN stack_trace st' +\n\n    '    ON st.stack_trace_id = ar.stack_trace_id' +\n\n    '  LEFT JOIN test_result tr' +\n\n    '    ON tr.test_result_id = ar.test_result_id' +\n\n    '  LEFT JOIN test t' +\n\n    '    ON t.test_id = tr.test_id' +\n\n    '  LEFT JOIN suite_result sr' +\n\n    '    ON tr.suite_result_id = sr.suite_result_id' +\n\n    '  LEFT JOIN suite s' +\n\n    '    ON sr.suite_id = s.suite_id' +\n\n    '  LEFT JOIN agent ag' +\n\n    '    ON sr.agent_id = ag.agent_id' +\n\n    '  ' + where +\n\n    '  ORDER BY ar.assertion_result_id DESC' +\n\n    '  LIMIT ? OFFSET ?', args,\n\n  function(err, result) {\n\n    if (err) return cb(err)\n\n    cb(null, result.map(renderAssertionResult))"
+        },
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            462,
+            501
+          ],
+          "match_position": [
+            3,
+            90
+          ],
+          "match_string": "  req.interval = parseInt(req.interval || 3600)\n\n  req.test_id = parseInt(req.test_id)\n\n\n\n  if (isNaN(req.limit))\n\n    return cb(new Error('limit must be a number'))\n\n  if (isNaN(req.offset))\n\n    return cb(new Error('offset must be a number'))\n\n  if (isNaN(req.interval))\n\n    return cb(new Error('interval must be a number'))\n\n  if (isNaN(req.test_id))\n\n    return cb(new Error('test_id must be a number'))\n\n\n\n  var args = [req.test_id, req.limit, req.offset]\n\n  var where = plusWhere(null, 'test_id = ?')\n\n\n\n  shared.sql.query(\n\n    'SELECT' +\n\n    '  FROM_UNIXTIME(ROUND(UNIX_TIMESTAMP(create_time) / ' + req.interval + ') * ' + req.interval + ') AS time,' +\n\n    '  SUM(duration) / COUNT(*) AS duration' +\n\n    '  FROM test_result' +\n\n    '  ' + where +\n\n    '  GROUP BY ROUND(UNIX_TIMESTAMP(create_time) / ' + req.interval + ')' +\n\n    '  ORDER BY create_time DESC' +\n\n    '  LIMIT ? OFFSET ?', args,\n\n  function(err, data) {\n\n    if (err) return cb(err)\n\n    data = data.map(function(d) {\n\n      d.duration = parseFloat(d.duration)\n\n      d.time = exports.date(d.time)\n\n      return d\n\n    })\n\n    data.sort(function(a, b) {\n\n      if (a.time < b.time) {\n\n        return -1\n\n      } else if (a.time > b.time) {\n\n        return 1\n\n      }\n\n      return 0\n\n    })\n\n    cb(null, { interval: req.interval, limit: req.limit, offset: req.offest, data: data })"
+        },
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            477,
+            501
+          ],
+          "match_position": [
+            3,
+            90
+          ],
+          "match_string": "  shared.sql.query(\n\n    'SELECT' +\n\n    '  FROM_UNIXTIME(ROUND(UNIX_TIMESTAMP(create_time) / ' + req.interval + ') * ' + req.interval + ') AS time,' +\n\n    '  SUM(duration) / COUNT(*) AS duration' +\n\n    '  FROM test_result' +\n\n    '  ' + where +\n\n    '  GROUP BY ROUND(UNIX_TIMESTAMP(create_time) / ' + req.interval + ')' +\n\n    '  ORDER BY create_time DESC' +\n\n    '  LIMIT ? OFFSET ?', args,\n\n  function(err, data) {\n\n    if (err) return cb(err)\n\n    data = data.map(function(d) {\n\n      d.duration = parseFloat(d.duration)\n\n      d.time = exports.date(d.time)\n\n      return d\n\n    })\n\n    data.sort(function(a, b) {\n\n      if (a.time < b.time) {\n\n        return -1\n\n      } else if (a.time > b.time) {\n\n        return 1\n\n      }\n\n      return 0\n\n    })\n\n    cb(null, { interval: req.interval, limit: req.limit, offset: req.offest, data: data })"
+        },
+        {
+          "file_path": "/src/lib/shared.js",
+          "match_lines": [
+            45,
+            45
+          ],
+          "match_position": [
+            20,
+            65
+          ],
+          "match_string": "    function(cb) { sql.query('USE ' + options.mysql.database, cb) },"
+        },
+        {
+          "file_path": "/src/test/assets/helper.js",
+          "match_lines": [
+            35,
+            35
+          ],
+          "match_position": [
+            5,
+            68
+          ],
+          "match_string": "    shared.sql.query('DROP TABLE IF EXISTS ' + tables.join(','), cb)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "squirrelly": {
+      "files": [
+        {
+          "file_path": "/src/templates/snippets/status_result.html",
+          "match_position": [
+            21,
+            53
+          ],
+          "match_string": "{{ result.suite|suite_to_safe }}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Squirrelly.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS)",
+        "id": "squirrelly",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{.+\\|.*safe.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

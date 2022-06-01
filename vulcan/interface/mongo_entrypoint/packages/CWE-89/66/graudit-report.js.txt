@@ -1,0 +1,824 @@
+/src/Changes.md-107-var mysql      = require('mysql');
+/src/Changes.md:108:var connection = mysql.createConnection({
+/src/Changes.md-109-  host     : 'localhost',
+##############################################
+/src/Changes.md-113-
+/src/Changes.md:114:connection.query('SELECT 1', function(err, rows) {
+/src/Changes.md-115-  if (err) throw err;
+##############################################
+/src/Readme.md-31-var mysql      = require('mysql');
+/src/Readme.md:32:var connection = mysql.createConnection({
+/src/Readme.md-33-  host     : 'localhost',
+##############################################
+/src/Readme.md-37-
+/src/Readme.md:38:connection.connect();
+/src/Readme.md-39-
+/src/Readme.md:40:connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+/src/Readme.md-41-  if (err) throw err;
+##############################################
+/src/Readme.md-101-var mysql      = require('mysql');
+/src/Readme.md:102:var connection = mysql.createConnection({
+/src/Readme.md-103-  host     : 'example.org',
+##############################################
+/src/Readme.md-107-
+/src/Readme.md:108:connection.connect(function(err) {
+/src/Readme.md-109-  // connected! (unless `err` is set)
+##############################################
+/src/Readme.md-116-var mysql      = require('mysql');
+/src/Readme.md:117:var connection = mysql.createConnection(...);
+/src/Readme.md-118-
+/src/Readme.md:119:connection.query('SELECT 1', function(err, rows) {
+/src/Readme.md-120-  // connected! (unless `err` is set)
+##############################################
+/src/Readme.md-142-* `timezone`: The timezone used to store local dates. (Default: `'local'`)
+/src/Readme.md:143:* `insecureAuth`: Allow connecting to MySQL instances that ask for the old
+/src/Readme.md:144:  (insecure) authentication method. (Default: `false`)
+/src/Readme.md-145-* `typeCast`: Determines if column values should be converted to native
+##############################################
+/src/Readme.md-158-```js
+/src/Readme.md:159:var connection = mysql.createConnection('mysql://user:pass@host/db?debug=true&charset=BIG5_CHINESE_CI&timezone=-0700');
+/src/Readme.md-160-```
+##############################################
+/src/Readme.md-218-  // Use the connection
+/src/Readme.md:219:  connection.query( 'SELECT something FROM sometable', function(err, rows) {
+/src/Readme.md-220-    // And done with the connection.
+##############################################
+/src/Readme.md-298-
+/src/Readme.md:299:    connection = mysql.createConnection(connection.config);
+/src/Readme.md-300-    handleDisconnect(connection);
+/src/Readme.md:301:    connection.connect();
+/src/Readme.md-302-  });
+##############################################
+/src/Readme.md-323-var sql    = 'SELECT * FROM users WHERE id = ' + connection.escape(userId);
+/src/Readme.md:324:connection.query(sql, function(err, results) {
+/src/Readme.md-325-  // ...
+##############################################
+/src/Readme.md-332-```js
+/src/Readme.md:333:connection.query('SELECT * FROM users WHERE id = ?', [userId], function(err, results) {
+/src/Readme.md-334-  // ...
+##############################################
+/src/Readme.md-362-var post  = {id: 1, title: 'Hello MySQL'};
+/src/Readme.md:363:var query = connection.query('INSERT INTO posts SET ?', post, function(err, result) {
+/src/Readme.md-364-  // Neat!
+##############################################
+/src/Readme.md-399-
+/src/Readme.md:400:When you pass an Object to `.escape()` or `.query()`, `.escapeId()` is used to avoid SQL
+/src/Readme.md-401-injection in object keys.
+##############################################
+/src/Readme.md-419-
+/src/Readme.md:420:connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" });
+/src/Readme.md-421-```
+##############################################
+/src/Readme.md-428-```js
+/src/Readme.md:429:connection.query('INSERT INTO posts SET ?', {title: 'test'}, function(err, result) {
+/src/Readme.md-430-  if (err) throw err;
+##############################################
+/src/Readme.md-454-```js
+/src/Readme.md:455:var query = connection.query('SELECT * FROM posts');
+/src/Readme.md-456-query
+##############################################
+/src/Readme.md-498-```js
+/src/Readme.md:499:var connection = mysql.createConnection({multipleStatements: true});
+/src/Readme.md-500-```
+##############################################
+/src/Readme.md-504-```js
+/src/Readme.md:505:connection.query('SELECT 1; SELECT 2', function(err, results) {
+/src/Readme.md-506-  if (err) throw err;
+##############################################
+/src/Readme.md-516-```js
+/src/Readme.md:517:var query = connection.query('SELECT 1; SELECT 2');
+/src/Readme.md-518-
+##############################################
+/src/Readme.md-555-var options = {sql: '...', nestTables: true};
+/src/Readme.md:556:connection.query(options, function(err, results) {
+/src/Readme.md-557-  /* results will be an array like this now:
+##############################################
+/src/Readme.md-575-var options = {sql: '...', nestTables: '_'};
+/src/Readme.md:576:connection.query(options, function(err, results) {
+/src/Readme.md-577-  /* results will be an array like this now:
+##############################################
+/src/Readme.md-609-```js
+/src/Readme.md:610:var connection = require('mysql').createConnection({
+/src/Readme.md-611-  port: 84943, // WRONG PORT
+##############################################
+/src/Readme.md-613-
+/src/Readme.md:614:connection.connect(function(err) {
+/src/Readme.md-615-  console.log(err.code); // 'ECONNREFUSED'
+##############################################
+/src/Readme.md-618-
+/src/Readme.md:619:connection.query('SELECT 1', function(err) {
+/src/Readme.md-620-  console.log(err.code); // 'ECONNREFUSED'
+##############################################
+/src/Readme.md-629-```js
+/src/Readme.md:630:connection.query('USE name_of_db_that_does_not_exist', function(err, rows) {
+/src/Readme.md-631-  console.log(err.code); // 'ER_BAD_DB_ERROR'
+##############################################
+/src/Readme.md-633-
+/src/Readme.md:634:connection.query('SELECT 1', function(err, rows) {
+/src/Readme.md-635-  console.log(err); // null
+##############################################
+/src/Readme.md-649-
+/src/Readme.md:650:connection.query('USE name_of_db_that_does_not_exist');
+/src/Readme.md-651-```
+##############################################
+/src/Readme.md-720-```js
+/src/Readme.md:721:var connection = require('mysql').createConnection({typeCast: false});
+/src/Readme.md-722-```
+##############################################
+/src/Readme.md-727-var options = {sql: '...', typeCast: false};
+/src/Readme.md:728:var query = connection.query(options, function(err, results) {
+/src/Readme.md-729-
+##############################################
+/src/Readme.md-767-```js
+/src/Readme.md:768:var connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS")
+/src/Readme.md-769-```
+##############################################
+/src/Readme.md-804-```js
+/src/Readme.md:805:var connection = mysql.createConnection({debug: true});
+/src/Readme.md-806-```
+##############################################
+/src/lib/ConnectionConfig.js-16-  this.database          = options.database;
+/src/lib/ConnectionConfig.js:17:  this.insecureAuth      = options.insecureAuth || false;
+/src/lib/ConnectionConfig.js-18-  this.supportBigNumbers = options.supportBigNumbers || false;
+##############################################
+/src/lib/ConnectionConfig.js-103-        // Try to parse this as a JSON expression first
+/src/lib/ConnectionConfig.js:104:        options[key] = JSON.parse(value);
+/src/lib/ConnectionConfig.js-105-      } catch (err) {
+##############################################
+/src/lib/Connection.js-50-    this._socket = (this.config.socketPath)
+/src/lib/Connection.js:51:      ? Net.createConnection(this.config.socketPath)
+/src/lib/Connection.js:52:      : Net.createConnection(this.config.port, this.config.host);
+/src/lib/Connection.js-53-
+##############################################
+/src/lib/Connection.js-161-  if (!this._connectCalled) {
+/src/lib/Connection.js:162:    this.connect();
+/src/lib/Connection.js-163-  }
+##############################################
+/src/lib/Pool.js-29-    this._allConnections.push(connection);
+/src/lib/Pool.js:30:    connection.connect(function(err) {
+/src/lib/Pool.js-31-      if (self._closed) {
+##############################################
+/src/lib/Pool.js-99-  var connection = (this.config.createConnection)
+/src/lib/Pool.js:100:    ? this.config.createConnection(this.config.connectionConfig)
+/src/lib/Pool.js:101:    : Mysql.createConnection(this.config.connectionConfig);
+/src/lib/Pool.js-102-
+##############################################
+/src/lib/protocol/sequences/Handshake.js-42-Handshake.prototype['UseOldPasswordPacket'] = function(packet) {
+/src/lib/protocol/sequences/Handshake.js:43:  if (!this._config.insecureAuth) {
+/src/lib/protocol/sequences/Handshake.js-44-    var err = new Error(
+/src/lib/protocol/sequences/Handshake.js:45:      'MySQL server is requesting the old and insecure pre-4.1 auth mechanism.' +
+/src/lib/protocol/sequences/Handshake.js:46:      'Upgrade the user password or use the {insecureAuth: true} option.'
+/src/lib/protocol/sequences/Handshake.js-47-    );
+##############################################
+/src/lib/protocol/sequences/Query.js-142-Query.prototype['RowDataPacket'] = function(packet, parser, connection) {
+/src/lib/protocol/sequences/Query.js:143:  packet.parse(parser, this._resultSet.fieldPackets, this.typeCast, this.nestTables, connection);
+/src/lib/protocol/sequences/Query.js-144-
+##############################################
+/src/lib/protocol/sequences/Query.js-153-  var self = this;
+/src/lib/protocol/sequences/Query.js:154:  fs.readFile(path, 'utf-8', function(err, data) {
+/src/lib/protocol/sequences/Query.js-155-    if (err) {
+##############################################
+/src/lib/protocol/Protocol.js-158-
+/src/lib/protocol/Protocol.js:159:  packet.parse(this._parser);
+/src/lib/protocol/Protocol.js-160-
+##############################################
+/src/test/FakeServer.js-21-FakeServer.prototype.listen = function(port, cb) {
+/src/test/FakeServer.js:22:  this._server = Net.createServer(this._handleConnection.bind(this));
+/src/test/FakeServer.js-23-  this._server.listen(port, cb);
+##############################################
+/src/test/FakeServer.js-85-
+/src/test/FakeServer.js:86:  packet.parse(this._parser);
+/src/test/FakeServer.js-87-
+##############################################
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-5-var common     = require('../../common');
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js:6:var connection = common.createConnection({ flags: "-FOUND_ROWS" });
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-7-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-11-var table = 'on_duplicate_key_test';
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js:12:connection.query('DROP TABLE IF EXISTS `' + table + '`');
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-13-connection.query([
+##############################################
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-21-
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js:22:connection.query('INSERT INTO `' + table + '` SET ?', {a: 1, b: 1, c: 1});
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-23-
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js:24:connection.query('INSERT INTO `' + table + '` (a, b, c) VALUES (1, 2, 3) ON DUPLICATE KEY UPDATE c = 1', function(err, info) {
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-25-  assert.strictEqual(null, err);
+##############################################
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-28-
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js:29:connection.query('INSERT INTO `' + table + '` (a, b, c) VALUES (2, 3, 4) ON DUPLICATE KEY UPDATE c = 1', function(err, info) {
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-30-  assert.strictEqual(null, err);
+##############################################
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-33-
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js:34:connection.query('INSERT INTO `' + table + '` (a, b, c) VALUES (1, 2, 3) ON DUPLICATE KEY UPDATE c = 2', function(err, info) {
+/src/test/integration/connection/test-connection-config-flags-affected-rows.js-35-  assert.strictEqual(null, err);
+##############################################
+/src/test/integration/connection/test-unix-domain-socket.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-unix-domain-socket.js:2:var connection = common.createConnection({socketPath: common.fakeServerSocket});
+/src/test/integration/connection/test-unix-domain-socket.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-unix-domain-socket.js-9-
+/src/test/integration/connection/test-unix-domain-socket.js:10:  connection.connect(function(err) {
+/src/test/integration/connection/test-unix-domain-socket.js-11-    if (err) throw err;
+##############################################
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js-22-
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js:23:  connection.query('INSERT INTO ' + table + ' SET ?', row);
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js-24-}
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js-25-
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js:26:var query  = connection.query('SELECT * FROM ' + table);
+/src/test/integration/connection/test-streaming-rows-quick-pause-resume.js-27-
+##############################################
+/src/test/integration/connection/test-long-stack-traces-for-connection-errors.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-long-stack-traces-for-connection-errors.js:2:var connection = common.createConnection({port: common.bogusPort});
+/src/test/integration/connection/test-long-stack-traces-for-connection-errors.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-long-stack-traces-for-connection-errors.js-5-var err;
+/src/test/integration/connection/test-long-stack-traces-for-connection-errors.js:6:connection.connect(function(_err) {
+/src/test/integration/connection/test-long-stack-traces-for-connection-errors.js-7-  err = _err;
+##############################################
+/src/test/integration/connection/test-multiple-statements-with-error.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-multiple-statements-with-error.js:2:var connection = common.createConnection({multipleStatements: true});
+/src/test/integration/connection/test-multiple-statements-with-error.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-multiple-statements-with-error.js-11-var finishedQueryOne = false;
+/src/test/integration/connection/test-multiple-statements-with-error.js:12:connection.query(sql, function(err, results, fields) {
+/src/test/integration/connection/test-multiple-statements-with-error.js-13-  assert.equal(finishedQueryOne, false);
+##############################################
+/src/test/integration/connection/test-multiple-statements-with-error.js-23-var finishedQueryTwo = false;
+/src/test/integration/connection/test-multiple-statements-with-error.js:24:connection.query('SELECT 3', function(err, results) {
+/src/test/integration/connection/test-multiple-statements-with-error.js-25-  assert.equal(finishedQueryTwo, false);
+##############################################
+/src/test/integration/connection/test-procedure-with-single-select.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-procedure-with-single-select.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-procedure-with-single-select.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-procedure-with-single-select.js-18-
+/src/test/integration/connection/test-procedure-with-single-select.js:19:connection.query('CALL '+procedureName+'(?)', [input], function(err, _result) {
+/src/test/integration/connection/test-procedure-with-single-select.js-20-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-procedure-with-single-select.js-24-
+/src/test/integration/connection/test-procedure-with-single-select.js:25:connection.query('DROP PROCEDURE '+procedureName);
+/src/test/integration/connection/test-procedure-with-single-select.js-26-
+##############################################
+/src/test/integration/connection/test-statistics.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-statistics.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-statistics.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-server-timeout-disconnect.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-server-timeout-disconnect.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-server-timeout-disconnect.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-server-timeout-disconnect.js-4-
+/src/test/integration/connection/test-server-timeout-disconnect.js:5:connection.query('SET wait_timeout = 1');
+/src/test/integration/connection/test-server-timeout-disconnect.js-6-
+##############################################
+/src/test/integration/connection/test-custom-typecast.js-2-var common     = require('../../common');
+/src/test/integration/connection/test-custom-typecast.js:3:var connection = common.createConnection();
+/src/test/integration/connection/test-custom-typecast.js-4-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-custom-typecast.js-17-
+/src/test/integration/connection/test-custom-typecast.js:18:connection.query("INSERT INTO " + table + " VALUES (1, 0), (2, 1), (3, NULL)");
+/src/test/integration/connection/test-custom-typecast.js-19-connection.query({
+##############################################
+/src/test/integration/connection/test-normal-error-without-handler.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-normal-error-without-handler.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-normal-error-without-handler.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-normal-error-without-handler.js-4-
+/src/test/integration/connection/test-normal-error-without-handler.js:5:connection.connect();
+/src/test/integration/connection/test-normal-error-without-handler.js:6:connection.query('INVALID SQL');
+/src/test/integration/connection/test-normal-error-without-handler.js-7-
+##############################################
+/src/test/integration/connection/test-callback-errors-are-not-caught.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-callback-errors-are-not-caught.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-callback-errors-are-not-caught.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-callback-errors-are-not-caught.js-6-
+/src/test/integration/connection/test-callback-errors-are-not-caught.js:7:connection.connect(function() {
+/src/test/integration/connection/test-callback-errors-are-not-caught.js-8-  throw err;
+##############################################
+/src/test/integration/connection/test-fatal-auth-error-without-handlers.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-fatal-auth-error-without-handlers.js:2:var connection = common.createConnection({password: common.bogusPassword});
+/src/test/integration/connection/test-fatal-auth-error-without-handlers.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-fatal-auth-error-without-handlers.js-4-
+/src/test/integration/connection/test-fatal-auth-error-without-handlers.js:5:connection.connect();
+/src/test/integration/connection/test-fatal-auth-error-without-handlers.js:6:connection.query('SELECT 1');
+/src/test/integration/connection/test-fatal-auth-error-without-handlers.js-7-
+##############################################
+/src/test/integration/connection/test-server-unexpected-disconnect.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-server-unexpected-disconnect.js:2:var connection = common.createConnection({port: common.fakeServerPort});
+/src/test/integration/connection/test-server-unexpected-disconnect.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-server-unexpected-disconnect.js-16-
+/src/test/integration/connection/test-server-unexpected-disconnect.js:17:  connection.query('SELECT 1', function(err) {
+/src/test/integration/connection/test-server-unexpected-disconnect.js-18-    assert.ok(!queryErr);
+##############################################
+/src/test/integration/connection/test-change-user-fatal-error.js-6-var common     = require('../../common');
+/src/test/integration/connection/test-change-user-fatal-error.js:7:var connection = common.createConnection();
+/src/test/integration/connection/test-change-user-fatal-error.js-8-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-bulk-insert.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-bulk-insert.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-bulk-insert.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-bulk-insert.js-23-
+/src/test/integration/connection/test-bulk-insert.js:24:connection.query('INSERT INTO ' + table + ' (title) VALUES ? ', [items], function(err, _result) {
+/src/test/integration/connection/test-bulk-insert.js-25-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-bulk-insert.js-28-  
+/src/test/integration/connection/test-bulk-insert.js:29:  connection.query('SELECT title FROM '+table+';', [], function(err, _items) {
+/src/test/integration/connection/test-bulk-insert.js-30-    itemsFoundInTable =  _.map(_items, function(row) { return [row.title]; });
+##############################################
+/src/test/integration/connection/test-host-denied-error.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-host-denied-error.js:2:var connection = common.createConnection({port: common.fakeServerPort});
+/src/test/integration/connection/test-host-denied-error.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-host-denied-error.js-10-
+/src/test/integration/connection/test-host-denied-error.js:11:  connection.connect(function(err) {
+/src/test/integration/connection/test-host-denied-error.js-12-    connectErr = err;
+##############################################
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js:2:var connection = common.createConnection({password: common.bogusPassword});
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js-6-
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js:7:connection.connect(function(err) {
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js-8-  assert.equal(errors.a, undefined);
+##############################################
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js-11-
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js:12:connection.query('SELECT 1', function(err) {
+/src/test/integration/connection/test-fatal-auth-error-going-to-all-callbacks.js-13-  assert.equal(errors.b, undefined);
+##############################################
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js:2:var connection = common.createConnection({port: common.bogusPort});
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js-6-
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js:7:connection.connect(function(err) {
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js-8-  assert.equal(errors.a, undefined);
+##############################################
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js-11-
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js:12:connection.query('SELECT 1', function(err) {
+/src/test/integration/connection/test-fatal-network-error-going-to-all-callbacks.js-13-  assert.equal(errors.b, undefined);
+##############################################
+/src/test/integration/connection/test-destroy-while-streaming-rows.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-destroy-while-streaming-rows.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-destroy-while-streaming-rows.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-destroy-while-streaming-rows.js-22-
+/src/test/integration/connection/test-destroy-while-streaming-rows.js:23:  connection.query('INSERT INTO ' + table + ' SET ?', row);
+/src/test/integration/connection/test-destroy-while-streaming-rows.js-24-}
+##############################################
+/src/test/integration/connection/test-destroy-while-streaming-rows.js-27-var hadEnd    = false;
+/src/test/integration/connection/test-destroy-while-streaming-rows.js:28:var query     = connection.query('SELECT * FROM ' + table);
+/src/test/integration/connection/test-destroy-while-streaming-rows.js-29-
+##############################################
+/src/test/integration/connection/test-exception-safety.js-7-var common     = require('../../common');
+/src/test/integration/connection/test-exception-safety.js:8:var connection = common.createConnection();
+/src/test/integration/connection/test-exception-safety.js-9-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-exception-safety.js-18-// Normal callback
+/src/test/integration/connection/test-exception-safety.js:19:connection.connect(function(err) {
+/src/test/integration/connection/test-exception-safety.js-20-  throw err || new Error('1');
+##############################################
+/src/test/integration/connection/test-exception-safety.js-24-// implementation detail change at some point).
+/src/test/integration/connection/test-exception-safety.js:25:connection.query('SELECT 1', function(err) {
+/src/test/integration/connection/test-exception-safety.js-26-  throw err || new Error('2');
+##############################################
+/src/test/integration/connection/test-exception-safety.js-29-// Row streaming events
+/src/test/integration/connection/test-exception-safety.js:30:connection.query('SELECT 1')
+/src/test/integration/connection/test-exception-safety.js-31-  .on('fields', function() {
+##############################################
+/src/test/integration/connection/test-exception-safety.js-38-// Normal callback with error
+/src/test/integration/connection/test-exception-safety.js:39:connection.query('INVALID SQL', function(err) {
+/src/test/integration/connection/test-exception-safety.js-40-  assert.equal(err.code, 'ER_PARSE_ERROR');
+##############################################
+/src/test/integration/connection/test-exception-safety.js-45-// Row streaming 'result' event triggered by Ok Packet (special code path)
+/src/test/integration/connection/test-exception-safety.js:46:connection.query('USE ' + common.testDatabase)
+/src/test/integration/connection/test-exception-safety.js-47-  .on('result', function() {
+##############################################
+/src/test/integration/connection/test-query-after-destroy.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-query-after-destroy.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-query-after-destroy.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-query-after-destroy.js-5-var err;
+/src/test/integration/connection/test-query-after-destroy.js:6:connection.connect(function() {
+/src/test/integration/connection/test-query-after-destroy.js-7-  connection.destroy();
+/src/test/integration/connection/test-query-after-destroy.js-8-
+/src/test/integration/connection/test-query-after-destroy.js:9:  connection.query('SELECT 1', function(_err) {
+/src/test/integration/connection/test-query-after-destroy.js-10-    err = _err;
+##############################################
+/src/test/integration/connection/test-multiple-statements-streaming.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-multiple-statements-streaming.js:2:var connection = common.createConnection({multipleStatements: true});
+/src/test/integration/connection/test-multiple-statements-streaming.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-multiple-statements-streaming.js-16-
+/src/test/integration/connection/test-multiple-statements-streaming.js:17:var query = connection.query(sql);
+/src/test/integration/connection/test-multiple-statements-streaming.js-18-query
+##############################################
+/src/test/integration/connection/test-old-password.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-old-password.js:2:var connection = common.createConnection({
+/src/test/integration/connection/test-old-password.js-3-  port         : common.fakeServerPort,
+/src/test/integration/connection/test-old-password.js-4-  password     : 'oldpw',
+/src/test/integration/connection/test-old-password.js:5:  insecureAuth : true,
+/src/test/integration/connection/test-old-password.js-6-});
+##############################################
+/src/test/integration/connection/test-old-password.js-14-
+/src/test/integration/connection/test-old-password.js:15:  connection.connect(function(err, result) {
+/src/test/integration/connection/test-old-password.js-16-    if (err) throw err;
+##############################################
+/src/test/integration/connection/test-send-and-receive-large-packets.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-send-and-receive-large-packets.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-send-and-receive-large-packets.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-send-and-receive-large-packets.js-4-
+/src/test/integration/connection/test-send-and-receive-large-packets.js:5:connection.connect(function(err) {
+/src/test/integration/connection/test-send-and-receive-large-packets.js-6-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-send-and-receive-large-packets.js-13-function getMaxAllowedPacket() {
+/src/test/integration/connection/test-send-and-receive-large-packets.js:14:  connection.query('SHOW VARIABLES WHERE Variable_name = ?', ['max_allowed_packet'], function(err, rows) {
+/src/test/integration/connection/test-send-and-receive-large-packets.js-15-    if (err) throw err;
+##############################################
+/src/test/integration/connection/test-send-and-receive-large-packets.js-31-
+/src/test/integration/connection/test-send-and-receive-large-packets.js:32:  connection.query('SET GLOBAL max_allowed_packet = ?', [newMaxAllowedPacket], function(err, rows) {
+/src/test/integration/connection/test-send-and-receive-large-packets.js-33-    if (err) throw err;
+##############################################
+/src/test/integration/connection/test-send-and-receive-large-packets.js-37-    connection.end();
+/src/test/integration/connection/test-send-and-receive-large-packets.js:38:    connection = common.createConnection();
+/src/test/integration/connection/test-send-and-receive-large-packets.js-39-
+##############################################
+/src/test/integration/connection/test-send-and-receive-large-packets.js-42-    // TravisCI, causing a MySQL connection timeout otherwise.
+/src/test/integration/connection/test-send-and-receive-large-packets.js:43:    connection.connect(function(err) {
+/src/test/integration/connection/test-send-and-receive-large-packets.js-44-      if (err) throw err;
+##############################################
+/src/test/integration/connection/test-send-and-receive-large-packets.js-56-function triggerLargeQueryAndResponsePackets() {
+/src/test/integration/connection/test-send-and-receive-large-packets.js:57:  connection.query(sql, [buffer], function(err, _rows) {
+/src/test/integration/connection/test-send-and-receive-large-packets.js-58-    if (err) throw err;
+##############################################
+/src/test/integration/connection/test-send-and-receive-large-packets.js-66-function resetMaxAllowedPacket() {
+/src/test/integration/connection/test-send-and-receive-large-packets.js:67:  connection.query('SET GLOBAL max_allowed_packet = ?', [oldMaxAllowedPacket], function(err, rows) {
+/src/test/integration/connection/test-send-and-receive-large-packets.js-68-    if (err) {
+##############################################
+/src/test/integration/connection/test-type-cast-null-fields.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-type-cast-null-fields.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-type-cast-null-fields.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-type-cast-null-fields.js-16-
+/src/test/integration/connection/test-type-cast-null-fields.js:17:connection.query('INSERT INTO ' + table + ' SET ?', {
+/src/test/integration/connection/test-type-cast-null-fields.js-18-  date   : null,
+##############################################
+/src/test/integration/connection/test-type-cast-null-fields.js-22-var results;
+/src/test/integration/connection/test-type-cast-null-fields.js:23:connection.query('SELECT * FROM ' + table, function(err, _results) {
+/src/test/integration/connection/test-type-cast-null-fields.js-24-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-query-after-end.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-query-after-end.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-query-after-end.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-query-after-end.js-5-var didEnd = false;
+/src/test/integration/connection/test-query-after-end.js:6:connection.connect();
+/src/test/integration/connection/test-query-after-end.js-7-connection.end(function(err) {
+##############################################
+/src/test/integration/connection/test-query-after-end.js-13-var err;
+/src/test/integration/connection/test-query-after-end.js:14:connection.query('SELECT 1', function(_err) {
+/src/test/integration/connection/test-query-after-end.js-15-  assert.equal(didEnd, false);
+##############################################
+/src/test/integration/connection/test-timezones.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-timezones.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-timezones.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-timezones.js-16-
+/src/test/integration/connection/test-timezones.js:17:connection.query('DELETE FROM ' + table);
+/src/test/integration/connection/test-timezones.js-18-
+##############################################
+/src/test/integration/connection/test-timezones.js-40-  }
+/src/test/integration/connection/test-timezones.js:41:  connection.query('INSERT INTO ' + table + ' SET ?', { offset: offset, dt: dt });
+/src/test/integration/connection/test-timezones.js-42-
+##############################################
+/src/test/integration/connection/test-streaming-rows.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-streaming-rows.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-streaming-rows.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-streaming-rows.js-22-
+/src/test/integration/connection/test-streaming-rows.js:23:  connection.query('INSERT INTO ' + table + ' SET ?', row);
+/src/test/integration/connection/test-streaming-rows.js-24-}
+##############################################
+/src/test/integration/connection/test-streaming-rows.js-26-var paused = false;
+/src/test/integration/connection/test-streaming-rows.js:27:var query  = connection.query('SELECT * FROM ' + table);
+/src/test/integration/connection/test-streaming-rows.js-28-
+##############################################
+/src/test/integration/connection/test-transaction-rollback.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-transaction-rollback.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-transaction-rollback.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-transaction-rollback.js-15-
+/src/test/integration/connection/test-transaction-rollback.js:16:connection.query('START TRANSACTION');
+/src/test/integration/connection/test-transaction-rollback.js-17-
+##############################################
+/src/test/integration/connection/test-transaction-rollback.js-24-
+/src/test/integration/connection/test-transaction-rollback.js:25:  connection.query('INSERT INTO ' + table + ' SET ?', row);
+/src/test/integration/connection/test-transaction-rollback.js-26-}
+/src/test/integration/connection/test-transaction-rollback.js-27-
+/src/test/integration/connection/test-transaction-rollback.js:28:connection.query('ROLLBACK');
+/src/test/integration/connection/test-transaction-rollback.js-29-
+/src/test/integration/connection/test-transaction-rollback.js-30-var rows;
+/src/test/integration/connection/test-transaction-rollback.js:31:var query = connection.query('SELECT * FROM ' + table, function(err, _rows) {
+/src/test/integration/connection/test-transaction-rollback.js-32-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-transaction-commit.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-transaction-commit.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-transaction-commit.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-transaction-commit.js-15-
+/src/test/integration/connection/test-transaction-commit.js:16:connection.query('START TRANSACTION');
+/src/test/integration/connection/test-transaction-commit.js-17-
+##############################################
+/src/test/integration/connection/test-transaction-commit.js-24-
+/src/test/integration/connection/test-transaction-commit.js:25:  connection.query('INSERT INTO ' + table + ' SET ?', row);
+/src/test/integration/connection/test-transaction-commit.js-26-}
+/src/test/integration/connection/test-transaction-commit.js-27-
+/src/test/integration/connection/test-transaction-commit.js:28:connection.query('COMMIT');
+/src/test/integration/connection/test-transaction-commit.js-29-
+/src/test/integration/connection/test-transaction-commit.js-30-var rows = [];
+/src/test/integration/connection/test-transaction-commit.js:31:var query = connection.query('SELECT * FROM ' + table, function(err, _rows) {
+/src/test/integration/connection/test-transaction-commit.js-32-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-ping.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-ping.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-ping.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-type-casting.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-type-casting.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-type-casting.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-type-casting.js-76-
+/src/test/integration/connection/test-type-casting.js:77:connection.query(createTable);
+/src/test/integration/connection/test-type-casting.js-78-
+/src/test/integration/connection/test-type-casting.js:79:connection.query('INSERT INTO ' + table + ' SET' + inserts.join(',\n'));
+/src/test/integration/connection/test-type-casting.js-80-
+/src/test/integration/connection/test-type-casting.js-81-var row;
+/src/test/integration/connection/test-type-casting.js:82:connection.query('SELECT * FROM type_casting', function(err, rows) {
+/src/test/integration/connection/test-type-casting.js-83-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-custom-query-format.js-2-var common     = require('../../common');
+/src/test/integration/connection/test-custom-query-format.js:3:var connection = common.createConnection();
+/src/test/integration/connection/test-custom-query-format.js-4-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-normal-query-error-without-callback.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-normal-query-error-without-callback.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-normal-query-error-without-callback.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-normal-query-error-without-callback.js-4-
+/src/test/integration/connection/test-normal-query-error-without-callback.js:5:connection.connect();
+/src/test/integration/connection/test-normal-query-error-without-callback.js:6:var query = connection.query('INVALID SQL');
+/src/test/integration/connection/test-normal-query-error-without-callback.js-7-
+##############################################
+/src/test/integration/connection/test-query-after-end-without-callback.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-query-after-end-without-callback.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-query-after-end-without-callback.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-query-after-end-without-callback.js-5-var didEnd = false;
+/src/test/integration/connection/test-query-after-end-without-callback.js:6:connection.connect();
+/src/test/integration/connection/test-query-after-end-without-callback.js-7-connection.end(function(err) {
+##############################################
+/src/test/integration/connection/test-query-after-end-without-callback.js-16-});
+/src/test/integration/connection/test-query-after-end-without-callback.js:17:connection.query('SELECT 1');
+/src/test/integration/connection/test-query-after-end-without-callback.js-18-
+##############################################
+/src/test/integration/connection/test-double-connect.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-double-connect.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-double-connect.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-double-connect.js-5-var didConnect = false;
+/src/test/integration/connection/test-double-connect.js:6:connection.connect(function(err) {
+/src/test/integration/connection/test-double-connect.js-7-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-double-connect.js-13-var err;
+/src/test/integration/connection/test-double-connect.js:14:connection.connect(function(_err) {
+/src/test/integration/connection/test-double-connect.js-15-  err = _err;
+##############################################
+/src/test/integration/connection/test-end-callback.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-end-callback.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-end-callback.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-end-callback.js-4-
+/src/test/integration/connection/test-end-callback.js:5:connection.connect();
+/src/test/integration/connection/test-end-callback.js-6-
+##############################################
+/src/test/integration/connection/test-connection-destroy.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-connection-destroy.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-connection-destroy.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-connection-destroy.js-4-
+/src/test/integration/connection/test-connection-destroy.js:5:connection.connect(function(err) {
+/src/test/integration/connection/test-connection-destroy.js-6-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-drain-event.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-drain-event.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-drain-event.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-drain-event.js-4-
+/src/test/integration/connection/test-drain-event.js:5:connection.connect();
+/src/test/integration/connection/test-drain-event.js-6-
+##############################################
+/src/test/integration/connection/test-drain-event.js-12-
+/src/test/integration/connection/test-drain-event.js:13:connection.query("SELECT 1", function(err) {
+/src/test/integration/connection/test-drain-event.js-14-  assert.equal(got_drain, false);
+##############################################
+/src/test/integration/connection/test-procedure-with-multiple-selects.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-procedure-with-multiple-selects.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-procedure-with-multiple-selects.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-procedure-with-multiple-selects.js-21-
+/src/test/integration/connection/test-procedure-with-multiple-selects.js:22:connection.query('CALL '+procedureName+'(?,?)', [input0,input1], function(err, _result) {
+/src/test/integration/connection/test-procedure-with-multiple-selects.js-23-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-procedure-with-multiple-selects.js-28-
+/src/test/integration/connection/test-procedure-with-multiple-selects.js:29:connection.query('DROP PROCEDURE '+procedureName);
+/src/test/integration/connection/test-procedure-with-multiple-selects.js-30-
+##############################################
+/src/test/integration/connection/test-load-data-infile.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-load-data-infile.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-load-data-infile.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-load-data-infile.js-21-var ok;
+/src/test/integration/connection/test-load-data-infile.js:22:connection.query(sql, [path, ','], function(err, _ok) {
+/src/test/integration/connection/test-load-data-infile.js-23-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-load-data-infile.js-28-var rows;
+/src/test/integration/connection/test-load-data-infile.js:29:connection.query('SELECT * FROM ' + table, function(err, _rows) {
+/src/test/integration/connection/test-load-data-infile.js-30-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-load-data-infile.js-39-
+/src/test/integration/connection/test-load-data-infile.js:40:connection.query(sql, [badPath, ','], function(err, result) {
+/src/test/integration/connection/test-load-data-infile.js-41-  loadErr    = err;
+##############################################
+/src/test/integration/connection/test-change-user.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-change-user.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-change-user.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-change-user.js-8-
+/src/test/integration/connection/test-change-user.js:9:connection.query('CREATE DATABASE ' + common.testDatabase, function(err) {
+/src/test/integration/connection/test-change-user.js-10-  if (err && err.code !== 'ER_DB_CREATE_EXISTS') throw err;
+##############################################
+/src/test/integration/connection/test-change-user.js-13-var initialDb;
+/src/test/integration/connection/test-change-user.js:14:connection.query('select database() as db', function(err, results) {
+/src/test/integration/connection/test-change-user.js-15-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-change-user.js-23-var finalDb;
+/src/test/integration/connection/test-change-user.js:24:connection.query('select database() as db', function(err, results){
+/src/test/integration/connection/test-change-user.js-25-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-implicit-connect.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-implicit-connect.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-implicit-connect.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-implicit-connect.js-5-var rows = undefined;
+/src/test/integration/connection/test-implicit-connect.js:6:connection.query('SELECT 1', function(err, _rows) {
+/src/test/integration/connection/test-implicit-connect.js-7-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-long-stack-traces.js-3-var common     = require('../../common');
+/src/test/integration/connection/test-long-stack-traces.js:4:var connection = common.createConnection();
+/src/test/integration/connection/test-long-stack-traces.js-5-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-long-stack-traces.js-7-var err;
+/src/test/integration/connection/test-long-stack-traces.js:8:connection.query('invalid sql', function(_err) {
+/src/test/integration/connection/test-long-stack-traces.js-9-  err = _err;
+##############################################
+/src/test/integration/connection/test-select-empty-string.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-select-empty-string.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-select-empty-string.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-select-empty-string.js-5-var rows;
+/src/test/integration/connection/test-select-empty-string.js:6:connection.query('SELECT ""', function(err, _rows) {
+/src/test/integration/connection/test-select-empty-string.js-7-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-query-escaping.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-query-escaping.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-query-escaping.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-query-escaping.js-15-
+/src/test/integration/connection/test-query-escaping.js:16:connection.query('INSERT INTO ' + table + ' SET id = ?, example = ?', [1, 'array escape']);
+/src/test/integration/connection/test-query-escaping.js:17:connection.query('INSERT INTO ' + table + ' SET ?', {
+/src/test/integration/connection/test-query-escaping.js-18-  id: 2,
+##############################################
+/src/test/integration/connection/test-query-escaping.js-22-var rows;
+/src/test/integration/connection/test-query-escaping.js:23:connection.query('SELECT * FROM escape_test', function(err, _rows) {
+/src/test/integration/connection/test-query-escaping.js-24-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-type-cast-query.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-type-cast-query.js:2:var connection = common.createConnection({typeCast: true});
+/src/test/integration/connection/test-type-cast-query.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-type-cast-query.js-5-
+/src/test/integration/connection/test-type-cast-query.js:6:connection.connect();
+/src/test/integration/connection/test-type-cast-query.js-7-
+##############################################
+/src/test/integration/connection/test-type-cast-query.js-13-var rows;
+/src/test/integration/connection/test-type-cast-query.js:14:var query = connection.query(options, function(err, _rows) {
+/src/test/integration/connection/test-type-cast-query.js-15-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-select-1.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-select-1.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-select-1.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-select-1.js-4-
+/src/test/integration/connection/test-select-1.js:5:connection.connect();
+/src/test/integration/connection/test-select-1.js-6-
+##############################################
+/src/test/integration/connection/test-select-1.js-8-var fields = undefined;
+/src/test/integration/connection/test-select-1.js:9:connection.query('SELECT 1', function(err, _rows, _fields) {
+/src/test/integration/connection/test-select-1.js-10-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-nested-tables-query.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-nested-tables-query.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-nested-tables-query.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-nested-tables-query.js-15-
+/src/test/integration/connection/test-nested-tables-query.js:16:connection.query('INSERT INTO ' + table + ' SET ?', {title: 'test'});
+/src/test/integration/connection/test-nested-tables-query.js-17-
+##############################################
+/src/test/integration/connection/test-nested-tables-query.js-27-
+/src/test/integration/connection/test-nested-tables-query.js:28:connection.query(options1, function(err, _rows) {
+/src/test/integration/connection/test-nested-tables-query.js-29-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-nested-tables-query.js-32-});
+/src/test/integration/connection/test-nested-tables-query.js:33:connection.query(options2, function(err, _rows) {
+/src/test/integration/connection/test-nested-tables-query.js-34-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-insert-results.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-insert-results.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-insert-results.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-insert-results.js-16-var result;
+/src/test/integration/connection/test-insert-results.js:17:connection.query('INSERT INTO ' + table + ' SET ?', {title: 'test'}, function(err, _result) {
+/src/test/integration/connection/test-insert-results.js-18-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-zerofill-results.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-zerofill-results.js:2:var connection = common.createConnection();
+/src/test/integration/connection/test-zerofill-results.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-zerofill-results.js-19-for (var i = 0; i < test_numbers.length; i++) {
+/src/test/integration/connection/test-zerofill-results.js:20:  connection.query('INSERT INTO ' + table + ' SET ?', {
+/src/test/integration/connection/test-zerofill-results.js-21-    id: (i + 1),
+##############################################
+/src/test/integration/connection/test-zerofill-results.js-26-}
+/src/test/integration/connection/test-zerofill-results.js:27:connection.query('SELECT * FROM ' + table, function (err, _results) {
+/src/test/integration/connection/test-zerofill-results.js-28-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-fatal-network-error-without-handlers.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-fatal-network-error-without-handlers.js:2:var connection = common.createConnection({port: common.bogusPort});
+/src/test/integration/connection/test-fatal-network-error-without-handlers.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-fatal-network-error-without-handlers.js-4-
+/src/test/integration/connection/test-fatal-network-error-without-handlers.js:5:connection.connect();
+/src/test/integration/connection/test-fatal-network-error-without-handlers.js:6:connection.query('SELECT 1');
+/src/test/integration/connection/test-fatal-network-error-without-handlers.js-7-
+##############################################
+/src/test/integration/connection/test-multiple-statements.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-multiple-statements.js:2:var connection = common.createConnection({multipleStatements: true});
+/src/test/integration/connection/test-multiple-statements.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-multiple-statements.js-12-var fields;
+/src/test/integration/connection/test-multiple-statements.js:13:connection.query(sql, function(err, _results, _fields) {
+/src/test/integration/connection/test-multiple-statements.js-14-  if (err) throw err;
+##############################################
+/src/test/integration/connection/test-bad-credentials.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-bad-credentials.js:2:var connection = common.createConnection({password: 'INVALID PASSWORD'});
+/src/test/integration/connection/test-bad-credentials.js-3-var assert     = require('assert');
+##############################################
+/src/test/integration/connection/test-bad-credentials.js-11-var connectErr;
+/src/test/integration/connection/test-bad-credentials.js:12:connection.connect(function(err) {
+/src/test/integration/connection/test-bad-credentials.js-13-  assert.equal(connectErr, undefined);
+##############################################
+/src/test/integration/connection/test-fatal-query-error-without-callback.js-1-var common     = require('../../common');
+/src/test/integration/connection/test-fatal-query-error-without-callback.js:2:var connection = common.createConnection({port: common.bogusPort});
+/src/test/integration/connection/test-fatal-query-error-without-callback.js-3-var assert     = require('assert');
+/src/test/integration/connection/test-fatal-query-error-without-callback.js-4-
+/src/test/integration/connection/test-fatal-query-error-without-callback.js:5:connection.connect();
+/src/test/integration/connection/test-fatal-query-error-without-callback.js:6:var query = connection.query('SELECT 1');
+/src/test/integration/connection/test-fatal-query-error-without-callback.js-7-
+##############################################
+/src/test/common.js-28-  config = mergeTestConfig(config);
+/src/test/common.js:29:  return Mysql.createConnection(config);
+/src/test/common.js-30-};
+##############################################
+/src/test/common.js-42-common.useTestDb = function(connection) {
+/src/test/common.js:43:  var query = connection.query('CREATE DATABASE ' + common.testDatabase, function(err) {
+/src/test/common.js-44-    if (err && err.code !== 'ER_DB_CREATE_EXISTS') throw err;
+##############################################
+/src/test/common.js-46-
+/src/test/common.js:47:  connection.query('USE ' + common.testDatabase);
+/src/test/common.js-48-}
+##############################################
+/src/benchmark/select-100k-blog-rows.js-1-var common     = require('../test/common');
+/src/benchmark/select-100k-blog-rows.js:2:var client     = common.createConnection({typeCast: false});
+/src/benchmark/select-100k-blog-rows.js-3-var rowsPerRun = 100000;
+/src/benchmark/select-100k-blog-rows.js-4-
+/src/benchmark/select-100k-blog-rows.js:5:client.connect(function(err) {
+/src/benchmark/select-100k-blog-rows.js-6-  if (err) throw err;
+/src/benchmark/select-100k-blog-rows.js-7-
+/src/benchmark/select-100k-blog-rows.js:8:  client.query('USE node_mysql_test', function(err, results) {
+/src/benchmark/select-100k-blog-rows.js-9-    if (err) throw err;
+##############################################
+/src/benchmark/select-100k-blog-rows.js-22-
+/src/benchmark/select-100k-blog-rows.js:23:  client.query('SELECT * FROM posts', function(err, rows) {
+/src/benchmark/select-100k-blog-rows.js-24-    if (err) throw err;
+##############################################
+/src/benchmark/parse-100k-blog-rows.js-95-  protocol._handshakeInitializationPacket = true;
+/src/benchmark/parse-100k-blog-rows.js:96:  protocol.query({typeCast: false, sql: 'SELECT ...'});
+/src/benchmark/parse-100k-blog-rows.js-97-

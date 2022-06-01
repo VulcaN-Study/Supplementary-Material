@@ -1,0 +1,68 @@
+<report_mosca>
+ <Path>/src/build/schemes/http.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 21 -          //NOTE: We do not parse query strings for HTTP URIs
+
+ Line: 22 -          //as WWW Form Url Encoded query strings are part of the HTML4+ spec,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/build/schemes/mailto.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 51 -          return obj !== undefined && obj !== null ? (obj instanceof Array && !obj.callee ? obj : (typeof obj.length !== "number" || obj.split || obj.setInterval || obj.call ? [obj] : Array.prototype.slice.call(obj))) : [];
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/qunit.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 235 -  			if ( !window.setTimeout && !config.queue.length ) {
+
+ Line: 240 -  		if ( window.setTimeout && !config.doneTimer ) {
+
+ Line: 241 -  			config.doneTimer = window.setTimeout(function(){
+
+ Line: 309 -  		if ( window.setTimeout ) {
+
+ Line: 310 -  			window.setTimeout(function() {
+
+ Line: 327 -  		if ( timeout && window.setTimeout ) {
+
+ Line: 328 -  			config.timeout = window.setTimeout(function() {
+
+ Line: 506 -  		config.doneTimer = window.setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/schemes/mailto.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 5 -  serialize:function(c,h){var e;e=c.to;if(e=void 0!==e&&null!==e?e instanceof Array&&!e.callee?e:"number"!==typeof e.length||e.split||e.setInterval||e.call?[e]:Array.prototype.slice.call(e):[]){for(var k=0,a=e.length;k<a;++k){var b=String(e[k]),g=b.lastIndexOf("@"),l=b.slice(0,g),b=b.slice(g+1),l=l.replace(y,w).replace(y,n).replace(u,URI.pctEncChar);if("undefined"!==typeof A)try{b=h.iri?A.f(b):A.b(URI.unescapeComponent(b,h).toLowerCase())}catch(d){c.error=c.error||"Email address's domain name can not be converted to "+
+
+</Result>
+</report_mosca>
+

@@ -1,0 +1,160 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 11,
+          "line": 2
+        },
+        "extra": {
+          "line": "\topen http://localhost:1984/test/",
+          "message": "Syntax error"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 7,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_bodyparser": {
+      "files": [
+        {
+          "file_path": "/src/app.js",
+          "match_lines": [
+            6,
+            6
+          ],
+          "match_position": [
+            9,
+            27
+          ],
+          "match_string": "app.use(express.bodyParser())"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "POST Request to Express Body Parser 'bodyParser()' can create Temporary files and consume space.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "ERROR"
+      }
+    },
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/expressfs.server.js",
+          "match_lines": [
+            23,
+            23
+          ],
+          "match_position": [
+            16,
+            46
+          ],
+          "match_string": "        return res.redirect(req.body.redirect)"
+        },
+        {
+          "file_path": "/src/expressfs.server.js",
+          "match_lines": [
+            229,
+            229
+          ],
+          "match_position": [
+            16,
+            46
+          ],
+          "match_string": "        return res.redirect(req.body.redirect)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/expressfs.server.js",
+          "match_lines": [
+            43,
+            50
+          ],
+          "match_position": [
+            5,
+            20
+          ],
+          "match_string": "    var path = req.body.path\n\n    fs.exists(path, function (exists) {\n\n      if (exists)\n\n        return res.send(path + ' already exists')\n\n      fs.writeFile(path, req.body.content || '', 'utf8', function (err) {\n\n        if (err)\n\n          return res.send(err)\n\n        res.send('')"
+        },
+        {
+          "file_path": "/src/expressfs.server.js",
+          "match_lines": [
+            154,
+            159
+          ],
+          "match_position": [
+            5,
+            42
+          ],
+          "match_string": "    var path = req.body.path\n\n    fs.exists(path, function (exists) {\n\n      if (exists)\n\n        res.send(path + ' exists')\n\n      else\n\n        res.send(path + ' does NOT exist')"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/test/qunit-1.12.0.js",
+          "match_lines": [
+            1396,
+            1396
+          ],
+          "match_position": [
+            8,
+            37
+          ],
+          "match_string": "\t\tif ( /qunit.js$/.test( e.sourceURL ) ) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/expressfs.server.js",
+          "match_lines": [
+            125,
+            125
+          ],
+          "match_position": [
+            7,
+            62
+          ],
+          "match_string": "      extension = new RegExp('\\.' + req.body.extension  + '$')"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

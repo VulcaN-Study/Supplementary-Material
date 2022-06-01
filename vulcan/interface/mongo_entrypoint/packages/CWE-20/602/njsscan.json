@@ -1,0 +1,104 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 34,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2012 Felix Geisend\u00f6rfer (felix@debuggable.com) and contributors",
+          "message": "Lexical error: unrecognised symbol, in token rule:\ufffd"
+        },
+        "path": "/src/License",
+        "start": {
+          "col": 33,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/PoolSelector.js",
+          "match_lines": [
+            23,
+            23
+          ],
+          "match_position": [
+            34,
+            45
+          ],
+          "match_string": "    return clusterIds[Math.floor(Math.random() * clusterIds.length)];"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/protocol/Auth.js",
+          "match_lines": [
+            6,
+            6
+          ],
+          "match_position": [
+            14,
+            38
+          ],
+          "match_string": "  var hash = Crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/Pool.js",
+          "match_lines": [
+            191,
+            214
+          ],
+          "match_position": [
+            3,
+            21
+          ],
+          "match_string": "  var query = Connection.createQuery(sql, values, cb);\n\n\n\n  if (!(typeof sql === 'object' && 'typeCast' in sql)) {\n\n    query.typeCast = this.config.connectionConfig.typeCast;\n\n  }\n\n\n\n  if (this.config.connectionConfig.trace) {\n\n    // Long stack trace support\n\n    query._callSite = new Error();\n\n  }\n\n\n\n  this.getConnection(function (err, conn) {\n\n    if (err) {\n\n      query.on('error', function () {});\n\n      query.end(err);\n\n      return;\n\n    }\n\n\n\n    // Release connection based off event\n\n    query.once('end', function() {\n\n      conn.release();\n\n    });\n\n\n\n    conn.query(query);"
+        },
+        {
+          "file_path": "/src/lib/PoolNamespace.js",
+          "match_lines": [
+            61,
+            111
+          ],
+          "match_position": [
+            3,
+            21
+          ],
+          "match_string": "  var query       = Connection.createQuery(sql, values, cb);\n\n  var namespace   = this;\n\n\n\n  if (clusterNode === null) {\n\n    var err = null;\n\n\n\n    if (this._cluster._findNodeIds(this._pattern, true).length !== 0) {\n\n      err = new Error('Pool does not have online node.');\n\n      err.code = 'POOL_NONEONLINE';\n\n    } else {\n\n      err = new Error('Pool does not exist.');\n\n      err.code = 'POOL_NOEXIST';\n\n    }\n\n\n\n    process.nextTick(function () {\n\n      query.on('error', function () {});\n\n      query.end(err);\n\n    });\n\n    return query;\n\n  }\n\n\n\n  if (!(typeof sql === 'object' && 'typeCast' in sql)) {\n\n    query.typeCast = clusterNode.pool.config.connectionConfig.typeCast;\n\n  }\n\n\n\n  if (clusterNode.pool.config.connectionConfig.trace) {\n\n    // Long stack trace support\n\n    query._callSite = new Error();\n\n  }\n\n\n\n  cluster._getConnection(clusterNode, function (err, conn) {\n\n    var retry = err && cluster._canRetry\n\n      && cluster._findNodeIds(namespace._pattern).length !== 0;\n\n\n\n    if (retry) {\n\n      namespace.query(query);\n\n      return;\n\n    }\n\n\n\n    if (err) {\n\n      query.on('error', function () {});\n\n      query.end(err);\n\n      return;\n\n    }\n\n\n\n    // Release connection based off event\n\n    query.once('end', function() {\n\n      conn.release();\n\n    });\n\n\n\n    conn.query(query);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

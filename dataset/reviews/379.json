@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 379,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-23",
+    "correct_package_link": "https://registry.npmjs.org/weather.swlyons/-/weather.swlyons-0.1.6.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "package/static.js",
+                    "lineno": 6,
+                    "code": "http.createServer(function (req, res)"
+                },
+                "sink": {
+                    "file": "package/static.js",
+                    "lineno": 31,
+                    "code": "fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/weather.swlyons/PoC.sh"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "A"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

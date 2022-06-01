@@ -1,0 +1,110 @@
+{
+ "dra": [
+  {
+   "dra": "http://csrc.nist.gov/groups/ST/toolkit/documents/dss/NISTReCur.pdf",
+   "type": "url",
+   "file": "/src/lib/algs.js"
+  },
+  {
+   "dra": "-cert-v01@openssh.com",
+   "type": "email",
+   "file": "/src/lib/formats/openssh-cert.js"
+  },
+  {
+   "dra": "'ssh-rsa-cert-v01@openssh.com",
+   "type": "email",
+   "file": "/src/lib/formats/openssh-cert.js"
+  },
+  {
+   "dra": "'ssh-dss-cert-v01@openssh.com",
+   "type": "email",
+   "file": "/src/lib/formats/openssh-cert.js"
+  },
+  {
+   "dra": "'ssh-ed25519-cert-v01@openssh.com",
+   "type": "email",
+   "file": "/src/lib/formats/openssh-cert.js"
+  },
+  {
+   "dra": "'-cert-v01@openssh.com",
+   "type": "email",
+   "file": "/src/lib/formats/openssh-cert.js"
+  },
+  {
+   "dra": "'aes128-gcm@openssh.com",
+   "type": "email",
+   "file": "/src/lib/utils.js"
+  },
+  {
+   "dra": "'aes192-gcm@openssh.com",
+   "type": "email",
+   "file": "/src/lib/utils.js"
+  },
+  {
+   "dra": "'aes256-gcm@openssh.com",
+   "type": "email",
+   "file": "/src/lib/utils.js"
+  }
+ ],
+ "sast": {
+  "name": "sshpk",
+  "version": "1.13.1",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "190433 Bytes",
+  "numberOfLines": 5620
+ },
+ "libraries": [
+  {
+   "name": "asn1",
+   "current": "~0.2.3"
+  },
+  {
+   "name": "assert-plus",
+   "current": "^1.0.0"
+  },
+  {
+   "name": "dashdash",
+   "current": "^1.12.0"
+  },
+  {
+   "name": "getpass",
+   "current": "^0.1.1"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 100,
+   "class": "utils.js (100:15)",
+   "vul_id": "ceeedcb9ed438a71ef06671d3eeb2faa",
+   "method": "D = crypto.createHash('md5').update(D).digest();",
+   "column": 15,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/utils.js (100:15)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/certificate.js",
+    "/lib/dhe.js",
+    "/lib/ed-compat.js",
+    "/lib/errors.js",
+    "/lib/fingerprint.js",
+    "/lib/formats/auto.js",
+    "/lib/formats/openssh-cert.js",
+    "/lib/formats/pem.js",
+    "/lib/formats/pkcs1.js",
+    "/lib/formats/pkcs8.js",
+    "/lib/formats/rfc4253.js",
+    "/lib/formats/ssh-private.js",
+    "/lib/formats/ssh.js",
+    "/lib/formats/x509-pem.js",
+    "/lib/formats/x509.js",
+    "/lib/identity.js",
+    "/lib/key.js",
+    "/lib/private-key.js",
+    "/lib/signature.js"
+   ]
+  }
+ ]
+}

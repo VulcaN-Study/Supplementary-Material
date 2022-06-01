@@ -1,0 +1,261 @@
+<report_mosca>
+ <Path>/src/static/ntf.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 5 -    setInterval(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/assertion_result.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -      '    ON DELETE CASCADE,' +
+
+ Line: 22 -      '    ON DELETE CASCADE,' +
+
+ Line: 25 -      '    ON DELETE CASCADE,' +
+
+ Line: 43 -      'INSERT INTO assertion_result (test_result_id, assertion_id, ok, stack_trace_id)' +
+
+ Line: 45 -      '  ON DUPLICATE KEY UPDATE assertion_result_id = last_insert_id(assertion_result_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/test_result.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -      '    ON DELETE CASCADE,' +
+
+ Line: 25 -      '    ON DELETE CASCADE' +
+
+ Line: 44 -      'INSERT INTO test_result (suite_result_id, test_id, duration, pass, fail)' +
+
+ Line: 46 -      '  ON DUPLICATE KEY UPDATE test_result_id = last_insert_id(test_result_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/suite.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 28 -      'INSERT INTO suite (name) VALUES (?)' +
+
+ Line: 29 -      '  ON DUPLICATE KEY UPDATE suite_id = last_insert_id(suite_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/suite_result.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -      '    ON DELETE CASCADE,' +
+
+ Line: 27 -      '    ON DELETE CASCADE,' +
+
+ Line: 47 -      'INSERT INTO suite_result (suite_id, agent_id, duration, pass, fail, time)' +
+
+ Line: 49 -      '  ON DUPLICATE KEY UPDATE suite_result_id = last_insert_id(suite_result_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/assertion.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 29 -      'INSERT INTO assertion (message, message_sha1) VALUES (?, sha1(?))' +
+
+ Line: 30 -      '  ON DUPLICATE KEY UPDATE assertion_id = last_insert_id(assertion_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/agent.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 28 -      'INSERT INTO agent (name) VALUES (?)' +
+
+ Line: 29 -      '  ON DUPLICATE KEY UPDATE agent_id = last_insert_id(agent_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/stack_trace.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 30 -      'INSERT INTO stack_trace (value, value_sha1) VALUES (?, sha1(?))' +
+
+ Line: 31 -      '  ON DUPLICATE KEY UPDATE stack_trace_id = last_insert_id(stack_trace_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/meta_result.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -      '    ON DELETE CASCADE,' +
+
+ Line: 22 -      '    ON DELETE CASCADE,' +
+
+ Line: 36 -      'INSERT INTO meta_result (test_result_id, meta_id)' +
+
+ Line: 38 -      '  ON DUPLICATE KEY UPDATE meta_result_id = last_insert_id(meta_result_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 20 -      '    ON DELETE CASCADE,' +
+
+ Line: 37 -      'INSERT INTO test (suite_id, name) VALUES (?, ?)' +
+
+ Line: 38 -      '  ON DUPLICATE KEY UPDATE test_id = last_insert_id(test_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/meta.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 32 -      'INSERT INTO meta (name, value) VALUES (?, ?)' +
+
+ Line: 33 -      '  ON DUPLICATE KEY UPDATE meta_id = last_insert_id(meta_id)',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/api.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8 -    return (where ? [where, prefix, text].join(' ') : ' WHERE ' + text) + ' '
+
+ Line: 127 -      'SELECT name FROM agent' + where +
+
+ Line: 151 -        'SELECT' +
+
+ Line: 153 -        '  FROM suite_result' +
+
+ Line: 163 -            'SELECT' +
+
+ Line: 171 -            '  FROM suite_result sr' +
+
+ Line: 174 -            ' WHERE' +
+
+ Line: 234 -      'SELECT name FROM suite' + where +
+
+ Line: 271 -      'SELECT' +
+
+ Line: 279 -      '  FROM suite_result sr' +
+
+ Line: 316 -      'SELECT' +
+
+ Line: 320 -      '  FROM test t' +
+
+ Line: 361 -      'SELECT' +
+
+ Line: 371 -      '  FROM test_result tr' +
+
+ Line: 423 -      'SELECT ar.assertion_result_id as id, ar.create_time AS time, ar.ok AS ok,' +
+
+ Line: 428 -      '  FROM assertion_result ar' +
+
+ Line: 477 -      'SELECT' +
+
+ Line: 478 -      '  FROM_UNIXTIME(ROUND(UNIX_TIMESTAMP(create_time) / ' + req.interval + ') * ' + req.interval + ') AS time,' +
+
+ Line: 480 -      '  FROM test_result' +
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/store.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -      shared.sql.query('SELECT * FROM agent', [], function(err, results) {
+
+ Line: 26 -      shared.sql.query('SELECT * FROM suite', [], function(err, results) {
+
+ Line: 35 -      shared.sql.query('SELECT * FROM suite_result', [], function(err, results) {
+
+ Line: 47 -      shared.sql.query('SELECT * FROM test ORDER BY name', [], function(err, results) {
+
+ Line: 59 -        'SELECT t.name AS name, tr.duration AS duration,' +
+
+ Line: 61 -        '  FROM test_result tr' +
+
+ Line: 81 -      shared.sql.query('SELECT * FROM assertion ORDER BY message', [], function(err, results) {
+
+ Line: 95 -        'SELECT a.message AS message, ar.ok AS ok' +
+
+ Line: 96 -        '  FROM ' +
+
+</Result>
+</report_mosca>
+

@@ -1,0 +1,72 @@
+{
+ "dra": [
+  {
+   "dra": "http://www.dsprelated.com/showmessage/89790/1.php",
+   "type": "url",
+   "file": "/src/lib/protocol/Auth.js"
+  },
+  {
+   "dra": "http://dev.mysql.com/doc/refman/5.5/en/c-api-prepared-statement-type-codes.html",
+   "type": "url",
+   "file": "/src/lib/protocol/constants/types.js"
+  },
+  {
+   "dra": "http://dev.mysql.com/doc/refman/5.0/en/precision-math-decimal-changes.html",
+   "type": "url",
+   "file": "/src/lib/protocol/constants/types.js"
+  },
+  {
+   "dra": "https://github.com/felixge/node-mysql/issues/222",
+   "type": "url",
+   "file": "/src/lib/protocol/sequences/Query.js"
+  },
+  {
+   "dra": "http://about.travis-ci.org/docs/user/database-setup/",
+   "type": "url",
+   "file": "/src/test/common.js"
+  },
+  {
+   "dra": "https://github.com/felixge/node-mysql/issues/198",
+   "type": "url",
+   "file": "/src/test/integration/connection/test-long-stack-traces.js"
+  }
+ ],
+ "sast": {
+  "name": "mysql",
+  "version": "2.0.0-alpha7",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "222987 Bytes",
+  "numberOfLines": 6328
+ },
+ "libraries": [
+  {
+   "name": "require-all",
+   "current": "0.0.3"
+  },
+  {
+   "name": "bignumber.js",
+   "current": "1.0.1"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 6,
+   "class": "Auth.js (6:21)",
+   "vul_id": "330be4b053a905c27a8491bc34179444",
+   "method": "var hash = Crypto.createHash('sha1');",
+   "column": 21,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/protocol/Auth.js (6:21)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/protocol/Protocol.js",
+    "/lib/protocol/sequences/ChangeUser.js",
+    "/lib/protocol/sequences/Handshake.js",
+    "/test/FakeServer.js"
+   ]
+  }
+ ]
+}

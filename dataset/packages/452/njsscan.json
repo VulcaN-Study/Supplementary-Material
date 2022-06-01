@@ -1,0 +1,152 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 1
+        },
+        "extra": {
+          "line": "FROM iron/node:4",
+          "message": "Syntax error"
+        },
+        "path": "/src/Dockerfile",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            150,
+            165
+          ],
+          "match_position": [
+            5,
+            54
+          ],
+          "match_string": "    var packagejson = settings.storageDir + 'published/' + req.params.package + '.json';\n\n    fs.readFile(packagejson, function (err, data) {\n\n      if (err) {\n\n        //first publish\n\n        fs.writeFileSync(packagejson, JSON.stringify(pkgData, null, 4));\n\n      } else {\n\n        //additional publish\n\n        fs.readFile(packagejson, function (err, data) {\n\n          var obj = JSON.parse(data);\n\n          var newObj = {};\n\n          _.merge(newObj, obj, pkgData);\n\n          fs.writeFileSync(packagejson, JSON.stringify(newObj, null, 4));\n\n        })\n\n      }\n\n\n\n      res.status(201).json({ok: 'created or updated'});"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            172,
+            176
+          ],
+          "match_position": [
+            5,
+            48
+          ],
+          "match_string": "    fs.readFile(settings.storageDir + 'published/' + req.params.package + '/' + req.params.filename, function (err, data) {\n\n      if (err) {\n\n        res.status(404).send();\n\n      } else {\n\n        sendFile(res, data, req.params.filename);"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            284,
+            303
+          ],
+          "match_position": [
+            5,
+            37
+          ],
+          "match_string": "    fs.readFile('cache/' + req.query.sha, function (err, data) {\n\n      if (err) {\n\n        console.log('    Caching: '.green, url);\n\n        // cache for file does not exist, grab the remote file and, cache it, and return it\n\n        request({\n\n          url     : url,\n\n          method  : req.method,\n\n          encoding: null\n\n        }, function (e, r, b) {\n\n          if (!e && r.statusCode === 200) {\n\n            fs.writeFileSync('cache/' + req.query.sha, b);\n\n\n\n            sendFile(res, b, filename);\n\n          } else {\n\n            res.status(404).send('');\n\n          }\n\n        });\n\n      } else {\n\n        //return cached file\n\n        sendFile(res, data, filename)"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            314,
+            342
+          ],
+          "match_position": [
+            5,
+            22
+          ],
+          "match_string": "    fs.readFile(settings.storageDir + 'published' + req.url + '.json', function (err, data) {\n\n      if (err) {\n\n        // no local package, forward to npmjs\n\n        request({\n\n          url: 'https://registry.npmjs.org' + req.url,\n\n          method: req.method\n\n        }, function (e, r, b) {\n\n          log(r.statusCode.toString());\n\n\n\n          if (!e && r.statusCode === 200) {\n\n            b = prepout(b);\n\n            fs.writeFileSync(settings.storageDir + 'cache' + req.url + '.json', JSON.stringify(b, null, 4));\n\n            res.json(b);\n\n          } else {\n\n            // try to send cached output\n\n            fs.readFile(settings.storageDir + 'cache' + req.url + '.json', function(err, data) {\n\n              if (err) {\n\n                res.status(r.statusCode).send('');\n\n              } else {\n\n                res.status(200).send(data);\n\n              }\n\n            });\n\n          }\n\n        });\n\n      } else {\n\n        log('304');\n\n        // published modules do not need paths changed\n\n        res.set('content-type', 'text/html');\n\n        res.send(data);"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            329,
+            333
+          ],
+          "match_position": [
+            13,
+            42
+          ],
+          "match_string": "            fs.readFile(settings.storageDir + 'cache' + req.url + '.json', function(err, data) {\n\n              if (err) {\n\n                res.status(r.statusCode).send('');\n\n              } else {\n\n                res.status(200).send(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            209,
+            209
+          ],
+          "match_position": [
+            21,
+            45
+          ],
+          "match_string": "    data.password = crypto.createHash('sha1').update(data.password).digest('hex');"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            232,
+            232
+          ],
+          "match_position": [
+            20,
+            44
+          ],
+          "match_string": "      user.token = crypto.createHash('sha1').update(JSON.stringify(user)).digest('hex');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            117,
+            118
+          ],
+          "match_position": [
+            9,
+            26
+          ],
+          "match_string": "        if (user.token === token) {\n\n          req.user = user;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,88 @@
+Instead of doing (at line 75 of command.js):
+function doInnerProxy(request, response, localPath) {
+    var dotUrls = [];
+    request.addListener('end', function () {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        var fileContents = "",
+            promiseArr = [];
+        if (request.url.indexOf("??") != -1) {
+            var rUrls = request.url.match(/^([^\?]*)\?{2}([^\?]*)\??.*$/);
+            dotUrls = rUrls[2].split(",");
+            dotUrls = dotUrls.map(function (current) {
+                return program.foreign + current;
+            });
+            //console.log("??....",request.url, dotUrls);
+            try {
+                dotUrls.forEach(function (current) {
+                    promiseArr.push(when.promise(function (resolve) {
+                        fs.readFile(current, 'utf-8', function (error, data) {
+                           // console.log("fileData....", data);
+                            resolve(data.toString());
+                        });
+                    }));
+                });
+                when.join.apply(this, promiseArr).then(function (arr) {
+                    arr.forEach(function (current) {
+                        fileContents += current;
+                    });
+                    response.write(fileContents);
+                    response.end();
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        } else {
+            var fUrl = localPath + request.url;
+            // console.log("after...", fUrl);
+            fileContents = fs.readFileSync(fUrl.match(/^([^\?]*)\??.*$/)[1], 'utf-8');
+            response.write(fileContents);
+            response.end();
+        }
+    }).resume();
+}
+Do:
+function doInnerProxy(request, response, localPath) {
+    var dotUrls = [];
+    request.addListener('end', function () {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        var fileContents = "",
+            promiseArr = [];
+        if (request.url.indexOf("??") != -1) {
+            var rUrls = request.url.match(/^([^\?]*)\?{2}([^\?]*)\??.*$/);
+            dotUrls = rUrls[2].split(",");
+            dotUrls = dotUrls.map(function (current) {
+                return program.foreign + current;
+            });
+            //console.log("??....",request.url, dotUrls);
+            try {
+                dotUrls.forEach(function (current) {
+                    promiseArr.push(when.promise(function (resolve) {
+                        fs.readFile(current, 'utf-8', function (error, data) {
+                           // console.log("fileData....", data);
+                            resolve(data.toString());
+                        });
+                    }));
+                });
+                when.join.apply(this, promiseArr).then(function (arr) {
+                    arr.forEach(function (current) {
+                        fileContents += current;
+                    });
+                    response.write(fileContents);
+                    response.end();
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        } else { 
+            if(request.url.includes('../')) {                                          // CHANGE
+                request.url = '/' + request.url.split('../').pop();                   // CHANGE
+            }                                                                         // CHANGE
+            var fUrl = localPath + request.url;                                       
+            console.log("after...", fUrl);
+
+            fileContents = fs.readFileSync(fUrl.match(/^([^\?]*)\??.*$/)[1], 'utf-8');
+            response.write(fileContents);
+            response.end();
+        }
+    }).resume();
+}

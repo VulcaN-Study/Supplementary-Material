@@ -1,0 +1,675 @@
+/src/examples/example.js-38-    const fs = require('fs')
+/src/examples/example.js:39:    const stream = fs.createReadStream(process.cwd() + '/examples/plugin.js', 'utf8')
+/src/examples/example.js-40-    reply.code(200).send(stream)
+##############################################
+/src/lib/handleRequest.js-15-  if (method === 'GET' || method === 'HEAD') {
+/src/lib/handleRequest.js:16:    return handler(context, params, req, res, null, urlUtil.parse(req.url, true).query)
+/src/lib/handleRequest.js-17-  }
+##############################################
+/src/lib/handleRequest.js-26-    if (context.contentTypeParser.fastHasHeader(req.headers['content-type'])) {
+/src/lib/handleRequest.js:27:      return context.contentTypeParser.run(req.headers['content-type'], handler, context, params, req, res, urlUtil.parse(req.url, true).query)
+/src/lib/handleRequest.js-28-    }
+/src/lib/handleRequest.js-29-
+/src/lib/handleRequest.js:30:    wrapReplyEnd(context, req, res, 415, params, null, urlUtil.parse(req.url, true).query, null)
+/src/lib/handleRequest.js-31-    return
+##############################################
+/src/lib/handleRequest.js-40-      } else if (context.contentTypeParser.fastHasHeader(req.headers['content-type'])) {
+/src/lib/handleRequest.js:41:        return context.contentTypeParser.run(req.headers['content-type'], handler, context, params, req, res, urlUtil.parse(req.url, true).query)
+/src/lib/handleRequest.js-42-      }
+/src/lib/handleRequest.js-43-
+/src/lib/handleRequest.js:44:      wrapReplyEnd(context, req, res, 415, params, null, urlUtil.parse(req.url, true).query, null)
+/src/lib/handleRequest.js-45-      return
+/src/lib/handleRequest.js-46-    }
+/src/lib/handleRequest.js:47:    return handler(context, params, req, res, null, urlUtil.parse(req.url, true).query)
+/src/lib/handleRequest.js-48-  }
+/src/lib/handleRequest.js-49-
+/src/lib/handleRequest.js:50:  wrapReplyEnd(context, req, res, 405, params, null, urlUtil.parse(req.url, true).query, null)
+/src/lib/handleRequest.js-51-  return
+##############################################
+/src/lib/handleRequest.js-67-    try {
+/src/lib/handleRequest.js:68:      parsed = JSON.parse(body)
+/src/lib/handleRequest.js-69-    } catch (err) {
+##############################################
+/src/lib/handleRequest.js-77-function jsonBodyParsed (err, body, req, res, params, context) {
+/src/lib/handleRequest.js:78:  var query = urlUtil.parse(req.url, true).query
+/src/lib/handleRequest.js-79-  if (err) {
+##############################################
+/src/test/get.test.js-224-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/get.test.js:225:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/get.test.js-226-    })
+##############################################
+/src/test/get.test.js-237-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/get.test.js:238:      t.deepEqual(JSON.parse(body), { foo: 'world', test: 123 })
+/src/test/get.test.js-239-    })
+##############################################
+/src/test/get.test.js-249-      t.strictEqual(response.statusCode, 400)
+/src/test/get.test.js:250:      t.deepEqual(JSON.parse(body), {
+/src/test/get.test.js-251-        error: 'Bad Request',
+##############################################
+/src/test/get.test.js-275-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/get.test.js:276:      t.strictEqual(JSON.parse(body)['x-test'], 1)
+/src/test/get.test.js-277-    })
+##############################################
+/src/test/get.test.js-290-      t.strictEqual(response.statusCode, 400)
+/src/test/get.test.js:291:      t.deepEqual(JSON.parse(body), {
+/src/test/get.test.js-292-        error: 'Bad Request',
+##############################################
+/src/test/get.test.js-313-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/get.test.js:314:      t.deepEqual(JSON.parse(body), { hello: 123 })
+/src/test/get.test.js-315-    })
+##############################################
+/src/test/get.test.js-325-      t.strictEqual(response.statusCode, 400)
+/src/test/get.test.js:326:      t.deepEqual(JSON.parse(body), {
+/src/test/get.test.js-327-        error: 'Bad Request',
+##############################################
+/src/test/get.test.js-348-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/get.test.js:349:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/get.test.js-350-    })
+##############################################
+/src/test/get.test.js-361-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/get.test.js:362:      t.deepEqual(JSON.parse(body), { hello: null })
+/src/test/get.test.js-363-    })
+##############################################
+/src/test/get.test.js-374-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/get.test.js:375:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/get.test.js-376-    })
+##############################################
+/src/test/promises.test.js-57-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/promises.test.js:58:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/promises.test.js-59-    })
+##############################################
+/src/test/promises.test.js-81-      t.strictEqual(response.statusCode, 200)
+/src/test/promises.test.js:82:      t.deepEqual(JSON.parse(body), { hello: '42' })
+/src/test/promises.test.js-83-    })
+##############################################
+/src/test/async-await.js-60-        t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/async-await.js:61:        t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/async-await.js-62-      })
+##############################################
+/src/test/async-await.js-70-        t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/async-await.js:71:        t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/async-await.js-72-      })
+##############################################
+/src/test/async-await.js-94-        t.error(err)
+/src/test/async-await.js:95:        t.deepEqual(payload, JSON.parse(body))
+/src/test/async-await.js-96-        t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/async-await.js-120-        t.error(err)
+/src/test/async-await.js:121:        t.deepEqual(payload, JSON.parse(body))
+/src/test/async-await.js-122-        t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/async-await.js-150-    }, res => {
+/src/test/async-await.js:151:      const payload = JSON.parse(res.payload)
+/src/test/async-await.js-152-      t.deepEqual(payload, { hello: 'world' })
+##############################################
+/src/test/async-await.js-174-        t.error(err)
+/src/test/async-await.js:175:        t.deepEqual(payload, JSON.parse(body))
+/src/test/async-await.js-176-        t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/async-await.js-200-        t.error(err)
+/src/test/async-await.js:201:        t.deepEqual(payload, JSON.parse(body))
+/src/test/async-await.js-202-        t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/async-await.js-226-    }, res => {
+/src/test/async-await.js:227:      const payload = JSON.parse(res.payload)
+/src/test/async-await.js-228-      t.deepEqual(payload, { hello: 'world' })
+##############################################
+/src/test/async-await.js-278-    const res = await fastify.inject({ method: 'GET', url: '/' })
+/src/test/async-await.js:279:    t.deepEqual({ hello: 'world' }, JSON.parse(res.payload))
+/src/test/async-await.js-280-  })
+##############################################
+/src/test/async-await.js-291-    const res = await fastify.inject({ method: 'GET', url: '/' })
+/src/test/async-await.js:292:    t.deepEqual({ hello: 'world' }, JSON.parse(res.payload))
+/src/test/async-await.js-293-
+##############################################
+/src/test/async-await.js-296-    const res2 = await fastify.inject({ method: 'GET', url: '/' })
+/src/test/async-await.js:297:    t.deepEqual({ hello: 'world' }, JSON.parse(res2.payload))
+/src/test/async-await.js-298-  })
+##############################################
+/src/test/async-await.js-313-    const res = await fastify.inject({ method: 'GET', url: '/' })
+/src/test/async-await.js:314:    t.deepEqual({ hello: 'world' }, JSON.parse(res.payload))
+/src/test/async-await.js-315-  })
+##############################################
+/src/test/async-await.js-339-        },
+/src/test/async-await.js:340:        JSON.parse(res.payload)
+/src/test/async-await.js-341-      )
+##############################################
+/src/test/async-await.js-373-        },
+/src/test/async-await.js:374:        JSON.parse(res.payload)
+/src/test/async-await.js-375-      )
+##############################################
+/src/test/decorator.test.js-94-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:95:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-96-    })
+##############################################
+/src/test/decorator.test.js-104-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:105:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-106-    })
+##############################################
+/src/test/decorator.test.js-142-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:143:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-144-    })
+##############################################
+/src/test/decorator.test.js-152-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:153:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-154-    })
+##############################################
+/src/test/decorator.test.js-190-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:191:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-192-    })
+##############################################
+/src/test/decorator.test.js-200-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:201:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-202-    })
+##############################################
+/src/test/decorator.test.js-237-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:238:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-239-    })
+##############################################
+/src/test/decorator.test.js-247-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:248:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-249-    })
+##############################################
+/src/test/decorator.test.js-285-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:286:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-287-    })
+##############################################
+/src/test/decorator.test.js-295-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:296:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-297-    })
+##############################################
+/src/test/decorator.test.js-333-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:334:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-335-    })
+##############################################
+/src/test/decorator.test.js-343-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/decorator.test.js:344:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/decorator.test.js-345-    })
+##############################################
+/src/test/inject.test.js-32-  }, res => {
+/src/test/inject.test.js:33:    t.deepEqual(payload, JSON.parse(res.payload))
+/src/test/inject.test.js-34-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/inject.test.js-51-  }, res => {
+/src/test/inject.test.js:52:    t.deepEqual(payload, JSON.parse(res.payload))
+/src/test/inject.test.js-53-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/inject.test.js-70-  }, res => {
+/src/test/inject.test.js:71:    t.deepEqual(payload, JSON.parse(res.payload))
+/src/test/inject.test.js-72-    t.strictEqual(res.statusCode, 201)
+##############################################
+/src/test/inject.test.js-106-  }, res => {
+/src/test/inject.test.js:107:    t.deepEqual({ hello: 'world' }, JSON.parse(res.payload))
+/src/test/inject.test.js-108-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/inject.test.js-124-  }, res => {
+/src/test/inject.test.js:125:    t.deepEqual({ hello: 'world' }, JSON.parse(res.payload))
+/src/test/inject.test.js-126-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/inject.test.js-142-  }, res => {
+/src/test/inject.test.js:143:    t.deepEqual({ '*': 'wildcard' }, JSON.parse(res.payload))
+/src/test/inject.test.js-144-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/inject.test.js-161-  }, res => {
+/src/test/inject.test.js:162:    t.strictEqual('world', JSON.parse(res.payload).hello)
+/src/test/inject.test.js-163-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/inject.test.js-181-  }, res => {
+/src/test/inject.test.js:182:    t.deepEqual(payload, JSON.parse(res.payload))
+/src/test/inject.test.js-183-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/stream.test.js-16-  fastify.get('/', function (req, reply) {
+/src/test/stream.test.js:17:    const stream = fs.createReadStream(process.cwd() + '/test/stream.test.js', 'utf8')
+/src/test/stream.test.js-18-    reply.code(200).send(stream)
+##############################################
+/src/test/stream.test.js-21-  fastify.get('/error', function (req, reply) {
+/src/test/stream.test.js:22:    const stream = fs.createReadStream('not-existing-file', 'utf8')
+/src/test/stream.test.js-23-    reply.code(200).send(stream)
+##############################################
+/src/test/stream.test.js-63-    pump(
+/src/test/stream.test.js:64:      fs.createReadStream(resolve(process.cwd() + '/test/stream.test.js'), 'utf8'),
+/src/test/stream.test.js-65-      gzStream,
+##############################################
+/src/test/register.test.js-84-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/register.test.js:85:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/register.test.js-86-    })
+##############################################
+/src/test/https/https.test.js-42-      url: 'https://localhost:' + fastify.server.address().port,
+/src/test/https/https.test.js:43:      rejectUnauthorized: false
+/src/test/https/https.test.js-44-    }, (err, response, body) => {
+##############################################
+/src/test/https/https.test.js-47-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/https/https.test.js:48:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/https/https.test.js-49-    })
+##############################################
+/src/test/hooks-async.js-67-        t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks-async.js:68:        t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks-async.js-69-      })
+##############################################
+/src/test/hooks-async.js-122-    }, res => {
+/src/test/hooks-async.js:123:      t.deepEqual(anotherPayload, JSON.parse(res.payload))
+/src/test/hooks-async.js-124-      t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/reply-error.test.js-37-        },
+/src/test/reply-error.test.js:38:        JSON.parse(res.payload)
+/src/test/reply-error.test.js-39-      )
+##############################################
+/src/test/reply-error.test.js-66-      },
+/src/test/reply-error.test.js:67:      JSON.parse(res.payload)
+/src/test/reply-error.test.js-68-    )
+##############################################
+/src/test/reply-error.test.js-94-      },
+/src/test/reply-error.test.js:95:      JSON.parse(res.payload)
+/src/test/reply-error.test.js-96-    )
+##############################################
+/src/test/reply-error.test.js-107-
+/src/test/reply-error.test.js:108:      const client = net.connect(fastify.server.address().port)
+/src/test/reply-error.test.js-109-      client.end('oooops!')
+##############################################
+/src/test/reply-error.test.js-149-      },
+/src/test/reply-error.test.js:150:      JSON.parse(res.payload)
+/src/test/reply-error.test.js-151-    )
+##############################################
+/src/test/reply-error.test.js-175-      },
+/src/test/reply-error.test.js:176:      JSON.parse(res.payload)
+/src/test/reply-error.test.js-177-    )
+##############################################
+/src/test/reply-error.test.js-201-      },
+/src/test/reply-error.test.js:202:      JSON.parse(res.payload)
+/src/test/reply-error.test.js-203-    )
+##############################################
+/src/test/reply-error.test.js-298-    t.strictEqual(res.headers.hello, 'world')
+/src/test/reply-error.test.js:299:    t.deepEqual(JSON.parse(res.payload), {
+/src/test/reply-error.test.js-300-      error: 'Bad Request',
+##############################################
+/src/test/reply-error.test.js-331-    t.strictEqual(res.headers.hello, 'world')
+/src/test/reply-error.test.js:332:    t.deepEqual(JSON.parse(res.payload), {
+/src/test/reply-error.test.js-333-      error: 'Bad Request',
+##############################################
+/src/test/internals/all.test.js-29-    fastify.inject(options, res => {
+/src/test/internals/all.test.js:30:      var payload = JSON.parse(res.payload)
+/src/test/internals/all.test.js-31-      t.deepEqual(payload, { method: method })
+##############################################
+/src/test/internals/reply.test.js-230-      t.strictEqual(response.statusCode, 200)
+/src/test/internals/reply.test.js:231:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/internals/reply.test.js-232-    })
+##############################################
+/src/test/internals/logger.test.js-39-    }, res => {
+/src/test/internals/logger.test.js:40:      const payload = JSON.parse(res.payload)
+/src/test/internals/logger.test.js-41-      t.ok(ids.indexOf(payload.id) === -1, 'the id should not be duplicated')
+##############################################
+/src/test/internals/logger.test.js-64-    }, res => {
+/src/test/internals/logger.test.js:65:      const payload = JSON.parse(res.payload)
+/src/test/internals/logger.test.js-66-      t.ok(payload.id === 'request-id-1', 'the request id from the header should be returned')
+##############################################
+/src/test/http2/secure.js-40-    t.strictEqual(res.headers['content-length'], '' + JSON.stringify(msg).length)
+/src/test/http2/secure.js:41:    t.deepEqual(JSON.parse(res.body), msg)
+/src/test/http2/secure.js-42-  })
+##############################################
+/src/test/http2/secure-with-fallback.js-65-    t.strictEqual(res.headers[':status'], 200)
+/src/test/http2/secure-with-fallback.js:66:    t.deepEqual(JSON.parse(res.body), { hello: 'http2' })
+/src/test/http2/secure-with-fallback.js-67-  })
+##############################################
+/src/test/http2/secure-with-fallback.js-76-    t.strictEqual(res.headers['content-length'], '' + JSON.stringify(msg).length)
+/src/test/http2/secure-with-fallback.js:77:    t.deepEqual(JSON.parse(res.body), msg)
+/src/test/http2/secure-with-fallback.js-78-  })
+##############################################
+/src/test/http2/secure-with-fallback.js-84-      url: 'https://localhost:' + fastify.server.address().port,
+/src/test/http2/secure-with-fallback.js:85:      rejectUnauthorized: false
+/src/test/http2/secure-with-fallback.js-86-    }, (err, response, body) => {
+##############################################
+/src/test/http2/secure-with-fallback.js-89-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/http2/secure-with-fallback.js:90:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/http2/secure-with-fallback.js-91-    })
+##############################################
+/src/test/http2/secure-with-fallback.js-98-      url: 'https://localhost:' + fastify.server.address().port + '/error',
+/src/test/http2/secure-with-fallback.js:99:      rejectUnauthorized: false
+/src/test/http2/secure-with-fallback.js-100-    }, (err, response, body) => {
+##############################################
+/src/test/http2/plain.js-35-
+/src/test/http2/plain.js:36:    t.deepEqual(JSON.parse(res.body), msg)
+/src/test/http2/plain.js-37-  })
+##############################################
+/src/test/types/index.ts-138-    const fs = require('fs')
+/src/test/types/index.ts:139:    const stream = fs.createReadStream(process.cwd() + '/examples/plugin.js', 'utf8')
+/src/test/types/index.ts-140-    reply.code(200).send(stream)
+##############################################
+/src/test/404s.test.js-471-      const INFO_LEVEL = 30
+/src/test/404s.test.js:472:      t.strictEqual(JSON.parse(logStream.logs[0]).msg, 'incoming request')
+/src/test/404s.test.js:473:      t.strictEqual(JSON.parse(logStream.logs[1]).msg, 'Not found')
+/src/test/404s.test.js:474:      t.strictEqual(JSON.parse(logStream.logs[1]).level, INFO_LEVEL)
+/src/test/404s.test.js:475:      t.strictEqual(JSON.parse(logStream.logs[2]).msg, 'request completed')
+/src/test/404s.test.js-476-      t.strictEqual(logStream.logs.length, 3)
+##############################################
+/src/test/404s.test.js-534-        t.error(err)
+/src/test/404s.test.js:535:        const obj = JSON.parse(body.toString())
+/src/test/404s.test.js-536-        t.strictDeepEqual(obj, {
+##############################################
+/src/test/output-validation.test.js-105-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/output-validation.test.js:106:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/output-validation.test.js-107-    })
+##############################################
+/src/test/output-validation.test.js-118-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/output-validation.test.js:119:      t.deepEqual(JSON.parse(body), { hello: 55 })
+/src/test/output-validation.test.js-120-    })
+##############################################
+/src/test/output-validation.test.js-131-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/output-validation.test.js:132:      t.deepEqual(JSON.parse(body), { hello: null })
+/src/test/output-validation.test.js-133-    })
+##############################################
+/src/test/output-validation.test.js-155-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/output-validation.test.js:156:      t.deepEqual(JSON.parse(body), { hello: 'DOOM' })
+/src/test/output-validation.test.js-157-    })
+##############################################
+/src/test/route.test.js-121-      t.strictEqual(response.statusCode, 200)
+/src/test/route.test.js:122:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/route.test.js-123-    })
+##############################################
+/src/test/route.test.js-133-      t.strictEqual(response.statusCode, 200)
+/src/test/route.test.js:134:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/route.test.js-135-    })
+##############################################
+/src/test/route.test.js-145-      t.strictEqual(response.statusCode, 200)
+/src/test/route.test.js:146:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/route.test.js-147-    })
+##############################################
+/src/test/route.test.js-154-      t.strictEqual(response.statusCode, 200)
+/src/test/route.test.js:155:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/route.test.js-156-    })
+##############################################
+/src/test/route.test.js-177-    t.strictEqual(res.statusCode, 200)
+/src/test/route.test.js:178:    t.deepEqual(JSON.parse(res.payload), { hello: 'world' })
+/src/test/route.test.js-179-  })
+##############################################
+/src/test/route-prefix.test.js-33-  }, res => {
+/src/test/route-prefix.test.js:34:    t.same(JSON.parse(res.payload), { route: '/first' })
+/src/test/route-prefix.test.js-35-  })
+##############################################
+/src/test/route-prefix.test.js-40-  }, res => {
+/src/test/route-prefix.test.js:41:    t.same(JSON.parse(res.payload), { route: '/v1/first' })
+/src/test/route-prefix.test.js-42-  })
+##############################################
+/src/test/route-prefix.test.js-47-  }, res => {
+/src/test/route-prefix.test.js:48:    t.same(JSON.parse(res.payload), { route: '/v1/v2/first' })
+/src/test/route-prefix.test.js-49-  })
+##############################################
+/src/test/route-prefix.test.js-70-  }, res => {
+/src/test/route-prefix.test.js:71:    t.same(JSON.parse(res.payload), { route: '/v1/first' })
+/src/test/route-prefix.test.js-72-  })
+##############################################
+/src/test/route-prefix.test.js-77-  }, res => {
+/src/test/route-prefix.test.js:78:    t.same(JSON.parse(res.payload), { route: '/v1/second' })
+/src/test/route-prefix.test.js-79-  })
+##############################################
+/src/test/route-prefix.test.js-101-  }, res => {
+/src/test/route-prefix.test.js:102:    t.same(JSON.parse(res.payload), { route: '/v1/first' })
+/src/test/route-prefix.test.js-103-  })
+##############################################
+/src/test/route-prefix.test.js-108-  }, res => {
+/src/test/route-prefix.test.js:109:    t.same(JSON.parse(res.payload), { route: '/v1/second' })
+/src/test/route-prefix.test.js-110-  })
+##############################################
+/src/test/route-prefix.test.js-127-  }, res => {
+/src/test/route-prefix.test.js:128:    t.same(JSON.parse(res.payload), { id: 'param' })
+/src/test/route-prefix.test.js-129-  })
+##############################################
+/src/test/route-prefix.test.js-146-  }, res => {
+/src/test/route-prefix.test.js:147:    t.same(JSON.parse(res.payload), { hello: 'world' })
+/src/test/route-prefix.test.js-148-  })
+##############################################
+/src/test/route-prefix.test.js-165-  }, res => {
+/src/test/route-prefix.test.js:166:    t.same(JSON.parse(res.payload), { hello: 'world' })
+/src/test/route-prefix.test.js-167-  })
+##############################################
+/src/test/hooks.test.js-80-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:81:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-82-    })
+##############################################
+/src/test/hooks.test.js-185-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:186:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-187-    })
+##############################################
+/src/test/hooks.test.js-195-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:196:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-197-    })
+##############################################
+/src/test/hooks.test.js-246-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:247:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-248-    })
+##############################################
+/src/test/hooks.test.js-256-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:257:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-258-    })
+##############################################
+/src/test/hooks.test.js-337-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:338:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-339-    })
+##############################################
+/src/test/hooks.test.js-347-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:348:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-349-    })
+##############################################
+/src/test/hooks.test.js-412-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:413:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-414-    })
+##############################################
+/src/test/hooks.test.js-422-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:423:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-424-    })
+##############################################
+/src/test/hooks.test.js-462-  }, res => {
+/src/test/hooks.test.js:463:    t.deepEqual(anotherPayload, JSON.parse(res.payload))
+/src/test/hooks.test.js-464-    t.strictEqual(res.statusCode, 200)
+##############################################
+/src/test/hooks.test.js-497-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/hooks.test.js:498:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/hooks.test.js-499-    })
+##############################################
+/src/test/beforeHandler.test.js-24-  }, res => {
+/src/test/beforeHandler.test.js:25:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-26-    t.deepEqual(payload, { beforeHandler: true, hello: 'world' })
+##############################################
+/src/test/beforeHandler.test.js-52-  }, res => {
+/src/test/beforeHandler.test.js:53:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-54-    t.deepEqual(payload, { check: 'ab', hello: 'world' })
+##############################################
+/src/test/beforeHandler.test.js-79-  }, res => {
+/src/test/beforeHandler.test.js:80:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-81-    t.deepEqual(payload, { hello: 'earth' })
+##############################################
+/src/test/beforeHandler.test.js-88-  }, res => {
+/src/test/beforeHandler.test.js:89:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-90-    t.deepEqual(payload, { hello: 'world' })
+##############################################
+/src/test/beforeHandler.test.js-110-  }, res => {
+/src/test/beforeHandler.test.js:111:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-112-    t.equal(res.statusCode, 500)
+##############################################
+/src/test/beforeHandler.test.js-138-  }, res => {
+/src/test/beforeHandler.test.js:139:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-140-    t.equal(res.statusCode, 401)
+##############################################
+/src/test/beforeHandler.test.js-166-  }, res => {
+/src/test/beforeHandler.test.js:167:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-168-    t.equal(res.statusCode, 401)
+##############################################
+/src/test/beforeHandler.test.js-200-  }, res => {
+/src/test/beforeHandler.test.js:201:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-202-    t.deepEqual(payload, { beforeHandler: 'ab', hello: 'world' })
+##############################################
+/src/test/beforeHandler.test.js-232-  }, res => {
+/src/test/beforeHandler.test.js:233:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-234-    t.deepEqual(payload, { check: 'ab', hello: 'world' })
+##############################################
+/src/test/beforeHandler.test.js-241-  }, res => {
+/src/test/beforeHandler.test.js:242:    var payload = JSON.parse(res.payload)
+/src/test/beforeHandler.test.js-243-    t.deepEqual(payload, { check: 'a', hello: 'world' })
+##############################################
+/src/test/middleware.test.js-40-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:41:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-42-    })
+##############################################
+/src/test/middleware.test.js-157-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:158:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-159-    })
+##############################################
+/src/test/middleware.test.js-204-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:205:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-206-
+##############################################
+/src/test/middleware.test.js-213-        t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:214:        t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-215-      })
+##############################################
+/src/test/middleware.test.js-268-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:269:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-270-
+##############################################
+/src/test/middleware.test.js-277-        t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:278:        t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-279-      })
+##############################################
+/src/test/middleware.test.js-351-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:352:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-353-
+##############################################
+/src/test/middleware.test.js-360-        t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:361:        t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-362-
+##############################################
+/src/test/middleware.test.js-369-          t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:370:          t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-371-        })
+##############################################
+/src/test/middleware.test.js-414-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:415:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-416-
+##############################################
+/src/test/middleware.test.js-422-        t.strictEqual(response.statusCode, 500)
+/src/test/middleware.test.js:423:        t.deepEqual(JSON.parse(body), {
+/src/test/middleware.test.js-424-          error: 'Internal Server Error',
+##############################################
+/src/test/middleware.test.js-470-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/middleware.test.js:471:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/middleware.test.js-472-
+##############################################
+/src/test/middleware.test.js-478-        t.strictEqual(response.statusCode, 500)
+/src/test/middleware.test.js:479:        t.deepEqual(JSON.parse(body), {
+/src/test/middleware.test.js-480-          error: 'Internal Server Error',
+##############################################
+/src/test/custom-parser.test.js-416-
+/src/test/custom-parser.test.js:417:    const fileStream = fs.createReadStream(__filename)
+/src/test/custom-parser.test.js-418-
+##############################################
+/src/test/plugin.test.js-58-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/plugin.test.js:59:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/plugin.test.js-60-    })
+##############################################
+/src/test/plugin.test.js-113-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/plugin.test.js:114:      t.deepEqual(JSON.parse(body), { test: 'first' })
+/src/test/plugin.test.js-115-    })
+##############################################
+/src/test/plugin.test.js-123-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/plugin.test.js:124:      t.deepEqual(JSON.parse(body), { test2: 'second' })
+/src/test/plugin.test.js-125-    })
+##############################################
+/src/test/plugin.test.js-175-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/plugin.test.js:176:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/plugin.test.js-177-    })
+##############################################
+/src/test/plugin.test.js-226-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/plugin.test.js:227:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/plugin.test.js-228-    })
+##############################################
+/src/test/plugin.test.js-276-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/plugin.test.js:277:      t.deepEqual(JSON.parse(body), { plugin: 'first' })
+/src/test/plugin.test.js-278-    })
+##############################################
+/src/test/plugin.test.js-286-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/plugin.test.js:287:      t.deepEqual(JSON.parse(body), { plugin: 'second' })
+/src/test/plugin.test.js-288-    })
+##############################################
+/src/test/plugin.test.js-346-      t.error(err)
+/src/test/plugin.test.js:347:      t.deepEqual(JSON.parse(body), { hook1: true, hook2: true, hook3: true })
+/src/test/plugin.test.js-348-      fastify.close()
+##############################################
+/src/test/delete.test.js-172-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/delete.test.js:173:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/delete.test.js-174-    })
+##############################################
+/src/test/delete.test.js-185-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/delete.test.js:186:      t.deepEqual(JSON.parse(body), { foo: 'world', test: 123 })
+/src/test/delete.test.js-187-    })
+##############################################
+/src/test/delete.test.js-197-      t.strictEqual(response.statusCode, 400)
+/src/test/delete.test.js:198:      t.deepEqual(JSON.parse(body), {
+/src/test/delete.test.js-199-        error: 'Bad Request',
+##############################################
+/src/test/delete.test.js-223-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/delete.test.js:224:      t.strictEqual(JSON.parse(body)['x-test'], 1)
+/src/test/delete.test.js-225-    })
+##############################################
+/src/test/delete.test.js-238-      t.strictEqual(response.statusCode, 400)
+/src/test/delete.test.js:239:      t.deepEqual(JSON.parse(body), {
+/src/test/delete.test.js-240-        error: 'Bad Request',
+##############################################
+/src/test/delete.test.js-261-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/delete.test.js:262:      t.deepEqual(JSON.parse(body), { hello: 123 })
+/src/test/delete.test.js-263-    })
+##############################################
+/src/test/delete.test.js-273-      t.strictEqual(response.statusCode, 400)
+/src/test/delete.test.js:274:      t.deepEqual(JSON.parse(body), {
+/src/test/delete.test.js-275-        error: 'Bad Request',
+##############################################
+/src/test/delete.test.js-296-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/test/delete.test.js:297:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/test/delete.test.js-298-    })
+##############################################
+/src/test/logger.test.js-207-    }, res => {
+/src/test/logger.test.js:208:      const payload = JSON.parse(res.payload)
+/src/test/logger.test.js-209-      t.equal(payload.id, 'a')
+##############################################
+/src/test/logger.test.js-239-  }, res => {
+/src/test/logger.test.js:240:    const payload = JSON.parse(res.payload)
+/src/test/logger.test.js-241-    t.deepEqual(payload, { hello: 'world' })
+##############################################
+/src/test/500s.test.js-21-    t.strictEqual(res.headers['content-type'], 'application/json')
+/src/test/500s.test.js:22:    t.deepEqual(JSON.parse(res.payload), {
+/src/test/500s.test.js-23-      error: 'Internal Server Error',
+##############################################
+/src/test/500s.test.js-94-    t.strictEqual(res.headers['content-type'], 'application/json')
+/src/test/500s.test.js:95:    t.deepEqual(JSON.parse(res.payload), {
+/src/test/500s.test.js-96-      error: 'Internal Server Error',
+##############################################
+/src/docs/HTTP2.md-66-
+/src/docs/HTTP2.md:67:### Plain or insecure
+/src/docs/HTTP2.md-68-
+##############################################
+/src/docs/Testing.md-88-      t.strictEqual(response.headers['content-length'], '' + body.length)
+/src/docs/Testing.md:89:      t.deepEqual(JSON.parse(body), { hello: 'world' })
+/src/docs/Testing.md-90-      fastify.close()
+##############################################
+/src/docs/Testing.md-197-    t.strictEqual(res.headers['content-length'], '' + res.payload.length)
+/src/docs/Testing.md:198:    t.deepEqual(JSON.parse(res.payload), { hello: 'world' })
+/src/docs/Testing.md-199-    // even if the server is not running (inject does not run the server)
+##############################################
+/src/docs/Reply.md-125-  const fs = require('fs')
+/src/docs/Reply.md:126:  const stream = fs.createReadStream('some-file', 'utf8')
+/src/docs/Reply.md-127-  reply.send(stream)
+##############################################
+/src/docs/Plugins-Guide.md-263-function dbPlugin (fastify, opts, next) {
+/src/docs/Plugins-Guide.md:264:  dbClient.connect(opts.url, (err, conn) => {
+/src/docs/Plugins-Guide.md-265-    fastify.decorate('db', conn)
+##############################################
+/src/docs/Getting-Started.md-109-
+/src/docs/Getting-Started.md:110:  const db = await MongoClient.connect(url, options)
+/src/docs/Getting-Started.md-111-  fastify.decorate('mongo', db)
+##############################################
+/src/fastify.js-74-    } else {
+/src/fastify.js:75:      server = https.createServer(options.https, fastify)
+/src/fastify.js-76-    }
+/src/fastify.js-77-  } else if (options.http2) {
+/src/fastify.js:78:    server = http2().createServer(fastify)
+/src/fastify.js-79-  } else {
+/src/fastify.js:80:    server = http.createServer(fastify)
+/src/fastify.js-81-  }

@@ -1,0 +1,618 @@
+<report_mosca>
+ <Path>/src/pathname/build.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 11 -  	var queryIndex = template.indexOf("?")
+
+ Line: 13 -  	var queryEnd = hashIndex < 0 ? template.length : hashIndex
+
+ Line: 14 -  	var pathEnd = queryIndex < 0 ? queryEnd : queryIndex
+
+ Line: 16 -  	var query = {}
+
+ Line: 21 -  		delete query[key]
+
+ Line: 28 -  	// In case the template substitution adds new query/hash parameters.
+
+ Line: 35 -  	if (queryIndex >= 0) result += template.slice(queryIndex, queryEnd)
+
+ Line: 37 -  	var querystring = buildQueryString(query)
+
+ Line: 38 -  	if (querystring) result += (queryIndex < 0 && newQueryIndex < 0 ? "?" : "&") + querystring
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/pathname/tests/test-buildPathname.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  		o("appends query strings", function () {
+
+ Line: 103 -  		o("merges query strings", function() {
+
+ Line: 108 -  		o("merges query strings with other parameters", function() {
+
+ Line: 113 -  		o("consumes template parameters without modifying query string", function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/pathname/tests/test-compileTemplate.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 188 -  	o("checks query params match", function() {
+
+ Line: 193 -  	o("checks query params mismatch", function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/pathname/tests/test-parsePathname.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 13 -  	o("parses query at start", function() {
+
+ Line: 27 -  	o("parses query, ignores hash at start", function() {
+
+ Line: 41 -  	o("parses root + query at start", function() {
+
+ Line: 55 -  	o("parses root + query, ignores hash at start", function() {
+
+ Line: 69 -  	o("parses route + empty query", function() {
+
+ Line: 83 -  	o("parses route + empty query + empty hash", function() {
+
+ Line: 90 -  	o("parses route + query", function() {
+
+ Line: 104 -  	o("parses route + query, ignores hash", function() {
+
+ Line: 111 -  	o("parses route + query, ignores hash with lots of junk slashes", function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/pathname/parse.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -  	var queryIndex = url.indexOf("?")
+
+ Line: 8 -  	var queryEnd = hashIndex < 0 ? url.length : hashIndex
+
+ Line: 9 -  	var pathEnd = queryIndex < 0 ? queryEnd : queryIndex
+
+ Line: 19 -  		params: queryIndex < 0
+
+ Line: 21 -  			: parseQueryString(url.slice(queryIndex + 1, queryEnd)),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/pathname/compileTemplate.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 4 -  // Compiles a template into a function that takes a resolved path (without query
+
+ Line: 7 -  // output of `parsePathname`. Note that it does *not* remove query parameters
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/dbmonster/ENV.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 58 -      object.query = "SELECT blah FROM something";
+
+ Line: 78 -          query: "***",
+
+ Line: 139 -          data.push({ dbname: 'cluster' + i, query: "", formatElapsed: "", elapsedClassName: "" });
+
+ Line: 140 -          data.push({ dbname: 'cluster' + i + ' slave', query: "", formatElapsed: "", elapsedClassName: "" });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/dbmonster/mithril/app.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 20 -  								return m("td", {className: query.elapsedClassName}, [
+
+ Line: 23 -  										m("div", {className: "popover-content"}, query.query),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/dbmonster/react/app.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -  								return h("td", {key: i, className: query.elapsedClassName},
+
+ Line: 25 -  										h("div", {className: "popover-content"}, query.query),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/api/router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 52 -  		var callAsync = typeof setImmediate === "function" ? setImmediate : setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/api/tests/test-router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 28 -  	var waitFunc = typeof setImmediate === "function" ? setImmediate : setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/test-api.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 97 -  					setTimeout(function() {
+
+ Line: 111 -  					setTimeout(function() {
+
+ Line: 124 -  					setTimeout(function() {
+
+ Line: 137 -  					setTimeout(function() {
+
+ Line: 139 -  						setTimeout(function() {
+
+ Line: 155 -  					setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/test-api.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 46 -  			var query = m.parseQueryString("?a=1&b=2")
+
+ Line: 53 -  			var query = m.buildQueryString({a: 1, b: 2})
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/ospec/tests/test-ospec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 383 -  				return {then: function(f) {setTimeout(f)}}
+
+ Line: 412 -  				return {then: function(f) {setTimeout(f)}}
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/ospec/ospec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 93 -  			setTimeout(function () {
+
+ Line: 157 -  					timeout = setTimeout(function() {
+
+ Line: 383 -  			else setTimeout(next, stack = 0)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/request/tests/test-request.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 389 -  			setTimeout(function() {
+
+ Line: 403 -  			setTimeout(function() {
+
+ Line: 416 -  			setTimeout(function() {
+
+ Line: 458 -  					setTimeout(function() { // allow promises to (not) resolve first
+
+ Line: 488 -  					setTimeout(function() { // allow promises to (not) resolve first
+
+ Line: 812 -  		var runAsyncTest = eval(
+
+ Line: 833 -  			// back to `setTimeout`), and promise microtasks are run at higher
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/request/tests/test-request.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 164 -  		o("works w/ parameterized url + query via GET", function(done) {
+
+ Line: 174 -  		o("works w/ parameterized url + query via POST", function(done) {
+
+ Line: 184 -  		o("works w/ parameterized url + query + body via GET", function(done) {
+
+ Line: 194 -  		o("works w/ parameterized url + query + body via POST", function(done) {
+
+ Line: 767 -  		checkUnset("DELETE")
+
+ Line: 775 -  		checkSet("DELETE", {foo: "bar"})
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/request/tests/test-jsonp.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 76 -  		setTimeout(function() {
+
+ Line: 91 -  		setTimeout(function() {
+
+ Line: 105 -  		setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/request/tests/test-jsonp.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -  				var queryData = parseQueryString(request.query)
+
+ Line: 20 -  				return {status: 200, responseText: queryData["callback"] + "(" + JSON.stringify({a: 1}) + ")"}
+
+ Line: 30 -  				var queryData = parseQueryString(request.query)
+
+ Line: 31 -  				return {status: 200, responseText: queryData["callback"] + "(" + JSON.stringify({a: 1}) + ")"}
+
+ Line: 40 -  	o("works w/ other querystring params", function(done) {
+
+ Line: 43 -  				var queryData = parseQueryString(request.query)
+
+ Line: 44 -  				return {status: 200, responseText: queryData["callback"] + "(" + JSON.stringify(queryData) + ")"}
+
+ Line: 55 -  				var queryData = parseQueryString(request.query)
+
+ Line: 56 -  				return {status: 200, responseText: queryData["cb"] + "(" + JSON.stringify({a: 2}) + ")"}
+
+ Line: 66 -  				var queryData = parseQueryString(request.query)
+
+ Line: 67 -  				return {status: 200, responseText: queryData["callback"] + "([])"}
+
+ Line: 84 -  				var queryData = parseQueryString(request.query)
+
+ Line: 85 -  				return {status: 200, responseText: queryData["callback"] + "([])"}
+
+ Line: 99 -  				var queryData = parseQueryString(request.query)
+
+ Line: 100 -  				return {status: 200, responseText: queryData["callback"] + "([])"}
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/mithril.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1 -  e if("#"===a)i.id=u;else if("."===a)l.push(u);else if("["===t[3][0]){var s=t[6];s&&(s=s.replace(/\\(["'])/g,"$1").replace(/\\\\/g,"\\")),"class"===t[4]?l.push(s):i[t[4]]=""===s?s:s||!0}}return l.length>0&&(i.className=l.join(" ")),r[e]={tag:o,attrs:i}}(i),a):(a.tag=i,a)}if(i.trust=function(t){return null==t&&(t=""),e("<",void 0,void 0,t,void 0,void 0)},i.fragment=function(){var n=t.apply(0,arguments);return n.tag="[",n.children=e.normalizeChildren(n.children),n},(a=function(e){if(!(this instanceof a))throw new Error("Promise must be called with `new`");if("function"!=typeof e)throw new TypeError("executor must be a function");var t=this,n=[],r=[],o=s(n,!0),l=s(r,!1),i=t._instance={resolvers:n,rejectors:r},u="function"==typeof setImmediate?setImmediate:setTimeout;function s(e,o){return function a(s){var f;try{if(!o||null==s||"object"!=typeof s&&"function"!=typeof s||"function"!=typeof(f=s.then))u(function(){o||0!==e.length||console.error("Possible unhandled promise rejection:",s);for(var t=0;t<e.length;t++)e[t](s);n.length=0,r.length=0,i.state=o,i.retry=function(){a(s)}});else{if(s===t)throw new TypeError("Promise can't be resolved w/ itself");c(f.bind(s))}}catch(e){l(e)}}}function c(e){var t=0;function n(e){return function(n){t++>0||e(n)}}var r=n(l);try{e(n(o),r)}catch(e){r(e)}}c(e)}).prototype.then=function(e,t){var n,r,o=this._instance;function l(e,t,l,i){t.push(function(t){if("function"!=typeof e)l(t);else try{n(e(t))}catch(e){r&&r(e)}}),"function"==typeof o.retry&&i===o.state&&o.retry()}var i=new a(function(e,t){n=e,r=t});return l(e,o.resolvers,n,!0),l(t,o.rejectors,r,!1),i},a.prototype.catch=function(e){return this.then(null,e)},a.prototype.finally=function(e){return this.then(function(t){return a.resolve(e()).then(function(){return t})},function(t){return a.resolve(e()).then(function(){return a.reject(t)})})},a.resolve=function(e){return e instanceof a?e:new a(function(t){t(e)})},a.reject=function(e){return new a(function(t,n){n(e)})},a.all=function(e){return new a(function(t,n){var r=e.length,o=0,l=[];if(0===e.length)t([]);else for(var i=0;i<e.length;i++)!function(i){fun Line: 11 -   DOM element that was passed to `m.route` is not undefined");var m,g=0,k=Object.keys(v).map(function(e){if("/"!==e[0])throw new SyntaxError("Routes must start with a `/`");if(/:([^\/\.-]+)(\.{3})?:/.test(e))throw new SyntaxError("Route parameter names must be separated with either `/`, `.`, or `-`");return{route:e,component:v[e],check:b(e)}}),S="function"==typeof setImmediate?setImmediate:setTimeout,E=y.resolve(),C=!1;if(r=null,null!=p){var j=w(p);if(!k.some(function(e){return e.check(j)}))throw new ReferenceError("Default route doesn't match any known routes")}function z(){C=!1;var e=t.location.hash;"#"!==h.prefix[0]&&(e=t.location.search+e,"?"!==h.prefix[0]&&"/"!==(e=t.location.pathname+e)[0]&&(e="/"+e));var r=e.concat().replace(/(?:%[a-f89][a-f0-9])+/gim,decodeURIComponent).slice(h.prefix.length),d=w(r);function v(){if(r===p)throw new Error("Could not resolve default route "+p);o(p,null,{replace:!0})}f(d.params,t.history.state),function e(t){for(;t<k.length;t++)if(k[t].check(d)){var o=k[t].component,f=k[t].route,h=o,p=u=function(f){if(p===u){if(f===c)return e(t+1);l=null==f||"function"!=typeof f.view&&"function"!=typeof f?"div":f,i=d.params,a=r,u=null,s=o.render?o:null,2===g?n.redraw():(g=2,n.redraw.sync())}};return void(o.view||"function"==typeof o?(o={},p(h)):o.onmatch?E.then(function(){return o.onmatch(d.params,r,f)}).then(p,v):p("div"))}v()}(0)}return r=function(){C||(C=!0,S(z))},"function"==typeof t.history.pushState?(m=function(){t.removeEventListener("popstate",r,!1)},t.addEventListener("popstate",r,!1)):"#"===h.prefix[0]&&(r=null,m=function(){t.removeEventListener("hashchange",z,!1)},t.addEventListener("hashchange",z,!1)),n.mount(d,{onbeforeupdate:function(){return!(!(g=g?2:1)||x===s)},oncreate:z,onremove:m,view:function(){if(g&&x!==s){var t=[e(l,i.key,i)];return s&&(t=s.render(t[0])),t}}})}return h.set=function(e,t,n){null!=u&&((n=n||{}).replace=!0),u=null,o(e,t,n)},h.get=function(){return a},h.prefix="#!",h.Link={view:function(e){var t,n,r=e.attrs.options,o={};f(o,e.attrs),o.selector=o.options=o.key=o.oninit=o.oncreate=o.onbeforeupdate=o.onupdate=o.onbeforeremove=</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/performance/test-perf.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/promise/polyfill.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 8 -  	var callAsync = typeof setImmediate === "function" ? setImmediate : setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/promise/tests/test-promise.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 406 -  				setTimeout(function() {resolve(1)}, 10)
+
+ Line: 417 -  				setTimeout(function() {resolve(1)}, 10)
+
+ Line: 430 -  				setTimeout(function() {resolve(1)}, 10)
+
+ Line: 443 -  				setTimeout(function() {reject(1)}, 10)
+
+ Line: 454 -  				setTimeout(function() {reject(1)}, 10)
+
+ Line: 467 -  				setTimeout(function() {reject(1)}, 10)
+
+ Line: 573 -  			setTimeout(function() {
+
+ Line: 582 -  				setTimeout(function() {
+
+ Line: 680 -  							setTimeout(function() {resolve(2)})
+
+ Line: 696 -  						setTimeout(function() {reject(2)})
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/render/tests/test-render.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 73 -  			setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/mithril.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 169 -  	var callAsync = typeof setImmediate === "function" ? setImmediate : setTimeout
+
+ Line: 1548 -  		var callAsync0 = typeof setImmediate === "function" ? setImmediate : setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/mithril.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 1214 -  	var queryIndex = template.indexOf("?")
+
+ Line: 1216 -  	var queryEnd = hashIndex < 0 ? template.length : hashIndex
+
+ Line: 1217 -  	var pathEnd = queryIndex < 0 ? queryEnd : queryIndex
+
+ Line: 1219 -  	var query = {}
+
+ Line: 1222 -  		delete query[key1]
+
+ Line: 1228 -  	// In case the template substitution adds new query/hash parameters.
+
+ Line: 1234 -  	if (queryIndex >= 0) result0 += template.slice(queryIndex, queryEnd)
+
+ Line: 1236 -  	var querystring = buildQueryString(query)
+
+ Line: 1237 -  	if (querystring) result0 += (queryIndex < 0 && newQueryIndex < 0 ? "?" : "&") + querystring
+
+ Line: 1457 -  	var queryIndex0 = url.indexOf("?")
+
+ Line: 1459 -  	var queryEnd0 = hashIndex0 < 0 ? url.length : hashIndex0
+
+ Line: 1460 -  	var pathEnd0 = queryIndex0 < 0 ? queryEnd0 : queryIndex0
+
+ Line: 1469 -  		params: queryIndex0 < 0
+
+ Line: 1471 -  			: parseQueryString(url.slice(queryIndex0 + 1, queryEnd0)),
+
+ Line: 1474 -  // Compiles a template into a function that takes a resolved0 path2 (without query0
+
+ Line: 1477 -  // output of `parsePathname`. Note that it does *not* remove query0 parameters
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test-utils/xhrMock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 59 -  					var data = handler({rawUrl: args.rawUrl, url: args.pathname, query: args.search || {}, body: body || null})
+
+ Line: 92 -  						var data = handler({url: urlData.pathname, query: urlData.search, body: null})
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test-utils/callAsync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2 -  module.exports = typeof setImmediate === "function" ? setImmediate : setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test-utils/tests/test-xhrMock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 104 -  					var queryData = parseQueryString(request.query)
+
+ Line: 105 -  					return {status: 200, responseText: queryData["callback"] + "(" + JSON.stringify({a: 1}) + ")"}
+
+ Line: 123 -  					var queryData = parseQueryString(request.query)
+
+ Line: 124 -  					return {status: 200, responseText: queryData["cb"] + "(" + JSON.stringify({a: 2}) + ")"}
+
+ Line: 140 -  		o("works with other querystring params", function(done) {
+
+ Line: 143 -  					var queryData = parseQueryString(request.query)
+
+ Line: 144 -  					return {status: 200, responseText: queryData["callback"] + "(" + JSON.stringify({a: 3}) + ")"}
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test-utils/tests/test-callAsync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 14 -  	o("gets called before setTimeout", function(done) {
+
+ Line: 20 -  		timeout = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test-utils/domMock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 69 -  					if (typeof handler === "function") try {handler.call(this, e)} catch(e) {setTimeout(function(){throw e})}
+
+ Line: 70 -  					else try {handler.handleEvent(e)} catch(e) {setTimeout(function(){throw e})}
+
+ Line: 79 -  		if (e.eventPhase > 1 && typeof this["on" + e.type] === "function" && !isModernEvent(e.type)) try {this["on" + e.type](e)} catch(e) {setTimeout(function(){throw e})}
+
+ Line: 246 -  			return setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test-utils/domMock.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 563 -  				if (element.nodeName === "SELECT") {
+
+</Result>
+</report_mosca>
+

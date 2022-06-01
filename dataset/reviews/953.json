@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 953,
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/expressfs/-/expressfs-0.2.10.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "package/expressfs.server.js",
+                    "lineno": 29,
+                    "code": "app.post(prefix + 'expressfs.cp', function(req, res, next) {"
+                },
+                "sink": {
+                    "file": "package/expressfs.server.js",
+                    "lineno": 33,
+                    "code": "exec('cp -R ' + source + ' ' + destination, function ()"
+                }
+            },
+            {
+                "source": {
+                    "file": "package/expressfs.server.js",
+                    "lineno": 201,
+                    "code": "app.post(prefix + 'expressfs.rmdir', function(req, res, next) {"
+                },
+                "sink": {
+                    "file": "package/expressfs.server.js",
+                    "lineno": 204,
+                    "code": "exec('rm -rf ' + path, function () {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

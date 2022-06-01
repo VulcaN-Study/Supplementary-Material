@@ -1,0 +1,21 @@
+/src/History.md-112-  * throw an Error when no proxy info is given
+/src/History.md:113:  * add support for passing options to net/tls .connect()
+/src/History.md-114-
+##############################################
+/src/README.md-107-  * `headers` - Object - Additional HTTP headers to be sent on the HTTP CONNECT method.
+/src/README.md:108:  * Any other options given are passed to the `net.connect()`/`tls.connect()` functions.
+/src/README.md-109-
+##############################################
+/src/index.js-52-    // result of a `url.parse()` call... we need to remove the `path` portion so
+/src/index.js:53:    // that `net.connect()` doesn't attempt to open that as a unix socket file.
+/src/index.js-54-    delete proxy.path;
+##############################################
+/src/index.js-73-  if (this.secureProxy) {
+/src/index.js:74:    socket = tls.connect(proxy);
+/src/index.js-75-  } else {
+/src/index.js:76:    socket = net.connect(proxy);
+/src/index.js-77-  }
+##############################################
+/src/index.js-152-        opts.port = null;
+/src/index.js:153:        sock = tls.connect(opts);
+/src/index.js-154-      }

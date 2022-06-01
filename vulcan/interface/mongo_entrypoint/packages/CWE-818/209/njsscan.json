@@ -1,0 +1,149 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# EditorConfig helps developers define and maintain consistent",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"node\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 9,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2013 asciidisco (Sebastian Golasch)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE-MIT",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 202
+        },
+        "extra": {
+          "line": "   limitations under the License.",
+          "message": "Lexical error: WIERD end of file in quoted string"
+        },
+        "path": "/src/report/api/assets/vendor/prettify/COPYING",
+        "start": {
+          "col": 1,
+          "line": 202
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/report/complexity/assets/scripts/codemirror.markpopovertext.js",
+          "match_lines": [
+            12,
+            12
+          ],
+          "match_position": [
+            42,
+            53
+          ],
+          "match_string": "      text += possible.charAt(Math.floor(Math.random() * possible.length));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/report/api/assets/js/apidocs.js",
+          "match_lines": [
+            315,
+            318
+          ],
+          "match_position": [
+            9,
+            37
+          ],
+          "match_string": "        if (hash === win.location.hash) {\n\n            pjax.updateTabState('hashchange');\n\n        } else if (!tab) {\n\n            win.location.hash = hash;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/report/complexity/assets/scripts/vendor/codemirror/util/colorize.js",
+          "match_lines": [
+            9,
+            9
+          ],
+          "match_position": [
+            11,
+            37
+          ],
+          "match_string": "      if (isBlock.test(node.nodeType)) out.push(\"\\n\");"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

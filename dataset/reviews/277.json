@@ -1,0 +1,62 @@
+{
+    "advisory": {
+        "id": 277,
+        "cwe": "CWE-818"
+    },
+    "correct_cwe": "CWE-818",
+    "correct_package_link": "https://registry.npmjs.org/serc.js/-/serc.js-0.0.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "scripts/install.js",
+                    "start_lineno": 40,
+                    "end_lineno": 44,
+                    "code": "var req = http.request(host, function(res) {  console.log(res.statusCode, 'Installing Selenium jar...');  console.log(installfilepath);  res.pipe(file);});"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "var currentversionjar = 'http://selenium.googlecode.com/files/selenium-server-standalone-'+VERSION+'.jar';"
+        }
+    ],
+    "patch": [
+        {
+            "file_path": "277.patch"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "B"
+        },
+        "msdevskim": {
+            "score": "A"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

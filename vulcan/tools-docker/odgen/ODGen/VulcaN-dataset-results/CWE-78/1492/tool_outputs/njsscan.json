@@ -1,0 +1,92 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 11
+        },
+        "extra": {
+          "line": "    args: args",
+          "message": "Syntax error"
+        },
+        "path": "/src/test/io.js",
+        "start": {
+          "col": 5,
+          "line": 11
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/test/timer.js",
+          "match_lines": [
+            27,
+            27
+          ],
+          "match_position": [
+            50,
+            61
+          ],
+          "match_string": "    var id = String.fromCharCode(55 + Math.round(Math.random() * 80));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/bin/priest-shell",
+          "match_lines": [
+            514,
+            514
+          ],
+          "match_position": [
+            14,
+            37
+          ],
+          "match_string": "  var hash = crypto.createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/bin/priest-shell",
+          "match_lines": [
+            447,
+            447
+          ],
+          "match_position": [
+            11,
+            32
+          ],
+          "match_string": "      if (modifier[0].test(name)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

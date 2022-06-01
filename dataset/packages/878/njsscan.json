@@ -1,0 +1,858 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# This is a list of contributors to the Closure Library.",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/AUTHORS",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 16,
+          "line": 1
+        },
+        "extra": {
+          "line": "Closure Library welcomes patches/pulls for features and bugfixes.",
+          "message": "Syntax error"
+        },
+        "path": "/src/CONTRIBUTING",
+        "start": {
+          "col": 9,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 48,
+          "line": 1
+        },
+        "extra": {
+          "line": "                                 Apache License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 41,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/closure/goog/net/filedownloader.js",
+          "match_lines": [
+            315,
+            315
+          ],
+          "match_position": [
+            3,
+            24
+          ],
+          "match_string": "  xhr.send(download.url);"
+        },
+        {
+          "file_path": "/src/closure/goog/net/filedownloader.js",
+          "match_lines": [
+            396,
+            396
+          ],
+          "match_position": [
+            3,
+            51
+          ],
+          "match_string": "  writer.write(/** @type {!Blob} */ (download.blob));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "layer7_object_dos": {
+      "files": [
+        {
+          "file_path": "/src/closure/goog/crypt/hashtester.js",
+          "match_lines": [
+            196,
+            197
+          ],
+          "match_position": [
+            9,
+            39
+          ],
+          "match_string": "        for (var i = 0; i < updateCount; i++) {\n\n          hash.update(data, byteLength);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "Layer7 Denial of Service. Looping over user controlled objects can result in DoS.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/closure/goog/events/listenable.js",
+          "match_lines": [
+            71,
+            71
+          ],
+          "match_position": [
+            31,
+            42
+          ],
+          "match_string": "    'closure_listenable_' + ((Math.random() * 1e6) | 0);"
+        },
+        {
+          "file_path": "/src/closure/goog/json/json_perf.js",
+          "match_lines": [
+            100,
+            100
+          ],
+          "match_position": [
+            14,
+            25
+          ],
+          "match_string": "      return Math.random();"
+        },
+        {
+          "file_path": "/src/closure/goog/json/json_perf.js",
+          "match_lines": [
+            102,
+            102
+          ],
+          "match_position": [
+            14,
+            25
+          ],
+          "match_string": "      return Math.random() >= .5;"
+        },
+        {
+          "file_path": "/src/closure/goog/async/nexttick.js",
+          "match_lines": [
+            174,
+            174
+          ],
+          "match_position": [
+            39,
+            50
+          ],
+          "match_string": "      var message = 'callImmediate' + Math.random();"
+        },
+        {
+          "file_path": "/src/closure/goog/base.js",
+          "match_lines": [
+            1558,
+            1558
+          ],
+          "match_position": [
+            41,
+            52
+          ],
+          "match_string": "goog.UID_PROPERTY_ = 'closure_uid_' + ((Math.random() * 1e9) >>> 0);"
+        },
+        {
+          "file_path": "/src/closure/goog/base.js",
+          "match_lines": [
+            3295,
+            3295
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "    var key = Math.random().toString(32);"
+        },
+        {
+          "file_path": "/src/third_party/closure/goog/loremipsum/text/loremipsum.js",
+          "match_lines": [
+            494,
+            494
+          ],
+          "match_position": [
+            14,
+            25
+          ],
+          "match_string": "    var u1 = Math.random();"
+        },
+        {
+          "file_path": "/src/third_party/closure/goog/loremipsum/text/loremipsum.js",
+          "match_lines": [
+            495,
+            495
+          ],
+          "match_position": [
+            20,
+            31
+          ],
+          "match_string": "    var u2 = 1.0 - Math.random();"
+        },
+        {
+          "file_path": "/src/closure/goog/testing/testrunner.js",
+          "match_lines": [
+            103,
+            103
+          ],
+          "match_position": [
+            22,
+            33
+          ],
+          "match_string": "  this.uniqueId_ = ((Math.random() * 1e9) >>> 0) + '-' +"
+        },
+        {
+          "file_path": "/src/closure/goog/testing/testcase.js",
+          "match_lines": [
+            1167,
+            1167
+          ],
+          "match_position": [
+            28,
+            39
+          ],
+          "match_string": "        var j = Math.floor(Math.random() * i);  // exclusive"
+        },
+        {
+          "file_path": "/src/closure/goog/testing/mockclock.js",
+          "match_lines": [
+            117,
+            117
+          ],
+          "match_position": [
+            44,
+            55
+          ],
+          "match_string": "goog.testing.MockClock.nextId = Math.round(Math.random() * 10000);"
+        },
+        {
+          "file_path": "/src/closure/goog/string/string.js",
+          "match_lines": [
+            1237,
+            1237
+          ],
+          "match_position": [
+            21,
+            32
+          ],
+          "match_string": "  return Math.floor(Math.random() * x).toString(36) +"
+        },
+        {
+          "file_path": "/src/closure/goog/string/string.js",
+          "match_lines": [
+            1238,
+            1238
+          ],
+          "match_position": [
+            27,
+            38
+          ],
+          "match_string": "      Math.abs(Math.floor(Math.random() * x) ^ goog.now()).toString(36);"
+        },
+        {
+          "file_path": "/src/closure/goog/string/string.js",
+          "match_lines": [
+            1347,
+            1347
+          ],
+          "match_position": [
+            36,
+            47
+          ],
+          "match_string": "goog.string.uniqueStringCounter_ = Math.random() * 0x80000000 | 0;"
+        },
+        {
+          "file_path": "/src/closure/goog/storage/encryptedstorage.js",
+          "match_lines": [
+            159,
+            159
+          ],
+          "match_position": [
+            26,
+            37
+          ],
+          "match_string": "    salt[i] = Math.floor(Math.random() * 0x100);"
+        },
+        {
+          "file_path": "/src/closure/goog/net/xpc/xpc.js",
+          "match_lines": [
+            284,
+            284
+          ],
+          "match_position": [
+            34,
+            45
+          ],
+          "match_string": "    s += chars.charAt(Math.floor(Math.random() * charsLength));"
+        },
+        {
+          "file_path": "/src/closure/goog/net/browserchannel.js",
+          "match_lines": [
+            1477,
+            1477
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "  this.nextRid_ = Math.floor(Math.random() * 100000);"
+        },
+        {
+          "file_path": "/src/closure/goog/net/browserchannel.js",
+          "match_lines": [
+            1540,
+            1540
+          ],
+          "match_position": [
+            64,
+            75
+          ],
+          "match_string": "      Math.round(this.forwardChannelRequestTimeoutMs_ * 0.50 * Math.random()));"
+        },
+        {
+          "file_path": "/src/closure/goog/net/browserchannel.js",
+          "match_lines": [
+            2081,
+            2081
+          ],
+          "match_position": [
+            18,
+            29
+          ],
+          "match_string": "      Math.floor(Math.random() * this.retryDelaySeedMs_);"
+        },
+        {
+          "file_path": "/src/closure/goog/math/vec2.js",
+          "match_lines": [
+            63,
+            63
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "  var angle = Math.random() * Math.PI * 2;"
+        },
+        {
+          "file_path": "/src/closure/goog/math/vec2.js",
+          "match_lines": [
+            72,
+            72
+          ],
+          "match_position": [
+            23,
+            34
+          ],
+          "match_string": "  var mag = Math.sqrt(Math.random());"
+        },
+        {
+          "file_path": "/src/closure/goog/math/vec2.js",
+          "match_lines": [
+            73,
+            73
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "  var angle = Math.random() * Math.PI * 2;"
+        },
+        {
+          "file_path": "/src/closure/goog/math/vec3.js",
+          "match_lines": [
+            75,
+            75
+          ],
+          "match_position": [
+            15,
+            26
+          ],
+          "match_string": "  var theta = Math.random() * Math.PI * 2;"
+        },
+        {
+          "file_path": "/src/closure/goog/math/vec3.js",
+          "match_lines": [
+            76,
+            76
+          ],
+          "match_position": [
+            13,
+            24
+          ],
+          "match_string": "  var phi = Math.random() * Math.PI * 2;"
+        },
+        {
+          "file_path": "/src/closure/goog/math/vec3.js",
+          "match_lines": [
+            92,
+            92
+          ],
+          "match_position": [
+            44,
+            55
+          ],
+          "match_string": "  return goog.math.Vec3.randomUnit().scale(Math.random());"
+        },
+        {
+          "file_path": "/src/closure/goog/math/math.js",
+          "match_lines": [
+            31,
+            31
+          ],
+          "match_position": [
+            21,
+            32
+          ],
+          "match_string": "  return Math.floor(Math.random() * a);"
+        },
+        {
+          "file_path": "/src/closure/goog/math/math.js",
+          "match_lines": [
+            43,
+            43
+          ],
+          "match_position": [
+            14,
+            25
+          ],
+          "match_string": "  return a + Math.random() * (b - a);"
+        },
+        {
+          "file_path": "/src/closure/goog/math/exponentialbackoff.js",
+          "match_lines": [
+            182,
+            182
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "          this.randomFactor_ * (Math.random() - 0.5) * 2 *"
+        },
+        {
+          "file_path": "/src/closure/goog/math/exponentialbackoff.js",
+          "match_lines": [
+            200,
+            200
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "          this.randomFactor_ * (Math.random() - 0.5) * 2 *"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/net/webchannel/webchannelbase.js",
+          "match_lines": [
+            1232,
+            1232
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "  this.nextRid_ = Math.floor(Math.random() * 100000);"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/net/webchannel/webchannelbase.js",
+          "match_lines": [
+            1336,
+            1336
+          ],
+          "match_position": [
+            64,
+            75
+          ],
+          "match_string": "      Math.round(this.forwardChannelRequestTimeoutMs_ * 0.50 * Math.random()));"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/net/webchannel/webchannelbase.js",
+          "match_lines": [
+            1845,
+            1845
+          ],
+          "match_position": [
+            18,
+            29
+          ],
+          "match_string": "      Math.floor(Math.random() * this.retryDelaySeedMs_);"
+        },
+        {
+          "file_path": "/src/closure/goog/events/events.js",
+          "match_lines": [
+            87,
+            87
+          ],
+          "match_position": [
+            52,
+            63
+          ],
+          "match_string": "goog.events.LISTENER_MAP_PROP_ = 'closure_lm_' + ((Math.random() * 1e6) | 0);"
+        },
+        {
+          "file_path": "/src/closure/goog/events/events.js",
+          "match_lines": [
+            973,
+            973
+          ],
+          "match_position": [
+            32,
+            43
+          ],
+          "match_string": "    '__closure_events_fn_' + ((Math.random() * 1e9) >>> 0);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/closure/goog/labs/format/csv.js",
+          "match_lines": [
+            231,
+            268
+          ],
+          "match_position": [
+            7,
+            35
+          ],
+          "match_string": "      if (token == '\"') {\n\n        end = index - 1;\n\n        token = nextToken();\n\n\n\n        // Two double quotes in a row.  Keep scanning.\n\n        if (token == '\"') {\n\n          end = null;\n\n          continue;\n\n        }\n\n\n\n        // End of field.  Break out.\n\n        if (token == delimiter || token == EOF || token == NEWLINE) {\n\n          if (token == NEWLINE) {\n\n            pushBack(token);\n\n          }\n\n          if (token == delimiter) {\n\n            sawComma = true;\n\n          }\n\n          break;\n\n        }\n\n\n\n        if (!opt_ignoreErrors) {\n\n          // Ignoring errors here means keep going in current field after\n\n          // closing quote. E.g. \"ab\"c,d splits into abc,d\n\n          throw new goog.labs.format.csv.ParseError(\n\n              text, index - 1,\n\n              'Unexpected character \"' + token + '\" after quote mark');\n\n        } else {\n\n          // Fall back to reading the rest of this field as unquoted.\n\n          // Note: the rest is guaranteed not start with \", as that case is\n\n          // eliminated above.\n\n          var prefix = '\"' + text.substring(start, index);\n\n          var suffix = readField();\n\n          if (suffix == EOR) {\n\n            pushBack(NEWLINE);\n\n            return prefix;\n\n          } else {\n\n            return prefix + suffix;"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/format/csv.js",
+          "match_lines": [
+            236,
+            238
+          ],
+          "match_position": [
+            9,
+            19
+          ],
+          "match_string": "        if (token == '\"') {\n\n          end = null;\n\n          continue;"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/format/csv.js",
+          "match_lines": [
+            243,
+            244
+          ],
+          "match_position": [
+            11,
+            27
+          ],
+          "match_string": "          if (token == NEWLINE) {\n\n            pushBack(token);"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/format/csv.js",
+          "match_lines": [
+            246,
+            247
+          ],
+          "match_position": [
+            11,
+            28
+          ],
+          "match_string": "          if (token == delimiter) {\n\n            sawComma = true;"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/format/csv.js",
+          "match_lines": [
+            297,
+            298
+          ],
+          "match_position": [
+            5,
+            17
+          ],
+          "match_string": "    if (token == EMPTY) {\n\n      return EOR;"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/format/csv.js",
+          "match_lines": [
+            309,
+            310
+          ],
+          "match_position": [
+            5,
+            29
+          ],
+          "match_string": "    if (token == '\"') {\n\n      return readQuotedField();"
+        },
+        {
+          "file_path": "/src/closure/goog/labs/format/csv.js",
+          "match_lines": [
+            321,
+            323
+          ],
+          "match_position": [
+            7,
+            14
+          ],
+          "match_string": "      if (token == delimiter) {\n\n        sawComma = true;\n\n        break;"
+        },
+        {
+          "file_path": "/src/closure/goog/history/history.js",
+          "match_lines": [
+            592,
+            593
+          ],
+          "match_position": [
+            3,
+            28
+          ],
+          "match_string": "  if (hash != this.lastToken_) {\n\n    this.update_(hash, true);"
+        },
+        {
+          "file_path": "/src/closure/goog/history/history.js",
+          "match_lines": [
+            669,
+            691
+          ],
+          "match_position": [
+            3,
+            61
+          ],
+          "match_string": "  if (this.getToken() != token) {\n\n    if (this.userVisible_) {\n\n      this.setHash_(token, replace);\n\n\n\n      if (!goog.History.isOnHashChangeSupported()) {\n\n        if (goog.userAgent.IE && !goog.labs.userAgent.device.isMobile()) {\n\n          // IE must save state using the iframe.\n\n          this.setIframeToken_(token, replace, opt_title);\n\n        }\n\n      }\n\n\n\n      // This condition needs to be called even if\n\n      // goog.History.isOnHashChangeSupported() is true so the NAVIGATE event\n\n      // fires sychronously.\n\n      if (this.enabled_) {\n\n        this.check_(false);\n\n      }\n\n    } else {\n\n      // Fire the event immediately so that setting history is synchronous, but\n\n      // set a suspendToken so that polling doesn't trigger a 'back'.\n\n      this.setIframeToken_(token, replace);\n\n      this.lockedToken_ = this.lastToken_ = this.hiddenInput_.value = token;\n\n      this.dispatchEvent(new goog.history.Event(token, false));"
+        },
+        {
+          "file_path": "/src/closure/goog/history/history.js",
+          "match_lines": [
+            877,
+            878
+          ],
+          "match_position": [
+            5,
+            38
+          ],
+          "match_string": "    if (hash != this.lastToken_) {\n\n      this.update_(hash, isNavigation);"
+        },
+        {
+          "file_path": "/src/closure/goog/history/history.js",
+          "match_lines": [
+            887,
+            888
+          ],
+          "match_position": [
+            7,
+            41
+          ],
+          "match_string": "      if (token != this.lastToken_) {\n\n        this.update_(token, isNavigation);"
+        },
+        {
+          "file_path": "/src/closure/goog/history/html5history.js",
+          "match_lines": [
+            166,
+            167
+          ],
+          "match_position": [
+            3,
+            11
+          ],
+          "match_string": "  if (token == this.getToken()) {\n\n    return;"
+        },
+        {
+          "file_path": "/src/closure/goog/ui/combobox.js",
+          "match_lines": [
+            884,
+            886
+          ],
+          "match_position": [
+            3,
+            11
+          ],
+          "match_string": "  if (token == '') {\n\n    this.menu_.setHighlightedIndex(-1);\n\n    return;"
+        },
+        {
+          "file_path": "/src/closure/goog/ui/ac/arraymatcher.js",
+          "match_lines": [
+            116,
+            123
+          ],
+          "match_position": [
+            3,
+            25
+          ],
+          "match_string": "  if (token != '') {\n\n    var escapedToken = goog.string.regExpEscape(token);\n\n    var matcher = new RegExp('(^|\\\\W+)' + escapedToken, 'i');\n\n\n\n    for (var i = 0; i < rows.length && matches.length < maxMatches; i++) {\n\n      var row = rows[i];\n\n      if (String(row).match(matcher)) {\n\n        matches.push(row);"
+        },
+        {
+          "file_path": "/src/closure/goog/ui/ac/autocomplete.js",
+          "match_lines": [
+            490,
+            491
+          ],
+          "match_position": [
+            3,
+            11
+          ],
+          "match_string": "  if (this.token_ == token) {\n\n    return;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/closure/goog/i18n/bidi.js",
+          "match_lines": [
+            463,
+            463
+          ],
+          "match_position": [
+            10,
+            50
+          ],
+          "match_string": "  return goog.i18n.bidi.isRequiredLtrRe_.test(str) ||"
+        },
+        {
+          "file_path": "/src/closure/goog/ui/media/picasa.js",
+          "match_lines": [
+            264,
+            264
+          ],
+          "match_position": [
+            7,
+            61
+          ],
+          "match_string": "  if (goog.ui.media.PicasaAlbumModel.MATCHER_.test(picasaUrl)) {"
+        },
+        {
+          "file_path": "/src/closure/goog/ui/media/vimeo.js",
+          "match_lines": [
+            227,
+            227
+          ],
+          "match_position": [
+            7,
+            54
+          ],
+          "match_string": "  if (goog.ui.media.VimeoModel.MATCHER_.test(vimeoUrl)) {"
+        },
+        {
+          "file_path": "/src/closure/goog/ui/media/flickr.js",
+          "match_lines": [
+            271,
+            271
+          ],
+          "match_position": [
+            7,
+            62
+          ],
+          "match_string": "  if (goog.ui.media.FlickrSetModel.MATCHER_.test(flickrSetUrl)) {"
+        },
+        {
+          "file_path": "/src/closure/goog/ui/media/googlevideo.js",
+          "match_lines": [
+            231,
+            231
+          ],
+          "match_position": [
+            7,
+            66
+          ],
+          "match_string": "  if (goog.ui.media.GoogleVideoModel.MATCHER_.test(googleVideoUrl)) {"
+        },
+        {
+          "file_path": "/src/closure/goog/tweak/entries.js",
+          "match_lines": [
+            176,
+            176
+          ],
+          "match_position": [
+            8,
+            32
+          ],
+          "match_string": "      !/[^A-Za-z0-9._]/.test(id), 'Tweak id contains illegal characters: ', id);"
+        },
+        {
+          "file_path": "/src/closure/goog/string/string.js",
+          "match_lines": [
+            601,
+            601
+          ],
+          "match_position": [
+            10,
+            38
+          ],
+          "match_string": "    if (!goog.string.ALL_RE_.test(str)) return str;"
+        },
+        {
+          "file_path": "/src/closure/goog/net/xpc/iframepollingtransport.js",
+          "match_lines": [
+            887,
+            887
+          ],
+          "match_position": [
+            8,
+            31
+          ],
+          "match_string": "  if (!/^https?:\\/\\//.test(url)) {"
+        },
+        {
+          "file_path": "/src/closure/goog/editor/plugins/basictextformatter.js",
+          "match_lines": [
+            833,
+            833
+          ],
+          "match_position": [
+            7,
+            45
+          ],
+          "match_string": "  if (/insert(un)?orderedlist/i.test(command)) {"
+        },
+        {
+          "file_path": "/src/closure/goog/dom/pattern/sequence.js",
+          "match_lines": [
+            87,
+            87
+          ],
+          "match_position": [
+            7,
+            75
+          ],
+          "match_string": "      goog.dom.pattern.Sequence.BREAKING_TEXTNODE_RE_.test(token.nodeValue)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,50 @@
+/src/lib/schema.js-201-                passThrough: Joi.boolean(),
+/src/lib/schema.js:202:                rejectUnauthorized: Joi.boolean(),
+/src/lib/schema.js-203-                xforward: Joi.boolean(),
+##############################################
+/src/lib/proxy.js-20-
+/src/lib/proxy.js:21:    if (options.rejectUnauthorized !== undefined) {
+/src/lib/proxy.js:22:        settings.rejectUnauthorized = options.rejectUnauthorized;
+/src/lib/proxy.js-23-    }
+##############################################
+/src/lib/proxy.js-43-                timeout: settings.timeout,
+/src/lib/proxy.js:44:                rejectUnauthorized: settings.rejectUnauthorized
+/src/lib/proxy.js-45-            };
+##############################################
+/src/test/integration/response.js-1576-
+/src/test/integration/response.js:1577:                Nipple.get('https://localhost:' + server.info.port, { rejectUnauthorized: false }, function (err, res, body) {
+/src/test/integration/response.js-1578-
+##############################################
+/src/test/integration/response.js-1599-        };
+/src/test/integration/response.js:1600:        var insecureHandler = function (request, reply) {
+/src/test/integration/response.js-1601-
+##############################################
+/src/test/integration/response.js-1668-            server.route({ method: 'GET', path: '/views/abspath', config: { handler: absoluteHandler } });
+/src/test/integration/response.js:1669:            server.route({ method: 'GET', path: '/views/insecure', config: { handler: insecureHandler } });
+/src/test/integration/response.js-1670-            server.route({ method: 'GET', path: '/views/nonexistent', config: { handler: nonexistentHandler } });
+##############################################
+/src/test/integration/response.js-1695-
+/src/test/integration/response.js:1696:                server.inject('/views/insecure', function (res) {
+/src/test/integration/response.js-1697-
+##############################################
+/src/test/integration/proxy.js-240-                    sslServer.route([
+/src/test/integration/proxy.js:241:                        { method: 'GET', path: '/allow', handler: { proxy: { mapUri: mapSslUri, rejectUnauthorized: false } } },
+/src/test/integration/proxy.js:242:                        { method: 'GET', path: '/reject', handler: { proxy: { mapUri: mapSslUri, rejectUnauthorized: true } } },
+/src/test/integration/proxy.js-243-                        { method: 'GET', path: '/sslDefault', handler: { proxy: { mapUri: mapSslUri } } }
+##############################################
+/src/test/integration/proxy.js-523-
+/src/test/integration/proxy.js:524:    it('uses rejectUnauthorized to allow proxy to self signed ssl server', function (done) {
+/src/test/integration/proxy.js-525-
+##############################################
+/src/test/integration/proxy.js-533-
+/src/test/integration/proxy.js:534:    it('uses rejectUnauthorized to not allow proxy to self signed ssl server', function (done) {
+/src/test/integration/proxy.js-535-
+##############################################
+/src/test/integration/proxy.js-542-
+/src/test/integration/proxy.js:543:    it('the default rejectUnauthorized should not allow proxied server cert to be self signed', function (done) {
+/src/test/integration/proxy.js-544-
+##############################################
+/src/docs/Reference.md-397-        - `passThrough` - if `true`, forwards the headers sent from the client to the upstream service being proxied to. Defaults to `false`.
+/src/docs/Reference.md:398:        - `rejectUnauthorized` - sets the `rejectUnauthorized` property on the https [agent](http://nodejs.org/api/https.html#https_https_request_options_callback)
+/src/docs/Reference.md:399:          making the request. This value is only used when the proxied server uses TLS/SSL.  When set it will override the node.js `rejectUnauthorized` property.
+/src/docs/Reference.md-400-          If `false` then ssl errors will be ignored. When `true` the server certificate is verified and an 500 response will be sent when verification fails.

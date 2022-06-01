@@ -1,0 +1,74 @@
+{
+    "advisory": {
+        "id": 967,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/static-resource-server/-/static-resource-server-1.7.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/helper/route",
+                    "lineno": 22,
+                    "code": "const filePath = path.join(root, req.url);"
+                },
+                "sink": {
+                    "file": "src/helper/route",
+                    "lineno": 46,
+                    "code": "rs = fs.createReadStream(filePath);"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/helper/route",
+                    "lineno": 22,
+                    "code": "const filePath = path.join(root, req.url);"
+                },
+                "sink": {
+                    "file": "src/helper/route",
+                    "lineno": 49,
+                    "code": "rs = fs.createReadStream(filePath, { start, end });// \u8fd4\u56de\u90e8\u5206\u5185\u5bb9"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/432600"
+        }
+    ],
+    "patch": [],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

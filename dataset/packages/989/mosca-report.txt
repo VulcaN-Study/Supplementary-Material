@@ -1,0 +1,154 @@
+<report_mosca>
+ <Path>/src/lib/model2.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 92 -                  where = ((this.FILTER.length > 0) ? 'WHERE ' + FILTER : '');
+
+ Line: 96 -                  return ('SELECT ' + select + ' FROM ' + this.model + ' ' + (this.join) + ' ' + where ) + ';';
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/model_drivers.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 40 -    //create query
+
+ Line: 42 -    let query = 'CREATE TABLE ' + file_name.split('.')[0] + '(';
+
+ Line: 45 -      query += i +' ';
+
+ Line: 77 -      query += dtype + ' ' + temp_query + ', ';
+
+ Line: 79 -    query = replaceAt(query,query.length - 2, ');');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/model.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 411 -          setTimeout(()=>{exec(ql, t, con,in_queue);}, 100);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/model.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 52 -      con.query("SELECT * FROM " + temp.model + ";",function (e,data){
+
+ Line: 62 -      let query = 'DELETE FROM ' + this.model + ' WHERE ';
+
+ Line: 65 -      temp2.query = query;
+
+ Line: 67 -        let query = this.query;
+
+ Line: 69 -          query += list;
+
+ Line: 74 -              query += i + "='" + list[i] + "' ;";
+
+ Line: 76 -              query += i + "='" + list[i] + "' and ";
+
+ Line: 92 -      let query = 'INSERT INTO ' +  this.model + ' (';
+
+ Line: 96 -          query += i + ") VALUES(" , length = -1;
+
+ Line: 98 -          query += i + ",";
+
+ Line: 103 -          query += "'" + dict[i] + "');" , length = 0;
+
+ Line: 105 -          query += "'" + dict[i] + "',";
+
+ Line: 119 -      let query = 'UPDATE ' + this.model + ' SET ';
+
+ Line: 123 -          query += i + "='" + dict[i] + "' ";
+
+ Line: 125 -          query += i + "='" + dict[i] + "' , ";
+
+ Line: 129 -      temp2.query = query;
+
+ Line: 132 -        let query = this.query + " WHERE ";
+
+ Line: 134 -          query += list;
+
+ Line: 139 -              query += i + "='" + list[i] + "'";
+
+ Line: 141 -              query += i + "='" + list[i] + "' and ";
+
+ Line: 145 -        query += ';';
+
+ Line: 161 -    let SELECT = '';
+
+ Line: 209 -    //   query = 'SELECT ';
+
+ Line: 217 -    //         query += temp.model+'.'+list[i] + ' as '+list[i]+" ";
+
+ Line: 221 -    //         query += temp.model+'.'+list[i] + ' as '+list[i]+' , ';
+
+ Line: 233 -    //       //   query += list[i].split('__').join('.') + ' as '+list[i]+' ';
+
+ Line: 237 -    //       //   query += list[i].split('__').join('.') + ' as '+list[i]+' , ';
+
+ Line: 251 -    //   temp2.query = query;
+
+ Line: 256 -    //     let query = this.query;
+
+ Line: 257 -    //     query += 'FROM '+this.model+' ;';
+
+ Line: 271 -    //     let query = this.query + "FROM " + temp.model + " WHERE ";
+
+ Line: 273 -    //       query += list;
+
+ Line: 278 -    //           query += i + "='" + list[i] + "'";
+
+ Line: 280 -    //           query += i + "='" + list[i] + "' and ";
+
+ Line: 284 -    //     query += ';';
+
+ Line: 298 -      query = "SELECT * FROM " + temp.model + " WHERE ";
+
+ Line: 300 -        query += list;
+
+ Line: 305 -            query += i + "='" + list[i] + "'";
+
+ Line: 307 -            query += i + "='" + list[i] + "' and ";
+
+ Line: 311 -      query += ';';
+
+ Line: 325 -  //       con.query("SELECT * FROM " + temp.model + ";",function (e,data){
+
+ Line: 350 -  //   let query = 'CREATE TABLE ' + file_name.split('.')[0] + '(';
+
+ Line: 352 -  //     query += i +' ';
+
+ Line: 381 -  //     query += dtype + ' ' + temp_query + ', ';
+
+ Line: 383 -  //   query = replaceAt(query,query.length - 2, ');');
+
+ Line: 434 -          let query_dict = model_driver.solve(files[file_number]);
+
+ Line: 435 -          for(let query_ in query_dict){
+
+</Result>
+</report_mosca>
+

@@ -1,0 +1,61 @@
+{
+    "advisory": {
+        "id": 360,
+        "cwe": "CWE-94"
+    },
+    "correct_cwe": "CWE-94",
+    "correct_package_link": "https://registry.npmjs.org/fs-git/-/fs-git-1.0.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/index.js",
+                    "lineno": 54,
+                    "code": " var command = this._buildCommand(\"show\", this.ref + \":\" + path);"
+                },
+                "sink": {
+                    "file": "lib/index.js",
+                    "lineno": 56,
+                    "code": "child_process.exec(command, { maxBuffer: maxBuffer }, function (error, stdout, stderr) {"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/vvakame/fs-git/commit/eb5f70efa5cfbff1ab299fa7daaa5de549243998"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

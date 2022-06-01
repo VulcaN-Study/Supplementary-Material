@@ -1,0 +1,122 @@
+/src/backbone-min.js-10-!this._performValidation(c,b))return false;delete this.attributes[a];delete this._escapedAttributes[a];if(!b.silent){this._changed=true;this.trigger("change:"+a,this,void 0,b);this.change(b)}return this},clear:function(a){a||(a={});var b=this.attributes,c={};for(attr in b)c[attr]=void 0;if(!a.silent&&this.validate&&!this._performValidation(c,a))return false;this.attributes={};this._escapedAttributes={};if(!a.silent){this._changed=true;for(attr in b)this.trigger("change:"+attr,this,void 0,a);this.change(a)}return this},
+/src/backbone-min.js:11:fetch:function(a){a||(a={});var b=this,c=j(a.error,b,a);(this.sync||e.sync)("read",this,function(d){if(!b.set(b.parse(d),a))return false;a.success&&a.success(b,d)},c);return this},save:function(a,b){b||(b={});if(a&&!this.set(a,b))return false;var c=this,d=j(b.error,c,b),g=this.isNew()?"create":"update";(this.sync||e.sync)(g,this,function(i){if(!c.set(c.parse(i),b))return false;b.success&&b.success(c,i)},d);return this},destroy:function(a){a||(a={});var b=this,c=j(a.error,b,a);(this.sync||e.sync)("delete",
+/src/backbone-min.js-12-this,function(d){b.collection&&b.collection.remove(b);a.success&&a.success(b,d)},c);return this},url:function(){var a=k(this.collection);if(this.isNew())return a;return a+(a.charAt(a.length-1)=="/"?"":"/")+this.id},parse:function(a){return a},clone:function(){return new this.constructor(this)},isNew:function(){return!this.id},change:function(a){this.trigger("change",this,a);this._previousAttributes=f.clone(this.attributes);this._changed=false},hasChanged:function(a){if(a)return this._previousAttributes[a]!=
+##############################################
+/src/backbone-min.js-15-b){if(f.isArray(a))for(var c=0,d=a.length;c<d;c++)this._remove(a[c],b);else this._remove(a,b);return this},get:function(a){if(a==null)return null;return this._byId[a.id!=null?a.id:a]},getByCid:function(a){return a&&this._byCid[a.cid||a]},at:function(a){return this.models[a]},sort:function(a){a||(a={});if(!this.comparator)throw Error("Cannot sort a set without a comparator");this.models=this.sortBy(this.comparator);a.silent||this.trigger("refresh",this,a);return this},pluck:function(a){return f.map(this.models,
+/src/backbone-min.js:16:function(b){return b.get(a)})},refresh:function(a,b){a||(a=[]);b||(b={});this._reset();this.add(a,{silent:true});b.silent||this.trigger("refresh",this,b);return this},fetch:function(a){a||(a={});var b=this,c=j(a.error,b,a);(this.sync||e.sync)("read",this,function(d){b.refresh(b.parse(d));a.success&&a.success(b,d)},c);return this},create:function(a,b){var c=this;b||(b={});if(a instanceof e.Model)a.collection=c;else a=new this.model(a,{collection:c});return a.save(null,{success:function(d,g){c.add(d);
+/src/backbone-min.js-17-b.success&&b.success(d,g)},error:b.error})},parse:function(a){return a},chain:function(){return f(this.models).chain()},_reset:function(){this.length=0;this.models=[];this._byId={};this._byCid={}},_add:function(a,b){b||(b={});a instanceof e.Model||(a=new this.model(a,{collection:this}));var c=this.getByCid(a);if(c)throw Error(["Can't add the same model to a set twice",c.id]);this._byId[a.id]=a;this._byCid[a.cid]=a;a.collection=this;this.models.splice(this.comparator?this.sortedIndex(a,this.comparator):
+##############################################
+/src/backbone-min.js-22-"onhashchange"in window&&!a?h(window).bind("hashchange",this.checkUrl):setInterval(this.checkUrl,this.interval);return this.loadUrl()},route:function(a,b){this.handlers.push({route:a,callback:b})},checkUrl:function(){var a=this.getFragment();if(a==this.fragment&&this.iframe)a=this.getFragment(this.iframe.location);if(a==this.fragment||a==decodeURIComponent(this.fragment))return false;if(this.iframe)window.location.hash=this.iframe.location.hash=a;this.loadUrl()},loadUrl:function(){var a=this.fragment=
+/src/backbone-min.js:23:this.getFragment();return f.any(this.handlers,function(b){if(b.route.test(a)){b.callback(a);return true}})},saveLocation:function(a){a=(a||"").replace(l,"");if(this.fragment!=a){window.location.hash=this.fragment=a;if(this.iframe&&a!=this.getFragment(this.iframe.location)){this.iframe.document.open().close();this.iframe.location.hash=a}}}});e.View=function(a){this._configure(a||{});this._ensureElement();this.delegateEvents();this.initialize(a)};var q=/^(\w+)\s*(.*)$/;f.extend(e.View.prototype,e.Events,
+/src/backbone-min.js-24-{tagName:"div",$:function(a){return h(a,this.el)},initialize:function(){},render:function(){return this},remove:function(){h(this.el).remove();return this},make:function(a,b,c){a=document.createElement(a);b&&h(a).attr(b);c&&h(a).html(c);return a},delegateEvents:function(a){if(a||(a=this.events)){h(this.el).unbind();for(var b in a){var c=a[b],d=b.match(q),g=d[1];d=d[2];c=f.bind(this[c],this);d===""?h(this.el).bind(g,c):h(this.el).delegate(d,g,c)}}},_configure:function(a){if(this.options)a=f.extend({},
+##############################################
+/src/examples/backbone-localstorage.js-19-  var store = localStorage.getItem(this.name);
+/src/examples/backbone-localstorage.js:20:  this.data = (store && JSON.parse(store)) || {};
+/src/examples/backbone-localstorage.js-21-};
+##############################################
+/src/index.html-818-    <p id="Model-parse">
+/src/index.html:819:      <b class="header">parse</b><code>model.parse(response)</code>
+/src/index.html-820-      <br />
+##############################################
+/src/index.html-1201-    <p id="Collection-parse">
+/src/index.html:1202:      <b class="header">parse</b><code>collection.parse(response)</code>
+/src/index.html-1203-      <br />
+##############################################
+/src/index.html-1435-openPage: function(pageNumber) {
+/src/index.html:1436:  this.document.pages.at(pageNumber).open();
+/src/index.html-1437-  this.saveLocation("page/" + pageNumber);
+##############################################
+/src/index.html-1776-  open: function() {
+/src/index.html:1777:    window.open(this.model.get("viewer_url"));
+/src/index.html-1778-  },
+##############################################
+/src/Rakefile-14-  header = source.match(HEADER)
+/src/Rakefile:15:  File.open('backbone-min.js', 'w+') do |file|
+/src/Rakefile-16-    file.write header[1].squeeze(' ') + Closure::Compiler.new.compress(source)
+##############################################
+/src/backbone.js-244-      var success = function(resp) {
+/src/backbone.js:245:        if (!model.set(model.parse(resp), options)) return false;
+/src/backbone.js-246-        if (options.success) options.success(model, resp);
+##############################################
+/src/backbone.js-260-      var success = function(resp) {
+/src/backbone.js:261:        if (!model.set(model.parse(resp), options)) return false;
+/src/backbone.js-262-        if (options.success) options.success(model, resp);
+##############################################
+/src/backbone.js-482-      var success = function(resp) {
+/src/backbone.js:483:        collection.refresh(collection.parse(resp));
+/src/backbone.js-484-        if (options.success) options.success(collection, resp);
+##############################################
+/src/backbone.js-745-      if (this.iframe && (fragment != this.getFragment(this.iframe.location))) {
+/src/backbone.js:746:        this.iframe.document.open().close();
+/src/backbone.js-747-        this.iframe.location.hash = fragment;
+##############################################
+/src/test/sync.js-38-    equals(lastRequest.dataType, 'json');
+/src/test/sync.js:39:    var data = JSON.parse(lastRequest.data);
+/src/test/sync.js-40-    equals(data.title, 'The Tempest');
+##############################################
+/src/test/sync.js-50-    equals(lastRequest.dataType, 'json');
+/src/test/sync.js:51:    var data = JSON.parse(lastRequest.data);
+/src/test/sync.js-52-    equals(data.id, '1-the-tempest');
+##############################################
+/src/test/sync.js-64-    equals(lastRequest.data._method, 'PUT');
+/src/test/sync.js:65:    var data = JSON.parse(lastRequest.data.model);
+/src/test/sync.js-66-    equals(data.id, '2-the-tempest');
+##############################################
+/src/test/sync.js-77-    equals(lastRequest.contentType, 'application/json');
+/src/test/sync.js:78:    var data = JSON.parse(lastRequest.data);
+/src/test/sync.js-79-    equals(data.id, '2-the-tempest');
+##############################################
+/src/test/sync.js-90-    equals(lastRequest.contentType, 'application/x-www-form-urlencoded');
+/src/test/sync.js:91:    var data = JSON.parse(lastRequest.data.model);
+/src/test/sync.js-92-    equals(data.id, '2-the-tempest');
+##############################################
+/src/test/vendor/jquery-1.4.2.js-511-			return window.JSON && window.JSON.parse ?
+/src/test/vendor/jquery-1.4.2.js:512:				window.JSON.parse( data ) :
+/src/test/vendor/jquery-1.4.2.js-513-				(new Function("return " + data))();
+##############################################
+/src/test/vendor/jquery-1.4.2.js-5110-		if ( s.username ) {
+/src/test/vendor/jquery-1.4.2.js:5111:			xhr.open(type, s.url, s.async, s.username, s.password);
+/src/test/vendor/jquery-1.4.2.js-5112-		} else {
+/src/test/vendor/jquery-1.4.2.js:5113:			xhr.open(type, s.url, s.async);
+/src/test/vendor/jquery-1.4.2.js-5114-		}
+##############################################
+/src/test/vendor/zepto-0.2.js-232-    }
+/src/test/vendor/zepto-0.2.js:233:    r.open(method,url,true);
+/src/test/vendor/zepto-0.2.js-234-    if (type) r.setRequestHeader("Accept", type );
+##############################################
+/src/test/vendor/zepto-0.2.js-245-  $.getJSON = function(url, success){
+/src/test/vendor/zepto-0.2.js:246:    $.get(url, function(json){ success(JSON.parse(json)) });
+/src/test/vendor/zepto-0.2.js-247-  };
+##############################################
+/src/test/vendor/qunit.js-545-	message = message || (result ? "okay" : "failed");
+/src/test/vendor/qunit.js:546:	QUnit.ok( result, result ? message + ": " + expected : message + ", expected: " + QUnit.jsDump.parse(expected) + " result: " + QUnit.jsDump.parse(actual) );
+/src/test/vendor/qunit.js-547-}
+##############################################
+/src/test/vendor/qunit.js-863-		while ( i-- )
+/src/test/vendor/qunit.js:864:			ret[i] = this.parse( arr[i] );				
+/src/test/vendor/qunit.js-865-		this.down();
+##############################################
+/src/test/vendor/qunit.js-937-				
+/src/test/vendor/qunit.js:938:				ret = [ ret, this.parse( fn, 'functionArgs' ), '){'].join('');
+/src/test/vendor/qunit.js:939:				return join( ret, this.parse(fn,'functionCode'), '}' );
+/src/test/vendor/qunit.js-940-			},
+##############################################
+/src/test/vendor/qunit.js-947-				for ( var key in map )
+/src/test/vendor/qunit.js:948:					ret.push( this.parse(key,'key') + ': ' + this.parse(map[key]) );
+/src/test/vendor/qunit.js-949-				this.down();
+##############################################
+/src/test/vendor/qunit.js-961-					if ( val )
+/src/test/vendor/qunit.js:962:						ret += ' ' + a + '=' + this.parse( val, 'attribute' );
+/src/test/vendor/qunit.js-963-				}
+##############################################
+/src/test/vendor/json2.js-102-
+/src/test/vendor/json2.js:103:        JSON.parse(text, reviver)
+/src/test/vendor/json2.js-104-            This method parses a JSON text to produce an object or array.
+##############################################
+/src/test/vendor/json2.js-117-
+/src/test/vendor/json2.js:118:            myData = JSON.parse(text, function (key, value) {
+/src/test/vendor/json2.js-119-                var a;
+##############################################
+/src/test/vendor/json2.js-130-
+/src/test/vendor/json2.js:131:            myData = JSON.parse('["Date(09/09/2001)"]', function (key, value) {
+/src/test/vendor/json2.js-132-                var d;

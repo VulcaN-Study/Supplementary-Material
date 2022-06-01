@@ -1,0 +1,32 @@
+[
+ {
+  "id": 1,
+  "file": "/src/lib/objects/objectsInMemServer.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "\n        function _emit_(id, obj) {\n            result.rows.push({id: id, value: obj});\n        }\n\n        let f = eval('(' + func.map.replace(/emit/g, '_emit_') + ')');\n\n        for (let id in objects) {\n            if (!objects.hasOwnProperty(id)) continue;\n            if (params) {\n                if (params.startkey && id < params.startkey) continue;",
+  "line": 2743,
+  "start": 2738,
+  "end": 2749
+ },
+ {
+  "id": 2,
+  "file": "/src/lib/objects/objectsInRedis.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "        }\n        params = params || {startkey: '', endkey: '\\u9999'};\n        client.keys(redisNamespace + '*', (err, keys) => {\n            keys.sort();\n            client.mget(keys, (err, objs) => {\n                let f = eval('(' + func.map.replace(/emit/g, '_emit_') + ')');\n\n                for (let i = 0; i < keys.length; i++) {\n                    const id = keys[i];\n                    if (params) {\n                        if (params.startkey && id < params.startkey) continue;",
+  "line": 1548,
+  "start": 1543,
+  "end": 1554
+ },
+ {
+  "id": 3,
+  "file": "/src/lib/objects/objectsInRedis.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "                    console.error('Cannot find view \"' + design + '\": ' + err);\n                }\n                if (obj && obj.views && obj.views[search]) {\n                    this.getObjectList(params, options, (err, _result) => {\n                        const func = obj.views[search];\n                        let f = eval('(' + func.map.replace(/emit/g, '_emit_') + ')');\n                        let result = {rows: []};\n\n                        // required for getObjectView\n                        function _emit_(id, obj) {\n                            result.rows.push({id: id, value: obj});",
+  "line": 1609,
+  "start": 1604,
+  "end": 1615
+ }
+]

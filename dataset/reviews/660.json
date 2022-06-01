@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 660,
+        "cwe": "CWE-125"
+    },
+    "correct_cwe": "CWE-125",
+    "correct_package_link": "https://registry.npmjs.org/base64-url/-/base64-url-1.3.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 17,
+                    "code": "base64url.encode = function encode (str) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 18,
+                    "code": "return this.escape(new Buffer(str).toString('base64'));"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 21,
+                    "code": "base64url.decode = function decode (str) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 22,
+                    "code": "return new Buffer(this.unescape(str), 'base64').toString();"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/321692"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/joaquimserafim/base64-url/compare/v1.3.3...v2.0.0#diff-e727e4bdf3657fd1d798edcd6b099d6e092f8573cba266154583a746bba0f346"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

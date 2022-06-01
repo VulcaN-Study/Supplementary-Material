@@ -1,0 +1,131 @@
+/src/request.js-248-  if (typeof self.uri === 'string') {
+/src/request.js:249:    self.uri = url.parse(self.uri)
+/src/request.js-250-  }
+##############################################
+/src/request.js-643-  if (typeof proxy === 'string') {
+/src/request.js:644:    proxy = url.parse(proxy)
+/src/request.js-645-  }
+##############################################
+/src/request.js-1016-      // The UTF8 BOM [0xEF,0xBB,0xBF] is converted to [0xFE,0xFF] in the JS UTC16/UCS2 representation.
+/src/request.js:1017:      // Strip this value out when the encoding is set to 'utf8', as upstream consumers won't expect it and it breaks JSON.parse().
+/src/request.js-1018-      if (self.encoding === 'utf8' && strings[0].length > 0 && strings[0][0] === '\uFEFF') {
+##############################################
+/src/request.js-1025-      try {
+/src/request.js:1026:        response.body = JSON.parse(response.body, self._jsonReviver)
+/src/request.js-1027-      } catch (e) {
+##############################################
+/src/request.js-1095-  if (!clobber && self.uri.query) {
+/src/request.js:1096:    base = self._qs.parse(self.uri.query)
+/src/request.js-1097-  } else {
+##############################################
+/src/request.js-1110-
+/src/request.js:1111:  self.uri = url.parse(self.uri.href.split('?')[0] + '?' + qs)
+/src/request.js-1112-  self.url = self.uri
+##############################################
+/src/README.md-59-```js
+/src/README.md:60:fs.createReadStream('file.json').pipe(request.put('http://mysite.com/obj.json'))
+/src/README.md-61-```
+##############################################
+/src/README.md-94-```js
+/src/README.md:95:http.createServer(function (req, resp) {
+/src/README.md-96-  if (req.url === '/doodle.png') {
+##############################################
+/src/README.md-108-```js
+/src/README.md:109:http.createServer(function (req, resp) {
+/src/README.md-110-  if (req.url === '/doodle.png') {
+##############################################
+/src/README.md-128-
+/src/README.md:129:http.createServer(function (req, resp) {
+/src/README.md-130-  if (req.url === '/doodle.png') {
+##############################################
+/src/README.md-173-  // Pass data via Streams
+/src/README.md:174:  my_file: fs.createReadStream(__dirname + '/unicycle.jpg'),
+/src/README.md-175-  // Pass multiple values /w an Array
+/src/README.md-176-  attachments: [
+/src/README.md:177:    fs.createReadStream(__dirname + '/attachment1.jpg'),
+/src/README.md:178:    fs.createReadStream(__dirname + '/attachment2.jpg')
+/src/README.md-179-  ],
+##############################################
+/src/README.md-183-  custom_file: {
+/src/README.md:184:    value:  fs.createReadStream('/dev/urandom'),
+/src/README.md-185-    options: {
+##############################################
+/src/README.md-206-form.append('my_buffer', new Buffer([1, 2, 3]));
+/src/README.md:207:form.append('custom_file', fs.createReadStream(__dirname + '/unicycle.jpg'), {filename: 'unicycle.jpg'});
+/src/README.md-208-```
+##############################################
+/src/README.md-227-      { body: 'I am an attachment' },
+/src/README.md:228:      { body: fs.createReadStream('image.png') }
+/src/README.md-229-    ],
+##############################################
+/src/README.md-342-  if (!error && response.statusCode == 200) {
+/src/README.md:343:    var info = JSON.parse(body);
+/src/README.md-344-    console.log(info.stargazers_count + " Stars");
+##############################################
+/src/README.md-381-  // step 2
+/src/README.md:382:  var req_data = qs.parse(body)
+/src/README.md-383-  var uri = 'https://api.twitter.com/oauth/authenticate'
+##############################################
+/src/README.md-388-  // after the user is redirected back to your server
+/src/README.md:389:  var auth_data = qs.parse(body)
+/src/README.md-390-    , oauth =
+##############################################
+/src/README.md-400-    // ready to make signed requests on behalf of the user
+/src/README.md:401:    var perm_data = qs.parse(body)
+/src/README.md-402-      , oauth =
+##############################################
+/src/README.md-718-
+/src/README.md:719:- `uri` || `url` - fully qualified uri or a parsed url object from `url.parse()`
+/src/README.md-720-- `baseUrl` - fully qualified uri string used as the base url. Most useful with `request.defaults`, for example when you want to do many requests to the same domain.  If `baseUrl` is `https://example.com/api/`, then requesting `/end/point?test=true` will fetch `https://example.com/api/end/point?test=true`. When `baseUrl` is given, `uri` must also be a string.
+##############################################
+/src/README.md-749-- `json` - sets `body` to JSON representation of value and adds `Content-type: application/json` header.  Additionally, parses the response body as JSON.
+/src/README.md:750:- `jsonReviver` - a [reviver function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) that will be passed to `JSON.parse()` when parsing a JSON response body.
+/src/README.md-751-
+##############################################
+/src/index.js-79-request.cookie = function (str) {
+/src/index.js:80:  return cookies.parse(str)
+/src/index.js-81-}
+##############################################
+/src/lib/cookies.js-15-  }
+/src/lib/cookies.js:16:  return Cookie.parse(str, {loose: true})
+/src/lib/cookies.js-17-}
+##############################################
+/src/lib/oauth.js-45-  var baseurl = uri.protocol + '//' + uri.host + uri.pathname
+/src/lib/oauth.js:46:  var params = qsLib.parse([].concat(query, form, qsLib.stringify(oa)).join('&'))
+/src/lib/oauth.js-47-
+##############################################
+/src/lib/oauth.js-133-      var href = self.request.uri.href += (query ? '&' : '?') + self.concatParams(oa, '&')
+/src/lib/oauth.js:134:      self.request.uri = url.parse(href)
+/src/lib/oauth.js-135-      self.request.path = self.request.uri.path
+##############################################
+/src/lib/redirect.js-103-  var uriPrev = request.uri
+/src/lib/redirect.js:104:  request.uri = url.parse(redirectTo)
+/src/lib/redirect.js-105-
+##############################################
+/src/lib/har.js-101-      try {
+/src/lib/har.js:102:        data.postData.jsonObj = JSON.parse(data.postData.text)
+/src/lib/har.js-103-      } catch (e) {
+##############################################
+/src/lib/har.js-189-      if (param.fileName && !param.value) {
+/src/lib/har.js:190:        attachment.value = fs.createReadStream(param.fileName)
+/src/lib/har.js-191-      } else if (param.value) {
+##############################################
+/src/lib/querystring.js-35-  return (this.useQuerystring)
+/src/lib/querystring.js:36:    ? this.lib.parse(str,
+/src/lib/querystring.js-37-      this.parseOptions.sep || null,
+##############################################
+/src/lib/querystring.js-39-      this.parseOptions)
+/src/lib/querystring.js:40:    : this.lib.parse(str, this.parseOptions)
+/src/lib/querystring.js-41-}
+##############################################
+/src/lib/tunnel.js-142-  if (typeof request.proxy === 'string') {
+/src/lib/tunnel.js:143:    request.proxy = url.parse(request.proxy)
+/src/lib/tunnel.js-144-  }
+##############################################
+/src/CHANGELOG.md-66-- [#1712](https://github.com/request/request/pull/1712) Set certificate expiration to August 2, 2018 (@kevinburke)
+/src/CHANGELOG.md:67:- [#1700](https://github.com/request/request/pull/1700) debug() when JSON.parse() on a response body fails (@phillipj)
+/src/CHANGELOG.md-68-
+##############################################
+/src/CHANGELOG.md-307-- [#1031](https://github.com/request/request/pull/1031) Explicitly use sync versions of cookie functions (@ZJONSSON)
+/src/CHANGELOG.md:308:- [#1056](https://github.com/request/request/pull/1056) Fix redirects when passing url.parse(x) as URL to convenience method (@nylen)
+/src/CHANGELOG.md-309-

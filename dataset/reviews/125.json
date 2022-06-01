@@ -1,0 +1,90 @@
+{
+    "advisory": {
+        "id": 125,
+        "cwe": "CWE-725"
+    },
+    "correct_cwe": "CWE-725",
+    "correct_package_link": "https://registry.npmjs.org/gmail-js/-/gmail-js-0.6.4.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "package/src/gmail.js",
+                    "lineno": 872,
+                    "code": "api.tools.parse_response = function(response) {"
+                },
+                "sink": {
+                    "file": "package/src/gmail.js",
+                    "lineno": 894,
+                    "code": "var get_data = new Function(\"use strict\"; return \" + data);"
+                }
+            },
+            {
+                "source": {
+                    "file": "package/src/gmail.js",
+                    "lineno": 1680,
+                    "code": "api.helper.get.visible_emails_post = function(get_data) {"
+                },
+                "sink": {
+                    "file": "package/src/gmail.js",
+                    "lineno": 1689,
+                    "code": "get_data = new Function(get_data);"
+                }
+            },
+            {
+                "source": {
+                    "file": "package/src/gmail.js",
+                    "lineno": 1933,
+                    "code": "api.helper.get.email_data_post = function(get_data) {"
+                },
+                "sink": {
+                    "file": "package/src/gmail.js",
+                    "lineno": 1939,
+                    "code": "var get_data = new Function(\"use strict\"; return \" + data);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/KartikTalwar/gmail.js/commit/a83436f499f9c01b04280af945a5a81137b6baf1"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

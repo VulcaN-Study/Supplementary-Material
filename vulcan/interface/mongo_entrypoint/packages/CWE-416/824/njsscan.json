@@ -1,0 +1,94 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 202
+        },
+        "extra": {
+          "line": "   limitations under the License.",
+          "message": "Lexical error: WIERD end of file in quoted string"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 1,
+          "line": 202
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/ExecutionContext.js",
+          "match_lines": [
+            87,
+            101
+          ],
+          "match_position": [
+            5,
+            68
+          ],
+          "match_string": "    let functionText = pageFunction.toString();\n\n    try {\n\n      new Function('(' + functionText + ')');\n\n    } catch (e1) {\n\n      // This means we might have a function shorthand. Try another\n\n      // time prefixing 'function '.\n\n      if (functionText.startsWith('async '))\n\n        functionText = 'async function ' + functionText.substring('async '.length);\n\n      else\n\n        functionText = 'function ' + functionText;\n\n      try {\n\n        new Function('(' + functionText  + ')');\n\n      } catch (e2) {\n\n        // We tried hard to serialize, but there's a weird beast here.\n\n        throw new Error('Passed function is not well-serializable!');"
+        },
+        {
+          "file_path": "/src/node6/lib/ExecutionContext.js",
+          "match_lines": [
+            139,
+            153
+          ],
+          "match_position": [
+            5,
+            68
+          ],
+          "match_string": "    let functionText = pageFunction.toString();\n\n    try {\n\n      new Function('(' + functionText + ')');\n\n    } catch (e1) {\n\n      // This means we might have a function shorthand. Try another\n\n      // time prefixing 'function '.\n\n      if (functionText.startsWith('async '))\n\n        functionText = 'async function ' + functionText.substring('async '.length);\n\n      else\n\n        functionText = 'function ' + functionText;\n\n      try {\n\n        new Function('(' + functionText  + ')');\n\n      } catch (e2) {\n\n        // We tried hard to serialize, but there's a weird beast here.\n\n        throw new Error('Passed function is not well-serializable!');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/ExecutionContext.js",
+          "match_lines": [
+            70,
+            71
+          ],
+          "match_position": [
+            7,
+            114
+          ],
+          "match_string": "      const expression = /** @type {string} */ (pageFunction);\n\n      const expressionWithSourceUrl = SOURCE_URL_REGEX.test(expression) ? expression : expression + '\\n' + suffix;"
+        },
+        {
+          "file_path": "/src/node6/lib/ExecutionContext.js",
+          "match_lines": [
+            122,
+            123
+          ],
+          "match_position": [
+            7,
+            114
+          ],
+          "match_string": "      const expression = /** @type {string} */ (pageFunction);\n\n      const expressionWithSourceUrl = SOURCE_URL_REGEX.test(expression) ? expression : expression + '\\n' + suffix;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

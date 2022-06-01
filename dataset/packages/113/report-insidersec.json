@@ -1,0 +1,145 @@
+{
+ "dra": [
+  {
+   "dra": "http://www.postgresql.org/docs/8.2/static/sql-syntax-lexical.html#SQL-SYNTAX-STRINGS",
+   "type": "url",
+   "file": "/src/lib/dialects/postgres/query-generator.js"
+  },
+  {
+   "dra": "pass@example.com",
+   "type": "email",
+   "file": "/src/spec/configuration.spec.js"
+  },
+  {
+   "dra": "http://abc.com",
+   "type": "url",
+   "file": "/src/spec/dao.validations.spec.js"
+  },
+  {
+   "dra": "abc@abc.com",
+   "type": "email",
+   "file": "/src/spec/dao.validations.spec.js"
+  },
+  {
+   "dra": "'foo@bar.com",
+   "type": "email",
+   "file": "/src/spec/postgres/dao.spec.js"
+  },
+  {
+   "dra": "'bar@baz.com",
+   "type": "email",
+   "file": "/src/spec/postgres/dao.spec.js"
+  },
+  {
+   "dra": "'joe@ibm.com",
+   "type": "email",
+   "file": "/src/spec-jasmine/associations/has-many.spec.js"
+  }
+ ],
+ "sca": [
+  {
+   "cwe": "CWE-400",
+   "cves": "CVE-2014-8882",
+   "sast": "",
+   "title": "Regular Expression Denial of Service - validator",
+   "severity": "high",
+   "advisoryId": 42,
+   "description": "Versions of `validator` prior to 3.22.1 are affected by a regular expression denial of service vulnerability in the `isURL` method.",
+   "recomendation": "Update to version 3.22.1 or later."
+  },
+  {
+   "cwe": "CWE-79",
+   "cves": "CVE-2014-9772",
+   "sast": "",
+   "title": "XSS Filter Bypass via Encoded URL - validator",
+   "severity": "high",
+   "advisoryId": 43,
+   "description": "Versions of `validator` prior to 2.0.0 contained an xss filter method that is affected by several filter bypasses. This may result in a cross-site scripting vulnerability.\n\n\n## Proof of Concept\nThe xss() function removes the word \"javascript\" when contained inside an attribute.\n\nHowever, it does not properly handle cases where characters have been hex-encoded. \n\nAs a result, it is possible to build an input that bypasses the filter but which the browser will accept as valid JavaScript.\n\nFor example:\n```\u003ca href=\"jav\u0026#x61;script:...\"\u003eabc\u003c/a\u003e```\nwill render as:\n```\u003ca href=\"javascript:...\"\u003eabc\u003c/a\u003e```",
+   "recomendation": "The package author has decided to remove the xss filter functionality in the latest version of this module. If this feature is not currently being used, you are not affected by the vulnerability. If it is being used, updating to the latest version of the module will break your application.\n\nIn order for affected users to mitigate this vulnerability, it is necessary to use an [alternative package](https://www.npmjs.com/search?q=xss%20filter\u0026page=1\u0026ranking=optimal) that provides similar functionality.\n\n"
+  }
+ ],
+ "sast": {
+  "name": "sequelize",
+  "version": "1.7.0-alpha2",
+  "averageCvss": 6.8,
+  "securityScore": 32,
+  "size": "1027986 Bytes",
+  "numberOfLines": 19330
+ },
+ "libraries": [
+  {
+   "name": "dottie",
+   "current": "0.0.6-1"
+  },
+  {
+   "name": "underscore.string",
+   "current": "~2.3.0"
+  },
+  {
+   "name": "lingo",
+   "current": "~0.0.5"
+  },
+  {
+   "name": "commander",
+   "current": "~0.6.0"
+  },
+  {
+   "name": "toposort-class",
+   "current": "0.1.4"
+  },
+  {
+   "name": "generic-pool",
+   "current": "2.0.3"
+  },
+  {
+   "name": "promise",
+   "current": "~3.0.0"
+  },
+  {
+   "name": "lodash",
+   "current": "~1.2.1"
+  },
+  {
+   "name": "validator",
+   "current": "1.1.1"
+  },
+  {
+   "name": "moment",
+   "current": "~1.7.0"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 6.8,
+   "cwe": "CWE-312",
+   "line": 994,
+   "class": "dao-factory.spec.js (994:36)",
+   "vul_id": "b0d7680ffc4347e1a8b8991aaf49c5fa",
+   "method": "Domain.create({ ip: '91.65.189.19' }).success(function(publicIp) {",
+   "column": 36,
+   "longMessage": "The file contains credentials stored in the code. An attacker could decompile the application and obtain it for internal / external use.",
+   "classMessage": "/spec/dao-factory.spec.js (994:36)",
+   "shortMessage": "There are ‘Secrets Management’ solutions that can be used to store secrets.",
+   "affectedFiles": [
+    "/lib/dao-factory.js",
+    "/lib/sequelize.js"
+   ]
+  },
+  {
+   "cvss": 6.8,
+   "cwe": "CWE-312",
+   "line": 1010,
+   "class": "dao-factory.spec.js (1010:70)",
+   "vul_id": "c37dfb2b94d1e986fa60ac53aad960ba",
+   "method": "expect(environment.publicDomain.ip).toEqual('91.65.189.19')",
+   "column": 70,
+   "longMessage": "The file contains credentials stored in the code. An attacker could decompile the application and obtain it for internal / external use.",
+   "classMessage": "/spec/dao-factory.spec.js (1010:70)",
+   "shortMessage": "There are ‘Secrets Management’ solutions that can be used to store secrets.",
+   "affectedFiles": [
+    "/lib/dao-factory.js",
+    "/lib/sequelize.js"
+   ]
+  }
+ ]
+}

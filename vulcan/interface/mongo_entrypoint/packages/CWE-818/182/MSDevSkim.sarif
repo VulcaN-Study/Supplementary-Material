@@ -1,0 +1,366 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/preinstall.sh",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 7,
+                  "endLine": 14,
+                  "endColumn": 10,
+                  "offset": 244,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssl",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/preinstall.sh",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 29,
+                  "endLine": 16,
+                  "endColumn": 32,
+                  "offset": 322,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssl",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/preinstall.sh",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 37,
+                  "endLine": 16,
+                  "endColumn": 40,
+                  "offset": 330,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssl",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS140021",
+          "level": "warning",
+          "message": "Problematic C function detected (strlen)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/NodeIbapi.cpp",
+                "region": {
+                  "startLine": 922,
+                  "startColumn": 41,
+                  "endLine": 922,
+                  "endColumn": 59,
+                  "offset": 34014,
+                  "length": 18
+                }
+              }
+            }
+          ],
+          "snippet": "strlen( fallback )",
+          "fixes": [
+            {
+              "description": "Change to strlen_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 34014,
+                      "deletedLength": 18,
+                      "insertedBytes": "strlen_s( fallback , <size of  fallback >)"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strnlen",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 34014,
+                      "deletedLength": 18,
+                      "insertedBytes": "strnlen( fallback , <size of  fallback >)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/NodeIbapi.cpp",
+                "region": {
+                  "startLine": 918,
+                  "startColumn": 33,
+                  "endLine": 918,
+                  "endColumn": 56,
+                  "offset": 33880,
+                  "length": 23
+                }
+              }
+            }
+          ],
+          "snippet": "malloc( string.length()",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 33880,
+                      "deletedLength": 23,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/NodeIbapi.cpp",
+                "region": {
+                  "startLine": 922,
+                  "startColumn": 28,
+                  "endLine": 922,
+                  "endColumn": 59,
+                  "offset": 34001,
+                  "length": 31
+                }
+              }
+            }
+          ],
+          "snippet": "malloc( std::strlen( fallback )",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 34001,
+                      "deletedLength": 31,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS185832",
+          "level": "error",
+          "message": "Banned C function detected (strcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/NodeIbapi.cpp",
+                "region": {
+                  "startLine": 919,
+                  "startColumn": 14,
+                  "endLine": 919,
+                  "endColumn": 36,
+                  "offset": 33924,
+                  "length": 22
+                }
+              }
+            }
+          ],
+          "snippet": "strcpy( str, *string )",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 33924,
+                      "deletedLength": 22,
+                      "insertedBytes": "strcpy_s( str, <size of  str>,  *string )"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 33924,
+                      "deletedLength": 22,
+                      "insertedBytes": "strlcpy( str,  *string , <size of  str>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        },
+        {
+          "ruleId": "DS185832",
+          "level": "error",
+          "message": "Banned C function detected (strcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/NodeIbapi.cpp",
+                "region": {
+                  "startLine": 923,
+                  "startColumn": 10,
+                  "endLine": 923,
+                  "endColumn": 33,
+                  "offset": 34049,
+                  "length": 23
+                }
+              }
+            }
+          ],
+          "snippet": "strcpy( str, fallback )",
+          "fixes": [
+            {
+              "description": "Change to strcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 34049,
+                      "deletedLength": 23,
+                      "insertedBytes": "strcpy_s( str, <size of  str>,  fallback )"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": "Change to strlcpy",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/NodeIbapi.cpp",
+                  "replacements": [
+                    {
+                      "offset": 34049,
+                      "deletedLength": 23,
+                      "insertedBytes": "strlcpy( str,  fallback , <size of  str>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        }
+      ],
+      "rules": {
+        "DS440000": {
+          "id": "DS440000",
+          "name": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "fullDescription": "SSL/TLS version usage should be based on an OS or external configuration.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS440000.md"
+        },
+        "DS140021": {
+          "id": "DS140021",
+          "name": "Problematic C function detected (strlen)",
+          "fullDescription": "If a string is missing a null terminator, strlen will read past the end of the buffer",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS140021.md"
+        },
+        "DS161085": {
+          "id": "DS161085",
+          "name": "Problematic C function detected (malloc)",
+          "fullDescription": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS161085.md"
+        },
+        "DS185832": {
+          "id": "DS185832",
+          "name": "Banned C function detected (strcpy)",
+          "fullDescription": "strcpy is frequently dangerous, as it will cause a buffer overflow if the source is larger than the destination.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS185832.md"
+        }
+      }
+    }
+  ]
+}

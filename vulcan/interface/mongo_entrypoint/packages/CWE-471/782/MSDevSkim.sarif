@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS148264",
+          "level": "error",
+          "message": "Do not use weak/non-cryptographic random number generators",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/shuffle.js",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 10,
+                  "endLine": 20,
+                  "endColumn": 18,
+                  "offset": 537,
+                  "length": 8
+                }
+              }
+            }
+          ],
+          "snippet": "shuffle(",
+          "properties": {
+            "tags": ["Cryptography.PRNG.Weak"]
+          }
+        },
+        {
+          "ruleId": "DS148264",
+          "level": "error",
+          "message": "Do not use weak/non-cryptographic random number generators",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lodash.js",
+                "region": {
+                  "startLine": 9816,
+                  "startColumn": 14,
+                  "endLine": 9816,
+                  "endColumn": 22,
+                  "offset": 320138,
+                  "length": 8
+                }
+              }
+            }
+          ],
+          "snippet": "shuffle(",
+          "properties": {
+            "tags": ["Cryptography.PRNG.Weak"]
+          }
+        }
+      ],
+      "rules": {
+        "DS148264": {
+          "id": "DS148264",
+          "name": "Do not use weak/non-cryptographic random number generators",
+          "fullDescription": "Use cryptographic random numbers generators for anything even close to a security function.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS148264.md"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+/src/lib/response/headers.js-59-            var privacy = (request.auth.isAuthenticated || response.headers['set-cookie'] ? 'private' : (request.route.cache && request.route.cache.privacy) || 'default');
+/src/lib/response/headers.js:60:            response._header('cache-control', 'max-age=' + Math.floor(ttl / 1000) + ', must-revalidate' + (privacy !== 'default' ? ', ' + privacy : ''));
+/src/lib/response/headers.js-61-        }
+##############################################
+/src/test/integration/cache.js-75-
+/src/test/integration/cache.js:76:            expect(res.headers['cache-control']).to.equal('max-age=120, must-revalidate, private');
+/src/test/integration/cache.js-77-            done();
+##############################################
+/src/test/integration/cache.js-84-
+/src/test/integration/cache.js:85:            expect(res.headers['cache-control']).to.equal('max-age=120, must-revalidate, private');
+/src/test/integration/cache.js-86-            done();
+##############################################
+/src/test/integration/cache.js-93-
+/src/test/integration/cache.js:94:            expect(res.headers['cache-control']).to.not.equal('max-age=120, must-revalidate');
+/src/test/integration/cache.js-95-            done();
+##############################################
+/src/test/integration/response.js-61-                expect(res.result).to.equal('text');
+/src/test/integration/response.js:62:                expect(res.headers['cache-control']).to.equal('max-age=1, must-revalidate, private');
+/src/test/integration/response.js-63-                expect(res.headers['content-type']).to.equal('text/plain; something=something, charset=ISO-8859-1');
+##############################################
+/src/test/integration/response.js-1188-                expect(res.statusCode).to.equal(200);
+/src/test/integration/response.js:1189:                expect(res.headers['cache-control']).to.equal('max-age=2, must-revalidate');
+/src/test/integration/response.js-1190-                expect(res.headers['access-control-allow-origin']).to.equal('test.example.com');
+##############################################
+/src/test/integration/response.js-1195-                    expect(res.statusCode).to.equal(200);
+/src/test/integration/response.js:1196:                    expect(res.headers['cache-control']).to.equal('max-age=2, must-revalidate');
+/src/test/integration/response.js-1197-                    expect(res.headers['access-control-allow-origin']).to.equal('test.example.com');
+##############################################
+/src/test/integration/proxy.js-284-            expect(res.headers['set-cookie']).to.deep.equal(['test=123', 'auto=xyz']);
+/src/test/integration/proxy.js:285:            expect(res.headers['cache-control']).to.equal('max-age=2, must-revalidate, private');
+/src/test/integration/proxy.js-286-
+##############################################
+/src/test/integration/proxy.js-607-            expect(res.statusCode).to.equal(200);
+/src/test/integration/proxy.js:608:            expect(res.headers['cache-control']).to.equal('max-age=2, must-revalidate, private');
+/src/test/integration/proxy.js-609-            done();
+##############################################
+/src/test/integration/auth.js-564-            expect(res.statusCode).to.equal(200);
+/src/test/integration/auth.js:565:            expect(res.headers['cache-control']).to.equal('max-age=1, must-revalidate, private');
+/src/test/integration/auth.js-566-            done();
+##############################################
+/src/docs/Reference.md-109-- [`Hapi.state`](#hapistate)
+/src/docs/Reference.md:110:      - [`prepareValue(name, value, options, callback)`](#preparevaluename-value-options-callback)
+/src/docs/Reference.md-111-- [Hapi CLI](#hapi-cli)
+##############################################
+/src/docs/Reference.md-242-
+/src/docs/Reference.md:243:- `validation` - options to pass to [Joi](http://github.com/spumko/joi). Useful to set global options such as `stripUnknown` or `abortEarly` (the complete list is available [here](https://github.com/spumko/joi#validatevalue-schema-options)). Defaults to `undefined`.
+/src/docs/Reference.md-244-

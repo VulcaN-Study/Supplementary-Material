@@ -1,0 +1,497 @@
+/src/src/libsass.gyp-27-        'libsass/src/error_handling.cpp',
+/src/src/libsass.gyp:28:        'libsass/src/eval.cpp',
+/src/src/libsass.gyp-29-        'libsass/src/expand.cpp',
+##############################################
+/src/src/create_string.cpp-5-
+/src/src/create_string.cpp:6:char* create_string(Nan::MaybeLocal<v8::Value> maybevalue) {
+/src/src/create_string.cpp-7-  v8::Local<v8::Value> value;
+/src/src/create_string.cpp-8-
+/src/src/create_string.cpp:9:  if (maybevalue.ToLocal(&value)) {
+/src/src/create_string.cpp-10-    if (value->IsNull() || !value->IsString()) {
+##############################################
+/src/src/libsass/src/functions.cpp-9-#include "extend.hpp"
+/src/src/libsass/src/functions.cpp:10:#include "eval.hpp"
+/src/src/libsass/src/functions.cpp-11-#include "util.hpp"
+##############################################
+/src/src/libsass/src/functions.cpp-513-      // if saturation is exacly zero, we loose
+/src/src/libsass/src/functions.cpp:514:      // information for hue, since it will evaluate
+/src/src/libsass/src/functions.cpp-515-      // to zero if converted back from rgb. Setting
+##############################################
+/src/src/libsass/src/functions.cpp-1891-      if (ff) func->func(ff);
+/src/src/libsass/src/functions.cpp:1892:      return func->perform(&expand.eval);
+/src/src/libsass/src/functions.cpp-1893-    }
+##############################################
+/src/src/libsass/src/functions.cpp-1910-      Expand expand(ctx, &d_env, &selector_stack);
+/src/src/libsass/src/functions.cpp:1911:      Expression_Obj cond = ARG("$condition", Expression)->perform(&expand.eval);
+/src/src/libsass/src/functions.cpp-1912-      bool is_true = !cond->is_false();
+/src/src/libsass/src/functions.cpp-1913-      Expression_Obj res = ARG(is_true ? "$if-true" : "$if-false", Expression);
+/src/src/libsass/src/functions.cpp:1914:      res = res->perform(&expand.eval);
+/src/src/libsass/src/functions.cpp-1915-      res->set_delayed(false); // clone?
+##############################################
+/src/src/libsass/src/eval.hpp-36-
+/src/src/libsass/src/eval.hpp:37:    // for evaluating function bodies
+/src/src/libsass/src/eval.hpp-38-    Expression_Ptr operator()(Block_Ptr);
+##############################################
+/src/src/libsass/src/eval.hpp-86-    // Placeholder_Selector_Ptr operator()(Placeholder_Selector_Ptr s) { return s; };
+/src/src/libsass/src/eval.hpp:87:    // actual evaluated selectors
+/src/src/libsass/src/eval.hpp-88-    Selector_List_Ptr operator()(Selector_Schema_Ptr);
+##############################################
+/src/src/libsass/src/eval.cpp-9-#include "file.hpp"
+/src/src/libsass/src/eval.cpp:10:#include "eval.hpp"
+/src/src/libsass/src/eval.cpp-11-#include "ast.hpp"
+##############################################
+/src/src/libsass/src/eval.cpp-453-  {
+/src/src/libsass/src/eval.cpp:454:    // special case for unevaluated map
+/src/src/libsass/src/eval.cpp-455-    if (l->separator() == SASS_HASH) {
+##############################################
+/src/src/libsass/src/eval.cpp-476-    if (l->is_expanded()) return l;
+/src/src/libsass/src/eval.cpp:477:    // regular case for unevaluated lists
+/src/src/libsass/src/eval.cpp-478-    List_Obj ll = SASS_MEMORY_NEW(List,
+##############################################
+/src/src/libsass/src/eval.cpp-514-
+/src/src/libsass/src/eval.cpp:515:    // check the evaluated keys aren't duplicates.
+/src/src/libsass/src/eval.cpp-516-    if (mm->has_duplicate_key()) {
+##############################################
+/src/src/libsass/src/eval.cpp-564-
+/src/src/libsass/src/eval.cpp:565:    // don't eval delayed expressions (the '/' when used as a separator)
+/src/src/libsass/src/eval.cpp-566-    if (!force && op_type == Sass_OP::DIV && b->is_delayed()) {
+##############################################
+/src/src/libsass/src/eval.cpp-656-
+/src/src/libsass/src/eval.cpp:657:    // only the last item will be used to eval the binary expression
+/src/src/libsass/src/eval.cpp-658-    if (String_Schema_Ptr s_l = Cast<String_Schema>(b->left())) {
+##############################################
+/src/src/libsass/src/eval.cpp-685-
+/src/src/libsass/src/eval.cpp:686:    // fully evaluate their values
+/src/src/libsass/src/eval.cpp-687-    if (op_type == Sass_OP::EQ ||
+##############################################
+/src/src/libsass/src/eval.cpp-705-
+/src/src/libsass/src/eval.cpp:706:    // not a logical connective, so go ahead and eval the rhs
+/src/src/libsass/src/eval.cpp-707-    rhs = rhs->perform(this);
+##############################################
+/src/src/libsass/src/eval.cpp-891-    else {
+/src/src/libsass/src/eval.cpp:892:      // Special cases: +/- variables which evaluate to null ouput just +/-,
+/src/src/libsass/src/eval.cpp-893-      // but +/- null itself outputs the string
+##############################################
+/src/src/libsass/src/eval.cpp-898-      else if (Color_Ptr color = Cast<Color>(operand)) {
+/src/src/libsass/src/eval.cpp:899:        // Use the color name if this was eval with one
+/src/src/libsass/src/eval.cpp-900-        if (color->disp().length() > 0) {
+##############################################
+/src/src/libsass/src/eval.cpp-1008-
+/src/src/libsass/src/eval.cpp:1009:      // eval the body if user-defined or special, invoke underlying CPP function if native
+/src/src/libsass/src/eval.cpp-1010-      if (body /* && !Prelexer::re_special_fun(name.c_str()) */) {
+##############################################
+/src/src/libsass/src/eval.cpp-1085-  {
+/src/src/libsass/src/eval.cpp:1086:    Expression_Ptr evaluated_name = s->name()->perform(this);
+/src/src/libsass/src/eval.cpp:1087:    Expression_Ptr evaluated_args = s->arguments()->perform(this);
+/src/src/libsass/src/eval.cpp-1088-    String_Schema_Obj ss = SASS_MEMORY_NEW(String_Schema, s->pstate(), 2);
+/src/src/libsass/src/eval.cpp:1089:    ss->append(evaluated_name);
+/src/src/libsass/src/eval.cpp:1090:    ss->append(evaluated_args);
+/src/src/libsass/src/eval.cpp-1091-    return ss->perform(this);
+##############################################
+/src/src/libsass/src/sass_values.cpp-4-#include "util.hpp"
+/src/src/libsass/src/sass_values.cpp:5:#include "eval.hpp"
+/src/src/libsass/src/sass_values.cpp-6-#include "values.hpp"
+##############################################
+/src/src/libsass/src/extend.hpp-8-#include "node.hpp"
+/src/src/libsass/src/extend.hpp:9:#include "eval.hpp"
+/src/src/libsass/src/extend.hpp-10-#include "operation.hpp"
+##############################################
+/src/src/libsass/src/extend.hpp-20-    Subset_Map& subset_map;
+/src/src/libsass/src/extend.hpp:21:    Eval* eval;
+/src/src/libsass/src/extend.hpp-22-
+##############################################
+/src/src/libsass/src/extend.hpp-41-    /* this turned out to be too much overhead
+/src/src/libsass/src/extend.hpp:42:       re-evaluate once we store an ast selector
+/src/src/libsass/src/extend.hpp-43-    std::unordered_map<
+##############################################
+/src/src/libsass/src/extend.hpp-58-  public:
+/src/src/libsass/src/extend.hpp:59:    void setEval(Eval& eval);
+/src/src/libsass/src/extend.hpp-60-    Selector_List_Ptr extendSelectorList(Selector_List_Obj pSelectorList, bool isReplace, bool& extendedSomething, CompoundSelectorSet& seen);
+##############################################
+/src/src/libsass/src/json.cpp-81-
+/src/src/libsass/src/json.cpp:82:/* sb and need may be evaluated multiple times. */
+/src/src/libsass/src/json.cpp-83-#define sb_need(sb, need) do {                  \
+##############################################
+/src/src/libsass/src/parser.cpp-11-
+/src/src/libsass/src/parser.cpp:12:// Notes about delayed: some ast nodes can have delayed evaluation so
+/src/src/libsass/src/parser.cpp-13-// they can preserve their original semantics if needed. This is most
+##############################################
+/src/src/libsass/src/parser.cpp-272-
+/src/src/libsass/src/parser.cpp:273:    // selector may contain interpolations which need delayed evaluation
+/src/src/libsass/src/parser.cpp-274-    else if (
+##############################################
+/src/src/libsass/src/parser.cpp-528-    Ruleset_Obj ruleset = SASS_MEMORY_NEW(Ruleset, pstate);
+/src/src/libsass/src/parser.cpp:529:    // parse selector static or as schema to be evaluated later
+/src/src/libsass/src/parser.cpp-530-    if (lookahead.parsable) ruleset->selector(parse_selector_list(false));
+##############################################
+/src/src/libsass/src/parser.cpp-548-
+/src/src/libsass/src/parser.cpp:549:  // parse a selector schema that will be evaluated in the eval stage
+/src/src/libsass/src/parser.cpp-550-  // uses a string schema internally to do the actual schema handling
+/src/src/libsass/src/parser.cpp:551:  // in the eval stage we will be re-parse it into an actual selector
+/src/src/libsass/src/parser.cpp-552-  Selector_Schema_Obj Parser::parse_selector_schema(const char* end_of_selector, bool chroot)
+##############################################
+/src/src/libsass/src/parser.cpp-1452-      if (!lex_css< exactly<')'> >()) error("unclosed parenthesis");
+/src/src/libsass/src/parser.cpp:1453:      // expression can be evaluated
+/src/src/libsass/src/parser.cpp-1454-      return value;
+##############################################
+/src/src/libsass/src/context.cpp-19-#include "expand.hpp"
+/src/src/libsass/src/context.cpp:20:#include "eval.hpp"
+/src/src/libsass/src/context.cpp-21-#include "check_nesting.hpp"
+##############################################
+/src/src/libsass/src/context.cpp-668-    }
+/src/src/libsass/src/context.cpp:669:    // expand and eval the tree
+/src/src/libsass/src/context.cpp-670-    root = expand(root);
+##############################################
+/src/src/libsass/src/context.cpp-678-      Extend extend(subset_map);
+/src/src/libsass/src/context.cpp:679:      extend.setEval(expand.eval);
+/src/src/libsass/src/context.cpp-680-      // extend tree nodes
+##############################################
+/src/src/libsass/src/extend.cpp-1720-          err << " on line " << pstate.line+1 << " of " << rel_path << "\n";
+/src/src/libsass/src/extend.cpp:1721:          error(err.str(), selector->pstate(), eval->exp.traces);
+/src/src/libsass/src/extend.cpp-1722-        }
+##############################################
+/src/src/libsass/src/extend.cpp-1969-                  }
+/src/src/libsass/src/extend.cpp:1970:                  if (eval && extended) {
+/src/src/libsass/src/extend.cpp:1971:                    eval->exp.selector_stack.push_back(pNewSelectors);
+/src/src/libsass/src/extend.cpp:1972:                    cpy_head->perform(eval);
+/src/src/libsass/src/extend.cpp:1973:                    eval->exp.selector_stack.pop_back();
+/src/src/libsass/src/extend.cpp-1974-                  }
+##############################################
+/src/src/libsass/src/extend.cpp-2070-  Extend::Extend(Subset_Map& ssm)
+/src/src/libsass/src/extend.cpp:2071:  : subset_map(ssm), eval(NULL)
+/src/src/libsass/src/extend.cpp-2072-  { }
+##############################################
+/src/src/libsass/src/extend.cpp-2074-  void Extend::setEval(Eval& e) {
+/src/src/libsass/src/extend.cpp:2075:    eval = &e;
+/src/src/libsass/src/extend.cpp-2076-  }
+##############################################
+/src/src/libsass/src/extend.cpp-2100-              "Use \"@extend " + str_ext + " !optional\" if the"
+/src/src/libsass/src/extend.cpp:2101:              " extend should be able to fail.", (ext ? ext->pstate() : NULL), eval->exp.traces);
+/src/src/libsass/src/extend.cpp-2102-      }
+##############################################
+/src/src/libsass/src/ast.cpp-4-#include "node.hpp"
+/src/src/libsass/src/ast.cpp:5:#include "eval.hpp"
+/src/src/libsass/src/ast.cpp-6-#include "extend.hpp"
+##############################################
+/src/src/libsass/src/ast.cpp-688-    }
+/src/src/libsass/src/ast.cpp:689:    // both are defined, evaluate
+/src/src/libsass/src/ast.cpp-690-    if (no_lhs_val == no_rhs_val) {
+##############################################
+/src/src/libsass/src/ast.cpp-1253-
+/src/src/libsass/src/ast.cpp:1254:  Selector_List_Obj Selector_List::eval(Eval& eval)
+/src/src/libsass/src/ast.cpp-1255-  {
+/src/src/libsass/src/ast.cpp-1256-    Selector_List_Obj list = schema() ?
+/src/src/libsass/src/ast.cpp:1257:      eval(schema()) : eval(this);
+/src/src/libsass/src/ast.cpp-1258-    list->schema(schema());
+##############################################
+/src/src/libsass/src/expand.hpp-6-#include "ast.hpp"
+/src/src/libsass/src/expand.hpp:7:#include "eval.hpp"
+/src/src/libsass/src/expand.hpp-8-#include "operation.hpp"
+##############################################
+/src/src/libsass/src/expand.hpp-25-    Backtraces&       traces;
+/src/src/libsass/src/expand.hpp:26:    Eval              eval;
+/src/src/libsass/src/expand.hpp-27-    size_t            recursions;
+##############################################
+/src/src/libsass/src/expand.cpp-7-#include "bind.hpp"
+/src/src/libsass/src/expand.cpp:8:#include "eval.hpp"
+/src/src/libsass/src/expand.cpp-9-#include "backtrace.hpp"
+##############################################
+/src/src/libsass/src/expand.cpp-21-    traces(ctx.traces),
+/src/src/libsass/src/expand.cpp:22:    eval(Eval(*this)),
+/src/src/libsass/src/expand.cpp-23-    recursions(0),
+##############################################
+/src/src/libsass/src/expand.cpp-89-          selector_stack.push_back(0);
+/src/src/libsass/src/expand.cpp:90:          k->name(s->eval(eval));
+/src/src/libsass/src/expand.cpp-91-          selector_stack.pop_back();
+##############################################
+/src/src/libsass/src/expand.cpp-107-    Selector_List_Obj sel = r->selector();
+/src/src/libsass/src/expand.cpp:108:    if (sel) sel = sel->eval(eval);
+/src/src/libsass/src/expand.cpp-109-
+##############################################
+/src/src/libsass/src/expand.cpp-161-  {
+/src/src/libsass/src/expand.cpp:162:    Expression_Obj condition = f->condition()->perform(&eval);
+/src/src/libsass/src/expand.cpp-163-    Supports_Block_Obj ff = SASS_MEMORY_NEW(Supports_Block,
+##############################################
+/src/src/libsass/src/expand.cpp-178-    ctx.ast_gc.push_back(cpy); cpy->block(0);
+/src/src/libsass/src/expand.cpp:179:    Expression_Obj mq = eval(m->media_queries());
+/src/src/libsass/src/expand.cpp-180-    std::string str_mq(mq->to_string(ctx.c_options));
+##############################################
+/src/src/libsass/src/expand.cpp-201-
+/src/src/libsass/src/expand.cpp:202:    if (ae) ae = ae->perform(&eval);
+/src/src/libsass/src/expand.cpp-203-    else ae = SASS_MEMORY_NEW(At_Root_Query, a->pstate());
+##############################################
+/src/src/libsass/src/expand.cpp-224-    selector_stack.push_back(0);
+/src/src/libsass/src/expand.cpp:225:    if (av) av = av->perform(&eval);
+/src/src/libsass/src/expand.cpp:226:    if (as) as = eval(as);
+/src/src/libsass/src/expand.cpp-227-    selector_stack.pop_back();
+##############################################
+/src/src/libsass/src/expand.cpp-241-    String_Obj old_p = d->property();
+/src/src/libsass/src/expand.cpp:242:    Expression_Obj prop = old_p->perform(&eval);
+/src/src/libsass/src/expand.cpp-243-    String_Obj new_p = Cast<String>(prop);
+##############################################
+/src/src/libsass/src/expand.cpp-249-    Expression_Obj value = d->value();
+/src/src/libsass/src/expand.cpp:250:    if (value) value = value->perform(&eval);
+/src/src/libsass/src/expand.cpp-251-    Block_Obj bb = ab ? operator()(ab) : NULL;
+##############################################
+/src/src/libsass/src/expand.cpp-274-          if (!e || e->concrete_type() == Expression::NULL_VAL) {
+/src/src/libsass/src/expand.cpp:275:            env->set_global(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-276-          }
+##############################################
+/src/src/libsass/src/expand.cpp-278-        else {
+/src/src/libsass/src/expand.cpp:279:          env->set_global(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-280-        }
+##############################################
+/src/src/libsass/src/expand.cpp-282-      else {
+/src/src/libsass/src/expand.cpp:283:        env->set_global(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-284-      }
+##############################################
+/src/src/libsass/src/expand.cpp-293-              if (!e || e->concrete_type() == Expression::NULL_VAL) {
+/src/src/libsass/src/expand.cpp:294:                cur->set_local(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-295-              }
+##############################################
+/src/src/libsass/src/expand.cpp-309-          if (!e || e->concrete_type() == Expression::NULL_VAL) {
+/src/src/libsass/src/expand.cpp:310:            env->set_global(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-311-          }
+##############################################
+/src/src/libsass/src/expand.cpp-314-      else if (env->is_lexical()) {
+/src/src/libsass/src/expand.cpp:315:        env->set_local(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-316-      }
+/src/src/libsass/src/expand.cpp-317-      else {
+/src/src/libsass/src/expand.cpp:318:        env->set_local(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-319-      }
+##############################################
+/src/src/libsass/src/expand.cpp-321-    else {
+/src/src/libsass/src/expand.cpp:322:      env->set_lexical(var, a->value()->perform(&eval));
+/src/src/libsass/src/expand.cpp-323-    }
+##############################################
+/src/src/libsass/src/expand.cpp-330-    if (imp->import_queries() && imp->import_queries()->size()) {
+/src/src/libsass/src/expand.cpp:331:      Expression_Obj ex = imp->import_queries()->perform(&eval);
+/src/src/libsass/src/expand.cpp-332-      result->import_queries(Cast<List>(ex));
+##############################################
+/src/src/libsass/src/expand.cpp-334-    for ( size_t i = 0, S = imp->urls().size(); i < S; ++i) {
+/src/src/libsass/src/expand.cpp:335:      result->urls().push_back(imp->urls()[i]->perform(&eval));
+/src/src/libsass/src/expand.cpp-336-    }
+##############################################
+/src/src/libsass/src/expand.cpp-373-  {
+/src/src/libsass/src/expand.cpp:374:    // eval handles this too, because warnings may occur in functions
+/src/src/libsass/src/expand.cpp:375:    w->perform(&eval);
+/src/src/libsass/src/expand.cpp-376-    return 0;
+##############################################
+/src/src/libsass/src/expand.cpp-380-  {
+/src/src/libsass/src/expand.cpp:381:    // eval handles this too, because errors may occur in functions
+/src/src/libsass/src/expand.cpp:382:    e->perform(&eval);
+/src/src/libsass/src/expand.cpp-383-    return 0;
+##############################################
+/src/src/libsass/src/expand.cpp-387-  {
+/src/src/libsass/src/expand.cpp:388:    // eval handles this too, because warnings may occur in functions
+/src/src/libsass/src/expand.cpp:389:    d->perform(&eval);
+/src/src/libsass/src/expand.cpp-390-    return 0;
+##############################################
+/src/src/libsass/src/expand.cpp-395-    if (ctx.output_style() == COMPRESSED) {
+/src/src/libsass/src/expand.cpp:396:      // comments should not be evaluated in compact
+/src/src/libsass/src/expand.cpp-397-      // https://github.com/sass/libsass/issues/2359
+##############################################
+/src/src/libsass/src/expand.cpp-399-    }
+/src/src/libsass/src/expand.cpp:400:    eval.is_in_comment = true;
+/src/src/libsass/src/expand.cpp:401:    Comment_Ptr rv = SASS_MEMORY_NEW(Comment, c->pstate(), Cast<String>(c->text()->perform(&eval)), c->is_important());
+/src/src/libsass/src/expand.cpp:402:    eval.is_in_comment = false;
+/src/src/libsass/src/expand.cpp:403:    // TODO: eval the text, once we're parsing/storing it as a String_Schema
+/src/src/libsass/src/expand.cpp-404-    return rv;
+##############################################
+/src/src/libsass/src/expand.cpp-411-    call_stack.push_back(i);
+/src/src/libsass/src/expand.cpp:412:    Expression_Obj rv = i->predicate()->perform(&eval);
+/src/src/libsass/src/expand.cpp-413-    if (*rv) {
+##############################################
+/src/src/libsass/src/expand.cpp-429-    std::string variable(f->variable());
+/src/src/libsass/src/expand.cpp:430:    Expression_Obj low = f->lower_bound()->perform(&eval);
+/src/src/libsass/src/expand.cpp-431-    if (low->concrete_type() != Expression::NUMBER) {
+##############################################
+/src/src/libsass/src/expand.cpp-434-    }
+/src/src/libsass/src/expand.cpp:435:    Expression_Obj high = f->upper_bound()->perform(&eval);
+/src/src/libsass/src/expand.cpp-436-    if (high->concrete_type() != Expression::NUMBER) {
+##############################################
+/src/src/libsass/src/expand.cpp-484-    std::vector<std::string> variables(e->variables());
+/src/src/libsass/src/expand.cpp:485:    Expression_Obj expr = e->list()->perform(&eval);
+/src/src/libsass/src/expand.cpp-486-    List_Obj list = 0;
+##############################################
+/src/src/libsass/src/expand.cpp-510-      for (auto key : map->keys()) {
+/src/src/libsass/src/expand.cpp:511:        Expression_Obj k = key->perform(&eval);
+/src/src/libsass/src/expand.cpp:512:        Expression_Obj v = map->at(key)->perform(&eval);
+/src/src/libsass/src/expand.cpp-513-
+##############################################
+/src/src/libsass/src/expand.cpp-544-                ? SASS_MEMORY_NEW(Null, expr->pstate())
+/src/src/libsass/src/expand.cpp:545:                : (*scalars)[j]->perform(&eval);
+/src/src/libsass/src/expand.cpp-546-              env.set_local(variables[j], res);
+##############################################
+/src/src/libsass/src/expand.cpp-572-    call_stack.push_back(w);
+/src/src/libsass/src/expand.cpp:573:    Expression_Obj cond = pred->perform(&eval);
+/src/src/libsass/src/expand.cpp-574-    while (!cond->is_false()) {
+/src/src/libsass/src/expand.cpp-575-      append_block(body);
+/src/src/libsass/src/expand.cpp:576:      cond = pred->perform(&eval);
+/src/src/libsass/src/expand.cpp-577-    }
+##############################################
+/src/src/libsass/src/expand.cpp-606-
+/src/src/libsass/src/expand.cpp:607:    Selector_List_Obj contextualized = Cast<Selector_List>(s->perform(&eval));
+/src/src/libsass/src/expand.cpp-608-    if (contextualized == false) return;
+##############################################
+/src/src/libsass/src/expand.cpp-649-          // put root block on stack again (ignore parents)
+/src/src/libsass/src/expand.cpp:650:          // selector schema must not connect in eval!
+/src/src/libsass/src/expand.cpp-651-          block_stack.push_back(block_stack.at(1));
+/src/src/libsass/src/expand.cpp:652:          sl = eval(sl->schema());
+/src/src/libsass/src/expand.cpp-653-          block_stack.pop_back();
+##############################################
+/src/src/libsass/src/expand.cpp-655-          selector_stack.push_back(0);
+/src/src/libsass/src/expand.cpp:656:          sl = eval(sl->schema());
+/src/src/libsass/src/expand.cpp-657-          selector_stack.pop_back();
+##############################################
+/src/src/libsass/src/expand.cpp-716-    }
+/src/src/libsass/src/expand.cpp:717:    Expression_Obj rv = c->arguments()->perform(&eval);
+/src/src/libsass/src/expand.cpp-718-    Arguments_Obj args = Cast<Arguments>(rv);
+##############################################
+/src/src/libsass/src/expand.cpp-743-
+/src/src/libsass/src/expand.cpp:744:    bind(std::string("Mixin"), c->name(), params, args, &ctx, &new_env, &eval);
+/src/src/libsass/src/expand.cpp-745-
+##############################################
+/src/src/libsass/src/bind.cpp-5-#include "expand.hpp"
+/src/src/libsass/src/bind.cpp:6:#include "eval.hpp"
+/src/src/libsass/src/bind.cpp-7-#include <map>
+##############################################
+/src/src/libsass/src/bind.cpp-12-
+/src/src/libsass/src/bind.cpp:13:  void bind(std::string type, std::string name, Parameters_Obj ps, Arguments_Obj as, Context* ctx, Env* env, Eval* eval)
+/src/src/libsass/src/bind.cpp-14-  {
+##############################################
+/src/src/libsass/src/bind.cpp-30-    // Set up a map to ensure named arguments refer to actual parameters. Also
+/src/src/libsass/src/bind.cpp:31:    // eval each default value left-to-right, wrt env, populating env as we go.
+/src/src/libsass/src/bind.cpp-32-    for (size_t i = 0, L = ps->length(); i < L; ++i) {
+##############################################
+/src/src/libsass/src/bind.cpp-35-      // if (p->default_value()) {
+/src/src/libsass/src/bind.cpp:36:      //   env->local_frame()[p->name()] = p->default_value()->perform(eval->with(env));
+/src/src/libsass/src/bind.cpp-37-      // }
+##############################################
+/src/src/libsass/src/bind.cpp-56-        msg << " for `" << name << "'";
+/src/src/libsass/src/bind.cpp:57:        return error(msg.str(), as->pstate(), eval->exp.traces);
+/src/src/libsass/src/bind.cpp-58-      }
+##############################################
+/src/src/libsass/src/bind.cpp-109-            } else {
+/src/src/libsass/src/bind.cpp:110:              eval->exp.traces.push_back(Backtrace(key->pstate()));
+/src/src/libsass/src/bind.cpp:111:              throw Exception::InvalidVarKwdType(key->pstate(), eval->exp.traces, key->inspect(), a);
+/src/src/libsass/src/bind.cpp-112-            }
+##############################################
+/src/src/libsass/src/bind.cpp-224-          if (val == NULL) {
+/src/src/libsass/src/bind.cpp:225:            eval->exp.traces.push_back(Backtrace(key->pstate()));
+/src/src/libsass/src/bind.cpp:226:            throw Exception::InvalidVarKwdType(key->pstate(), eval->exp.traces, key->inspect(), a);
+/src/src/libsass/src/bind.cpp-227-          }
+##############################################
+/src/src/libsass/src/bind.cpp-232-            msg << callee << " has no parameter named " << param;
+/src/src/libsass/src/bind.cpp:233:            error(msg.str(), a->pstate(), eval->exp.traces);
+/src/src/libsass/src/bind.cpp-234-          }
+##############################################
+/src/src/libsass/src/bind.cpp-247-          << " provided more than once in call to " << callee;
+/src/src/libsass/src/bind.cpp:248:          error(msg.str(), a->pstate(), eval->exp.traces);
+/src/src/libsass/src/bind.cpp-249-        }
+##############################################
+/src/src/libsass/src/bind.cpp-261-            msg << callee << " has no parameter named " << a->name();
+/src/src/libsass/src/bind.cpp:262:            error(msg.str(), a->pstate(), eval->exp.traces);
+/src/src/libsass/src/bind.cpp-263-          }
+##############################################
+/src/src/libsass/src/bind.cpp-269-                << "cannot be used as named argument";
+/src/src/libsass/src/bind.cpp:270:            error(msg.str(), a->pstate(), eval->exp.traces);
+/src/src/libsass/src/bind.cpp-271-          }
+##############################################
+/src/src/libsass/src/bind.cpp-276-              << "provided more than once in call to " << callee;
+/src/src/libsass/src/bind.cpp:277:          error(msg.str(), a->pstate(), eval->exp.traces);
+/src/src/libsass/src/bind.cpp-278-        }
+##############################################
+/src/src/libsass/src/bind.cpp-296-        else if (leftover->default_value()) {
+/src/src/libsass/src/bind.cpp:297:          Expression_Ptr dv = leftover->default_value()->perform(eval);
+/src/src/libsass/src/bind.cpp-298-          env->local_frame()[leftover->name()] = dv;
+##############################################
+/src/src/libsass/src/bind.cpp-301-          // param is unbound and has no default value -- error
+/src/src/libsass/src/bind.cpp:302:          throw Exception::MissingArgument(as->pstate(), eval->exp.traces, name, leftover->name(), type);
+/src/src/libsass/src/bind.cpp-303-        }
+##############################################
+/src/src/libsass/src/ast.hpp-160-  // represents elements in value contexts, which exist primarily to be
+/src/src/libsass/src/ast.hpp:161:  // evaluated and returned.
+/src/src/libsass/src/ast.hpp-162-  //////////////////////////////////////////////////////////////////////
+##############################################
+/src/src/libsass/src/ast.hpp-188-  private:
+/src/src/libsass/src/ast.hpp:189:    // expressions in some contexts shouldn't be evaluated
+/src/src/libsass/src/ast.hpp-190-    ADD_PROPERTY(bool, is_delayed)
+##############################################
+/src/src/libsass/src/ast.hpp-1767-  // Interpolated strings. Meant to be reduced to flat strings during the
+/src/src/libsass/src/ast.hpp:1768:  // evaluation phase.
+/src/src/libsass/src/ast.hpp-1769-  ///////////////////////////////////////////////////////////////////////
+##############################################
+/src/src/libsass/src/ast.hpp-2151-  /////////////////////////////////
+/src/src/libsass/src/ast.hpp:2152:  // Thunks for delayed evaluation.
+/src/src/libsass/src/ast.hpp-2153-  /////////////////////////////////
+##############################################
+/src/src/libsass/src/ast.hpp-2991-    void populate_extends(Selector_List_Obj, Subset_Map&);
+/src/src/libsass/src/ast.hpp:2992:    Selector_List_Obj eval(Eval& eval);
+/src/src/libsass/src/ast.hpp-2993-    virtual size_t hash()
+##############################################
+/src/src/libsass/win/libsass.targets-30-    <ClInclude Include="$(LIBSASS_HEADERS_DIR)\error_handling.hpp" />
+/src/src/libsass/win/libsass.targets:31:    <ClInclude Include="$(LIBSASS_HEADERS_DIR)\eval.hpp" />
+/src/src/libsass/win/libsass.targets-32-    <ClInclude Include="$(LIBSASS_HEADERS_DIR)\expand.hpp" />
+##############################################
+/src/src/libsass/win/libsass.targets-84-    <ClCompile Include="$(LIBSASS_SRC_DIR)\error_handling.cpp" />
+/src/src/libsass/win/libsass.targets:85:    <ClCompile Include="$(LIBSASS_SRC_DIR)\eval.cpp" />
+/src/src/libsass/win/libsass.targets-86-    <ClCompile Include="$(LIBSASS_SRC_DIR)\expand.cpp" />
+##############################################
+/src/src/libsass/win/libsass.vcxproj.filters-98-    </ClInclude>
+/src/src/libsass/win/libsass.vcxproj.filters:99:    <ClInclude Include="$(LIBSASS_HEADERS_DIR)\eval.hpp">
+/src/src/libsass/win/libsass.vcxproj.filters-100-      <Filter>Headers</Filter>
+##############################################
+/src/src/libsass/win/libsass.vcxproj.filters-259-    </ClCompile>
+/src/src/libsass/win/libsass.vcxproj.filters:260:    <ClCompile Include="$(LIBSASS_SRC_DIR)\eval.cpp">
+/src/src/libsass/win/libsass.vcxproj.filters-261-      <Filter>Sources</Filter>
+##############################################
+/src/src/libsass/Makefile.conf-27-	prelexer.cpp \
+/src/src/libsass/Makefile.conf:28:	eval.cpp \
+/src/src/libsass/Makefile.conf-29-	expand.cpp \
+##############################################
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4-117-         AC_COMPILE_IFELSE([AC_LANG_SOURCE([_AX_CXX_COMPILE_STDCXX_11_testbody])],
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4:118:          [eval $cachevar=yes],
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4:119:          [eval $cachevar=no])
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4-120-         CXXFLAGS="$ac_save_CXXFLAGS"])
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4:121:      if eval test x\$$cachevar = xyes; then
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4-122-        CXXFLAGS="$CXXFLAGS $switch"
+##############################################
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4-139-         AC_COMPILE_IFELSE([AC_LANG_SOURCE([_AX_CXX_COMPILE_STDCXX_11_testbody])],
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4:140:          [eval $cachevar=yes],
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4:141:          [eval $cachevar=no])
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4-142-         CXXFLAGS="$ac_save_CXXFLAGS"])
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4:143:      if eval test x\$$cachevar = xyes; then
+/src/src/libsass/m4/m4-ax_cxx_compile_stdcxx_11.m4-144-        CXXFLAGS="$CXXFLAGS $switch"
+##############################################
+/src/src/libsass/include/sass/values.h-32-  SASS_SPACE,
+/src/src/libsass/include/sass/values.h:33:  // only used internally to represent a hash map before evaluation
+/src/src/libsass/include/sass/values.h-34-  // otherwise we would be too early to check for duplicate keys
+##############################################
+/src/src/libsass/docs/api-doc.md-172-
+/src/src/libsass/docs/api-doc.md:173:* 1: normal errors like parsing or `eval` errors
+/src/src/libsass/docs/api-doc.md-174-* 2: bad allocation error (memory error)
+##############################################
+/src/src/libsass/docs/api-value.md-33-  SASS_SPACE,
+/src/src/libsass/docs/api-value.md:34:  // only used internally to represent a hash map before evaluation
+/src/src/libsass/docs/api-value.md-35-  // otherwise we would be too early to check for duplicate keys
+##############################################
+/src/src/libsass/docs/dev-ast-memory.md-92-
+/src/src/libsass/docs/dev-ast-memory.md:93:We hit this issue at least with the CRTP visitor pattern (eval, expand,
+/src/src/libsass/docs/dev-ast-memory.md-94-listize and so forth). This means we cannot return reference counted
+##############################################
+/src/src/libsass/script/tap-driver-500-# Enumeration-like constants to remember which kind of plan (if any)
+/src/src/libsass/script/tap-driver:501:# has been seen.  It is important that NO_PLAN evaluates "false" as
+/src/src/libsass/script/tap-driver-502-# a boolean.
+##############################################
+/src/src/libsass/script/tap-driver-646-# sh-indentation: 2
+/src/src/libsass/script/tap-driver:647:# eval: (add-hook 'write-file-hooks 'time-stamp)
+/src/src/libsass/script/tap-driver-648-# time-stamp-start: "scriptversion="
+##############################################
+/src/src/libsass/configure.ac-44-AC_ARG_ENABLE(tests, AS_HELP_STRING([--enable-tests], [enable testing the build]),
+/src/src/libsass/configure.ac:45:              [enable_tests="$enableval"], [enable_tests=no])
+/src/src/libsass/configure.ac-46-
+##############################################
+/src/src/libsass/configure.ac-110-    [enable coverage report for test suite])],
+/src/src/libsass/configure.ac:111:    [enable_cov=$enableval],
+/src/src/libsass/configure.ac-112-    [enable_cov=no])

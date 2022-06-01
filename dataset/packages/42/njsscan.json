@@ -1,0 +1,163 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"globals\": {",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": ".DS_Store",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 20
+        },
+        "extra": {
+          "line": "WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+          "message": "Lexical error: WIERD end of file in quoted string"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 1,
+          "line": 20
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 4
+        },
+        "extra": {
+          "line": "\t@$(NPM)/_mocha \\",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 2,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/test/validators.js",
+          "match_lines": [
+            857,
+            857
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "            str += String.fromCharCode(Math.random() * 26 | 97);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/validator.js",
+          "match_lines": [
+            138,
+            138
+          ],
+          "match_position": [
+            16,
+            32
+          ],
+          "match_string": "        return pattern.test(str);"
+        },
+        {
+          "file_path": "/src/validator.js",
+          "match_lines": [
+            234,
+            234
+          ],
+          "match_position": [
+            18,
+            36
+          ],
+          "match_string": "            if (!ipv4Maybe.test(str)) {"
+        },
+        {
+          "file_path": "/src/validator.js",
+          "match_lines": [
+            242,
+            242
+          ],
+          "match_position": [
+            35,
+            48
+          ],
+          "match_string": "        return version === '6' && ipv6.test(str);"
+        },
+        {
+          "file_path": "/src/validator.js",
+          "match_lines": [
+            334,
+            334
+          ],
+          "match_position": [
+            27,
+            43
+          ],
+          "match_string": "        return pattern && pattern.test(str);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/server.js",
+          "match_lines": [
+            11,
+            49
+          ],
+          "match_position": [
+            3,
+            22
+          ],
+          "match_string": "  var urlObj = url.parse(request.url, true, false);\n\n  if(urlObj.pathname.indexOf(\"getCities\") != -1) {\n\n    console.log(\"Into the REST service\");\n\n    //console.log(\"Tryin to open: \" + ROOT_DIR + \"Lab6/cities.dat.txt\");\n\n    fileService.readFile(ROOT_DIR + 'cities.dat.txt', function (err, data) {\n\n      if(err) {\n\n        console.log(\"Reading error\" + JSON.stringify(err));\n\n        throw err;\n\n        }\n\n      var myRegex = new RegExp(\"^\" + urlObj.query[\"q\"]);\n\n      console.log(myRegex);\n\n      var cities = data.toString().split(\"\\n\");\n\n      var jsonresult = [];\n\n      for( var i = 0; i < cities.length; i++) {\n\n        var result = cities[i].search(myRegex);\n\n        if(result != -1) {\n\n          console.log(cities[i]);\n\n          jsonresult.push({city: cities[i]});\n\n        }\n\n      }\n\n      console.log(jsonresult);\n\n      response.writeHead(200);\n\n      response.end(JSON.stringify(jsonresult));\n\n    });\n\n  //console.log(\"The path name received is: \");\n\n  //console.log(urlObj.pathname);\n\n  //console.log(\"The URL query field is: \" + urlObj.query[\"query\"]);\n\n  }\n\n  else {\n\n    fileService.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {\n\n      if(err) {\n\n        console.log(\"Error\\n\");\n\n        console.log(JSON.stringify(err));\n\n        response.writeHead(400);\n\n        response.end(JSON.stringify(err));\n\n        return;\n\n    }\n\n    response.writeHead(200);\n\n    response.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/server.js",
+          "match_lines": [
+            11,
+            49
+          ],
+          "match_position": [
+            3,
+            22
+          ],
+          "match_string": "  var urlObj = url.parse(request.url, true, false);\n\n  if(urlObj.pathname.indexOf(\"getCities\") != -1) {\n\n    console.log(\"Into the REST service\");\n\n    //console.log(\"Tryin to open: \" + ROOT_DIR + \"Lab6/cities.dat.txt\");\n\n    fileService.readFile(ROOT_DIR + 'cities.dat.txt', function (err, data) {\n\n      if(err) {\n\n        console.log(\"Reading error\" + JSON.stringify(err));\n\n        throw err;\n\n        }\n\n      var myRegex = new RegExp(\"^\" + urlObj.query[\"q\"]);\n\n      console.log(myRegex);\n\n      var cities = data.toString().split(\"\\n\");\n\n      var jsonresult = [];\n\n      for( var i = 0; i < cities.length; i++) {\n\n        var result = cities[i].search(myRegex);\n\n        if(result != -1) {\n\n          console.log(cities[i]);\n\n          jsonresult.push({city: cities[i]});\n\n        }\n\n      }\n\n      console.log(jsonresult);\n\n      response.writeHead(200);\n\n      response.end(JSON.stringify(jsonresult));\n\n    });\n\n  //console.log(\"The path name received is: \");\n\n  //console.log(urlObj.pathname);\n\n  //console.log(\"The URL query field is: \" + urlObj.query[\"query\"]);\n\n  }\n\n  else {\n\n    fileService.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {\n\n      if(err) {\n\n        console.log(\"Error\\n\");\n\n        console.log(JSON.stringify(err));\n\n        response.writeHead(400);\n\n        response.end(JSON.stringify(err));\n\n        return;\n\n    }\n\n    response.writeHead(200);\n\n    response.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

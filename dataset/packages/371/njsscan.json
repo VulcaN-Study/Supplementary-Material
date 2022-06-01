@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/tinyserver.js",
+          "match_lines": [
+            21,
+            31
+          ],
+          "match_position": [
+            3,
+            18
+          ],
+          "match_string": "  var myurl=url.parse(req.url);\n\n  if(myurl.pathname==\"/\")\n\n  {\n\n    myurl.pathname=\"/index.html\";\n\n  }\n\n//  console.log(myurl);\n\n  fs.readFile(path.join(process.cwd(),myurl.pathname),function(err,data)\n\n  {\n\n    setContentType(myurl.pathname,resp);\n\n    resp.setHeader(\"Access-Control-Allow-Origin\",\"*\");\n\n    resp.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

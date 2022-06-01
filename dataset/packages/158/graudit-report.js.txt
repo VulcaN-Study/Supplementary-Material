@@ -1,0 +1,80 @@
+/src/README.md-318-
+/src/README.md:319:#### field.parse(rawdata)
+/src/README.md-320-
+##############################################
+/src/lib/forms.js-75-                    var qs = parse(obj.url, { parseArrays: false }).query;
+/src/lib/forms.js:76:                    f.handle(querystring.parse(qs), callbacks);
+/src/lib/forms.js-77-                } else if (obj.method === 'POST' || obj.method === 'PUT') {
+##############################################
+/src/lib/forms.js-82-                    } else {
+/src/lib/forms.js:83:                        var form = new formidable.IncomingForm();
+/src/lib/forms.js:84:                        form.parse(obj, function (err, originalFields/* , files*/) {
+/src/lib/forms.js-85-                            if (err) { throw err; }
+/src/lib/forms.js:86:                            var parsedFields = querystring.parse(querystring.stringify(originalFields));
+/src/lib/forms.js-87-                            f.handle(parsedFields, callbacks);
+##############################################
+/src/lib/fields.js-31-        b.value = raw_data;
+/src/lib/fields.js:32:        b.data = b.parse(raw_data);
+/src/lib/fields.js-33-        b.validate = function (form, callback) {
+##############################################
+/src/test/test-fields.js-170-    t.plan(5);
+/src/test/test-fields.js:171:    t.equal(stringField.parse(), '');
+/src/test/test-fields.js:172:    t.equal(stringField.parse(null), '');
+/src/test/test-fields.js:173:    t.equal(stringField.parse(0), '0');
+/src/test/test-fields.js:174:    t.equal(stringField.parse(''), '');
+/src/test/test-fields.js:175:    t.equal(stringField.parse('some string'), 'some string');
+/src/test/test-fields.js-176-    t.end();
+##############################################
+/src/test/test-fields.js-226-    var field = fields.number();
+/src/test/test-fields.js:227:    t.ok(isNaN(field.parse()));
+/src/test/test-fields.js:228:    t.ok(isNaN(field.parse(null)));
+/src/test/test-fields.js:229:    t.equal(field.parse(0), 0);
+/src/test/test-fields.js:230:    t.ok(isNaN(field.parse('')));
+/src/test/test-fields.js:231:    t.equal(field.parse('123'), 123);
+/src/test/test-fields.js-232-    t.end();
+##############################################
+/src/test/test-fields.js-249-    var field = fields['boolean']();
+/src/test/test-fields.js:250:    t.equal(field.parse(), false);
+/src/test/test-fields.js:251:    t.equal(field.parse(null), false);
+/src/test/test-fields.js:252:    t.equal(field.parse(0), false);
+/src/test/test-fields.js:253:    t.equal(field.parse(''), false);
+/src/test/test-fields.js:254:    t.equal(field.parse('on'), true);
+/src/test/test-fields.js:255:    t.equal(field.parse('true'), true);
+/src/test/test-fields.js-256-    t.end();
+##############################################
+/src/test/test-fields.js-273-    t.equal(
+/src/test/test-fields.js:274:        fields.email().parse().toString(),
+/src/test/test-fields.js:275:        stringField.parse().toString()
+/src/test/test-fields.js-276-    );
+##############################################
+/src/test/test-fields.js-315-    t.equal(
+/src/test/test-fields.js:316:        fields.password().parse().toString(),
+/src/test/test-fields.js:317:        stringField.parse().toString()
+/src/test/test-fields.js-318-    );
+##############################################
+/src/test/test-fields.js-333-    t.equal(
+/src/test/test-fields.js:334:        fields.url().parse().toString(),
+/src/test/test-fields.js:335:        stringField.parse().toString()
+/src/test/test-fields.js-336-    );
+##############################################
+/src/test/test-fields.js-365-    t.equal(
+/src/test/test-fields.js:366:        fields.date().parse().toString(),
+/src/test/test-fields.js:367:        stringField.parse().toString()
+/src/test/test-fields.js-368-    );
+##############################################
+/src/test/test-fields.js-397-    var field = fields.array();
+/src/test/test-fields.js:398:    t.deepEqual(field.parse(), []);
+/src/test/test-fields.js:399:    t.deepEqual(field.parse(null), [null]);
+/src/test/test-fields.js:400:    t.deepEqual(field.parse(0), [0]);
+/src/test/test-fields.js:401:    t.deepEqual(field.parse(''), ['']);
+/src/test/test-fields.js:402:    t.deepEqual(field.parse('abc'), ['abc']);
+/src/test/test-fields.js:403:    t.deepEqual(field.parse(['one', 'two', 'three']), ['one', 'two', 'three']);
+/src/test/test-fields.js-404-    t.end();
+##############################################
+/src/example/simple.js-35-
+/src/example/simple.js:36:http.createServer(function (req, res) {
+/src/example/simple.js-37-    reg_form.handle(req, {
+##############################################
+/src/example/complex.js-78-
+/src/example/complex.js:79:http.createServer(function (req, res) {
+/src/example/complex.js-80-    complexForm.handle(req, {

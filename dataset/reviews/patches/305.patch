@@ -1,0 +1,16 @@
+diff -ru '--exclude=*.map' vuln-package/lib/parser.js package/lib/parser.js
+--- lib/parser.js	2016-10-10 10:57:05.000000000 +0100
++++ lib/parser.js	2016-10-25 01:08:22.000000000 +0100
+@@ -143,7 +143,12 @@
+ 
+       // Next, we dereference and validate the loaded Swagger object. Any schema
+       // violations get converted into annotations with source maps.
+-      swaggerParser.validate(loaded, function (err) {
++      var swaggerOptions = {
++        '$refs': {
++          external: false
++        }
++      };
++      swaggerParser.validate(loaded, swaggerOptions, function (err) {
+         var swagger = swaggerParser.api;
+         _this.swagger = swaggerParser.api;

@@ -1,0 +1,40 @@
+/src/src/templates.js-62-                            };
+/src/src/templates.js:63:                            var pkt = JSON.parse(responseJSON);
+/src/src/templates.js-64-                            if (pkt) {
+##############################################
+/src/src/md5.js-9-32-8*(h%4);b.length=s.ceil(h/4)},clone:function(){var b=r.clone.call(this);b.words=this.words.slice(0);return b},random:function(b){for(var h=[],a=0;a<b;a+=4)h.push(4294967296*s.random()|0);return new q.init(h,b)}}),v=m.enc={},t=v.Hex={stringify:function(b){var a=b.words;b=b.sigBytes;for(var g=[],j=0;j<b;j++){var k=a[j>>>2]>>>24-8*(j%4)&255;g.push((k>>>4).toString(16));g.push((k&15).toString(16))}return g.join("")},parse:function(b){for(var a=b.length,g=[],j=0;j<a;j+=2)g[j>>>3]|=parseInt(b.substr(j,
+/src/src/md5.js:10:2),16)<<24-4*(j%8);return new q.init(g,a/2)}},a=v.Latin1={stringify:function(b){var a=b.words;b=b.sigBytes;for(var g=[],j=0;j<b;j++)g.push(String.fromCharCode(a[j>>>2]>>>24-8*(j%4)&255));return g.join("")},parse:function(b){for(var a=b.length,g=[],j=0;j<a;j++)g[j>>>2]|=(b.charCodeAt(j)&255)<<24-8*(j%4);return new q.init(g,a)}},u=v.Utf8={stringify:function(b){try{return decodeURIComponent(escape(a.stringify(b)))}catch(g){throw Error("Malformed UTF-8 data");}},parse:function(b){return a.parse(unescape(encodeURIComponent(b)))}},
+/src/src/md5.js:11:g=l.BufferedBlockAlgorithm=r.extend({reset:function(){this._data=new q.init;this._nDataBytes=0},_append:function(b){"string"==typeof b&&(b=u.parse(b));this._data.concat(b);this._nDataBytes+=b.sigBytes},_process:function(b){var a=this._data,g=a.words,j=a.sigBytes,k=this.blockSize,m=j/(4*k),m=b?s.ceil(m):s.max((m|0)-this._minBufferSize,0);b=m*k;j=s.min(4*b,j);if(b){for(var l=0;l<b;l+=k)this._doProcessBlock(g,l);l=g.splice(0,b);a.sigBytes-=j}return new q.init(l,j)},clone:function(){var b=r.clone.call(this);
+/src/src/md5.js-12-b._data=this._data.clone();return b},_minBufferSize:0});l.Hasher=g.extend({cfg:r.extend(),init:function(b){this.cfg=this.cfg.extend(b);this.reset()},reset:function(){g.reset.call(this);this._doReset()},update:function(b){this._append(b);this._process();return this},finalize:function(b){b&&this._append(b);return this._doFinalize()},blockSize:16,_createHelper:function(b){return function(a,g){return(new b.init(g)).finalize(a)}},_createHmacHelper:function(b){return function(a,g){return(new k.HMAC.init(b,
+##############################################
+/src/index.js-354-            function genericBrowserResponseProc (req,res,json) {
+/src/index.js:355:                var doc = lib.url.parse(req.url,true);
+/src/index.js-356-                console.log("sending json pkt",JSON.stringify(json));
+##############################################
+/src/index.js-559-            req.on('end', function () {
+/src/index.js:560:                var payload = JSON.parse(body);
+/src/index.js-561-
+##############################################
+/src/index.js-669-    var fs=lib.fs,path=lib.path,url=lib.url;
+/src/index.js:670:    var uri = url.parse(req.url).pathname;
+/src/index.js-671-    var filename = path.join(htmlroot, unescape(uri));
+##############################################
+/src/index.js-689-
+/src/index.js:690:        var fileStream = fs.createReadStream(filename);
+/src/index.js-691-        fileStream.pipe(res);
+##############################################
+/src/index.js-707-var requestHandler = function requestHandler (req, res) {
+/src/index.js:708:    var uri = lib.url.parse(req.url).pathname;
+/src/index.js-709-    if (req.method==="POST") {
+##############################################
+/src/index.js-732-    module.exports.xTalkServer =
+/src/index.js:733:        lib.http.createServer(requestHandler).listen(1337);
+/src/index.js-734-
+##############################################
+/src/index.js-884-    var pretty_node = lib.pretty(node_source);
+/src/index.js:885:    lib.fs.writeFile(nodefile,pretty_node,
+/src/index.js-886-        function(err){
+##############################################
+/src/index.js-888-            if (err) throw (err);
+/src/index.js:889:            lib.fs.writeFile(browserfile,lib.pretty(browser_source),
+/src/index.js-890-                function(err) {

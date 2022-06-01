@@ -1,0 +1,212 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            2382,
+            2397
+          ],
+          "match_position": [
+            3,
+            105
+          ],
+          "match_string": "\t\tvar name = req.uri.pathname;\n\n\t\tvar filename = self.onMapping(name, name, true, true);\n\n\n\n\t\tfs.readFile(filename, function(err, content) {\n\n\t\t\tif (err)\n\n\t\t\t\treturn res.throw404();\n\n\n\n\t\t\tcontent = framework.translator(req.$language, content.toString(ENCODING));\n\n\n\n\t\t\tif (minify && (req.extension === 'html' || req.extension === 'htm'))\n\n\t\t\t\tcontent = framework_internal.compile_html(content, filename);\n\n\n\n\t\t\tif (RELEASE)\n\n\t\t\t\tframework.temporary.other[key] = content;\n\n\n\n\t\t\tframework.responseContent(req, res, 200, content, framework_utils.getContentType(req.extension), true);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            3136,
+            3136
+          ],
+          "match_position": [
+            12,
+            23
+          ],
+          "match_string": "\t\t\tname = (Math.random() * 10000) >> 0;"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            3226,
+            3226
+          ],
+          "match_position": [
+            12,
+            23
+          ],
+          "match_string": "\t\t\tname = (Math.random() * 10000) >> 0;"
+        },
+        {
+          "file_path": "/src/internal.js",
+          "match_lines": [
+            297,
+            297
+          ],
+          "match_position": [
+            39,
+            50
+          ],
+          "match_string": "\t\tarr[0] = 'undefined_' + (Math.floor(Math.random() * 100000)).toString();"
+        },
+        {
+          "file_path": "/src/utils.js",
+          "match_lines": [
+            996,
+            996
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "\tvar BOUNDARY = '----totaljs' + Math.random().toString(16).substring(2);"
+        },
+        {
+          "file_path": "/src/utils.js",
+          "match_lines": [
+            1716,
+            1716
+          ],
+          "match_position": [
+            20,
+            31
+          ],
+          "match_string": "\treturn Math.floor(Math.random() * (max - min + 1)) + min;"
+        },
+        {
+          "file_path": "/src/utils.js",
+          "match_lines": [
+            1720,
+            1720
+          ],
+          "match_position": [
+            20,
+            31
+          ],
+          "match_string": "\treturn Math.floor(Math.random() * 65536).toString(36);"
+        },
+        {
+          "file_path": "/src/utils.js",
+          "match_lines": [
+            4486,
+            4486
+          ],
+          "match_position": [
+            27,
+            38
+          ],
+          "match_string": "\tvar random = (Math.floor(Math.random() * 100000000) * 10).toString();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/internal.js",
+          "match_lines": [
+            718,
+            718
+          ],
+          "match_position": [
+            12,
+            35
+          ],
+          "match_string": "\tvar md5 = crypto.createHash('md5');"
+        },
+        {
+          "file_path": "/src/utils.js",
+          "match_lines": [
+            3242,
+            3242
+          ],
+          "match_position": [
+            13,
+            36
+          ],
+          "match_string": "\tvar hash = crypto.createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            13900,
+            13900
+          ],
+          "match_position": [
+            13,
+            37
+          ],
+          "match_string": "\tvar sha1 = crypto.createHash('sha1');"
+        },
+        {
+          "file_path": "/src/utils.js",
+          "match_lines": [
+            3224,
+            3224
+          ],
+          "match_position": [
+            13,
+            37
+          ],
+          "match_string": "\tvar hash = crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_tls_reject": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            8500,
+            8500
+          ],
+          "match_position": [
+            3,
+            49
+          ],
+          "match_string": "\t\tprocess.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-295: Improper Certificate Validation",
+        "description": "Setting 'NODE_TLS_REJECT_UNAUTHORIZED' to 0 will allow node server to accept self signed certificates and is not an secure behaviour.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,192 @@
+<report_mosca>
+ <Path>/src/lib/connect/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 70 -    // support clientId passed in the query string of the url
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 290 -    this.connackTimer = setTimeout(function () {
+
+ Line: 607 -      this.once('outgoingEmpty', setTimeout.bind(null, finish, 10))
+
+ Line: 668 -      that.reconnectTimer = setInterval(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/abstract_client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 730 -          setTimeout(function () {
+
+ Line: 735 -              setTimeout(function () {
+
+ Line: 1073 -        setTimeout(done, 1000)
+
+ Line: 1083 -          setTimeout(function () {
+
+ Line: 1087 -            setTimeout(function () {
+
+ Line: 1091 -              setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 281 -        setTimeout(function () {
+
+ Line: 377 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mqtt.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2 -  totype._setupStream=function(){var connectPacket;var that=this;var writable=new Writable;var parser=mqttPacket.parser(this.options);var completeParse=null;var packets=[];this._clearReconnect();this.stream=this.streamBuilder(this);parser.on("packet",function(packet){packets.push(packet)});function process(){var packet=packets.shift();var done=completeParse;if(packet){that._handlePacket(packet,process)}else{completeParse=null;done()}}writable._write=function(buf,enc,done){completeParse=done;parser.parse(buf);process()};this.stream.pipe(writable);this.stream.on("error",nop);eos(this.stream,this.emit.bind(this,"close"));connectPacket=Object.create(this.options);connectPacket.cmd="connect";sendPacket(this,connectPacket);parser.on("error",this.emit.bind(this,"error"));this.stream.setMaxListeners(1e3);clearTimeout(this.connackTimer);this.connackTimer=setTimeout(function(){that._cleanUp(true)},this.options.connectTimeout)};MqttClient.prototype._handlePacket=function(packet,done){this.emit("packetreceive",packet);switch(packet.cmd){case"publish":this._handlePublish(packet,done);break;case"puback":case"pubrec":case"pubcomp":case"suback":case"unsuback":this._handleAck(packet);done();break;case"pubrel":this._handlePubrel(packet,done);break;case"connack":this._handleConnack(packet);done();break;case"pingresp":this._handlePingresp(packet);done();break;default:break}};MqttClient.prototype._checkDisconnecting=function(callback){if(this.disconnecting){if(callback){callback(new Error("client disconnecting"))}else{this.emit("error",new Error("client disconnecting"))}}return this.disconnecting};MqttClient.prototype.publish=function(topic,message,opts,callback){var packet;if(typeof opts==="function"){callback=opts;opts=null}var defaultOpts={qos:0,retain:false,dup:false};opts=xtend(defaultOpts,opts);if(this._checkDisconnecting(callback)){return this}packet={cmd:"publish",topic:topic,payload:message,qos:opts.qos,retain:opts.retain,messageId:this._nextId(),dup:opts.dup};switch(opts.qos){case 1:case 2:this.outgoing[packet.messageId]=callback||nop;this._sendPacket(packet);break;default:this._sendPacket( Line: 4 -  otype.end=function(force,cb){var that=this;if(typeof force==="function"){cb=force;force=false}function closeStores(){that.disconnected=true;that.incomingStore.close(function(){that.outgoingStore.close(cb)})}function finish(){that._cleanUp(force,setImmediate.bind(null,closeStores))}if(this.disconnecting){return this}this._clearReconnect();this.disconnecting=true;if(!force&&Object.keys(this.outgoing).length>0){this.once("outgoingEmpty",setTimeout.bind(null,finish,10))}else{finish()}return this};MqttClient.prototype.removeOutgoingMessage=function(mid){var cb=this.outgoing[mid];delete this.outgoing[mid];this.outgoingStore.del({messageId:mid},function(){cb(new Error("Message removed"))});return this};MqttClient.prototype.reconnect=function(){this.disconnecting=false;this.disconnected=false;this._reconnect();return this};MqttClient.prototype._reconnect=function(){this.emit("reconnect");this._setupStream()};MqttClient.prototype._setupReconnect=function(){var that=this;if(!that.disconnecting&&!that.reconnectTimer&&that.options.reconnectPeriod>0){if(!this.reconnecting){this.emit("offline");this.reconnecting=true}that.reconnectTimer=setInterval(function(){that._reconnect()},that.options.reconnectPeriod)}};MqttClient.prototype._clearReconnect=function(){if(this.reconnectTimer){clearInterval(this.reconnectTimer);this.reconnectTimer=null}};MqttClient.prototype._cleanUp=function(forced,done){if(done){this.stream.on("close",done)}if(forced){this.stream.destroy()}else{this._sendPacket({cmd:"disconnect"},setImmediate.bind(null,this.stream.end.bind(this.stream)))}if(!this.disconnecting){this._clearReconnect();this._setupReconnect()}if(this.pingTimer!==null){this.pingTimer.clear();this.pingTimer=null}};MqttClient.prototype._sendPacket=function(packet,cb){if(!this.connected){if((packet.qos||0)===0&&this.queueQoSZero||packet.cmd!=="publish"){this.queue.push({packet:packet,cb:cb})}else if(packet.qos>0){this.outgoingStore.put(packet,function(err){if(err){return cb&&cb(err)}})}else if(cb){cb(new Error("No connection to broker"))}return}this._shiftPingInterval();if(packet.cmd!=="publish"){sendPacket(th Line: 46 -  29,"safe-buffer":46}],28:[function(require,module,exports){var wrappy=require("wrappy");module.exports=wrappy(once);module.exports.strict=wrappy(onceStrict);once.proto=once(function(){Object.defineProperty(Function.prototype,"once",{value:function(){return once(this)},configurable:true});Object.defineProperty(Function.prototype,"onceStrict",{value:function(){return onceStrict(this)},configurable:true})});function once(fn){var f=function(){if(f.called)return f.value;f.called=true;return f.value=fn.apply(this,arguments)};f.called=false;return f}function onceStrict(fn){var f=function(){if(f.called)throw new Error(f.onceError);f.called=true;return f.value=fn.apply(this,arguments)};var name=fn.name||"Function wrapped with `once`";f.onceError=name+" shouldn't be called more than once";f.called=false;return f}},{wrappy:57}],29:[function(require,module,exports){(function(process){"use strict";if(!process.version||process.version.indexOf("v0.")===0||process.version.indexOf("v1.")===0&&process.version.indexOf("v1.8.")!==0){module.exports=nextTick}else{module.exports=process.nextTick}function nextTick(fn,arg1,arg2,arg3){if(typeof fn!=="function"){throw new TypeError('"callback" argument must be a function')}var len=arguments.length;var args,i;switch(len){case 0:case 1:return process.nextTick(fn);case 2:return process.nextTick(function afterTickOne(){fn.call(null,arg1)});case 3:return process.nextTick(function afterTickTwo(){fn.call(null,arg1,arg2)});case 4:return process.nextTick(function afterTickThree(){fn.call(null,arg1,arg2,arg3)});default:args=new Array(len-1);i=0;while(i<args.length){args[i++]=arguments[i]}return process.nextTick(function afterTick(){fn.apply(null,args)})}}}).call(this,require("_process"))},{_process:30}],30:[function(require,module,exports){var process=module.exports={};var cachedSetTimeout;var cachedClearTimeout;function defaultSetTimout(){throw new Error("setTimeout has not been defined")}function defaultClearTimeout(){throw new Error("clearTimeout has not been defined")}(function(){try{if(typeof setTimeout==="function"){cachedSetTimeout=setTimeout}else{cachedSe Line: 47 -  ultSetTimout}}catch(e){cachedSetTimeout=defaultSetTimout}try{if(typeof clearTimeout==="function"){cachedClearTimeout=clearTimeout}else{cachedClearTimeout=defaultClearTimeout}}catch(e){cachedClearTimeout=defaultClearTimeout}})();function runTimeout(fun){if(cachedSetTimeout===setTimeout){return setTimeout(fun,0)}if((cachedSetTimeout===defaultSetTimout||!cachedSetTimeout)&&setTimeout){cachedSetTimeout=setTimeout;return setTimeout(fun,0)}try{return cachedSetTimeout(fun,0)}catch(e){try{return cachedSetTimeout.call(null,fun,0)}catch(e){return cachedSetTimeout.call(this,fun,0)}}}function runClearTimeout(marker){if(cachedClearTimeout===clearTimeout){return clearTimeout(marker)}if((cachedClearTimeout===defaultClearTimeout||!cachedClearTimeout)&&clearTimeout){cachedClearTimeout=clearTimeout;return clearTimeout(marker)}try{return cachedClearTimeout(marker)}catch(e){try{return cachedClearTimeout.call(null,marker)}catch(e){return cachedClearTimeout.call(this,marker)}}}var queue=[];var draining=false;var currentQueue;var queueIndex=-1;function cleanUpNextTick(){if(!draining||!currentQueue){return}draining=false;if(currentQueue.length){queue=currentQueue.concat(queue)}else{queueIndex=-1}if(queue.length){drainQueue()}}function drainQueue(){if(draining){return}var timeout=runTimeout(cleanUpNextTick);draining=true;var len=queue.length;while(len){currentQueue=queue;queue=[];while(++queueIndex<len){if(currentQueue){currentQueue[queueIndex].run()}}queueIndex=-1;len=queue.length}currentQueue=null;draining=false;runClearTimeout(timeout)}process.nextTick=function(fun){var args=new Array(arguments.length-1);if(arguments.length>1){for(var i=1;i<arguments.length;i++){args[i-1]=arguments[i]}}queue.push(new Item(fun,args));if(queue.length===1&&!draining){runTimeout(drainQueue)}};function Item(fun,array){this.fun=fun;this.array=array}Item.prototype.run=function(){this.fun.apply(null,this.array)};process.title="browser";process.browser=true;process.env={};process.argv=[];process.version="";process.versions={};function noop(){}process.on=noop;process.addListener=noop;process.once=noop;process.off=noop;proces Line: 68 -  {this._writableState.destroyed=false;this._writableState.ended=false;this._writableState.ending=false;this._writableState.finished=false;this._writableState.errorEmitted=false}}function emitErrorNT(self,err){self.emit("error",err)}module.exports={destroy:destroy,undestroy:undestroy}},{"process-nextick-args":29}],43:[function(require,module,exports){module.exports=require("events").EventEmitter},{events:16}],44:[function(require,module,exports){exports=module.exports=require("./lib/_stream_readable.js");exports.Stream=exports;exports.Readable=exports;exports.Writable=require("./lib/_stream_writable.js");exports.Duplex=require("./lib/_stream_duplex.js");exports.Transform=require("./lib/_stream_transform.js");exports.PassThrough=require("./lib/_stream_passthrough.js")},{"./lib/_stream_duplex.js":36,"./lib/_stream_passthrough.js":37,"./lib/_stream_readable.js":38,"./lib/_stream_transform.js":39,"./lib/_stream_writable.js":40}],45:[function(require,module,exports){"use strict";function ReInterval(callback,interval,args){var self=this;this._callback=callback;this._args=args;this._interval=setInterval(callback,interval,this._args);this.reschedule=function(interval){if(!interval)interval=self._interval;if(self._interval)clearInterval(self._interval);self._interval=setInterval(self._callback,interval,self._args)};this.clear=function(){if(self._interval){clearInterval(self._interval);self._interval=undefined}};this.destroy=function(){if(self._interval){clearInterval(self._interval)}self._callback=undefined;self._interval=undefined;self._args=undefined}}function reInterval(){if(typeof arguments[0]!=="function")throw new Error("callback needed");if(typeof arguments[1]!=="number")throw new Error("interval needed");var args;if(arguments.length>0){args=new Array(arguments.length-2);for(var i=0;i<args.length;i++){args[i]=arguments[i+2]}}return new ReInterval(arguments[0],arguments[1],args)}module.exports=reInterval},{}],46:[function(require,module,exports){var buffer=require("buffer");var Buffer=buffer.Buffer;function copyProps(src,dst){for(var key in src){dst[key]=src[key]}}if(Buffer.from&&B Line: 83 -  s,options)}socket.binaryType="arraybuffer"}if(socket.readyState===socket.OPEN){stream=proxy}else{stream=duplexify.obj();socket.onopen=onopen}stream.socket=socket;socket.onclose=onclose;socket.onerror=onerror;socket.onmessage=onmessage;proxy.on("close",destroy);var coerceToBuffer=!options.objectMode;function socketWriteNode(chunk,enc,next){if(socket.readyState!==socket.OPEN){next();return}if(coerceToBuffer&&typeof chunk==="string"){chunk=new Buffer(chunk,"utf8")}socket.send(chunk,next)}function socketWriteBrowser(chunk,enc,next){if(socket.bufferedAmount>bufferSize){setTimeout(socketWriteBrowser,bufferTimeout,chunk,enc,next);return}if(coerceToBuffer&&typeof chunk==="string"){chunk=new Buffer(chunk,"utf8")}try{socket.send(chunk)}catch(err){return next(err)}next()}function socketEnd(done){socket.close();done()}function onopen(){stream.setReadable(proxy);stream.setWritable(proxy);stream.emit("connect")}function onclose(){stream.end();stream.destroy()}function onerror(err){stream.destroy(err)}function onmessage(event){var data=event.data;if(data instanceof ArrayBuffer)data=Buffer.from(data);else data=Buffer.from(data,"utf8");proxy.push(data)}function destroy(){socket.close()}function writev(chunks,cb){var buffers=new Array(chunks.length);for(var i=0;i<chunks.length;i++){if(typeof chunks[i].chunk==="string"){buffers[i]=Buffer.from(chunks[i],"utf8")}else{buffers[i]=chunks[i].chunk}}this._write(Buffer.concat(buffers),"binary",cb)}return stream}}).call(this,require("_process"),typeof global!=="undefined"?global:typeof self!=="undefined"?self:typeof window!=="undefined"?window:{})},{_process:30,duplexify:14,"readable-stream":44,"safe-buffer":46,ws:56}],56:[function(require,module,exports){var ws=null;if(typeof WebSocket!=="undefined"){ws=WebSocket}else if(typeof MozWebSocket!=="undefined"){ws=MozWebSocket}else if(typeof window!=="undefined"){ws=window.WebSocket||window.MozWebSocket}module.exports=ws},{}],57:[function(require,module,exports){module.exports=wrappy;function wrappy(fn,cb){if(fn&&cb)return wrappy(fn)(cb);if(typeof fn!=="function")throw new TypeError("need wrapper function");O</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mqtt.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 72 -  s.hostname=null;this.hash=null;this.search=null;this.query=null;this.pathname=null;this.path=null;this.href=null}var protocolPattern=/^([a-z0-9.+-]+:)/i,portPattern=/:[0-9]*$/,simplePathPattern=/^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/,delims=["<",">",'"',"`"," ","\r","\n","\t"],unwise=["{","}","|","\\","^","`"].concat(delims),autoEscape=["'"].concat(unwise),nonHostChars=["%","/","?",";","#"].concat(autoEscape),hostEndingChars=["/","?","#"],hostnameMaxLen=255,hostnamePartPattern=/^[+a-z0-9A-Z_-]{0,63}$/,hostnamePartStart=/^([+a-z0-9A-Z_-]{0,63})(.*)$/,unsafeProtocol={javascript:true,"javascript:":true},hostlessProtocol={javascript:true,"javascript:":true},slashedProtocol={http:true,https:true,ftp:true,gopher:true,file:true,"http:":true,"https:":true,"ftp:":true,"gopher:":true,"file:":true},querystring=require("querystring");function urlParse(url,parseQueryString,slashesDenoteHost){if(url&&util.isObject(url)&&url instanceof Url)return url;var u=new Url;u.parse(url,parseQueryString,slashesDenoteHost);return u}Url.prototype.parse=function(url,parseQueryString,slashesDenoteHost){if(!util.isString(url)){throw new TypeError("Parameter 'url' must be a string, not "+typeof url)}var queryIndex=url.indexOf("?"),splitter=queryIndex!==-1&&queryIndex<url.indexOf("#")?"?":"#",uSplit=url.split(splitter),slashRegex=/\\/g;uSplit[0]=uSplit[0].replace(slashRegex,"/");url=uSplit.join(splitter);var rest=url;rest=rest.trim();if(!slashesDenoteHost&&url.split("#").length===1){var simplePath=simplePathPattern.exec(rest);if(simplePath){this.path=rest;this.href=rest;this.pathname=simplePath[1];if(simplePath[2]){this.search=simplePath[2];if(parseQueryString){this.query=querystring.parse(this.search.substr(1))}else{this.query=this.search.substr(1)}}else if(parseQueryString){this.search="";this.query={}}return this}}var proto=protocolPattern.exec(rest);if(proto){proto=proto[0];var lowerProto=proto.toLowerCase();this.protocol=lowerProto;rest=rest.substr(proto.length)}if(slashesDenoteHost||proto||rest.match(/^\/\/[^@\/]+@[^@\/]+/)){var slashes=rest.substr(0,2)==="//";if(slashes&&!(proto&&hostlessProtocol[proto]))</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mqtt.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 292 -    this.connackTimer = setTimeout(function () {
+
+ Line: 609 -      this.once('outgoingEmpty', setTimeout.bind(null, finish, 10))
+
+ Line: 670 -      that.reconnectTimer = setInterval(function () {
+
+ Line: 5934 -      throw new Error('setTimeout has not been defined');
+
+ Line: 5941 -          if (typeof setTimeout === 'function') {
+
+ Line: 5942 -              cachedSetTimeout = setTimeout;
+
+ Line: 5960 -      if (cachedSetTimeout === setTimeout) {
+
+ Line: 5962 -          return setTimeout(fun, 0);
+
+ Line: 5964 -      // if setTimeout wasn't available but was latter defined
+
+ Line: 5965 -      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+
+ Line: 5966 -          cachedSetTimeout = setTimeout;
+
+ Line: 5967 -          return setTimeout(fun, 0);
+
+ Line: 5970 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 5995 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 6003 -              // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+
+ Line: 9060 -    this._interval = setInterval(callback, interval, this._args);
+
+ Line: 9069 -      self._interval = setInterval(self._callback, interval, self._args);
+
+ Line: 11008 -        setTimeout(socketWriteBrowser, bufferTimeout, chunk, enc, next)
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/mqtt.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 1587 -    // support clientId passed in the query string of the url
+
+ Line: 3799 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 4226 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 6663 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 6749 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 6845 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 6970 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 7019 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 8028 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 8244 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 9488 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 9569 -      querystring = require('querystring');
+
+ Line: 9585 -    // Back slashes before the query string get converted to forward slashes
+
+ Line: 9587 -    var queryIndex = url.indexOf('?'),
+
+ Line: 9589 -            (queryIndex !== -1 && queryIndex < url.indexOf('#')) ? '?' : '#',
+
+ Line: 9611 -            this.query = querystring.parse(this.search.substr(1));
+
+ Line: 9814 -        this.query = querystring.parse(this.query);
+
+ Line: 9818 -      // no query string, but parseQueryString still requested
+
+ Line: 9863 -        query = '';
+
+ Line: 9879 -      query = querystring.stringify(this.query);
+
+ Line: 9882 -    var search = this.search || (query && ('?' + query)) || '';
+
+ Line: 10321 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+

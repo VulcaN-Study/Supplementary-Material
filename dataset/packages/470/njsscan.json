@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/server.js",
+          "match_lines": [
+            7,
+            95
+          ],
+          "match_position": [
+            3,
+            21
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  //console.log(urlObj);\n\n  if(urlObj.pathname.indexOf(\"getcity\") > -1) {\n\n    \n\n    console.log('getcity: ' + urlObj.query.city);\n\n    var regex = new RegExp(\"^\" + urlObj.query.city);\n\n    var jsonResponse = [];\n\n\n\n    fs.readFile('utahCities.dat.txt', function (err, data) {\n\n      \n\n      if(err) throw err;\n\n      var cities = data.toString().split(\"\\n\");\n\n      \n\n      for(var i = 0; i < cities.length; i++) {\n\n        \n\n        var result = cities[i].search(regex);\n\n\n\n        if(result != -1) {\n\n\n\n          jsonResponse.push({city:cities[i]});\n\n\n\n        }\n\n\n\n      }\n\n\n\n      res.writeHead(200);\n\n      res.end(JSON.stringify(jsonResponse));\n\n\n\n    });    \n\n  } else if(urlObj.pathname.indexOf(\"comment\") > -1) {\n\n    \n\n    console.log(\"comment route\");\n\n    \n\n    if(req.method === \"POST\") {\n\n      \n\n      console.log(\"In POST\");\n\n      var jsonData = \"\";\n\n      req.on('data', function (chunk) {\n\n        jsonData += chunk;\n\n      });\n\n      req.on('end', function () {\n\n        var reqObj = JSON.parse(jsonData);\n\n        console.log(reqObj);\n\n        console.log(\"Name: \"+reqObj.Name);\n\n        console.log(\"Comment: \"+reqObj.Comment);\n\n        \n\n        var MongoClient = require('mongodb').MongoClient;\n\n        MongoClient.connect(\"mongodb://localhost/weather\", function(err, db) {\n\n          if(err) throw err;\n\n          db.collection('comments').insert(reqObj, function(err, records) {\n\n            console.log(\"Record added as \" + records[0]._id);\n\n          });\n\n        });\n\n\n\n      });\n\n\n\n      res.writeHead(200);\n\n      res.end(\"\");\n\n\n\n    } else if(req.method === \"GET\") {\n\n      console.log(\"In GET\"); \n\n      var MongoClient = require('mongodb').MongoClient;\n\n      MongoClient.connect(\"mongodb://localhost/weather\", function(err, db) {\n\n        if(err) throw err;\n\n        db.collection(\"comments\", function(err, comments){\n\n          if(err) throw err;\n\n          comments.find(function(err, items){\n\n            items.toArray(function(err, itemArr) {\n\n              console.log(\"Document Array: \");\n\n              console.log(itemArr);\n\n              res.writeHead(200);\n\n              res.end(JSON.stringify(itemArr));\n\n            });\n\n          });\n\n        });\n\n      });\n\n    }\n\n  } else {\n\n    fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n      if (err) {\n\n        \n\n        res.writeHead(404);\n\n        res.end(JSON.stringify(err));\n\n        return;\n\n\n\n      } else {\n\n        \n\n        res.writeHead(200);\n\n        res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/server.js",
+          "match_lines": [
+            7,
+            95
+          ],
+          "match_position": [
+            3,
+            21
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  //console.log(urlObj);\n\n  if(urlObj.pathname.indexOf(\"getcity\") > -1) {\n\n    \n\n    console.log('getcity: ' + urlObj.query.city);\n\n    var regex = new RegExp(\"^\" + urlObj.query.city);\n\n    var jsonResponse = [];\n\n\n\n    fs.readFile('utahCities.dat.txt', function (err, data) {\n\n      \n\n      if(err) throw err;\n\n      var cities = data.toString().split(\"\\n\");\n\n      \n\n      for(var i = 0; i < cities.length; i++) {\n\n        \n\n        var result = cities[i].search(regex);\n\n\n\n        if(result != -1) {\n\n\n\n          jsonResponse.push({city:cities[i]});\n\n\n\n        }\n\n\n\n      }\n\n\n\n      res.writeHead(200);\n\n      res.end(JSON.stringify(jsonResponse));\n\n\n\n    });    \n\n  } else if(urlObj.pathname.indexOf(\"comment\") > -1) {\n\n    \n\n    console.log(\"comment route\");\n\n    \n\n    if(req.method === \"POST\") {\n\n      \n\n      console.log(\"In POST\");\n\n      var jsonData = \"\";\n\n      req.on('data', function (chunk) {\n\n        jsonData += chunk;\n\n      });\n\n      req.on('end', function () {\n\n        var reqObj = JSON.parse(jsonData);\n\n        console.log(reqObj);\n\n        console.log(\"Name: \"+reqObj.Name);\n\n        console.log(\"Comment: \"+reqObj.Comment);\n\n        \n\n        var MongoClient = require('mongodb').MongoClient;\n\n        MongoClient.connect(\"mongodb://localhost/weather\", function(err, db) {\n\n          if(err) throw err;\n\n          db.collection('comments').insert(reqObj, function(err, records) {\n\n            console.log(\"Record added as \" + records[0]._id);\n\n          });\n\n        });\n\n\n\n      });\n\n\n\n      res.writeHead(200);\n\n      res.end(\"\");\n\n\n\n    } else if(req.method === \"GET\") {\n\n      console.log(\"In GET\"); \n\n      var MongoClient = require('mongodb').MongoClient;\n\n      MongoClient.connect(\"mongodb://localhost/weather\", function(err, db) {\n\n        if(err) throw err;\n\n        db.collection(\"comments\", function(err, comments){\n\n          if(err) throw err;\n\n          comments.find(function(err, items){\n\n            items.toArray(function(err, itemArr) {\n\n              console.log(\"Document Array: \");\n\n              console.log(itemArr);\n\n              res.writeHead(200);\n\n              res.end(JSON.stringify(itemArr));\n\n            });\n\n          });\n\n        });\n\n      });\n\n    }\n\n  } else {\n\n    fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n      if (err) {\n\n        \n\n        res.writeHead(404);\n\n        res.end(JSON.stringify(err));\n\n        return;\n\n\n\n      } else {\n\n        \n\n        res.writeHead(200);\n\n        res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

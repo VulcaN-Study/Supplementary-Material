@@ -1,0 +1,225 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/webtorrent.min.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 252195,
+                  "endLine": 1,
+                  "endColumn": 252201,
+                  "offset": 252195,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/webtorrent.min.js",
+                  "replacements": [
+                    {
+                      "offset": 252195,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/webtorrent.min.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 116441,
+                  "endLine": 1,
+                  "endColumn": 116444,
+                  "offset": 116441,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssl",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/webtorrent.min.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 116459,
+                  "endLine": 1,
+                  "endColumn": 116462,
+                  "offset": 116459,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssl",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/webtorrent.min.js",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 116472,
+                  "endLine": 1,
+                  "endColumn": 116475,
+                  "offset": 116472,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssl",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/torrent.js",
+                "region": {
+                  "startLine": 364,
+                  "startColumn": 24,
+                  "endLine": 364,
+                  "endColumn": 30,
+                  "offset": 11222,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/torrent.js",
+                  "replacements": [
+                    {
+                      "offset": 11222,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/server.js",
+                "region": {
+                  "startLine": 79,
+                  "startColumn": 40,
+                  "endLine": 79,
+                  "endColumn": 46,
+                  "offset": 2305,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/server.js",
+                  "replacements": [
+                    {
+                      "offset": 2305,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        }
+      ],
+      "rules": {
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        },
+        "DS440000": {
+          "id": "DS440000",
+          "name": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "fullDescription": "SSL/TLS version usage should be based on an OS or external configuration.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS440000.md"
+        }
+      }
+    }
+  ]
+}

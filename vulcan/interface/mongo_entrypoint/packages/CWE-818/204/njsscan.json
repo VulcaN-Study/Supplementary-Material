@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            47,
+            106
+          ],
+          "match_position": [
+            3,
+            39
+          ],
+          "match_string": "  var filename = opts.filename;\n\n  var isGlobal = !!opts.isGlobal;\n\n  var filePath;\n\n  if (!version) { throw 'version required'; }\n\n  if (!filename) { throw 'filename required'; }\n\n  if (!url) { throw 'url required'; }\n\n\n\n  filePath = path.join(dirPath, filename);\n\n\n\n  if (!fs.existsSync(filePath)) {\n\n    console.log(version, \n\n      fs.existsSync(filePath + '.part')\n\n       ? 'partially cached, resuming...\\n' \n\n       : 'not in cache, fetching...\\n', \n\n      url);  \n\n\n\n    \n\n    var req = new Fast(url, {\n\n        chunksAtOnce: 8,\n\n        destFile: filePath + '.part',\n\n        resumeFile: true\n\n      });\n\n\n\n    req.on('start', function (res) {\n\n\n\n      var pro = progress({\n\n        time: 100, \n\n        length: +res.headers['content-length'],\n\n        transferred: res._options.start,\n\n        drain: true\n\n      });\n\n\n\n      res.pipe(pro);\n\n\n\n      res.on('error', cb);\n\n\n\n      console.log();\n\n\n\n      pro.on('progress', function (p) {\n\n        process.stdout.write(\n\n          '  Downloading nw.js: ' \n\n          + (+p.percentage).toPrecision(3)\n\n          + '%        \\n');\n\n\n\n        process.stdout.write(Buffer([0x1b, 0x5b, 0x31, 0x41]));\n\n        process.stdout.write(Buffer([0x1b, 0x5b, 0x30, 0x47]));\n\n        \n\n        if (p.percentage === 100) {\n\n          process.stdout.write('   Download Complete            \\n\\n')\n\n          fs.renameSync(filePath + '.part', filePath);\n\n          install(fs.createReadStream(filePath));\n\n\n\n        }\n\n\n\n      });\n\n    }); \n\n    return;\n\n  }\n\n\n\n  install(fs.createReadStream(filePath));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

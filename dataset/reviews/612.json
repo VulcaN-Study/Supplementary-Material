@@ -1,0 +1,114 @@
+{
+    "advisory": {
+        "id": 612,
+        "cwe": "CWE-471"
+    },
+    "correct_cwe": "CWE-471",
+    "correct_package_link": "https://registry.npmjs.org/deep-extend/-/deep-extend-0.5.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/deep-extend",
+                    "lineno": 82,
+                    "code": "var deepExtend = module.exports = function (/*obj_1, [obj_2], [obj_N]*/) {"
+                },
+                "sink": {
+                    "file": "lib/deep-extend",
+                    "lineno": 117,
+                    "code": "target[key] = val;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/deep-extend",
+                    "lineno": 82,
+                    "code": "var deepExtend = module.exports = function (/*obj_1, [obj_2], [obj_N]*/) {"
+                },
+                "sink": {
+                    "file": "lib/deep-extend",
+                    "lineno": 122,
+                    "code": "target[key] = deepCloneArray(val);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/deep-extend",
+                    "lineno": 82,
+                    "code": "var deepExtend = module.exports = function (/*obj_1, [obj_2], [obj_N]*/) {"
+                },
+                "sink": {
+                    "file": "lib/deep-extend",
+                    "lineno": 127,
+                    "code": "target[key] = cloneSpecificValue(val);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/deep-extend",
+                    "lineno": 82,
+                    "code": "var deepExtend = module.exports = function (/*obj_1, [obj_2], [obj_N]*/) {"
+                },
+                "sink": {
+                    "file": "lib/deep-extend",
+                    "lineno": 132,
+                    "code": "target[key] = deepExtend({}, val);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/deep-extend",
+                    "lineno": 82,
+                    "code": "var deepExtend = module.exports = function (/*obj_1, [obj_2], [obj_N]*/) {"
+                },
+                "sink": {
+                    "file": "lib/deep-extend",
+                    "lineno": 137,
+                    "code": "target[key] = deepExtend(src, val);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "file_path": "612.poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://registry.npmjs.org/deep-extend/-/deep-extend-0.5.1.tgz"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/lib/clear-task.js",
+          "match_lines": [
+            9,
+            14
+          ],
+          "match_position": [
+            5,
+            28
+          ],
+          "match_string": "    try{\n\n        fsx.removeSync(vars.haxe.dir);\n\n        fsx.removeSync(vars.haxelib.dir);\n\n        fsx.removeSync(vars.neko.dir);\n\n    } catch(error){\n\n        console.error(error);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/cache.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            22,
+            46
+          ],
+          "match_string": "     var generator = crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

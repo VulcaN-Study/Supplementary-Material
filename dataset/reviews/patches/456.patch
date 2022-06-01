@@ -1,0 +1,57 @@
+--- package/index.js	2016-06-23 08:08:45.000000000 +0100
++++ package/index.js	2020-10-30 16:51:30.509772794 +0000
+@@ -1,30 +1,23 @@
+-
+-// var math=require("math.js");
+-// console.log(math.abc);
+-// math.math(1,4);
+-//服务器功能
+-//接收用户请求、发送请求
+-var http=require("http");
+-var url=require("url");
+-var fs=require("fs");
+-
+-http.createServer(function (request,response) {
+-    var path="."+url.parse(request.url).pathname;
+-    console.log(path);
+-
+-    response.writeHead("200",{"content-type":"text/html"});
+-    //乱码处理
+-    // response.write("<meta charset=utf-8>");
+-    // response.write("<em>斜体</em>");
+-    fs.readFile(path,function (error,file) {
+-        if(error){
+-            response.write("<meta charset=utf-8>");
+-            response.write("<strong>文件不存在</strong>");
+-            response.end();
+-        }else{
+-            response.write(file);
+-            response.end();
+-        }
+-    })
+-
+-}).listen(8888);
+\ No newline at end of file
++var http = require("http");
++var url = require("url");
++var fs = require("fs");
++const path = require("path")
++
++http.createServer(function (request,response) {
++    var basePath = "." + path.sep;
++    var unsafeSuffix = request.url;
++    var safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, '');
++    var safePath = path.join(basePath, safeSuffix);
++
++    response.writeHead("200", { "content-type" : "text/html" });
++    fs.readFile(path, function (error, file) {
++        if(error) {
++            response.write("<meta charset=utf-8>");
++            response.write("<strong>文件不存在</strong>");
++            response.end();
++        } else {
++            response.write(file);
++            response.end();
++        }
++    })
++}).listen(8888);

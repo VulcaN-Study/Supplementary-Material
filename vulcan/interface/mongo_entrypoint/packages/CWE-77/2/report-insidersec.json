@@ -1,0 +1,50 @@
+{
+ "dra": [],
+ "sast": {
+  "name": "codem-transcode",
+  "version": "0.4.4",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "43291 Bytes",
+  "numberOfLines": 1098
+ },
+ "libraries": [
+  {
+   "name": "argsparser",
+   "current": "~0.0.6"
+  },
+  {
+   "name": "sqlite3",
+   "current": "~2.1.5"
+  },
+  {
+   "name": "mkdirp",
+   "current": "~0.3.4"
+  },
+  {
+   "name": "express",
+   "current": "~2.5.11"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 63,
+   "class": "job.js (63:21)",
+   "vul_id": "92aea092e812dfe340b6724ac4d4b3b6",
+   "method": "var hash = crypto.createHash('sha1');",
+   "column": 21,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/job.js (63:21)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/job-handler.js",
+    "/test/db-handler-spec.js",
+    "/test/job-handler-spec.js",
+    "/test/job-spec.js",
+    "/test/notify-handler-spec.js"
+   ]
+  }
+ ]
+}

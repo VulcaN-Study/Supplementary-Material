@@ -1,0 +1,48 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# Logs",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/lib/app.js",
+          "match_lines": [
+            10,
+            35
+          ],
+          "match_position": [
+            3,
+            17
+          ],
+          "match_string": "\t\tvar url = req.url;\n\n\n\n\t\tif (url.indexOf('?') != -1) {\n\n\t\t\turl = url.split('?')[0];\n\n\t\t}\n\n\n\n\t\tvar file = url === \"/\" ? \"/index.html\" : url;\n\n\n\n\t\tfs.readFile(path.normalize(process.cwd()) + file, function(err, data) {\n\n\t\t\tif (!!err) {\n\n\t\t\t\tconsole.error('Error loading : '+ url);\n\n\t\t\t\tres.writeHead(404);\n\n\t\t\t\tres.end();\n\n\t\t\t}\n\n\t\t\telse {\n\n\t\t\t\tvar type = path.extname(file);\n\n\n\n\t\t\t\tif (type === \".js\") {\n\n\t        contentType = 'application/javascript';\n\n\t\t\t\t}\n\n\t\t\t\telse {\n\n\t\t\t\t\tcontentType = \"text/\"+ type.slice(1, type.length);\n\n\t\t\t\t}\n\n\n\n\t\t\t\tres.setHeader('content-type', contentType);\n\n\t\t\t\tres.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

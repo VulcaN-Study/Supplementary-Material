@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/app.js",
+          "match_lines": [
+            24,
+            37
+          ],
+          "match_position": [
+            2,
+            30
+          ],
+          "match_string": "\tvar url = cwd + req.url\n\n\turl = path.normalize(url.slice(-1) === '/' ? url + 'index.html' : url)\n\n\tfs.exists(url, function(exists) {\n\n\t\tif (!exists) {\n\n\t\t\tres.writeHead(404, {\n\n\t\t\t\t'Content-Type': 'text/plain'\n\n\t\t\t})\n\n\t\t\treturn res.end('404 nofound')\n\n\t\t}\n\n\t\tres.writeHead(200, {\n\n\t\t\t'Content-Type': mime[path.extname(url).slice(1)] || 'text/plain'\n\n\t\t})\n\n\t\tfs.readFile(url, function(err, data) {\n\n\t\t\treturn err || res.end(data)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

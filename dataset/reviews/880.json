@@ -1,0 +1,62 @@
+{
+    "advisory": {
+        "id": 880,
+        "cwe": "CWE-400"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/axios/-/axios-0.18.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/adaptares/http.js",
+                    "start_lineno": 183,
+                    "end_lineno": 186,
+                    "code": "if (config.maxContentLength > -1 && Buffer.concat(responseBuffer).length > config.maxContentLength) {|reject(createError('maxContentLength size of ' + config.maxContentLength + ' exceeded',|config, null, lastRequest));|}"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/axios/axios/issues/1098"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/axios/axios/pull/1485/commits/79a1ed204f4c2971b573edde816b3a43b25240da"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

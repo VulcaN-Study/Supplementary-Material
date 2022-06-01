@@ -1,0 +1,92 @@
+/src/History.md-88-  * throw an Error when no proxy info is given
+/src/History.md:89:  * add support for passing options to net/tls .connect()
+/src/History.md-90-
+##############################################
+/src/README.md-36-console.log('attempting to GET %j', endpoint);
+/src/README.md:37:var opts = url.parse(endpoint);
+/src/README.md-38-
+##############################################
+/src/index.js-27-  if (!(this instanceof HttpProxyAgent)) return new HttpProxyAgent(opts);
+/src/index.js:28:  if ('string' == typeof opts) opts = url.parse(opts);
+/src/index.js-29-  if (!opts) throw new Error('an HTTP(S) proxy server `host` and `port` must be specified!');
+##############################################
+/src/index.js-43-    // if both a `host` and `path` are specified then it's most likely the
+/src/index.js:44:    // result of a `url.parse()` call... we need to remove the `path` portion so
+/src/index.js:45:    // that `net.connect()` doesn't attempt to open that as a unix socket file.
+/src/index.js-46-    delete proxy.path;
+##############################################
+/src/index.js-64-  // to the absolute path of the URL that will be requested
+/src/index.js:65:  var parsed = url.parse(req.path);
+/src/index.js-66-  if (null == parsed.protocol) parsed.protocol = 'http:';
+##############################################
+/src/index.js-85-  if (this.secureProxy) {
+/src/index.js:86:    socket = tls.connect(proxy);
+/src/index.js-87-  } else {
+/src/index.js:88:    socket = net.connect(proxy);
+/src/index.js-89-  }
+##############################################
+/src/test/test.js-35-    // setup target HTTP server
+/src/test/test.js:36:    server = http.createServer();
+/src/test/test.js-37-    server.listen(function () {
+##############################################
+/src/test/test.js-48-    };
+/src/test/test.js:49:    sslProxy = Proxy(https.createServer(options));
+/src/test/test.js-50-    sslProxy.listen(function () {
+##############################################
+/src/test/test.js-82-    });
+/src/test/test.js:83:    it('should accept a `url.parse()` result object argument', function () {
+/src/test/test.js:84:      var opts = url.parse('http://127.0.0.1:' + proxyPort);
+/src/test/test.js-85-      var agent = new HttpProxyAgent(opts);
+##############################################
+/src/test/test.js-118-
+/src/test/test.js:119:      var opts = url.parse('http://127.0.0.1:' + serverPort);
+/src/test/test.js-120-      opts.agent = agent;
+##############################################
+/src/test/test.js-128-        res.on('end', function () {
+/src/test/test.js:129:          data = JSON.parse(data);
+/src/test/test.js-130-          assert.equal('127.0.0.1:' + serverPort, data.host);
+##############################################
+/src/test/test.js-142-      var proxy = process.env.HTTPS_PROXY || process.env.https_proxy || 'https://127.0.0.1:' + sslProxyPort;
+/src/test/test.js:143:      proxy = url.parse(proxy);
+/src/test/test.js:144:      proxy.rejectUnauthorized = false;
+/src/test/test.js-145-      var agent = new HttpProxyAgent(proxy);
+##############################################
+/src/test/test.js-147-
+/src/test/test.js:148:      var opts = url.parse('http://127.0.0.1:' + serverPort);
+/src/test/test.js-149-      opts.agent = agent;
+##############################################
+/src/test/test.js-157-        res.on('end', function () {
+/src/test/test.js:158:          data = JSON.parse(data);
+/src/test/test.js-159-          assert.equal('127.0.0.1:' + serverPort, data.host);
+##############################################
+/src/test/test.js-175-
+/src/test/test.js:176:      var opts = url.parse('http://127.0.0.1:' + serverPort + '/test?foo=bar&1=2');
+/src/test/test.js-177-      opts.agent = agent;
+##############################################
+/src/test/test.js-185-        res.on('end', function () {
+/src/test/test.js:186:          data = JSON.parse(data);
+/src/test/test.js-187-          assert.equal('/test?foo=bar&1=2', data.url);
+##############################################
+/src/test/test.js-227-      var proxyUri = process.env.HTTP_PROXY || process.env.http_proxy || 'http://127.0.0.1:' + proxyPort;
+/src/test/test.js:228:      var proxyOpts = url.parse(proxyUri);
+/src/test/test.js-229-      proxyOpts.auth = 'foo:bar';
+##############################################
+/src/test/test.js-231-
+/src/test/test.js:232:      var opts = url.parse('http://127.0.0.1:' + serverPort);
+/src/test/test.js-233-      opts.agent = agent;
+##############################################
+/src/test/test.js-241-        res.on('end', function () {
+/src/test/test.js:242:          data = JSON.parse(data);
+/src/test/test.js-243-          assert.equal('127.0.0.1:' + serverPort, data.host);
+##############################################
+/src/test/test.js-254-
+/src/test/test.js:255:      var opts = url.parse('http://nodejs.org');
+/src/test/test.js-256-      opts.agent = agent;
+##############################################
+/src/test/test.js-273-
+/src/test/test.js:274:      var opts = url.parse('http://127.0.0.1:' + serverPort + '/test');
+/src/test/test.js-275-      opts.agent = agent;
+##############################################
+/src/test/test.js-294-        res.on('end', function () {
+/src/test/test.js:295:          data = JSON.parse(data);
+/src/test/test.js-296-          assert.equal('/test', data);

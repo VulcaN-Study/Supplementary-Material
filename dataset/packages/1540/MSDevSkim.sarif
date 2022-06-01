@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS125134",
+          "level": "error",
+          "message": "Disabled certificate validation",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/dist/http-agent.js",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 28,
+                  "endLine": 64,
+                  "endColumn": 46,
+                  "offset": 2625,
+                  "length": 18
+                }
+              }
+            }
+          ],
+          "snippet": "rejectUnauthorized",
+          "properties": {
+            "tags": ["Cryptography.Certificate.Validation"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/dist/scp-cf/vcap-service-destination.js",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 31,
+                  "endLine": 67,
+                  "endColumn": 34,
+                  "offset": 3017,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssL",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        },
+        {
+          "ruleId": "DS440000",
+          "level": "error",
+          "message": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/dist/scp-cf/vcap-service-destination.js",
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 16,
+                  "endLine": 87,
+                  "endColumn": 19,
+                  "offset": 4185,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "ssL",
+          "properties": {
+            "tags": ["Cryptography.Protocol.TLS.Hardcoded"]
+          }
+        }
+      ],
+      "rules": {
+        "DS125134": {
+          "id": "DS125134",
+          "name": "Disabled certificate validation",
+          "fullDescription": "Extend default certificate validation, but do not disable or override default rules.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS114352.md"
+        },
+        "DS440000": {
+          "id": "DS440000",
+          "name": "Generic: Do not hardcode SSL/TLS versions within an application.",
+          "fullDescription": "SSL/TLS version usage should be based on an OS or external configuration.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS440000.md"
+        }
+      }
+    }
+  ]
+}

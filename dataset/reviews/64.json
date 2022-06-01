@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 64,
+        "cwe": "CWE-730"
+    },
+    "correct_cwe": "CWE-730",
+    "correct_package_link": "https://registry.npmjs.org/ecstatic/-/ecstatic-1.3.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/ecstatic.js",
+                    "lineno": 270,
+                    "code": "var modifiedSince = req.headers['if-modified-since'],"
+                },
+                "sink": {
+                    "file": "lib/ecstatic.js",
+                    "lineno": 280,
+                    "code": "if (modifiedSince && (new Date(Date.parse(modifiedSince))) < stat.mtime) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/jfhbrook/node-ecstatic/pull/179"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://www.npmjs.com/package/ecstatic/v/4.1.4"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

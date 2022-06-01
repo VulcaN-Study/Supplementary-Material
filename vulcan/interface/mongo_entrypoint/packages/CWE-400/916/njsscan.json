@@ -1,0 +1,198 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            16340,
+            16340
+          ],
+          "match_position": [
+            9,
+            26
+          ],
+          "match_string": "        console.trace(msg);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            7812,
+            7812
+          ],
+          "match_position": [
+            43,
+            54
+          ],
+          "match_string": "    var messagePrefix = \"setImmediate$\" + Math.random() + \"$\";"
+        },
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            23362,
+            23362
+          ],
+          "match_position": [
+            28,
+            39
+          ],
+          "match_string": "      var random53bitInt = Math.random() * pow2_53 & 0x1fffff ? function () {"
+        },
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            23363,
+            23363
+          ],
+          "match_position": [
+            26,
+            37
+          ],
+          "match_string": "        return mathfloor(Math.random() * pow2_53);"
+        },
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            23365,
+            23365
+          ],
+          "match_position": [
+            17,
+            28
+          ],
+          "match_string": "        return (Math.random() * 0x40000000 | 0) * 0x800000 + (Math.random() * 0x800000 | 0);"
+        },
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            23365,
+            23365
+          ],
+          "match_position": [
+            63,
+            74
+          ],
+          "match_string": "        return (Math.random() * 0x40000000 | 0) * 0x800000 + (Math.random() * 0x800000 | 0);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            10413,
+            10415
+          ],
+          "match_position": [
+            7,
+            21
+          ],
+          "match_string": "      if (token === '/*') {\n\n        inside = true;\n\n        return false;"
+        },
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            10418,
+            10420
+          ],
+          "match_position": [
+            7,
+            21
+          ],
+          "match_string": "      if (token === '*/') {\n\n        inside = false;\n\n        return false;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            4718,
+            4718
+          ],
+          "match_position": [
+            12,
+            32
+          ],
+          "match_string": "    return expected.test(actual);"
+        },
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            8659,
+            8659
+          ],
+          "match_position": [
+            63,
+            82
+          ],
+          "match_string": "  return !!length && (type == 'number' || type != 'symbol' && reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;"
+        },
+        {
+          "file_path": "/src/dist/index.js",
+          "match_lines": [
+            15705,
+            15705
+          ],
+          "match_position": [
+            51,
+            70
+          ],
+          "match_string": "  return !!length && (typeof value == 'number' || reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,1422 @@
+[
+ {
+  "id": 1,
+  "file": "/src/src/lib/gif/dgif_lib.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "        free((char *)Private);\n        free((char *)GifFile);\n        return NULL;\n    }\n\n    if (DGifGetScreenDesc(GifFile) == GIF_ERROR) {\n        (void)fclose(f);\n        free((char *)Private);\n        free((char *)GifFile);\n        return NULL;\n    }",
+  "line": 137,
+  "start": 132,
+  "end": 143
+ },
+ {
+  "id": 2,
+  "file": "/src/src/lib/gif/dgif_lib.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "        free((char *)Private);\n        free((char *)GifFile);\n        return NULL;\n    }\n\n    if (DGifGetScreenDesc(GifFile) == GIF_ERROR) {\n        free((char *)Private);\n        free((char *)GifFile);\n        if (Error != NULL)\n\t    *Error = D_GIF_ERR_NO_SCRN_DSCR;\n        return NULL;",
+  "line": 211,
+  "start": 206,
+  "end": 217
+ },
+ {
+  "id": 3,
+  "file": "/src/src/lib/gif/dgif_lib.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "/******************************************************************************\n This routine should be called before any other DGif calls. Note that\n this routine is called automatically from DGif file open routines.\n******************************************************************************/\nint\nDGifGetScreenDesc(GifFileType *GifFile)\n{\n    int BitsPerPixel;\n    bool SortFlag;\n    GifByteType Buf[3];\n    GifFilePrivateType *Private = (GifFilePrivateType *)GifFile->Private;",
+  "line": 232,
+  "start": 227,
+  "end": 238
+ },
+ {
+  "id": 4,
+  "file": "/src/src/lib/gif/dgif_lib.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "            return GIF_ERROR;\n        }\n    }\n\n    sp = &GifFile->SavedImages[GifFile->ImageCount];\n    memcpy(&sp->ImageDesc, &GifFile->Image, sizeof(GifImageDesc));\n    if (GifFile->Image.ColorMap != NULL) {\n        sp->ImageDesc.ColorMap = GifMakeMapObject(\n                                 GifFile->Image.ColorMap->ColorCount,\n                                 GifFile->Image.ColorMap->Colors);\n        if (sp->ImageDesc.ColorMap == NULL) {",
+  "line": 411,
+  "start": 406,
+  "end": 417
+ },
+ {
+  "id": 5,
+  "file": "/src/src/lib/gif/gifalloc.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    Object->ColorCount = ColorCount;\n    Object->BitsPerPixel = GifBitSize(ColorCount);\n    Object->SortFlag = false;\n\n    if (ColorMap != NULL) {\n        memcpy((char *)Object->Colors,\n               (char *)ColorMap, ColorCount * sizeof(GifColorType));\n    }\n\n    return (Object);\n}",
+  "line": 66,
+  "start": 61,
+  "end": 72
+ },
+ {
+  "id": 6,
+  "file": "/src/src/lib/gif/gifalloc.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    ep->Bytes = (GifByteType *)malloc(ep->ByteCount);\n    if (ep->Bytes == NULL)\n        return (GIF_ERROR);\n\n    if (ExtData != NULL) {\n        memcpy(ep->Bytes, ExtData, Len);\n    }\n\n    return (GIF_OK);\n}\n",
+  "line": 255,
+  "start": 250,
+  "end": 261
+ },
+ {
+  "id": 7,
+  "file": "/src/src/lib/gif/gifalloc.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    else {\n        SavedImage *sp = &GifFile->SavedImages[GifFile->ImageCount++];\n        memset((char *)sp, '\\0', sizeof(SavedImage));\n\n        if (CopyFrom != NULL) {\n            memcpy((char *)sp, CopyFrom, sizeof(SavedImage));\n\n            /* \n             * Make our own allocated copies of the heap fields in the\n             * copied record.  This guards against potential aliasing\n             * problems.",
+  "line": 338,
+  "start": 333,
+  "end": 344
+ },
+ {
+  "id": 8,
+  "file": "/src/src/lib/gif/gifalloc.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                                                   CopyFrom->ImageDesc.Width);\n            if (sp->RasterBits == NULL) {\n                FreeLastSavedImage(GifFile);\n                return (SavedImage *)(NULL);\n            }\n            memcpy(sp->RasterBits, CopyFrom->RasterBits,\n                   sizeof(GifPixelType) * CopyFrom->ImageDesc.Height *\n                   CopyFrom->ImageDesc.Width);\n\n            /* finally, the extension blocks */\n            if (sp->ExtensionBlocks != NULL) {",
+  "line": 365,
+  "start": 360,
+  "end": 371
+ },
+ {
+  "id": 9,
+  "file": "/src/src/lib/gif/gifalloc.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                                      CopyFrom->ExtensionBlockCount);\n                if (sp->ExtensionBlocks == NULL) {\n                    FreeLastSavedImage(GifFile);\n                    return (SavedImage *)(NULL);\n                }\n                memcpy(sp->ExtensionBlocks, CopyFrom->ExtensionBlocks,\n                       sizeof(ExtensionBlock) * CopyFrom->ExtensionBlockCount);\n            }\n        }\n\n        return (sp);",
+  "line": 378,
+  "start": 373,
+  "end": 384
+ },
+ {
+  "id": 10,
+  "file": "/src/src/lib/jpeg/jcapimin.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "  cinfo->natural_order = jpeg_natural_order;\n  cinfo->lim_Se = DCTSIZE2-1;\n\n  cinfo->script_space = NULL;\n\n  cinfo->input_gamma = 1.0;\t/* in case application forgets */\n\n  /* OK, I'm ready */\n  cinfo->global_state = CSTATE_START;\n}\n",
+  "line": 84,
+  "start": 79,
+  "end": 90
+ },
+ {
+  "id": 11,
+  "file": "/src/src/lib/jpeg/jcmaster.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "       ci++, compptr++) {\n    /* Fill in the correct component_index value; don't rely on application */\n    compptr->component_index = ci;\n    /* In selecting the actual DCT scaling for each component, we try to\n     * scale down the chroma components via DCT scaling rather than downsampling.\n     * This saves time if the downsampler gets to use 1:1 scaling.\n     * Note this code adapts subsampling ratios which are powers of 2.\n     */\n    ssize = 1;\n#ifdef DCT_SCALING_SUPPORTED\n    while (cinfo->min_DCT_h_scaled_size * ssize <=",
+  "line": 290,
+  "start": 285,
+  "end": 296
+ },
+ {
+  "id": 12,
+  "file": "/src/src/lib/jpeg/jcomapi.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "\n\n/*\n * Destruction of a JPEG object.\n *\n * Everything gets deallocated except the master jpeg_compress_struct itself\n * and the error manager struct.  Both of these are supplied by the application\n * and must be freed, if necessary, by the application.  (Often they are on\n * the stack and so don't need to be freed anyway.)\n * Closing a data source or destination, if necessary, is the application's\n * responsibility.",
+  "line": 60,
+  "start": 55,
+  "end": 66
+ },
+ {
+  "id": 13,
+  "file": "/src/src/lib/jpeg/jdcoefct.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "\tcoef->MCU_vert_offset = yoffset;\n\tcoef->MCU_ctr = MCU_col_num;\n\treturn JPEG_SUSPENDED;\n      }\n      /* Determine where data should go in output_buf and do the IDCT thing.\n       * We skip dummy blocks at the right and bottom edges (but blkn gets\n       * incremented past them!).  Note the inner loop relies on having\n       * allocated the MCU_buffer[] blocks sequentially.\n       */\n      blkn = 0;\t\t\t/* index of current DCT block within MCU */\n      for (ci = 0; ci < cinfo->comps_in_scan; ci++) {",
+  "line": 176,
+  "start": 171,
+  "end": 182
+ },
+ {
+  "id": 14,
+  "file": "/src/src/lib/jpeg/jdmaster.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "\n#ifdef IDCT_SCALING_SUPPORTED\n\n  /* In selecting the actual DCT scaling for each component, we try to\n   * scale up the chroma components via IDCT scaling rather than upsampling.\n   * This saves time if the upsampler gets to use 1:1 scaling.\n   * Note this code adapts subsampling ratios which are powers of 2.\n   */\n  for (ci = 0, compptr = cinfo->comp_info; ci < cinfo->num_components;\n       ci++, compptr++) {\n    int ssize = 1;",
+  "line": 110,
+  "start": 105,
+  "end": 116
+ },
+ {
+  "id": 15,
+  "file": "/src/src/lib/jpeg/jerror.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    }\n  }\n\n  /* Format the message into the passed buffer */\n  if (isstring)\n    sprintf(buffer, msgtext, err->msg_parm.s);\n  else\n    sprintf(buffer, msgtext,\n\t    err->msg_parm.i[0], err->msg_parm.i[1],\n\t    err->msg_parm.i[2], err->msg_parm.i[3],\n\t    err->msg_parm.i[4], err->msg_parm.i[5],",
+  "line": 194,
+  "start": 189,
+  "end": 200
+ },
+ {
+  "id": 16,
+  "file": "/src/src/lib/jpeg/jerror.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n  /* Format the message into the passed buffer */\n  if (isstring)\n    sprintf(buffer, msgtext, err->msg_parm.s);\n  else\n    sprintf(buffer, msgtext,\n\t    err->msg_parm.i[0], err->msg_parm.i[1],\n\t    err->msg_parm.i[2], err->msg_parm.i[3],\n\t    err->msg_parm.i[4], err->msg_parm.i[5],\n\t    err->msg_parm.i[6], err->msg_parm.i[7]);\n}",
+  "line": 196,
+  "start": 191,
+  "end": 202
+ },
+ {
+  "id": 17,
+  "file": "/src/src/lib/jpeg/jerror.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    }\n  }\n\n  /* Format the message into the passed buffer */\n  if (isstring)\n    sprintf(buffer, msgtext, err->msg_parm.s);\n  else\n    sprintf(buffer, msgtext,\n\t    err->msg_parm.i[0], err->msg_parm.i[1],\n\t    err->msg_parm.i[2], err->msg_parm.i[3],\n\t    err->msg_parm.i[4], err->msg_parm.i[5],",
+  "line": 194,
+  "start": 189,
+  "end": 200
+ },
+ {
+  "id": 18,
+  "file": "/src/src/lib/jpeg/jerror.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n  /* Format the message into the passed buffer */\n  if (isstring)\n    sprintf(buffer, msgtext, err->msg_parm.s);\n  else\n    sprintf(buffer, msgtext,\n\t    err->msg_parm.i[0], err->msg_parm.i[1],\n\t    err->msg_parm.i[2], err->msg_parm.i[3],\n\t    err->msg_parm.i[4], err->msg_parm.i[5],\n\t    err->msg_parm.i[6], err->msg_parm.i[7]);\n}",
+  "line": 196,
+  "start": 191,
+  "end": 202
+ },
+ {
+  "id": 19,
+  "file": "/src/src/lib/jpeg/jmemmgr.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "    for (;;) {\n      hdr_ptr = (small_pool_ptr) jpeg_get_small(cinfo, min_request + slop);\n      if (hdr_ptr != NULL)\n\tbreak;\n      slop /= 2;\n      if (slop < MIN_SLOP)\t/* give up when it gets real small */\n\tout_of_memory(cinfo, 2); /* jpeg_get_small failed */\n    }\n    mem->total_space_allocated += min_request + slop;\n    /* Success, initialize the new pool header and add to end of list */\n    hdr_ptr->hdr.next = NULL;",
+  "line": 304,
+  "start": 299,
+  "end": 310
+ },
+ {
+  "id": 20,
+  "file": "/src/src/lib/jpeg/jutils.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "\n\n/* On normal machines we can apply MEMCOPY() and MEMZERO() to sample arrays\n * and coefficient-block arrays.  This won't work on 80x86 because the arrays\n * are FAR and we're assuming a small-pointer memory model.  However, some\n * DOS compilers provide far-pointer versions of memcpy() and memset() even\n * in the small-model libraries.  These will be used if USE_FMEM is defined.\n * Otherwise, the routines below do it the hard way.  (The performance cost\n * is not all that great, because these routines aren't very heavily used.)\n */\n",
+  "line": 145,
+  "start": 140,
+  "end": 151
+ },
+ {
+  "id": 21,
+  "file": "/src/src/lib/jpeg/jutils.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "\n#ifndef NEED_FAR_POINTERS\t/* normal case, same as regular macro */\n#define FMEMCOPY(dest,src,size)\tMEMCOPY(dest,src,size)\n#else\t\t\t\t/* 80x86 case, define if we can */\n#ifdef USE_FMEM\n#define FMEMCOPY(dest,src,size)\t_fmemcpy((void FAR *)(dest), (const void FAR *)(src), (size_t)(size))\n#else\n/* This function is for use by the FMEMZERO macro defined in jpegint.h.\n * Do not call this function directly, use the FMEMZERO macro instead.\n */\nGLOBAL(void)",
+  "line": 155,
+  "start": 150,
+  "end": 161
+ },
+ {
+  "id": 22,
+  "file": "/src/src/lib/png/png.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "#ifdef PNG_16BIT_SUPPORTED\n/* Internal function to build a single 16-bit table - the table consists of\n * 'num' 256 entry subtables, where 'num' is determined by 'shift' - the amount\n * to shift the input values right (or 16-number_of_signifiant_bits).\n *\n * The caller is responsible for ensuring that the table gets cleaned up on\n * png_error (i.e. if one of the mallocs below fails) - i.e. the *table argument\n * should be somewhere that will be cleaned.\n */\nstatic void\npng_build_16bit_table(png_structrp png_ptr, png_uint_16pp *ptable,",
+  "line": 3852,
+  "start": 3847,
+  "end": 3858
+ },
+ {
+  "id": 23,
+  "file": "/src/src/lib/png/pngerror.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": " */\njmp_buf* PNGAPI\npng_set_longjmp_fn(png_structrp png_ptr, png_longjmp_ptr longjmp_fn,\n    size_t jmp_buf_size)\n{\n   /* From libpng 1.6.0 the app gets one chance to set a 'jmpbuf_size' value\n    * and it must not change after that.  Libpng doesn't care how big the\n    * buffer is, just that it doesn't change.\n    *\n    * If the buffer size is no *larger* than the size of jmp_buf when libpng is\n    * compiled a built in jmp_buf is returned; this preserves the pre-1.6.0",
+  "line": 600,
+  "start": 595,
+  "end": 606
+ },
+ {
+  "id": 24,
+  "file": "/src/src/lib/png/pngerror.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "      if (jb != NULL && png_ptr->jmp_buf_size > 0)\n      {\n\n         /* This stuff is so that a failure to free the error control structure\n          * does not leave libpng in a state with no valid error handling: the\n          * free always succeeds, if there is an error it gets ignored.\n          */\n         if (jb != &png_ptr->jmp_buf_local)\n         {\n            /* Make an internal, libpng, jmp_buf to return here */\n            jmp_buf free_jmp_buf;",
+  "line": 680,
+  "start": 675,
+  "end": 686
+ },
+ {
+  "id": 25,
+  "file": "/src/src/lib/png/pngerror.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "{\n#  define fixed_message \"fixed point overflow in \"\n#  define fixed_message_ln ((sizeof fixed_message)-1)\n   int  iin;\n   char msg[fixed_message_ln+PNG_MAX_ERROR_TEXT];\n   memcpy(msg, fixed_message, fixed_message_ln);\n   iin = 0;\n   if (name != NULL)\n      while (iin < (PNG_MAX_ERROR_TEXT-1) && name[iin] != 0)\n      {\n         msg[fixed_message_ln + iin] = name[iin];",
+  "line": 578,
+  "start": 573,
+  "end": 584
+ },
+ {
+  "id": 26,
+  "file": "/src/src/lib/png/pngmem.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      {\n         /* Because png_malloc_array worked the size calculations below cannot\n          * overflow.\n          */\n         if (old_elements > 0)\n            memcpy(new_array, old_array, element_size*(unsigned)old_elements);\n\n         memset((char*)new_array + element_size*(unsigned)old_elements, 0,\n            element_size*(unsigned)add_elements);\n\n         return new_array;",
+  "line": 154,
+  "start": 149,
+  "end": 160
+ },
+ {
+  "id": 27,
+  "file": "/src/src/lib/png/pngpread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "         save_size = length;\n\n      else\n         save_size = png_ptr->save_buffer_size;\n\n      memcpy(ptr, png_ptr->save_buffer_ptr, save_size);\n      length -= save_size;\n      ptr += save_size;\n      png_ptr->buffer_size -= save_size;\n      png_ptr->save_buffer_size -= save_size;\n      png_ptr->save_buffer_ptr += save_size;",
+  "line": 436,
+  "start": 431,
+  "end": 442
+ },
+ {
+  "id": 28,
+  "file": "/src/src/lib/png/pngpread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "         save_size = length;\n\n      else\n         save_size = png_ptr->current_buffer_size;\n\n      memcpy(ptr, png_ptr->current_buffer_ptr, save_size);\n      png_ptr->buffer_size -= save_size;\n      png_ptr->current_buffer_size -= save_size;\n      png_ptr->current_buffer_ptr += save_size;\n   }\n}",
+  "line": 453,
+  "start": 448,
+  "end": 459
+ },
+ {
+  "id": 29,
+  "file": "/src/src/lib/png/pngpread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      {\n         png_free(png_ptr, old_buffer);\n         png_error(png_ptr, \"Insufficient memory for save_buffer\");\n      }\n\n      memcpy(png_ptr->save_buffer, old_buffer, png_ptr->save_buffer_size);\n      png_free(png_ptr, old_buffer);\n      png_ptr->save_buffer_max = new_max;\n   }\n   if (png_ptr->current_buffer_size)\n   {",
+  "line": 502,
+  "start": 497,
+  "end": 508
+ },
+ {
+  "id": 30,
+  "file": "/src/src/lib/png/pngpread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_free(png_ptr, old_buffer);\n      png_ptr->save_buffer_max = new_max;\n   }\n   if (png_ptr->current_buffer_size)\n   {\n      memcpy(png_ptr->save_buffer + png_ptr->save_buffer_size,\n         png_ptr->current_buffer_ptr, png_ptr->current_buffer_size);\n      png_ptr->save_buffer_size += png_ptr->current_buffer_size;\n      png_ptr->current_buffer_size = 0;\n   }\n   png_ptr->save_buffer_ptr = png_ptr->save_buffer;",
+  "line": 508,
+  "start": 503,
+  "end": 514
+ },
+ {
+  "id": 31,
+  "file": "/src/src/lib/png/pngpread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "   /* libpng 1.5.6: the following line was copying png_ptr->rowbytes before\n    * 1.5.6, while the buffer really is this big in current versions of libpng\n    * it may not be in the future, so this was changed just to copy the\n    * interlaced row count:\n    */\n   memcpy(png_ptr->prev_row, png_ptr->row_buf, row_info.rowbytes + 1);\n\n#ifdef PNG_READ_TRANSFORMS_SUPPORTED\n   if (png_ptr->transformations != 0)\n      png_do_read_transformations(png_ptr, &row_info);\n#endif",
+  "line": 754,
+  "start": 749,
+  "end": 760
+ },
+ {
+  "id": 32,
+  "file": "/src/src/lib/png/pngread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "   /* libpng 1.5.6: the following line was copying png_ptr->rowbytes before\n    * 1.5.6, while the buffer really is this big in current versions of libpng\n    * it may not be in the future, so this was changed just to copy the\n    * interlaced count:\n    */\n   memcpy(png_ptr->prev_row, png_ptr->row_buf, row_info.rowbytes + 1);\n\n#ifdef PNG_MNG_FEATURES_SUPPORTED\n   if ((png_ptr->mng_features_permitted & PNG_FLAG_MNG_FILTER_64) != 0 &&\n       (png_ptr->filter_type == PNG_INTRAPIXEL_DIFFERENCING))\n   {",
+  "line": 550,
+  "start": 545,
+  "end": 556
+ },
+ {
+  "id": 33,
+  "file": "/src/src/lib/png/pngread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "            png_const_bytep memory = cp->memory;\n            png_size_t size = cp->size;\n\n            if (memory != NULL && size >= need)\n            {\n               memcpy(out, memory, need);\n               cp->memory = memory + need;\n               cp->size = size - need;\n               return;\n            }\n",
+  "line": 1528,
+  "start": 1523,
+  "end": 1534
+ },
+ {
+  "id": 34,
+  "file": "/src/src/lib/png/pngrio.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "#include \"pngpriv.h\"\n\n#ifdef PNG_READ_SUPPORTED\n\n/* Read the data from whatever input you are using.  The default routine\n * reads from a file pointer.  Note that this routine sometimes gets called\n * with very small lengths, so you should implement some kind of simple\n * buffering if you are using unbuffered reads.  This should never be asked\n * to read more than 64K on a 16 bit machine.\n */\nvoid /* PRIVATE */",
+  "line": 26,
+  "start": 21,
+  "end": 32
+ },
+ {
+  "id": 35,
+  "file": "/src/src/lib/png/pngrtran.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "         int c, have_shift;\n\n         for (c = have_shift = 0; c < channels; ++c)\n         {\n            /* A shift of more than the bit depth is an error condition but it\n             * gets ignored here.\n             */\n            if (shift[c] <= 0 || shift[c] >= bit_depth)\n               shift[c] = 0;\n\n            else",
+  "line": 2273,
+  "start": 2268,
+  "end": 2279
+ },
+ {
+  "id": 36,
+  "file": "/src/src/lib/png/pngrtran.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "   }\n\n   /* The following is debugging; prior to 1.5.4 the code was never compiled in;\n    * in 1.5.4 PNG_FLAG_DETECT_UNINITIALIZED was added and the macro\n    * PNG_WARN_UNINITIALIZED_ROW removed.  In 1.6 the new flag is set only for\n    * all transformations, however in practice the ROW_INIT always gets done on\n    * demand, if necessary.\n    */\n   if ((png_ptr->flags & PNG_FLAG_DETECT_UNINITIALIZED) != 0 &&\n       (png_ptr->flags & PNG_FLAG_ROW_INIT) == 0)\n   {",
+  "line": 4721,
+  "start": 4716,
+  "end": 4727
+ },
+ {
+  "id": 37,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "#endif\n\n   /* TODO: png_set_PLTE has the side effect of setting png_ptr->palette to its\n    * own copy of the palette.  This has the side effect that when png_start_row\n    * is called (this happens after any call to png_read_update_info) the\n    * info_ptr palette gets changed.  This is extremely unexpected and\n    * confusing.\n    *\n    * Fix this by not sharing the palette in this way.\n    */\n   png_set_PLTE(png_ptr, info_ptr, palette, num);",
+  "line": 995,
+  "start": 990,
+  "end": 1001
+ },
+ {
+  "id": 38,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "                                          errmsg = \"out of memory\";\n                                       }\n                                    }\n\n                                    /* else the profile remains in the read\n                                     * buffer which gets reused for subsequent\n                                     * chunks.\n                                     */\n\n                                    if (info_ptr != NULL)\n                                       png_colorspace_sync(png_ptr, info_ptr);",
+  "line": 1502,
+  "start": 1497,
+  "end": 1508
+ },
+ {
+  "id": 39,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "   }\n\n   /* For non-interlaced images this reduces to a memcpy(). A memcpy()\n    * will also happen if interlacing isn't supported or if the application\n    * does not call png_set_interlace_handling().  In the latter cases the\n    * caller just gets a sequence of the unexpanded rows from each interlace\n    * pass.\n    */\n#ifdef PNG_READ_INTERLACING_SUPPORTED\n   if (png_ptr->interlaced != 0 &&\n       (png_ptr->transformations & PNG_INTERLACE) != 0 &&",
+  "line": 3060,
+  "start": 3055,
+  "end": 3066
+ },
+ {
+  "id": 40,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "         }\n\n         /* Work out the bytes to copy. */\n         if (display != 0)\n         {\n            /* When doing the 'block' algorithm the pixel in the pass gets\n             * replicated to adjacent pixels.  This is why the even (0,2,4,6)\n             * passes are skipped above - the entire expanded row is copied.\n             */\n            bytes_to_copy = (1<<((6-pass)>>1)) * pixel_depth;\n",
+  "line": 3277,
+  "start": 3272,
+  "end": 3283
+ },
+ {
+  "id": 41,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "         /* zlib INPUT BUFFER */\n         /* The setting of 'avail_in' used to be outside the loop; by setting it\n          * inside it is possible to chunk the input to zlib and simply rely on\n          * zlib to advance the 'next_in' pointer.  This allows arbitrary\n          * amounts of data to be passed through zlib at the unavoidable cost of\n          * requiring a window save (memcpy of up to 32768 output bytes)\n          * every ZLIB_IO_MAX input bytes.\n          */\n         avail_in += png_ptr->zstream.avail_in; /* not consumed last time */\n\n         avail = ZLIB_IO_MAX;",
+  "line": 479,
+  "start": 474,
+  "end": 485
+ },
+ {
+  "id": 42,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                     {\n                        if (terminate != 0)\n                           text[prefix_size + *newlength] = 0;\n\n                        if (prefix_size > 0)\n                           memcpy(text, png_ptr->read_buffer, prefix_size);\n\n                        {\n                           png_bytep old_ptr = png_ptr->read_buffer;\n\n                           png_ptr->read_buffer = text;",
+  "line": 643,
+  "start": 638,
+  "end": 649
+ },
+ {
+  "id": 43,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                        png_bytep profile = png_read_buffer(png_ptr,\n                           profile_length, 2/*silent*/);\n\n                        if (profile != NULL)\n                        {\n                           memcpy(profile, profile_header,\n                              (sizeof profile_header));\n\n                           size = 12 * tag_count;\n\n                           (void)png_inflate_read(png_ptr, local_buffer,",
+  "line": 1417,
+  "start": 1412,
+  "end": 1423
+ },
+ {
+  "id": 44,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                                       info_ptr->iccp_name = png_voidcast(char*,\n                                          png_malloc_base(png_ptr,\n                                          keyword_length+1));\n                                       if (info_ptr->iccp_name != NULL)\n                                       {\n                                          memcpy(info_ptr->iccp_name, keyword,\n                                             keyword_length+1);\n                                          info_ptr->iccp_proflen =\n                                             profile_length;\n                                          info_ptr->iccp_profile = profile;\n                                          png_ptr->read_buffer = NULL; /*steal*/",
+  "line": 1483,
+  "start": 1478,
+  "end": 1489
+ },
+ {
+  "id": 45,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "#     endif\n      end_mask = 0xff >> end_mask;\n      /* end_mask is now the bits to *keep* from the destination row */\n   }\n\n   /* For non-interlaced images this reduces to a memcpy(). A memcpy()\n    * will also happen if interlacing isn't supported or if the application\n    * does not call png_set_interlace_handling().  In the latter cases the\n    * caller just gets a sequence of the unexpanded rows from each interlace\n    * pass.\n    */",
+  "line": 3057,
+  "start": 3052,
+  "end": 3063
+ },
+ {
+  "id": 46,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "            default:\n#if PNG_ALIGN_TYPE != PNG_ALIGN_NONE\n               /* Check for double byte alignment and, if possible, use a\n                * 16-bit copy.  Don't attempt this for narrow images - ones that\n                * are less than an interlace panel wide.  Don't attempt it for\n                * wide bytes_to_copy either - use the memcpy there.\n                */\n               if (bytes_to_copy < 16 /*else use memcpy*/ &&\n                   png_isaligned(dp, png_uint_16) &&\n                   png_isaligned(sp, png_uint_16) &&\n                   bytes_to_copy % (sizeof (png_uint_16)) == 0 &&",
+  "line": 3359,
+  "start": 3354,
+  "end": 3365
+ },
+ {
+  "id": 47,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "               /* Check for double byte alignment and, if possible, use a\n                * 16-bit copy.  Don't attempt this for narrow images - ones that\n                * are less than an interlace panel wide.  Don't attempt it for\n                * wide bytes_to_copy either - use the memcpy there.\n                */\n               if (bytes_to_copy < 16 /*else use memcpy*/ &&\n                   png_isaligned(dp, png_uint_16) &&\n                   png_isaligned(sp, png_uint_16) &&\n                   bytes_to_copy % (sizeof (png_uint_16)) == 0 &&\n                   bytes_to_jump % (sizeof (png_uint_16)) == 0)\n               {",
+  "line": 3361,
+  "start": 3356,
+  "end": 3367
+ },
+ {
+  "id": 48,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                     return;\n                  }\n               }\n#endif /* ALIGN_TYPE code */\n\n               /* The true default - use a memcpy: */\n               for (;;)\n               {\n                  memcpy(dp, sp, bytes_to_copy);\n\n                  if (row_width <= bytes_to_jump)",
+  "line": 3453,
+  "start": 3448,
+  "end": 3459
+ },
+ {
+  "id": 49,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "#endif /* ALIGN_TYPE code */\n\n               /* The true default - use a memcpy: */\n               for (;;)\n               {\n                  memcpy(dp, sp, bytes_to_copy);\n\n                  if (row_width <= bytes_to_jump)\n                     return;\n\n                  sp += bytes_to_jump;",
+  "line": 3456,
+  "start": 3451,
+  "end": 3462
+ },
+ {
+  "id": 50,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      /* Here if pixel_depth < 8 to check 'end_ptr' below. */\n   }\n   else\n#endif /* READ_INTERLACING */\n\n   /* If here then the switch above wasn't used so just memcpy the whole row\n    * from the temporary row buffer (notice that this overwrites the end of the\n    * destination row if it is a partial byte.)\n    */\n   memcpy(dp, sp, PNG_ROWBYTES(pixel_depth, row_width));\n",
+  "line": 3477,
+  "start": 3472,
+  "end": 3483
+ },
+ {
+  "id": 51,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "\n   /* If here then the switch above wasn't used so just memcpy the whole row\n    * from the temporary row buffer (notice that this overwrites the end of the\n    * destination row if it is a partial byte.)\n    */\n   memcpy(dp, sp, PNG_ROWBYTES(pixel_depth, row_width));\n\n   /* Restore the overwritten bits from the last byte if necessary. */\n   if (end_ptr != NULL)\n      *end_ptr = (png_byte)((end_byte & end_mask) | (*end_ptr & ~end_mask));\n}",
+  "line": 3481,
+  "start": 3476,
+  "end": 3487
+ },
+ {
+  "id": 52,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "            for (i = 0; i < row_info->width; i++)\n            {\n               png_byte v[8]; /* SAFE; pixel_depth does not exceed 64 */\n               int j;\n\n               memcpy(v, sp, pixel_bytes);\n\n               for (j = 0; j < jstop; j++)\n               {\n                  memcpy(dp, v, pixel_bytes);\n                  dp -= pixel_bytes;",
+  "line": 3710,
+  "start": 3705,
+  "end": 3716
+ },
+ {
+  "id": 53,
+  "file": "/src/src/lib/png/pngrutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "\n               memcpy(v, sp, pixel_bytes);\n\n               for (j = 0; j < jstop; j++)\n               {\n                  memcpy(dp, v, pixel_bytes);\n                  dp -= pixel_bytes;\n               }\n\n               sp -= pixel_bytes;\n            }",
+  "line": 3714,
+  "start": 3709,
+  "end": 3720
+ },
+ {
+  "id": 54,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "         memcpy(np->data, unknowns->data, unknowns->size);\n         np->size = unknowns->size;\n      }\n\n      /* These increments are skipped on out-of-memory for the data - the\n       * unknown chunk entry gets overwritten if the png_chunk_report returns.\n       * This is correct in the read case (the chunk is just dropped.)\n       */\n      ++np;\n      ++(info_ptr->unknown_chunks_num);\n   }",
+  "line": 1221,
+  "start": 1216,
+  "end": 1227
+ },
+ {
+  "id": 55,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_warning(png_ptr, \"Insufficient memory for pCAL purpose\");\n\n      return;\n   }\n\n   memcpy(info_ptr->pcal_purpose, purpose, length);\n\n   png_debug(3, \"storing X0, X1, type, and nparams in info\");\n   info_ptr->pcal_X0 = X0;\n   info_ptr->pcal_X1 = X1;\n   info_ptr->pcal_type = (png_byte)type;",
+  "line": 309,
+  "start": 304,
+  "end": 315
+ },
+ {
+  "id": 56,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_warning(png_ptr, \"Insufficient memory for pCAL units\");\n\n      return;\n   }\n\n   memcpy(info_ptr->pcal_units, units, length);\n\n   info_ptr->pcal_params = png_voidcast(png_charpp, png_malloc_warn(png_ptr,\n       (png_size_t)((nparams + 1) * (sizeof (png_charp)))));\n\n   if (info_ptr->pcal_params == NULL)",
+  "line": 331,
+  "start": 326,
+  "end": 337
+ },
+ {
+  "id": 57,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "         png_warning(png_ptr, \"Insufficient memory for pCAL parameter\");\n\n         return;\n      }\n\n      memcpy(info_ptr->pcal_params[i], params[i], length);\n   }\n\n   info_ptr->valid |= PNG_INFO_pCAL;\n   info_ptr->free_me |= PNG_FREE_PCAL;\n}",
+  "line": 360,
+  "start": 355,
+  "end": 366
+ },
+ {
+  "id": 58,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_warning(png_ptr, \"Memory allocation failed while processing sCAL\");\n\n      return;\n   }\n\n   memcpy(info_ptr->scal_s_width, swidth, lengthw);\n\n   ++lengthh;\n\n   png_debug1(3, \"allocating unit for info (%u bytes)\", (unsigned int)lengthh);\n",
+  "line": 410,
+  "start": 405,
+  "end": 416
+ },
+ {
+  "id": 59,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_warning(png_ptr, \"Memory allocation failed while processing sCAL\");\n\n      return;\n   }\n\n   memcpy(info_ptr->scal_s_height, sheight, lengthh);\n\n   info_ptr->valid |= PNG_INFO_sCAL;\n   info_ptr->free_me |= PNG_FREE_SCAL;\n}\n",
+  "line": 429,
+  "start": 424,
+  "end": 435
+ },
+ {
+  "id": 60,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    */\n   png_ptr->palette = png_voidcast(png_colorp, png_calloc(png_ptr,\n       PNG_MAX_PALETTE_LENGTH * (sizeof (png_color))));\n\n   if (num_palette > 0)\n      memcpy(png_ptr->palette, palette, num_palette * (sizeof (png_color)));\n   info_ptr->palette = png_ptr->palette;\n   info_ptr->num_palette = png_ptr->num_palette = (png_uint_16)num_palette;\n\n   info_ptr->free_me |= PNG_FREE_PLTE;\n",
+  "line": 561,
+  "start": 556,
+  "end": 567
+ },
+ {
+  "id": 61,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_benign_error(png_ptr, \"Insufficient memory to process iCCP chunk\");\n\n      return;\n   }\n\n   memcpy(new_iccp_name, name, length);\n   new_iccp_profile = png_voidcast(png_bytep,\n      png_malloc_warn(png_ptr, proflen));\n\n   if (new_iccp_profile == NULL)\n   {",
+  "line": 669,
+  "start": 664,
+  "end": 675
+ },
+ {
+  "id": 62,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "          \"Insufficient memory to process iCCP profile\");\n\n      return;\n   }\n\n   memcpy(new_iccp_profile, profile, proflen);\n\n   png_free_data(png_ptr, info_ptr, PNG_FREE_ICCP, 0);\n\n   info_ptr->iccp_proflen = proflen;\n   info_ptr->iccp_name = new_iccp_name;",
+  "line": 682,
+  "start": 677,
+  "end": 688
+ },
+ {
+  "id": 63,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_debug2(2, \"Allocated %lu bytes at %p in png_set_text\",\n          (unsigned long)(png_uint_32)\n          (key_len + lang_len + lang_key_len + text_length + 4),\n          textp->key);\n\n      memcpy(textp->key, text_ptr[i].key, key_len);\n      *(textp->key + key_len) = '\\0';\n\n      if (text_ptr[i].compression > 0)\n      {\n         textp->lang = textp->key + key_len + 1;",
+  "line": 852,
+  "start": 847,
+  "end": 858
+ },
+ {
+  "id": 64,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      *(textp->key + key_len) = '\\0';\n\n      if (text_ptr[i].compression > 0)\n      {\n         textp->lang = textp->key + key_len + 1;\n         memcpy(textp->lang, text_ptr[i].lang, lang_len);\n         *(textp->lang + lang_len) = '\\0';\n         textp->lang_key = textp->lang + lang_len + 1;\n         memcpy(textp->lang_key, text_ptr[i].lang_key, lang_key_len);\n         *(textp->lang_key + lang_key_len) = '\\0';\n         textp->text = textp->lang_key + lang_key_len + 1;",
+  "line": 858,
+  "start": 853,
+  "end": 864
+ },
+ {
+  "id": 65,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      {\n         textp->lang = textp->key + key_len + 1;\n         memcpy(textp->lang, text_ptr[i].lang, lang_len);\n         *(textp->lang + lang_len) = '\\0';\n         textp->lang_key = textp->lang + lang_len + 1;\n         memcpy(textp->lang_key, text_ptr[i].lang_key, lang_key_len);\n         *(textp->lang_key + lang_key_len) = '\\0';\n         textp->text = textp->lang_key + lang_key_len + 1;\n      }\n\n      else",
+  "line": 861,
+  "start": 856,
+  "end": 867
+ },
+ {
+  "id": 66,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "         textp->lang_key=NULL;\n         textp->text = textp->key + key_len + 1;\n      }\n\n      if (text_length != 0)\n         memcpy(textp->text, text_ptr[i].text, text_length);\n\n      *(textp->text + text_length) = '\\0';\n\n#  ifdef PNG_iTXt_SUPPORTED\n      if (textp->compression > 0)",
+  "line": 874,
+  "start": 869,
+  "end": 880
+ },
+ {
+  "id": 67,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "       /* Changed from num_trans to PNG_MAX_PALETTE_LENGTH in version 1.2.1 */\n       png_ptr->trans_alpha = info_ptr->trans_alpha = png_voidcast(png_bytep,\n         png_malloc(png_ptr, PNG_MAX_PALETTE_LENGTH));\n\n       if (num_trans > 0 && num_trans <= PNG_MAX_PALETTE_LENGTH)\n          memcpy(info_ptr->trans_alpha, trans_alpha, (png_size_t)num_trans);\n   }\n\n   if (trans_color != NULL)\n   {\n#ifdef PNG_WARNINGS_SUPPORTED",
+  "line": 955,
+  "start": 950,
+  "end": 961
+ },
+ {
+  "id": 68,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      np->name = png_voidcast(png_charp, png_malloc_base(png_ptr, length));\n\n      if (np->name == NULL)\n         break;\n\n      memcpy(np->name, entries->name, length);\n\n      /* IMPORTANT: we have memory now that won't get freed if something else\n       * goes wrong; this code must free it.  png_malloc_array produces no\n       * warnings; use a png_chunk_report (below) if there is an error.\n       */",
+  "line": 1055,
+  "start": 1050,
+  "end": 1061
+ },
+ {
+  "id": 69,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "\n      np->nentries = entries->nentries;\n      /* This multiply can't overflow because png_malloc_array has already\n       * checked it when doing the allocation.\n       */\n      memcpy(np->entries, entries->entries,\n         entries->nentries * sizeof (png_sPLT_entry));\n\n      /* Note that 'continue' skips the advance of the out pointer and out\n       * count, so an invalid entry is not added.\n       */",
+  "line": 1075,
+  "start": 1070,
+  "end": 1081
+ },
+ {
+  "id": 70,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "   /* Increment unknown_chunks_num each time round the loop to protect the\n    * just-allocated chunk data.\n    */\n   for (; num_unknowns > 0; --num_unknowns, ++unknowns)\n   {\n      memcpy(np->name, unknowns->name, (sizeof np->name));\n      np->name[(sizeof np->name)-1] = '\\0';\n      np->location = check_location(png_ptr, unknowns->location);\n\n      if (unknowns->size == 0)\n      {",
+  "line": 1193,
+  "start": 1188,
+  "end": 1199
+ },
+ {
+  "id": 71,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "               PNG_CHUNK_WRITE_ERROR);\n            /* But just skip storing the unknown chunk */\n            continue;\n         }\n\n         memcpy(np->data, unknowns->data, unknowns->size);\n         np->size = unknowns->size;\n      }\n\n      /* These increments are skipped on out-of-memory for the data - the\n       * unknown chunk entry gets overwritten if the png_chunk_report returns.",
+  "line": 1216,
+  "start": 1211,
+  "end": 1222
+ },
+ {
+  "id": 72,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "   }\n\n   if (keep != PNG_HANDLE_CHUNK_AS_DEFAULT)\n   {\n      ++count;\n      memcpy(list, add, 4);\n      list[4] = (png_byte)keep;\n   }\n\n   return count;\n}",
+  "line": 1295,
+  "start": 1290,
+  "end": 1301
+ },
+ {
+  "id": 73,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "   {\n      new_list = png_voidcast(png_bytep, png_malloc(png_ptr,\n          5 * (num_chunks + old_num_chunks)));\n\n      if (old_num_chunks > 0)\n         memcpy(new_list, png_ptr->chunk_list, 5*old_num_chunks);\n   }\n\n   else if (old_num_chunks > 0)\n      new_list = png_ptr->chunk_list;\n",
+  "line": 1395,
+  "start": 1390,
+  "end": 1401
+ },
+ {
+  "id": 74,
+  "file": "/src/src/lib/png/pngset.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      for (i=0, inlist=outlist=new_list; i<old_num_chunks; ++i, inlist += 5)\n      {\n         if (inlist[4])\n         {\n            if (outlist != inlist)\n               memcpy(outlist, inlist, 5);\n            outlist += 5;\n            ++num_chunks;\n         }\n      }\n",
+  "line": 1428,
+  "start": 1423,
+  "end": 1434
+ },
+ {
+  "id": 75,
+  "file": "/src/src/lib/png/pngwio.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "#include \"pngpriv.h\"\n\n#ifdef PNG_WRITE_SUPPORTED\n\n/* Write the data to whatever output you are using.  The default routine\n * writes to a file pointer.  Note that this routine sometimes gets called\n * with very small lengths, so you should implement some kind of simple\n * buffering if you are using unbuffered writes.  This should never be asked\n * to write more than 64K on a 16 bit machine.\n */\n",
+  "line": 26,
+  "start": 21,
+  "end": 32
+ },
+ {
+  "id": 76,
+  "file": "/src/src/lib/png/pngwrite.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "   memset(tRNS, 255, (sizeof tRNS));\n   memset(palette, 0, (sizeof palette));\n\n   for (i=num_trans=0; i<entries; ++i)\n   {\n      /* This gets automatically converted to sRGB with reversal of the\n       * pre-multiplication if the color-map has an alpha channel.\n       */\n      if ((format & PNG_FORMAT_FLAG_LINEAR) != 0)\n      {\n         png_const_uint_16p entry = png_voidcast(png_const_uint_16p, cmap);",
+  "line": 1802,
+  "start": 1797,
+  "end": 1808
+ },
+ {
+  "id": 77,
+  "file": "/src/src/lib/png/pngwrite.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "   png_debug1(3, \"row_info->bit_depth = %d\", row_info.bit_depth);\n   png_debug1(3, \"row_info->pixel_depth = %d\", row_info.pixel_depth);\n   png_debug1(3, \"row_info->rowbytes = %lu\", (unsigned long)row_info.rowbytes);\n\n   /* Copy user's row into buffer, leaving room for filter byte. */\n   memcpy(png_ptr->row_buf + 1, row, row_info.rowbytes);\n\n#ifdef PNG_WRITE_INTERLACING_SUPPORTED\n   /* Handle interlacing */\n   if (png_ptr->interlaced && png_ptr->pass < 6 &&\n       (png_ptr->transformations & PNG_INTERLACE) != 0)",
+  "line": 831,
+  "start": 826,
+  "end": 837
+ },
+ {
+  "id": 78,
+  "file": "/src/src/lib/png/pngwutil.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "\n#ifdef PNG_WRITE_INTERLACING_SUPPORTED\n/* Pick out the correct pixels for the interlace pass.\n * The basic idea here is to go through the row with a source\n * pointer and a destination pointer (sp and dp), and copy the\n * correct pixels for the pass.  As the row gets compacted,\n * sp will always be >= dp, so we should never overwrite anything.\n * See the default: case for the easiest code to understand.\n */\nvoid /* PRIVATE */\npng_do_write_interlace(png_row_infop row_info, png_bytep row, int pass)",
+  "line": 2144,
+  "start": 2139,
+  "end": 2150
+ },
+ {
+  "id": 79,
+  "file": "/src/src/lib/png/pngwutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      png_warning(png_ptr, \"Can't write sCAL (buffer too small)\");\n      return;\n   }\n\n   buf[0] = (png_byte)unit;\n   memcpy(buf + 1, width, wlen + 1);      /* Append the '\\0' here */\n   memcpy(buf + wlen + 2, height, hlen);  /* Do NOT append the '\\0' here */\n\n   png_debug1(3, \"sCAL total length = %u\", (unsigned int)total_len);\n   png_write_complete_chunk(png_ptr, png_sCAL, buf, total_len);\n}",
+  "line": 1881,
+  "start": 1876,
+  "end": 1887
+ },
+ {
+  "id": 80,
+  "file": "/src/src/lib/png/pngwutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "      return;\n   }\n\n   buf[0] = (png_byte)unit;\n   memcpy(buf + 1, width, wlen + 1);      /* Append the '\\0' here */\n   memcpy(buf + wlen + 2, height, hlen);  /* Do NOT append the '\\0' here */\n\n   png_debug1(3, \"sCAL total length = %u\", (unsigned int)total_len);\n   png_write_complete_chunk(png_ptr, png_sCAL, buf, total_len);\n}\n#endif",
+  "line": 1882,
+  "start": 1877,
+  "end": 1888
+ },
+ {
+  "id": 81,
+  "file": "/src/src/lib/png/pngwutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "               /* Find out where the original pixel is */\n               sp = row + (png_size_t)i * pixel_bytes;\n\n               /* Move the pixel */\n               if (dp != sp)\n                  memcpy(dp, sp, pixel_bytes);\n\n               /* Next pixel */\n               dp += pixel_bytes;\n            }\n            break;",
+  "line": 2301,
+  "start": 2296,
+  "end": 2307
+ },
+ {
+  "id": 82,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    _tr_flush_bits(s);\n    len = s->pending;\n    if (len > strm->avail_out) len = strm->avail_out;\n    if (len == 0) return;\n\n    zmemcpy(strm->next_out, s->pending_out, len);\n    strm->next_out  += len;\n    s->pending_out  += len;\n    strm->total_out += len;\n    strm->avail_out  -= len;\n    s->pending -= len;",
+  "line": 653,
+  "start": 648,
+  "end": 659
+ },
+ {
+  "id": 83,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        return Z_STREAM_ERROR;\n    }\n\n    ss = source->state;\n\n    zmemcpy((voidpf)dest, (voidpf)source, sizeof(z_stream));\n\n    ds = (deflate_state *) ZALLOC(dest, 1, sizeof(deflate_state));\n    if (ds == Z_NULL) return Z_MEM_ERROR;\n    dest->state = (struct internal_state FAR *) ds;\n    zmemcpy((voidpf)ds, (voidpf)ss, sizeof(deflate_state));",
+  "line": 1032,
+  "start": 1027,
+  "end": 1038
+ },
+ {
+  "id": 84,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    zmemcpy((voidpf)dest, (voidpf)source, sizeof(z_stream));\n\n    ds = (deflate_state *) ZALLOC(dest, 1, sizeof(deflate_state));\n    if (ds == Z_NULL) return Z_MEM_ERROR;\n    dest->state = (struct internal_state FAR *) ds;\n    zmemcpy((voidpf)ds, (voidpf)ss, sizeof(deflate_state));\n    ds->strm = dest;\n\n    ds->window = (Bytef *) ZALLOC(dest, ds->w_size, 2*sizeof(Byte));\n    ds->prev   = (Posf *)  ZALLOC(dest, ds->w_size, sizeof(Pos));\n    ds->head   = (Posf *)  ZALLOC(dest, ds->hash_size, sizeof(Pos));",
+  "line": 1037,
+  "start": 1032,
+  "end": 1043
+ },
+ {
+  "id": 85,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    if (ds->window == Z_NULL || ds->prev == Z_NULL || ds->head == Z_NULL ||\n        ds->pending_buf == Z_NULL) {\n        deflateEnd (dest);\n        return Z_MEM_ERROR;\n    }\n    /* following zmemcpy do not work for 16-bit MSDOS */\n    zmemcpy(ds->window, ss->window, ds->w_size * 2 * sizeof(Byte));\n    zmemcpy((voidpf)ds->prev, (voidpf)ss->prev, ds->w_size * sizeof(Pos));\n    zmemcpy((voidpf)ds->head, (voidpf)ss->head, ds->hash_size * sizeof(Pos));\n    zmemcpy(ds->pending_buf, ss->pending_buf, (uInt)ds->pending_buf_size);\n",
+  "line": 1051,
+  "start": 1046,
+  "end": 1057
+ },
+ {
+  "id": 86,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        ds->pending_buf == Z_NULL) {\n        deflateEnd (dest);\n        return Z_MEM_ERROR;\n    }\n    /* following zmemcpy do not work for 16-bit MSDOS */\n    zmemcpy(ds->window, ss->window, ds->w_size * 2 * sizeof(Byte));\n    zmemcpy((voidpf)ds->prev, (voidpf)ss->prev, ds->w_size * sizeof(Pos));\n    zmemcpy((voidpf)ds->head, (voidpf)ss->head, ds->hash_size * sizeof(Pos));\n    zmemcpy(ds->pending_buf, ss->pending_buf, (uInt)ds->pending_buf_size);\n\n    ds->pending_out = ds->pending_buf + (ss->pending_out - ss->pending_buf);",
+  "line": 1052,
+  "start": 1047,
+  "end": 1058
+ },
+ {
+  "id": 87,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        deflateEnd (dest);\n        return Z_MEM_ERROR;\n    }\n    /* following zmemcpy do not work for 16-bit MSDOS */\n    zmemcpy(ds->window, ss->window, ds->w_size * 2 * sizeof(Byte));\n    zmemcpy((voidpf)ds->prev, (voidpf)ss->prev, ds->w_size * sizeof(Pos));\n    zmemcpy((voidpf)ds->head, (voidpf)ss->head, ds->hash_size * sizeof(Pos));\n    zmemcpy(ds->pending_buf, ss->pending_buf, (uInt)ds->pending_buf_size);\n\n    ds->pending_out = ds->pending_buf + (ss->pending_out - ss->pending_buf);\n    ds->d_buf = overlay + ds->lit_bufsize/sizeof(ush);",
+  "line": 1053,
+  "start": 1048,
+  "end": 1059
+ },
+ {
+  "id": 88,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        return Z_MEM_ERROR;\n    }\n    /* following zmemcpy do not work for 16-bit MSDOS */\n    zmemcpy(ds->window, ss->window, ds->w_size * 2 * sizeof(Byte));\n    zmemcpy((voidpf)ds->prev, (voidpf)ss->prev, ds->w_size * sizeof(Pos));\n    zmemcpy((voidpf)ds->head, (voidpf)ss->head, ds->hash_size * sizeof(Pos));\n    zmemcpy(ds->pending_buf, ss->pending_buf, (uInt)ds->pending_buf_size);\n\n    ds->pending_out = ds->pending_buf + (ss->pending_out - ss->pending_buf);\n    ds->d_buf = overlay + ds->lit_bufsize/sizeof(ush);\n    ds->l_buf = ds->pending_buf + (1+sizeof(ush))*ds->lit_bufsize;",
+  "line": 1054,
+  "start": 1049,
+  "end": 1060
+ },
+ {
+  "id": 89,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    }\n    /* following zmemcpy do not work for 16-bit MSDOS */\n    zmemcpy(ds->window, ss->window, ds->w_size * 2 * sizeof(Byte));\n    zmemcpy((voidpf)ds->prev, (voidpf)ss->prev, ds->w_size * sizeof(Pos));\n    zmemcpy((voidpf)ds->head, (voidpf)ss->head, ds->hash_size * sizeof(Pos));\n    zmemcpy(ds->pending_buf, ss->pending_buf, (uInt)ds->pending_buf_size);\n\n    ds->pending_out = ds->pending_buf + (ss->pending_out - ss->pending_buf);\n    ds->d_buf = overlay + ds->lit_bufsize/sizeof(ush);\n    ds->l_buf = ds->pending_buf + (1+sizeof(ush))*ds->lit_bufsize;\n",
+  "line": 1055,
+  "start": 1050,
+  "end": 1061
+ },
+ {
+  "id": 90,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    if (len > size) len = size;\n    if (len == 0) return 0;\n\n    strm->avail_in  -= len;\n\n    zmemcpy(buf, strm->next_in, len);\n    if (strm->state->wrap == 1) {\n        strm->adler = adler32(strm->adler, buf, len);\n    }\n#ifdef GZIP\n    else if (strm->state->wrap == 2) {",
+  "line": 1088,
+  "start": 1083,
+  "end": 1094
+ },
+ {
+  "id": 91,
+  "file": "/src/src/lib/zlib/deflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        /* If the window is almost full and there is insufficient lookahead,\n         * move the upper half to the lower one to make room in the upper half.\n         */\n        if (s->strstart >= wsize+MAX_DIST(s)) {\n\n            zmemcpy(s->window, s->window+wsize, (unsigned)wsize);\n            s->match_start -= wsize;\n            s->strstart    -= wsize; /* we now have strstart >= MAX_DIST */\n            s->block_start -= (long) wsize;\n\n            /* Slide the hash table (could be avoided with 32 bit values",
+  "line": 1421,
+  "start": 1416,
+  "end": 1427
+ },
+ {
+  "id": 92,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "StrCpy",
+  "match": "    else\n#endif\n#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n        snprintf(state->path, len + 1, \"%s\", (const char *)path);\n#else\n        strcpy(state->path, path);\n#endif\n\n    /* compute the flags for open() */\n    oflag =\n#ifdef O_LARGEFILE",
+  "line": 216,
+  "start": 211,
+  "end": 222
+ },
+ {
+  "id": 93,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "StrCpy",
+  "match": "    }\n#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n    snprintf(state->msg, strlen(state->path) + strlen(msg) + 3,\n             \"%s%s%s\", state->path, \": \", msg);\n#else\n    strcpy(state->msg, state->path);\n    strcat(state->msg, \": \");\n    strcat(state->msg, msg);\n#endif\n    return;\n}",
+  "line": 610,
+  "start": 605,
+  "end": 616
+ },
+ {
+  "id": 94,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "strcpy",
+  "match": "    else\n#endif\n#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n        snprintf(state->path, len + 1, \"%s\", (const char *)path);\n#else\n        strcpy(state->path, path);\n#endif\n\n    /* compute the flags for open() */\n    oflag =\n#ifdef O_LARGEFILE",
+  "line": 216,
+  "start": 211,
+  "end": 222
+ },
+ {
+  "id": 95,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "strcpy",
+  "match": "    }\n#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n    snprintf(state->msg, strlen(state->path) + strlen(msg) + 3,\n             \"%s%s%s\", state->path, \": \", msg);\n#else\n    strcpy(state->msg, state->path);\n    strcat(state->msg, \": \");\n    strcat(state->msg, msg);\n#endif\n    return;\n}",
+  "line": 610,
+  "start": 605,
+  "end": 616
+ },
+ {
+  "id": 96,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "StrCat",
+  "match": "#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n    snprintf(state->msg, strlen(state->path) + strlen(msg) + 3,\n             \"%s%s%s\", state->path, \": \", msg);\n#else\n    strcpy(state->msg, state->path);\n    strcat(state->msg, \": \");\n    strcat(state->msg, msg);\n#endif\n    return;\n}\n",
+  "line": 611,
+  "start": 606,
+  "end": 617
+ },
+ {
+  "id": 97,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "StrCat",
+  "match": "    snprintf(state->msg, strlen(state->path) + strlen(msg) + 3,\n             \"%s%s%s\", state->path, \": \", msg);\n#else\n    strcpy(state->msg, state->path);\n    strcat(state->msg, \": \");\n    strcat(state->msg, msg);\n#endif\n    return;\n}\n\n#ifndef INT_MAX",
+  "line": 612,
+  "start": 607,
+  "end": 618
+ },
+ {
+  "id": 98,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "strcat",
+  "match": "#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n    snprintf(state->msg, strlen(state->path) + strlen(msg) + 3,\n             \"%s%s%s\", state->path, \": \", msg);\n#else\n    strcpy(state->msg, state->path);\n    strcat(state->msg, \": \");\n    strcat(state->msg, msg);\n#endif\n    return;\n}\n",
+  "line": 611,
+  "start": 606,
+  "end": 617
+ },
+ {
+  "id": 99,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "strcat",
+  "match": "    snprintf(state->msg, strlen(state->path) + strlen(msg) + 3,\n             \"%s%s%s\", state->path, \": \", msg);\n#else\n    strcpy(state->msg, state->path);\n    strcat(state->msg, \": \");\n    strcat(state->msg, msg);\n#endif\n    return;\n}\n\n#ifndef INT_MAX",
+  "line": 612,
+  "start": 607,
+  "end": 618
+ },
+ {
+  "id": 100,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n        wcstombs(buf, msgbuf, chars + 1);\n        LocalFree(msgbuf);\n    }\n    else {\n        sprintf(buf, \"unknown win32 error (%ld)\", error);\n    }\n\n    SetLastError(lasterr);\n    return buf;\n}",
+  "line": 65,
+  "start": 60,
+  "end": 71
+ },
+ {
+  "id": 101,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    if (fd == -1 || (path = (char *)malloc(7 + 3 * sizeof(int))) == NULL)\n        return NULL;\n#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n    snprintf(path, 7 + 3 * sizeof(int), \"<fd:%d>\", fd); /* for debugging */\n#else\n    sprintf(path, \"<fd:%d>\", fd);   /* for debugging */\n#endif\n    gz = gz_open(path, fd, mode);\n    free(path);\n    return gz;\n}",
+  "line": 296,
+  "start": 291,
+  "end": 302
+ },
+ {
+  "id": 102,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n        wcstombs(buf, msgbuf, chars + 1);\n        LocalFree(msgbuf);\n    }\n    else {\n        sprintf(buf, \"unknown win32 error (%ld)\", error);\n    }\n\n    SetLastError(lasterr);\n    return buf;\n}",
+  "line": 65,
+  "start": 60,
+  "end": 71
+ },
+ {
+  "id": 103,
+  "file": "/src/src/lib/zlib/gzlib.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    if (fd == -1 || (path = (char *)malloc(7 + 3 * sizeof(int))) == NULL)\n        return NULL;\n#if !defined(NO_snprintf) && !defined(NO_vsnprintf)\n    snprintf(path, 7 + 3 * sizeof(int), \"<fd:%d>\", fd); /* for debugging */\n#else\n    sprintf(path, \"<fd:%d>\", fd);   /* for debugging */\n#endif\n    gz = gz_open(path, fd, mode);\n    free(path);\n    return gz;\n}",
+  "line": 296,
+  "start": 291,
+  "end": 302
+ },
+ {
+  "id": 104,
+  "file": "/src/src/lib/zlib/gzread.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "    state->past = 0;\n    return c;\n}\n\n/* -- see zlib.h -- */\nchar * ZEXPORT gzgets(file, buf, len)\n    gzFile file;\n    char *buf;\n    int len;\n{\n    unsigned left, n;",
+  "line": 483,
+  "start": 478,
+  "end": 489
+ },
+ {
+  "id": 105,
+  "file": "/src/src/lib/zlib/gzread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    /* doing raw i/o, copy any leftover input to output -- this assumes that\n       the output buffer is larger than the input buffer, which also assures\n       space for gzungetc() */\n    state->x.next = state->out;\n    if (strm->avail_in) {\n        memcpy(state->x.next, strm->next_in, strm->avail_in);\n        state->x.have = strm->avail_in;\n        strm->avail_in = 0;\n    }\n    state->how = COPY;\n    state->direct = 1;",
+  "line": 158,
+  "start": 153,
+  "end": 164
+ },
+ {
+  "id": 106,
+  "file": "/src/src/lib/zlib/gzread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    got = 0;\n    do {\n        /* first just try copying data from the output buffer */\n        if (state->x.have) {\n            n = state->x.have > len ? len : state->x.have;\n            memcpy(buf, state->x.next, n);\n            state->x.next += n;\n            state->x.have -= n;\n        }\n\n        /* output buffer empty -- return if we're at the end of the input */",
+  "line": 332,
+  "start": 327,
+  "end": 338
+ },
+ {
+  "id": 107,
+  "file": "/src/src/lib/zlib/gzread.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        eol = (unsigned char *)memchr(state->x.next, '\\n', n);\n        if (eol != NULL)\n            n = (unsigned)(eol - state->x.next) + 1;\n\n        /* copy through end-of-line, or remainder if not found */\n        memcpy(buf, state->x.next, n);\n        state->x.have -= n;\n        state->x.next += n;\n        state->x.pos += n;\n        left -= n;\n        buf += n;",
+  "line": 531,
+  "start": 526,
+  "end": 537
+ },
+ {
+  "id": 108,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_vsnprintf\n#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);",
+  "line": 345,
+  "start": 340,
+  "end": 351
+ },
+ {
+  "id": 109,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_vsnprintf\n#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);\n#  endif",
+  "line": 346,
+  "start": 341,
+  "end": 352
+ },
+ {
+  "id": 110,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);\n#  endif\n#else\n#  ifdef HAS_vsnprintf_void\n    (void)vsnprintf((char *)(state->in), size, format, va);\n    len = strlen((char *)(state->in));",
+  "line": 350,
+  "start": 345,
+  "end": 356
+ },
+ {
+  "id": 111,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_snprintf\n#  ifdef HAS_sprintf_void\n    sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n            a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else",
+  "line": 430,
+  "start": 425,
+  "end": 436
+ },
+ {
+  "id": 112,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_snprintf\n#  ifdef HAS_sprintf_void\n    sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n            a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,",
+  "line": 431,
+  "start": 426,
+  "end": 437
+ },
+ {
+  "id": 113,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n            a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n                  a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n#  endif\n#else\n#  ifdef HAS_snprintf_void\n    snprintf((char *)(state->in), size, format, a1, a2, a3, a4, a5, a6, a7, a8,",
+  "line": 436,
+  "start": 431,
+  "end": 442
+ },
+ {
+  "id": 114,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_vsnprintf\n#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);",
+  "line": 345,
+  "start": 340,
+  "end": 351
+ },
+ {
+  "id": 115,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_vsnprintf\n#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);\n#  endif",
+  "line": 346,
+  "start": 341,
+  "end": 352
+ },
+ {
+  "id": 116,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);\n#  endif\n#else\n#  ifdef HAS_vsnprintf_void\n    (void)vsnprintf((char *)(state->in), size, format, va);\n    len = strlen((char *)(state->in));",
+  "line": 350,
+  "start": 345,
+  "end": 356
+ },
+ {
+  "id": 117,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "\n    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_snprintf\n#  ifdef HAS_sprintf_void\n    sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n            a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else",
+  "line": 430,
+  "start": 425,
+  "end": 436
+ },
+ {
+  "id": 118,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_snprintf\n#  ifdef HAS_sprintf_void\n    sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n            a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,",
+  "line": 431,
+  "start": 426,
+  "end": 437
+ },
+ {
+  "id": 119,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n            a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = sprintf((char *)(state->in), format, a1, a2, a3, a4, a5, a6, a7, a8,\n                  a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);\n#  endif\n#else\n#  ifdef HAS_snprintf_void\n    snprintf((char *)(state->in), size, format, a1, a2, a3, a4, a5, a6, a7, a8,",
+  "line": 436,
+  "start": 431,
+  "end": 442
+ },
+ {
+  "id": 120,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "vsprintf",
+  "match": "\n    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_vsnprintf\n#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);",
+  "line": 345,
+  "start": 340,
+  "end": 351
+ },
+ {
+  "id": 121,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "vsprintf",
+  "match": "    /* do the printf() into the input buffer, put length in len */\n    size = (int)(state->size);\n    state->in[size - 1] = 0;\n#ifdef NO_vsnprintf\n#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);\n#  endif",
+  "line": 346,
+  "start": 341,
+  "end": 352
+ },
+ {
+  "id": 122,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "vsprintf",
+  "match": "#  ifdef HAS_vsprintf_void\n    (void)vsprintf((char *)(state->in), format, va);\n    for (len = 0; len < size; len++)\n        if (state->in[len] == 0) break;\n#  else\n    len = vsprintf((char *)(state->in), format, va);\n#  endif\n#else\n#  ifdef HAS_vsnprintf_void\n    (void)vsnprintf((char *)(state->in), size, format, va);\n    len = strlen((char *)(state->in));",
+  "line": 350,
+  "start": 345,
+  "end": 356
+ },
+ {
+  "id": 123,
+  "file": "/src/src/lib/zlib/gzwrite.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                strm->next_in = state->in;\n            have = (unsigned)((strm->next_in + strm->avail_in) - state->in);\n            copy = state->size - have;\n            if (copy > len)\n                copy = len;\n            memcpy(state->in + have, buf, copy);\n            strm->avail_in += copy;\n            state->x.pos += copy;\n            buf = (const char *)buf + copy;\n            len -= copy;\n            if (len && gz_comp(state, Z_NO_FLUSH) == -1)",
+  "line": 218,
+  "start": 213,
+  "end": 224
+ },
+ {
+  "id": 124,
+  "file": "/src/src/lib/zlib/infback.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                copy = state->length;\n                PULL();\n                ROOM();\n                if (copy > have) copy = have;\n                if (copy > left) copy = left;\n                zmemcpy(put, next, copy);\n                have -= copy;\n                next += copy;\n                left -= copy;\n                put += copy;\n                state->length -= copy;",
+  "line": 347,
+  "start": 342,
+  "end": 353
+ },
+ {
+  "id": 125,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        state->whave = 0;\n    }\n\n    /* copy state->wsize or less output bytes into the circular window */\n    if (copy >= state->wsize) {\n        zmemcpy(state->window, end - state->wsize, state->wsize);\n        state->wnext = 0;\n        state->whave = state->wsize;\n    }\n    else {\n        dist = state->wsize - state->wnext;",
+  "line": 406,
+  "start": 401,
+  "end": 412
+ },
+ {
+  "id": 126,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        state->whave = state->wsize;\n    }\n    else {\n        dist = state->wsize - state->wnext;\n        if (dist > copy) dist = copy;\n        zmemcpy(state->window + state->wnext, end - copy, dist);\n        copy -= dist;\n        if (copy) {\n            zmemcpy(state->window, end - copy, copy);\n            state->wnext = copy;\n            state->whave = state->wsize;",
+  "line": 413,
+  "start": 408,
+  "end": 419
+ },
+ {
+  "id": 127,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        dist = state->wsize - state->wnext;\n        if (dist > copy) dist = copy;\n        zmemcpy(state->window + state->wnext, end - copy, dist);\n        copy -= dist;\n        if (copy) {\n            zmemcpy(state->window, end - copy, copy);\n            state->wnext = copy;\n            state->whave = state->wsize;\n        }\n        else {\n            state->wnext += dist;",
+  "line": 416,
+  "start": 411,
+  "end": 422
+ },
+ {
+  "id": 128,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "                if (copy > have) copy = have;\n                if (copy) {\n                    if (state->head != Z_NULL &&\n                        state->head->extra != Z_NULL) {\n                        len = state->head->extra_len - state->length;\n                        zmemcpy(state->head->extra + len, next,\n                                len + copy > state->head->extra_max ?\n                                state->head->extra_max - len : copy);\n                    }\n                    if (state->flags & 0x0200)\n                        state->check = crc32(state->check, next, copy);",
+  "line": 741,
+  "start": 736,
+  "end": 747
+ },
+ {
+  "id": 129,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "            copy = state->length;\n            if (copy) {\n                if (copy > have) copy = have;\n                if (copy > left) copy = left;\n                if (copy == 0) goto inf_leave;\n                zmemcpy(put, next, copy);\n                have -= copy;\n                next += copy;\n                left -= copy;\n                put += copy;\n                state->length -= copy;",
+  "line": 886,
+  "start": 881,
+  "end": 892
+ },
+ {
+  "id": 130,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    if (strm == Z_NULL || strm->state == Z_NULL) return Z_STREAM_ERROR;\n    state = (struct inflate_state FAR *)strm->state;\n\n    /* copy dictionary */\n    if (state->whave && dictionary != Z_NULL) {\n        zmemcpy(dictionary, state->window + state->wnext,\n                state->whave - state->wnext);\n        zmemcpy(dictionary + state->whave - state->wnext,\n                state->window, state->wnext);\n    }\n    if (dictLength != Z_NULL)",
+  "line": 1281,
+  "start": 1276,
+  "end": 1287
+ },
+ {
+  "id": 131,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "\n    /* copy dictionary */\n    if (state->whave && dictionary != Z_NULL) {\n        zmemcpy(dictionary, state->window + state->wnext,\n                state->whave - state->wnext);\n        zmemcpy(dictionary + state->whave - state->wnext,\n                state->window, state->wnext);\n    }\n    if (dictLength != Z_NULL)\n        *dictLength = state->whave;\n    return Z_OK;",
+  "line": 1283,
+  "start": 1278,
+  "end": 1289
+ },
+ {
+  "id": 132,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "            return Z_MEM_ERROR;\n        }\n    }\n\n    /* copy state */\n    zmemcpy((voidpf)dest, (voidpf)source, sizeof(z_stream));\n    zmemcpy((voidpf)copy, (voidpf)state, sizeof(struct inflate_state));\n    if (state->lencode >= state->codes &&\n        state->lencode <= state->codes + ENOUGH - 1) {\n        copy->lencode = copy->codes + (state->lencode - state->codes);\n        copy->distcode = copy->codes + (state->distcode - state->codes);",
+  "line": 1468,
+  "start": 1463,
+  "end": 1474
+ },
+ {
+  "id": 133,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        }\n    }\n\n    /* copy state */\n    zmemcpy((voidpf)dest, (voidpf)source, sizeof(z_stream));\n    zmemcpy((voidpf)copy, (voidpf)state, sizeof(struct inflate_state));\n    if (state->lencode >= state->codes &&\n        state->lencode <= state->codes + ENOUGH - 1) {\n        copy->lencode = copy->codes + (state->lencode - state->codes);\n        copy->distcode = copy->codes + (state->distcode - state->codes);\n    }",
+  "line": 1469,
+  "start": 1464,
+  "end": 1475
+ },
+ {
+  "id": 134,
+  "file": "/src/src/lib/zlib/inflate.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "        copy->distcode = copy->codes + (state->distcode - state->codes);\n    }\n    copy->next = copy->codes + (state->next - state->codes);\n    if (window != Z_NULL) {\n        wsize = 1U << state->wbits;\n        zmemcpy(window, state->window, wsize);\n    }\n    copy->window = window;\n    dest->state = (struct internal_state FAR *)copy;\n    return Z_OK;\n}",
+  "line": 1478,
+  "start": 1473,
+  "end": 1484
+ },
+ {
+  "id": 135,
+  "file": "/src/src/lib/zlib/trees.c",
+  "filetype": "c",
+  "search": "gets",
+  "match": "    ush bl_count[MAX_BITS+1];\n    /* number of codes at each bit length for an optimal tree */\n\n    if (static_init_done) return;\n\n    /* For some embedded targets, global variables are not initialized: */\n#ifdef NO_INIT_GLOBAL_POINTERS\n    static_l_desc.static_tree = static_ltree;\n    static_l_desc.extra_bits = extra_lbits;\n    static_d_desc.static_tree = static_dtree;\n    static_d_desc.extra_bits = extra_dbits;",
+  "line": 248,
+  "start": 243,
+  "end": 254
+ },
+ {
+  "id": 136,
+  "file": "/src/src/lib/zlib/zutil.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    flags += 1L << 21;\n#endif\n#if defined(STDC) || defined(Z_HAVE_STDARG_H)\n#  ifdef NO_vsnprintf\n    flags += 1L << 25;\n#    ifdef HAS_vsprintf_void\n    flags += 1L << 26;\n#    endif\n#  else\n#    ifdef HAS_vsnprintf_void\n    flags += 1L << 26;",
+  "line": 94,
+  "start": 89,
+  "end": 100
+ },
+ {
+  "id": 137,
+  "file": "/src/src/lib/zlib/zutil.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "#  endif\n#else\n    flags += 1L << 24;\n#  ifdef NO_snprintf\n    flags += 1L << 25;\n#    ifdef HAS_sprintf_void\n    flags += 1L << 26;\n#    endif\n#  else\n#    ifdef HAS_snprintf_void\n    flags += 1L << 26;",
+  "line": 106,
+  "start": 101,
+  "end": 112
+ },
+ {
+  "id": 138,
+  "file": "/src/src/lib/zlib/zutil.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "    flags += 1L << 21;\n#endif\n#if defined(STDC) || defined(Z_HAVE_STDARG_H)\n#  ifdef NO_vsnprintf\n    flags += 1L << 25;\n#    ifdef HAS_vsprintf_void\n    flags += 1L << 26;\n#    endif\n#  else\n#    ifdef HAS_vsnprintf_void\n    flags += 1L << 26;",
+  "line": 94,
+  "start": 89,
+  "end": 100
+ },
+ {
+  "id": 139,
+  "file": "/src/src/lib/zlib/zutil.c",
+  "filetype": "c",
+  "search": "sprintf",
+  "match": "#  endif\n#else\n    flags += 1L << 24;\n#  ifdef NO_snprintf\n    flags += 1L << 25;\n#    ifdef HAS_sprintf_void\n    flags += 1L << 26;\n#    endif\n#  else\n#    ifdef HAS_snprintf_void\n    flags += 1L << 26;",
+  "line": 106,
+  "start": 101,
+  "end": 112
+ },
+ {
+  "id": 140,
+  "file": "/src/src/lib/zlib/zutil.c",
+  "filetype": "c",
+  "search": "vsprintf",
+  "match": "    flags += 1L << 21;\n#endif\n#if defined(STDC) || defined(Z_HAVE_STDARG_H)\n#  ifdef NO_vsnprintf\n    flags += 1L << 25;\n#    ifdef HAS_vsprintf_void\n    flags += 1L << 26;\n#    endif\n#  else\n#    ifdef HAS_vsnprintf_void\n    flags += 1L << 26;",
+  "line": 94,
+  "start": 89,
+  "end": 100
+ },
+ {
+  "id": 141,
+  "file": "/src/src/lib/zlib/zutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "     * Its value is always 0 and should not be used.\n     */\n    int errno = 0;\n#endif\n\n#ifndef HAVE_MEMCPY\n\nvoid ZLIB_INTERNAL zmemcpy(dest, source, len)\n    Bytef* dest;\n    const Bytef* source;\n    uInt  len;",
+  "line": 150,
+  "start": 145,
+  "end": 156
+ },
+ {
+  "id": 142,
+  "file": "/src/src/lib/zlib/zutil.c",
+  "filetype": "c",
+  "search": "memcpy",
+  "match": "    int errno = 0;\n#endif\n\n#ifndef HAVE_MEMCPY\n\nvoid ZLIB_INTERNAL zmemcpy(dest, source, len)\n    Bytef* dest;\n    const Bytef* source;\n    uInt  len;\n{\n    if (len == 0) return;",
+  "line": 152,
+  "start": 147,
+  "end": 158
+ }
+]

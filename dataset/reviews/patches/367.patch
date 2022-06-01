@@ -1,0 +1,13 @@
+--- index.js	2020-10-23 16:39:48.847802224 +0100
++++ patch.js	2020-10-23 16:38:09.055798091 +0100
+@@ -1,7 +1,9 @@
+ var http=require("http");
+ var fs=require("fs");
++var p=require("path");
+ http.createServer(function(request,response){
+-    var path="./"+request.url;
++    var url = p.normalize(request.url);
++    var path="./"+url;
+     fs.readFile(path,function(error,data){
+         response.end(data);
+     })

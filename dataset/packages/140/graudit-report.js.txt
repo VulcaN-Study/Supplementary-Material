@@ -1,0 +1,256 @@
+/src/examples/server/broadcast.js-5-
+/src/examples/server/broadcast.js:6:mqtt.createServer(function(client) {
+/src/examples/server/broadcast.js-7-  var self = this;
+##############################################
+/src/examples/server/orig.js-3-  
+/src/examples/server/orig.js:4:mqtt.createServer(function(client) {
+/src/examples/server/orig.js-5-  var self = this;
+##############################################
+/src/examples/server/redis.js-3-
+/src/examples/server/redis.js:4:mqtt.createServer(function(err, client) {
+/src/examples/server/redis.js-5-  client.p = redis.createClient(null, null, {no_ready_check: true});
+##############################################
+/src/examples/client/secure-client.js-10-  certPath: CERT,
+/src/examples/client/secure-client.js:11:  rejectUnauthorized : false
+/src/examples/client/secure-client.js-12-};
+##############################################
+/src/examples/tls client/mqttclient.js-26-  certPath: CERT,
+/src/examples/tls client/mqttclient.js:27:  rejectUnauthorized : true, 
+/src/examples/tls client/mqttclient.js-28-  //The CA list will be used to determine if server is authorized
+##############################################
+/src/README.md-100-var mqtt = require('mqtt')
+/src/README.md:101:  , client = mqtt.connect('mqtt://user:pass@localhost?clientId=123abc');
+/src/README.md-102-
+##############################################
+/src/README.md-136-
+/src/README.md:137:mqtt.createServer(function(client) {
+/src/README.md-138-  var self = this;
+##############################################
+/src/lib/client.js-159-  this.stream.on('connect', function () {
+/src/lib/client.js:160:    that.conn.connect(that.options);
+/src/lib/client.js-161-  });
+##############################################
+/src/lib/client.js-163-  this.stream.on('secureConnect', function () {
+/src/lib/client.js:164:    that.conn.connect(that.options);
+/src/lib/client.js-165-  });
+##############################################
+/src/lib/mqtt.js-32-
+/src/lib/mqtt.js:33:  brokerUrl = url.parse(brokerUrl, true);
+/src/lib/mqtt.js-34-
+##############################################
+/src/lib/mqtt.js-93-  builder = function() {
+/src/lib/mqtt.js:94:    return net.createConnection(port, host);
+/src/lib/mqtt.js-95-  };
+##############################################
+/src/lib/mqtt.js-137-  }
+/src/lib/mqtt.js:138:  tls_opts.rejectUnauthorized = opts.rejectUnauthorized || false;
+/src/lib/mqtt.js-139-
+##############################################
+/src/lib/mqtt.js-143-  builder = function() {
+/src/lib/mqtt.js:144:    var tls_client = tls.connect(tls_opts)
+/src/lib/mqtt.js-145-
+/src/lib/mqtt.js-146-    tls_client.on('secureConnect', function() {
+/src/lib/mqtt.js:147:      if (tls_opts.rejectUnauthorized && !tls_client.authorized) {
+/src/lib/mqtt.js-148-        tls_client.emit('error', new Error('TLS not authorized'));
+##############################################
+/src/lib/mqtt.js-155-      // How can I get verify this error is a tls error?
+/src/lib/mqtt.js:156:      if (tls_opts.rejectUnauthorized) {
+/src/lib/mqtt.js-157-        mqttClient.emit('error', err)
+##############################################
+/src/lib/mqtt.js-228-
+/src/lib/mqtt.js:229:  net_client = net.createConnection(port, host);
+/src/lib/mqtt.js-230-  mqtt_conn = net_client.pipe(new MqttConnection());
+##############################################
+/src/test/old/qos.test.js-27-    it("Client should connect", function (done) {
+/src/test/old/qos.test.js:28:      this.client.connect({keepalive: 1000});
+/src/test/old/qos.test.js-29-      this.client.on('connack', function (packet) {
+##############################################
+/src/test/old/tls.test.js-15-  certPath: CERT,
+/src/test/old/tls.test.js:16:  rejectUnauthorized : false
+/src/test/old/tls.test.js-17-};
+##############################################
+/src/test/secure_client.js-87-          ca: [CERT],
+/src/test/secure_client.js:88:          rejectUnauthorized: true
+/src/test/secure_client.js-89-        });
+##############################################
+/src/test/secure_client.js-100-          ca: [WRONG_CERT],
+/src/test/secure_client.js:101:          rejectUnauthorized: true
+/src/test/secure_client.js-102-        });
+##############################################
+/src/test/secure_client.js-115-          ca: [WRONG_CERT],
+/src/test/secure_client.js:116:          rejectUnauthorized: true
+/src/test/secure_client.js-117-        });
+##############################################
+/src/test/client.js-21- */
+/src/test/client.js:22:var server = mqtt.createServer(function (client) {
+/src/test/client.js-23-
+##############################################
+/src/test/helpers/server_process.js:1:var server = require('../../lib/mqtt').createServer(function (client) {
+/src/test/helpers/server_process.js-2-  client.on('connect', function () {
+##############################################
+/src/test/helpers/server.js-3-module.exports.init_server = function (PORT) {
+/src/test/helpers/server.js:4:  var server = mqtt.createServer(function (client) {
+/src/test/helpers/server.js-5-    /*var i, events = ['connect', 'publish', 'pubrel', 'subscribe', 'disconnect'];
+##############################################
+/src/test/mqtt.js-18-    it('should return an MqttClient when connect is called with mqtt:/ url', function () {
+/src/test/mqtt.js:19:      var c = mqtt.connect('mqtt://localhost:1883');
+/src/test/mqtt.js-20-
+##############################################
+/src/test/mqtt.js-24-    it('should return an MqttClient with username option set', function () {
+/src/test/mqtt.js:25:      var c = mqtt.connect('mqtt://user:pass@localhost:1883');
+/src/test/mqtt.js-26-
+##############################################
+/src/test/mqtt.js-32-    it('should return an MqttClient with username and password options set', function () {
+/src/test/mqtt.js:33:      var c = mqtt.connect('mqtt://user@localhost:1883');
+/src/test/mqtt.js-34-
+##############################################
+/src/test/mqtt.js-39-    it('should return an MqttClient with the clientid option set', function () {
+/src/test/mqtt.js:40:      var c = mqtt.connect('mqtt://user@localhost:1883?clientId=123');
+/src/test/mqtt.js-41-
+##############################################
+/src/test/mqtt.js-46-    it('should return an MqttClient when connect is called with tcp:/ url', function () {
+/src/test/mqtt.js:47:      var c = mqtt.connect('tcp://localhost');
+/src/test/mqtt.js-48-
+##############################################
+/src/test/mqtt.js-53-      sinon.spy(mqtt, "createClient");
+/src/test/mqtt.js:54:      var c = mqtt.connect('tcp://user:pass@localhost:1883');
+/src/test/mqtt.js-55-      mqtt.createClient.calledWith('1883', 'localhost').should.be.ok;
+##############################################
+/src/test/mqtt.js-59-      (function(){
+/src/test/mqtt.js:60:        mqtt.connect()
+/src/test/mqtt.js-61-      }).should.throwError(/^Missing brokerUrl/);
+##############################################
+/src/test/mqtt.js-70-    it('should return an MqttClient when connect is called with mqtts:/ url', function () {
+/src/test/mqtt.js:71:      var c = mqtt.connect('mqtts://localhost', sslOpts);
+/src/test/mqtt.js-72-
+##############################################
+/src/test/mqtt.js-78-    it('should return an MqttClient when connect is called with ssl:/ url', function () {
+/src/test/mqtt.js:79:      var c = mqtt.connect('ssl://localhost', sslOpts);
+/src/test/mqtt.js-80-
+##############################################
+/src/test/mqtt.js-87-      (function(){
+/src/test/mqtt.js:88:        mqtt.connect('http://localhost')
+/src/test/mqtt.js-89-      }).should.throwError(/^Unknown protocol/);
+##############################################
+/src/test/mqtt.js-149-    it('should return an MqttServer', function() {
+/src/test/mqtt.js:150:      var s = mqtt.createServer();
+/src/test/mqtt.js-151-
+##############################################
+/src/test/mqtt.js-176-    it('should return an MqttConnection', function() {
+/src/test/mqtt.js:177:      var c = mqtt.createConnection();
+/src/test/mqtt.js-178-
+##############################################
+/src/test/mqtt.js-182-    it('should fire callback on net connect', function(done) {
+/src/test/mqtt.js:183:      mqtt.createConnection(done);
+/src/test/mqtt.js-184-    });
+/src/test/mqtt.js-185-    it('should bind stream close to connection', function(done) {
+/src/test/mqtt.js:186:      var c = mqtt.createConnection();
+/src/test/mqtt.js-187-      c.once('connected', function() {
+##############################################
+/src/test/mqtt.js-192-    it('should bind stream error to conn', function(done) {
+/src/test/mqtt.js:193:      var c = mqtt.createConnection();
+/src/test/mqtt.js-194-      c.once('error', function() { done() });
+##############################################
+/src/test/connection.transmit.js-37-
+/src/test/connection.transmit.js:38:      this.conn.connect(fixture);
+/src/test/connection.transmit.js-39-
+##############################################
+/src/test/connection.transmit.js-82-
+/src/test/connection.transmit.js:83:      this.conn.connect(fixture);
+/src/test/connection.transmit.js-84-      var that = this;
+##############################################
+/src/test/connection.transmit.js-115-      this.conn.setPacketEncoding('binary');
+/src/test/connection.transmit.js:116:      this.conn.connect(fixture);
+/src/test/connection.transmit.js-117-
+##############################################
+/src/test/connection.transmit.js-161-      this.conn.setPacketEncoding('binary');
+/src/test/connection.transmit.js:162:      this.conn.connect(fixture);
+/src/test/connection.transmit.js-163-
+##############################################
+/src/test/connection.transmit.js-207-      this.conn.setPacketEncoding('binary');
+/src/test/connection.transmit.js:208:      this.conn.connect(fixture);
+/src/test/connection.transmit.js-209-
+##############################################
+/src/test/connection.transmit.js-253-      this.conn.setPacketEncoding('binary');
+/src/test/connection.transmit.js:254:      this.conn.connect(fixture);
+/src/test/connection.transmit.js-255-
+##############################################
+/src/test/connection.transmit.js-280-
+/src/test/connection.transmit.js:281:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-282-        });
+##############################################
+/src/test/connection.transmit.js-298-
+/src/test/connection.transmit.js:299:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-300-        });
+##############################################
+/src/test/connection.transmit.js-317-
+/src/test/connection.transmit.js:318:        this.conn.connect(fixture);
+/src/test/connection.transmit.js-319-      });
+##############################################
+/src/test/connection.transmit.js-335-
+/src/test/connection.transmit.js:336:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-337-        });
+##############################################
+/src/test/connection.transmit.js-353-
+/src/test/connection.transmit.js:354:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-355-        });
+##############################################
+/src/test/connection.transmit.js-371-
+/src/test/connection.transmit.js:372:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-373-        });
+##############################################
+/src/test/connection.transmit.js-389-
+/src/test/connection.transmit.js:390:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-391-        });
+##############################################
+/src/test/connection.transmit.js-408-
+/src/test/connection.transmit.js:409:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-410-        });
+##############################################
+/src/test/connection.transmit.js-426-
+/src/test/connection.transmit.js:427:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-428-        });
+##############################################
+/src/test/connection.transmit.js-444-
+/src/test/connection.transmit.js:445:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-446-        });
+##############################################
+/src/test/connection.transmit.js-463-
+/src/test/connection.transmit.js:464:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-465-        });
+##############################################
+/src/test/connection.transmit.js-481-
+/src/test/connection.transmit.js:482:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-483-        });
+##############################################
+/src/test/connection.transmit.js-499-
+/src/test/connection.transmit.js:500:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-501-
+##############################################
+/src/test/connection.transmit.js-518-
+/src/test/connection.transmit.js:519:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-520-
+##############################################
+/src/test/connection.transmit.js-540-
+/src/test/connection.transmit.js:541:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-542-
+##############################################
+/src/test/connection.transmit.js-566-
+/src/test/connection.transmit.js:567:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-568-        });
+##############################################
+/src/test/connection.transmit.js-591-
+/src/test/connection.transmit.js:592:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-593-        });
+##############################################
+/src/test/connection.transmit.js-615-
+/src/test/connection.transmit.js:616:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-617-        });
+##############################################
+/src/test/connection.transmit.js-636-
+/src/test/connection.transmit.js:637:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-638-        });
+##############################################
+/src/test/connection.transmit.js-657-
+/src/test/connection.transmit.js:658:          this.conn.connect(fixture);
+/src/test/connection.transmit.js-659-        });

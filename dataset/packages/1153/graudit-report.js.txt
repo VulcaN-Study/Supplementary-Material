@@ -1,0 +1,39 @@
+/src/index.js-96-  PGStore.prototype.pruneSessions = function (fn) {
+/src/index.js:97:    this.query('DELETE FROM ' + this.quotedTable() + ' WHERE expire < to_timestamp($1)', [currentTimestamp()], function (err) {
+/src/index.js-98-      if (fn && typeof fn === 'function') {
+##############################################
+/src/index.js-165-    if (this.pgPromise) {
+/src/index.js:166:      this.pgPromise.query(query, params || [])
+/src/index.js-167-        .then(function (res) { fn && fn(null, res && res[0] ? res[0] : false); })
+##############################################
+/src/index.js-169-    } else {
+/src/index.js:170:      this.pool.query(query, params || [], function (err, res) {
+/src/index.js-171-        if (fn) { fn(err, res && res.rows[0] ? res.rows[0] : false); }
+##############################################
+/src/index.js-184-  PGStore.prototype.get = function (sid, fn) {
+/src/index.js:185:    this.query('SELECT sess FROM ' + this.quotedTable() + ' WHERE sid = $1 AND expire >= to_timestamp($2)', [sid, currentTimestamp()], function (err, data) {
+/src/index.js-186-      if (err) { return fn(err); }
+##############################################
+/src/index.js-188-      try {
+/src/index.js:189:        return fn(null, (typeof data.sess === 'string') ? JSON.parse(data.sess) : data.sess);
+/src/index.js-190-      } catch (e) {
+##############################################
+/src/index.js-208-
+/src/index.js:209:    this.query(query, [sess, expireTime, sid], function (err) {
+/src/index.js-210-      if (fn) { fn.apply(this, err); }
+##############################################
+/src/index.js-221-  PGStore.prototype.destroy = function (sid, fn) {
+/src/index.js:222:    this.query('DELETE FROM ' + this.quotedTable() + ' WHERE sid = $1', [sid], function (err) {
+/src/index.js-223-      if (fn) { fn(err); }
+##############################################
+/src/test/db-utils.js-22-const removeTables = function () {
+/src/test/db-utils.js:23:  return Promise.all(tables.map(table => pool.query('DROP TABLE IF EXISTS ' + table)));
+/src/test/db-utils.js-24-};
+##############################################
+/src/test/db-utils.js-27-  return readFile(pathModule.resolve(__dirname, '../table.sql'), 'utf8')
+/src/test/db-utils.js:28:    .then(tableDef => pool.query(tableDef));
+/src/test/db-utils.js-29-};
+##############################################
+/src/test/main.spec.js-262-
+/src/test/main.spec.js:263:      store.query('select', [1, 2]);
+/src/test/main.spec.js-264-

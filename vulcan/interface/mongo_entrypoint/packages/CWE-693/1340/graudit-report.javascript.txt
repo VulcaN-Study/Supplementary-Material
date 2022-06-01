@@ -1,0 +1,41 @@
+/src/localeval.js-129-    alienate();
+/src/localeval.js:130:    var ret = Function(sandboxName, resetEnv() + sandboxed + 'return eval(' +
+/src/localeval.js-131-          JSON.stringify(source) + ')').bind(Object.create(null))(sandbox);
+##############################################
+/src/localeval.js-140-
+/src/localeval.js:141:  function localeval(source, sandbox, timeout, cb) {
+/src/localeval.js-142-    // Optional parameters: sandbox, timeout, cb.
+##############################################
+/src/readme.md-4-
+/src/readme.md:5:Always use that instead of `eval()`. Always.
+/src/readme.md-6-
+##############################################
+/src/readme.md-8-
+/src/readme.md:9:    localeval(code :: String, sandbox :: Object) :: Object.
+/src/readme.md-10-
+/src/readme.md:11:    localeval(code :: String,    sandbox :: Object,
+/src/readme.md-12-              timeout :: Number, cb :: Function)
+##############################################
+/src/readme.md-22-var localeval = require('localeval');
+/src/readme.md:23:localeval('console.log("Do I have access to the console?")');  // Throws.
+/src/readme.md-24-```
+##############################################
+/src/readme.md-31-<!-- Alerts "32". -->
+/src/readme.md:32:<script> alert(localeval('a + b', {a: 14, b: 18})) </script>
+/src/readme.md-33-```
+##############################################
+/src/readme.md-49-   Think
+/src/readme.md:50:   `localeval('([]).__proto__.push = function(a) { return "nope"; }')`.
+/src/readme.md-51-
+##############################################
+/src/package.json-3-  "main": "localeval.js",
+/src/package.json:4:  "description": "A sandboxed eval().",
+/src/package.json-5-  "author": "Thaddee Tyl <thaddee.tyl@gmail.com> (http://espadrine.github.com/)",
+##############################################
+/src/worker.js-88-  alienate();
+/src/worker.js:89:  var ret = Function(sandboxName, resetEnv() + sandboxed + 'return eval(' +
+/src/worker.js-90-        JSON.stringify(source) + ')').bind(Object.create(null))(sandbox);
+##############################################
+/src/main.html-3-<form
+/src/main.html:4:  action='javascript:localeval(source.value,{},1000,function(m){alert(m)})'>
+/src/main.html-5-  <!-- FIXME: use a proper editor. -->

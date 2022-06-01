@@ -1,0 +1,111 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 4
+        },
+        "extra": {
+          "line": "!npm-shrinkwrap.json\r",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2011-2016, Project contributors",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/connection.js",
+          "match_lines": [
+            205,
+            214
+          ],
+          "match_position": [
+            23,
+            23
+          ],
+          "match_string": "    const timeoutId = setTimeout(() => {\n\n\n\n        Object.keys(this._connections).forEach((key) => {\n\n\n\n            this._connections[key].destroy();\n\n        });\n\n\n\n\n\n        this._connections = {};\n\n    }, options.timeout);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/validation.js",
+          "match_lines": [
+            151,
+            151
+          ],
+          "match_position": [
+            42,
+            53
+          ],
+          "match_string": "        const currentSample = Math.ceil((Math.random() * 100));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_logic_bypass": {
+      "files": [
+        {
+          "file_path": "/src/lib/request.js",
+          "match_lines": [
+            88,
+            88
+          ],
+          "match_position": [
+            9,
+            74
+          ],
+          "match_string": "    if (connection._requestCounter.value > connection._requestCounter.max) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-807: Reliance on Untrusted Inputs in a Security Decision",
+        "description": "User controlled data is used for application business logic decision making. This expose protected data or functionality.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

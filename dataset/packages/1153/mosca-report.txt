@@ -1,0 +1,144 @@
+<report_mosca>
+ <Path>/src/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 109 -          this.pruneTimer = setTimeout(this.pruneSessions.bind(this, true), this.pruneSessionInterval);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 96 -      this.query('DELETE FROM ' + this.quotedTable() + ' WHERE expire < to_timestamp($1)', [currentTimestamp()], function (err) {
+
+ Line: 152 -     * @param {String} query - the database query to perform
+
+ Line: 153 -     * @param {(Array|Function)} [params] - the parameters of the query or the callback function
+
+ Line: 184 -      this.query('SELECT sess FROM ' + this.quotedTable() + ' WHERE sid = $1 AND expire >= to_timestamp($2)', [sid, currentTimestamp()], function (err, data) {
+
+ Line: 206 -      const query = 'INSERT INTO ' + this.quotedTable() + ' (sess, expire, sid) SELECT $1, to_timestamp($2), $3 ON CONFLICT (sid) DO UPDATE SET sess=$1, expire=to_timestamp($2) RETURNING sid';
+
+ Line: 221 -      this.query('DELETE FROM ' + this.quotedTable() + ' WHERE sid = $1', [sid], function (err) {
+
+ Line: 239 -        'UPDATE ' + this.quotedTable() + ' SET expire = to_timestamp($1) WHERE sid = $2 RETURNING sid',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/integration/pgpromise.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -    const queryPromise = dbUtils.queryPromise;
+
+ Line: 57 -        return queryPromise('SELECT COUNT(sid) FROM session')
+
+ Line: 63 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 72 -        return queryPromise('SELECT COUNT(sid) FROM session')
+
+ Line: 75 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 78 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 89 -        return queryPromise('SELECT COUNT(sid) FROM session')
+
+ Line: 95 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 101 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 108 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/integration/express.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -    const queryPromise = dbUtils.queryPromise;
+
+ Line: 56 -        return queryPromise('SELECT COUNT(sid) FROM session')
+
+ Line: 62 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 80 -          .then(decodedCookie => queryPromise('SELECT sid FROM session WHERE sid = $1', [decodedCookie]))
+
+ Line: 89 -        return queryPromise('SELECT COUNT(sid) FROM session')
+
+ Line: 92 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 95 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 103 -        return queryPromise('SELECT COUNT(sid) FROM session')
+
+ Line: 106 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 109 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 120 -        return queryPromise('SELECT COUNT(sid) FROM session')
+
+ Line: 126 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 132 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+ Line: 139 -          .then(() => queryPromise('SELECT COUNT(sid) FROM session'))
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/db-utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 32 -    queryPromise: pool.query.bind(pool),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/main.spec.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 238 -              query: function () {}
+
+ Line: 253 -        const queryStub = sinon.stub().resolves(true);
+
+ Line: 255 -          query: queryStub
+
+ Line: 264 -        queryStub.should.have.been.calledOnce;
+
+ Line: 265 -        queryStub.firstCall.args[0].should.equal('select');
+
+ Line: 266 -        queryStub.firstCall.args[1].should.deep.equal([1, 2]);
+
+</Result>
+</report_mosca>
+

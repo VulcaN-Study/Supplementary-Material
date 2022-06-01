@@ -1,0 +1,200 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            21,
+            27
+          ],
+          "match_position": [
+            3,
+            22
+          ],
+          "match_string": "  try {\n\n    // Verify that the code above has been dead code eliminated (DCE'd).\n\n    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);\n\n  } catch (err) {\n\n    // DevTools shouldn't crash React, no matter what.\n\n    // We should still report in case we break this code.\n\n    console.error(err);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/cjs/react-dom.development.js",
+          "match_lines": [
+            760,
+            760
+          ],
+          "match_position": [
+            17,
+            28
+          ],
+          "match_string": "var randomKey = Math.random().toString(36).slice(2);"
+        },
+        {
+          "file_path": "/src/cjs/react-dom.development.js",
+          "match_lines": [
+            4632,
+            4632
+          ],
+          "match_position": [
+            53,
+            64
+          ],
+          "match_string": "var topListenersIDKey = '_reactListenersID' + ('' + Math.random()).slice(2);"
+        },
+        {
+          "file_path": "/src/cjs/react-dom.development.js",
+          "match_lines": [
+            5425,
+            5425
+          ],
+          "match_position": [
+            45,
+            56
+          ],
+          "match_string": "  var messageKey = '__reactIdleCallback$' + Math.random().toString(36).slice(2);"
+        },
+        {
+          "file_path": "/src/umd/react-dom.development.js",
+          "match_lines": [
+            898,
+            898
+          ],
+          "match_position": [
+            17,
+            28
+          ],
+          "match_string": "var randomKey = Math.random().toString(36).slice(2);"
+        },
+        {
+          "file_path": "/src/umd/react-dom.development.js",
+          "match_lines": [
+            4982,
+            4982
+          ],
+          "match_position": [
+            53,
+            64
+          ],
+          "match_string": "var topListenersIDKey = '_reactListenersID' + ('' + Math.random()).slice(2);"
+        },
+        {
+          "file_path": "/src/umd/react-dom.development.js",
+          "match_lines": [
+            5871,
+            5871
+          ],
+          "match_position": [
+            45,
+            56
+          ],
+          "match_string": "  var messageKey = '__reactIdleCallback$' + Math.random().toString(36).slice(2);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/cjs/react-dom-server.browser.development.js",
+          "match_lines": [
+            888,
+            888
+          ],
+          "match_position": [
+            16,
+            53
+          ],
+          "match_string": "    } else if (badVendoredStyleNamePattern.test(name)) {"
+        },
+        {
+          "file_path": "/src/cjs/react-dom-server.node.development.js",
+          "match_lines": [
+            889,
+            889
+          ],
+          "match_position": [
+            16,
+            53
+          ],
+          "match_string": "    } else if (badVendoredStyleNamePattern.test(name)) {"
+        },
+        {
+          "file_path": "/src/cjs/react-dom.development.js",
+          "match_lines": [
+            6205,
+            6205
+          ],
+          "match_position": [
+            16,
+            53
+          ],
+          "match_string": "    } else if (badVendoredStyleNamePattern.test(name)) {"
+        },
+        {
+          "file_path": "/src/umd/react-dom-server.browser.development.js",
+          "match_lines": [
+            1284,
+            1284
+          ],
+          "match_position": [
+            16,
+            53
+          ],
+          "match_string": "    } else if (badVendoredStyleNamePattern.test(name)) {"
+        },
+        {
+          "file_path": "/src/umd/react-dom.development.js",
+          "match_lines": [
+            6783,
+            6783
+          ],
+          "match_position": [
+            16,
+            53
+          ],
+          "match_string": "    } else if (badVendoredStyleNamePattern.test(name)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

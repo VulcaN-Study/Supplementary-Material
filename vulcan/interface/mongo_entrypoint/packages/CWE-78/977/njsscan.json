@@ -1,0 +1,82 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 3
+        },
+        "extra": {
+          "line": "# ignore .svn metadata files",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_bodyparser": {
+      "files": [
+        {
+          "file_path": "/src/bin/wizard-ci.js",
+          "match_lines": [
+            18,
+            18
+          ],
+          "match_position": [
+            10,
+            28
+          ],
+          "match_string": "\tapp.use(express.bodyParser());"
+        },
+        {
+          "file_path": "/src/bin/wizard-server.js",
+          "match_lines": [
+            18,
+            18
+          ],
+          "match_position": [
+            10,
+            28
+          ],
+          "match_string": "\tapp.use(express.bodyParser());"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "POST Request to Express Body Parser 'bodyParser()' can create Temporary files and consume space.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "ERROR"
+      }
+    },
+    "yaml_deserialize": {
+      "files": [
+        {
+          "file_path": "/src/repo.js",
+          "match_lines": [
+            60,
+            60
+          ],
+          "match_position": [
+            18,
+            58
+          ],
+          "match_string": "\t\t\t\tvar config = yaml.load(fs.readFileSync(file).toString())"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-502: Deserialization of Untrusted Data",
+        "description": "User controlled data in 'yaml.load()' function can result in Remote Code Injection.",
+        "owasp": "A8: Insecure Deserialization",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

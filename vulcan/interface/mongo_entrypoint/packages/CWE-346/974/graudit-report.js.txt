@@ -1,0 +1,1087 @@
+/src/src/otr.js-164-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/src/otr.js:165:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packBytes(version, DTS.BYTE)))
+/src/src/otr.js:166:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(fmpi)))
+/src/src/otr.js:167:    if (smpi) sha256.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(smpi)))
+/src/src/otr.js-168-    var hash = sha256.finalize()
+##############################################
+/src/src/otr.js-172-  HLP.makeMac = function (aesctr, m) {
+/src/src/otr.js:173:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/src/otr.js:174:    var mac = CryptoJS.HmacSHA256(CryptoJS.enc.Latin1.parse(aesctr), pass)
+/src/src/otr.js-175-    return HLP.mask(mac.toString(CryptoJS.enc.Latin1), 0, 160)
+##############################################
+/src/src/otr.js-178-  HLP.make1Mac = function (aesctr, m) {
+/src/src/otr.js:179:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/src/otr.js:180:    var mac = CryptoJS.HmacSHA1(CryptoJS.enc.Latin1.parse(aesctr), pass)
+/src/src/otr.js-181-    return mac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-186-        mode: CryptoJS.mode.CTR
+/src/src/otr.js:187:      , iv: CryptoJS.enc.Latin1.parse(iv)
+/src/src/otr.js-188-      , padding: CryptoJS.pad.NoPadding
+##############################################
+/src/src/otr.js-191-        msg
+/src/src/otr.js:192:      , CryptoJS.enc.Latin1.parse(c)
+/src/src/otr.js-193-      , opts
+/src/src/otr.js-194-    )
+/src/src/otr.js:195:    var aesctr_decoded = CryptoJS.enc.Base64.parse(aesctr.toString())
+/src/src/otr.js-196-    return CryptoJS.enc.Latin1.stringify(aesctr_decoded)
+##############################################
+/src/src/otr.js-199-  HLP.decryptAes = function (msg, c, iv) {
+/src/src/otr.js:200:    msg = CryptoJS.enc.Latin1.parse(msg)
+/src/src/otr.js-201-    var opts = {
+/src/src/otr.js-202-        mode: CryptoJS.mode.CTR
+/src/src/otr.js:203:      , iv: CryptoJS.enc.Latin1.parse(iv)
+/src/src/otr.js-204-      , padding: CryptoJS.pad.NoPadding
+##############################################
+/src/src/otr.js-207-        CryptoJS.enc.Base64.stringify(msg)
+/src/src/otr.js:208:      , CryptoJS.enc.Latin1.parse(c)
+/src/src/otr.js-209-      , opts
+##############################################
+/src/src/otr.js-235-    var sha1 = CryptoJS.algo.SHA1.create()
+/src/src/otr.js:236:    sha1.update(CryptoJS.enc.Latin1.parse(b))
+/src/src/otr.js:237:    sha1.update(CryptoJS.enc.Latin1.parse(secbytes))
+/src/src/otr.js-238-    return (sha1.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-242-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/src/otr.js:243:    sha256.update(CryptoJS.enc.Latin1.parse(b))
+/src/src/otr.js:244:    sha256.update(CryptoJS.enc.Latin1.parse(secbytes))
+/src/src/otr.js-245-    return (sha256.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-345-  HLP.wrapMsg = function (msg, fs, v3, our_it, their_it) {
+/src/src/otr.js:346:    msg = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Latin1.parse(msg))
+/src/src/otr.js-347-    msg = WRAPPER_BEGIN + ":" + msg + WRAPPER_END
+##############################################
+/src/src/otr.js-639-      var str = this.packPublic() + HLP.packMPI(this.x)
+/src/src/otr.js:640:      str = CryptoJS.enc.Latin1.parse(str)
+/src/src/otr.js-641-      return str.toString(CryptoJS.enc.Base64)
+##############################################
+/src/src/otr.js-649-      var sha256 = CryptoJS.algo.SHA256.create()
+/src/src/otr.js:650:      sha256.update(CryptoJS.enc.Latin1.parse(priv))
+/src/src/otr.js-651-      sha256.update(m)
+/src/src/otr.js:652:      sha256.update(CryptoJS.enc.Latin1.parse(rand))
+/src/src/otr.js-653-
+##############################################
+/src/src/otr.js-661-    sign: function (m) {
+/src/src/otr.js:662:      m = CryptoJS.enc.Latin1.parse(m)
+/src/src/otr.js-663-      var b = BigInt.str2bigInt(m.toString(CryptoJS.enc.Hex), 16)
+##############################################
+/src/src/otr.js-678-      if (this.type === KEY_TYPE) pk = pk.substring(2)
+/src/src/otr.js:679:      pk = CryptoJS.enc.Latin1.parse(pk)
+/src/src/otr.js-680-      return CryptoJS.SHA1(pk).toString(CryptoJS.enc.Hex)
+##############################################
+/src/src/otr.js-774-    if (!libotr) {
+/src/src/otr.js:775:      str = CryptoJS.enc.Base64.parse(str)
+/src/src/otr.js-776-      str = str.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-786-
+/src/src/otr.js:787:    var hm = CryptoJS.enc.Latin1.parse(m)  // CryptoJS.SHA1(m)
+/src/src/otr.js-788-    hm = BigInt.str2bigInt(hm.toString(CryptoJS.enc.Hex), 16)
+##############################################
+/src/src/otr.js-945-      if (info.length < 4) return { msg: msg }
+/src/src/otr.js:946:      info = CryptoJS.enc.Base64.parse(info).toString(CryptoJS.enc.Latin1)
+/src/src/otr.js-947-
+##############################################
+/src/src/otr.js-958-
+/src/src/otr.js:959:      msg = CryptoJS.enc.Base64.parse(msg.substring(ind, ind + end))
+/src/src/otr.js-960-      msg = CryptoJS.enc.Latin1.stringify(msg)
+##############################################
+/src/src/otr.js-1073-  function hMac(gx, gy, pk, kid, m) {
+/src/src/otr.js:1074:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/src/otr.js-1075-    var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, pass)
+/src/src/otr.js:1076:    hmac.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(gx)))
+/src/src/otr.js:1077:    hmac.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(gy)))
+/src/src/otr.js:1078:    hmac.update(CryptoJS.enc.Latin1.parse(pk))
+/src/src/otr.js:1079:    hmac.update(CryptoJS.enc.Latin1.parse(kid))
+/src/src/otr.js-1080-    return (hmac.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-1157-      msg += BigInt.bigInt2bits(m[1], 20)
+/src/src/otr.js:1158:      msg = CryptoJS.enc.Latin1.parse(msg)
+/src/src/otr.js-1159-      var aesctr = HLP.packData(HLP.encryptAes(msg, c, HLP.packCtr(0)))
+##############################################
+/src/src/otr.js-1298-          // decrypt their_y
+/src/src/otr.js:1299:          var key = CryptoJS.enc.Hex.parse(BigInt.bigInt2str(this.r, 16))
+/src/src/otr.js-1300-          key = CryptoJS.enc.Latin1.stringify(key)
+##############################################
+/src/src/otr.js-1307-          // verify hash
+/src/src/otr.js:1308:          var hash = CryptoJS.SHA256(CryptoJS.enc.Latin1.parse(gxmpi))
+/src/src/otr.js-1309-
+##############################################
+/src/src/otr.js-1426-      var gxmpi = HLP.packMPI(this.our_dh.publicKey)
+/src/src/otr.js:1427:      gxmpi = CryptoJS.enc.Latin1.parse(gxmpi)
+/src/src/otr.js-1428-
+/src/src/otr.js-1429-      this.r = BigInt.randBigInt(128)
+/src/src/otr.js:1430:      var key = CryptoJS.enc.Hex.parse(BigInt.bigInt2str(this.r, 16))
+/src/src/otr.js-1431-      key = CryptoJS.enc.Latin1.stringify(key)
+##############################################
+/src/src/otr.js-1503-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/src/otr.js:1504:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packBytes(this.version, 1)))
+/src/src/otr.js:1505:    sha256.update(CryptoJS.enc.Hex.parse(our ? this.our_fp : this.their_fp))
+/src/src/otr.js:1506:    sha256.update(CryptoJS.enc.Hex.parse(our ? this.their_fp : this.our_fp))
+/src/src/otr.js:1507:    sha256.update(CryptoJS.enc.Latin1.parse(this.ssid))
+/src/src/otr.js:1508:    sha256.update(CryptoJS.enc.Latin1.parse(secret))
+/src/src/otr.js-1509-    var hash = sha256.finalize()
+##############################################
+/src/src/otr.js-1618-        question = CryptoJS.enc.Latin1
+/src/src/otr.js:1619:          .parse(question)
+/src/src/otr.js-1620-          .toString(CryptoJS.enc.Utf8)
+##############################################
+/src/src/otr.js-2148-    this.sendenc = HLP.mask(HLP.h1(sendbyte, secbytes), 0, 128)  // f16 bytes
+/src/src/otr.js:2149:    this.sendmac = CryptoJS.SHA1(CryptoJS.enc.Latin1.parse(this.sendenc))
+/src/src/otr.js-2150-    this.sendmac = this.sendmac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-2152-    this.rcvenc = HLP.mask(HLP.h1(rcvbyte, secbytes), 0, 128)
+/src/src/otr.js:2153:    this.rcvmac = CryptoJS.SHA1(CryptoJS.enc.Latin1.parse(this.rcvenc))
+/src/src/otr.js-2154-    this.rcvmac = this.rcvmac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-2242-    var aes = HLP.encryptAes(
+/src/src/otr.js:2243:        CryptoJS.enc.Latin1.parse(msg)
+/src/src/otr.js-2244-      , sessKeys.sendenc
+##############################################
+/src/src/otr.js-2339-
+/src/src/otr.js:2340:    out = CryptoJS.enc.Latin1.parse(out)
+/src/src/otr.js-2341-    return out.toString(CryptoJS.enc.Utf8)
+##############################################
+/src/src/otr.js-2373-          msg = msg.substring(4) // remove 4-byte indication
+/src/src/otr.js:2374:          msg = CryptoJS.enc.Latin1.parse(msg)
+/src/src/otr.js-2375-          msg = msg.toString(CryptoJS.enc.Utf8)
+##############################################
+/src/src/otr.js-2395-    // utf8 inputs
+/src/src/otr.js:2396:    secret = CryptoJS.enc.Utf8.parse(secret).toString(CryptoJS.enc.Latin1)
+/src/src/otr.js:2397:    question = CryptoJS.enc.Utf8.parse(question).toString(CryptoJS.enc.Latin1)
+/src/src/otr.js-2398-
+##############################################
+/src/src/otr.js-2428-    ) {
+/src/src/otr.js:2429:      msg = CryptoJS.enc.Utf8.parse(msg)
+/src/src/otr.js-2430-      msg = msg.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/otr.js-2560-    // utf8 filenames
+/src/src/otr.js:2561:    var l1name = CryptoJS.enc.Utf8.parse(filename)
+/src/src/otr.js-2562-    l1name = l1name.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/src/converse-bookmarks.js-222-                    if (bookmark.get('autojoin')) {
+/src/src/converse-bookmarks.js:223:                        converse_api.rooms.open(bookmark.get('jid'), bookmark.get('nick'));
+/src/src/converse-bookmarks.js-224-                    }
+##############################################
+/src/src/converse-muc.js-1843-                    this.addSpinner();
+/src/src/converse-muc.js:1844:                    converse_api.archive.query(_.extend(options, {'groupchat': true}),
+/src/src/converse-muc.js-1845-                        function (messages) {
+##############################################
+/src/src/converse-muc.js-2362-                    if (typeof room === 'string') {
+/src/src/converse-muc.js:2363:                        converse_api.rooms.open(room);
+/src/src/converse-muc.js-2364-                    } else if (typeof room === 'object') {
+/src/src/converse-muc.js:2365:                        converse_api.rooms.open(room.jid, room.nick);
+/src/src/converse-muc.js-2366-                    } else {
+##############################################
+/src/src/converse-core.js-1824-                }
+/src/src/converse-core.js:1825:                this.connection.connect(this.jid.toLowerCase(), null, this.onConnectStatusChanged);
+/src/src/converse-core.js-1826-            } else if (this.authentication === converse.LOGIN) {
+##############################################
+/src/src/converse-core.js-1842-                }
+/src/src/converse-core.js:1843:                this.connection.connect(this.jid, password, this.onConnectStatusChanged);
+/src/src/converse-core.js-1844-            }
+##############################################
+/src/src/converse-controlbox.js-413-                    if (converse.authentication === converse.ANONYMOUS) {
+/src/src/converse-controlbox.js:414:                        this.connect($form, converse.jid, null);
+/src/src/converse-controlbox.js-415-                        return;
+##############################################
+/src/src/converse-controlbox.js-436-                    }
+/src/src/converse-controlbox.js:437:                    this.connect($form, jid, password);
+/src/src/converse-controlbox.js-438-                    return false;
+##############################################
+/src/src/converse-controlbox.js-453-                    }
+/src/src/converse-controlbox.js:454:                    converse.connection.connect(jid, password, converse.onConnectStatusChanged);
+/src/src/converse-controlbox.js-455-                },
+##############################################
+/src/src/converse-register.js-242-                    });
+/src/src/converse-register.js:243:                    converse.connection.connect(this.domain, "", this.onRegistering.bind(this));
+/src/src/converse-register.js-244-                    return false;
+##############################################
+/src/src/converse-register.js-282-                                // automatically log the user in
+/src/src/converse-register.js:283:                                converse.connection.connect(
+/src/src/converse-register.js-284-                                    that.fields.username.toLowerCase()+'@'+that.domain.toLowerCase(),
+##############################################
+/src/bootstrap.py-202-setup_requirement_path = ws.find(
+/src/bootstrap.py:203:    pkg_resources.Requirement.parse(setup_requirement)).location
+/src/bootstrap.py-204-env = dict(
+##############################################
+/src/bootstrap.py-222-        index.add_find_links((find_links,))
+/src/bootstrap.py:223:    req = pkg_resources.Requirement.parse(requirement)
+/src/bootstrap.py-224-    if index.obtain(req) is not None:
+Binary file /src/.swb matches
+##############################################
+/src/spec/otr.js-67-                var sender_jid = mock.cur_names[3].replace(/ /g,'.').toLowerCase() + '@localhost';
+/src/spec/otr.js:68:                converse_api.chats.open(sender_jid);
+/src/spec/otr.js-69-                var chatbox = converse.chatboxes.get(sender_jid);
+##############################################
+/src/spec/converse.js-277-                    expect(converse_api.chats.get('non-existing@jabber.org')).toBeFalsy();
+/src/spec/converse.js:278:                    var box = converse_api.chats.open(jid);
+/src/spec/converse.js-279-                    expect(box instanceof Object).toBeTruthy();
+##############################################
+/src/spec/converse.js-288-                    var jid2 = mock.cur_names[1].replace(/ /g,'.').toLowerCase() + '@localhost';
+/src/spec/converse.js:289:                    var list = converse_api.chats.open([jid, jid2]);
+/src/spec/converse.js-290-                    expect(Array.isArray(list)).toBeTruthy();
+##############################################
+/src/spec/chatbox.js-538-                            fullname = _.isEmpty(fullname)? converse.bare_jid: fullname;
+/src/spec/chatbox.js:539:                            converse_api.chats.open(sender_jid);
+/src/spec/chatbox.js-540-                            var msg_text = 'This message will not be sent, due to an error';
+##############################################
+/src/spec/mam.js-33-                }
+/src/spec/mam.js:34:                converse_api.archive.query();
+/src/spec/mam.js-35-                var queryid = $(sent_stanza.toString()).find('query').attr('queryid');
+##############################################
+/src/spec/mam.js-49-                }
+/src/spec/mam.js:50:                converse_api.archive.query({'with':'juliet@capulet.lit'});
+/src/spec/mam.js-51-                var queryid = $(sent_stanza.toString()).find('query').attr('queryid');
+##############################################
+/src/spec/mam.js-124-                var start = '2010-06-07T00:00:00Z';
+/src/spec/mam.js:125:                converse_api.archive.query({'start': start});
+/src/spec/mam.js-126-                var queryid = $(sent_stanza.toString()).find('query').attr('queryid');
+##############################################
+/src/spec/mam.js-153-                var start = '2010-06-07T00:00:00Z';
+/src/spec/mam.js:154:                converse_api.archive.query({'start': start, 'max':10});
+/src/spec/mam.js-155-                var queryid = $(sent_stanza.toString()).find('query').attr('queryid');
+##############################################
+/src/spec/mam.js-221-                }
+/src/spec/mam.js:222:                converse_api.archive.query({'before': '', 'max':10});
+/src/spec/mam.js-223-                var queryid = $(sent_stanza.toString()).find('query').attr('queryid');
+##############################################
+/src/spec/mam.js-257-                rsm.start = '2010-06-07T00:00:00Z';
+/src/spec/mam.js:258:                converse_api.archive.query(rsm);
+/src/spec/mam.js-259-
+##############################################
+/src/spec/mam.js-294-
+/src/spec/mam.js:295:                converse_api.archive.query({'with': 'romeo@capulet.lit', 'max':'10'}, callback);
+/src/spec/mam.js-296-                var queryid = $(sent_stanza.toString()).find('query').attr('queryid');
+##############################################
+/src/spec/chatroom.js-101-                var jid = 'lounge@localhost';
+/src/spec/chatroom.js:102:                var room = converse_api.rooms.open(jid);
+/src/spec/chatroom.js-103-                runs(function () {
+##############################################
+/src/spec/chatroom.js-112-                    // Test again, now that the room exists.
+/src/spec/chatroom.js:113:                    room = converse_api.rooms.open(jid);
+/src/spec/chatroom.js-114-                    expect(room instanceof Object).toBeTruthy();
+##############################################
+/src/spec/chatroom.js-122-                    jid = 'Leisure@localhost';
+/src/spec/chatroom.js:123:                    room = converse_api.rooms.open(jid);
+/src/spec/chatroom.js-124-                    expect(room instanceof Object).toBeTruthy();
+##############################################
+/src/spec/chatroom.js-128-                    jid = 'leisure@localhost';
+/src/spec/chatroom.js:129:                    room = converse_api.rooms.open(jid);
+/src/spec/chatroom.js-130-                    expect(room instanceof Object).toBeTruthy();
+##############################################
+/src/spec/chatroom.js-134-                    jid = 'leiSure@localhost';
+/src/spec/chatroom.js:135:                    room = converse_api.rooms.open(jid);
+/src/spec/chatroom.js-136-                    expect(room instanceof Object).toBeTruthy();
+##############################################
+/src/spec/chatroom.js-150-                    // Test with configuration
+/src/spec/chatroom.js:151:                    converse_api.rooms.open('room@conference.example.org', {
+/src/spec/chatroom.js-152-                        'nick': 'some1',
+##############################################
+/src/spec/chatroom.js-265-                runs(function () {
+/src/spec/chatroom.js:266:                    converse_api.rooms.open('coven@chat.shakespeare.lit', {'nick': 'some1'});
+/src/spec/chatroom.js-267-                    view = converse.chatboxviews.get('coven@chat.shakespeare.lit');
+##############################################
+/src/spec/chatroom.js-917-
+/src/spec/chatroom.js:918:                converse_api.rooms.open('coven@chat.shakespeare.lit', {'nick': 'some1'});
+/src/spec/chatroom.js-919-
+##############################################
+/src/spec/chatroom.js-982-                });
+/src/spec/chatroom.js:983:                converse_api.rooms.open('coven@chat.shakespeare.lit', {'nick': 'some1'});
+/src/spec/chatroom.js-984-
+##############################################
+/src/docs/source/developer_api.rst-132-    }
+/src/docs/source/developer_api.rst:133:    converse.archive.query(callback, errback))
+/src/docs/source/developer_api.rst-134-
+##############################################
+/src/docs/source/developer_api.rst-155-        if (feature.get('var') === converse.env.Strophe.NS.MAM) {
+/src/docs/source/developer_api.rst:156:            converse.archive.query()
+/src/docs/source/developer_api.rst-157-        }
+##############################################
+/src/docs/source/developer_api.rst-168-    // For a particular user
+/src/docs/source/developer_api.rst:169:    converse.archive.query({'with': 'john@doe.net'}, callback, errback);)
+/src/docs/source/developer_api.rst-170-
+/src/docs/source/developer_api.rst-171-    // For a particular room
+/src/docs/source/developer_api.rst:172:    converse.archive.query({'with': 'discuss@conference.doglovers.net'}, callback, errback);)
+/src/docs/source/developer_api.rst-173-
+##############################################
+/src/docs/source/developer_api.rst-187-    };
+/src/docs/source/developer_api.rst:188:    converse.archive.query(options, callback, errback);
+/src/docs/source/developer_api.rst-189-
+##############################################
+/src/docs/source/developer_api.rst-198-    // Return maximum 10 archived messages
+/src/docs/source/developer_api.rst:199:    converse.archive.query({'with': 'john@doe.net', 'max':10}, callback, errback);
+/src/docs/source/developer_api.rst-200-
+##############################################
+/src/docs/source/developer_api.rst-222-        // You can now use the returned "rsm" object, to fetch the next batch of messages:
+/src/docs/source/developer_api.rst:223:        converse.archive.query(rsm.next(10), callback, errback))
+/src/docs/source/developer_api.rst-224-
+/src/docs/source/developer_api.rst-225-    }
+/src/docs/source/developer_api.rst:226:    converse.archive.query({'with': 'john@doe.net', 'max':10}, callback, errback);
+/src/docs/source/developer_api.rst-227-
+##############################################
+/src/docs/source/developer_api.rst-236-
+/src/docs/source/developer_api.rst:237:    converse.archive.query({'before': '', 'max':5}, function (message, rsm) {
+/src/docs/source/developer_api.rst-238-        // Do something with the messages, like showing them in your webpage.
+##############################################
+/src/docs/source/developer_api.rst-243-        // Now we query again, to get the previous batch.
+/src/docs/source/developer_api.rst:244:        converse.archive.query(rsm, callback, errback);
+/src/docs/source/developer_api.rst-245-    }
+##############################################
+/src/docs/source/developer_api.rst-473-
+/src/docs/source/developer_api.rst:474:    converse.chats.open('buddy@example.com')
+/src/docs/source/developer_api.rst-475-
+##############################################
+/src/docs/source/developer_api.rst-479-
+/src/docs/source/developer_api.rst:480:    converse.chats.open(['buddy1@example.com', 'buddy2@example.com'])
+/src/docs/source/developer_api.rst-481-
+##############################################
+/src/docs/source/developer_api.rst-536-    var create_if_not_found = true;
+/src/docs/source/developer_api.rst:537:    converse.rooms.open('group@muc.example.com', {'nick': nick}, create_if_not_found)
+/src/docs/source/developer_api.rst-538-
+##############################################
+/src/docs/source/developer_api.rst-554-
+/src/docs/source/developer_api.rst:555:    converse.rooms.open('group@muc.example.com')
+/src/docs/source/developer_api.rst-556-
+##############################################
+/src/docs/source/developer_api.rst-560-
+/src/docs/source/developer_api.rst:561:    converse.rooms.open(['group1@muc.example.com', 'group2@muc.example.com'])
+/src/docs/source/developer_api.rst-562-
+##############################################
+/src/docs/source/developer_api.rst-566-
+/src/docs/source/developer_api.rst:567:    converse.rooms.open('group@muc.example.com', {'nick': 'mycustomnick'})
+/src/docs/source/developer_api.rst-568-
+##############################################
+/src/docs/source/developer_api.rst-587-
+/src/docs/source/developer_api.rst:588:    converse.rooms.open(
+/src/docs/source/developer_api.rst-589-        'myroom@conference.example.org',
+##############################################
+/src/dist/converse.js-7750-				// http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+/src/dist/converse.js:7751:				// Use proper attribute retrieval(#12072)
+/src/dist/converse.js-7752-				var tabindex = jQuery.find.attr( elem, "tabindex" );
+##############################################
+/src/dist/converse.js-8428-jQuery.parseJSON = function( data ) {
+/src/dist/converse.js:8429:	return JSON.parse( data + "" );
+/src/dist/converse.js-8430-};
+##############################################
+/src/dist/converse.js-9528-
+/src/dist/converse.js:9529:				xhr.open(
+/src/dist/converse.js-9530-					options.type,
+##############################################
+/src/dist/converse.js-19879-     *
+/src/dist/converse.js:19880:     *  var conn = Strophe.connect('http://example.com/http-bind');
+/src/dist/converse.js-19881-     *  conn.addProtocolErrorHandler('HTTP', 500, onError);
+/src/dist/converse.js-19882-     *  // Triggers HTTP 500 error and onError handler will be called
+/src/dist/converse.js:19883:     *  conn.connect('user_jid@incorrect_jabber_host', 'secret', onConnect);
+/src/dist/converse.js-19884-     */
+##############################################
+/src/dist/converse.js-22076-    _restore: function (jid, callback, wait, hold, wind) {
+/src/dist/converse.js:22077:        var session = JSON.parse(window.sessionStorage.getItem('strophe-bosh-session'));
+/src/dist/converse.js-22078-        if (typeof session !== "undefined" &&
+##############################################
+/src/dist/converse.js-22486-                var contentType = this._conn.options.contentType || "text/xml; charset=utf-8";
+/src/dist/converse.js:22487:                req.xhr.open("POST", this._conn.service, this._conn.options.sync ? false : true);
+/src/dist/converse.js-22488-                if (typeof req.xhr.setRequestHeader !== 'undefined') {
+##############################################
+/src/dist/converse.js-23713-            var xhr = text.createXhr(), header;
+/src/dist/converse.js:23714:            xhr.open('GET', url, true);
+/src/dist/converse.js-23715-
+##############################################
+/src/dist/converse.js-25458-    if (options.collection) this.collection = options.collection;
+/src/dist/converse.js:25459:    if (options.parse) attrs = this.parse(attrs, options) || {};
+/src/dist/converse.js-25460-    var defaults = _.result(this, 'defaults');
+##############################################
+/src/dist/converse.js-25651-      options.success = function(resp) {
+/src/dist/converse.js:25652:        var serverAttrs = options.parse ? model.parse(resp, options) : resp;
+/src/dist/converse.js-25653-        if (!model.set(serverAttrs, options)) return false;
+##############################################
+/src/dist/converse.js-25693-        model.attributes = attributes;
+/src/dist/converse.js:25694:        var serverAttrs = options.parse ? model.parse(resp, options) : resp;
+/src/dist/converse.js-25695-        if (wait) serverAttrs = _.extend({}, attrs, serverAttrs);
+##############################################
+/src/dist/converse.js-25888-      if (options.parse && !this._isModel(models)) {
+/src/dist/converse.js:25889:        models = this.parse(models, options) || [];
+/src/dist/converse.js-25890-      }
+##############################################
+/src/dist/converse.js-25925-            var attrs = this._isModel(model) ? model.attributes : model;
+/src/dist/converse.js:25926:            if (options.parse) attrs = existing.parse(attrs, options);
+/src/dist/converse.js-25927-            existing.set(attrs, options);
+##############################################
+/src/dist/converse.js-26766-        var iWindow = body.insertBefore(this.iframe, body.firstChild).contentWindow;
+/src/dist/converse.js:26767:        iWindow.document.open();
+/src/dist/converse.js-26768-        iWindow.document.close();
+##############################################
+/src/dist/converse.js-26894-          if (!options.replace) {
+/src/dist/converse.js:26895:            iWindow.document.open();
+/src/dist/converse.js-26896-            iWindow.document.close();
+##############################################
+/src/dist/converse.js-27041-        deserialize: function (data) {
+/src/dist/converse.js:27042:        return data && JSON.parse(data);
+/src/dist/converse.js-27043-        }
+##############################################
+/src/dist/converse.js-29164-                }
+/src/dist/converse.js:29165:                this.connection.connect(this.jid.toLowerCase(), null, this.onConnectStatusChanged);
+/src/dist/converse.js-29166-            } else if (this.authentication === converse.LOGIN) {
+##############################################
+/src/dist/converse.js-29182-                }
+/src/dist/converse.js:29183:                this.connection.connect(this.jid, password, this.onConnectStatusChanged);
+/src/dist/converse.js-29184-            }
+##############################################
+/src/dist/converse.js-29917-      if (!str_format.cache.hasOwnProperty(arguments[0])) {
+/src/dist/converse.js:29918:        str_format.cache[arguments[0]] = str_format.parse(arguments[0]);
+/src/dist/converse.js-29919-      }
+##############################################
+/src/dist/converse.js-30078-
+/src/dist/converse.js:30079:    var ast = Jed.PF.parse( p );
+/src/dist/converse.js-30080-    return function ( n ) {
+##############################################
+/src/dist/converse.js-33346-                    if (converse.authentication === converse.ANONYMOUS) {
+/src/dist/converse.js:33347:                        this.connect($form, converse.jid, null);
+/src/dist/converse.js-33348-                        return;
+##############################################
+/src/dist/converse.js-33369-                    }
+/src/dist/converse.js:33370:                    this.connect($form, jid, password);
+/src/dist/converse.js-33371-                    return false;
+##############################################
+/src/dist/converse.js-33386-                    }
+/src/dist/converse.js:33387:                    converse.connection.connect(jid, password, converse.onConnectStatusChanged);
+/src/dist/converse.js-33388-                },
+##############################################
+/src/dist/converse.js-34998-                this.isActivated = true;
+/src/dist/converse.js:34999:                this.dropdown.open();
+/src/dist/converse.js-35000-            },
+##############################################
+/src/dist/converse.js-35033-                this.dropdown.isEmpty && query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.moveCursorUp();
+/src/dist/converse.js:35034:                this.dropdown.open();
+/src/dist/converse.js-35035-            },
+##############################################
+/src/dist/converse.js-35038-                this.dropdown.isEmpty && query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.moveCursorDown();
+/src/dist/converse.js:35039:                this.dropdown.open();
+/src/dist/converse.js-35040-            },
+##############################################
+/src/dist/converse.js-35049-                query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.empty();
+/src/dist/converse.js:35050:                this.dropdown.open();
+/src/dist/converse.js-35051-                this._setLanguageDirection();
+##############################################
+/src/dist/converse.js-35054-                this._updateHint();
+/src/dist/converse.js:35055:                this.dropdown.open();
+/src/dist/converse.js-35056-            },
+##############################################
+/src/dist/converse.js-35098-            open: function open() {
+/src/dist/converse.js:35099:                this.dropdown.open();
+/src/dist/converse.js-35100-            },
+##############################################
+/src/dist/converse.js-35204-                    if (typeahead = $input.data(typeaheadKey)) {
+/src/dist/converse.js:35205:                        typeahead.open();
+/src/dist/converse.js-35206-                    }
+##############################################
+/src/dist/converse.js-37106-                    this.addSpinner();
+/src/dist/converse.js:37107:                    converse_api.archive.query(_.extend(options, {'groupchat': true}),
+/src/dist/converse.js-37108-                        function (messages) {
+##############################################
+/src/dist/converse.js-37625-                    if (typeof room === 'string') {
+/src/dist/converse.js:37626:                        converse_api.rooms.open(room);
+/src/dist/converse.js-37627-                    } else if (typeof room === 'object') {
+/src/dist/converse.js:37628:                        converse_api.rooms.open(room.jid, room.nick);
+/src/dist/converse.js-37629-                    } else {
+##############################################
+/src/dist/converse.js-38045-                    if (bookmark.get('autojoin')) {
+/src/dist/converse.js:38046:                        converse_api.rooms.open(bookmark.get('jid'), bookmark.get('nick'));
+/src/dist/converse.js-38047-                    }
+##############################################
+/src/dist/converse.js-39256-         *
+/src/dist/converse.js:39257:         *     var wordArray = CryptoJS.enc.Hex.parse(hexString);
+/src/dist/converse.js-39258-         */
+##############################################
+/src/dist/converse.js-39315-         *
+/src/dist/converse.js:39316:         *     var wordArray = CryptoJS.enc.Latin1.parse(latin1String);
+/src/dist/converse.js-39317-         */
+##############################################
+/src/dist/converse.js-39367-         *
+/src/dist/converse.js:39368:         *     var wordArray = CryptoJS.enc.Utf8.parse(utf8String);
+/src/dist/converse.js-39369-         */
+/src/dist/converse.js-39370-        parse: function (utf8Str) {
+/src/dist/converse.js:39371:            return Latin1.parse(unescape(encodeURIComponent(utf8Str)));
+/src/dist/converse.js-39372-        }
+##############################################
+/src/dist/converse.js-39408-            if (typeof data == 'string') {
+/src/dist/converse.js:39409:                data = Utf8.parse(data);
+/src/dist/converse.js-39410-            }
+##############################################
+/src/dist/converse.js-39708-         *
+/src/dist/converse.js:39709:         *     var wordArray = CryptoJS.enc.Base64.parse(base64String);
+/src/dist/converse.js-39710-         */
+##############################################
+/src/dist/converse.js-40711-         *
+/src/dist/converse.js:40712:         *     var cipherParams = CryptoJS.format.OpenSSL.parse(openSSLString);
+/src/dist/converse.js-40713-         */
+##############################################
+/src/dist/converse.js-40715-            // Parse base64
+/src/dist/converse.js:40716:            var ciphertext = Base64.parse(openSSLStr);
+/src/dist/converse.js-40717-
+##############################################
+/src/dist/converse.js-40836-            if (typeof ciphertext == 'string') {
+/src/dist/converse.js:40837:                return format.parse(ciphertext, this);
+/src/dist/converse.js-40838-            } else {
+##############################################
+/src/dist/converse.js-41555-            if (typeof key == 'string') {
+/src/dist/converse.js:41556:                key = Utf8.parse(key);
+/src/dist/converse.js-41557-            }
+##############################################
+/src/dist/converse.js-44071-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse.js:44072:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packBytes(version, DTS.BYTE)))
+/src/dist/converse.js:44073:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(fmpi)))
+/src/dist/converse.js:44074:    if (smpi) sha256.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(smpi)))
+/src/dist/converse.js-44075-    var hash = sha256.finalize()
+##############################################
+/src/dist/converse.js-44079-  HLP.makeMac = function (aesctr, m) {
+/src/dist/converse.js:44080:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse.js:44081:    var mac = CryptoJS.HmacSHA256(CryptoJS.enc.Latin1.parse(aesctr), pass)
+/src/dist/converse.js-44082-    return HLP.mask(mac.toString(CryptoJS.enc.Latin1), 0, 160)
+##############################################
+/src/dist/converse.js-44085-  HLP.make1Mac = function (aesctr, m) {
+/src/dist/converse.js:44086:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse.js:44087:    var mac = CryptoJS.HmacSHA1(CryptoJS.enc.Latin1.parse(aesctr), pass)
+/src/dist/converse.js-44088-    return mac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-44093-        mode: CryptoJS.mode.CTR
+/src/dist/converse.js:44094:      , iv: CryptoJS.enc.Latin1.parse(iv)
+/src/dist/converse.js-44095-      , padding: CryptoJS.pad.NoPadding
+##############################################
+/src/dist/converse.js-44098-        msg
+/src/dist/converse.js:44099:      , CryptoJS.enc.Latin1.parse(c)
+/src/dist/converse.js-44100-      , opts
+/src/dist/converse.js-44101-    )
+/src/dist/converse.js:44102:    var aesctr_decoded = CryptoJS.enc.Base64.parse(aesctr.toString())
+/src/dist/converse.js-44103-    return CryptoJS.enc.Latin1.stringify(aesctr_decoded)
+##############################################
+/src/dist/converse.js-44106-  HLP.decryptAes = function (msg, c, iv) {
+/src/dist/converse.js:44107:    msg = CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse.js-44108-    var opts = {
+/src/dist/converse.js-44109-        mode: CryptoJS.mode.CTR
+/src/dist/converse.js:44110:      , iv: CryptoJS.enc.Latin1.parse(iv)
+/src/dist/converse.js-44111-      , padding: CryptoJS.pad.NoPadding
+##############################################
+/src/dist/converse.js-44114-        CryptoJS.enc.Base64.stringify(msg)
+/src/dist/converse.js:44115:      , CryptoJS.enc.Latin1.parse(c)
+/src/dist/converse.js-44116-      , opts
+##############################################
+/src/dist/converse.js-44142-    var sha1 = CryptoJS.algo.SHA1.create()
+/src/dist/converse.js:44143:    sha1.update(CryptoJS.enc.Latin1.parse(b))
+/src/dist/converse.js:44144:    sha1.update(CryptoJS.enc.Latin1.parse(secbytes))
+/src/dist/converse.js-44145-    return (sha1.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-44149-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse.js:44150:    sha256.update(CryptoJS.enc.Latin1.parse(b))
+/src/dist/converse.js:44151:    sha256.update(CryptoJS.enc.Latin1.parse(secbytes))
+/src/dist/converse.js-44152-    return (sha256.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-44252-  HLP.wrapMsg = function (msg, fs, v3, our_it, their_it) {
+/src/dist/converse.js:44253:    msg = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Latin1.parse(msg))
+/src/dist/converse.js-44254-    msg = WRAPPER_BEGIN + ":" + msg + WRAPPER_END
+##############################################
+/src/dist/converse.js-44546-      var str = this.packPublic() + HLP.packMPI(this.x)
+/src/dist/converse.js:44547:      str = CryptoJS.enc.Latin1.parse(str)
+/src/dist/converse.js-44548-      return str.toString(CryptoJS.enc.Base64)
+##############################################
+/src/dist/converse.js-44556-      var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse.js:44557:      sha256.update(CryptoJS.enc.Latin1.parse(priv))
+/src/dist/converse.js-44558-      sha256.update(m)
+/src/dist/converse.js:44559:      sha256.update(CryptoJS.enc.Latin1.parse(rand))
+/src/dist/converse.js-44560-
+##############################################
+/src/dist/converse.js-44568-    sign: function (m) {
+/src/dist/converse.js:44569:      m = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse.js-44570-      var b = BigInt.str2bigInt(m.toString(CryptoJS.enc.Hex), 16)
+##############################################
+/src/dist/converse.js-44585-      if (this.type === KEY_TYPE) pk = pk.substring(2)
+/src/dist/converse.js:44586:      pk = CryptoJS.enc.Latin1.parse(pk)
+/src/dist/converse.js-44587-      return CryptoJS.SHA1(pk).toString(CryptoJS.enc.Hex)
+##############################################
+/src/dist/converse.js-44681-    if (!libotr) {
+/src/dist/converse.js:44682:      str = CryptoJS.enc.Base64.parse(str)
+/src/dist/converse.js-44683-      str = str.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-44693-
+/src/dist/converse.js:44694:    var hm = CryptoJS.enc.Latin1.parse(m)  // CryptoJS.SHA1(m)
+/src/dist/converse.js-44695-    hm = BigInt.str2bigInt(hm.toString(CryptoJS.enc.Hex), 16)
+##############################################
+/src/dist/converse.js-44852-      if (info.length < 4) return { msg: msg }
+/src/dist/converse.js:44853:      info = CryptoJS.enc.Base64.parse(info).toString(CryptoJS.enc.Latin1)
+/src/dist/converse.js-44854-
+##############################################
+/src/dist/converse.js-44865-
+/src/dist/converse.js:44866:      msg = CryptoJS.enc.Base64.parse(msg.substring(ind, ind + end))
+/src/dist/converse.js-44867-      msg = CryptoJS.enc.Latin1.stringify(msg)
+##############################################
+/src/dist/converse.js-44980-  function hMac(gx, gy, pk, kid, m) {
+/src/dist/converse.js:44981:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse.js-44982-    var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, pass)
+/src/dist/converse.js:44983:    hmac.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(gx)))
+/src/dist/converse.js:44984:    hmac.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(gy)))
+/src/dist/converse.js:44985:    hmac.update(CryptoJS.enc.Latin1.parse(pk))
+/src/dist/converse.js:44986:    hmac.update(CryptoJS.enc.Latin1.parse(kid))
+/src/dist/converse.js-44987-    return (hmac.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-45064-      msg += BigInt.bigInt2bits(m[1], 20)
+/src/dist/converse.js:45065:      msg = CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse.js-45066-      var aesctr = HLP.packData(HLP.encryptAes(msg, c, HLP.packCtr(0)))
+##############################################
+/src/dist/converse.js-45205-          // decrypt their_y
+/src/dist/converse.js:45206:          var key = CryptoJS.enc.Hex.parse(BigInt.bigInt2str(this.r, 16))
+/src/dist/converse.js-45207-          key = CryptoJS.enc.Latin1.stringify(key)
+##############################################
+/src/dist/converse.js-45214-          // verify hash
+/src/dist/converse.js:45215:          var hash = CryptoJS.SHA256(CryptoJS.enc.Latin1.parse(gxmpi))
+/src/dist/converse.js-45216-
+##############################################
+/src/dist/converse.js-45333-      var gxmpi = HLP.packMPI(this.our_dh.publicKey)
+/src/dist/converse.js:45334:      gxmpi = CryptoJS.enc.Latin1.parse(gxmpi)
+/src/dist/converse.js-45335-
+/src/dist/converse.js-45336-      this.r = BigInt.randBigInt(128)
+/src/dist/converse.js:45337:      var key = CryptoJS.enc.Hex.parse(BigInt.bigInt2str(this.r, 16))
+/src/dist/converse.js-45338-      key = CryptoJS.enc.Latin1.stringify(key)
+##############################################
+/src/dist/converse.js-45410-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse.js:45411:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packBytes(this.version, 1)))
+/src/dist/converse.js:45412:    sha256.update(CryptoJS.enc.Hex.parse(our ? this.our_fp : this.their_fp))
+/src/dist/converse.js:45413:    sha256.update(CryptoJS.enc.Hex.parse(our ? this.their_fp : this.our_fp))
+/src/dist/converse.js:45414:    sha256.update(CryptoJS.enc.Latin1.parse(this.ssid))
+/src/dist/converse.js:45415:    sha256.update(CryptoJS.enc.Latin1.parse(secret))
+/src/dist/converse.js-45416-    var hash = sha256.finalize()
+##############################################
+/src/dist/converse.js-45525-        question = CryptoJS.enc.Latin1
+/src/dist/converse.js:45526:          .parse(question)
+/src/dist/converse.js-45527-          .toString(CryptoJS.enc.Utf8)
+##############################################
+/src/dist/converse.js-46055-    this.sendenc = HLP.mask(HLP.h1(sendbyte, secbytes), 0, 128)  // f16 bytes
+/src/dist/converse.js:46056:    this.sendmac = CryptoJS.SHA1(CryptoJS.enc.Latin1.parse(this.sendenc))
+/src/dist/converse.js-46057-    this.sendmac = this.sendmac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-46059-    this.rcvenc = HLP.mask(HLP.h1(rcvbyte, secbytes), 0, 128)
+/src/dist/converse.js:46060:    this.rcvmac = CryptoJS.SHA1(CryptoJS.enc.Latin1.parse(this.rcvenc))
+/src/dist/converse.js-46061-    this.rcvmac = this.rcvmac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-46149-    var aes = HLP.encryptAes(
+/src/dist/converse.js:46150:        CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse.js-46151-      , sessKeys.sendenc
+##############################################
+/src/dist/converse.js-46246-
+/src/dist/converse.js:46247:    out = CryptoJS.enc.Latin1.parse(out)
+/src/dist/converse.js-46248-    return out.toString(CryptoJS.enc.Utf8)
+##############################################
+/src/dist/converse.js-46280-          msg = msg.substring(4) // remove 4-byte indication
+/src/dist/converse.js:46281:          msg = CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse.js-46282-          msg = msg.toString(CryptoJS.enc.Utf8)
+##############################################
+/src/dist/converse.js-46302-    // utf8 inputs
+/src/dist/converse.js:46303:    secret = CryptoJS.enc.Utf8.parse(secret).toString(CryptoJS.enc.Latin1)
+/src/dist/converse.js:46304:    question = CryptoJS.enc.Utf8.parse(question).toString(CryptoJS.enc.Latin1)
+/src/dist/converse.js-46305-
+##############################################
+/src/dist/converse.js-46335-    ) {
+/src/dist/converse.js:46336:      msg = CryptoJS.enc.Utf8.parse(msg)
+/src/dist/converse.js-46337-      msg = msg.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-46467-    // utf8 filenames
+/src/dist/converse.js:46468:    var l1name = CryptoJS.enc.Utf8.parse(filename)
+/src/dist/converse.js-46469-    l1name = l1name.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse.js-47413-                    });
+/src/dist/converse.js:47414:                    converse.connection.connect(this.domain, "", this.onRegistering.bind(this));
+/src/dist/converse.js-47415-                    return false;
+##############################################
+/src/dist/converse.js-47453-                                // automatically log the user in
+/src/dist/converse.js:47454:                                converse.connection.connect(
+/src/dist/converse.js-47455-                                    that.fields.username.toLowerCase()+'@'+that.domain.toLowerCase(),
+##############################################
+/src/dist/converse-mobile.js-7750-				// http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+/src/dist/converse-mobile.js:7751:				// Use proper attribute retrieval(#12072)
+/src/dist/converse-mobile.js-7752-				var tabindex = jQuery.find.attr( elem, "tabindex" );
+##############################################
+/src/dist/converse-mobile.js-8428-jQuery.parseJSON = function( data ) {
+/src/dist/converse-mobile.js:8429:	return JSON.parse( data + "" );
+/src/dist/converse-mobile.js-8430-};
+##############################################
+/src/dist/converse-mobile.js-9528-
+/src/dist/converse-mobile.js:9529:				xhr.open(
+/src/dist/converse-mobile.js-9530-					options.type,
+##############################################
+/src/dist/converse-mobile.js-19879-     *
+/src/dist/converse-mobile.js:19880:     *  var conn = Strophe.connect('http://example.com/http-bind');
+/src/dist/converse-mobile.js-19881-     *  conn.addProtocolErrorHandler('HTTP', 500, onError);
+/src/dist/converse-mobile.js-19882-     *  // Triggers HTTP 500 error and onError handler will be called
+/src/dist/converse-mobile.js:19883:     *  conn.connect('user_jid@incorrect_jabber_host', 'secret', onConnect);
+/src/dist/converse-mobile.js-19884-     */
+##############################################
+/src/dist/converse-mobile.js-22076-    _restore: function (jid, callback, wait, hold, wind) {
+/src/dist/converse-mobile.js:22077:        var session = JSON.parse(window.sessionStorage.getItem('strophe-bosh-session'));
+/src/dist/converse-mobile.js-22078-        if (typeof session !== "undefined" &&
+##############################################
+/src/dist/converse-mobile.js-22486-                var contentType = this._conn.options.contentType || "text/xml; charset=utf-8";
+/src/dist/converse-mobile.js:22487:                req.xhr.open("POST", this._conn.service, this._conn.options.sync ? false : true);
+/src/dist/converse-mobile.js-22488-                if (typeof req.xhr.setRequestHeader !== 'undefined') {
+##############################################
+/src/dist/converse-mobile.js-23713-            var xhr = text.createXhr(), header;
+/src/dist/converse-mobile.js:23714:            xhr.open('GET', url, true);
+/src/dist/converse-mobile.js-23715-
+##############################################
+/src/dist/converse-mobile.js-25458-    if (options.collection) this.collection = options.collection;
+/src/dist/converse-mobile.js:25459:    if (options.parse) attrs = this.parse(attrs, options) || {};
+/src/dist/converse-mobile.js-25460-    var defaults = _.result(this, 'defaults');
+##############################################
+/src/dist/converse-mobile.js-25651-      options.success = function(resp) {
+/src/dist/converse-mobile.js:25652:        var serverAttrs = options.parse ? model.parse(resp, options) : resp;
+/src/dist/converse-mobile.js-25653-        if (!model.set(serverAttrs, options)) return false;
+##############################################
+/src/dist/converse-mobile.js-25693-        model.attributes = attributes;
+/src/dist/converse-mobile.js:25694:        var serverAttrs = options.parse ? model.parse(resp, options) : resp;
+/src/dist/converse-mobile.js-25695-        if (wait) serverAttrs = _.extend({}, attrs, serverAttrs);
+##############################################
+/src/dist/converse-mobile.js-25888-      if (options.parse && !this._isModel(models)) {
+/src/dist/converse-mobile.js:25889:        models = this.parse(models, options) || [];
+/src/dist/converse-mobile.js-25890-      }
+##############################################
+/src/dist/converse-mobile.js-25925-            var attrs = this._isModel(model) ? model.attributes : model;
+/src/dist/converse-mobile.js:25926:            if (options.parse) attrs = existing.parse(attrs, options);
+/src/dist/converse-mobile.js-25927-            existing.set(attrs, options);
+##############################################
+/src/dist/converse-mobile.js-26766-        var iWindow = body.insertBefore(this.iframe, body.firstChild).contentWindow;
+/src/dist/converse-mobile.js:26767:        iWindow.document.open();
+/src/dist/converse-mobile.js-26768-        iWindow.document.close();
+##############################################
+/src/dist/converse-mobile.js-26894-          if (!options.replace) {
+/src/dist/converse-mobile.js:26895:            iWindow.document.open();
+/src/dist/converse-mobile.js-26896-            iWindow.document.close();
+##############################################
+/src/dist/converse-mobile.js-27041-        deserialize: function (data) {
+/src/dist/converse-mobile.js:27042:        return data && JSON.parse(data);
+/src/dist/converse-mobile.js-27043-        }
+##############################################
+/src/dist/converse-mobile.js-29164-                }
+/src/dist/converse-mobile.js:29165:                this.connection.connect(this.jid.toLowerCase(), null, this.onConnectStatusChanged);
+/src/dist/converse-mobile.js-29166-            } else if (this.authentication === converse.LOGIN) {
+##############################################
+/src/dist/converse-mobile.js-29182-                }
+/src/dist/converse-mobile.js:29183:                this.connection.connect(this.jid, password, this.onConnectStatusChanged);
+/src/dist/converse-mobile.js-29184-            }
+##############################################
+/src/dist/converse-mobile.js-29917-      if (!str_format.cache.hasOwnProperty(arguments[0])) {
+/src/dist/converse-mobile.js:29918:        str_format.cache[arguments[0]] = str_format.parse(arguments[0]);
+/src/dist/converse-mobile.js-29919-      }
+##############################################
+/src/dist/converse-mobile.js-30078-
+/src/dist/converse-mobile.js:30079:    var ast = Jed.PF.parse( p );
+/src/dist/converse-mobile.js-30080-    return function ( n ) {
+##############################################
+/src/dist/converse-mobile.js-33346-                    if (converse.authentication === converse.ANONYMOUS) {
+/src/dist/converse-mobile.js:33347:                        this.connect($form, converse.jid, null);
+/src/dist/converse-mobile.js-33348-                        return;
+##############################################
+/src/dist/converse-mobile.js-33369-                    }
+/src/dist/converse-mobile.js:33370:                    this.connect($form, jid, password);
+/src/dist/converse-mobile.js-33371-                    return false;
+##############################################
+/src/dist/converse-mobile.js-33386-                    }
+/src/dist/converse-mobile.js:33387:                    converse.connection.connect(jid, password, converse.onConnectStatusChanged);
+/src/dist/converse-mobile.js-33388-                },
+##############################################
+/src/dist/converse-mobile.js-34998-                this.isActivated = true;
+/src/dist/converse-mobile.js:34999:                this.dropdown.open();
+/src/dist/converse-mobile.js-35000-            },
+##############################################
+/src/dist/converse-mobile.js-35033-                this.dropdown.isEmpty && query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.moveCursorUp();
+/src/dist/converse-mobile.js:35034:                this.dropdown.open();
+/src/dist/converse-mobile.js-35035-            },
+##############################################
+/src/dist/converse-mobile.js-35038-                this.dropdown.isEmpty && query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.moveCursorDown();
+/src/dist/converse-mobile.js:35039:                this.dropdown.open();
+/src/dist/converse-mobile.js-35040-            },
+##############################################
+/src/dist/converse-mobile.js-35049-                query.length >= this.minLength ? this.dropdown.update(query) : this.dropdown.empty();
+/src/dist/converse-mobile.js:35050:                this.dropdown.open();
+/src/dist/converse-mobile.js-35051-                this._setLanguageDirection();
+##############################################
+/src/dist/converse-mobile.js-35054-                this._updateHint();
+/src/dist/converse-mobile.js:35055:                this.dropdown.open();
+/src/dist/converse-mobile.js-35056-            },
+##############################################
+/src/dist/converse-mobile.js-35098-            open: function open() {
+/src/dist/converse-mobile.js:35099:                this.dropdown.open();
+/src/dist/converse-mobile.js-35100-            },
+##############################################
+/src/dist/converse-mobile.js-35204-                    if (typeahead = $input.data(typeaheadKey)) {
+/src/dist/converse-mobile.js:35205:                        typeahead.open();
+/src/dist/converse-mobile.js-35206-                    }
+##############################################
+/src/dist/converse-mobile.js-37106-                    this.addSpinner();
+/src/dist/converse-mobile.js:37107:                    converse_api.archive.query(_.extend(options, {'groupchat': true}),
+/src/dist/converse-mobile.js-37108-                        function (messages) {
+##############################################
+/src/dist/converse-mobile.js-37625-                    if (typeof room === 'string') {
+/src/dist/converse-mobile.js:37626:                        converse_api.rooms.open(room);
+/src/dist/converse-mobile.js-37627-                    } else if (typeof room === 'object') {
+/src/dist/converse-mobile.js:37628:                        converse_api.rooms.open(room.jid, room.nick);
+/src/dist/converse-mobile.js-37629-                    } else {
+##############################################
+/src/dist/converse-mobile.js-38045-                    if (bookmark.get('autojoin')) {
+/src/dist/converse-mobile.js:38046:                        converse_api.rooms.open(bookmark.get('jid'), bookmark.get('nick'));
+/src/dist/converse-mobile.js-38047-                    }
+##############################################
+/src/dist/converse-mobile.js-39256-         *
+/src/dist/converse-mobile.js:39257:         *     var wordArray = CryptoJS.enc.Hex.parse(hexString);
+/src/dist/converse-mobile.js-39258-         */
+##############################################
+/src/dist/converse-mobile.js-39315-         *
+/src/dist/converse-mobile.js:39316:         *     var wordArray = CryptoJS.enc.Latin1.parse(latin1String);
+/src/dist/converse-mobile.js-39317-         */
+##############################################
+/src/dist/converse-mobile.js-39367-         *
+/src/dist/converse-mobile.js:39368:         *     var wordArray = CryptoJS.enc.Utf8.parse(utf8String);
+/src/dist/converse-mobile.js-39369-         */
+/src/dist/converse-mobile.js-39370-        parse: function (utf8Str) {
+/src/dist/converse-mobile.js:39371:            return Latin1.parse(unescape(encodeURIComponent(utf8Str)));
+/src/dist/converse-mobile.js-39372-        }
+##############################################
+/src/dist/converse-mobile.js-39408-            if (typeof data == 'string') {
+/src/dist/converse-mobile.js:39409:                data = Utf8.parse(data);
+/src/dist/converse-mobile.js-39410-            }
+##############################################
+/src/dist/converse-mobile.js-39708-         *
+/src/dist/converse-mobile.js:39709:         *     var wordArray = CryptoJS.enc.Base64.parse(base64String);
+/src/dist/converse-mobile.js-39710-         */
+##############################################
+/src/dist/converse-mobile.js-40711-         *
+/src/dist/converse-mobile.js:40712:         *     var cipherParams = CryptoJS.format.OpenSSL.parse(openSSLString);
+/src/dist/converse-mobile.js-40713-         */
+##############################################
+/src/dist/converse-mobile.js-40715-            // Parse base64
+/src/dist/converse-mobile.js:40716:            var ciphertext = Base64.parse(openSSLStr);
+/src/dist/converse-mobile.js-40717-
+##############################################
+/src/dist/converse-mobile.js-40836-            if (typeof ciphertext == 'string') {
+/src/dist/converse-mobile.js:40837:                return format.parse(ciphertext, this);
+/src/dist/converse-mobile.js-40838-            } else {
+##############################################
+/src/dist/converse-mobile.js-41555-            if (typeof key == 'string') {
+/src/dist/converse-mobile.js:41556:                key = Utf8.parse(key);
+/src/dist/converse-mobile.js-41557-            }
+##############################################
+/src/dist/converse-mobile.js-44071-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse-mobile.js:44072:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packBytes(version, DTS.BYTE)))
+/src/dist/converse-mobile.js:44073:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(fmpi)))
+/src/dist/converse-mobile.js:44074:    if (smpi) sha256.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(smpi)))
+/src/dist/converse-mobile.js-44075-    var hash = sha256.finalize()
+##############################################
+/src/dist/converse-mobile.js-44079-  HLP.makeMac = function (aesctr, m) {
+/src/dist/converse-mobile.js:44080:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse-mobile.js:44081:    var mac = CryptoJS.HmacSHA256(CryptoJS.enc.Latin1.parse(aesctr), pass)
+/src/dist/converse-mobile.js-44082-    return HLP.mask(mac.toString(CryptoJS.enc.Latin1), 0, 160)
+##############################################
+/src/dist/converse-mobile.js-44085-  HLP.make1Mac = function (aesctr, m) {
+/src/dist/converse-mobile.js:44086:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse-mobile.js:44087:    var mac = CryptoJS.HmacSHA1(CryptoJS.enc.Latin1.parse(aesctr), pass)
+/src/dist/converse-mobile.js-44088-    return mac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-44093-        mode: CryptoJS.mode.CTR
+/src/dist/converse-mobile.js:44094:      , iv: CryptoJS.enc.Latin1.parse(iv)
+/src/dist/converse-mobile.js-44095-      , padding: CryptoJS.pad.NoPadding
+##############################################
+/src/dist/converse-mobile.js-44098-        msg
+/src/dist/converse-mobile.js:44099:      , CryptoJS.enc.Latin1.parse(c)
+/src/dist/converse-mobile.js-44100-      , opts
+/src/dist/converse-mobile.js-44101-    )
+/src/dist/converse-mobile.js:44102:    var aesctr_decoded = CryptoJS.enc.Base64.parse(aesctr.toString())
+/src/dist/converse-mobile.js-44103-    return CryptoJS.enc.Latin1.stringify(aesctr_decoded)
+##############################################
+/src/dist/converse-mobile.js-44106-  HLP.decryptAes = function (msg, c, iv) {
+/src/dist/converse-mobile.js:44107:    msg = CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse-mobile.js-44108-    var opts = {
+/src/dist/converse-mobile.js-44109-        mode: CryptoJS.mode.CTR
+/src/dist/converse-mobile.js:44110:      , iv: CryptoJS.enc.Latin1.parse(iv)
+/src/dist/converse-mobile.js-44111-      , padding: CryptoJS.pad.NoPadding
+##############################################
+/src/dist/converse-mobile.js-44114-        CryptoJS.enc.Base64.stringify(msg)
+/src/dist/converse-mobile.js:44115:      , CryptoJS.enc.Latin1.parse(c)
+/src/dist/converse-mobile.js-44116-      , opts
+##############################################
+/src/dist/converse-mobile.js-44142-    var sha1 = CryptoJS.algo.SHA1.create()
+/src/dist/converse-mobile.js:44143:    sha1.update(CryptoJS.enc.Latin1.parse(b))
+/src/dist/converse-mobile.js:44144:    sha1.update(CryptoJS.enc.Latin1.parse(secbytes))
+/src/dist/converse-mobile.js-44145-    return (sha1.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-44149-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse-mobile.js:44150:    sha256.update(CryptoJS.enc.Latin1.parse(b))
+/src/dist/converse-mobile.js:44151:    sha256.update(CryptoJS.enc.Latin1.parse(secbytes))
+/src/dist/converse-mobile.js-44152-    return (sha256.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-44252-  HLP.wrapMsg = function (msg, fs, v3, our_it, their_it) {
+/src/dist/converse-mobile.js:44253:    msg = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Latin1.parse(msg))
+/src/dist/converse-mobile.js-44254-    msg = WRAPPER_BEGIN + ":" + msg + WRAPPER_END
+##############################################
+/src/dist/converse-mobile.js-44546-      var str = this.packPublic() + HLP.packMPI(this.x)
+/src/dist/converse-mobile.js:44547:      str = CryptoJS.enc.Latin1.parse(str)
+/src/dist/converse-mobile.js-44548-      return str.toString(CryptoJS.enc.Base64)
+##############################################
+/src/dist/converse-mobile.js-44556-      var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse-mobile.js:44557:      sha256.update(CryptoJS.enc.Latin1.parse(priv))
+/src/dist/converse-mobile.js-44558-      sha256.update(m)
+/src/dist/converse-mobile.js:44559:      sha256.update(CryptoJS.enc.Latin1.parse(rand))
+/src/dist/converse-mobile.js-44560-
+##############################################
+/src/dist/converse-mobile.js-44568-    sign: function (m) {
+/src/dist/converse-mobile.js:44569:      m = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse-mobile.js-44570-      var b = BigInt.str2bigInt(m.toString(CryptoJS.enc.Hex), 16)
+##############################################
+/src/dist/converse-mobile.js-44585-      if (this.type === KEY_TYPE) pk = pk.substring(2)
+/src/dist/converse-mobile.js:44586:      pk = CryptoJS.enc.Latin1.parse(pk)
+/src/dist/converse-mobile.js-44587-      return CryptoJS.SHA1(pk).toString(CryptoJS.enc.Hex)
+##############################################
+/src/dist/converse-mobile.js-44681-    if (!libotr) {
+/src/dist/converse-mobile.js:44682:      str = CryptoJS.enc.Base64.parse(str)
+/src/dist/converse-mobile.js-44683-      str = str.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-44693-
+/src/dist/converse-mobile.js:44694:    var hm = CryptoJS.enc.Latin1.parse(m)  // CryptoJS.SHA1(m)
+/src/dist/converse-mobile.js-44695-    hm = BigInt.str2bigInt(hm.toString(CryptoJS.enc.Hex), 16)
+##############################################
+/src/dist/converse-mobile.js-44852-      if (info.length < 4) return { msg: msg }
+/src/dist/converse-mobile.js:44853:      info = CryptoJS.enc.Base64.parse(info).toString(CryptoJS.enc.Latin1)
+/src/dist/converse-mobile.js-44854-
+##############################################
+/src/dist/converse-mobile.js-44865-
+/src/dist/converse-mobile.js:44866:      msg = CryptoJS.enc.Base64.parse(msg.substring(ind, ind + end))
+/src/dist/converse-mobile.js-44867-      msg = CryptoJS.enc.Latin1.stringify(msg)
+##############################################
+/src/dist/converse-mobile.js-44980-  function hMac(gx, gy, pk, kid, m) {
+/src/dist/converse-mobile.js:44981:    var pass = CryptoJS.enc.Latin1.parse(m)
+/src/dist/converse-mobile.js-44982-    var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, pass)
+/src/dist/converse-mobile.js:44983:    hmac.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(gx)))
+/src/dist/converse-mobile.js:44984:    hmac.update(CryptoJS.enc.Latin1.parse(HLP.packMPI(gy)))
+/src/dist/converse-mobile.js:44985:    hmac.update(CryptoJS.enc.Latin1.parse(pk))
+/src/dist/converse-mobile.js:44986:    hmac.update(CryptoJS.enc.Latin1.parse(kid))
+/src/dist/converse-mobile.js-44987-    return (hmac.finalize()).toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-45064-      msg += BigInt.bigInt2bits(m[1], 20)
+/src/dist/converse-mobile.js:45065:      msg = CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse-mobile.js-45066-      var aesctr = HLP.packData(HLP.encryptAes(msg, c, HLP.packCtr(0)))
+##############################################
+/src/dist/converse-mobile.js-45205-          // decrypt their_y
+/src/dist/converse-mobile.js:45206:          var key = CryptoJS.enc.Hex.parse(BigInt.bigInt2str(this.r, 16))
+/src/dist/converse-mobile.js-45207-          key = CryptoJS.enc.Latin1.stringify(key)
+##############################################
+/src/dist/converse-mobile.js-45214-          // verify hash
+/src/dist/converse-mobile.js:45215:          var hash = CryptoJS.SHA256(CryptoJS.enc.Latin1.parse(gxmpi))
+/src/dist/converse-mobile.js-45216-
+##############################################
+/src/dist/converse-mobile.js-45333-      var gxmpi = HLP.packMPI(this.our_dh.publicKey)
+/src/dist/converse-mobile.js:45334:      gxmpi = CryptoJS.enc.Latin1.parse(gxmpi)
+/src/dist/converse-mobile.js-45335-
+/src/dist/converse-mobile.js-45336-      this.r = BigInt.randBigInt(128)
+/src/dist/converse-mobile.js:45337:      var key = CryptoJS.enc.Hex.parse(BigInt.bigInt2str(this.r, 16))
+/src/dist/converse-mobile.js-45338-      key = CryptoJS.enc.Latin1.stringify(key)
+##############################################
+/src/dist/converse-mobile.js-45410-    var sha256 = CryptoJS.algo.SHA256.create()
+/src/dist/converse-mobile.js:45411:    sha256.update(CryptoJS.enc.Latin1.parse(HLP.packBytes(this.version, 1)))
+/src/dist/converse-mobile.js:45412:    sha256.update(CryptoJS.enc.Hex.parse(our ? this.our_fp : this.their_fp))
+/src/dist/converse-mobile.js:45413:    sha256.update(CryptoJS.enc.Hex.parse(our ? this.their_fp : this.our_fp))
+/src/dist/converse-mobile.js:45414:    sha256.update(CryptoJS.enc.Latin1.parse(this.ssid))
+/src/dist/converse-mobile.js:45415:    sha256.update(CryptoJS.enc.Latin1.parse(secret))
+/src/dist/converse-mobile.js-45416-    var hash = sha256.finalize()
+##############################################
+/src/dist/converse-mobile.js-45525-        question = CryptoJS.enc.Latin1
+/src/dist/converse-mobile.js:45526:          .parse(question)
+/src/dist/converse-mobile.js-45527-          .toString(CryptoJS.enc.Utf8)
+##############################################
+/src/dist/converse-mobile.js-46055-    this.sendenc = HLP.mask(HLP.h1(sendbyte, secbytes), 0, 128)  // f16 bytes
+/src/dist/converse-mobile.js:46056:    this.sendmac = CryptoJS.SHA1(CryptoJS.enc.Latin1.parse(this.sendenc))
+/src/dist/converse-mobile.js-46057-    this.sendmac = this.sendmac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-46059-    this.rcvenc = HLP.mask(HLP.h1(rcvbyte, secbytes), 0, 128)
+/src/dist/converse-mobile.js:46060:    this.rcvmac = CryptoJS.SHA1(CryptoJS.enc.Latin1.parse(this.rcvenc))
+/src/dist/converse-mobile.js-46061-    this.rcvmac = this.rcvmac.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-46149-    var aes = HLP.encryptAes(
+/src/dist/converse-mobile.js:46150:        CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse-mobile.js-46151-      , sessKeys.sendenc
+##############################################
+/src/dist/converse-mobile.js-46246-
+/src/dist/converse-mobile.js:46247:    out = CryptoJS.enc.Latin1.parse(out)
+/src/dist/converse-mobile.js-46248-    return out.toString(CryptoJS.enc.Utf8)
+##############################################
+/src/dist/converse-mobile.js-46280-          msg = msg.substring(4) // remove 4-byte indication
+/src/dist/converse-mobile.js:46281:          msg = CryptoJS.enc.Latin1.parse(msg)
+/src/dist/converse-mobile.js-46282-          msg = msg.toString(CryptoJS.enc.Utf8)
+##############################################
+/src/dist/converse-mobile.js-46302-    // utf8 inputs
+/src/dist/converse-mobile.js:46303:    secret = CryptoJS.enc.Utf8.parse(secret).toString(CryptoJS.enc.Latin1)
+/src/dist/converse-mobile.js:46304:    question = CryptoJS.enc.Utf8.parse(question).toString(CryptoJS.enc.Latin1)
+/src/dist/converse-mobile.js-46305-
+##############################################
+/src/dist/converse-mobile.js-46335-    ) {
+/src/dist/converse-mobile.js:46336:      msg = CryptoJS.enc.Utf8.parse(msg)
+/src/dist/converse-mobile.js-46337-      msg = msg.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-46467-    // utf8 filenames
+/src/dist/converse-mobile.js:46468:    var l1name = CryptoJS.enc.Utf8.parse(filename)
+/src/dist/converse-mobile.js-46469-    l1name = l1name.toString(CryptoJS.enc.Latin1)
+##############################################
+/src/dist/converse-mobile.js-47413-                    });
+/src/dist/converse-mobile.js:47414:                    converse.connection.connect(this.domain, "", this.onRegistering.bind(this));
+/src/dist/converse-mobile.js-47415-                    return false;
+##############################################
+/src/dist/converse-mobile.js-47453-                                // automatically log the user in
+/src/dist/converse-mobile.js:47454:                                converse.connection.connect(
+/src/dist/converse-mobile.js-47455-                                    that.fields.username.toLowerCase()+'@'+that.domain.toLowerCase(),
+##############################################
+/src/dist/converse-no-dependencies.js-723-            var xhr = text.createXhr(), header;
+/src/dist/converse-no-dependencies.js:724:            xhr.open('GET', url, true);
+/src/dist/converse-no-dependencies.js-725-
+##############################################
+/src/dist/converse-no-dependencies.js-3629-                }
+/src/dist/converse-no-dependencies.js:3630:                this.connection.connect(this.jid.toLowerCase(), null, this.onConnectStatusChanged);
+/src/dist/converse-no-dependencies.js-3631-            } else if (this.authentication === converse.LOGIN) {
+##############################################
+/src/dist/converse-no-dependencies.js-3647-                }
+/src/dist/converse-no-dependencies.js:3648:                this.connection.connect(this.jid, password, this.onConnectStatusChanged);
+/src/dist/converse-no-dependencies.js-3649-            }
+##############################################
+/src/dist/converse-no-dependencies.js-4382-      if (!str_format.cache.hasOwnProperty(arguments[0])) {
+/src/dist/converse-no-dependencies.js:4383:        str_format.cache[arguments[0]] = str_format.parse(arguments[0]);
+/src/dist/converse-no-dependencies.js-4384-      }
+##############################################
+/src/dist/converse-no-dependencies.js-4543-
+/src/dist/converse-no-dependencies.js:4544:    var ast = Jed.PF.parse( p );
+/src/dist/converse-no-dependencies.js-4545-    return function ( n ) {
+##############################################
+/src/dist/converse-no-dependencies.js-7707-                    if (converse.authentication === converse.ANONYMOUS) {
+/src/dist/converse-no-dependencies.js:7708:                        this.connect($form, converse.jid, null);
+/src/dist/converse-no-dependencies.js-7709-                        return;
+##############################################
+/src/dist/converse-no-dependencies.js-7730-                    }
+/src/dist/converse-no-dependencies.js:7731:                    this.connect($form, jid, password);
+/src/dist/converse-no-dependencies.js-7732-                    return false;
+##############################################
+/src/dist/converse-no-dependencies.js-7747-                    }
+/src/dist/converse-no-dependencies.js:7748:                    converse.connection.connect(jid, password, converse.onConnectStatusChanged);
+/src/dist/converse-no-dependencies.js-7749-                },
+##############################################
+/src/dist/converse-no-dependencies.js-10271-                    this.addSpinner();
+/src/dist/converse-no-dependencies.js:10272:                    converse_api.archive.query(_.extend(options, {'groupchat': true}),
+/src/dist/converse-no-dependencies.js-10273-                        function (messages) {
+##############################################
+/src/dist/converse-no-dependencies.js-10790-                    if (typeof room === 'string') {
+/src/dist/converse-no-dependencies.js:10791:                        converse_api.rooms.open(room);
+/src/dist/converse-no-dependencies.js-10792-                    } else if (typeof room === 'object') {
+/src/dist/converse-no-dependencies.js:10793:                        converse_api.rooms.open(room.jid, room.nick);
+/src/dist/converse-no-dependencies.js-10794-                    } else {
+##############################################
+/src/dist/converse-no-dependencies.js-11210-                    if (bookmark.get('autojoin')) {
+/src/dist/converse-no-dependencies.js:11211:                        converse_api.rooms.open(bookmark.get('jid'), bookmark.get('nick'));
+/src/dist/converse-no-dependencies.js-11212-                    }
+##############################################
+/src/dist/converse-no-dependencies.js-12830-                    });
+/src/dist/converse-no-dependencies.js:12831:                    converse.connection.connect(this.domain, "", this.onRegistering.bind(this));
+/src/dist/converse-no-dependencies.js-12832-                    return false;
+##############################################
+/src/dist/converse-no-dependencies.js-12870-                                // automatically log the user in
+/src/dist/converse-no-dependencies.js:12871:                                converse.connection.connect(
+/src/dist/converse-no-dependencies.js-12872-                                    that.fields.username.toLowerCase()+'@'+that.domain.toLowerCase(),

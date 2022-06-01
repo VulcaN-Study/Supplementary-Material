@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/http.js",
+          "match_lines": [
+            16,
+            37
+          ],
+          "match_position": [
+            9,
+            24
+          ],
+          "match_string": "        var pathName = path.join(staticPath,decodeURI(req.url));\n\n        if(fs.statSync(pathName).isDirectory()){\n\n            var dirs = fs.readdirSync(pathName);\n\n            console.log(dirs);\n\n            var str =\"\";\n\n            dirs.forEach(function (item,index) {\n\n                var stat = fs.statSync(path.join(pathName,item));\n\n                if(stat.isDirectory()){\n\n                    str+=`<tr><td>${index}</td><td></td><td><a href=\"${req.url}${item}/\">${item}</a></td></tr>`;\n\n                }else{\n\n                    str+=`<tr><td>${index}</td><td>${Math.ceil(stat.size/1024)}kb</td><td><a href=\"${req.url}${item}\">${item}</a></td></tr>`;\n\n                }\n\n            })\n\n            res.setHeader('Content-type','text/html');\n\n            res.write(`<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>Httpserver</title><style>body{margin:0;}h3{margin:0;padding:0;line-height:50px;background:#666;color:#fff;}table{margin:30px 50px;border-left:1px solid #ddd;border-top:1px solid #ddd;border-spacing: 0;}td{border-bottom:1px solid #ddd;border-right:1px solid #ddd;padding:15px 30px;}</style></head><body><h3>Index of/</h3><table>${str}</table></body></html>`);\n\n            res.end();\n\n        }else{\n\n            if(fs.existsSync(pathName)){\n\n                fs.createReadStream(pathName).pipe(res);\n\n            }else{\n\n                res.statusCode=404;\n\n                res.end();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,204 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"directory\": \"visualizer/bower_components\"",
+          "message": "Syntax error"
+        },
+        "path": "/src/.bowerrc",
+        "start": {
+          "col": 14,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# EditorConfig helps developers define and maintain consistent",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 9
+        },
+        "extra": {
+          "line": "# Created by https://www.gitignore.io/api/intellij",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 9
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 46,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2016 Michael Spiegel <spiagl.m@gmail.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/LICENSE-MIT",
+        "start": {
+          "col": 45,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "*.json",
+          "message": "Syntax error"
+        },
+        "path": "/src/flows/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "*.css",
+          "message": "Syntax error"
+        },
+        "path": "/src/visualizer/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/templates.js",
+          "match_lines": [
+            214,
+            214
+          ],
+          "match_position": [
+            28,
+            39
+          ],
+          "match_string": "    return list[Math.floor(Math.random() * list.length)]"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/flow/flow.js",
+          "match_lines": [
+            160,
+            160
+          ],
+          "match_position": [
+            16,
+            40
+          ],
+          "match_string": "        return crypto.createHash('sha1').update(JSON.stringify(this)).digest(\"hex\")"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/visualizer/views/layout.mustache",
+          "match_position": [
+            1447,
+            1464
+          ],
+          "match_string": "{{{device-icon}}}"
+        },
+        {
+          "file_path": "/src/visualizer/views/flow_selection.mustache",
+          "match_position": [
+            1114,
+            1136
+          ],
+          "match_string": "{{{flow-status-icon}}}"
+        },
+        {
+          "file_path": "/src/visualizer/views/flow_selection.mustache",
+          "match_position": [
+            614,
+            636
+          ],
+          "match_string": "{{{flow-status-icon}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

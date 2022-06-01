@@ -1,0 +1,151 @@
+{
+ "dra": [
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/",
+   "type": "url",
+   "file": "/src/lib/change_stream.js"
+  },
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/command/aggregate",
+   "type": "url",
+   "file": "/src/lib/change_stream.js"
+  },
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/read-preference",
+   "type": "url",
+   "file": "/src/lib/change_stream.js"
+  },
+  {
+   "dra": "https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options",
+   "type": "url",
+   "file": "/src/lib/change_stream.js"
+  },
+  {
+   "dra": "http://docs.mongodb.org/manual/reference/command/createIndexes/",
+   "type": "url",
+   "file": "/src/lib/collection.js"
+  },
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/operator/query/expr/",
+   "type": "url",
+   "file": "/src/lib/collection.js"
+  },
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/operator/query/geoWithin/",
+   "type": "url",
+   "file": "/src/lib/collection.js"
+  },
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/operator/query/center/#op._S_center",
+   "type": "url",
+   "file": "/src/lib/collection.js"
+  },
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/operator/query/centerSphere/#op._S_centerSphere",
+   "type": "url",
+   "file": "/src/lib/collection.js"
+  },
+  {
+   "dra": "https://docs.mongodb.com/manual/reference/command/create/",
+   "type": "url",
+   "file": "/src/lib/db.js"
+  },
+  {
+   "dra": "http://www.mongodb.org/display/DOCS/GridFS+Specification#GridFSSpecification-",
+   "type": "url",
+   "file": "/src/lib/gridfs/chunk.js"
+  },
+  {
+   "dra": "http://www.mongodb.org/display/DOCS/GridFS",
+   "type": "url",
+   "file": "/src/lib/gridfs/grid_store.js"
+  },
+  {
+   "dra": "https://github.com/nodejs/node/blob/25e5ae41688676a5fd29b2e2e7602168eee4ceb5/lib/internal/util.js#L73-L80",
+   "type": "url",
+   "file": "/src/lib/utils.js"
+  }
+ ],
+ "sast": {
+  "name": "mongodb",
+  "version": "3.1.12",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "782504 Bytes",
+  "numberOfLines": 18076
+ },
+ "libraries": [
+  {
+   "name": "mongodb-core",
+   "current": "3.1.11"
+  },
+  {
+   "name": "safe-buffer",
+   "current": "^5.1.2"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 47,
+   "class": "upload.js (47:44)",
+   "vul_id": "0357cd0da7f7a2158a6e9372bda8cb19",
+   "method": "this.md5 = !options.disableMD5 \u0026\u0026 crypto.createHash('md5');",
+   "column": 44,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/gridfs-stream/upload.js (47:44)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/index.js",
+    "/lib/aggregation_cursor.js",
+    "/lib/command_cursor.js",
+    "/lib/cursor.js",
+    "/lib/gridfs/grid_store.js",
+    "/lib/gridfs-stream/download.js",
+    "/lib/gridfs-stream/index.js",
+    "/lib/gridfs-stream/upload.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 83,
+   "class": "db_ops.js (83:26)",
+   "vul_id": "912888ad8c5d0c4a61a40f50ed44ab91",
+   "method": "const md5 = crypto.createHash('md5');",
+   "column": 26,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/operations/db_ops.js (83:26)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/admin.js",
+    "/lib/change_stream.js",
+    "/lib/db.js",
+    "/lib/mongo_client.js",
+    "/lib/operations/admin_ops.js",
+    "/lib/operations/collection_ops.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 900,
+   "class": "db_ops.js (900:24)",
+   "vul_id": "a81f67777378969d6cb37175bfa0778d",
+   "method": "const md5 = crypto.createHash('md5');",
+   "column": 24,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/operations/db_ops.js (900:24)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/admin.js",
+    "/lib/change_stream.js",
+    "/lib/db.js",
+    "/lib/mongo_client.js",
+    "/lib/operations/admin_ops.js",
+    "/lib/operations/collection_ops.js"
+   ]
+  }
+ ]
+}

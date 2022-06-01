@@ -1,0 +1,218 @@
+{
+ "dra": [
+  {
+   "dra": "http://github.com/google/closure-library/archive/v20170910.zip",
+   "type": "url",
+   "file": "/src/default-config.json"
+  },
+  {
+   "dra": "https://github.com/dominictarr/config-chain/issues/18",
+   "type": "url",
+   "file": "/src/lib/config.js"
+  }
+ ],
+ "sca": [
+  {
+   "cwe": "CWE-471",
+   "cves": "CVE-2018-3721",
+   "sast": "",
+   "title": "Prototype Pollution - lodash",
+   "severity": "low",
+   "advisoryId": 577,
+   "description": "Versions of `lodash` before 4.17.5 are vulnerable to prototype pollution. \n\nThe vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith' which allow a malicious user to modify the prototype of `Object` via `__proto__` causing the addition or modification of an existing property that will exist on all objects.\n\n",
+   "recomendation": "Update to version 4.17.5 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "",
+   "sast": "",
+   "title": "Prototype Pollution - handlebars",
+   "severity": "critical",
+   "advisoryId": 755,
+   "description": "Versions of `handlebars` prior to 4.0.14 are vulnerable to Prototype Pollution. Templates may alter an Objects' prototype, thus allowing an attacker to execute arbitrary code on the server.",
+   "recomendation": "For handlebars 4.1.x upgrade to 4.1.2 or later.\nFor handlebars 4.0.x upgrade to 4.0.14 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "CVE-2018-16487",
+   "sast": "",
+   "title": "Prototype Pollution - lodash",
+   "severity": "high",
+   "advisoryId": 782,
+   "description": "Versions of `lodash` before 4.17.5 are vulnerable to prototype pollution. \n\nThe vulnerable functions are 'defaultsDeep', 'merge', and 'mergeWith' which allow a malicious user to modify the prototype of `Object` via `{constructor: {prototype: {...}}}` causing the addition or modification of an existing property that will exist on all objects.\n\n",
+   "recomendation": "Update to version 4.17.11 or later."
+  },
+  {
+   "cwe": "CWE-400",
+   "cves": "",
+   "sast": "",
+   "title": "Denial of Service - handlebars",
+   "severity": "moderate",
+   "advisoryId": 1300,
+   "description": "Affected versions of `handlebars` are vulnerable to Denial of Service. The package's parser may be forced into an endless loop while processing specially-crafted templates. This may allow attackers to exhaust system resources leading to Denial of Service.",
+   "recomendation": "Upgrade to version 4.4.5 or later."
+  },
+  {
+   "cwe": "CWE-79",
+   "cves": "",
+   "sast": "",
+   "title": "Arbitrary Code Execution - handlebars",
+   "severity": "high",
+   "advisoryId": 1324,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.5.3 are vulnerable to Arbitrary Code Execution. The package's lookup helper fails to properly validate templates, allowing attackers to submit templates that execute arbitrary JavaScript in the system. It is due to an incomplete fix for a [previous issue](https://www.npmjs.com/advisories/1316). This vulnerability can be used to run arbitrary code in a server processing Handlebars templates or on a victim's browser (effectively serving as Cross-Site Scripting).",
+   "recomendation": "Upgrade to version 3.0.8, 4.5.3 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "CVE-2019-10744",
+   "sast": "",
+   "title": "Prototype Pollution - lodash",
+   "severity": "low",
+   "advisoryId": 1523,
+   "description": "Versions of `lodash` prior to 4.17.19 are vulnerable to Prototype Pollution.  The function `zipObjectDeep` allows a malicious user to modify the prototype of `Object` if the property identifiers are user-supplied. Being affected by this issue requires zipping objects based on user-provided property arrays.  \n\nThis vulnerability causes the addition or modification of an existing property that will exist on all objects and may lead to Denial of Service or Code Execution under specific circumstances.",
+   "recomendation": "Upgrade to version 4.17.19 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "CVE-2019-10744",
+   "sast": "",
+   "title": "Prototype Pollution - lodash",
+   "severity": "high",
+   "advisoryId": 1065,
+   "description": "Versions of `lodash` before 4.17.12 are vulnerable to Prototype Pollution.  The function `defaultsDeep` allows a malicious user to modify the prototype of `Object` via `{constructor: {prototype: {...}}}` causing the addition or modification of an existing property that will exist on all objects.\n\n",
+   "recomendation": "Update to version 4.17.12 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "CVE-2019-19919",
+   "sast": "",
+   "title": "Prototype Pollution - handlebars",
+   "severity": "high",
+   "advisoryId": 1164,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.3.0 are vulnerable to Prototype Pollution leading to Remote Code Execution. Templates may alter an Objects' `__proto__` and `__defineGetter__` properties, which may allow an attacker to execute arbitrary code through crafted payloads.",
+   "recomendation": "Upgrade to version 3.0.8, 4.3.0 or later."
+  },
+  {
+   "cwe": "CWE-79",
+   "cves": "",
+   "sast": "",
+   "title": "Arbitrary Code Execution - handlebars",
+   "severity": "high",
+   "advisoryId": 1316,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.5.2 are vulnerable to Arbitrary Code Execution. The package's lookup helper fails to properly validate templates, allowing attackers to submit templates that execute arbitrary JavaScript in the system. It can be used to run arbitrary code in a server processing Handlebars templates or on a victim's browser (effectively serving as Cross-Site Scripting).\n\nThe following template can be used to demonstrate the vulnerability:  \n```{{#with \"constructor\"}}\n\t{{#with split as |a|}}\n\t\t{{pop (push \"alert('Vulnerable Handlebars JS');\")}}\n\t\t{{#with (concat (lookup join (slice 0 1)))}}\n\t\t\t{{#each (slice 2 3)}}\n\t\t\t\t{{#with (apply 0 a)}}\n\t\t\t\t\t{{.}}\n\t\t\t\t{{/with}}\n\t\t\t{{/each}}\n\t\t{{/with}}\n\t{{/with}}\n{{/with}}```",
+   "recomendation": "Upgrade to version 3.0.8, 4.5.2 or later."
+  },
+  {
+   "cwe": "CWE-471",
+   "cves": "",
+   "sast": "",
+   "title": "Prototype Pollution - handlebars",
+   "severity": "high",
+   "advisoryId": 1325,
+   "description": "Versions of `handlebars` prior to 3.0.8 or 4.5.3 are vulnerable to prototype pollution. It is possible to add or modify properties to the Object prototype through a malicious template. This may allow attackers to crash the application or execute Arbitrary Code in specific conditions.",
+   "recomendation": "Upgrade to version 3.0.8, 4.5.3 or later."
+  }
+ ],
+ "sast": {
+  "name": "closure-util",
+  "version": "1.26.0",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "104493 Bytes",
+  "numberOfLines": 2771
+ },
+ "libraries": [
+  {
+   "name": "acorn",
+   "current": "5.2.1"
+  },
+  {
+   "name": "graceful-fs",
+   "current": "4.1.11"
+  },
+  {
+   "name": "handlebars",
+   "current": "4.0.11"
+  },
+  {
+   "name": "mkdirp",
+   "current": "0.5.1"
+  },
+  {
+   "name": "rimraf",
+   "current": "2.6.2"
+  },
+  {
+   "name": "fs-extra",
+   "current": "4.0.2"
+  },
+  {
+   "name": "gaze",
+   "current": "1.1.2"
+  },
+  {
+   "name": "minimatch",
+   "current": "3.0.4"
+  },
+  {
+   "name": "npmlog",
+   "current": "4.1.2"
+  },
+  {
+   "name": "nomnom",
+   "current": "1.8.1"
+  },
+  {
+   "name": "send",
+   "current": "0.16.1"
+  },
+  {
+   "name": "socket.io",
+   "current": "2.0.4"
+  },
+  {
+   "name": "temp",
+   "current": "0.8.3"
+  },
+  {
+   "name": "async",
+   "current": "2.6.0"
+  },
+  {
+   "name": "get-down",
+   "current": "1.2.0"
+  },
+  {
+   "name": "glob",
+   "current": "7.1.2"
+  },
+  {
+   "name": "lodash",
+   "current": "4.17.4"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 103,
+   "class": "util.js (103:21)",
+   "vul_id": "6c02f6b1e9e106a6f0ae86d6d48a51db",
+   "method": "var hash = crypto.createHash('sha1');",
+   "column": 21,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/util.js (103:21)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/compile.js",
+    "/lib/deps.js",
+    "/lib/index.js",
+    "/lib/manager.js",
+    "/lib/scripts.js",
+    "/lib/server.js",
+    "/test/spec/index.spec.js",
+    "/test/spec/util.spec.js"
+   ]
+  }
+ ]
+}

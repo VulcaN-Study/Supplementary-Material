@@ -1,0 +1,22 @@
+diff -urN node.js nodepatch.js 
+--- node.js     2016-05-17 03:52:52.000000000 +0100
++++ nodepatch.js        2020-10-30 21:05:59.754573798 +0000
+@@ -1,12 +1,14 @@
+ var http=require("http");
+ var fs=require("fs");
++var path=require("path");
+ http.createServer(function(request,response){
+-    var path="./"+request.url;
+-    fs.readFile(path,function(error,data){
++    var safeSuffix = path.normalize(request.url).replace(/^(\.\.(\/|\\|$))+/, '');                                                                             
++    var pathname = path.join("./", safeSuffix);
++    fs.readFile(pathname,function(error,data){
+         if(error){
+             response.error("出错了")
+         }else{
+         response.end(data);
+         }
+     })
+-}).listen("55555");
+\ No newline at end of file
++}).listen("55555");

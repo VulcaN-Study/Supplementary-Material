@@ -1,0 +1,74 @@
+{
+    "advisory": {
+        "id": 342,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/tiny-http/-/tiny-http-2.0.8.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "dist/http.js",
+                    "lineno": 231,
+                    "code": "this.filename = path.join(this.conf.WEB_ROOT, this.uri);"
+                },
+                "sink": {
+                    "file": "dist/http.js",
+                    "lineno": 325,
+                    "code": "fs.readFile(this.filename, function(err, content) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/http.js",
+                    "lineno": 237,
+                    "code": "handle: function(pathname, ext) {"
+                },
+                "sink": {
+                    "file": "dist/http.js",
+                    "lineno": 273,
+                    "code": "fs.readdir(parentDirectory, function(error, files) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/tiny-http"
+        }
+    ],
+    "patch": [],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

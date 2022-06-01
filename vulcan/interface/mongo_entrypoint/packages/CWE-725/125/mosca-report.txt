@@ -1,0 +1,55 @@
+<report_mosca>
+ <Path>/src/src/gmail.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Logic fail</Title>
+ <Description>Possible logic bug that could lead to security bugs. Assigning a static string to a variable in an if condition is not normal and is likely a mistake.</Description>
+ <Level> Low</Level>
+ <Reference> https://en.wikipedia.org/wiki/Logic_error</Reference>
+ <Match> if\s?\(\s?\$.*\s?(?<!\!)=\s?('|").*('|")\s?\)</Match>
+ <Result> Line: 1657 -              if ($("div[aria-label='Social']").attr("aria-selected") === "true") {
+
+ Line: 1660 -              } else if ($("div[aria-label='Promotions']").attr("aria-selected") === "true") {
+
+ Line: 1663 -              } else if ($("div[aria-label='Updates']").attr("aria-selected") === "true") {
+
+ Line: 1666 -              } else if ($("div[aria-label='Forums']").attr("aria-selected") === "true") {
+
+ Line: 1744 -              if($("[gh='tl'] div[role='checkbox'][aria-checked='true']").length){
+
+ Line: 1748 -                      if($(this).attr("aria-checked") === "true"){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/gmail.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1306 -                      setTimeout(function(){
+
+ Line: 1482 -              var timer = setInterval(function() {
+
+ Line: 1490 -                      setTimeout(callback, 5000);
+
+ Line: 1846 -          setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/gmail.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 130 -          // as a last resort, we query the DOM of the upper right account selection menu
+
+</Result>
+</report_mosca>
+

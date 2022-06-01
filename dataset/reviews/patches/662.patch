@@ -1,0 +1,22 @@
+--- lib/node/query.js	2020-10-30 17:19:30.750000000 +0000
++++ lib/node/query.js	2020-10-30 17:20:18.310978752 +0000
+@@ -470,11 +470,17 @@
+   },
+ 
+   limit: function(count) {
+-    return this.add(new Modifier(this, 'LIMIT', count));
++    var n = Number(count);
++    if (Number.isFinite(n) && Number.isInteger(n) && n > 0)
++      return this.add(new Modifier(this, 'LIMIT', count));
++    throw 'Invalid argument \'' + count + '\'';
+   },
+ 
+   offset: function(count) {
+-    return this.add(new Modifier(this, 'OFFSET', count));
++    var n = Number(count);
++    if (Number.isFinite(n) && Number.isInteger(n) && n > 0)
++      return this.add(new Modifier(this, 'OFFSET', count));
++    throw 'Invalid argument \'' + count + '\'';
+   },
+ 
+   exists: function() {

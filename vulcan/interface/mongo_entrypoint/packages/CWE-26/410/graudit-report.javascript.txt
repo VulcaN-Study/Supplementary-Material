@@ -1,0 +1,35 @@
+/src/nodeload.js-41-targetGroup[statName].merge(sourceStats);}};var roundRobin=stats.roundRobin=function(list){var r=list.slice();r.rridx=-1;r.get=function(){r.rridx=(r.rridx+1)%r.length;return r[r.rridx];};return r;};var randomString=stats.randomString=function(length){var s="";for(var i=0;i<length;i++){s+='\\'+(Math.floor(Math.random()*95)+32).toString(8);}
+/src/nodeload.js:42:return eval("'"+s+"'");};var nextGaussian=stats.nextGaussian=function(mean,stddev){mean=mean||0;stddev=stddev||1;var s=0,z0,z1;while(s===0||s>=1){z0=2*Math.random()-1;z1=2*Math.random()-1;s=z0*z0+z1*z1;}
+/src/nodeload.js-43-return z0*Math.sqrt(-2*Math.log(s)/s)*stddev+mean;};var nextPareto=stats.nextPareto=function(min,max,shape){shape=shape||0.1;var l=1,h=Math.pow(1+max-min,shape),rnd=Math.random();while(rnd===0){rnd=Math.random();}
+##############################################
+/src/nodeload.js-141-var SlaveNode=exports.SlaveNode=function SlaveNode(server,spec){EventEmitter.call(this);util.PeriodicUpdater.call(this);var self=this,slaveState='initialized';this.id=spec.id;this.masterClient_=spec.master?this.createMasterClient_(spec.master,spec.masterMethods):null;this.slaveEndpoint_=this.createEndpoint_(server,spec.slaveMethods);this.slaveEndpoint_.setStaticParams([this.masterClient_]);this.slaveEndpoint_.on('start',function(){this.emit.bind(this,'start');});this.slaveEndpoint_.on('end',this.end.bind(this));this.slaveEndpoint_.start();this.slaveEndpoint_.context.id=this.id;this.slaveEndpoint_.context.__defineGetter__('state',function(){return slaveState;});this.slaveEndpoint_.context.__defineSetter__('state',function(val){slaveState=val;self.update();});this.url=this.slaveEndpoint_.url;this.updateInterval=(spec.pingInterval>=0)?spec.pingInterval:NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS;};util.inherits(SlaveNode,EventEmitter);SlaveNode.prototype.end=function(){this.updateInterval=0;this.slaveEndpoint_.end();if(this.masterClient_&&this.masterClient_.destroy){this.masterClient_.destroy();}
+/src/nodeload.js:142:this.emit('end');};SlaveNode.prototype.update=function(){if(this.masterClient_){this.masterClient_.updateSlaveState_(this.slaveEndpoint_.context.state);}};SlaveNode.prototype.createEndpoint_=function(server,methods){var endpoint=new Endpoint(server);if(methods){try{methods.forEach(function(m){var fun;eval('fun='+m.fun);endpoint.defineMethod(m.name,fun);});}catch(e){endpoint.end();endpoint=null;throw e;}}
+/src/nodeload.js-143-return endpoint;};SlaveNode.prototype.createMasterClient_=function(masterUrl,methods){var parts=url.parse(masterUrl),masterClient=new EndpointClient(parts.hostname,Number(parts.port)||8000,parts.pathname);masterClient.defineMethod('updateSlaveState_');if(methods&&methods instanceof Array){methods.forEach(function(m){masterClient.defineMethod(m);});}
+##############################################
+/src/nodeload.js-155-return'Infinity';default:return JSON.stringify(obj);}};LoadTestCluster.prototype.getClusterSpec_=function(){var self=this;return{master:{host:self.masterHost,sendStats:function(slaves,slaveId,interval){util.forEach(interval,function(testName,remoteInterval){if(!self.stats[testName]){self.stats[testName]={};self.interval[testName]={};self.reports[testName]=new Report(testName);REPORT_MANAGER.addReport(self.reports[testName]);}
+/src/nodeload.js:156:stats.mergeStatsGroups(remoteInterval,self.interval[testName]);stats.mergeStatsGroups(remoteInterval,self.stats[testName]);});}},slaves:{hosts:self.slaveHosts,setup:function(){if(typeof BUILD_AS_SINGLE_FILE==='undefined'||BUILD_AS_SINGLE_FILE===false){this.nlrun=require('../loadtesting').run;}else{this.nlrun=run;}},runTests:function(master,specsStr){var specs;try{eval('specs='+specsStr);}catch(e){qputs('WARN: Ignoring invalid remote test specifications: '+specsStr+' - '+e.toString());return;}
+/src/nodeload.js-157-if(this.state==='running'){qputs('WARN: Already running -- ignoring new test specifications: '+specsStr);return;}
+##############################################
+/src/lib/stats.js-487-    }
+/src/lib/stats.js:488:    return eval("'" + s + "'");
+/src/lib/stats.js-489-};
+##############################################
+/src/lib/remote/remotetesting.js-228-                try {
+/src/lib/remote/remotetesting.js:229:                    eval('specs='+specsStr);
+/src/lib/remote/remotetesting.js-230-                } catch(e) {
+##############################################
+/src/lib/remote/slavenode.js-73-    
+/src/lib/remote/slavenode.js:74:    // "Compile" the methods by eval()'ing the string in "fun", and add to the endpoint
+/src/lib/remote/slavenode.js-75-    if (methods) {
+##############################################
+/src/lib/remote/slavenode.js-78-                var fun;
+/src/lib/remote/slavenode.js:79:                eval('fun=' + m.fun);
+/src/lib/remote/slavenode.js-80-                endpoint.defineMethod(m.name, fun);
+##############################################
+/src/doc/tips.md-54-
+/src/doc/tips.md:55:    POST any valid Javascript to `/remote` to have it `eval()`'d.
+/src/doc/tips.md-56-    
+##############################################
+/src/console/js/jquery-ui-1.8.5.custom.min.js-478-minDate:null,maxDate:null,duration:"fast",beforeShowDay:null,beforeShow:null,onSelect:null,onChangeMonthYear:null,onClose:null,numberOfMonths:1,showCurrentAtPos:0,stepMonths:1,stepBigMonths:12,altField:"",altFormat:"",constrainInput:true,showButtonPanel:false,autoSize:false};d.extend(this._defaults,this.regional[""]);this.dpDiv=d('<div id="'+this._mainDivId+'" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-helper-hidden-accessible"></div>')}function E(a,b){d.extend(a,
+/src/console/js/jquery-ui-1.8.5.custom.min.js:479:b);for(var c in b)if(b[c]==null||b[c]==G)a[c]=b[c];return a}d.extend(d.ui,{datepicker:{version:"1.8.5"}});var y=(new Date).getTime();d.extend(L.prototype,{markerClassName:"hasDatepicker",log:function(){this.debug&&console.log.apply("",arguments)},_widgetDatepicker:function(){return this.dpDiv},setDefaults:function(a){E(this._defaults,a||{});return this},_attachDatepicker:function(a,b){var c=null;for(var e in this._defaults){var f=a.getAttribute("date:"+e);if(f){c=c||{};try{c[e]=eval(f)}catch(h){c[e]=
+/src/console/js/jquery-ui-1.8.5.custom.min.js-480-f}}}e=a.nodeName.toLowerCase();f=e=="div"||e=="span";if(!a.id){this.uuid+=1;a.id="dp"+this.uuid}var i=this._newInst(d(a),f);i.settings=d.extend({},b||{},c||{});if(e=="input")this._connectDatepicker(a,i);else f&&this._inlineDatepicker(a,i)},_newInst:function(a,b){return{id:a[0].id.replace(/([^A-Za-z0-9_])/g,"\\\\$1"),input:a,selectedDay:0,selectedMonth:0,selectedYear:0,drawMonth:0,drawYear:0,inline:b,dpDiv:!b?this.dpDiv:d('<div class="'+this._inlineClass+' ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>')}},

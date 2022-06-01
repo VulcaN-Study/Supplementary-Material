@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/simple.js",
+          "match_lines": [
+            8,
+            44
+          ],
+          "match_position": [
+            2,
+            15
+          ],
+          "match_string": "\tvar urlObj = url.parse(req.url, true, false);\n\n\tif(urlObj.pathname == \"/getcity\") {\n\n\t\tfs.readFile(ROOT_DIR + \"/cities.dat.txt\", function(err, data) {\n\n\t\t\tif(err) {\n\n\t\t\t\tconsole.log(\"Failed to get file: cities.data.txt\");\n\n\t\t\t\tres.writeHead(500);\n\n\t\t\t\tres.end(JSON.stringify(err));\n\n\t\t\t\treturn;\n\n\t\t\t}\n\n\n\n\t\t\tvar cities = new Array();\n\n\t\t\tvar cityList = data.toString().split('\\n');\n\n\t\t\tfor(var i in cityList) {\n\n\t\t\t\tvar city = cityList[i];\n\n\t\t\t\tif(city != \"\") {\n\n\t\t\t\t\tif(urlObj.query.q != null && city.toLowerCase().indexOf(urlObj.query.q.toLowerCase()) != 0) {\n\n\t\t\t\t\t\tcontinue;\n\n\t\t\t\t\t}\n\n\n\n\t\t\t\t\tcities.push({ city: city });\n\n\t\t\t\t}\n\n\t\t\t}\n\n\n\n\t\t\tres.writeHead(200);\n\n\t\t\tres.end(JSON.stringify(cities));\n\n\t\t});\n\n\t\treturn;\n\n\t}\n\n\tfs.readFile(ROOT_DIR + urlObj.pathname, function(err, data) {\n\n\t\tif(err) {\n\n\t\t\tres.writeHead(404);\n\n\t\t\tres.end(JSON.stringify(err));\n\n\t\t\treturn;\n\n\t\t}\n\n\n\n\t\tres.writeHead(200);\n\n\t\tres.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

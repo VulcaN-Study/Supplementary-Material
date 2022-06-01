@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 821,
+        "cwe": "CWE-89"
+    },
+    "correct_cwe": "CWE-89",
+    "correct_package_link": "https://registry.npmjs.org/sequelize/-/sequelize-5.2.15.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/dialects/postgres/connection-manager.js",
+                    "lineno": 124,
+                    "code": "const connection = new this.lib.Client(connectionConfig);"
+                },
+                "sink": {
+                    "file": "lib/dialects/postgres/connection-manager.js",
+                    "lineno": 136,
+                    "code": "connection.connect(err => {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/sequelize/sequelize/pull/10746"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/sequelize/sequelize/pull/10746/files"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "B"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "A"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

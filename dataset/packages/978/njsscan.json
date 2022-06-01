@@ -1,0 +1,62 @@
+{
+  "errors": [],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/middleware/logout.js",
+          "match_lines": [
+            34,
+            36
+          ],
+          "match_position": [
+            5,
+            40
+          ],
+          "match_string": "    let keycloakLogoutUrl = keycloak.logoutUrl(redirectUrl);\n\n\n\n    response.redirect(keycloakLogoutUrl);"
+        },
+        {
+          "file_path": "/src/middleware/protect.js",
+          "match_lines": [
+            34,
+            35
+          ],
+          "match_position": [
+            3,
+            29
+          ],
+          "match_string": "  let loginURL = keycloak.loginUrl(uuid, redirectUrl);\n\n  response.redirect(loginURL);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/uuid.js",
+          "match_lines": [
+            22,
+            22
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

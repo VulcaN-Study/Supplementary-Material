@@ -1,0 +1,109 @@
+/src/spec/sequelize.spec.js-55-    it('executes a query the internal way', function(done) {
+/src/spec/sequelize.spec.js:56:      this.sequelize.query(this.insertQuery, null, { raw: true })
+/src/spec/sequelize.spec.js-57-      .complete(function(err, result) {
+##############################################
+/src/spec/sequelize.spec.js-67-    it('executes a query if only the sql is passed', function(done) {
+/src/spec/sequelize.spec.js:68:      this.sequelize.query(this.insertQuery)
+/src/spec/sequelize.spec.js-69-      .complete(function(err, result) {
+##############################################
+/src/spec/sequelize.spec.js-79-    it('executes select queries correctly', function(done) {
+/src/spec/sequelize.spec.js:80:      this.sequelize.query(this.insertQuery).success(function() {
+/src/spec/sequelize.spec.js-81-        this.sequelize
+/src/spec/sequelize.spec.js:82:          .query("select * from " + qq(this.User.tableName) + "")
+/src/spec/sequelize.spec.js-83-          .complete(function(err, users) {
+##############################################
+/src/spec/sequelize.spec.js-94-    it('executes select query and parses dot notation results', function(done) {
+/src/spec/sequelize.spec.js:95:      this.sequelize.query(this.insertQuery).success(function() {
+/src/spec/sequelize.spec.js-96-        this.sequelize
+/src/spec/sequelize.spec.js:97:          .query("select username as " + qq("user.username") + " from " + qq(this.User.tableName) + "")
+/src/spec/sequelize.spec.js-98-          .complete(function(err, users) {
+##############################################
+/src/spec/sequelize.spec.js-110-      it('executes stored procedures', function(done) {
+/src/spec/sequelize.spec.js:111:        this.sequelize.query(this.insertQuery).success(function() {
+/src/spec/sequelize.spec.js:112:          this.sequelize.query('DROP PROCEDURE IF EXISTS foo').success(function() {
+/src/spec/sequelize.spec.js-113-            this.sequelize.query(
+##############################################
+/src/spec/sequelize.spec.js-115-            ).success(function() {
+/src/spec/sequelize.spec.js:116:              this.sequelize.query('CALL foo()').success(function(users) {
+/src/spec/sequelize.spec.js-117-                expect(users.map(function(u){ return u.username })).toEqual(['john'])
+##############################################
+/src/spec/sequelize.spec.js-128-    it('uses the passed DAOFactory', function(done) {
+/src/spec/sequelize.spec.js:129:      this.sequelize.query(this.insertQuery).success(function() {
+/src/spec/sequelize.spec.js:130:        this.sequelize.query("SELECT * FROM " + qq(this.User.tableName) + ";", this.User).success(function(users) {
+/src/spec/sequelize.spec.js-131-          expect(users[0].__factory).toEqual(this.User)
+##############################################
+/src/spec/sequelize.spec.js-140-
+/src/spec/sequelize.spec.js:141:      this.sequelize.query(sql, null, { raw: true }).success(function(result) {
+/src/spec/sequelize.spec.js-142-        expect(result).toEqual([ { foo: { bar: { baz: 1 } } } ])
+##############################################
+/src/spec/sequelize.spec.js-147-    it('replaces token with the passed array', function(done) {
+/src/spec/sequelize.spec.js:148:      this.sequelize.query('select ? as foo, ? as bar', null, { raw: true }, [ 1, 2 ]).success(function(result) {
+/src/spec/sequelize.spec.js-149-        expect(result).toEqual([{ foo: 1, bar: 2 }])
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-29-    if (this.client == null) {
+/src/lib/dialects/postgres/connector-manager.js:30:      this.connect()
+/src/lib/dialects/postgres/connector-manager.js-31-    }
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-71-      } else if (client) {
+/src/lib/dialects/postgres/connector-manager.js:72:        client.query("SET TIME ZONE 'UTC'")
+/src/lib/dialects/postgres/connector-manager.js-73-          .on('end', function() {
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-83-      // acquire client from pool
+/src/lib/dialects/postgres/connector-manager.js:84:      this.pg.connect(uri, connectCallback)
+/src/lib/dialects/postgres/connector-manager.js-85-    } else {
+##############################################
+/src/lib/dialects/postgres/connector-manager.js-87-      this.client = new this.pg.Client(uri)
+/src/lib/dialects/postgres/connector-manager.js:88:      this.client.connect(connectCallback)
+/src/lib/dialects/postgres/connector-manager.js-89-    }
+##############################################
+/src/lib/dialects/postgres/query.js-27-    var receivedError = false
+/src/lib/dialects/postgres/query.js:28:      , query         = this.client.query(sql)
+/src/lib/dialects/postgres/query.js-29-      , rows          = []
+##############################################
+/src/lib/dialects/connector-manager.js-19-    this.disconnect()
+/src/lib/dialects/connector-manager.js:20:    this.connect()
+/src/lib/dialects/connector-manager.js-21-  }
+##############################################
+/src/lib/dialects/mysql/connector-manager.js-144-    if (!this.isConnected && !this.pool) {
+/src/lib/dialects/mysql/connector-manager.js:145:      this.connect()
+/src/lib/dialects/mysql/connector-manager.js-146-    }
+##############################################
+/src/lib/dialects/mysql/connector-manager.js-243-    config = config || this.config
+/src/lib/dialects/mysql/connector-manager.js:244:    var connection = mysql.createConnection({
+/src/lib/dialects/mysql/connector-manager.js-245-      host: config.host,
+##############################################
+/src/lib/dialects/mysql/connector-manager.js-251-    })
+/src/lib/dialects/mysql/connector-manager.js:252:    connection.query("SET time_zone = '+0:00'");
+/src/lib/dialects/mysql/connector-manager.js-253-    // client.setMaxListeners(self.maxConcurrentQueries)
+##############################################
+/src/lib/dialects/mysql/query.js-25-
+/src/lib/dialects/mysql/query.js:26:    this.client.query(this.sql, function(err, results, fields) {
+/src/lib/dialects/mysql/query.js-27-      this.emit('sql', this.sql)
+##############################################
+/src/lib/query-interface.js-54-      var showSchemasSql = self.QueryGenerator.showSchemasQuery()
+/src/lib/query-interface.js:55:      self.sequelize.query(showSchemasSql, null, { raw: true }).success(function(schemaNames) {
+/src/lib/query-interface.js-56-        self.emit('showAllSchemas', null)
+##############################################
+/src/lib/query-interface.js-129-      var showTablesSql = self.QueryGenerator.showTablesQuery()
+/src/lib/query-interface.js:130:      self.sequelize.query(showTablesSql, null, { raw: true }).success(function(tableNames) {
+/src/lib/query-interface.js-131-        self.emit('showAllTables', null)
+##############################################
+/src/lib/query-interface.js-151-
+/src/lib/query-interface.js:152:      self.sequelize.query(sql, null, { raw: true }).success(function(data) {
+/src/lib/query-interface.js-153-        emitter.emit('success', data)
+##############################################
+/src/lib/query-interface.js-309-      var sql = self.QueryGenerator.selectQuery(tableName, options)
+/src/lib/query-interface.js:310:        , qry = self.sequelize.query(sql, null, { plain: true, raw: true, type: 'SELECT' })
+/src/lib/query-interface.js-311-
+##############################################
+/src/lib/query-interface.js-382-      } else {
+/src/lib/query-interface.js:383:        query = this.sequelize.query(sqlOrQueryParams, null, {})
+/src/lib/query-interface.js-384-      }
+##############################################
+/src/lib/sequelize.js-220-
+/src/lib/sequelize.js:221:    return this.connectorManager.query(sql, callee, options)
+/src/lib/sequelize.js-222-  }
+##############################################
+/src/docs/files/lib_sequelize.js.html-279-
+/src/docs/files/lib_sequelize.js.html:280:    return this.connectorManager.query(sql, callee, options)
+/src/docs/files/lib_sequelize.js.html-281-  }

@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/static.js",
+          "match_lines": [
+            6,
+            36
+          ],
+          "match_position": [
+            3,
+            15
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n    \n\n    if(urlObj.pathname.indexOf(\"getcity\") != -1) {\n\n\t\tconsole.log(urlObj);\n\n\t\tconsole.log(\"In GetCity\");\n\n\t\tfs.readFile(\"cities.dat.txt\", function(err,data) {\n\n\t\t\tif (err) throw err;\n\n\t\t\tvar cities = data.toString().split(\"\\n\");\n\n\t\t\tvar jsonresult = [];\n\n\t\t\tvar myRex = new RegExp(\"^\"+urlObj.query[\"q\"]);\n\n\t\t\tfor (var i = 0; i < cities.length; i++) {\n\n\t\t\t\tvar result = cities[i].search(myRex);\n\n\t\t\t\tif(result != -1) {\n\n\t\t\t\t\tconsole.log(cities[i]);\n\n\t\t\t\t\tjsonresult.push({city:cities[i]});\n\n\t\t\t\t}\n\n\t\t\t}\n\n\t\t\tconsole.log(jsonresult);\n\n\t\t\tconsole.log(JSON.stringify(jsonresult));\n\n\t\t\tres.writeHead(200);\n\n\t\t\tres.end(JSON.stringify(jsonresult));\n\n\t\t});\n\n\t} else {\n\n\t\tfs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n\t\tif (err) {\n\n\t\t  res.writeHead(404);\n\n\t\t  res.end(JSON.stringify(err));\n\n\t\t  return;\n\n\t\t}\n\n\t\tres.writeHead(200);\n\n\t\tres.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/static.js",
+          "match_lines": [
+            6,
+            36
+          ],
+          "match_position": [
+            3,
+            15
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n    \n\n    if(urlObj.pathname.indexOf(\"getcity\") != -1) {\n\n\t\tconsole.log(urlObj);\n\n\t\tconsole.log(\"In GetCity\");\n\n\t\tfs.readFile(\"cities.dat.txt\", function(err,data) {\n\n\t\t\tif (err) throw err;\n\n\t\t\tvar cities = data.toString().split(\"\\n\");\n\n\t\t\tvar jsonresult = [];\n\n\t\t\tvar myRex = new RegExp(\"^\"+urlObj.query[\"q\"]);\n\n\t\t\tfor (var i = 0; i < cities.length; i++) {\n\n\t\t\t\tvar result = cities[i].search(myRex);\n\n\t\t\t\tif(result != -1) {\n\n\t\t\t\t\tconsole.log(cities[i]);\n\n\t\t\t\t\tjsonresult.push({city:cities[i]});\n\n\t\t\t\t}\n\n\t\t\t}\n\n\t\t\tconsole.log(jsonresult);\n\n\t\t\tconsole.log(JSON.stringify(jsonresult));\n\n\t\t\tres.writeHead(200);\n\n\t\t\tres.end(JSON.stringify(jsonresult));\n\n\t\t});\n\n\t} else {\n\n\t\tfs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n\t\tif (err) {\n\n\t\t  res.writeHead(404);\n\n\t\t  res.end(JSON.stringify(err));\n\n\t\t  return;\n\n\t\t}\n\n\t\tres.writeHead(200);\n\n\t\tres.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,19 @@
+/src/Readme.md-142-* `timezone`: The timezone used to store local dates. (Default: `'local'`)
+/src/Readme.md:143:* `insecureAuth`: Allow connecting to MySQL instances that ask for the old
+/src/Readme.md:144:  (insecure) authentication method. (Default: `false`)
+/src/Readme.md-145-* `typeCast`: Determines if column values should be converted to native
+##############################################
+/src/lib/ConnectionConfig.js-16-  this.database          = options.database;
+/src/lib/ConnectionConfig.js:17:  this.insecureAuth      = options.insecureAuth || false;
+/src/lib/ConnectionConfig.js-18-  this.supportBigNumbers = options.supportBigNumbers || false;
+##############################################
+/src/lib/protocol/sequences/Handshake.js-42-Handshake.prototype['UseOldPasswordPacket'] = function(packet) {
+/src/lib/protocol/sequences/Handshake.js:43:  if (!this._config.insecureAuth) {
+/src/lib/protocol/sequences/Handshake.js-44-    var err = new Error(
+/src/lib/protocol/sequences/Handshake.js:45:      'MySQL server is requesting the old and insecure pre-4.1 auth mechanism.' +
+/src/lib/protocol/sequences/Handshake.js:46:      'Upgrade the user password or use the {insecureAuth: true} option.'
+/src/lib/protocol/sequences/Handshake.js-47-    );
+##############################################
+/src/test/integration/connection/test-old-password.js-4-  password     : 'oldpw',
+/src/test/integration/connection/test-old-password.js:5:  insecureAuth : true,
+/src/test/integration/connection/test-old-password.js-6-});

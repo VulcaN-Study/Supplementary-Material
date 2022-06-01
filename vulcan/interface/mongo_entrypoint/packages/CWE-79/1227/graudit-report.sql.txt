@@ -1,0 +1,29 @@
+/src/es-modules/modules/sonification/Instrument.js-151-        this.setPan(0);
+/src/es-modules/modules/sonification/Instrument.js:152:        this.gainNode.connect(this.panNode);
+/src/es-modules/modules/sonification/Instrument.js:153:        this.panNode.connect(ctx.destination);
+/src/es-modules/modules/sonification/Instrument.js-154-    }
+/src/es-modules/modules/sonification/Instrument.js-155-    else {
+/src/es-modules/modules/sonification/Instrument.js:156:        this.gainNode.connect(ctx.destination);
+/src/es-modules/modules/sonification/Instrument.js-157-    }
+##############################################
+/src/es-modules/modules/sonification/Instrument.js-212-    this.oscillator.type = options.waveformShape;
+/src/es-modules/modules/sonification/Instrument.js:213:    this.oscillator.connect(this.gainNode);
+/src/es-modules/modules/sonification/Instrument.js-214-    this.oscillatorStarted = false;
+##############################################
+/src/modules/sonification.js-10-(function(b){"object"===typeof module&&module.exports?(b["default"]=b,module.exports=b):"function"===typeof define&&define.amd?define("highcharts/modules/sonification",["highcharts"],function(n){b(n);b.Highcharts=n;return b}):b("undefined"!==typeof Highcharts?Highcharts:void 0)})(function(b){function n(e,b,d,p){e.hasOwnProperty(b)||(e[b]=p.apply(null,d))}b=b?b._modules:{};n(b,"modules/sonification/Instrument.js",[b["parts/Globals.js"],b["parts/Utilities.js"]],function(e,b){function d(c){this.init(c)}
+/src/modules/sonification.js:11:var p=b.error,m=b.merge,g=b.pick,q=b.uniqueKey,k={type:"oscillator",playCallbackInterval:20,oscillator:{waveformShape:"sine"}};d.prototype.init=function(c){this.initAudioContext()?(this.options=m(k,c),this.id=this.options.id=c&&c.id||q(),c=e.audioContext,this.gainNode=c.createGain(),this.setGain(0),(this.panNode=c.createStereoPanner&&c.createStereoPanner())?(this.setPan(0),this.gainNode.connect(this.panNode),this.panNode.connect(c.destination)):this.gainNode.connect(c.destination),"oscillator"===
+/src/modules/sonification.js-12-this.options.type&&this.initOscillator(this.options.oscillator),this.playCallbackTimers=[]):p(29)};d.prototype.copy=function(c){return new d(m(this.options,{id:null},c))};d.prototype.initAudioContext=function(){var c=e.win.AudioContext||e.win.webkitAudioContext,a=!!e.audioContext;return c?(e.audioContext=e.audioContext||new c,!a&&e.audioContext&&"running"===e.audioContext.state&&e.audioContext.suspend(),!!(e.audioContext&&e.audioContext.createOscillator&&e.audioContext.createGain)):!1};d.prototype.initOscillator=
+/src/modules/sonification.js:13:function(c){this.oscillator=e.audioContext.createOscillator();this.oscillator.type=c.waveformShape;this.oscillator.connect(this.gainNode);this.oscillatorStarted=!1};d.prototype.setPan=function(c){this.panNode&&this.panNode.pan.setValueAtTime(c,e.audioContext.currentTime)};d.prototype.setGain=function(c,a){this.gainNode&&(1.2<c&&(console.warn("Highcharts sonification warning: Volume of instrument set too high."),c=1.2),a?(this.gainNode.gain.setValueAtTime(this.gainNode.gain.value,e.audioContext.currentTime),
+/src/modules/sonification.js-14-this.gainNode.gain.linearRampToValueAtTime(c,e.audioContext.currentTime+a/1E3)):this.gainNode.gain.setValueAtTime(c,e.audioContext.currentTime))};d.prototype.cancelGainRamp=function(){this.gainNode&&this.gainNode.gain.cancelScheduledValues(0)};d.prototype.getValidFrequency=function(c,a,f){var h=this.options.allowedFrequencies,e=g(f,Infinity),b=g(a,-Infinity);return h&&h.length?h.reduce(function(a,f){return Math.abs(f-c)<Math.abs(a-c)&&f<e&&f>b?f:a},Infinity):c};d.prototype.clearPlayCallbackTimers=
+##############################################
+/src/modules/sonification.src.js-182-                this.setPan(0);
+/src/modules/sonification.src.js:183:                this.gainNode.connect(this.panNode);
+/src/modules/sonification.src.js:184:                this.panNode.connect(ctx.destination);
+/src/modules/sonification.src.js-185-            }
+/src/modules/sonification.src.js-186-            else {
+/src/modules/sonification.src.js:187:                this.gainNode.connect(ctx.destination);
+/src/modules/sonification.src.js-188-            }
+##############################################
+/src/modules/sonification.src.js-244-            this.oscillator.type = options.waveformShape;
+/src/modules/sonification.src.js:245:            this.oscillator.connect(this.gainNode);
+/src/modules/sonification.src.js-246-            this.oscillatorStarted = false;

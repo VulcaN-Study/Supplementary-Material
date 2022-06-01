@@ -1,0 +1,43 @@
+<report_mosca>
+ <Path>/src/lib/batch.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 151 -                      eval('value = ref.' + parts[i].value + ';');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/batch.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 220 -              query: request.query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/batch.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 192 -      it('supports query string in the request', function (done) {
+
+ Line: 484 -      it('supports an optional query object', function (done) {
+
+ Line: 495 -      it('supports alphanum characters in the query', function (done) {
+
+</Result>
+</report_mosca>
+

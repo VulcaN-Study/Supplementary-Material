@@ -1,0 +1,96 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/gridfs-stream/upload.js",
+          "match_lines": [
+            47,
+            47
+          ],
+          "match_position": [
+            37,
+            60
+          ],
+          "match_string": "  this.md5 = !options.disableMD5 && crypto.createHash('md5');"
+        },
+        {
+          "file_path": "/src/lib/operations/db_ops.js",
+          "match_lines": [
+            83,
+            83
+          ],
+          "match_position": [
+            19,
+            42
+          ],
+          "match_string": "      const md5 = crypto.createHash('md5');"
+        },
+        {
+          "file_path": "/src/lib/operations/db_ops.js",
+          "match_lines": [
+            900,
+            900
+          ],
+          "match_position": [
+            17,
+            40
+          ],
+          "match_string": "    const md5 = crypto.createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/gridfs/grid_store.js",
+          "match_lines": [
+            1190,
+            1196
+          ],
+          "match_position": [
+            3,
+            67
+          ],
+          "match_string": "  self\n\n    .chunkCollection()\n\n    .findOne({ files_id: self.fileId, n: chunkNumber }, options, function(err, chunk) {\n\n      if (err) return callback(err);\n\n\n\n      var finalChunk = chunk == null ? {} : chunk;\n\n      callback(null, new Chunk(self, finalChunk, self.writeConcern));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/db.js",
+          "match_lines": [
+            514,
+            514
+          ],
+          "match_position": [
+            8,
+            68
+          ],
+          "match_string": "      !new RegExp('^' + this.databaseName + '\\\\.').test(filter.name)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,129 @@
+/src/src/http/util.js-3-    URI2Path: function(uri) {
+/src/src/http/util.js:4:        uri = url.parse(uri).pathname.replace(/%20/g, ' ');
+/src/src/http/util.js-5-        var re = /(%[0-9A-Fa-f]{2}){3}/g;
+##############################################
+/src/src/http/util.js-58-    writeFile: function(fileName, content) {
+/src/src/http/util.js:59:        fs.writeFile(fileName, content, function(err) {
+/src/src/http/util.js-60-            if (err) throw err;
+##############################################
+/src/src/http/api.js-22-    parse: function(content) {
+/src/src/http/api.js:23:        return require('querystring').parse(content);
+/src/src/http/api.js-24-    },
+##############################################
+/src/src/http/server.js-5-    this.uri = Util.URI2Path(request.url);
+/src/src/http/server.js:6:    this.url = url.parse(request.url);
+/src/src/http/server.js-7-    this.filename = path.join(this.conf.WEB_ROOT, this.uri);
+##############################################
+/src/src/http/server.js-38-                } else {
+/src/src/http/server.js:39:                    this.readFile();
+/src/src/http/server.js-40-                }
+##############################################
+/src/src/http/server.js-72-            if (exists) {
+/src/src/http/server.js:73:                this.readFile();
+/src/src/http/server.js-74-            } else {
+##############################################
+/src/src/http/server.js-100-        if (path.extname(this.filename) !== this.conf.EXTEND_EXT) {
+/src/src/http/server.js:101:            fs.readFile(this.filename, function(err, content) {
+/src/src/http/server.js-102-                if (err) {
+##############################################
+/src/src/http/server.js-161-    createServer: function() {
+/src/src/http/server.js:162:        this.instance = http.createServer(
+/src/src/http/server.js-163-            Util.proxy(function(request, response) {
+##############################################
+/src/src/http/server.js-184-        setTimeout(function() {
+/src/src/http/server.js:185:            Util.open('http://127.0.0.1' + (this.conf.PORT == 80 ? '/' : ':' + this.conf.PORT + '/'), function(err) {
+/src/src/http/server.js-186-                if (err) {
+##############################################
+/src/src/http/server.js-194-        this.initConf(port, webroot, conf);
+/src/src/http/server.js:195:        this.createServer();
+/src/src/http/server.js-196-        if (conf.autoOpenBrowser !== false) {
+##############################################
+/src/dist/http.js-54-    parse: function(content) {
+/src/dist/http.js:55:        return require('querystring').parse(content);
+/src/dist/http.js-56-    },
+##############################################
+/src/dist/http.js-229-    this.uri = Util.URI2Path(request.url);
+/src/dist/http.js:230:    this.url = url.parse(request.url);
+/src/dist/http.js-231-    this.filename = path.join(this.conf.WEB_ROOT, this.uri);
+##############################################
+/src/dist/http.js-262-                } else {
+/src/dist/http.js:263:                    this.readFile();
+/src/dist/http.js-264-                }
+##############################################
+/src/dist/http.js-296-            if (exists) {
+/src/dist/http.js:297:                this.readFile();
+/src/dist/http.js-298-            } else {
+##############################################
+/src/dist/http.js-324-        if (path.extname(this.filename) !== this.conf.EXTEND_EXT) {
+/src/dist/http.js:325:            fs.readFile(this.filename, function(err, content) {
+/src/dist/http.js-326-                if (err) {
+##############################################
+/src/dist/http.js-385-    createServer: function() {
+/src/dist/http.js:386:        this.instance = http.createServer(
+/src/dist/http.js-387-            Util.proxy(function(request, response) {
+##############################################
+/src/dist/http.js-408-        setTimeout(function() {
+/src/dist/http.js:409:            Util.open('http://127.0.0.1' + (this.conf.PORT == 80 ? '/' : ':' + this.conf.PORT + '/'), function(err) {
+/src/dist/http.js-410-                if (err) {
+##############################################
+/src/dist/http.js-418-        this.initConf(port, webroot, conf);
+/src/dist/http.js:419:        this.createServer();
+/src/dist/http.js-420-        if (conf.autoOpenBrowser !== false) {
+##############################################
+/src/dist/http.js-453-    URI2Path: function(uri) {
+/src/dist/http.js:454:        uri = url.parse(uri).pathname.replace(/%20/g, ' ');
+/src/dist/http.js-455-        var re = /(%[0-9A-Fa-f]{2}){3}/g;
+##############################################
+/src/dist/http.js-508-    writeFile: function(fileName, content) {
+/src/dist/http.js:509:        fs.writeFile(fileName, content, function(err) {
+/src/dist/http.js-510-            if (err) throw err;
+##############################################
+/src/example/post.njs-11-        var querystring = require('querystring');
+/src/example/post.njs:12:        response.write(exp.income.method + ' data is:' + JSON.stringify(querystring.parse(exp.income.data)) + '<br />');
+/src/example/post.njs-13-        response.write('request url is:' + exp.income.url + '<br />');
+##############################################
+/src/example/upload.njs-6-        var util = require('util');
+/src/example/upload.njs:7:        var form = new formidable.IncomingForm();
+/src/example/upload.njs:8:        form.parse(request, function(err, fields, files) {
+/src/example/upload.njs-9-          response.writeHead(200, {'content-type': 'text/html'});
+##############################################
+/src/example/formidable/Readme.md-47-
+/src/example/formidable/Readme.md:48:http.createServer(function(req, res) {
+/src/example/formidable/Readme.md-49-  if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
+/src/example/formidable/Readme.md-50-    // parse a file upload
+/src/example/formidable/Readme.md:51:    var form = new formidable.IncomingForm();
+/src/example/formidable/Readme.md-52-
+/src/example/formidable/Readme.md:53:    form.parse(req, function(err, fields, files) {
+/src/example/formidable/Readme.md-54-      res.writeHead(200, {'content-type': 'text/plain'});
+##############################################
+/src/example/formidable/Readme.md-76-```javascript
+/src/example/formidable/Readme.md:77:var form = new formidable.IncomingForm()
+/src/example/formidable/Readme.md-78-```
+##############################################
+/src/example/formidable/Readme.md-89-Sets the directory for placing file uploads in. You can move them later on using
+/src/example/formidable/Readme.md:90:`fs.rename()`. The default is `os.tmpDir()`.
+/src/example/formidable/Readme.md-91-
+##############################################
+/src/example/formidable/Readme.md-135-```javascript
+/src/example/formidable/Readme.md:136:form.parse(request, [cb]);
+/src/example/formidable/Readme.md-137-```
+##############################################
+/src/example/formidable/Readme.md-141-```javascript
+/src/example/formidable/Readme.md:142:form.parse(req, function(err, fields, files) {
+/src/example/formidable/Readme.md-143-  // ...
+##############################################
+/src/example/formidable/lib/incoming_form.js-212-
+/src/example/formidable/lib/incoming_form.js:213:  file.open();
+/src/example/formidable/lib/incoming_form.js-214-  this.openedFiles.push(file);
+##############################################
+/src/example/formidable/lib/incoming_form.js-464-  this.emit('fileBegin', filename, file);
+/src/example/formidable/lib/incoming_form.js:465:  file.open();
+/src/example/formidable/lib/incoming_form.js-466-
+##############################################
+/src/example/formidable/lib/querystring_parser.js-18-QuerystringParser.prototype.end = function() {
+/src/example/formidable/lib/querystring_parser.js:19:  var fields = querystring.parse(this.buffer, '&', '=', { maxKeys: this.maxKeys });
+/src/example/formidable/lib/querystring_parser.js-20-  for (var field in fields) {
+##############################################
+/src/example/formidable/lib/json_parser.js-26-  try {
+/src/example/formidable/lib/json_parser.js:27:    var fields = JSON.parse(this.data.toString('utf8'));
+/src/example/formidable/lib/json_parser.js-28-    for (var field in fields) {

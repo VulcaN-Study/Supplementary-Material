@@ -1,0 +1,48 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 17,
+          "line": 1
+        },
+        "extra": {
+          "line": "web: node server.js\r",
+          "message": "Syntax error"
+        },
+        "path": "/src/Procfile",
+        "start": {
+          "col": 11,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/server.js",
+          "match_lines": [
+            58,
+            71
+          ],
+          "match_position": [
+            3,
+            17
+          ],
+          "match_string": "  var pathName = urlObj.pathname;\n\n\n\n  if(!pathName || pathName == '/'){\n\n    pathName = indexFileName;\n\n  }\n\n\n\n  fs.readFile(ROOT_DIR + pathName, function(err, data){\n\n    if(err){\n\n      res.writeHead(404);\n\n      res.end(JSON.stringify(err));\n\n      return;\n\n    }\n\n    res.writeHead(200);\n\n    res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

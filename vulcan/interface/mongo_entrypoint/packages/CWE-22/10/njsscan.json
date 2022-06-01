@@ -1,0 +1,912 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "#",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 4,
+          "line": 14
+        },
+        "extra": {
+          "line": "  , _serialize = function (obj) {",
+          "message": "Syntax error"
+        },
+        "path": "/src/lib/log.js",
+        "start": {
+          "col": 3,
+          "line": 14
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/sessions/stores/mongodb.js",
+          "match_lines": [
+            77,
+            83
+          ],
+          "match_position": [
+            5,
+            28
+          ],
+          "match_string": "    var query = {};\n\n    query[_key] = session.id;\n\n    _client[sessionCollection].findOne(query, function (err, result) {\n\n\t    if (err) {\n\n        geddy.log.error(err);\n\n      }\n\n      callback(result || {});"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/controller/base_controller.js",
+          "match_lines": [
+            243,
+            243
+          ],
+          "match_position": [
+            15,
+            39
+          ],
+          "match_string": "    var sha = crypto.createHash('sha1');"
+        },
+        {
+          "file_path": "/src/lib/template/adapters/swig.js",
+          "match_lines": [
+            42,
+            42
+          ],
+          "match_position": [
+            28,
+            63
+          ],
+          "match_string": "    options.baseNamePath = require('crypto').createHash('sha1').update(template).digest('hex');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/lib/controller/base_controller.js",
+          "match_lines": [
+            262,
+            263
+          ],
+          "match_position": [
+            9,
+            27
+          ],
+          "match_string": "        if (_generateSameOriginToken.call(this) != token) {\n\n          forbidden = true;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "ejs_ect_template": {
+      "files": [
+        {
+          "file_path": "/src/gen/scaffold/views/ejs/layout.html.ejs.ejs",
+          "match_position": [
+            176,
+            192
+          ],
+          "match_string": "<%- render(); %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/main/index.html.ejs",
+          "match_position": [
+            255,
+            368
+          ],
+          "match_string": "<%- linkTo('Lets get you started \u00bb', 'http://geddyjs.org/tutorial.html', {class: 'btn btn-primary btn-large'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            879,
+            952
+          ],
+          "match_string": "<%- styleLink('/css/bootstrap.responsive.min.css', {rel:'stylesheet'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            351,
+            448
+          ],
+          "match_string": "<%- scriptLink('http://html5shim.googlecode.com/svn/trunk/html5.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            820,
+            874
+          ],
+          "match_string": "<%- styleLink('/css/style.css', {rel:'stylesheet'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            612,
+            676
+          ],
+          "match_string": "<%- scriptLink('/js/core/core.js', {type: 'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            471,
+            535
+          ],
+          "match_string": "<%- scriptLink('/js/jquery.min.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            753,
+            815
+          ],
+          "match_string": "<%- styleLink('/css/bootstrap.min.css', {rel:'stylesheet'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            540,
+            607
+          ],
+          "match_string": "<%- scriptLink('/js/bootstrap.min.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            681,
+            747
+          ],
+          "match_string": "<%- scriptLink('/js/core/models.js', {type: 'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/lib/template/templates/empty.html.ejs",
+          "match_position": [
+            0,
+            15
+          ],
+          "match_string": "<%- yield(); %>"
+        },
+        {
+          "file_path": "/src/gen/base/migration.ejs",
+          "match_position": [
+            4,
+            19
+          ],
+          "match_string": "<%- ctorName %>"
+        },
+        {
+          "file_path": "/src/gen/base/migration.ejs",
+          "match_position": [
+            65,
+            78
+          ],
+          "match_string": "<%- upCode %>"
+        },
+        {
+          "file_path": "/src/gen/base/migration.ejs",
+          "match_position": [
+            116,
+            131
+          ],
+          "match_string": "<%- downCode %>"
+        },
+        {
+          "file_path": "/src/gen/base/migration.ejs",
+          "match_position": [
+            167,
+            182
+          ],
+          "match_string": "<%- ctorName %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            536,
+            599
+          ],
+          "match_string": "<%- scriptLink('bootstrap.min.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            351,
+            448
+          ],
+          "match_string": "<%- scriptLink('http://html5shim.googlecode.com/svn/trunk/html5.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            471,
+            531
+          ],
+          "match_string": "<%- scriptLink('jquery.min.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            734,
+            802
+          ],
+          "match_string": "<%- styleLink('bootstrap.responsive.min.css', {rel:'stylesheet'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            604,
+            666
+          ],
+          "match_string": "<%- scriptLink('config/init.js', {type: 'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            672,
+            729
+          ],
+          "match_string": "<%- styleLink('bootstrap.min.css', {rel:'stylesheet'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/layout_header.html.ejs",
+          "match_position": [
+            807,
+            856
+          ],
+          "match_string": "<%- styleLink('style.css', {rel:'stylesheet'}) %>"
+        },
+        {
+          "file_path": "/src/gen/scaffold/model.ejs",
+          "match_position": [
+            464,
+            502
+          ],
+          "match_string": "<%- propertyOutput.join(\",\\n    \"); %>"
+        },
+        {
+          "file_path": "/src/gen/views/ejs/layout.html.ejs.ejs",
+          "match_position": [
+            176,
+            192
+          ],
+          "match_string": "<%- render(); %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/errors.html.ejs",
+          "match_position": [
+            76,
+            92
+          ],
+          "match_string": "<%- render(); %>"
+        },
+        {
+          "file_path": "/src/gen/scaffold/realtime/views/ejs/layout.html.ejs.ejs",
+          "match_position": [
+            351,
+            417
+          ],
+          "match_string": "<%- scriptLink('/js/config/init.js', {type: 'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/scaffold/realtime/views/ejs/layout.html.ejs.ejs",
+          "match_position": [
+            271,
+            342
+          ],
+          "match_string": "<%- scriptLink('/js/models/your_model.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/scaffold/realtime/views/ejs/layout.html.ejs.ejs",
+          "match_position": [
+            471,
+            487
+          ],
+          "match_string": "<%- render(); %>"
+        },
+        {
+          "file_path": "/src/gen/scaffold/realtime/views/ejs/layout.html.ejs.ejs",
+          "match_position": [
+            197,
+            261
+          ],
+          "match_string": "<%- scriptLink('/js/core/core.js', {type: 'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/scaffold/realtime/views/ejs/layout.html.ejs.ejs",
+          "match_position": [
+            128,
+            192
+          ],
+          "match_string": "<%- scriptLink('/js/jquery.min.js', {type:'text/javascript'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            577,
+            633
+          ],
+          "match_string": "<%- linkTo('Tutorial', 'http://geddyjs.org/tutorial') %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            366,
+            421
+          ],
+          "match_string": "<%- linkTo('Geddy App', mainsPath, {class: 'brand'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            657,
+            714
+          ],
+          "match_string": "<%- linkTo('Docs', 'http://geddyjs.org/documentation') %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            850,
+            877
+          ],
+          "match_string": "<%- displayFlash(flash); %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            884,
+            900
+          ],
+          "match_string": "<%- render(); %>"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            521,
+            553
+          ],
+          "match_string": "<%- linkTo('Home', mainsPath) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/errors.html.ejs",
+          "match_position": [
+            76,
+            92
+          ],
+          "match_string": "<%- render(); %>"
+        },
+        {
+          "file_path": "/src/gen/resource/model.ejs",
+          "match_position": [
+            464,
+            502
+          ],
+          "match_string": "<%- propertyOutput.join(\",\\n    \"); %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/main/index.html.ejs",
+          "match_position": [
+            255,
+            368
+          ],
+          "match_string": "<%- linkTo('Lets get you started \u00bb', 'http://geddyjs.org/tutorial.html', {class: 'btn btn-primary btn-large'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            346,
+            401
+          ],
+          "match_string": "<%- linkTo('Geddy App', mainsPath, {class: 'brand'}) %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            637,
+            694
+          ],
+          "match_string": "<%- linkTo('Docs', 'http://geddyjs.org/documentation') %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            557,
+            613
+          ],
+          "match_string": "<%- linkTo('Tutorial', 'http://geddyjs.org/tutorial') %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            830,
+            857
+          ],
+          "match_string": "<%- displayFlash(flash); %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            864,
+            880
+          ],
+          "match_string": "<%- render(); %>"
+        },
+        {
+          "file_path": "/src/gen/base/views/ejs/layouts/application.html.ejs",
+          "match_position": [
+            501,
+            533
+          ],
+          "match_string": "<%- linkTo('Home', mainsPath) %>"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The EJS/ECT template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "ejs_ect_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "<%-(?![ ]*include\\().*%>",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    },
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/gen/scaffold/views/handlebars/add.html.hbs.ejs",
+          "match_position": [
+            444,
+            469
+          ],
+          "match_string": "{{{partial \"form\" this}}}"
+        },
+        {
+          "file_path": "/src/gen/scaffold/realtime/views/mustache/layout.html.ms.ejs",
+          "match_position": [
+            469,
+            481
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/scaffold/views/handlebars/layout.html.hbs.ejs",
+          "match_position": [
+            176,
+            188
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/scaffold/realtime/views/handlebars/layout.html.hbs.ejs",
+          "match_position": [
+            469,
+            481
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/scaffold/views/mustache/layout.html.ms.ejs",
+          "match_position": [
+            176,
+            188
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            865,
+            877
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            899,
+            928
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            644,
+            698
+          ],
+          "match_string": "{{{linkTo 'Docs' 'http://geddyjs.org/documentation'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            567,
+            620
+          ],
+          "match_string": "{{{linkTo 'Tutorial' 'http://geddyjs.org/tutorial'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            514,
+            543
+          ],
+          "match_string": "{{{linkTo 'Home' mainsPath}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            834,
+            858
+          ],
+          "match_string": "{{{displayFlash flash}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/errors.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/errors.html.hbs",
+          "match_position": [
+            73,
+            85
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/errors.html.hbs",
+          "match_position": [
+            107,
+            136
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        },
+        {
+          "file_path": "/src/gen/scaffold/views/mustache/edit.html.ms.ejs",
+          "match_position": [
+            427,
+            452
+          ],
+          "match_string": "{{{partial \"form\" this}}}"
+        },
+        {
+          "file_path": "/src/gen/scaffold/views/handlebars/edit.html.hbs.ejs",
+          "match_position": [
+            469,
+            494
+          ],
+          "match_string": "{{{partial \"form\" this}}}"
+        },
+        {
+          "file_path": "/src/gen/scaffold/views/mustache/add.html.ms.ejs",
+          "match_position": [
+            404,
+            429
+          ],
+          "match_string": "{{{partial \"form\" this}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            845,
+            857
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            547,
+            600
+          ],
+          "match_string": "{{{linkTo 'Tutorial' 'http://geddyjs.org/tutorial'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            494,
+            523
+          ],
+          "match_string": "{{{linkTo 'Home' mainsPath}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            879,
+            908
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            624,
+            678
+          ],
+          "match_string": "{{{linkTo 'Docs' 'http://geddyjs.org/documentation'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            814,
+            838
+          ],
+          "match_string": "{{{displayFlash flash}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/errors.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/errors.html.hbs",
+          "match_position": [
+            73,
+            85
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/handlebars/layouts/errors.html.hbs",
+          "match_position": [
+            107,
+            136
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/errors.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/errors.html.hbs",
+          "match_position": [
+            73,
+            85
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/mustache/layouts/errors.html.hbs",
+          "match_position": [
+            107,
+            136
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        },
+        {
+          "file_path": "/src/gen/views/mustache/layout.html.ms.ejs",
+          "match_position": [
+            176,
+            188
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            865,
+            877
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            899,
+            928
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            644,
+            698
+          ],
+          "match_string": "{{{linkTo 'Docs' 'http://geddyjs.org/documentation'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            567,
+            620
+          ],
+          "match_string": "{{{linkTo 'Tutorial' 'http://geddyjs.org/tutorial'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            514,
+            543
+          ],
+          "match_string": "{{{linkTo 'Home' mainsPath}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/application.html.hbs",
+          "match_position": [
+            834,
+            858
+          ],
+          "match_string": "{{{displayFlash flash}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            845,
+            857
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            547,
+            600
+          ],
+          "match_string": "{{{linkTo 'Tutorial' 'http://geddyjs.org/tutorial'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            494,
+            523
+          ],
+          "match_string": "{{{linkTo 'Home' mainsPath}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            879,
+            908
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            624,
+            678
+          ],
+          "match_string": "{{{linkTo 'Docs' 'http://geddyjs.org/documentation'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/realtime/views/handlebars/layouts/application.html.hbs",
+          "match_position": [
+            814,
+            838
+          ],
+          "match_string": "{{{displayFlash flash}}}"
+        },
+        {
+          "file_path": "/src/gen/views/handlebars/layout.html.hbs.ejs",
+          "match_position": [
+            176,
+            188
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/errors.html.hbs",
+          "match_position": [
+            0,
+            29
+          ],
+          "match_string": "{{{partial 'layout_header'}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/errors.html.hbs",
+          "match_position": [
+            73,
+            85
+          ],
+          "match_string": "{{{render}}}"
+        },
+        {
+          "file_path": "/src/gen/base/views/mustache/layouts/errors.html.hbs",
+          "match_position": [
+            107,
+            136
+          ],
+          "match_string": "{{{partial 'layout_footer'}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

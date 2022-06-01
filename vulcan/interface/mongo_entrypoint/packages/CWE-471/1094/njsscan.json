@@ -1,0 +1,258 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": ".vscode/",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/stream/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/mithril.js",
+          "match_lines": [
+            1153,
+            1154
+          ],
+          "match_position": [
+            4,
+            31
+          ],
+          "match_string": "\t\t\ttry { render0(subscriptions[i], Vnode(subscriptions[i + 1]), redraw) }\n\n\t\t\tcatch (e) { console.error(e) }"
+        },
+        {
+          "file_path": "/src/api/mount-redraw.js",
+          "match_lines": [
+            14,
+            15
+          ],
+          "match_position": [
+            4,
+            31
+          ],
+          "match_string": "\t\t\ttry { render(subscriptions[i], Vnode(subscriptions[i + 1]), redraw) }\n\n\t\t\tcatch (e) { console.error(e) }"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "layer7_object_dos": {
+      "files": [
+        {
+          "file_path": "/src/request/request.js",
+          "match_lines": [
+            102,
+            104
+          ],
+          "match_position": [
+            4,
+            48
+          ],
+          "match_string": "\t\t\tfor (var key in args.headers) {\n\n\t\t\t\tif ({}.hasOwnProperty.call(args.headers, key)) {\n\n\t\t\t\t\txhr.setRequestHeader(key, args.headers[key])"
+        },
+        {
+          "file_path": "/src/mithril.js",
+          "match_lines": [
+            1328,
+            1330
+          ],
+          "match_position": [
+            4,
+            50
+          ],
+          "match_string": "\t\t\tfor (var key0 in args.headers) {\n\n\t\t\t\tif ({}.hasOwnProperty.call(args.headers, key0)) {\n\n\t\t\t\t\txhr.setRequestHeader(key0, args.headers[key0])"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "Layer7 Denial of Service. Looping over user controlled objects can result in DoS.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/request/request.js",
+          "match_lines": [
+            176,
+            176
+          ],
+          "match_position": [
+            69,
+            80
+          ],
+          "match_string": "\t\t\tvar callbackName = args.callbackName || \"_mithril_\" + Math.round(Math.random() * 1e16) + \"_\" + callbackCount++"
+        },
+        {
+          "file_path": "/src/mithril.js",
+          "match_lines": [
+            1395,
+            1395
+          ],
+          "match_position": [
+            69,
+            80
+          ],
+          "match_string": "\t\t\tvar callbackName = args.callbackName || \"_mithril_\" + Math.round(Math.random() * 1e16) + \"_\" + callbackCount++"
+        },
+        {
+          "file_path": "/src/render/tests/test-updateNodesFuzzer.js",
+          "match_lines": [
+            92,
+            92
+          ],
+          "match_position": [
+            20,
+            31
+          ],
+          "match_string": "\treturn Math.floor(Math.random() * (max - min + 1)) + min"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/test-utils/pushStateMock.js",
+          "match_lines": [
+            131,
+            131
+          ],
+          "match_position": [
+            4,
+            35
+          ],
+          "match_string": "\t\t\tif (oldHash != hash) hashchange()"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/request/request.js",
+          "match_lines": [
+            114,
+            114
+          ],
+          "match_position": [
+            105,
+            128
+          ],
+          "match_string": "\t\t\t\t\t\tvar success = (ev.target.status >= 200 && ev.target.status < 300) || ev.target.status === 304 || (/^file:\\/\\//i).test(url)"
+        },
+        {
+          "file_path": "/src/mithril.js",
+          "match_lines": [
+            1211,
+            1211
+          ],
+          "match_position": [
+            7,
+            45
+          ],
+          "match_string": "\tif ((/:([^\\/\\.-]+)(\\.{3})?:/).test(template)) {"
+        },
+        {
+          "file_path": "/src/mithril.js",
+          "match_lines": [
+            1338,
+            1338
+          ],
+          "match_position": [
+            105,
+            128
+          ],
+          "match_string": "\t\t\t\t\t\tvar success = (ev.target.status >= 200 && ev.target.status < 300) || ev.target.status === 304 || (/^file:\\/\\//i).test(url)"
+        },
+        {
+          "file_path": "/src/pathname/build.js",
+          "match_lines": [
+            8,
+            8
+          ],
+          "match_position": [
+            7,
+            45
+          ],
+          "match_string": "\tif ((/:([^\\/\\.-]+)(\\.{3})?:/).test(template)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

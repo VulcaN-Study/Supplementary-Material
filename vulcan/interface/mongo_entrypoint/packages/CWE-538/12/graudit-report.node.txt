@@ -1,0 +1,162 @@
+/src/examples/validation.js-33-        { method: 'GET', path: '/test', config: { handler: internals.get, validate: { query: { num: Joi.number().min(0) } } } },
+/src/examples/validation.js:34:        { method: 'GET', path: '/test2', config: { handler: internals.get, validate: { query: Joi.object({ p1: Joi.string().required() }).rename('p1', 'itemId') } } },
+/src/examples/validation.js-35-        { method: 'GET', path: '/simple', config: { handler: internals.get, validate: { query: { input: Joi.string().min(3) } } } }
+##############################################
+/src/lib/payload.js-73-    if (request.route.payload.parse === true) {
+/src/lib/payload.js:74:        return internals.parse(request, failActionNext);
+/src/lib/payload.js-75-    }
+##############################################
+/src/lib/payload.js-124-    if (output === 'file') {
+/src/lib/payload.js:125:        internals.writeFile(source, request.route.payload.uploads, function (err, path, bytes) {
+/src/lib/payload.js-126-
+##############################################
+/src/lib/payload.js-202-    if (output === 'file') {
+/src/lib/payload.js:203:        internals.writeFile(source, request.route.payload.uploads, function (err, path, bytes) {
+/src/lib/payload.js-204-
+##############################################
+/src/lib/payload.js-263-    if (mime === 'application/x-www-form-urlencoded') {
+/src/lib/payload.js:264:        return next(null, Qs.parse(payload.toString('utf8')));
+/src/lib/payload.js-265-    }
+##############################################
+/src/lib/payload.js-273-    try {
+/src/lib/payload.js:274:        return next(null, JSON.parse(payload.toString('utf8')));
+/src/lib/payload.js-275-    }
+##############################################
+/src/lib/payload.js-308-        if (arrayFields) {
+/src/lib/payload.js:309:            data = Qs.parse(data);
+/src/lib/payload.js-310-        }
+##############################################
+/src/lib/payload.js-344-            pendingFiles[id] = true;
+/src/lib/payload.js:345:            internals.writeFile(part, options.uploads, function (err, path, bytes) {
+/src/lib/payload.js-346-
+##############################################
+/src/lib/payload.js-425-    source.headers = source.headers || request.headers;
+/src/lib/payload.js:426:    form.parse(source);
+/src/lib/payload.js-427-};
+##############################################
+/src/lib/payload.js-445-        file.destroy();
+/src/lib/payload.js:446:        Fs.unlink(path, function (/* fsErr */) {      // Ignore unlink errors
+/src/lib/payload.js-447-
+##############################################
+/src/lib/request.js-171-
+/src/lib/request.js:172:    this.url = Url.parse(url, false);
+/src/lib/request.js:173:    this.url.query = Qs.parse(this.url.query);          // Override parsed value
+/src/lib/request.js-174-    this.query = this.url.query;
+##############################################
+/src/lib/cli.js-65-    try {
+/src/lib/cli.js:66:        manifest = JSON.parse(Fs.readFileSync(manifestPath));
+/src/lib/cli.js-67-    }
+##############################################
+/src/lib/views.js-338-
+/src/lib/views.js:339:    Fs.readFile(template, { encoding: settings.encoding }, function (err, data) {
+/src/lib/views.js-340-
+##############################################
+/src/lib/server.js-220-    if (this.settings.tls) {
+/src/lib/server.js:221:        this.listener = Https.createServer(this.settings.tls, this._dispatch());
+/src/lib/server.js-222-    }
+/src/lib/server.js-223-    else {
+/src/lib/server.js:224:        this.listener = Http.createServer(this._dispatch());
+/src/lib/server.js-225-    }
+##############################################
+/src/lib/state.js-266-                    var decoded = (new Buffer(value, 'base64')).toString('binary');
+/src/lib/state.js:267:                    result = JSON.parse(decoded);
+/src/lib/state.js-268-                    break;
+##############################################
+/src/lib/state.js-272-                case 'form':
+/src/lib/state.js:273:                    result = Querystring.parse(value);
+/src/lib/state.js-274-                    break;
+##############################################
+/src/lib/file.js-124-    var path = this.source.path;
+/src/lib/file.js:125:    var fileStream = Fs.createReadStream(path);
+/src/lib/file.js-126-    fileStream.once('error', callback);
+##############################################
+/src/lib/file.js-142-
+/src/lib/file.js:143:                var gzipped = Fs.createReadStream(gzFile);
+/src/lib/file.js-144-                fileStream._hapi = { gzipped: gzipped };
+##############################################
+/src/lib/response/index.js-142-
+/src/lib/response/index.js:143:                var ifModifiedSince = Date.parse(ifModifiedSinceHeader);
+/src/lib/response/index.js:144:                var lastModified = Date.parse(lastModifiedHeader);
+/src/lib/response/index.js-145-
+##############################################
+/src/test/payload.js-1212-                var form = new FormData();
+/src/test/payload.js:1213:                form.append('my_file', Fs.createReadStream(path));
+/src/test/payload.js-1214-                Nipple.post(server.info.uri + '/file', { payload: form, headers: form.getHeaders() }, function (err, res, payload) { });
+##############################################
+/src/test/payload.js-1234-                var form = new FormData();
+/src/test/payload.js:1235:                form.append('file1', Fs.createReadStream(path));
+/src/test/payload.js:1236:                form.append('file2', Fs.createReadStream(path));
+/src/test/payload.js-1237-                Nipple.post(server.info.uri + '/file', { payload: form, headers: form.getHeaders() }, function (err, res, payload) { });
+##############################################
+/src/test/payload.js-1273-                var form = new FormData();
+/src/test/payload.js:1274:                form.append('file1', Fs.createReadStream(path));
+/src/test/payload.js:1275:                form.append('file2', Fs.createReadStream(path));
+/src/test/payload.js-1276-                Nipple.post(server.info.uri + '/file', { payload: form, headers: form.getHeaders() }, function (err, res, payload) { });
+##############################################
+/src/test/payload.js-1295-                var form = new FormData();
+/src/test/payload.js:1296:                form.append('my_file', Fs.createReadStream(path));
+/src/test/payload.js-1297-                Nipple.post(server.info.uri + '/file', { payload: form, headers: form.getHeaders() }, function (err, res, payload) { });
+##############################################
+/src/test/payload.js-1320-            var stats = Fs.statSync(path);
+/src/test/payload.js:1321:            var fileStream = Fs.createReadStream(path);
+/src/test/payload.js-1322-            var fileContents = Fs.readFileSync(path);
+##############################################
+/src/test/pack.js-1048-                expect(res.statusCode).to.equal(200);
+/src/test/pack.js:1049:                expect(JSON.parse(res.result).name).to.equal('--handler');
+/src/test/pack.js-1050-                done();
+##############################################
+/src/test/proxy.js-237-
+/src/test/proxy.js:238:                Fs.readFile(__dirname + '/../package.json', { encoding: 'utf8' }, function (err, file) {
+/src/test/proxy.js-239-
+##############################################
+/src/test/proxy.js-625-                    expect(res.statusCode).to.equal(200);
+/src/test/proxy.js:626:                    var result = JSON.parse(body);
+/src/test/proxy.js-627-                    expect(result['x-forwarded-for']).to.equal('127.0.0.1');
+##############################################
+/src/test/proxy.js-668-                    expect(res.statusCode).to.equal(200);
+/src/test/proxy.js:669:                    var result = JSON.parse(body);
+/src/test/proxy.js-670-                    expect(result['x-forwarded-for']).to.equal('testhost,127.0.0.1');
+##############################################
+/src/test/proxy.js-709-                expect(res.statusCode).to.equal(200);
+/src/test/proxy.js:710:                var result = JSON.parse(res.payload);
+/src/test/proxy.js-711-                expect(result['x-forwarded-for']).to.equal('testhost');
+##############################################
+/src/test/proxy.js-1132-
+/src/test/proxy.js:1133:        var upstream = Http.createServer(function (req, res) {
+/src/test/proxy.js-1134-
+##############################################
+/src/test/proxy.js-1153-
+/src/test/proxy.js:1154:        var upstream = Http.createServer(function (req, res) {
+/src/test/proxy.js-1155-
+##############################################
+/src/test/server.js-73-
+/src/test/server.js:74:        var server = Hapi.createServer(0);
+/src/test/server.js-75-        server.start(function () {
+##############################################
+/src/test/server.js-108-
+/src/test/server.js:109:        var server = Hapi.createServer(0);
+/src/test/server.js-110-        server.start(function () {
+##############################################
+/src/test/server.js-146-
+/src/test/server.js:147:        var server = Hapi.createServer(0);
+/src/test/server.js-148-        server.start(function () {
+##############################################
+/src/test/server.js-194-
+/src/test/server.js:195:        var server = Hapi.createServer(0);
+/src/test/server.js-196-        server.start(function () {
+##############################################
+/src/docs/Reference.md-135-var Hapi = require('hapi');
+/src/docs/Reference.md:136:var server = Hapi.createServer('localhost', 8000, { cors: true });
+/src/docs/Reference.md-137-```
+##############################################
+/src/docs/Reference.md-1308-var Hapi = require('hapi');
+/src/docs/Reference.md:1309:var server = Hapi.createServer('localhost', 8000);
+/src/docs/Reference.md-1310-
+##############################################
+/src/docs/Reference.md-1336-var Hapi = require('hapi');
+/src/docs/Reference.md:1337:var server = Hapi.createServer('localhost', 8000);
+/src/docs/Reference.md-1338-
+##############################################
+/src/docs/Reference.md-2106-    try {
+/src/docs/Reference.md:2107:        result = JSON.parse(request.query.value);
+/src/docs/Reference.md-2108-    }

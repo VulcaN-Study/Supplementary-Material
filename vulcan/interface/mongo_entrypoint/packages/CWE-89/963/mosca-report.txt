@@ -1,0 +1,289 @@
+<report_mosca>
+ <Path>/src/src/mysql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 55 -     * @param {string} query
+
+ Line: 56 -     *   The SQL query to execute.
+
+ Line: 78 -     * Perform the query.
+
+ Line: 80 -     * @param {string} query
+
+ Line: 81 -     *   The SQL query to execute.
+
+ Line: 83 -    var query = function query(query) {
+
+ Line: 119 -      query: query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/mssql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 33 -     * @param {string} query
+
+ Line: 34 -     *   The SQL query to execute.
+
+ Line: 37 -      return Q.ninvoke((new sql.Request(connection)), 'query', query);
+
+ Line: 41 -     * Perform the query.
+
+ Line: 43 -     * @param {string} query
+
+ Line: 44 -     *   The SQL query to execute.
+
+ Line: 46 -    var query = function query(query, count) {
+
+ Line: 75 -     * Perform a count query, followed by a regular query so the total results is included.
+
+ Line: 78 -     *   The SQL query for counting items.
+
+ Line: 79 -     * @param {string} query
+
+ Line: 80 -     *   Te SQL query to execute.
+
+ Line: 82 -    var count = function count(count, query) {
+
+ Line: 85 -          return query(query, {total: recordset[0].total});
+
+ Line: 95 -      query: query,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/util.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 11 -   * @param {string} query
+
+ Line: 12 -   *   The SQL query to sanitize.
+
+ Line: 15 -   *   The escaped query.
+
+ Line: 18 -    return query.replace(/[\0\n\r\b\t\\\'\"\x1a]/g, function(s) { // eslint-disable-line no-control-regex
+
+ Line: 60 -    // Let the query have priority over request body data.
+
+ Line: 70 -   * Create anonymous function to sanitize user input for sql query injection.
+
+ Line: 76 -   *   The function to replace the data in the query.
+
+ Line: 78 -  var queryReplace = function(data) {
+
+ Line: 164 -    queryReplace: queryReplace,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/postgresql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 54 -     * @param {string} query
+
+ Line: 55 -     *   The SQL query to execute.
+
+ Line: 61 -      return Q.ninvoke(connection, 'query', query);
+
+ Line: 65 -     * Perform the query.
+
+ Line: 67 -     * @param {string} query
+
+ Line: 68 -     *   The SQL query to execute.
+
+ Line: 70 -    var query = function query(query, extra) {
+
+ Line: 103 -      query: query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 45 -        var queryToken = /{{\s+([^}]+)\s+}}/g;
+
+ Line: 47 -        // Get the query.
+
+ Line: 48 -        var query = (typeof route.query === 'function') ? route.query(req, res) : route.query;
+
+ Line: 55 -          query: {
+
+ Line: 60 -        // Get the query to execute.
+
+ Line: 61 -        query = query.replace(queryToken, util.queryReplace(data));
+
+ Line: 64 -        // If there is no query then respond with no change.
+
+ Line: 69 -        // Perform a count query.
+
+ Line: 87 -              return Q.fcall(sql.count, count, query, extra);
+
+ Line: 90 -            return Q.fcall(sql.query, query, extra);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/mysql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 26 -      'DELETE': [],
+
+ Line: 268 -        assert(called.DELETE instanceof Array);
+
+ Line: 269 -        assert(called.DELETE.length >= 1);
+
+ Line: 270 -        assert(called.DELETE[0] === 'before');
+
+ Line: 275 -        assert(called.DELETE instanceof Array);
+
+ Line: 276 -        assert(called.DELETE.length >= 2);
+
+ Line: 277 -        assert(called.DELETE[1] === 'after');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/mssql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 30 -      'DELETE': [],
+
+ Line: 282 -        assert(called.DELETE instanceof Array);
+
+ Line: 283 -        assert(called.DELETE.length >= 1);
+
+ Line: 284 -        assert(called.DELETE[0] === 'before');
+
+ Line: 289 -        assert(called.DELETE instanceof Array);
+
+ Line: 290 -        assert(called.DELETE.length >= 2);
+
+ Line: 291 -        assert(called.DELETE[1] === 'after');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/postgresql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 28 -      'DELETE': [],
+
+ Line: 328 -        assert(called.DELETE instanceof Array);
+
+ Line: 329 -        assert(called.DELETE.length >= 1);
+
+ Line: 330 -        assert(called.DELETE[0] === 'before');
+
+ Line: 335 -        assert(called.DELETE instanceof Array);
+
+ Line: 336 -        assert(called.DELETE.length >= 2);
+
+ Line: 337 -        assert(called.DELETE[1] === 'after');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/example/mssql/routes/customer/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -      query: fs.readFileSync(__dirname + '/index.sql', 'utf8')
+
+ Line: 11 -      query: fs.readFileSync(__dirname + '/post.sql', 'utf8')
+
+ Line: 16 -      query: fs.readFileSync(__dirname + '/get.sql', 'utf8')
+
+ Line: 21 -      query: fs.readFileSync(__dirname + '/put.sql', 'utf8')
+
+ Line: 26 -      query: fs.readFileSync(__dirname + '/delete.sql', 'utf8')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/example/mysql/routes/customer/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -      query: fs.readFileSync(__dirname + '/index.sql', 'utf8')
+
+ Line: 11 -      query: fs.readFileSync(__dirname + '/post.sql', 'utf8')
+
+ Line: 16 -      query: fs.readFileSync(__dirname + '/get.sql', 'utf8')
+
+ Line: 21 -      query: fs.readFileSync(__dirname + '/put.sql', 'utf8')
+
+ Line: 26 -      query: fs.readFileSync(__dirname + '/delete.sql', 'utf8')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/example/postgresql/routes/customer/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -      query: fs.readFileSync(__dirname + '/index.sql', 'utf8')
+
+ Line: 11 -      query: fs.readFileSync(__dirname + '/post.sql', 'utf8')
+
+ Line: 16 -      query: fs.readFileSync(__dirname + '/get.sql', 'utf8')
+
+ Line: 21 -      query: fs.readFileSync(__dirname + '/put.sql', 'utf8')
+
+ Line: 26 -      query: fs.readFileSync(__dirname + '/delete.sql', 'utf8')
+
+</Result>
+</report_mosca>
+

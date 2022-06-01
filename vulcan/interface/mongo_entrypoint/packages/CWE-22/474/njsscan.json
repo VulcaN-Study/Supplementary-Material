@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/server2.js",
+          "match_lines": [
+            6,
+            40
+          ],
+          "match_position": [
+            3,
+            19
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  console.log(\"urlObjpath: \" + urlObj.pathname);\n\n  if (urlObj.pathname.indexOf(\"selectCity\") != -1) {\n\n    console.log(\"in selectCity function\");\n\n    fs.readFile(ROOT_DIR + \"cities.dat.txt\", function (err,data) {\n\n      if (err) {\n\n        res.writeHead(404);\n\n        res.end(JSON.stringify(err));\n\n        return;\n\n      }\n\n      console.log(\"about to set data to cities\");\n\n      var cities = data.toString().split(\"\\n\");\n\n      var json = [];\n\n      var myRe = new RegExp(\"^\" +  urlObj.query[\"q\"]);\n\n      for (var i = 0; i < cities.length; i++) {\n\n\tvar result = cities[i].search(myRe);\n\n        if (result != -1) {\n\n          json.push({city:cities[i]});\n\n        }\n\n      }\n\n      console.log(JSON.stringify(json));\n\n      res.writeHead(200, { 'Content-Type': 'jsonp' });\n\n      res.end(JSON.stringify(json));\n\n      return;\n\n    });\n\n  }\n\n  else {\n\n    fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n      if (err) {\n\n        res.writeHead(404);\n\n        res.end(JSON.stringify(err));\n\n        return;\n\n      }\n\n      res.writeHead(200);\n\n      res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/server2.js",
+          "match_lines": [
+            6,
+            40
+          ],
+          "match_position": [
+            3,
+            19
+          ],
+          "match_string": "  var urlObj = url.parse(req.url, true, false);\n\n  console.log(\"urlObjpath: \" + urlObj.pathname);\n\n  if (urlObj.pathname.indexOf(\"selectCity\") != -1) {\n\n    console.log(\"in selectCity function\");\n\n    fs.readFile(ROOT_DIR + \"cities.dat.txt\", function (err,data) {\n\n      if (err) {\n\n        res.writeHead(404);\n\n        res.end(JSON.stringify(err));\n\n        return;\n\n      }\n\n      console.log(\"about to set data to cities\");\n\n      var cities = data.toString().split(\"\\n\");\n\n      var json = [];\n\n      var myRe = new RegExp(\"^\" +  urlObj.query[\"q\"]);\n\n      for (var i = 0; i < cities.length; i++) {\n\n\tvar result = cities[i].search(myRe);\n\n        if (result != -1) {\n\n          json.push({city:cities[i]});\n\n        }\n\n      }\n\n      console.log(JSON.stringify(json));\n\n      res.writeHead(200, { 'Content-Type': 'jsonp' });\n\n      res.end(JSON.stringify(json));\n\n      return;\n\n    });\n\n  }\n\n  else {\n\n    fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {\n\n      if (err) {\n\n        res.writeHead(404);\n\n        res.end(JSON.stringify(err));\n\n        return;\n\n      }\n\n      res.writeHead(200);\n\n      res.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

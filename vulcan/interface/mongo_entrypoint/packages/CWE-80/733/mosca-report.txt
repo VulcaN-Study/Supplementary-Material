@@ -1,0 +1,143 @@
+<report_mosca>
+ <Path>/src/dist/exceljs.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 27 -  rEach(b):Object.keys(a).forEach(function(c){b(a[c],c)}))},some:function(a,b){return!!a&&(Array.isArray(a)?a.some(b):Object.keys(a).some(function(c){return b(a[c],c)}))},every:function(a,b){return!a||(Array.isArray(a)?a.every(b):Object.keys(a).every(function(c){return b(a[c],c)}))},map:function(a,b){return a?Array.isArray(a)?a.map(b):Object.keys(a).map(function(c){return b(a[c],c)}):[]},isEqual:function(a,b){var c=void 0===a?"undefined":d(a),f=void 0===b?"undefined":d(b),g=Array.isArray(a),h=Array.isArray(b);if(c!==f)return!1;switch(void 0===a?"undefined":d(a)){case"object":return g||h?!(!g||!h)&&(a.length===b.length&&a.every(function(a,c){var d=b[c];return e.isEqual(a,d)})):e.every(a,function(a,c){var d=b[c];return e.isEqual(a,d)});default:return a===b}}};b.exports=e},{}],20:[function(a,b,c){(function(c){"use strict";var d=a("fs"),e=a("./promish"),f=function(a,b,c,d){a.super_=b,d||(d=c,c=null),c&&Object.keys(c).forEach(function(b){Object.defineProperty(a,b,Object.getOwnPropertyDescriptor(c,b))});var e={constructor:{value:a,enumerable:!1,writable:!1,configurable:!0}};d&&Object.keys(d).forEach(function(a){e[a]=Object.getOwnPropertyDescriptor(d,a)}),a.prototype=Object.create(b.prototype,e)},g=b.exports={nop:function(){},promiseImmediate:function(a){return new e.Promish(function(b){c.setImmediate?setImmediate(function(){b(a)}):setTimeout(function(){b(a)},1)})},inherits:f,dateToExcel:function(a,b){return 25569+a.getTime()/864e5-(b?1462:0)},excelToDate:function(a,b){var c=Math.round(24*(a-25569+(b?1462:0))*3600*1e3);return new Date(c)},parsePath:function(a){var b=a.lastIndexOf("/");return{path:a.substring(0,b),name:a.substring(b+1)}},getRelsPath:function(a){var b=g.parsePath(a);return b.path+"/_rels/"+b.name+".rels"},xmlEncode:function(a){return a.replace(/[<>&'"\x7F\x00-\x08\x0B-\x0C\x0E-\x1F]/g,function(a){switch(a){case"<":return"&lt;";case">":return"&gt;";case"&":return"&amp;";case"'":return"&apos;";case'"':return"&quot;";default:return""}})},xmlDecode:function(a){return a.replace(/&([a-z]*);/,function(a){switch(a){case"&lt;":return"<";case"&gt;":return">";case"&amp;":return"&"; Line: 105 -  m-create"),k=a("./_global"),l=k.process,m=k.setImmediate,n=k.clearImmediate,o=k.MessageChannel,p=0,q={},r=function(){var a=+this;if(q.hasOwnProperty(a)){var b=q[a];delete q[a],b()}},s=function(a){r.call(a.data)};m&&n||(m=function(a){for(var b=[],c=1;arguments.length>c;)b.push(arguments[c++]);return q[++p]=function(){h("function"==typeof a?a:Function(a),b)},d(p),p},n=function(a){delete q[a]},"process"==a("./_cof")(l)?d=function(a){l.nextTick(g(r,a,1))}:o?(e=new o,f=e.port2,e.port1.onmessage=s,d=g(f.postMessage,f,1)):k.addEventListener&&"function"==typeof postMessage&&!k.importScripts?(d=function(a){k.postMessage(a+"","*")},k.addEventListener("message",s,!1)):d="onreadystatechange"in j("script")?function(a){i.appendChild(j("script")).onreadystatechange=function(){i.removeChild(this),r.call(a)}}:function(a){setTimeout(g(r,a,1),0)}),b.exports={set:m,clear:n}},{"./_cof":98,"./_ctx":100,"./_dom-create":102,"./_global":105,"./_html":107,"./_invoke":109}],114:[function(a,b,c){var d=a("./_is-object");b.exports=function(a,b){if(!d(a))return a;var c,e;if(b&&"function"==typeof(c=a.toString)&&!d(e=c.call(a)))return e;if("function"==typeof(c=a.valueOf)&&!d(e=c.call(a)))return e;if(!b&&"function"==typeof(c=a.toString)&&!d(e=c.call(a)))return e;throw TypeError("Can't convert object to primitive value")}},{"./_is-object":110}],115:[function(a,b,c){var d=a("./_export"),e=a("./_task");d(d.G+d.B,{setImmediate:e.set,clearImmediate:e.clear})},{"./_export":103,"./_task":113}],116:[function(a,b,c){(function(a){function b(a){return Array.isArray?Array.isArray(a):"[object Array]"===q(a)}function d(a){return"boolean"==typeof a}function e(a){return null===a}function f(a){return null==a}function g(a){return"number"==typeof a}function h(a){return"string"==typeof a}function i(a){return"symbol"==typeof a}function j(a){return void 0===a}function k(a){return"[object RegExp]"===q(a)}function l(a){return"object"==typeof a&&null!==a}function m(a){return"[object Date]"===q(a)}function n(a){return"[object Error]"===q(a)||a instanceof Error}function o(a){return"function"==typeof a}function p(a){return null===a||"bo Line: 112 -  proto={},x.proto={},a.init=l(k,"init"),i.constructor=l(k,"constructor");j.length&&n.apply(a,j),c&&f(a,f(f({},c),a)),i._super=a._super=g,i._getSuper=a._getSuper=h,i._static=a}function u(a,b){function c(){switch(arguments.length){case 0:this.constructor.call(this);break;case 1:this.constructor.call(this,arguments[0]);break;case 2:this.constructor.call(this,arguments[0],arguments[1]);break;case 3:this.constructor.call(this,arguments[0],arguments[1],arguments[2]);break;default:this.constructor.apply(this,arguments)}}return t(c,a,b),c.init()||c}function v(a,b){function c(){return d||(this.constructor.apply(this,arguments),d=this),d}var d;return t(c,a,b),c.init()||c}var w,x=Array.prototype.slice,y=0,z=new Function,A=/(super)/g,B=function(a){return"[object Arguments]"===Object.prototype.toString.call(a)};return B(arguments)||(B=function(a){return!(!a||!a.hasOwnProperty("callee"))}),w=u({instance:{get:i,set:j},static:{get:i,set:j,mixin:n,extend:r,as:q}}),u.singleton=v,u}void 0!==d?void 0!==c&&c.exports&&(c.exports=b()):"function"==typeof a&&a.amd?a(b):this.declare=b()}()},{}],119:[function(a,b,c){b.exports=a("./declare.js")},{"./declare.js":118}],120:[function(b,c,d){(function(d,e){(function(){"use strict";function f(a){return"function"==typeof a||"object"==typeof a&&null!==a}function g(a){return"function"==typeof a}function h(a){return"object"==typeof a&&null!==a}function i(a){Q=a}function j(a){U=a}function k(){return function(){P(m)}}function l(){return function(){setTimeout(m,1)}}function m(){for(var a=0;a<T;a+=2){(0,$[a])($[a+1]),$[a]=void 0,$[a+1]=void 0}T=0}function n(){}function o(){return new TypeError("You cannot resolve a promise with itself")}function p(){return new TypeError("A promises callback cannot return that same promise.")}function q(a){try{return a.then}catch(a){return ca.error=a,ca}}function r(a,b,c,d){try{a.call(b,c,d)}catch(a){return a}}function s(a,b,c){U(function(a){var d=!1,e=r(c,b,function(c){d||(d=!0,b!==c?v(a,c):x(a,c))},function(b){d||(d=!0,y(a,b))},"Settle: "+(a._label||" unknown promise"));!d&&e&&(d=!0,y(a,e))},a)}function t(a,b){b._state===aa?x(a,b._r Line: 127 -  ner(a,b);else if(b)for(d=b.length-1;d>=0;d--)this.removeListener(a,b[d]);return this},d.prototype.listeners=function(a){var b,c,d=this._events;return d?(b=d[a],c=b?"function"==typeof b?[b.listener||b]:q(b):[]):c=[],c},d.listenerCount=function(a,b){return"function"==typeof a.listenerCount?a.listenerCount(b):n.call(a,b)},d.prototype.listenerCount=n,d.prototype.eventNames=function(){return this._eventsCount>0?Reflect.ownKeys(this._events):[]}},{}],135:[function(a,b,c){c.read=function(a,b,c,d,e){var f,g,h=8*e-d-1,i=(1<<h)-1,j=i>>1,k=-7,l=c?e-1:0,m=c?-1:1,n=a[b+l];for(l+=m,f=n&(1<<-k)-1,n>>=-k,k+=h;k>0;f=256*f+a[b+l],l+=m,k-=8);for(g=f&(1<<-k)-1,f>>=-k,k+=d;k>0;g=256*g+a[b+l],l+=m,k-=8);if(0===f)f=1-j;else{if(f===i)return g?NaN:1/0*(n?-1:1);g+=Math.pow(2,d),f-=j}return(n?-1:1)*g*Math.pow(2,f-d)},c.write=function(a,b,c,d,e,f){var g,h,i,j=8*f-e-1,k=(1<<j)-1,l=k>>1,m=23===e?Math.pow(2,-24)-Math.pow(2,-77):0,n=d?0:f-1,o=d?1:-1,p=b<0||0===b&&1/b<0?1:0;for(b=Math.abs(b),isNaN(b)||b===1/0?(h=isNaN(b)?1:0,g=k):(g=Math.floor(Math.log(b)/Math.LN2),b*(i=Math.pow(2,-g))<1&&(g--,i*=2),b+=g+l>=1?m/i:m*Math.pow(2,1-l),b*i>=2&&(g++,i/=2),g+l>=k?(h=0,g=k):g+l>=1?(h=(b*i-1)*Math.pow(2,e),g+=l):(h=b*Math.pow(2,l-1)*Math.pow(2,e),g=0));e>=8;a[c+n]=255&h,n+=o,h/=256,e-=8);for(g=g<<e|h,j+=e;j>0;a[c+n]=255&g,n+=o,g/=256,j-=8);a[c+n-o]|=128*p}},{}],136:[function(a,b,c){(function(a){"use strict";function c(){k=!0;for(var a,b,c=l.length;c;){for(b=l,l=[],a=-1;++a<c;)b[a]();c=l.length}k=!1}function d(a){1!==l.push(a)||k||e()}var e,f=a.MutationObserver||a.WebKitMutationObserver;if(f){var g=0,h=new f(c),i=a.document.createTextNode("");h.observe(i,{characterData:!0}),e=function(){i.data=g=++g%2}}else if(a.setImmediate||void 0===a.MessageChannel)e="document"in a&&"onreadystatechange"in a.document.createElement("script")?function(){var b=a.document.createElement("script");b.onreadystatechange=function(){c(),b.onreadystatechange=null,b.parentNode.removeChild(b),b=null},a.document.documentElement.appendChild(b)}:function(){setTimeout(c,0)};else{var j=new a.MessageChannel;j.port1.onmessage=c,e=function(){j.port2.pos Line: 128 -  ar k,l=[];b.exports=d}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}],137:[function(a,b,c){"function"==typeof Object.create?b.exports=function(a,b){a.super_=b,a.prototype=Object.create(b.prototype,{constructor:{value:a,enumerable:!1,writable:!0,configurable:!0}})}:b.exports=function(a,b){a.super_=b;var c=function(){};c.prototype=b.prototype,a.prototype=new c,a.prototype.constructor=a}},{}],138:[function(a,b,c){function d(a){return!!a.constructor&&"function"==typeof a.constructor.isBuffer&&a.constructor.isBuffer(a)}function e(a){return"function"==typeof a.readFloatLE&&"function"==typeof a.slice&&d(a.slice(0,0))}b.exports=function(a){return null!=a&&(d(a)||e(a)||!!a._isBuffer)}},{}],139:[function(b,c,d){(function(e){(function(){"use strict";function f(a){function b(a,b){var c=-1,d=0,e=a.length,f=[];for(b=b||0,c+=b;++c<e;)f[d++]=a[c];return f}function c(a){var b=[];for(var c in a)R.call(a,c)&&b.push(c);return b}function d(a,b){if(a===b)return!0;if(void 0!==e&&e.isBuffer(a)&&e.isBuffer(b)){if(a.length!==b.length)return!1;for(var c=0;c<a.length;c++)if(a[c]!==b[c])return!1;return!0}return q(a)&&q(b)?a.getTime()===b.getTime():p(a)&&p(b)?a.source===b.source&&a.global===b.global&&a.multiline===b.multiline&&a.lastIndex===b.lastIndex&&a.ignoreCase===b.ignoreCase:(!r(a)||!r(b)||a===b)&&("object"!=typeof a&&"object"!=typeof b?a===b:f(a,b))}function f(a,b){var e;if(m(a)||m(b))return!1;if(a.prototype!==b.prototype)return!1;if(U(a))return!!U(b)&&(a=Q.call(a),b=Q.call(b),d(a,b));try{var f,g=c(a),h=c(b);if(g.length!==h.length)return!1;for(g.sort(),h.sort(),f=g.length-1;f>=0;f--)if(g[f]!==h[f])return!1;for(f=g.length-1;f>=0;f--)if(e=g[f],!d(a[e],b[e]))return!1}catch(a){return!1}return!0}function g(a){return null!==a&&"object"==typeof a}function h(a){return g(a)&&a.constructor===Object&&!a.nodeType&&!a.setInterval}function i(a){return U(a)?0===a.length:g(a)?0===c(a).length:!r(a)&&!V(a)||0===a.length}function j(a){return!0===a||!1===a||"[object Boolean]"===S.call(a)}function k(a){return void 0===a}function l(a){return!k(a)}fun Line: 205 -  ,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0],aa=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],ba=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,7],ca=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],da=new Array(2*(Q+2));d(da);var ea=new Array(2*R);d(ea);var fa=new Array(512);d(fa);var ga=new Array(256);d(ga);var ha=new Array(O);d(ha);var ia=new Array(R);d(ia);var ja,ka,la,ma=!1;c._tr_init=B,c._tr_stored_block=C,c._tr_flush_block=E,c._tr_tally=F,c._tr_align=D},{"../utils/common":183}],195:[function(a,b,c){"use strict";function d(){this.input=null,this.next_in=0,this.avail_in=0,this.total_in=0,this.output=null,this.next_out=0,this.avail_out=0,this.total_out=0,this.msg="",this.state=null,this.data_type=2,this.adler=0}b.exports=d},{}],196:[function(a,b,c){(function(a){"use strict";function c(b,c,d,e){if("function"!=typeof b)throw new TypeError('"callback" argument must be a function');var f,g,h=arguments.length;switch(h){case 0:case 1:return a.nextTick(b);case 2:return a.nextTick(function(){b.call(null,c)});case 3:return a.nextTick(function(){b.call(null,c,d)});case 4:return a.nextTick(function(){b.call(null,c,d,e)});default:for(f=new Array(h-1),g=0;g<f.length;)f[g++]=arguments[g];return a.nextTick(function(){b.apply(null,f)})}}!a.version||0===a.version.indexOf("v0.")||0===a.version.indexOf("v1.")&&0!==a.version.indexOf("v1.8.")?b.exports={nextTick:c}:b.exports=a}).call(this,a("_process"))},{_process:197}],197:[function(a,b,c){function d(){throw new Error("setTimeout has not been defined")}function e(){throw new Error("clearTimeout has not been defined")}function f(a){if(l===setTimeout)return setTimeout(a,0);if((l===d||!l)&&setTimeout)return l=setTimeout,setTimeout(a,0);try{return l(a,0)}catch(b){try{return l.call(null,a,0)}catch(b){return l.call(this,a,0)}}}function g(a){if(m===clearTimeout)return clearTimeout(a);if((m===e||!m)&&clearTimeout)return m=clearTimeout,clearTimeout(a);try{return m(a)}catch(b){try{return m.call(null,a)}catch(b){return m.call(this,a)}}}function h(){q&&o&&(q=!1,o.length?p=o.concat(p):r=-1,p.length&&i())}function i(){if(!q){var a=f(h);q=!0;for(v Line: 206 -  b;){for(o=p,p=[];++r<b;)o&&o[r].run();r=-1,b=p.length}o=null,q=!1,g(a)}}function j(a,b){this.fun=a,this.array=b}function k(){}var l,m,n=b.exports={};!function(){try{l="function"==typeof setTimeout?setTimeout:d}catch(a){l=d}try{m="function"==typeof clearTimeout?clearTimeout:e}catch(a){m=e}}();var o,p=[],q=!1,r=-1;n.nextTick=function(a){var b=new Array(arguments.length-1);if(arguments.length>1)for(var c=1;c<arguments.length;c++)b[c-1]=arguments[c];p.push(new j(a,b)),1!==p.length||q||f(i)},j.prototype.run=function(){this.fun.apply(null,this.array)},n.title="browser",n.browser=!0,n.env={},n.argv=[],n.version="",n.versions={},n.on=k,n.addListener=k,n.once=k,n.off=k,n.removeListener=k,n.removeAllListeners=k,n.emit=k,n.prependListener=k,n.prependOnceListener=k,n.listeners=function(a){return[]},n.binding=function(a){throw new Error("process.binding is not supported")},n.cwd=function(){return"/"},n.chdir=function(a){throw new Error("process.chdir is not supported")},n.umask=function(){return 0}},{}],198:[function(a,b,c){"use strict";function d(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function e(a,b){if(!a)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!b||"object"!=typeof b&&"function"!=typeof b?a:b}function f(a,b){if("function"!=typeof b&&null!==b)throw new TypeError("Super expression must either be null or a function, not "+typeof b);a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,enumerable:!1,writable:!0,configurable:!0}}),b&&(Object.setPrototypeOf?Object.setPrototypeOf(a,b):a.__proto__=b)}function g(a){function b(a){for(;a&&a!==Object;){if(a===Error||a instanceof Error)return!0;a=a.prototype}return!1}return function(a){function c(a){if(d(this,c),a instanceof c){var b;return b=a,e(f,b)}if(a instanceof Promise||a.then instanceof Function)var f=e(this,(c.__proto__||Object.getPrototypeOf(c)).call(this,function(b,c){return a.then(b,c)}));else if(a instanceof Error)var f=e(this,(c.__proto__||Object.getPrototypeOf(c)).call(this,function(b,c){return c(a)}));else if(a instanceof Function) Line: 207 -  c.__proto__||Object.getPrototypeOf(c)).call(this,a));else var f=e(this,(c.__proto__||Object.getPrototypeOf(c)).call(this,function(b){return b(a)}));return e(f)}return f(c,a),h(c,[{key:"finally",value:function(a){return this.then(function(b){return c.resolve(a()).then(function(){return b})},function(b){return c.resolve(a()).then(function(){return c.reject(b)})})}},{key:"catch",value:function(){var a=Array.from(arguments),d=a.pop();return this.then(void 0,function(e){if(!a.length)return d(e);for(var f=0;f<a.length;f++){var g=a[f];if(b(g)){if(e instanceof g)return d(e)}else if(g instanceof Function&&g(e))return d(e)}return new c(function(a,b){return b(e)})})}},{key:"delay",value:function(a){return this.then(function(b){return new c(function(c){setTimeout(function(){c(b)},a)})})}},{key:"map",value:function(a){return this.then(function(b){return c.map(b,a)})}},{key:"reduce",value:function(a,b){return this.then(function(d){return c.reduce(d,a,b)})}},{key:"spread",value:function(a){return this.then(function(a){return c.all(a)}).then(function(b){return a.apply(void 0,b)})}}],[{key:"map",value:function(a,b){return c.all(a.map(function(d,e){return c.resolve(d).then(function(c){return b(c,e,a.length)})}))}},{key:"reduce",value:function(a,b,d){var e,f=0;if(void 0!==d)e=c.resolve(d);else{if(!(a.length>1))return c.resolve(a[0]);e=c.resolve(a[f++])}for(;f<a.length;)!function(d){e=e.then(function(e){return c.resolve(a[d]).then(function(a){return b(e,a,d)})})}(f++);return e}},{key:"delay",value:function(a,b){return new c(function(c){setTimeout(function(){c(b)},a)})}},{key:"resolve",value:function(a){return new c(function(b){b(a)})}},{key:"reject",value:function(a){return new c(function(b,c){c(a)})}},{key:"method",value:function(a){return function(){var b=this,d=Array.from(arguments);return new c(function(c){return c(a.apply(b,d))})}}},{key:"apply",value:function(a,b){return b=Array.from(b),new c(function(c,d){b.push(function(){var a=Array.prototype.shift.apply(arguments);a?d(a):c(1===arguments.length?arguments[0]:arguments)}),a.apply(void 0,b)})}},{key:"nfapply",value:function(a,b){return c.a</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/exceljs.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 4129 -          setTimeout(function () {
+
+ Line: 14634 -        setTimeout(ctx(run, id, 1), 0);
+
+ Line: 16761 -          setTimeout(lib$es6$promise$asap$$flush, 1);
+
+ Line: 20001 -        setTimeout(nextTick, 0);
+
+ Line: 20237 -              return ret && obj.constructor === Object && !obj.nodeType && !obj.setInterval;
+
+ Line: 36653 -      throw new Error('setTimeout has not been defined');
+
+ Line: 36660 -          if (typeof setTimeout === 'function') {
+
+ Line: 36661 -              cachedSetTimeout = setTimeout;
+
+ Line: 36679 -      if (cachedSetTimeout === setTimeout) {
+
+ Line: 36681 -          return setTimeout(fun, 0);
+
+ Line: 36683 -      // if setTimeout wasn't available but was latter defined
+
+ Line: 36684 -      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+
+ Line: 36685 -          cachedSetTimeout = setTimeout;
+
+ Line: 36686 -          return setTimeout(fun, 0);
+
+ Line: 36689 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 36714 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 36722 -              // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+
+ Line: 36933 -              setTimeout(function () {
+
+ Line: 36997 -            setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/exceljs.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 14682 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 19372 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 22790 -   * - it forwards errors (no need to declare an error handler EVERYWHERE)
+
+ Line: 31530 -        /* UPDATE_HASH(s, s->ins_h, s->window[str + 1]); */
+
+ Line: 31536 -          /* UPDATE_HASH(s, s->ins_h, s->window[str + MIN_MATCH-1]); */
+
+ Line: 31724 -        /*** INSERT_STRING(s, s.strstart, hash_head); ***/
+
+ Line: 31758 -            /*** INSERT_STRING(s, s.strstart, hash_head); ***/
+
+ Line: 31773 -          /* UPDATE_HASH(s, s.ins_h, s.window[s.strstart+1]); */
+
+ Line: 31777 -  //                Call UPDATE_HASH() MIN_MATCH-3 more times
+
+ Line: 31853 -        /*** INSERT_STRING(s, s.strstart, hash_head); ***/
+
+ Line: 31905 -            /*** INSERT_STRING(s, s.strstart, hash_head); ***/
+
+ Line: 32932 -        /* UPDATE_HASH(s, s->ins_h, s->window[str + MIN_MATCH-1]); */
+
+ Line: 34757 -                  /*UPDATE(state.check, put - _out, _out);*/
+
+ Line: 34845 -      strm.adler = state.check = /*UPDATE(state.check, strm.next_out - _out, _out);*/
+
+ Line: 37260 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 37392 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 37441 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 38462 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 38678 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 41176 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 41952 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 42330 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/es5/utils/utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 54 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/es5/utils/flow-control.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 116 -      return setInterval(function () {
+
+ Line: 128 -          setTimeout(function () {
+
+</Result>
+</report_mosca>
+

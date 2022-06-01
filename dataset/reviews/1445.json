@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 1445,
+        "cwe": "CWE-918"
+    },
+    "correct_cwe": "CWE-918",
+    "correct_package_link": "https://registry.npmjs.org/ftp-srv/-/ftp-srv-4.3.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/connector/base.js",
+                    "lineno": 32,
+                    "code": "this.dataSocket.end(() => socket.destroy());"
+                },
+                "sink": {
+                    "file": "src/connector/base.js",
+                    "lineno": 46,
+                    "code": "this.closeSocket();"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/connector/active.js",
+                    "lineno": 24,
+                    "code": "setupConnection(host, port, family = 4) {"
+                },
+                "sink": {
+                    "file": "src/connector/active.js",
+                    "lineno": 41,
+                    "code": "this.dataSocket = secureSocket;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/autovance/ftp-srv/commit/e449e75219d918c400dec65b4b0759f60476abca"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

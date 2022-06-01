@@ -1,0 +1,113 @@
+{
+ "dra": [
+  {
+   "dra": "https://registry.npmjs.org",
+   "type": "url",
+   "file": "/src/index.js"
+  }
+ ],
+ "sast": {
+  "name": "simple-npm-registry",
+  "version": "0.0.4",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "11274 Bytes",
+  "numberOfLines": 386
+ },
+ "libraries": [
+  {
+   "name": "request",
+   "current": "^2.72.0"
+  },
+  {
+   "name": "async",
+   "current": "^2.0.0-rc.3"
+  },
+  {
+   "name": "colors",
+   "current": "^1.1.2"
+  },
+  {
+   "name": "express",
+   "current": "^4.13.4"
+  },
+  {
+   "name": "lodash",
+   "current": "^4.11.1"
+  },
+  {
+   "name": "minimist",
+   "current": "^1.2.0"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 209,
+   "class": "index.js (209:28)",
+   "vul_id": "b90b6d61850ed744da95e6116b6b268f",
+   "method": "data.password = crypto.createHash('sha1').update(data.password).digest('hex');",
+   "column": 28,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/index.js (209:28)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure."
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 232,
+   "class": "index.js (232:27)",
+   "vul_id": "1afeaba707b27745fbf8e3056b11788c",
+   "method": "user.token = crypto.createHash('sha1').update(JSON.stringify(user)).digest('hex');",
+   "column": 27,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/index.js (232:27)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure."
+  },
+  {
+   "cvss": 5.5,
+   "cwe": "CWE-35",
+   "line": 172,
+   "class": "index.js (172:7)",
+   "vul_id": "850b540b0823ebe4d5b159ffc4c6a796",
+   "method": "fs.readFile(settings.storageDir + 'published/' + req.params.package + '/' + req.params.filename, function (err, data) {",
+   "column": 7,
+   "longMessage": "User data passed untreated to the 'createReadStream' function can cause a Directory Traversal attack. This attack exploits the lack of security, with the attacker gaining unauthorized access to the file system.",
+   "classMessage": "/index.js (172:7)"
+  },
+  {
+   "cvss": 5.5,
+   "cwe": "CWE-35",
+   "line": 284,
+   "class": "index.js (284:7)",
+   "vul_id": "ef90593d74a8309c817996d13f85b02b",
+   "method": "fs.readFile('cache/' + req.query.sha, function (err, data) {",
+   "column": 7,
+   "longMessage": "User data passed untreated to the 'createReadStream' function can cause a Directory Traversal attack. This attack exploits the lack of security, with the attacker gaining unauthorized access to the file system.",
+   "classMessage": "/index.js (284:7)"
+  },
+  {
+   "cvss": 5.5,
+   "cwe": "CWE-35",
+   "line": 314,
+   "class": "index.js (314:7)",
+   "vul_id": "19e79c7fd23e2c28ad46417e9edc719e",
+   "method": "fs.readFile(settings.storageDir + 'published' + req.url + '.json', function (err, data) {",
+   "column": 7,
+   "longMessage": "User data passed untreated to the 'createReadStream' function can cause a Directory Traversal attack. This attack exploits the lack of security, with the attacker gaining unauthorized access to the file system.",
+   "classMessage": "/index.js (314:7)"
+  },
+  {
+   "cvss": 5.5,
+   "cwe": "CWE-35",
+   "line": 329,
+   "class": "index.js (329:15)",
+   "vul_id": "c8a422e5cc401296456ed5a712833c9d",
+   "method": "fs.readFile(settings.storageDir + 'cache' + req.url + '.json', function(err, data) {",
+   "column": 15,
+   "longMessage": "User data passed untreated to the 'createReadStream' function can cause a Directory Traversal attack. This attack exploits the lack of security, with the attacker gaining unauthorized access to the file system.",
+   "classMessage": "/index.js (329:15)"
+  }
+ ]
+}

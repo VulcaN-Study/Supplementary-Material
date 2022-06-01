@@ -1,0 +1,334 @@
+/src/Changes.md-22-* Add `query` method to `PoolNamespace` #1256 #1505 #1506
+/src/Changes.md:23:  - Used as `cluster.of(...).query(...)`
+/src/Changes.md-24-* Add new error codes up to MySQL 5.7.16
+##############################################
+/src/Changes.md-203-* Default `connectTimeout` to 2 minutes
+/src/Changes.md:204:* Reject unauthorized SSL connections (use `ssl.rejectUnauthorized` to override) #816
+/src/Changes.md-205-* Return last error when PoolCluster exhausts connection retries #818
+##############################################
+/src/Changes.md-231-* fix authentication w/password TypeError exception for node.js 0.10.0-0.10.4 #747
+/src/Changes.md:232:* fix specifying `values` in `conn.query({...}).on(...)` pattern #755
+/src/Changes.md:233:* fix long stack trace to include the `pool.query(...)` call #715
+/src/Changes.md-234-
+##############################################
+/src/Changes.md-291-* Changes Pool to handle 'error' events and dispose connection
+/src/Changes.md:292:* Allows db.query({ sql: "..." }, [ val1, ... ], cb); (#390)
+/src/Changes.md-293-* Improved documentation
+##############################################
+/src/Changes.md-400-var mysql      = require('mysql');
+/src/Changes.md:401:var connection = mysql.createConnection({
+/src/Changes.md-402-  host     : 'localhost',
+##############################################
+/src/Changes.md-406-
+/src/Changes.md:407:connection.query('SELECT 1', function(err, rows) {
+/src/Changes.md-408-  if (err) throw err;
+##############################################
+/src/Readme.md-80-var mysql      = require('mysql');
+/src/Readme.md:81:var connection = mysql.createConnection({
+/src/Readme.md-82-  host     : 'localhost',
+##############################################
+/src/Readme.md-87-
+/src/Readme.md:88:connection.connect();
+/src/Readme.md-89-
+/src/Readme.md:90:connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+/src/Readme.md-91-  if (error) throw error;
+##############################################
+/src/Readme.md-145-var mysql      = require('mysql');
+/src/Readme.md:146:var connection = mysql.createConnection({
+/src/Readme.md-147-  host     : 'example.org',
+##############################################
+/src/Readme.md-151-
+/src/Readme.md:152:connection.connect(function(err) {
+/src/Readme.md-153-  if (err) {
+##############################################
+/src/Readme.md-165-var mysql      = require('mysql');
+/src/Readme.md:166:var connection = mysql.createConnection(...);
+/src/Readme.md-167-
+/src/Readme.md:168:connection.query('SELECT 1', function (error, results, fields) {
+/src/Readme.md-169-  if (error) throw error;
+##############################################
+/src/Readme.md-199-issue [#501](https://github.com/mysqljs/mysql/issues/501). (Default: `false`)
+/src/Readme.md:200:* `insecureAuth`: Allow connecting to MySQL instances that ask for the old
+/src/Readme.md:201:  (insecure) authentication method. (Default: `false`)
+/src/Readme.md-202-* `typeCast`: Determines if column values should be converted to native
+##############################################
+/src/Readme.md-232-```js
+/src/Readme.md:233:var connection = mysql.createConnection('mysql://user:pass@host/db?debug=true&charset=BIG5_CHINESE_CI&timezone=-0700');
+/src/Readme.md-234-```
+##############################################
+/src/Readme.md-253-```js
+/src/Readme.md:254:var connection = mysql.createConnection({
+/src/Readme.md-255-  host : 'localhost',
+##############################################
+/src/Readme.md-265-```js
+/src/Readme.md:266:var connection = mysql.createConnection({
+/src/Readme.md-267-  host : 'localhost',
+##############################################
+/src/Readme.md-270-    // set up your ca correctly to trust the connection
+/src/Readme.md:271:    rejectUnauthorized: false
+/src/Readme.md-272-  }
+##############################################
+/src/Readme.md-319-
+/src/Readme.md:320:pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+/src/Readme.md-321-  if (error) throw error;
+##############################################
+/src/Readme.md-351-  // Use the connection
+/src/Readme.md:352:  connection.query('SELECT something FROM sometable', function (error, results, fields) {
+/src/Readme.md-353-    // And done with the connection.
+##############################################
+/src/Readme.md-416-pool.on('connection', function (connection) {
+/src/Readme.md:417:  connection.query('SET SESSION auto_increment_increment=1')
+/src/Readme.md-418-});
+##############################################
+/src/Readme.md-506-pool.getConnection(function (err, connection) {});
+/src/Readme.md:507:pool.query(function (error, results, fields) {});
+/src/Readme.md-508-
+##############################################
+/src/Readme.md-576-
+/src/Readme.md:577:The most basic way to perform a query is to call the `.query()` method on an object
+/src/Readme.md-578-(like a `Connection`, `Pool`, or `PoolNamespace` instance).
+/src/Readme.md-579-
+/src/Readme.md:580:The simplest form of .`query()` is `.query(sqlString, callback)`, where a SQL string
+/src/Readme.md-581-is the first argument and the second is a callback:
+##############################################
+/src/Readme.md-583-```js
+/src/Readme.md:584:connection.query('SELECT * FROM `books` WHERE `author` = "David"', function (error, results, fields) {
+/src/Readme.md-585-  // error will be an Error if one occurred during the query
+##############################################
+/src/Readme.md-590-
+/src/Readme.md:591:The second form `.query(sqlString, values, callback)` comes when using
+/src/Readme.md-592-placeholder values (see [escaping query values](#escaping-query-values)):
+##############################################
+/src/Readme.md-594-```js
+/src/Readme.md:595:connection.query('SELECT * FROM `books` WHERE `author` = ?', ['David'], function (error, results, fields) {
+/src/Readme.md-596-  // error will be an Error if one occurred during the query
+##############################################
+/src/Readme.md-601-
+/src/Readme.md:602:The third form `.query(options, callback)` comes when using various advanced
+/src/Readme.md-603-options on the query, like [escaping query values](#escaping-query-values),
+##############################################
+/src/Readme.md-645-var sql    = 'SELECT * FROM users WHERE id = ' + connection.escape(userId);
+/src/Readme.md:646:connection.query(sql, function (error, results, fields) {
+/src/Readme.md-647-  if (error) throw error;
+##############################################
+/src/Readme.md-655-```js
+/src/Readme.md:656:connection.query('SELECT * FROM users WHERE id = ?', [userId], function (error, results, fields) {
+/src/Readme.md-657-  if (error) throw error;
+##############################################
+/src/Readme.md-666-```js
+/src/Readme.md:667:connection.query('UPDATE users SET foo = ?, bar = ?, baz = ? WHERE id = ?', ['a', 'b', 'c', userId], function (error, results, fields) {
+/src/Readme.md-668-  if (error) throw error;
+##############################################
+/src/Readme.md-702-var post  = {id: 1, title: 'Hello MySQL'};
+/src/Readme.md:703:var query = connection.query('INSERT INTO posts SET ?', post, function (error, results, fields) {
+/src/Readme.md-704-  if (error) throw error;
+##############################################
+/src/Readme.md-728-var sql    = 'SELECT * FROM posts ORDER BY ' + connection.escapeId(sorter);
+/src/Readme.md:729:connection.query(sql, function (error, results, fields) {
+/src/Readme.md-730-  if (error) throw error;
+##############################################
+/src/Readme.md-757-var columns = ['username', 'email'];
+/src/Readme.md:758:var query = connection.query('SELECT ?? FROM ?? WHERE id = ?', [columns, 'users', userId], function (error, results, fields) {
+/src/Readme.md-759-  if (error) throw error;
+##############################################
+/src/Readme.md-766-
+/src/Readme.md:767:When you pass an Object to `.escape()` or `.query()`, `.escapeId()` is used to avoid SQL injection in object keys.
+/src/Readme.md-768-
+##############################################
+/src/Readme.md-797-
+/src/Readme.md:798:connection.query("UPDATE posts SET title = :title", { title: "Hello MySQL" });
+/src/Readme.md-799-```
+##############################################
+/src/Readme.md-806-```js
+/src/Readme.md:807:connection.query('INSERT INTO posts SET ?', {title: 'test'}, function (error, results, fields) {
+/src/Readme.md-808-  if (error) throw error;
+##############################################
+/src/Readme.md-824-```js
+/src/Readme.md:825:connection.query('DELETE FROM posts WHERE title = "wrong"', function (error, results, fields) {
+/src/Readme.md-826-  if (error) throw error;
+##############################################
+/src/Readme.md-838-```js
+/src/Readme.md:839:connection.query('UPDATE posts SET ...', function (error, results, fields) {
+/src/Readme.md-840-  if (error) throw error;
+##############################################
+/src/Readme.md-850-```js
+/src/Readme.md:851:connection.connect(function(err) {
+/src/Readme.md-852-  if (err) throw err;
+##############################################
+/src/Readme.md-868-```js
+/src/Readme.md:869:var query = connection.query('SELECT * FROM posts');
+/src/Readme.md-870-query
+##############################################
+/src/Readme.md-925-```js
+/src/Readme.md:926:connection.query('SELECT * FROM posts')
+/src/Readme.md-927-  .stream({highWaterMark: 5})
+##############################################
+/src/Readme.md-937-```js
+/src/Readme.md:938:var connection = mysql.createConnection({multipleStatements: true});
+/src/Readme.md-939-```
+##############################################
+/src/Readme.md-943-```js
+/src/Readme.md:944:connection.query('SELECT 1; SELECT 2', function (error, results, fields) {
+/src/Readme.md-945-  if (error) throw error;
+##############################################
+/src/Readme.md-954-```js
+/src/Readme.md:955:var query = connection.query('SELECT 1; SELECT 2');
+/src/Readme.md-956-
+##############################################
+/src/Readme.md-993-var options = {sql: '...', nestTables: true};
+/src/Readme.md:994:connection.query(options, function (error, results, fields) {
+/src/Readme.md-995-  if (error) throw error;
+##############################################
+/src/Readme.md-1014-var options = {sql: '...', nestTables: '_'};
+/src/Readme.md:1015:connection.query(options, function (error, results, fields) {
+/src/Readme.md-1016-  if (error) throw error;
+##############################################
+/src/Readme.md-1034-  if (err) { throw err; }
+/src/Readme.md:1035:  connection.query('INSERT INTO posts SET title=?', title, function (error, results, fields) {
+/src/Readme.md-1036-    if (error) {
+##############################################
+/src/Readme.md-1043-
+/src/Readme.md:1044:    connection.query('INSERT INTO log SET data=?', log, function (error, results, fields) {
+/src/Readme.md-1045-      if (error) {
+##############################################
+/src/Readme.md-1089-// Kill query after 60s
+/src/Readme.md:1090:connection.query({sql: 'SELECT COUNT(*) AS count FROM big_table', timeout: 60000}, function (error, results, fields) {
+/src/Readme.md-1091-  if (error && error.code === 'PROTOCOL_SEQUENCE_TIMEOUT') {
+##############################################
+/src/Readme.md-1125-```js
+/src/Readme.md:1126:var connection = require('mysql').createConnection({
+/src/Readme.md-1127-  port: 84943, // WRONG PORT
+##############################################
+/src/Readme.md-1129-
+/src/Readme.md:1130:connection.connect(function(err) {
+/src/Readme.md-1131-  console.log(err.code); // 'ECONNREFUSED'
+##############################################
+/src/Readme.md-1134-
+/src/Readme.md:1135:connection.query('SELECT 1', function (error, results, fields) {
+/src/Readme.md-1136-  console.log(error.code); // 'ECONNREFUSED'
+##############################################
+/src/Readme.md-1145-```js
+/src/Readme.md:1146:connection.query('USE name_of_db_that_does_not_exist', function (error, results, fields) {
+/src/Readme.md-1147-  console.log(error.code); // 'ER_BAD_DB_ERROR'
+##############################################
+/src/Readme.md-1149-
+/src/Readme.md:1150:connection.query('SELECT 1', function (error, results, fields) {
+/src/Readme.md-1151-  console.log(error); // null
+##############################################
+/src/Readme.md-1165-
+/src/Readme.md:1166:connection.query('USE name_of_db_that_does_not_exist');
+/src/Readme.md-1167-```
+##############################################
+/src/Readme.md-1239-```js
+/src/Readme.md:1240:var connection = require('mysql').createConnection({typeCast: false});
+/src/Readme.md-1241-```
+##############################################
+/src/Readme.md-1246-var options = {sql: '...', typeCast: false};
+/src/Readme.md:1247:var query = connection.query(options, function (error, results, fields) {
+/src/Readme.md-1248-  if (error) throw error;
+##############################################
+/src/Readme.md-1300-```js
+/src/Readme.md:1301:var connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
+/src/Readme.md-1302-```
+##############################################
+/src/Readme.md-1347-```js
+/src/Readme.md:1348:var connection = mysql.createConnection({debug: true});
+/src/Readme.md-1349-```
+##############################################
+/src/Readme.md-1354-```js
+/src/Readme.md:1355:var connection = mysql.createConnection({debug: ['ComQueryPacket', 'RowDataPacket']});
+/src/Readme.md-1356-```
+##############################################
+/src/lib/PoolNamespace.js-95-    if (retry) {
+/src/lib/PoolNamespace.js:96:      namespace.query(query);
+/src/lib/PoolNamespace.js-97-      return;
+##############################################
+/src/lib/PoolNamespace.js-110-
+/src/lib/PoolNamespace.js:111:    conn.query(query);
+/src/lib/PoolNamespace.js-112-  });
+##############################################
+/src/lib/ConnectionConfig.js-21-    : options.connectTimeout;
+/src/lib/ConnectionConfig.js:22:  this.insecureAuth       = options.insecureAuth || false;
+/src/lib/ConnectionConfig.js-23-  this.supportBigNumbers  = options.supportBigNumbers || false;
+##############################################
+/src/lib/ConnectionConfig.js-48-  if (this.ssl) {
+/src/lib/ConnectionConfig.js:49:    // Default rejectUnauthorized to true
+/src/lib/ConnectionConfig.js:50:    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+/src/lib/ConnectionConfig.js-51-  }
+##############################################
+/src/lib/ConnectionConfig.js-191-        // Try to parse this as a JSON expression first
+/src/lib/ConnectionConfig.js:192:        options[key] = JSON.parse(value);
+/src/lib/ConnectionConfig.js-193-      } catch (err) {
+##############################################
+/src/lib/Connection.js-89-    this._socket = (this.config.socketPath)
+/src/lib/Connection.js:90:      ? Net.createConnection(this.config.socketPath)
+/src/lib/Connection.js:91:      : Net.createConnection(this.config.port, this.config.host);
+/src/lib/Connection.js-92-
+##############################################
+/src/lib/Connection.js-164-
+/src/lib/Connection.js:165:  return this.query(options, callback);
+/src/lib/Connection.js-166-};
+##############################################
+/src/lib/Connection.js-177-
+/src/lib/Connection.js:178:  return this.query(options, callback);
+/src/lib/Connection.js-179-};
+##############################################
+/src/lib/Connection.js-190-
+/src/lib/Connection.js:191:  return this.query(options, callback);
+/src/lib/Connection.js-192-};
+##############################################
+/src/lib/Connection.js-300-    // socket <-> encrypted
+/src/lib/Connection.js:301:    var rejectUnauthorized = this.config.ssl.rejectUnauthorized;
+/src/lib/Connection.js-302-    var secureEstablished  = false;
+/src/lib/Connection.js-303-    var secureSocket       = new tls.TLSSocket(this._socket, {
+/src/lib/Connection.js:304:      rejectUnauthorized : rejectUnauthorized,
+/src/lib/Connection.js-305-      requestCert        : true,
+##############################################
+/src/lib/Connection.js-327-
+/src/lib/Connection.js:328:      onSecure(rejectUnauthorized ? this.ssl.verifyError() : null);
+/src/lib/Connection.js-329-    });
+##############################################
+/src/lib/Connection.js-350-
+/src/lib/Connection.js:351:    var rejectUnauthorized = this.config.ssl.rejectUnauthorized;
+/src/lib/Connection.js-352-    var secureEstablished  = false;
+/src/lib/Connection.js:353:    var securePair         = tls.createSecurePair(credentials, false, true, rejectUnauthorized);
+/src/lib/Connection.js-354-
+##############################################
+/src/lib/Connection.js-383-
+/src/lib/Connection.js:384:      if (!rejectUnauthorized) {
+/src/lib/Connection.js-385-        onSecure();
+##############################################
+/src/lib/Connection.js-460-  if (!this._connectCalled) {
+/src/lib/Connection.js:461:    this.connect();
+/src/lib/Connection.js-462-  }
+##############################################
+/src/lib/Pool.js-47-
+/src/lib/Pool.js:48:    connection.connect({timeout: this.config.acquireTimeout}, function onConnect(err) {
+/src/lib/Pool.js-49-      spliceConnection(pool._acquiringConnections, connection);
+##############################################
+/src/lib/Pool.js-213-
+/src/lib/Pool.js:214:    conn.query(query);
+/src/lib/Pool.js-215-  });
+##############################################
+/src/lib/protocol/sequences/Handshake.js-83-Handshake.prototype['UseOldPasswordPacket'] = function() {
+/src/lib/protocol/sequences/Handshake.js:84:  if (!this._config.insecureAuth) {
+/src/lib/protocol/sequences/Handshake.js-85-    var err = new Error(
+/src/lib/protocol/sequences/Handshake.js:86:      'MySQL server is requesting the old and insecure pre-4.1 auth mechanism.' +
+/src/lib/protocol/sequences/Handshake.js:87:      'Upgrade the user password or use the {insecureAuth: true} option.'
+/src/lib/protocol/sequences/Handshake.js-88-    );
+##############################################
+/src/lib/protocol/sequences/Query.js-140-Query.prototype['RowDataPacket'] = function(packet, parser, connection) {
+/src/lib/protocol/sequences/Query.js:141:  packet.parse(parser, this._resultSet.fieldPackets, this.typeCast, this.nestTables, connection);
+/src/lib/protocol/sequences/Query.js-142-
+##############################################
+/src/lib/protocol/sequences/Query.js-151-  var self = this;
+/src/lib/protocol/sequences/Query.js:152:  var localStream = fs.createReadStream(path, {
+/src/lib/protocol/sequences/Query.js-153-    flag      : 'r',
+##############################################
+/src/lib/protocol/Protocol.js-261-  } else {
+/src/lib/protocol/Protocol.js:262:    packet.parse(this._parser);
+/src/lib/protocol/Protocol.js-263-  }
+##############################################
+/src/lib/protocol/Protocol.js-284-  try {
+/src/lib/protocol/Protocol.js:285:    packet.parse(this._parser);
+/src/lib/protocol/Protocol.js-286-  } finally {

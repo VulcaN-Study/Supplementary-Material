@@ -1,0 +1,53 @@
+/src/src/bracket.js-8-const settings = {
+/src/src/bracket.js:9:  // Extract anything inside [[ ]] to be evaluated as js
+/src/src/bracket.js:10:  evaluate: /\[\[([\s\S]+?(\}?)+)]]/g,
+/src/src/bracket.js-11-
+##############################################
+/src/src/bracket.js-118-    // raw js
+/src/src/bracket.js:119:    .replace(c.evaluate, (m, code) => `';${jsValue(code)}out+='`);
+/src/src/bracket.js-120-
+##############################################
+/src/README.md-225-const settings = {
+/src/README.md:226:  // Extract anything inside [[ ]] to be evaluated as js
+/src/README.md:227:  evaluate: /\[\[([\s\S]+?(\}?)+)]]/g,
+/src/README.md-228-
+##############################################
+/src/tests/specs/custom.spec.js-23-    const conf = {
+/src/tests/specs/custom.spec.js:24:      evaluate: /\{\{([\s\S]+?(\}?)+)}}/g,
+/src/tests/specs/custom.spec.js-25-      interpolate: /\{\{=([\s\S]+?)}}/g,
+##############################################
+/src/tests/specs/evaluation.spec.js-7-describe('Evaluation', () => {
+/src/tests/specs/evaluation.spec.js:8:  it('should evaluate if', () => {
+/src/tests/specs/evaluation.spec.js-9-    const template = bracket.compile('tmpl-[[ if(model.show) { ]][[= model.test ]][[ } ]]');
+##############################################
+/src/tests/specs/evaluation.spec.js-13-
+/src/tests/specs/evaluation.spec.js:14:  it('should evaluate for', () => {
+/src/tests/specs/evaluation.spec.js-15-    const template = bracket.compile('tmpl-[[ for(var i=0; i<model.tests.length; i++) { ]][[= model.tests[i] ]][[ } ]]');
+##############################################
+/src/dist/bracket.min.js:1:!function(r){function e(n){if(t[n])return t[n].exports;var u=t[n]={exports:{},id:n,loaded:!1};return r[n].call(u.exports,u,u.exports,e),u.loaded=!0,u.exports}var t={};return e.m=r,e.c=t,e.p="",e(0)}([function(r,e,t){"use strict";function n(r){if(Array.isArray(r)){for(var e=0,t=Array(r.length);e<r.length;e++)t[e]=r[e];return t}return Array.from(r)}function u(r,e){return function(t,a,i){if(!r.helpers[a]&&!e[a])return"";var c=[];if(i.replace(r.argValues,function(r,e){c.push(e)}),r.helpers[a]){var l,s=(l=r.helpers)[a].apply(l,n(c.map(function(r){return Function("return "+o(r)+";")()})));return"';out+="+JSON.stringify(s)+";out+='"}var p=e[a].args.reduce(function(r,e,t){var n=r;return n[e]=c.length<=t?void 0:o(c[t]),n},{}),f=e[a].body.replace(r.interpolate,function(r,e){var t=e.trim(),n=t.split(".")[0];if(!(n in p))return r;var u="var "+n+"="+p[n]+";return "+t+";",a=Function(u)();return"';out+="+JSON.stringify(a)+";out+='"}).replace(r.block,u(r,e));return f}}function a(r,e){var t=r||"",n=Object.assign({},i,e),a={};return t=t.replace(/'/g,"\\'").replace(n.blockDef,function(r,e,t,n){return a[e]={args:t.split(",").map(function(r){return r.trim()}),body:n},""}).replace(n.block,u(n,a)).replace(n.interpolate,function(r,e){return"';out+="+o(e)+";out+='"}).replace(n.evaluate,function(r,e){return"';"+o(e)+"out+='"}),t=("var out='"+t+"';return out;").replace(/\r/g,"\\r").replace(/\n/g,"\\n").replace(/\t/g,"\\t").replace(/(\s|;|\}|^|\{)out\+='';/g,"$1").replace(/\+''/g,""),new Function(n.varname,t)}function o(r){return r.trim().replace(/\\'/g,"'")}Object.defineProperty(e,"__esModule",{value:!0});var i={evaluate:/\[\[([\s\S]+?(\}?)+)]]/g,interpolate:/\[\[=([\s\S]+?)]]/g,block:/\[\[#\s*([\w]+)\(([\s\S]*?)\)\s*]]/g,blockDef:/\[\[##\s*([\w]+)\(([\s\w,]*)\)\s*[\n]([\s\S]*?)\s*#]]/g,argValues:/\s*({[\s\S]*?}|[^,]+)/g,varname:"model",helpers:{}},c={version:"1.1.5",settings:i,compile:a};"undefined"!=typeof window&&(window.bracket=c),e.default=c}]);
+##############################################
+/src/dist/node.js-143-	var settings = {
+/src/dist/node.js:144:	  // Extract anything inside [[ ]] to be evaluated as js
+/src/dist/node.js:145:	  evaluate: /\[\[([\s\S]+?(\}?)+)]]/g,
+/src/dist/node.js-146-
+##############################################
+/src/dist/node.js-261-	  // raw js
+/src/dist/node.js:262:	  .replace(c.evaluate, function (m, code) {
+/src/dist/node.js-263-	    return '\';' + jsValue(code) + 'out+=\'';
+##############################################
+/src/dist/node.js-3695-	        StrictModeWith: 'Strict mode code may not include a with statement',
+/src/dist/node.js:3696:	        StrictCatchVariable: 'Catch variable may not be eval or arguments in strict mode',
+/src/dist/node.js:3697:	        StrictVarName: 'Variable name may not be eval or arguments in strict mode',
+/src/dist/node.js:3698:	        StrictParamName: 'Parameter name eval or arguments is not allowed in strict mode',
+/src/dist/node.js-3699-	        StrictParamDupe: 'Strict mode function may not have duplicate parameter names',
+/src/dist/node.js:3700:	        StrictFunctionName: 'Function name may not be eval or arguments in strict mode',
+/src/dist/node.js-3701-	        StrictOctalLiteral: 'Octal literals are not allowed in strict mode.',
+/src/dist/node.js-3702-	        StrictDelete: 'Delete of an unqualified identifier in strict mode.',
+/src/dist/node.js:3703:	        StrictLHSAssignment: 'Assignment to eval or arguments is not allowed in strict mode',
+/src/dist/node.js:3704:	        StrictLHSPostfix: 'Postfix increment/decrement may not have eval or arguments operand in strict mode',
+/src/dist/node.js:3705:	        StrictLHSPrefix: 'Prefix increment/decrement may not have eval or arguments operand in strict mode',
+/src/dist/node.js-3706-	        StrictReservedWord: 'Use of future reserved word in strict mode',
+##############################################
+/src/dist/node.js-3844-	    function isRestrictedWord(id) {
+/src/dist/node.js:3845:	        return id === 'eval' || id === 'arguments';
+/src/dist/node.js-3846-	    }

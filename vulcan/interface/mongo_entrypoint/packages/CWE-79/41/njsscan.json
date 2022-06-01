@@ -1,0 +1,67 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": ".DS_Store",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 20
+        },
+        "extra": {
+          "line": "WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+          "message": "Lexical error: WIERD end of file in quoted string"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 1,
+          "line": 20
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/xss.js",
+          "match_lines": [
+            194,
+            194
+          ],
+          "match_position": [
+            46,
+            57
+          ],
+          "match_string": "    while (num--) str += String.fromCharCode(Math.random() * 25 | 97);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

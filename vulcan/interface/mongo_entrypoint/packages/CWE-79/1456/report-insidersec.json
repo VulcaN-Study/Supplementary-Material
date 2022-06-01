@@ -1,0 +1,145 @@
+{
+ "dra": [
+  {
+   "dra": "http://js.foundation",
+   "type": "url",
+   "file": "/src/lib/red.js"
+  },
+  {
+   "dra": "http://www.apache.org/licenses/LICENSE-2.0",
+   "type": "url",
+   "file": "/src/lib/red.js"
+  },
+  {
+   "dra": "http://nodered.org",
+   "type": "url",
+   "file": "/src/red.js"
+  },
+  {
+   "dra": "http://nodered.org/docs/security.html",
+   "type": "url",
+   "file": "/src/settings.js"
+  },
+  {
+   "dra": "http://nodered.org/docs/security.html#generating-the-password-hash",
+   "type": "url",
+   "file": "/src/settings.js"
+  },
+  {
+   "dra": "http://nodejs.org/api/https.html#https_https_createserver_options_requestlistener",
+   "type": "url",
+   "file": "/src/settings.js"
+  },
+  {
+   "dra": "https://github.com/troygoode/node-cors#configuration-options",
+   "type": "url",
+   "file": "/src/settings.js"
+  },
+  {
+   "dra": "http://myproxy.com:8080",
+   "type": "url",
+   "file": "/src/settings.js"
+  },
+  {
+   "dra": "http://expressjs.com/en/api.html#app.settings.table",
+   "type": "url",
+   "file": "/src/settings.js"
+  },
+  {
+   "dra": "https://nodered.org/docs/api/context/",
+   "type": "url",
+   "file": "/src/settings.js"
+  }
+ ],
+ "sast": {
+  "name": "node-red",
+  "version": "0.20.7",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "112607 Bytes",
+  "numberOfLines": 821
+ },
+ "libraries": [
+  {
+   "name": "@node-red/util",
+   "current": "0.20.7"
+  },
+  {
+   "name": "node-red-node-rbe",
+   "current": "^0.2.4"
+  },
+  {
+   "name": "node-red-node-twitter",
+   "current": "^1.1.5"
+  },
+  {
+   "name": "@node-red/runtime",
+   "current": "0.20.7"
+  },
+  {
+   "name": "@node-red/nodes",
+   "current": "0.20.7"
+  },
+  {
+   "name": "bcryptjs",
+   "current": "2.4.3"
+  },
+  {
+   "name": "express",
+   "current": "4.17.1"
+  },
+  {
+   "name": "basic-auth",
+   "current": "2.0.1"
+  },
+  {
+   "name": "node-red-node-feedparser",
+   "current": "^0.1.14"
+  },
+  {
+   "name": "nopt",
+   "current": "4.0.1"
+  },
+  {
+   "name": "semver",
+   "current": "6.2.0"
+  },
+  {
+   "name": "@node-red/editor-api",
+   "current": "0.20.7"
+  },
+  {
+   "name": "fs-extra",
+   "current": "8.1.0"
+  },
+  {
+   "name": "node-red-node-email",
+   "current": "^1.6.2"
+  },
+  {
+   "name": "node-red-node-sentiment",
+   "current": "^0.1.3"
+  },
+  {
+   "name": "node-red-node-tail",
+   "current": "^0.0.2"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 222,
+   "class": "red.js (222:27)",
+   "vul_id": "4cd6ac9dc73442a888de102bb34e0484",
+   "method": "return crypto.createHash('md5').update(p,'utf8').digest('hex') === pass;",
+   "column": 27,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/red.js (222:27)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/red.js"
+   ]
+  }
+ ]
+}

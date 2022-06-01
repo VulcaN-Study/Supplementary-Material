@@ -1,0 +1,295 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 1
+        },
+        "extra": {
+          "line": "*#",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 2,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 7
+        },
+        "extra": {
+          "line": "\t@NODE_ENV=test node test/integration/runner.js",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 2,
+          "line": 7
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            127,
+            181
+          ],
+          "match_position": [
+            9,
+            38
+          ],
+          "match_string": "        var tableName = mysql.escapeId(collectionName);\n\n\n\n        var query = 'DESCRIBE ' + tableName;\n\n        var pkQuery = 'SHOW INDEX FROM ' + tableName;\n\n\n\n        // Run query\n\n        if (LOG_QUERIES) {\n\n          console.log('\\nExecuting MySQL query: ',query);\n\n          console.log('and: ',pkQuery);\n\n        }\n\n        connection.query(query, function __DESCRIBE__(err, schema) {\n\n          if (err) {\n\n            if (err.code === 'ER_NO_SUCH_TABLE') {\n\n              return cb();\n\n            } else return cb(err);\n\n          }\n\n\n\n          connection.query(pkQuery, function(err, pkResult) {\n\n            if(err) return cb(err);\n\n\n\n            // Loop through Schema and attach extra attributes\n\n            schema.forEach(function(attr) {\n\n\n\n              // Set Primary Key Attribute\n\n              if(attr.Key === 'PRI') {\n\n                attr.primaryKey = true;\n\n\n\n                // If also an integer set auto increment attribute\n\n                if(attr.Type === 'int(11)') {\n\n                  attr.autoIncrement = true;\n\n                }\n\n              }\n\n\n\n              // Set Unique Attribute\n\n              if(attr.Key === 'UNI') {\n\n                attr.unique = true;\n\n              }\n\n            });\n\n\n\n            // Loop Through Indexes and Add Properties\n\n            pkResult.forEach(function(result) {\n\n              schema.forEach(function(attr) {\n\n                if(attr.Field !== result.Column_name) return;\n\n                attr.indexed = true;\n\n              });\n\n            });\n\n\n\n            // Convert mysql format to standard javascript object\n\n            var normalizedSchema = sql.normalizeSchema(schema);\n\n\n\n            // Set Internal Schema Mapping\n\n            collection.schema = normalizedSchema;\n\n\n\n            // TODO: check that what was returned actually matches the cache\n\n            cb(null, normalizedSchema);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            205,
+            237
+          ],
+          "match_position": [
+            9,
+            27
+          ],
+          "match_string": "        var tableName = mysql.escapeId(collectionName);\n\n\n\n        // Iterate through each attribute, building a query string\n\n        var schema = sql.schema(tableName, definition);\n\n\n\n        // Build query\n\n        var query = 'CREATE TABLE ' + tableName + ' (' + schema + ')';\n\n\n\n        if(connectionObject.config.charset) {\n\n          query += ' DEFAULT CHARSET ' + connectionObject.config.charset;\n\n        }\n\n\n\n        if(connectionObject.config.collation) {\n\n          if(!connectionObject.config.charset) query += ' DEFAULT ';\n\n          query += ' COLLATE ' + connectionObject.config.collation;\n\n        }\n\n\n\n\n\n        // Run query\n\n        if (LOG_QUERIES) {\n\n          console.log('\\nExecuting MySQL query: ',query);\n\n        }\n\n        connection.query(query, function __DEFINE__(err, result) {\n\n          if (err) return cb(err);\n\n\n\n          //\n\n          // TODO:\n\n          // Determine if this can safely be changed to the `adapter` closure var\n\n          // (i.e. this is the last remaining usage of the \"this\" context in the MySQLAdapter)\n\n          //\n\n\n\n          self.describe(connectionName, collectionName, function(err) {\n\n            cb(err, result);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            208,
+            237
+          ],
+          "match_position": [
+            9,
+            27
+          ],
+          "match_string": "        var schema = sql.schema(tableName, definition);\n\n\n\n        // Build query\n\n        var query = 'CREATE TABLE ' + tableName + ' (' + schema + ')';\n\n\n\n        if(connectionObject.config.charset) {\n\n          query += ' DEFAULT CHARSET ' + connectionObject.config.charset;\n\n        }\n\n\n\n        if(connectionObject.config.collation) {\n\n          if(!connectionObject.config.charset) query += ' DEFAULT ';\n\n          query += ' COLLATE ' + connectionObject.config.collation;\n\n        }\n\n\n\n\n\n        // Run query\n\n        if (LOG_QUERIES) {\n\n          console.log('\\nExecuting MySQL query: ',query);\n\n        }\n\n        connection.query(query, function __DEFINE__(err, result) {\n\n          if (err) return cb(err);\n\n\n\n          //\n\n          // TODO:\n\n          // Determine if this can safely be changed to the `adapter` closure var\n\n          // (i.e. this is the last remaining usage of the \"this\" context in the MySQLAdapter)\n\n          //\n\n\n\n          self.describe(connectionName, collectionName, function(err) {\n\n            cb(err, result);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            267,
+            283
+          ],
+          "match_position": [
+            11,
+            30
+          ],
+          "match_string": "          var tableName = mysql.escapeId(collectionName);\n\n\n\n          // Build query\n\n          var query = 'DROP TABLE ' + tableName;\n\n\n\n          if (LOG_QUERIES) {\n\n            console.log('\\nExecuting MySQL query: ',query);\n\n          }\n\n\n\n          // Run query\n\n          connection.query(query, function __DROP__(err, result) {\n\n            if (err) {\n\n              if (err.code !== 'ER_BAD_TABLE_ERROR' && err.code !== 'ER_NO_SUCH_TABLE') return next(err);\n\n              result = null;\n\n            }\n\n\n\n            next(null, result);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            310,
+            322
+          ],
+          "match_position": [
+            9,
+            17
+          ],
+          "match_string": "        var query = sql.addColumn(tableName, attrName, attrDef);\n\n\n\n        // Run query\n\n        if (LOG_QUERIES) {\n\n          console.log('\\nExecuting MySQL query: ',query);\n\n        }\n\n\n\n        // Run query\n\n        connection.query(query, function(err, result) {\n\n          if (err) return cb(err);\n\n\n\n          // TODO: marshal response to waterline interface\n\n          cb(err);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            343,
+            354
+          ],
+          "match_position": [
+            9,
+            17
+          ],
+          "match_string": "        var query = sql.removeColumn(tableName, attrName);\n\n\n\n        if (LOG_QUERIES) {\n\n          console.log('\\nExecuting MySQL query: ',query);\n\n        }\n\n\n\n        // Run query\n\n        connection.query(query, function(err, result) {\n\n          if (err) return cb(err);\n\n\n\n          // TODO: marshal response to waterline interface\n\n          cb(err);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            399,
+            417
+          ],
+          "match_position": [
+            9,
+            25
+          ],
+          "match_string": "        connection.query(_query.query, function(err, result) {\n\n          if (err) return cb( handleQueryError(err) );\n\n\n\n          // Build model to return\n\n          var autoInc = null;\n\n\n\n          Object.keys(collection.definition).forEach(function(key) {\n\n            if(!collection.definition[key].hasOwnProperty('autoIncrement')) return;\n\n            autoInc = key;\n\n          });\n\n\n\n          var autoIncData = {};\n\n\n\n          if (autoInc) {\n\n            autoIncData[autoInc] = result.insertId;\n\n          }\n\n\n\n          var values = _.extend({}, _insertData, autoIncData);\n\n          cb(err, values);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            483,
+            491
+          ],
+          "match_position": [
+            11,
+            29
+          ],
+          "match_string": "          var query = 'SELECT * FROM ' + mysql.escapeId(tableName) + ' WHERE ' + mysql.escapeId(pk) + ' IN (' + records + ');';\n\n\n\n          // Run Query returing results\n\n          if (LOG_QUERIES) {\n\n            console.log('\\ncreateEach() :: Executing MySQL query: ',query);\n\n          }\n\n          connection.query(query, function(err, results) {\n\n            if(err) return cb(err);\n\n            cb(null, results);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            461,
+            464
+          ],
+          "match_position": [
+            11,
+            15
+          ],
+          "match_string": "          connection.query(_query.query, function(err, results) {\n\n            if (err) return cb( handleQueryError(err) );\n\n            records.push(results.insertId);\n\n            cb();"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            556,
+            785
+          ],
+          "match_position": [
+            13,
+            19
+          ],
+          "match_string": "            var instructions = options.instructions;\n\n\n\n            // Grab the collection by looking into the connection\n\n            var connectionObject = connections[connectionName];\n\n            var collection = connectionObject.collections[collectionName];\n\n\n\n            var parentRecords = [];\n\n            var cachedChildren = {};\n\n\n\n            // Grab Connection Schema\n\n            var schema = {};\n\n\n\n            Object.keys(connectionObject.collections).forEach(function(coll) {\n\n              schema[coll] = connectionObject.collections[coll].schema;\n\n            });\n\n\n\n            // Build Query\n\n            var _schema = collection.waterline.schema;\n\n\n\n            var sequel = new Sequel(_schema, sqlOptions);\n\n            var _query;\n\n\n\n            // Build a query for the specific query strategy\n\n            try {\n\n              _query = sequel.find(collectionName, instructions);\n\n            } catch(e) {\n\n              return next(e);\n\n            }\n\n\n\n            async.auto({\n\n\n\n              processParent: function(next) {\n\n                client.query(_query.query[0], function __FIND__(err, result) {\n\n                  if(err) return next(err);\n\n\n\n                  parentRecords = result;\n\n\n\n                  var splitChildren = function(parent, next) {\n\n                    var cache = {};\n\n\n\n                    _.keys(parent).forEach(function(key) {\n\n\n\n                      // Check if we can split this on our special alias identifier '___' and if\n\n                      // so put the result in the cache\n\n                      var split = key.split('___');\n\n                      if(split.length < 2) return;\n\n\n\n                      if(!hop(cache, split[0])) cache[split[0]] = {};\n\n                      cache[split[0]][split[1]] = parent[key];\n\n                      delete parent[key];\n\n                    });\n\n\n\n                    // Combine the local cache into the cachedChildren\n\n                    if(_.keys(cache).length > 0) {\n\n                      _.keys(cache).forEach(function(pop) {\n\n                        if(!hop(cachedChildren, pop)) cachedChildren[pop] = [];\n\n                        cachedChildren[pop] = cachedChildren[pop].concat(cache[pop]);\n\n                      });\n\n                    }\n\n\n\n                    next();\n\n                  };\n\n\n\n\n\n                  // Pull out any aliased child records that have come from a hasFK association\n\n                  async.eachSeries(parentRecords, splitChildren, function(err) {\n\n                    if(err) return next(err);\n\n                    buffers.parents = parentRecords;\n\n                    next();\n\n                  });\n\n                });\n\n              },\n\n\n\n              // Build child buffers.\n\n              // For each instruction, loop through the parent records and build up a\n\n              // buffer for the record.\n\n              buildChildBuffers: ['processParent', function(next, results) {\n\n                async.each(_.keys(instructions.instructions), function(population, nextPop) {\n\n\n\n                  var populationObject = instructions.instructions[population];\n\n                  var popInstructions = populationObject.instructions;\n\n                  var pk = _getPK(connectionName, popInstructions[0].parent);\n\n\n\n                  var alias = populationObject.strategy.strategy === 1 ? popInstructions[0].parentKey : popInstructions[0].alias;\n\n\n\n                  // Use eachSeries here to keep ordering\n\n                  async.eachSeries(parentRecords, function(parent, nextParent) {\n\n                    var buffer = {\n\n                      attrName: population,\n\n                      parentPK: parent[pk],\n\n                      pkAttr: pk,\n\n                      keyName: alias\n\n                    };\n\n\n\n                    var records = [];\n\n\n\n                    // Check for any cached parent records\n\n                    if(hop(cachedChildren, alias)) {\n\n                      cachedChildren[alias].forEach(function(cachedChild) {\n\n                        var childVal = popInstructions[0].childKey;\n\n                        var parentVal = popInstructions[0].parentKey;\n\n\n\n                        if(cachedChild[childVal] !== parent[parentVal]) {\n\n                          return;\n\n                        }\n\n\n\n                        // If null value for the parentVal, ignore it\n\n                        if(parent[parentVal] === null) return;\n\n\n\n                        records.push(cachedChild);\n\n                      });\n\n                    }\n\n\n\n                    if(records.length > 0) {\n\n                      buffer.records = records;\n\n                    }\n\n\n\n                    buffers.add(buffer);\n\n                    nextParent();\n\n                  }, nextPop);\n\n                }, next);\n\n              }],\n\n\n\n\n\n              processChildren: ['buildChildBuffers', function(next, results) {\n\n\n\n                // Remove the parent query\n\n                _query.query.shift();\n\n\n\n                async.each(_query.query, function(q, next) {\n\n\n\n                  var qs = '';\n\n                  var pk;\n\n\n\n                  if(!Array.isArray(q.instructions)) {\n\n                    pk = _getPK(connectionName, q.instructions.parent);\n\n                  }\n\n                  else if(q.instructions.length > 1) {\n\n                    pk = _getPK(connectionName, q.instructions[0].parent);\n\n                  }\n\n\n\n                  parentRecords.forEach(function(parent) {\n\n                    if(_.isNumber(parent[pk])) {\n\n                      qs += q.qs.replace('^?^', parent[pk]) + ' UNION ';\n\n                    } else {\n\n                      qs += q.qs.replace('^?^', '\"' + parent[pk] + '\"') + ' UNION ';\n\n                    }\n\n                  });\n\n\n\n                  // Remove the last UNION\n\n                  qs = qs.slice(0, -7);\n\n\n\n                  // Add a final sort to the Union clause for integration\n\n                  if(parentRecords.length > 1) {\n\n                    var addedOrder = false;\n\n\n\n                    function addSort(sortKey, sorts) {\n\n                        if (!sortKey.match(/^[0-9,a-z,A-Z$_]+$/)) {\n\n                          return;\n\n                        }\n\n                        if (!addedOrder) {\n\n                          addedOrder = true;\n\n                          qs += ' ORDER BY ';\n\n                        }\n\n\n\n                        var direction = sorts[sortKey] === 1 ? 'ASC' : 'DESC';\n\n                        qs += sortKey + ' ' + direction;\n\n                    }\n\n\n\n                    if(!Array.isArray(q.instructions)) {\n\n                      _.keys(q.instructions.criteria.sort).forEach(function(sortKey) {\n\n                        addSort(sortKey, q.instructions.criteria.sort);\n\n                      });\n\n                    }\n\n                    else if(q.instructions.length === 2) {\n\n                      _.keys(q.instructions[1].criteria.sort).forEach(function(sortKey) {\n\n                        addSort(sortKey, q.instructions[1].criteria.sort);\n\n                      });\n\n                    }\n\n                  }\n\n\n\n                  client.query(qs, function __FIND__(err, result) {\n\n                    if(err) return next(err);\n\n\n\n                    var groupedRecords = {};\n\n\n\n                    result.forEach(function(row) {\n\n\n\n                      if(!Array.isArray(q.instructions)) {\n\n                        if(!hop(groupedRecords, row[q.instructions.childKey])) {\n\n                          groupedRecords[row[q.instructions.childKey]] = [];\n\n                        }\n\n\n\n                        groupedRecords[row[q.instructions.childKey]].push(row);\n\n                      }\n\n                      else {\n\n\n\n                        // Grab the special \"foreign key\" we attach and make sure to remove it\n\n                        var fk = '___' + q.instructions[0].childKey;\n\n\n\n                        if(!hop(groupedRecords, row[fk])) {\n\n                          groupedRecords[row[fk]] = [];\n\n                        }\n\n\n\n                        var data = _.cloneDeep(row);\n\n                        delete data[fk];\n\n                        groupedRecords[row[fk]].push(data);\n\n                      }\n\n                    });\n\n\n\n                    buffers.store.forEach(function(buffer) {\n\n                      if(buffer.attrName !== q.attrName) return;\n\n                      var records = groupedRecords[buffer.belongsToPKValue];\n\n                      if(!records) return;\n\n                      if(!buffer.records) buffer.records = [];\n\n                      buffer.records = buffer.records.concat(records);\n\n                    });\n\n\n\n                    next();\n\n                  });\n\n                }, function(err) {\n\n                  next();\n\n                });\n\n\n\n              }]\n\n\n\n            },\n\n            function(err) {\n\n              if(err) return next(err);\n\n              next();"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            588,
+            624
+          ],
+          "match_position": [
+            17,
+            25
+          ],
+          "match_string": "                client.query(_query.query[0], function __FIND__(err, result) {\n\n                  if(err) return next(err);\n\n\n\n                  parentRecords = result;\n\n\n\n                  var splitChildren = function(parent, next) {\n\n                    var cache = {};\n\n\n\n                    _.keys(parent).forEach(function(key) {\n\n\n\n                      // Check if we can split this on our special alias identifier '___' and if\n\n                      // so put the result in the cache\n\n                      var split = key.split('___');\n\n                      if(split.length < 2) return;\n\n\n\n                      if(!hop(cache, split[0])) cache[split[0]] = {};\n\n                      cache[split[0]][split[1]] = parent[key];\n\n                      delete parent[key];\n\n                    });\n\n\n\n                    // Combine the local cache into the cachedChildren\n\n                    if(_.keys(cache).length > 0) {\n\n                      _.keys(cache).forEach(function(pop) {\n\n                        if(!hop(cachedChildren, pop)) cachedChildren[pop] = [];\n\n                        cachedChildren[pop] = cachedChildren[pop].concat(cache[pop]);\n\n                      });\n\n                    }\n\n\n\n                    next();\n\n                  };\n\n\n\n\n\n                  // Pull out any aliased child records that have come from a hasFK association\n\n                  async.eachSeries(parentRecords, splitChildren, function(err) {\n\n                    if(err) return next(err);\n\n                    buffers.parents = parentRecords;\n\n                    next();"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            706,
+            774
+          ],
+          "match_position": [
+            19,
+            25
+          ],
+          "match_string": "                  qs = qs.slice(0, -7);\n\n\n\n                  // Add a final sort to the Union clause for integration\n\n                  if(parentRecords.length > 1) {\n\n                    var addedOrder = false;\n\n\n\n                    function addSort(sortKey, sorts) {\n\n                        if (!sortKey.match(/^[0-9,a-z,A-Z$_]+$/)) {\n\n                          return;\n\n                        }\n\n                        if (!addedOrder) {\n\n                          addedOrder = true;\n\n                          qs += ' ORDER BY ';\n\n                        }\n\n\n\n                        var direction = sorts[sortKey] === 1 ? 'ASC' : 'DESC';\n\n                        qs += sortKey + ' ' + direction;\n\n                    }\n\n\n\n                    if(!Array.isArray(q.instructions)) {\n\n                      _.keys(q.instructions.criteria.sort).forEach(function(sortKey) {\n\n                        addSort(sortKey, q.instructions.criteria.sort);\n\n                      });\n\n                    }\n\n                    else if(q.instructions.length === 2) {\n\n                      _.keys(q.instructions[1].criteria.sort).forEach(function(sortKey) {\n\n                        addSort(sortKey, q.instructions[1].criteria.sort);\n\n                      });\n\n                    }\n\n                  }\n\n\n\n                  client.query(qs, function __FIND__(err, result) {\n\n                    if(err) return next(err);\n\n\n\n                    var groupedRecords = {};\n\n\n\n                    result.forEach(function(row) {\n\n\n\n                      if(!Array.isArray(q.instructions)) {\n\n                        if(!hop(groupedRecords, row[q.instructions.childKey])) {\n\n                          groupedRecords[row[q.instructions.childKey]] = [];\n\n                        }\n\n\n\n                        groupedRecords[row[q.instructions.childKey]].push(row);\n\n                      }\n\n                      else {\n\n\n\n                        // Grab the special \"foreign key\" we attach and make sure to remove it\n\n                        var fk = '___' + q.instructions[0].childKey;\n\n\n\n                        if(!hop(groupedRecords, row[fk])) {\n\n                          groupedRecords[row[fk]] = [];\n\n                        }\n\n\n\n                        var data = _.cloneDeep(row);\n\n                        delete data[fk];\n\n                        groupedRecords[row[fk]].push(data);\n\n                      }\n\n                    });\n\n\n\n                    buffers.store.forEach(function(buffer) {\n\n                      if(buffer.attrName !== q.attrName) return;\n\n                      var records = groupedRecords[buffer.belongsToPKValue];\n\n                      if(!records) return;\n\n                      if(!buffer.records) buffer.records = [];\n\n                      buffer.records = buffer.records.concat(records);\n\n                    });\n\n\n\n                    next();"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            836,
+            838
+          ],
+          "match_position": [
+            9,
+            26
+          ],
+          "match_string": "        connection.query(_query.query[0], function(err, result) {\n\n          if(err) return cb(err);\n\n          cb(null, result);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            869,
+            881
+          ],
+          "match_position": [
+            9,
+            35
+          ],
+          "match_string": "        var localSchema = _.reduce(connectionObject.collections, function (localSchema, collection, cid) {\n\n          localSchema[cid] = collection.schema;\n\n          return localSchema;\n\n        }, {});\n\n\n\n        // Build find query\n\n        var query = sql.countQuery(tableName, options, localSchema);\n\n\n\n        // Run query\n\n        connection.query(query, function(err, result) {\n\n          if(err) return cb(err);\n\n          // Return the count from the simplified query\n\n          cb(null, result[0].count);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            875,
+            881
+          ],
+          "match_position": [
+            9,
+            35
+          ],
+          "match_string": "        var query = sql.countQuery(tableName, options, localSchema);\n\n\n\n        // Run query\n\n        connection.query(query, function(err, result) {\n\n          if(err) return cb(err);\n\n          // Return the count from the simplified query\n\n          cb(null, result[0].count);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            904,
+            907
+          ],
+          "match_position": [
+            9,
+            46
+          ],
+          "match_string": "        var query = sql.selectQuery(tableName, options);\n\n\n\n        // Run query\n\n        var dbStream = connection.query(query);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            961,
+            1016
+          ],
+          "match_position": [
+            9,
+            30
+          ],
+          "match_string": "        connection.query(_query.query[0], function(err, results) {\n\n          if(err) return cb(err);\n\n\n\n          var ids = [];\n\n\n\n          var pk = 'id';\n\n          Object.keys(collection.definition).forEach(function(key) {\n\n            if(!collection.definition[key].hasOwnProperty('primaryKey')) return;\n\n            pk = key;\n\n          });\n\n\n\n          // update statement will affect 0 rows\n\n          if (results.length === 0) {\n\n            return cb(null, []);\n\n          }\n\n\n\n          results.forEach(function(result) {\n\n            ids.push(result[pk]);\n\n          });\n\n\n\n          // Prepare values\n\n          Object.keys(values).forEach(function(value) {\n\n            values[value] = utils.prepareValue(values[value]);\n\n          });\n\n\n\n          // Build query\n\n          try {\n\n            _query = sequel.update(collectionName, options, values);\n\n          } catch(e) {\n\n            return cb(e);\n\n          }\n\n\n\n          // Run query\n\n          connection.query(_query.query, function(err, result) {\n\n            if (err) return cb( handleQueryError(err) );\n\n\n\n            var criteria;\n\n            if(ids.length === 1) {\n\n              criteria = { where: {}, limit: 1 };\n\n              criteria.where[pk] = ids[0];\n\n            } else {\n\n              criteria = { where: {} };\n\n              criteria.where[pk] = ids;\n\n            }\n\n\n\n            // Build a query for the specific query strategy\n\n            try {\n\n              _query = sequel.find(collectionName, criteria);\n\n            } catch(e) {\n\n              return cb(e);\n\n            }\n\n\n\n            // Run query\n\n            connection.query(_query.query[0], function(err, result) {\n\n              if(err) return cb(err);\n\n              cb(null, result);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            994,
+            1016
+          ],
+          "match_position": [
+            11,
+            30
+          ],
+          "match_string": "          connection.query(_query.query, function(err, result) {\n\n            if (err) return cb( handleQueryError(err) );\n\n\n\n            var criteria;\n\n            if(ids.length === 1) {\n\n              criteria = { where: {}, limit: 1 };\n\n              criteria.where[pk] = ids[0];\n\n            } else {\n\n              criteria = { where: {} };\n\n              criteria.where[pk] = ids;\n\n            }\n\n\n\n            // Build a query for the specific query strategy\n\n            try {\n\n              _query = sequel.find(collectionName, criteria);\n\n            } catch(e) {\n\n              return cb(e);\n\n            }\n\n\n\n            // Run query\n\n            connection.query(_query.query[0], function(err, result) {\n\n              if(err) return cb(err);\n\n              cb(null, result);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            1014,
+            1016
+          ],
+          "match_position": [
+            13,
+            30
+          ],
+          "match_string": "            connection.query(_query.query[0], function(err, result) {\n\n              if(err) return cb(err);\n\n              cb(null, result);"
+        },
+        {
+          "file_path": "/src/lib/adapter.js",
+          "match_lines": [
+            1059,
+            1059
+          ],
+          "match_position": [
+            13,
+            48
+          ],
+          "match_string": "            connection.query(_query.query, next);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

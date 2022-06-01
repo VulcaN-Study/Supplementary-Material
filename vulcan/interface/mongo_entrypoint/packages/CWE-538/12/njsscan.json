@@ -1,0 +1,325 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 18
+        },
+        "extra": {
+          "line": "complexity.md",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 18
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 28,
+          "line": 1
+        },
+        "extra": {
+          "line": "Van Nguyen <the.gol.effect@gmail.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/AUTHORS",
+        "start": {
+          "col": 27,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2011-2014, Walmart.",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 2
+        },
+        "extra": {
+          "line": "\t@node node_modules/lab/bin/lab",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 2,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 7,
+          "line": 1
+        },
+        "extra": {
+          "line": "Ssssh!",
+          "message": "Syntax error"
+        },
+        "path": "/src/test/.hidden",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            411,
+            429
+          ],
+          "match_position": [
+            5,
+            23
+          ],
+          "match_string": "    options.timeout = options.timeout || 5000;                                              // Default timeout to 5 seconds\n\n\n\n    if (!this._started) {\n\n        return Hoek.nextTick(callback)();\n\n    }\n\n\n\n    this._started = false;\n\n\n\n    if (this._eventLoopTimer) {\n\n        clearTimeout(this._eventLoopTimer);\n\n    }\n\n\n\n    var timeoutId = setTimeout(function () {\n\n\n\n        Object.keys(self._connections).forEach(function (key) {\n\n\n\n            self._connections[key].destroy();\n\n        });\n\n    }, options.timeout);"
+        },
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            423,
+            429
+          ],
+          "match_position": [
+            21,
+            23
+          ],
+          "match_string": "    var timeoutId = setTimeout(function () {\n\n\n\n        Object.keys(self._connections).forEach(function (key) {\n\n\n\n            self._connections[key].destroy();\n\n        });\n\n    }, options.timeout);"
+        },
+        {
+          "file_path": "/src/test/request.js",
+          "match_lines": [
+            52,
+            58
+          ],
+          "match_position": [
+            13,
+            30
+          ],
+          "match_string": "            var t2 = request.addTail('t2');\n\n\n\n            reply('Done');\n\n\n\n            t1();\n\n            t1();                           // Ignored\n\n            setTimeout(t2, 10);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/request.js",
+          "match_lines": [
+            51,
+            51
+          ],
+          "match_position": [
+            58,
+            69
+          ],
+          "match_string": "    this.id = now + '-' + process.pid + '-' + Math.floor(Math.random() * 0x10000);"
+        },
+        {
+          "file_path": "/src/lib/validation.js",
+          "match_lines": [
+            121,
+            121
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "        var currentSample = Math.ceil((Math.random() * 100));"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            456,
+            456
+          ],
+          "match_position": [
+            22,
+            33
+          ],
+          "match_string": "            var id = Math.random();"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            502,
+            502
+          ],
+          "match_position": [
+            23,
+            34
+          ],
+          "match_string": "            var id1 = Math.random();"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            507,
+            507
+          ],
+          "match_position": [
+            27,
+            38
+          ],
+          "match_string": "                var id2 = Math.random();"
+        },
+        {
+          "file_path": "/src/test/methods.js",
+          "match_lines": [
+            521,
+            521
+          ],
+          "match_position": [
+            19,
+            30
+          ],
+          "match_string": "        var id1 = Math.random();"
+        },
+        {
+          "file_path": "/src/test/route.js",
+          "match_lines": [
+            203,
+            203
+          ],
+          "match_position": [
+            40,
+            51
+          ],
+          "match_string": "                    var i = Math.floor(Math.random() * (copy.length - 1));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/file.js",
+          "match_lines": [
+            94,
+            94
+          ],
+          "match_position": [
+            28,
+            52
+          ],
+          "match_string": "                var hash = Crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/route.js",
+          "match_lines": [
+            38,
+            38
+          ],
+          "match_position": [
+            17,
+            73
+          ],
+          "match_string": "    Hoek.assert(internals.Route.pathRegex.validatePath.test(options.path), 'Invalid path:', options.path);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/test/templates/layout/elsewhere.html",
+          "match_position": [
+            10,
+            25
+          ],
+          "match_string": "{{{ content }}}"
+        },
+        {
+          "file_path": "/src/test/templates/layout.html",
+          "match_position": [
+            98,
+            113
+          ],
+          "match_string": "{{{ content }}}"
+        },
+        {
+          "file_path": "/src/test/templates/otherLayout.html",
+          "match_position": [
+            10,
+            25
+          ],
+          "match_string": "{{{ content }}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

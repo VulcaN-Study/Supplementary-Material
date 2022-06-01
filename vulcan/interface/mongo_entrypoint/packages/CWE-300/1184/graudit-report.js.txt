@@ -1,0 +1,38 @@
+/src/History.md-118-  * throw an Error when no proxy info is given
+/src/History.md:119:  * add support for passing options to net/tls .connect()
+/src/History.md-120-
+##############################################
+/src/README.md-44-console.log('attempting to GET %j', endpoint);
+/src/README.md:45:var options = url.parse(endpoint);
+/src/README.md-46-
+##############################################
+/src/README.md-69-var endpoint = process.argv[2] || 'ws://echo.websocket.org';
+/src/README.md:70:var parsed = url.parse(endpoint);
+/src/README.md-71-console.log('attempting to connect to WebSocket %j', endpoint);
+##############################################
+/src/README.md-73-// create an instance of the `HttpsProxyAgent` class with the proxy server information
+/src/README.md:74:var options = url.parse(proxy);
+/src/README.md-75-
+##############################################
+/src/README.md-107-  * `headers` - Object - Additional HTTP headers to be sent on the HTTP CONNECT method.
+/src/README.md:108:  * Any other options given are passed to the `net.connect()`/`tls.connect()` functions.
+/src/README.md-109-
+##############################################
+/src/index.js-26-  if (!(this instanceof HttpsProxyAgent)) return new HttpsProxyAgent(opts);
+/src/index.js:27:  if ('string' == typeof opts) opts = url.parse(opts);
+/src/index.js-28-  if (!opts)
+##############################################
+/src/index.js-51-    // if both a `host` and `path` are specified then it's most likely the
+/src/index.js:52:    // result of a `url.parse()` call... we need to remove the `path` portion so
+/src/index.js:53:    // that `net.connect()` doesn't attempt to open that as a unix socket file.
+/src/index.js-54-    delete proxy.path;
+##############################################
+/src/index.js-74-  if (this.secureProxy) {
+/src/index.js:75:    socket = tls.connect(proxy);
+/src/index.js-76-  } else {
+/src/index.js:77:    socket = net.connect(proxy);
+/src/index.js-78-  }
+##############################################
+/src/index.js-153-        opts.port = null;
+/src/index.js:154:        sock = tls.connect(opts);
+/src/index.js-155-      }

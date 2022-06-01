@@ -1,0 +1,123 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 15,
+          "line": 3
+        },
+        "extra": {
+          "line": ".idea/",
+          "message": "Syntax error"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 33,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2012 Lei Zongmin(\u96f7\u5b97\u6c11) <leizongmin@gmail.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:\ufffd"
+        },
+        "path": "/src/MIT-License",
+        "start": {
+          "col": 32,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_bodyparser": {
+      "files": [
+        {
+          "file_path": "/src/lib/api.js",
+          "match_lines": [
+            39,
+            39
+          ],
+          "match_position": [
+            11,
+            29
+          ],
+          "match_string": "  app.use(express.bodyParser());"
+        },
+        {
+          "file_path": "/src/lib/http.js",
+          "match_lines": [
+            66,
+            66
+          ],
+          "match_position": [
+            11,
+            29
+          ],
+          "match_string": "  app.use(express.bodyParser());"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "POST Request to Express Body Parser 'bodyParser()' can create Temporary files and consume space.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "ERROR"
+      }
+    },
+    "generic_os_command_exec": {
+      "files": [
+        {
+          "file_path": "/src/lib/api/index.js",
+          "match_lines": [
+            71,
+            87
+          ],
+          "match_position": [
+            5,
+            12
+          ],
+          "match_string": "    var cmd = req.body.cmd;\n\n    var path = req.body.path;\n\n    if (!cmd) {\n\n      next('Miss parameter \"cmd\".');\n\n    } else {\n\n      child_process.exec(cmd, {\n\n        cwd:  path\n\n      }, function (err, stdout, stderr) {\n\n        if (err) {\n\n          next(err);\n\n        } else {\n\n          res.json({\n\n            cmd:    cmd,\n\n            path:   path,\n\n            stdout: stdout.toString(),\n\n            stderr: stderr.toString()\n\n          });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "description": "User controlled data in 'child_process.exec()' can result in Remote OS Command Execution.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/schedule.js",
+          "match_lines": [
+            52,
+            52
+          ],
+          "match_position": [
+            49,
+            60
+          ],
+          "match_string": "    name = 'Task_' + Date.now() + '' + parseInt(Math.random() * 1000);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,31 @@
+/src/lib/time-span.js-302-exports.parseDate = function (str) {
+/src/lib/time-span.js:303:  var dateTime = Date.parse(str),
+/src/lib/time-span.js-304-      iso = '^([^Z]+)',
+##############################################
+/src/lib/time-span.js-344-    dateTime = str.match(new RegExp(iso, 'i'));
+/src/lib/time-span.js:345:    dateTime = Date.parse(dateTime[1]);
+/src/lib/time-span.js-346-  }
+##############################################
+/src/test/time-span-test.js-18-        "should return a valid TimeSpan object": function () {
+/src/test/time-span-test.js:19:          var ts = timeSpan.parse("04:03:02.10");
+/src/test/time-span-test.js-20-          assert.equal(ts.hours, 4);
+##############################################
+/src/test/time-span-test.js-27-        "should return a valid TimeSpan object": function () {
+/src/test/time-span-test.js:28:          var ts = timeSpan.parse("01:04:03:02.10");
+/src/test/time-span-test.js-29-          assert.equal(ts.days, 1);
+##############################################
+/src/test/date-parser-test.js-18-          "should return the correct value": function () {
+/src/test/date-parser-test.js:19:            var target = new Date(Date.parse('2010-04-03T10:04:15Z')),
+/src/test/date-parser-test.js-20-                parsed = timeSpan.parseDate('2010-04-03T12:34:15Z-2HOURS30MINUTES');
+##############################################
+/src/test/date-parser-test.js-26-          "should return the correct value": function () {
+/src/test/date-parser-test.js:27:            var target = new Date(Date.parse('2010-03-29T12:34:15Z')),
+/src/test/date-parser-test.js-28-                parsed = timeSpan.parseDate('2010-04-01T12:34:15Z-72HOURS');
+##############################################
+/src/test/date-parser-test.js-34-          "should return the correct value": function () {
+/src/test/date-parser-test.js:35:            var target = new Date(Date.parse('2007-03-31T12:00:00Z')),
+/src/test/date-parser-test.js-36-                parsed = timeSpan.parseDate('2010-03-31T12:00:00Z-1096DAYS');
+##############################################
+/src/test/date-parser-test.js-42-          "should return the correct value": function () {
+/src/test/date-parser-test.js:43:            var target = new Date(Date.parse('2013-04-03T12:34:15Z')),
+/src/test/date-parser-test.js-44-                parsed = timeSpan.parseDate('2010-04-03T12:34:15Z+2YEARS365DAYS');

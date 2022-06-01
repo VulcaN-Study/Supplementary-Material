@@ -1,0 +1,170 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 4
+        },
+        "extra": {
+          "line": "",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 4
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# Ordered by date of first contribution.",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/AUTHORS",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 19
+        },
+        "extra": {
+          "line": ".PHONY: build test",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 1,
+          "line": 19
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 1
+        },
+        "extra": {
+          "line": "We should explictly clean the Request object when throwing javascript exceptions.",
+          "message": "Syntax error"
+        },
+        "path": "/src/TODO",
+        "start": {
+          "col": 4,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 16,
+          "line": 1
+        },
+        "extra": {
+          "line": "def set_options(opt):",
+          "message": "Syntax error"
+        },
+        "path": "/src/wscript",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/test/support/echo.js",
+          "match_lines": [
+            33,
+            33
+          ],
+          "match_position": [
+            5,
+            32
+          ],
+          "match_string": "    res.write(req.method + \"\\n\");"
+        },
+        {
+          "file_path": "/src/test/support/echo.js",
+          "match_lines": [
+            37,
+            37
+          ],
+          "match_position": [
+            5,
+            41
+          ],
+          "match_string": "    res.write(JSON.stringify(req.headers));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_header_injection": {
+      "files": [
+        {
+          "file_path": "/src/test/support/echo.js",
+          "match_lines": [
+            20,
+            23
+          ],
+          "match_position": [
+            5,
+            6
+          ],
+          "match_string": "    res.writeHead(42, {\n\n      'Content-Type': 'text/plain',\n\n      'customheaders': req.headers.customheaders\n\n    });"
+        },
+        {
+          "file_path": "/src/test/support/echo.js",
+          "match_lines": [
+            25,
+            29
+          ],
+          "match_position": [
+            5,
+            6
+          ],
+          "match_string": "    res.writeHead(200, {\n\n      'Content-Type': 'text/plain',\n\n      'X-REQUEST-URL': req.url,\n\n      'X-REQUEST-METHOD': req.method\n\n    });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-644: Improper Neutralization of HTTP Headers for Scripting Syntax",
+        "description": "Untrusted user input in response header will result in HTTP Header Injection or Response Splitting Attacks.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

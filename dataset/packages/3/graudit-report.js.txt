@@ -1,0 +1,80 @@
+/src/Readme.md-23-
+/src/Readme.md:24:http.createServer(app).listen(3000);
+/src/Readme.md-25-```
+##############################################
+/src/lib/proto.js-219- *      
+/src/lib/proto.js:220: *      http.createServer(app).listen(80);
+/src/lib/proto.js:221: *      https.createServer(options, app).listen(443);
+/src/lib/proto.js-222- *
+##############################################
+/src/lib/proto.js-227-app.listen = function(){
+/src/lib/proto.js:228:  var server = http.createServer(this);
+/src/lib/proto.js-229-  return server.listen.apply(server, arguments);
+##############################################
+/src/lib/middleware/directory.js-109-exports.html = function(req, res, files, next, dir, showUp, icons){
+/src/lib/middleware/directory.js:110:  fs.readFile(__dirname + '/../public/directory.html', 'utf8', function(err, str){
+/src/lib/middleware/directory.js-111-    if (err) return next(err);
+/src/lib/middleware/directory.js:112:    fs.readFile(__dirname + '/../public/style.css', 'utf8', function(err, style){
+/src/lib/middleware/directory.js-113-      if (err) return next(err);
+##############################################
+/src/lib/middleware/favicon.js-60-      } else {
+/src/lib/middleware/favicon.js:61:        fs.readFile(path, function(err, buf){
+/src/lib/middleware/favicon.js-62-          if (err) return next(err);
+##############################################
+/src/lib/middleware/cookieParser.js-48-      try {
+/src/lib/middleware/cookieParser.js:49:        req.cookies = cookie.parse(cookies);
+/src/lib/middleware/cookieParser.js-50-        if (secret) {
+##############################################
+/src/lib/middleware/multipart.js-116-        try {
+/src/lib/middleware/multipart.js:117:          req.body = qs.parse(data);
+/src/lib/middleware/multipart.js:118:          req.files = qs.parse(files);
+/src/lib/middleware/multipart.js-119-          if (!options.defer) next();
+##############################################
+/src/lib/middleware/multipart.js-124-
+/src/lib/middleware/multipart.js:125:      form.parse(req);
+/src/lib/middleware/multipart.js-126-
+##############################################
+/src/lib/middleware/urlencoded.js-67-          req.body = buf.length
+/src/lib/middleware/urlencoded.js:68:            ? qs.parse(buf, options)
+/src/lib/middleware/urlencoded.js-69-            : {};
+##############################################
+/src/lib/middleware/json.js-31- *
+/src/lib/middleware/json.js:32: *   - `strict`  when `false` anything `JSON.parse()` accepts will be parsed
+/src/lib/middleware/json.js-33- *   - `reviver`  used as the second "reviver" argument for JSON.parse
+##############################################
+/src/lib/middleware/json.js-75-        try {
+/src/lib/middleware/json.js:76:          req.body = JSON.parse(buf, options.reviver);
+/src/lib/middleware/json.js-77-        } catch (err){
+##############################################
+/src/lib/middleware/session/memory.js-44-    if (sess) {
+/src/lib/middleware/session/memory.js:45:      sess = JSON.parse(sess);
+/src/lib/middleware/session/memory.js-46-      expires = 'string' == typeof sess.cookie.expires
+##############################################
+/src/lib/middleware/query.js-23- *     connect()
+/src/lib/middleware/query.js:24: *       .use(connect.query())
+/src/lib/middleware/query.js-25- *       .use(function(req, res){
+##############################################
+/src/lib/middleware/query.js-39-      req.query = ~req.url.indexOf('?')
+/src/lib/middleware/query.js:40:        ? qs.parse(parse(req).query, options)
+/src/lib/middleware/query.js-41-        : {};
+##############################################
+/src/lib/middleware/static.js-65-      if (!redirect) return resume();
+/src/lib/middleware/static.js:66:      var pathname = url.parse(req.originalUrl).pathname;
+/src/lib/middleware/static.js-67-      res.statusCode = 303;
+##############################################
+/src/lib/middleware/errorHandler.js-51-    if (~accept.indexOf('html')) {
+/src/lib/middleware/errorHandler.js:52:      fs.readFile(__dirname + '/../public/style.css', 'utf8', function(e, style){
+/src/lib/middleware/errorHandler.js:53:        fs.readFile(__dirname + '/../public/error.html', 'utf8', function(e, html){
+/src/lib/middleware/errorHandler.js-54-          var stack = (err.stack || '')
+##############################################
+/src/lib/utils.js-228-    try {
+/src/lib/utils.js:229:      return JSON.parse(str.slice(2));
+/src/lib/utils.js-230-    } catch (err) {
+##############################################
+/src/lib/utils.js-245- *      var pause = utils.pause(req);
+/src/lib/utils.js:246: *      fs.readFile(path, function(){
+/src/lib/utils.js-247- *         next();
+##############################################
+/src/lib/connect.js-76-/**
+/src/lib/connect.js:77: * Support old `.createServer()` method.
+/src/lib/connect.js-78- */

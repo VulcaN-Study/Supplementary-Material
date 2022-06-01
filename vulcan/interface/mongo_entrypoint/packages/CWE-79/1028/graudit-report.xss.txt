@@ -1,0 +1,22 @@
+/src/templates/module.json.template-1-{
+/src/templates/module.json.template:2:    "files": <%= JSON.stringify(htmlWebpackPlugin.files, function(key, value) { if (key !== 'publicPath' && key !=='hash') { return value; }}) %>
+/src/templates/module.json.template-3-}
+##############################################
+/src/templates/index.html.template-1-<!DOCTYPE html>
+/src/templates/index.html.template:2:<html<% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>>
+/src/templates/index.html.template-3-  <head>
+/src/templates/index.html.template-4-    <meta charset="UTF-8">
+/src/templates/index.html.template:5:    <title><%=htmlWebpackPlugin.options.title || 'Webpack App'%></title>
+/src/templates/index.html.template-6-    <% if (htmlWebpackPlugin.files.favicon) { %>
+/src/templates/index.html.template:7:    <link rel="shortcut icon" href="<%=htmlWebpackPlugin.files.favicon%>">
+/src/templates/index.html.template-8-    <% } %>
+/src/templates/index.html.template-9-    <% for (var css in htmlWebpackPlugin.files.css) { %>
+/src/templates/index.html.template:10:    <link href="<%=htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+/src/templates/index.html.template-11-    <% } %>
+##############################################
+/src/templates/index.html.template-15-    <% for (var vendorChunk in htmlWebpackPlugin.options.vendorModule().files.chunks) { %>
+/src/templates/index.html.template:16:    <script src="/<%= htmlWebpackPlugin.options.vendorModule().files.chunks[vendorChunk].entry %>"></script>
+/src/templates/index.html.template-17-    <% } %>
+/src/templates/index.html.template-18-    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+/src/templates/index.html.template:19:    <script src="<%=htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+/src/templates/index.html.template-20-    <% } %>

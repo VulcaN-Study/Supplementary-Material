@@ -1,0 +1,121 @@
+<report_mosca>
+ <Path>/src/dist/worker.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 31 -  {if(value instanceof Uint8Array)value=toBuffer(value);else value=new Buffer(String(value))}return callback(null,value,key)},callback)};Level.prototype._del=function(id,options,callback){this.idb.remove(id,callback,callback)};Level.prototype._put=function(key,value,options,callback){if(value instanceof ArrayBuffer){value=toBuffer(new Uint8Array(value))}var obj=this.convertEncoding(key,value,options);if(Buffer.isBuffer(obj.value)){if(typeof value.toArrayBuffer==="function"){obj.value=new Uint8Array(value.toArrayBuffer())}else{obj.value=new Uint8Array(value)}}this.idb.put(obj.key,obj.value,function(){callback()},callback)};Level.prototype.convertEncoding=function(key,value,options){if(options.raw)return{key:key,value:value};if(value){var stringed=value.toString();if(stringed==="NaN")value="NaN"}var valEnc=options.valueEncoding;var obj={key:key,value:value};if(value&&(!valEnc||valEnc!=="binary")){if(typeof obj.value!=="object"){obj.value=stringed}}return obj};Level.prototype.iterator=function(options){if(typeof options!=="object")options={};return new Iterator(this.idb,options)};Level.prototype._batch=function(array,options,callback){var op;var i;var k;var copiedOp;var currentOp;var modified=[];if(array.length===0)return setTimeout(callback,0);for(i=0;i<array.length;i++){copiedOp={};currentOp=array[i];modified[i]=copiedOp;var converted=this.convertEncoding(currentOp.key,currentOp.value,options);currentOp.key=converted.key;currentOp.value=converted.value;for(k in currentOp){if(k==="type"&&currentOp[k]=="del"){copiedOp[k]="remove"}else{copiedOp[k]=currentOp[k]}}}return this.idb.batch(modified,function(){callback()},callback)};Level.prototype._close=function(callback){this.idb.db.close();callback()};Level.prototype._approximateSize=function(start,end,callback){var err=new Error("Not implemented");if(callback)return callback(err);throw err};Level.prototype._isBuffer=function(obj){return Buffer.isBuffer(obj)};Level.destroy=function(db,callback){if(typeof db==="object"){var prefix=db.IDBOptions.storePrefix||"IDBWrapper-";var dbname=db.location}else{var prefix="IDBWrapper-";var dbname=db Line: 34 -  se?lowerBoundInclusive(range):upperBoundInclusive(range)};function id(e){return e}exports.toLtgt=function(range,_range,map,lower,upper){_range=_range||{};map=map||id;var defaults=arguments.length>3;var lb=exports.lowerBoundKey(range);var ub=exports.upperBoundKey(range);if(lb){if(lb==="gt")_range.gt=map(range.gt,false);else _range.gte=map(range[lb],false)}else if(defaults)_range.gte=map(lower,false);if(ub){if(ub==="lt")_range.lt=map(range.lt,true);else _range.lte=map(range[ub],true)}else if(defaults)_range.lte=map(upper,true);if(range.reverse!=null)_range.reverse=!!range.reverse;if(has(_range,"max"))delete _range.max;if(has(_range,"min"))delete _range.min;if(has(_range,"start"))delete _range.start;if(has(_range,"end"))delete _range.end;return _range};exports.contains=function(range,key,compare){compare=compare||exports.compare;var lb=lowerBound(range);if(isDef(lb)){var cmp=compare(key,lb);if(cmp<0||cmp===0&&lowerBoundExclusive(range))return false}var ub=upperBound(range);if(isDef(ub)){var cmp=compare(key,ub);if(cmp>0||cmp===0&&upperBoundExclusive(range))return false}return true};exports.filter=function(range,compare){return function(key){return exports.contains(range,key,compare)}}}).call(this,{isBuffer:require("../is-buffer/index.js")})},{"../is-buffer/index.js":9}],15:[function(require,module,exports){var hasOwn=Object.prototype.hasOwnProperty;var toString=Object.prototype.toString;var isFunction=function(fn){var isFunc=typeof fn==="function"&&!(fn instanceof RegExp)||toString.call(fn)==="[object Function]";if(!isFunc&&typeof window!=="undefined"){isFunc=fn===window.setTimeout||fn===window.alert||fn===window.confirm||fn===window.prompt}return isFunc};module.exports=function forEach(obj,fn){if(!isFunction(fn)){throw new TypeError("iterator must be a function")}var i,k,isString=typeof obj==="string",l=obj.length,context=arguments.length>2?arguments[2]:null;if(l===+l){for(i=0;i<l;i++){if(context===null){fn(isString?obj.charAt(i):obj[i],i,obj)}else{fn.call(context,isString?obj.charAt(i):obj[i],i,obj)}}}else{for(k in obj){if(hasOwn.call(obj,k)){if(context===null){fn(obj[k],k,obj)} Line: 52 -  return 0}},{"../utils/common":20}],29:[function(require,module,exports){"use strict";module.exports={2:"need dictionary",1:"stream end",0:"","-1":"file error","-2":"stream error","-3":"data error","-4":"insufficient memory","-5":"buffer error","-6":"incompatible version"}},{}],30:[function(require,module,exports){"use strict";function ZStream(){this.input=null;this.next_in=0;this.avail_in=0;this.total_in=0;this.output=null;this.next_out=0;this.avail_out=0;this.total_out=0;this.msg="";this.state=null;this.data_type=2;this.adler=0}module.exports=ZStream},{}],31:[function(require,module,exports){var process=module.exports={};var cachedSetTimeout;var cachedClearTimeout;function defaultSetTimout(){throw new Error("setTimeout has not been defined")}function defaultClearTimeout(){throw new Error("clearTimeout has not been defined")}(function(){try{if(typeof setTimeout==="function"){cachedSetTimeout=setTimeout}else{cachedSetTimeout=defaultSetTimout}}catch(e){cachedSetTimeout=defaultSetTimout}try{if(typeof clearTimeout==="function"){cachedClearTimeout=clearTimeout}else{cachedClearTimeout=defaultClearTimeout}}catch(e){cachedClearTimeout=defaultClearTimeout}})();function runTimeout(fun){if(cachedSetTimeout===setTimeout){return setTimeout(fun,0)}if((cachedSetTimeout===defaultSetTimout||!cachedSetTimeout)&&setTimeout){cachedSetTimeout=setTimeout;return setTimeout(fun,0)}try{return cachedSetTimeout(fun,0)}catch(e){try{return cachedSetTimeout.call(null,fun,0)}catch(e){return cachedSetTimeout.call(this,fun,0)}}}function runClearTimeout(marker){if(cachedClearTimeout===clearTimeout){return clearTimeout(marker)}if((cachedClearTimeout===defaultClearTimeout||!cachedClearTimeout)&&clearTimeout){cachedClearTimeout=clearTimeout;return clearTimeout(marker)}try{return cachedClearTimeout(marker)}catch(e){try{return cachedClearTimeout.call(null,marker)}catch(e){return cachedClearTimeout.call(this,marker)}}}var queue=[];var draining=false;var currentQueue;var queueIndex=-1;function cleanUpNextTick(){if(!draining||!currentQueue){return}draining=false;if(currentQueue.length){queue=currentQueue.concat(queue)</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/worker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3965 -    if (array.length === 0) return setTimeout(callback, 0)
+
+ Line: 4290 -  		isFunc = fn === window.setTimeout || fn === window.alert || fn === window.confirm || fn === window.prompt;
+
+ Line: 7712 -      throw new Error('setTimeout has not been defined');
+
+ Line: 7719 -          if (typeof setTimeout === 'function') {
+
+ Line: 7720 -              cachedSetTimeout = setTimeout;
+
+ Line: 7738 -      if (cachedSetTimeout === setTimeout) {
+
+ Line: 7740 -          return setTimeout(fun, 0);
+
+ Line: 7742 -      // if setTimeout wasn't available but was latter defined
+
+ Line: 7743 -      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+
+ Line: 7744 -          cachedSetTimeout = setTimeout;
+
+ Line: 7745 -          return setTimeout(fun, 0);
+
+ Line: 7748 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 7773 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 7781 -              // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/worker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3559 -           * Runs a query against the store and passes an array containing matched
+
+ Line: 3578 -           *  apply to query resuts before returning. Must return `false` to reject
+
+ Line: 3582 -          query: function (onSuccess, options) {
+
+ Line: 3604 -           * Runs a query against the store, but only returns the number of matches
+
+ Line: 7086 -                /*UPDATE(state.check, put - _out, _out);*/
+
+ Line: 7174 -      strm.adler = state.check = /*UPDATE(state.check, strm.next_out - _out, _out);*/
+
+ Line: 7960 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/tesseract.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 13 -      throw new Error('setTimeout has not been defined');
+
+ Line: 20 -          if (typeof setTimeout === 'function') {
+
+ Line: 21 -              cachedSetTimeout = setTimeout;
+
+ Line: 39 -      if (cachedSetTimeout === setTimeout) {
+
+ Line: 41 -          return setTimeout(fun, 0);
+
+ Line: 43 -      // if setTimeout wasn't available but was latter defined
+
+ Line: 44 -      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+
+ Line: 45 -          cachedSetTimeout = setTimeout;
+
+ Line: 46 -          return setTimeout(fun, 0);
+
+ Line: 49 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 74 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 82 -              // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/tesseract.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Tesseract=f()}})(function(){var define,module,exports;return function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}({1:[function(require,module,exports){var process=module.exports={};var cachedSetTimeout;var cachedClearTimeout;function defaultSetTimout(){throw new Error("setTimeout has not been defined")}function defaultClearTimeout(){throw new Error("clearTimeout has not been defined")}(function(){try{if(typeof setTimeout==="function"){cachedSetTimeout=setTimeout}else{cachedSetTimeout=defaultSetTimout}}catch(e){cachedSetTimeout=defaultSetTimout}try{if(typeof clearTimeout==="function"){cachedClearTimeout=clearTimeout}else{cachedClearTimeout=defaultClearTimeout}}catch(e){cachedClearTimeout=defaultClearTimeout}})();function runTimeout(fun){if(cachedSetTimeout===setTimeout){return setTimeout(fun,0)}if((cachedSetTimeout===defaultSetTimout||!cachedSetTimeout)&&setTimeout){cachedSetTimeout=setTimeout;return setTimeout(fun,0)}try{return cachedSetTimeout(fun,0)}catch(e){try{return cachedSetTimeout.call(null,fun,0)}catch(e){return cachedSetTimeout.call(this,fun,0)}}}function runClearTimeout(marker){if(cachedClearTimeout===clearTimeout){return clearTimeout(marker)}if((cachedClearTimeout===defaultClearTimeout||!cachedClearTimeout)&&clearTimeout){cachedClearTimeout=clearTimeout;return clearTimeout(marker)}try{return cachedClearTimeout(marker)}catch(e){try{return cachedClearTimeout.call(null,marker)}catch(e){ret</Result>
+</report_mosca>
+

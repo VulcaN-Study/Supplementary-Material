@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/dome.js",
+          "match_lines": [
+            4,
+            6
+          ],
+          "match_position": [
+            5,
+            26
+          ],
+          "match_string": "    var path=\"./\"+request.url;\n\n    fs.readFile(path,function(error,data){\n\n        response.end(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

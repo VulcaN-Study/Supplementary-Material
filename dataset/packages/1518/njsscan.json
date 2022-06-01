@@ -1,0 +1,254 @@
+{
+  "errors": [],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/dist/core.js",
+          "match_lines": [
+            200,
+            200
+          ],
+          "match_position": [
+            34,
+            45
+          ],
+          "match_string": "\texpando: \"jQuery\" + ( version + Math.random() ).replace( /\\D/g, \"\" ),"
+        },
+        {
+          "file_path": "/src/external/sizzle/dist/sizzle.js",
+          "match_lines": [
+            1991,
+            1991
+          ],
+          "match_position": [
+            61,
+            72
+          ],
+          "match_string": "\t\t\t\tdirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1),"
+        },
+        {
+          "file_path": "/src/src/core.js",
+          "match_lines": [
+            200,
+            200
+          ],
+          "match_position": [
+            34,
+            45
+          ],
+          "match_string": "\texpando: \"jQuery\" + ( version + Math.random() ).replace( /\\D/g, \"\" ),"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/external/sizzle/dist/sizzle.js",
+          "match_lines": [
+            297,
+            297
+          ],
+          "match_position": [
+            21,
+            45
+          ],
+          "match_string": "\t\t\t\t(!rbuggyQSA || !rbuggyQSA.test( selector )) &&"
+        },
+        {
+          "file_path": "/src/external/sizzle/dist/sizzle.js",
+          "match_lines": [
+            311,
+            311
+          ],
+          "match_position": [
+            28,
+            51
+          ],
+          "match_string": "\t\t\t\tif ( nodeType === 1 && rdescend.test( selector ) ) {"
+        },
+        {
+          "file_path": "/src/external/sizzle/dist/sizzle.js",
+          "match_lines": [
+            329,
+            329
+          ],
+          "match_position": [
+            19,
+            42
+          ],
+          "match_string": "\t\t\t\t\tnewContext = rsibling.test( selector ) && testContext( context.parentNode ) ||"
+        },
+        {
+          "file_path": "/src/external/sizzle/dist/sizzle.js",
+          "match_lines": [
+            2157,
+            2157
+          ],
+          "match_position": [
+            7,
+            47
+          ],
+          "match_string": "\t\ti = matchExpr[\"needsContext\"].test( selector ) ? 0 : tokens.length;"
+        },
+        {
+          "file_path": "/src/external/sizzle/dist/sizzle.js",
+          "match_lines": [
+            2193,
+            2193
+          ],
+          "match_position": [
+            15,
+            38
+          ],
+          "match_string": "\t\t!context || rsibling.test( selector ) && testContext( context.parentNode ) || context"
+        },
+        {
+          "file_path": "/src/src/ajax.js",
+          "match_lines": [
+            398,
+            589
+          ],
+          "match_position": [
+            3,
+            42
+          ],
+          "match_string": "\t\tvar transport,\n\n\n\n\t\t\t// URL without anti-cache param\n\n\t\t\tcacheURL,\n\n\n\n\t\t\t// Response headers\n\n\t\t\tresponseHeadersString,\n\n\t\t\tresponseHeaders,\n\n\n\n\t\t\t// timeout handle\n\n\t\t\ttimeoutTimer,\n\n\n\n\t\t\t// Url cleanup var\n\n\t\t\turlAnchor,\n\n\n\n\t\t\t// Request state (becomes false upon send and true upon completion)\n\n\t\t\tcompleted,\n\n\n\n\t\t\t// To know if global events are to be dispatched\n\n\t\t\tfireGlobals,\n\n\n\n\t\t\t// Loop variable\n\n\t\t\ti,\n\n\n\n\t\t\t// uncached part of the url\n\n\t\t\tuncached,\n\n\n\n\t\t\t// Create the final options object\n\n\t\t\ts = jQuery.ajaxSetup( {}, options ),\n\n\n\n\t\t\t// Callbacks context\n\n\t\t\tcallbackContext = s.context || s,\n\n\n\n\t\t\t// Context for global events is callbackContext if it is a DOM node or jQuery collection\n\n\t\t\tglobalEventContext = s.context &&\n\n\t\t\t\t( callbackContext.nodeType || callbackContext.jquery ) ?\n\n\t\t\t\t\tjQuery( callbackContext ) :\n\n\t\t\t\t\tjQuery.event,\n\n\n\n\t\t\t// Deferreds\n\n\t\t\tdeferred = jQuery.Deferred(),\n\n\t\t\tcompleteDeferred = jQuery.Callbacks( \"once memory\" ),\n\n\n\n\t\t\t// Status-dependent callbacks\n\n\t\t\tstatusCode = s.statusCode || {},\n\n\n\n\t\t\t// Headers (they are sent all at once)\n\n\t\t\trequestHeaders = {},\n\n\t\t\trequestHeadersNames = {},\n\n\n\n\t\t\t// Default abort message\n\n\t\t\tstrAbort = \"canceled\",\n\n\n\n\t\t\t// Fake xhr\n\n\t\t\tjqXHR = {\n\n\t\t\t\treadyState: 0,\n\n\n\n\t\t\t\t// Builds headers hashtable if needed\n\n\t\t\t\tgetResponseHeader: function( key ) {\n\n\t\t\t\t\tvar match;\n\n\t\t\t\t\tif ( completed ) {\n\n\t\t\t\t\t\tif ( !responseHeaders ) {\n\n\t\t\t\t\t\t\tresponseHeaders = {};\n\n\t\t\t\t\t\t\twhile ( ( match = rheaders.exec( responseHeadersString ) ) ) {\n\n\t\t\t\t\t\t\t\tresponseHeaders[ match[ 1 ].toLowerCase() + \" \" ] =\n\n\t\t\t\t\t\t\t\t\t( responseHeaders[ match[ 1 ].toLowerCase() + \" \" ] || [] )\n\n\t\t\t\t\t\t\t\t\t\t.concat( match[ 2 ] );\n\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t}\n\n\t\t\t\t\t\tmatch = responseHeaders[ key.toLowerCase() + \" \" ];\n\n\t\t\t\t\t}\n\n\t\t\t\t\treturn match == null ? null : match.join( \", \" );\n\n\t\t\t\t},\n\n\n\n\t\t\t\t// Raw string\n\n\t\t\t\tgetAllResponseHeaders: function() {\n\n\t\t\t\t\treturn completed ? responseHeadersString : null;\n\n\t\t\t\t},\n\n\n\n\t\t\t\t// Caches the header\n\n\t\t\t\tsetRequestHeader: function( name, value ) {\n\n\t\t\t\t\tif ( completed == null ) {\n\n\t\t\t\t\t\tname = requestHeadersNames[ name.toLowerCase() ] =\n\n\t\t\t\t\t\t\trequestHeadersNames[ name.toLowerCase() ] || name;\n\n\t\t\t\t\t\trequestHeaders[ name ] = value;\n\n\t\t\t\t\t}\n\n\t\t\t\t\treturn this;\n\n\t\t\t\t},\n\n\n\n\t\t\t\t// Overrides response content-type header\n\n\t\t\t\toverrideMimeType: function( type ) {\n\n\t\t\t\t\tif ( completed == null ) {\n\n\t\t\t\t\t\ts.mimeType = type;\n\n\t\t\t\t\t}\n\n\t\t\t\t\treturn this;\n\n\t\t\t\t},\n\n\n\n\t\t\t\t// Status-dependent callbacks\n\n\t\t\t\tstatusCode: function( map ) {\n\n\t\t\t\t\tvar code;\n\n\t\t\t\t\tif ( map ) {\n\n\t\t\t\t\t\tif ( completed ) {\n\n\n\n\t\t\t\t\t\t\t// Execute the appropriate callbacks\n\n\t\t\t\t\t\t\tjqXHR.always( map[ jqXHR.status ] );\n\n\t\t\t\t\t\t} else {\n\n\n\n\t\t\t\t\t\t\t// Lazy-add the new callbacks in a way that preserves old ones\n\n\t\t\t\t\t\t\tfor ( code in map ) {\n\n\t\t\t\t\t\t\t\tstatusCode[ code ] = [ statusCode[ code ], map[ code ] ];\n\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t}\n\n\t\t\t\t\t}\n\n\t\t\t\t\treturn this;\n\n\t\t\t\t},\n\n\n\n\t\t\t\t// Cancel the request\n\n\t\t\t\tabort: function( statusText ) {\n\n\t\t\t\t\tvar finalText = statusText || strAbort;\n\n\t\t\t\t\tif ( transport ) {\n\n\t\t\t\t\t\ttransport.abort( finalText );\n\n\t\t\t\t\t}\n\n\t\t\t\t\tdone( 0, finalText );\n\n\t\t\t\t\treturn this;\n\n\t\t\t\t}\n\n\t\t\t};\n\n\n\n\t\t// Attach deferreds\n\n\t\tdeferred.promise( jqXHR );\n\n\n\n\t\t// Add protocol if not provided (prefilters might expect it)\n\n\t\t// Handle falsy url in the settings object (#10093: consistency with old signature)\n\n\t\t// We also use the url parameter if available\n\n\t\ts.url = ( ( url || s.url || location.href ) + \"\" )\n\n\t\t\t.replace( rprotocol, location.protocol + \"//\" );\n\n\n\n\t\t// Alias method option to type as per ticket #12004\n\n\t\ts.type = options.method || options.type || s.method || s.type;\n\n\n\n\t\t// Extract dataTypes list\n\n\t\ts.dataTypes = ( s.dataType || \"*\" ).toLowerCase().match( rnothtmlwhite ) || [ \"\" ];\n\n\n\n\t\t// A cross-domain request is in order when the origin doesn't match the current origin.\n\n\t\tif ( s.crossDomain == null ) {\n\n\t\t\turlAnchor = document.createElement( \"a\" );\n\n\n\n\t\t\t// Support: IE <=8 - 11, Edge 12 - 15\n\n\t\t\t// IE throws exception on accessing the href property if url is malformed,\n\n\t\t\t// e.g. http://example.com:80x/\n\n\t\t\ttry {\n\n\t\t\t\turlAnchor.href = s.url;\n\n\n\n\t\t\t\t// Support: IE <=8 - 11 only\n\n\t\t\t\t// Anchor's host property isn't correctly set when s.url is relative\n\n\t\t\t\turlAnchor.href = urlAnchor.href;\n\n\t\t\t\ts.crossDomain = originAnchor.protocol + \"//\" + originAnchor.host !==\n\n\t\t\t\t\turlAnchor.protocol + \"//\" + urlAnchor.host;\n\n\t\t\t} catch ( e ) {\n\n\n\n\t\t\t\t// If there is an error parsing the URL, assume it is crossDomain,\n\n\t\t\t\t// it can be rejected by the transport if it is invalid\n\n\t\t\t\ts.crossDomain = true;\n\n\t\t\t}\n\n\t\t}\n\n\n\n\t\t// Convert data if not already a string\n\n\t\tif ( s.data && s.processData && typeof s.data !== \"string\" ) {\n\n\t\t\ts.data = jQuery.param( s.data, s.traditional );\n\n\t\t}\n\n\n\n\t\t// Apply prefilters\n\n\t\tinspectPrefiltersOrTransports( prefilters, s, options, jqXHR );\n\n\n\n\t\t// If request was aborted inside a prefilter, stop there\n\n\t\tif ( completed ) {\n\n\t\t\treturn jqXHR;\n\n\t\t}\n\n\n\n\t\t// We can fire global events as of now if asked to\n\n\t\t// Don't fire events if jQuery.event is undefined in an AMD-usage scenario (#15118)\n\n\t\tfireGlobals = jQuery.event && s.global;\n\n\n\n\t\t// Watch for a new set of requests\n\n\t\tif ( fireGlobals && jQuery.active++ === 0 ) {\n\n\t\t\tjQuery.event.trigger( \"ajaxStart\" );\n\n\t\t}\n\n\n\n\t\t// Uppercase the type\n\n\t\ts.type = s.type.toUpperCase();\n\n\n\n\t\t// Determine if request has content\n\n\t\ts.hasContent = !rnoContent.test( s.type );"
+        },
+        {
+          "file_path": "/src/src/ajax/jsonp.js",
+          "match_lines": [
+            28,
+            28
+          ],
+          "match_position": [
+            37,
+            55
+          ],
+          "match_string": "\t\tjsonProp = s.jsonp !== false && ( rjsonp.test( s.url ) ?"
+        },
+        {
+          "file_path": "/src/src/ajax/jsonp.js",
+          "match_lines": [
+            33,
+            33
+          ],
+          "match_position": [
+            5,
+            24
+          ],
+          "match_string": "\t\t\t\trjsonp.test( s.data ) && \"data\""
+        },
+        {
+          "file_path": "/src/src/ajax/jsonp.js",
+          "match_lines": [
+            48,
+            48
+          ],
+          "match_position": [
+            15,
+            33
+          ],
+          "match_string": "\t\t\ts.url += ( rquery.test( s.url ) ? \"&\" : \"?\" ) + s.jsonp + \"=\" + callbackName;"
+        },
+        {
+          "file_path": "/src/src/event/trigger.js",
+          "match_lines": [
+            36,
+            36
+          ],
+          "match_position": [
+            8,
+            55
+          ],
+          "match_string": "\t\tif ( rfocusMorph.test( type + jQuery.event.triggered ) ) {"
+        },
+        {
+          "file_path": "/src/src/css.js",
+          "match_lines": [
+            354,
+            354
+          ],
+          "match_position": [
+            12,
+            58
+          ],
+          "match_string": "\t\t\t\treturn rdisplayswap.test( jQuery.css( elem, \"display\" ) ) &&"
+        },
+        {
+          "file_path": "/src/src/serialize.js",
+          "match_lines": [
+            26,
+            26
+          ],
+          "match_position": [
+            24,
+            45
+          ],
+          "match_string": "\t\t\tif ( traditional || rbracket.test( prefix ) ) {"
+        },
+        {
+          "file_path": "/src/src/traversing.js",
+          "match_lines": [
+            49,
+            49
+          ],
+          "match_position": [
+            9,
+            38
+          ],
+          "match_string": "\t\tif ( !rneedsContext.test( selectors ) ) {"
+        },
+        {
+          "file_path": "/src/src/traversing.js",
+          "match_lines": [
+            181,
+            181
+          ],
+          "match_position": [
+            9,
+            32
+          ],
+          "match_string": "\t\t\tif ( rparentsprev.test( name ) ) {"
+        },
+        {
+          "file_path": "/src/src/manipulation.js",
+          "match_lines": [
+            117,
+            117
+          ],
+          "match_position": [
+            31,
+            60
+          ],
+          "match_string": "\tif ( nodeName === \"input\" && rcheckableType.test( src.type ) ) {"
+        },
+        {
+          "file_path": "/src/src/deferred/exceptionHook.js",
+          "match_lines": [
+            16,
+            16
+          ],
+          "match_position": [
+            57,
+            85
+          ],
+          "match_string": "\tif ( window.console && window.console.warn && error && rerrorNames.test( error.name ) ) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

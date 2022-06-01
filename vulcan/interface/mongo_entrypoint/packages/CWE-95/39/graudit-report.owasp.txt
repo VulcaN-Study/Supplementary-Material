@@ -1,0 +1,195 @@
+/src/tools/props.html-40-
+/src/tools/props.html:41:      var ta = document.createElement("textarea");
+/src/tools/props.html-42-      ta.style.width = "100%";
+##############################################
+/src/tools/props.html-51-      }, null, 2);
+/src/tools/props.html:52:      document.body.appendChild(ta);
+/src/tools/props.html-53-
+##############################################
+/src/tools/domprops.json-2913-        "escape",
+/src/tools/domprops.json:2914:        "eval",
+/src/tools/domprops.json:2915:        "evaluate",
+/src/tools/domprops.json-2916-        "event",
+##############################################
+/src/tools/domprops.json-5275-        "unescape",
+/src/tools/domprops.json:5276:        "uneval",
+/src/tools/domprops.json-5277-        "unicode-bidi",
+##############################################
+/src/README.md-197-
+/src/README.md:198:- `eval` — mangle names visible in scopes where `eval` or `with` are used
+/src/README.md-199-  (disabled by default).
+##############################################
+/src/README.md-296-
+/src/README.md:297:- `evaluate` -- attempt to evaluate constant expressions
+/src/README.md-298-
+##############################################
+/src/README.md-394-UglifyJS will notice the constants and, since they cannot be altered, it
+/src/README.md:395:will evaluate references to them to the value itself and drop unreachable
+/src/README.md-396-code as usual.  The possible downside of this approach is that the build
+##############################################
+/src/README.md-666-with information about where is a name defined, how many times is a name
+/src/README.md:667:referenced, if it is a global or not, if a function is using `eval` or the
+/src/README.md-668-`with` statement etc.  I will discuss this some place else, for now what's
+##############################################
+/src/lib/scope.js-63-            || this.undeclared
+/src/lib/scope.js:64:            || (!options.eval && (this.scope.uses_eval || this.scope.uses_with))
+/src/lib/scope.js-65-            || (options.keep_fnames
+##############################################
+/src/lib/scope.js-153-
+/src/lib/scope.js:154:    // pass 2: find back references and eval
+/src/lib/scope.js-155-    var func = null;
+##############################################
+/src/lib/scope.js-178-                node.thedef = g;
+/src/lib/scope.js:179:                if (name == "eval" && tw.parent() instanceof AST_Call) {
+/src/lib/scope.js:180:                    for (var s = node.scope; s && !s.uses_eval; s = s.parent_scope)
+/src/lib/scope.js:181:                        s.uses_eval = true;
+/src/lib/scope.js-182-                }
+##############################################
+/src/lib/scope.js-204-    this.uses_with = false;   // will be set to true if this or some nested scope uses the `with` statement
+/src/lib/scope.js:205:    this.uses_eval = false;   // will be set to true if this or nested scope uses the global `eval`
+/src/lib/scope.js-206-    this.parent_scope = null; // the parent scope
+##############################################
+/src/lib/scope.js-316-    return this.definition().references.length == 0
+/src/lib/scope.js:317:        && !(this.scope.uses_eval || this.scope.uses_with);
+/src/lib/scope.js-318-});
+##############################################
+/src/lib/scope.js-342-        except      : [],
+/src/lib/scope.js:343:        eval        : false,
+/src/lib/scope.js-344-        sort        : false,
+##############################################
+/src/lib/scope.js-523-        nested_defuns    : true,
+/src/lib/scope.js:524:        eval             : true
+/src/lib/scope.js-525-    });
+##############################################
+/src/lib/scope.js-559-        }
+/src/lib/scope.js:560:        if (options.eval
+/src/lib/scope.js-561-            && node instanceof AST_SymbolRef
+/src/lib/scope.js-562-            && node.undeclared()
+/src/lib/scope.js:563:            && node.name == "eval") {
+/src/lib/scope.js-564-            AST_Node.warn("Eval is used [{file}:{line},{col}]", node.start);
+##############################################
+/src/lib/ast.js-279-
+/src/lib/ast.js:280:var AST_Scope = DEFNODE("Scope", "directives variables functions uses_with uses_eval parent_scope enclosed cname", {
+/src/lib/ast.js-281-    $documentation: "Base class for all statements introducing a lexical scope",
+##############################################
+/src/lib/ast.js-286-        uses_with: "[boolean/S] tells whether this scope uses the `with` statement",
+/src/lib/ast.js:287:        uses_eval: "[boolean/S] tells whether this scope contains a direct call to the global `eval`",
+/src/lib/ast.js-288-        parent_scope: "[AST_Scope?/S] link to the parent scope",
+##############################################
+/src/lib/compress.js-58-        comparisons   : !false_by_default,
+/src/lib/compress.js:59:        evaluate      : !false_by_default,
+/src/lib/compress.js-60-        booleans      : !false_by_default,
+##############################################
+/src/lib/compress.js-703-
+/src/lib/compress.js:704:    // methods to evaluate a constant expression
+/src/lib/compress.js-705-    (function (def){
+/src/lib/compress.js:706:        // The evaluate method returns an array with one or two
+/src/lib/compress.js-707-        // elements.  If the node has been successfully reduced to a
+##############################################
+/src/lib/compress.js-710-        // of the array is always an AST_Node descendant; if
+/src/lib/compress.js:711:        // evaluation was successful it's a node that represents the
+/src/lib/compress.js-712-        // constant; otherwise it's the original or a replacement node.
+/src/lib/compress.js:713:        AST_Node.DEFMETHOD("evaluate", function(compressor){
+/src/lib/compress.js:714:            if (!compressor.option("evaluate")) return [ this ];
+/src/lib/compress.js-715-            try {
+/src/lib/compress.js:716:                var val = this._eval(compressor);
+/src/lib/compress.js-717-                return [ best_of(make_node_from_constant(compressor, val, this), this), val ];
+##############################################
+/src/lib/compress.js-723-        def(AST_Statement, function(){
+/src/lib/compress.js:724:            throw new Error(string_template("Cannot evaluate a statement [{file}:{line},{col}]", this.start));
+/src/lib/compress.js-725-        });
+##############################################
+/src/lib/compress.js-735-
+/src/lib/compress.js:736:            return node._eval(compressor);
+/src/lib/compress.js-737-        };
+##############################################
+/src/lib/compress.js-748-              case "typeof":
+/src/lib/compress.js:749:                // Function would be evaluated to an array and so typeof would
+/src/lib/compress.js-750-                // incorrectly return 'object'. Hence making is a special case.
+##############################################
+/src/lib/compress.js-755-                // typeof <RegExp> returns "object" or "function" on different platforms
+/src/lib/compress.js:756:                // so cannot evaluate reliably
+/src/lib/compress.js-757-                if (e instanceof RegExp) throw def;
+##############################################
+/src/lib/compress.js-817-    })(function(node, func){
+/src/lib/compress.js:818:        node.DEFMETHOD("_eval", func);
+/src/lib/compress.js-819-    });
+##############################################
+/src/lib/compress.js-1029-            && !(self instanceof AST_Toplevel)
+/src/lib/compress.js:1030:            && !self.uses_eval
+/src/lib/compress.js-1031-           ) {
+##############################################
+/src/lib/compress.js-1341-    OPT(AST_DWLoop, function(self, compressor){
+/src/lib/compress.js:1342:        var cond = self.condition.evaluate(compressor);
+/src/lib/compress.js-1343-        self.condition = cond[0];
+##############################################
+/src/lib/compress.js-1418-        if (cond) {
+/src/lib/compress.js:1419:            cond = cond.evaluate(compressor);
+/src/lib/compress.js-1420-            self.condition = cond[0];
+##############################################
+/src/lib/compress.js-1449-        // `x && true`, though it probably should.
+/src/lib/compress.js:1450:        var cond = self.condition.evaluate(compressor);
+/src/lib/compress.js-1451-        self.condition = cond[0];
+##############################################
+/src/lib/compress.js-1585-        }
+/src/lib/compress.js:1586:        var exp = self.expression.evaluate(compressor);
+/src/lib/compress.js-1587-        out: if (exp.length == 2) try {
+##############################################
+/src/lib/compress.js-1636-                    if (node instanceof AST_Case) {
+/src/lib/compress.js:1637:                        var exp = node.expression.evaluate(compressor);
+/src/lib/compress.js-1638-                        if (exp.length < 2) {
+##############################################
+/src/lib/compress.js-1820-            else if (exp instanceof AST_Dot && exp.expression instanceof AST_Array && exp.property == "join") EXIT: {
+/src/lib/compress.js:1821:                var separator = self.args.length == 0 ? "," : self.args[0].evaluate(compressor)[1];
+/src/lib/compress.js-1822-                if (separator == null) break EXIT; // not a constant
+/src/lib/compress.js-1823-                var elements = exp.expression.elements.reduce(function(a, el){
+/src/lib/compress.js:1824:                    el = el.evaluate(compressor);
+/src/lib/compress.js-1825-                    if (a.length == 0 || el.length == 1) {
+##############################################
+/src/lib/compress.js-1887-        }
+/src/lib/compress.js:1888:        return self.evaluate(compressor)[0];
+/src/lib/compress.js-1889-    });
+##############################################
+/src/lib/compress.js-1911-        if (!self.car.has_side_effects(compressor)) {
+/src/lib/compress.js:1912:            // we shouldn't compress (1,eval)(something) to
+/src/lib/compress.js:1913:            // eval(something) because that changes the meaning of
+/src/lib/compress.js:1914:            // eval (becomes lexical instead of global).
+/src/lib/compress.js-1915-            var p;
+/src/lib/compress.js-1916-            if (!(self.cdr instanceof AST_SymbolRef
+/src/lib/compress.js:1917:                  && self.cdr.name == "eval"
+/src/lib/compress.js-1918-                  && self.cdr.undeclared()
+##############################################
+/src/lib/compress.js-1995-        }
+/src/lib/compress.js:1996:        return self.evaluate(compressor)[0];
+/src/lib/compress.js-1997-    });
+##############################################
+/src/lib/compress.js-2108-          case "&&":
+/src/lib/compress.js:2109:            var ll = self.left.evaluate(compressor);
+/src/lib/compress.js:2110:            var rr = self.right.evaluate(compressor);
+/src/lib/compress.js-2111-            if ((ll.length > 1 && !ll[1]) || (rr.length > 1 && !rr[1])) {
+##############################################
+/src/lib/compress.js-2128-          case "||":
+/src/lib/compress.js:2129:            var ll = self.left.evaluate(compressor);
+/src/lib/compress.js:2130:            var rr = self.right.evaluate(compressor);
+/src/lib/compress.js-2131-            if ((ll.length > 1 && ll[1]) || (rr.length > 1 && rr[1])) {
+##############################################
+/src/lib/compress.js-2148-          case "+":
+/src/lib/compress.js:2149:            var ll = self.left.evaluate(compressor);
+/src/lib/compress.js:2150:            var rr = self.right.evaluate(compressor);
+/src/lib/compress.js-2151-            if ((ll.length > 1 && ll[0] instanceof AST_String && ll[1]) ||
+##############################################
+/src/lib/compress.js-2176-        }
+/src/lib/compress.js:2177:        if (compressor.option("evaluate")) {
+/src/lib/compress.js-2178-            if (self.operator == "+") {
+##############################################
+/src/lib/compress.js-2245-        }
+/src/lib/compress.js:2246:        return self.evaluate(compressor)[0];
+/src/lib/compress.js-2247-    });
+##############################################
+/src/lib/compress.js-2313-        }
+/src/lib/compress.js:2314:        var cond = self.condition.evaluate(compressor);
+/src/lib/compress.js-2315-        if (cond.length > 1) {
+##############################################
+/src/lib/compress.js-2472-        }
+/src/lib/compress.js:2473:        return self.evaluate(compressor)[0];
+/src/lib/compress.js-2474-    });

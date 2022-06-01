@@ -1,0 +1,48 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 2
+        },
+        "extra": {
+          "line": "\tgit push",
+          "message": "Syntax error"
+        },
+        "path": "/src/Makefile",
+        "start": {
+          "col": 6,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/sspa.js",
+          "match_lines": [
+            21,
+            38
+          ],
+          "match_position": [
+            7,
+            24
+          ],
+          "match_string": "      var fsPath = path.join('.', req.url);\n\n      fs.stat(fsPath, function(error, stat) {\n\n        var stream;\n\n\n\n        if (error === null) {\n\n          if (stat.isFile()) {\n\n            stream = fs.createReadStream(fsPath);\n\n          } else if (stat.isDirectory()) {\n\n            fsPath = path.join(fsPath, 'index.html');\n\n            fs.exists(fsPath, function(exists) {\n\n              if (exists) stream = fs.createReadStream(fsPath).pipe(res);\n\n            });\n\n          }\n\n        }\n\n\n\n        if (stream === undefined) stream = fs.createReadStream(appPath);\n\n\n\n        stream.pipe(res);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

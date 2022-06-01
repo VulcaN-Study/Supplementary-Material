@@ -1,0 +1,421 @@
+<report_mosca>
+ <Path>/src/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * @param {string} sql The SQL for the query
+
+ Line: 44 -   * @param {function} [callback] The callback to use when query is complete
+
+ Line: 45 -   * @return {Query} New query object
+
+ Line: 83 -   * @param {string} sql The SQL for the query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/PoolNamespace.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 60 -    var query       = Connection.createQuery(sql, values, cb);
+
+ Line: 75 -        query.on('error', function () {});
+
+ Line: 76 -        query.end(err);
+
+ Line: 78 -      return query;
+
+ Line: 82 -      query.typeCast = clusterNode.pool.config.connectionConfig.typeCast;
+
+ Line: 87 -      query._callSite = new Error();
+
+ Line: 100 -        query.on('error', function () {});
+
+ Line: 101 -        query.end(err);
+
+ Line: 106 -      query.once('end', function() {
+
+ Line: 113 -    return query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/Connection.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 122 -        this._socket.setTimeout(this.config.connectTimeout, handleConnectTimeout);
+
+ Line: 124 -          this.setTimeout(0, handleConnectTimeout);
+
+ Line: 414 -      this._socket.setTimeout(0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/Connection.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 193 -  Connection.prototype.query = function query(sql, values, cb) {
+
+ Line: 194 -    var query = Connection.createQuery(sql, values, cb);
+
+ Line: 195 -    query._connection = this;
+
+ Line: 198 -      query.typeCast = this.config.typeCast;
+
+ Line: 202 -      query.sql = this.format(query.sql, query.values);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/Pool.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 190 -    var query = Connection.createQuery(sql, values, cb);
+
+ Line: 193 -      query.typeCast = this.config.connectionConfig.typeCast;
+
+ Line: 198 -      query._callSite = new Error();
+
+ Line: 203 -        query.on('error', function () {});
+
+ Line: 204 -        query.end(err);
+
+ Line: 209 -      query.once('end', function() {
+
+ Line: 216 -    return query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/protocol/Protocol.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 54 -  Protocol.prototype.query = function query(options, callback) {
+
+ Line: 117 -    // Since there is a file stream in query, we must transmit pause/resume event to current sequence.
+
+ Line: 126 -    // Since there is a file stream in query, we must transmit pause/resume event to current sequence.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/protocol/constants/server_status.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 11 -  exports.SERVER_MORE_RESULTS_EXISTS      = 8;    /* Multi query - next query exists */
+
+ Line: 16 -    read-only non-scrollable cursor for a query. This flag comes
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/protocol/constants/errors.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 13 -  exports.EE_DELETE                                                                        = 6;
+
+ Line: 53 -  exports.HA_ERR_RECORD_DELETED                                                            = 134;
+
+ Line: 130 -  exports.ER_DB_DROP_DELETE                                                                = 1009;
+
+ Line: 132 -  exports.ER_CANT_DELETE_FILE                                                              = 1011;
+
+ Line: 178 -  exports.ER_WRONG_SUM_SELECT                                                              = 1057;
+
+ Line: 213 -  exports.ER_INSERT_INFO                                                                   = 1092;
+
+ Line: 214 -  exports.ER_UPDATE_TABLE_USED                                                             = 1093;
+
+ Line: 225 -  exports.ER_TOO_BIG_SELECT                                                                = 1104;
+
+ Line: 255 -  exports.ER_UPDATE_INFO                                                                   = 1134;
+
+ Line: 275 -  exports.ER_NET_READ_ERROR_FROM_PIPE                                                      = 1154;
+
+ Line: 286 -  exports.ER_DELAYED_INSERT_TABLE_LOCKED                                                   = 1165;
+
+ Line: 296 -  exports.ER_UPDATE_WITHOUT_KEY_IN_SAFE_MODE                                               = 1175;
+
+ Line: 333 -  exports.ER_UNION_TABLES_IN_DIFFERENT_DIR                                                 = 1212;
+
+ Line: 343 -  exports.ER_WRONG_NUMBER_OF_COLUMNS_IN_SELECT                                             = 1222;
+
+ Line: 344 -  exports.ER_CANT_UPDATE_WITH_READLOCK                                                     = 1223;
+
+ Line: 370 -  exports.ER_SELECT_REDUCED                                                                = 1249;
+
+ Line: 415 -  exports.ER_INVALID_ON_UPDATE                                                             = 1294;
+
+ Line: 433 -  exports.ER_SP_BADSELECT                                                                  = 1312;
+
+ Line: 436 -  exports.ER_UPDATE_LOG_DEPRECATED_IGNORED                                                 = 1315;
+
+ Line: 437 -  exports.ER_UPDATE_LOG_DEPRECATED_TRANSLATED                                              = 1316;
+
+ Line: 444 -  exports.ER_SP_BAD_CURSOR_SELECT                                                          = 1323;
+
+ Line: 456 -  exports.ER_SP_SUBSELECT_NYI                                                              = 1335;
+
+ Line: 469 -  exports.ER_NONUPDATEABLE_COLUMN                                                          = 1348;
+
+ Line: 470 -  exports.ER_VIEW_SELECT_DERIVED                                                           = 1349;
+
+ Line: 471 -  exports.ER_VIEW_SELECT_CLAUSE                                                            = 1350;
+
+ Line: 472 -  exports.ER_VIEW_SELECT_VARIABLE                                                          = 1351;
+
+ Line: 473 -  exports.ER_VIEW_SELECT_TMPTABLE                                                          = 1352;
+
+ Line: 514 -  exports.ER_VIEW_MULTIUPDATE                                                              = 1393;
+
+ Line: 515 -  exports.ER_VIEW_NO_INSERT_FIELD_LIST                                                     = 1394;
+
+ Line: 516 -  exports.ER_VIEW_DELETE_MERGE_VIEW                                                        = 1395;
+
+ Line: 530 -  exports.ER_LOAD_FROM_FIXED_SIZE_ROWS_TO_VAR                                              = 1409;
+
+ Line: 563 -  exports.ER_CANT_UPDATE_USED_TABLE_IN_SF_OR_TRG                                           = 1442;
+
+ Line: 564 -  exports.ER_VIEW_PREVENT_UPDATE                                                           = 1443;
+
+ Line: 592 -  exports.ER_NON_INSERTABLE_TABLE                                                          = 1471;
+
+ Line: 594 -  exports.ER_TOO_HIGH_LEVEL_OF_NESTING_FOR_SELECT                                          = 1473;
+
+ Line: 669 -  exports.ER_CANNOT_LOAD_FROM_TABLE                                                        = 1548;
+
+ Line: 670 -  exports.ER_EVENT_CANNOT_DELETE                                                           = 1549;
+
+ Line: 679 -  exports.ER_COL_COUNT_DOESNT_MATCH_PLEASE_UPDATE                                          = 1558;
+
+ Line: 740 -  exports.ER_PLUGIN_DELETE_BUILTIN                                                         = 1619;
+
+ Line: 790 -  exports.ER_BINLOG_UNSAFE_INSERT_DELAYED                                                  = 1669;
+
+ Line: 817 -  exports.ER_FAILED_READ_FROM_PAR_FILE                                                     = 1696;
+
+ Line: 827 -  exports.ER_MULTI_UPDATE_KEY_CONFLICT                                                     = 1706;
+
+ Line: 835 -  exports.ER_BINLOG_UNSAFE_INSERT_IGNORE_SELECT                                            = 1714;
+
+ Line: 836 -  exports.ER_BINLOG_UNSAFE_INSERT_SELECT_UPDATE                                            = 1715;
+
+ Line: 837 -  exports.ER_BINLOG_UNSAFE_REPLACE_SELECT                                                  = 1716;
+
+ Line: 838 -  exports.ER_BINLOG_UNSAFE_CREATE_IGNORE_SELECT                                            = 1717;
+
+ Line: 839 -  exports.ER_BINLOG_UNSAFE_CREATE_REPLACE_SELECT                                           = 1718;
+
+ Line: 840 -  exports.ER_BINLOG_UNSAFE_UPDATE_IGNORE                                                   = 1719;
+
+ Line: 843 -  exports.ER_BINLOG_UNSAFE_WRITE_AUTOINC_SELECT                                            = 1722;
+
+ Line: 844 -  exports.ER_BINLOG_UNSAFE_CREATE_SELECT_AUTOINC                                           = 1723;
+
+ Line: 845 -  exports.ER_BINLOG_UNSAFE_INSERT_TWO_KEYS                                                 = 1724;
+
+ Line: 849 -  exports.ER_CANNOT_LOAD_FROM_TABLE_V2                                                     = 1728;
+
+ Line: 867 -  exports.ER_CANT_UPDATE_TABLE_IN_CREATE_TABLE_SELECT                                      = 1746;
+
+ Line: 875 -  exports.ER_MTS_UPDATED_DBS_GREATER_MAX                                                   = 1754;
+
+ Line: 907 -  exports.ER_GTID_UNSAFE_CREATE_SELECT                                                     = 1786;
+
+ Line: 955 -  exports.ER_FK_CANNOT_DELETE_PARENT                                                       = 1834;
+
+ Line: 1016 -  exports.ER_COL_COUNT_DOESNT_MATCH_PLEASE_UPDATE_V2                                       = 1895;
+
+ Line: 1032 -  exports.ER_NON_RO_SELECT_DISABLE_TIMER                                                   = 1911;
+
+ Line: 1035 -  exports.ER_AGGREGATE_ORDER_FOR_UNION                                                     = 1914;
+
+ Line: 1072 -  exports.ER_FIELD_IN_ORDER_NOT_SELECT                                                     = 1951;
+
+ Line: 1073 -  exports.ER_AGGREGATE_IN_ORDER_NOT_SELECT                                                 = 1952;
+
+ Line: 1085 -  exports.ER_SLAVE_CHANNEL_DELETE                                                          = 1964;
+
+ Line: 1096 -  exports.ER_WARN_DEPRECATED_SYSVAR_UPDATE                                                 = 1975;
+
+ Line: 1209 -  exports[6]    = 'EE_DELETE';
+
+ Line: 1249 -  exports[134]  = 'HA_ERR_RECORD_DELETED';
+
+ Line: 1326 -  exports[1009] = 'ER_DB_DROP_DELETE';
+
+ Line: 1328 -  exports[1011] = 'ER_CANT_DELETE_FILE';
+
+ Line: 1374 -  exports[1057] = 'ER_WRONG_SUM_SELECT';
+
+ Line: 1409 -  exports[1092] = 'ER_INSERT_INFO';
+
+ Line: 1410 -  exports[1093] = 'ER_UPDATE_TABLE_USED';
+
+ Line: 1421 -  exports[1104] = 'ER_TOO_BIG_SELECT';
+
+ Line: 1451 -  exports[1134] = 'ER_UPDATE_INFO';
+
+ Line: 1471 -  exports[1154] = 'ER_NET_READ_ERROR_FROM_PIPE';
+
+ Line: 1482 -  exports[1165] = 'ER_DELAYED_INSERT_TABLE_LOCKED';
+
+ Line: 1492 -  exports[1175] = 'ER_UPDATE_WITHOUT_KEY_IN_SAFE_MODE';
+
+ Line: 1529 -  exports[1212] = 'ER_UNION_TABLES_IN_DIFFERENT_DIR';
+
+ Line: 1539 -  exports[1222] = 'ER_WRONG_NUMBER_OF_COLUMNS_IN_SELECT';
+
+ Line: 1540 -  exports[1223] = 'ER_CANT_UPDATE_WITH_READLOCK';
+
+ Line: 1566 -  exports[1249] = 'ER_SELECT_REDUCED';
+
+ Line: 1611 -  exports[1294] = 'ER_INVALID_ON_UPDATE';
+
+ Line: 1629 -  exports[1312] = 'ER_SP_BADSELECT';
+
+ Line: 1632 -  exports[1315] = 'ER_UPDATE_LOG_DEPRECATED_IGNORED';
+
+ Line: 1633 -  exports[1316] = 'ER_UPDATE_LOG_DEPRECATED_TRANSLATED';
+
+ Line: 1640 -  exports[1323] = 'ER_SP_BAD_CURSOR_SELECT';
+
+ Line: 1652 -  exports[1335] = 'ER_SP_SUBSELECT_NYI';
+
+ Line: 1665 -  exports[1348] = 'ER_NONUPDATEABLE_COLUMN';
+
+ Line: 1666 -  exports[1349] = 'ER_VIEW_SELECT_DERIVED';
+
+ Line: 1667 -  exports[1350] = 'ER_VIEW_SELECT_CLAUSE';
+
+ Line: 1668 -  exports[1351] = 'ER_VIEW_SELECT_VARIABLE';
+
+ Line: 1669 -  exports[1352] = 'ER_VIEW_SELECT_TMPTABLE';
+
+ Line: 1710 -  exports[1393] = 'ER_VIEW_MULTIUPDATE';
+
+ Line: 1711 -  exports[1394] = 'ER_VIEW_NO_INSERT_FIELD_LIST';
+
+ Line: 1712 -  exports[1395] = 'ER_VIEW_DELETE_MERGE_VIEW';
+
+ Line: 1726 -  exports[1409] = 'ER_LOAD_FROM_FIXED_SIZE_ROWS_TO_VAR';
+
+ Line: 1759 -  exports[1442] = 'ER_CANT_UPDATE_USED_TABLE_IN_SF_OR_TRG';
+
+ Line: 1760 -  exports[1443] = 'ER_VIEW_PREVENT_UPDATE';
+
+ Line: 1788 -  exports[1471] = 'ER_NON_INSERTABLE_TABLE';
+
+ Line: 1790 -  exports[1473] = 'ER_TOO_HIGH_LEVEL_OF_NESTING_FOR_SELECT';
+
+ Line: 1865 -  exports[1548] = 'ER_CANNOT_LOAD_FROM_TABLE';
+
+ Line: 1866 -  exports[1549] = 'ER_EVENT_CANNOT_DELETE';
+
+ Line: 1875 -  exports[1558] = 'ER_COL_COUNT_DOESNT_MATCH_PLEASE_UPDATE';
+
+ Line: 1936 -  exports[1619] = 'ER_PLUGIN_DELETE_BUILTIN';
+
+ Line: 1986 -  exports[1669] = 'ER_BINLOG_UNSAFE_INSERT_DELAYED';
+
+ Line: 2013 -  exports[1696] = 'ER_FAILED_READ_FROM_PAR_FILE';
+
+ Line: 2023 -  exports[1706] = 'ER_MULTI_UPDATE_KEY_CONFLICT';
+
+ Line: 2031 -  exports[1714] = 'ER_BINLOG_UNSAFE_INSERT_IGNORE_SELECT';
+
+ Line: 2032 -  exports[1715] = 'ER_BINLOG_UNSAFE_INSERT_SELECT_UPDATE';
+
+ Line: 2033 -  exports[1716] = 'ER_BINLOG_UNSAFE_REPLACE_SELECT';
+
+ Line: 2034 -  exports[1717] = 'ER_BINLOG_UNSAFE_CREATE_IGNORE_SELECT';
+
+ Line: 2035 -  exports[1718] = 'ER_BINLOG_UNSAFE_CREATE_REPLACE_SELECT';
+
+ Line: 2036 -  exports[1719] = 'ER_BINLOG_UNSAFE_UPDATE_IGNORE';
+
+ Line: 2039 -  exports[1722] = 'ER_BINLOG_UNSAFE_WRITE_AUTOINC_SELECT';
+
+ Line: 2040 -  exports[1723] = 'ER_BINLOG_UNSAFE_CREATE_SELECT_AUTOINC';
+
+ Line: 2041 -  exports[1724] = 'ER_BINLOG_UNSAFE_INSERT_TWO_KEYS';
+
+ Line: 2045 -  exports[1728] = 'ER_CANNOT_LOAD_FROM_TABLE_V2';
+
+ Line: 2063 -  exports[1746] = 'ER_CANT_UPDATE_TABLE_IN_CREATE_TABLE_SELECT';
+
+ Line: 2071 -  exports[1754] = 'ER_MTS_UPDATED_DBS_GREATER_MAX';
+
+ Line: 2103 -  exports[1786] = 'ER_GTID_UNSAFE_CREATE_SELECT';
+
+ Line: 2151 -  exports[1834] = 'ER_FK_CANNOT_DELETE_PARENT';
+
+ Line: 2212 -  exports[1895] = 'ER_COL_COUNT_DOESNT_MATCH_PLEASE_UPDATE_V2';
+
+ Line: 2228 -  exports[1911] = 'ER_NON_RO_SELECT_DISABLE_TIMER';
+
+ Line: 2231 -  exports[1914] = 'ER_AGGREGATE_ORDER_FOR_UNION';
+
+ Line: 2268 -  exports[1951] = 'ER_FIELD_IN_ORDER_NOT_SELECT';
+
+ Line: 2269 -  exports[1952] = 'ER_AGGREGATE_IN_ORDER_NOT_SELECT';
+
+ Line: 2281 -  exports[1964] = 'ER_SLAVE_CHANNEL_DELETE';
+
+ Line: 2292 -  exports[1975] = 'ER_WARN_DEPRECATED_SYSVAR_UPDATE';
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/protocol/constants/field_flags.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 16 -  exports.ON_UPDATE_NOW_FLAG    = 8192; /* Field is set to NOW on UPDATE */
+
+</Result>
+</report_mosca>
+

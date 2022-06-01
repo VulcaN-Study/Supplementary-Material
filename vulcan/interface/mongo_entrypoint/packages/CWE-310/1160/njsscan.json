@@ -1,0 +1,210 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "FatalError",
+        "end": {
+          "col": 1,
+          "line": 1
+        },
+        "extra": {
+          "line": "// GPG4Browsers - An OpenPGP implementation in javascript",
+          "message": "Fatal Error: Ast_js_build.TodoConstruct(\"ParamPattern:TODO: simple pattern not handled\", _)"
+        },
+        "path": "/src/src/util.js",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 30,
+          "line": 1
+        },
+        "extra": {
+          "line": "                   GNU LESSER GENERAL PUBLIC LICENSE",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 24,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "FatalError",
+        "end": {
+          "col": 1,
+          "line": 1
+        },
+        "extra": {
+          "line": "(function(f){if(typeof exports===\"object\"&&typeof module!==\"undefined\"){module.exports=f()}else if(typeof define===\"function\"&&define.amd){define([],f)}else{var g;if(typeof window!==\"undefined\"){g=window}else if(typeof global!==\"undefined\"){g=global}else if(typeof self!==\"undefined\"){g=self}else{g=this}g.openpgp = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=\"function\"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error(\"Cannot find module '\"+i+\"'\");throw a.code=\"MODULE_NOT_FOUND\",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=\"function\"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){",
+          "message": "Fatal Error: Ast_js_build.TodoConstruct(\"ParamPattern:TODO: simple pattern not handled\", _)"
+        },
+        "path": "/src/dist/openpgp.js",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/test/general/testInputs.js",
+          "match_lines": [
+            8,
+            8
+          ],
+          "match_position": [
+            29,
+            40
+          ],
+          "match_string": "        arr.push(Math.floor(Math.random() * 10174) + 1);"
+        },
+        {
+          "file_path": "/src/test/general/testInputs.js",
+          "match_lines": [
+            11,
+            11
+          ],
+          "match_position": [
+            39,
+            50
+          ],
+          "match_string": "        arr.push(0x1F600 + Math.floor(Math.random() * (0x1F64F - 0x1F600)) + 1);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_password": {
+      "files": [
+        {
+          "file_path": "/src/test/general/decompression.js",
+          "match_lines": [
+            8,
+            8
+          ],
+          "match_position": [
+            1,
+            35
+          ],
+          "match_string": "const password = 'I am a password';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded password in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/src/packet/secret_key.js",
+          "match_lines": [
+            63,
+            64
+          ],
+          "match_position": [
+            3,
+            14
+          ],
+          "match_string": "  if (hash === 'sha1') {\n\n    return 20;"
+        },
+        {
+          "file_path": "/src/src/packet/secret_key.js",
+          "match_lines": [
+            70,
+            71
+          ],
+          "match_position": [
+            3,
+            28
+          ],
+          "match_string": "  if (hash === 'sha1') {\n\n    return crypto.hash.sha1;"
+        },
+        {
+          "file_path": "/src/src/packet/secret_key.js",
+          "match_lines": [
+            89,
+            90
+          ],
+          "match_position": [
+            5,
+            49
+          ],
+          "match_string": "    if (hash !== hashtext) {\n\n      throw new Error(\"Incorrect key passphrase\");"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_username": {
+      "files": [
+        {
+          "file_path": "/src/test/general/keyring.js",
+          "match_lines": [
+            10,
+            10
+          ],
+          "match_position": [
+            3,
+            43
+          ],
+          "match_string": "  const user = 'whiteout.test@t-online.de';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded username in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/src/keyring/keyring.js",
+          "match_lines": [
+            133,
+            134
+          ],
+          "match_position": [
+            3,
+            53
+          ],
+          "match_string": "  const emailEsc = email.replace(/[.*+?^${}()|[\\]\\\\]/g, \"\\\\$&\");\n\n  const emailRegex = new RegExp('<' + emailEsc + '>');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

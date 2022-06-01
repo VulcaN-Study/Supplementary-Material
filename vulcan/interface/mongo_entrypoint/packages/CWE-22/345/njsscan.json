@@ -1,0 +1,40 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            22,
+            63
+          ],
+          "match_position": [
+            5,
+            20
+          ],
+          "match_string": "    var headers = req.headers,\n\n        url = req.url,\n\n        method = req.method,\n\n        indexHtml,\n\n        data;\n\n    if(url === '/'){\n\n        if(fs.existsSync(join(cwd,'index.html'))){\n\n            indexHtml = join(cwd,'index.html');\n\n        }else if(fs.existsSync(join(cwd,'index.shtml'))){\n\n            indexHtml = join(cwd,'index.shtml');\n\n        }\n\n        if(!indexHtml){\n\n            res.statusCode = 404;\n\n            res.statusMessage = 'Not found';\n\n            res.setHeader('Content-type' ,'text/html');\n\n            res.end();\n\n            return false;\n\n        }\n\n    }\n\n    if(mime.lookup(url) === 'image/x-icon'){\n\n        res.statusCode = 200;\n\n        res.setHeader('Content-type' ,'image/x-icon');\n\n        res.end(icoBuffer);\n\n    }else{\n\n        url = join(cwd, req.url);\n\n        if(fs.existsSync(url)){\n\n            data = fs.readFileSync(url,'utf8');\n\n            res.statusCode = 200;\n\n            res.setHeader('Content-type' ,mime.lookup(url));\n\n            sid = Date.now();\n\n            data = data.replace(SSI_REG,function(all,_path){\n\n                _path = join(cwd,_path);\n\n                return fs.existsSync(_path) ? fs.readFileSync(_path,'utf8') : '<!-- 404 Not found -->';\n\n            });\n\n            data = data.replace(STATIC_REG,function(all,character,_href){\n\n                return character+pug({sid : sid},_href)+character;\n\n            });\n\n            res.end(data);\n\n        }else{\n\n            res.statusCode = 404;\n\n            res.statusMessage = 'Not found';\n\n            res.end();"
+        },
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            46,
+            63
+          ],
+          "match_position": [
+            9,
+            20
+          ],
+          "match_string": "        url = join(cwd, req.url);\n\n        if(fs.existsSync(url)){\n\n            data = fs.readFileSync(url,'utf8');\n\n            res.statusCode = 200;\n\n            res.setHeader('Content-type' ,mime.lookup(url));\n\n            sid = Date.now();\n\n            data = data.replace(SSI_REG,function(all,_path){\n\n                _path = join(cwd,_path);\n\n                return fs.existsSync(_path) ? fs.readFileSync(_path,'utf8') : '<!-- 404 Not found -->';\n\n            });\n\n            data = data.replace(STATIC_REG,function(all,character,_href){\n\n                return character+pug({sid : sid},_href)+character;\n\n            });\n\n            res.end(data);\n\n        }else{\n\n            res.statusCode = 404;\n\n            res.statusMessage = 'Not found';\n\n            res.end();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,160 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/statement.h",
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 13,
+                  "endLine": 57,
+                  "endColumn": 36,
+                  "offset": 1492,
+                  "length": 23
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(value, val, len)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/src/statement.h",
+                  "replacements": [
+                    {
+                      "offset": 1492,
+                      "deletedLength": 23,
+                      "insertedBytes": "memcpy_s(value, <size of value>,  val,  len)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS161085",
+          "level": "warning",
+          "message": "Problematic C function detected (malloc)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/src/statement.h",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 28,
+                  "endLine": 56,
+                  "endColumn": 39,
+                  "offset": 1467,
+                  "length": 11
+                }
+              }
+            }
+          ],
+          "snippet": "malloc(len)",
+          "fixes": [
+            {
+              "description": "Change to calloc ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/src/statement.h",
+                  "replacements": [
+                    {
+                      "offset": 1467,
+                      "deletedLength": 11,
+                      "insertedBytes": "calloc(<number of elements>, <size of each element>)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/lib/binary_name.js",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 30,
+                  "endLine": 8,
+                  "endColumn": 36,
+                  "offset": 296,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/lib/binary_name.js",
+                  "replacements": [
+                    {
+                      "offset": 296,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        }
+      ],
+      "rules": {
+        "DS121708": {
+          "id": "DS121708",
+          "name": "Problematic C function detected (memcpy)",
+          "fullDescription": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS121708.md"
+        },
+        "DS161085": {
+          "id": "DS161085",
+          "name": "Problematic C function detected (malloc)",
+          "fullDescription": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. ",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS161085.md"
+        },
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        }
+      }
+    }
+  ]
+}

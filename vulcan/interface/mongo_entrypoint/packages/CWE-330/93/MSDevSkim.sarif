@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS173237",
+          "level": "error",
+          "message": "Do not store tokens or keys in source code.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/test/test.js",
+                "region": {
+                  "startLine": 123,
+                  "startColumn": 6,
+                  "endLine": 123,
+                  "endColumn": 40,
+                  "offset": 3026,
+                  "length": 34
+                }
+              }
+            }
+          ],
+          "snippet": "'00112233445566778899aabbccddeeff'",
+          "properties": {
+            "tags": ["Implementation.Privacy.Token"]
+          }
+        },
+        {
+          "ruleId": "DS154189",
+          "level": "error",
+          "message": "Banned C function detected",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/benchmark/benchmark-native.c",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 3,
+                  "endLine": 32,
+                  "endColumn": 9,
+                  "offset": 561,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "printf",
+          "properties": {
+            "tags": ["API.DangerousAPI.BannedFunction"]
+          }
+        }
+      ],
+      "rules": {
+        "DS173237": {
+          "id": "DS173237",
+          "name": "Do not store tokens or keys in source code.",
+          "fullDescription": "A token or key was found in source code. If this represents a secret, it should be moved somewhere else.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS173237.md"
+        },
+        "DS154189": {
+          "id": "DS154189",
+          "name": "Banned C function detected",
+          "fullDescription": "These functions are historically error-prone and have been associated with a significant number of vulnerabilities. Most of these functions have safer alternatives, such as replacing 'strcpy' with 'strlcpy' or 'strcpy_s'.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS154189.md"
+        }
+      }
+    }
+  ]
+}

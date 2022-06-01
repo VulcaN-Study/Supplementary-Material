@@ -1,0 +1,293 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 46,
+          "line": 1
+        },
+        "extra": {
+          "line": " Copyright (c) 2010 IBM Corporation <opendev@us.ibm.com>",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 45,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 7,
+          "line": 1
+        },
+        "extra": {
+          "line": "IBM DB Test Suite",
+          "message": "Syntax error"
+        },
+        "path": "/src/test/README",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/test/test-domains-open.js",
+          "match_lines": [
+            12,
+            12
+          ],
+          "match_position": [
+            4,
+            17
+          ],
+          "match_string": "   console.trace();"
+        },
+        {
+          "file_path": "/src/test/test-domains-open.js",
+          "match_lines": [
+            15,
+            15
+          ],
+          "match_position": [
+            7,
+            20
+          ],
+          "match_string": "      console.trace();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/test/test-sp-resultset.js",
+          "match_lines": [
+            1,
+            122
+          ],
+          "match_position": [
+            1,
+            64
+          ],
+          "match_string": "var common = require(\"./common\")\n\n  , ibmdb = require(\"../\")\n\n  , assert = require(\"assert\")\n\n  , schema = common.connectionObject.CURRENTSCHEMA;\n\n\n\nif(schema == undefined) schema = \"NEWTON\";\n\n\n\nvar proc1 = \"create or replace procedure \" + schema + \".PROC2 ( IN v1 int, INOUT v2 varchar(30) )  dynamic result sets 2 language sql begin  declare cr1  cursor with return for select c1, c2 from \" + schema + \".mytab1; declare cr2  cursor with return for select c2 from \" + schema + \".mytab1; open cr1; open cr2; set v2 = 'success'; end\";\n\nvar proc2 = \"create or replace procedure \" + schema + \".PROC2 ( IN v1 int, INOUT v2 varchar(30) )  language sql begin  set v2 = 'success'; end\";\n\nvar proc3 = \"create or replace procedure \" + schema + \".PROC2 ( IN v1 int, IN v2 varchar(30) )  dynamic result sets 2 language sql begin  declare cr1  cursor with return for select c1, c2 from \" + schema + \".mytab1; declare cr2  cursor with return for select c2 from \" + schema + \".mytab1; open cr1; open cr2; end\";\n\nvar query = \"call \" + schema + \".PROC2(?, ?)\";\n\n\n\nif (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n  // Update the queries for Db2 on z/OS compatiability.\n\n  // - Does not support CREATE OR REPLACE syntax.\n\n var dropProc = \"drop procedure \" + schema + \".PROC2\";\n\n  proc1 = proc1.replace(\" or replace\", \"\");\n\n  proc2 = proc2.replace(\" or replace\", \"\");\n\n  proc3 = proc3.replace(\" or replace\", \"\");\n\n\n\n  // - When creating an SQL native procedure on z/OS, you will need to have a WLM environment\n\n  // defined for your system if you want to run the procedure in debugging mode. Adding\n\n  // \"disable debug mode\" to bypass this requirement.\n\n  proc1 = proc1.replace(\" begin\", \" disable debug mode begin\");\n\n  proc2 = proc2.replace(\" begin\", \" disable debug mode begin\");\n\n  proc3 = proc3.replace(\" begin\", \" disable debug mode begin\");\n\n}\n\nvar result;\n\nibmdb.open(common.connectionString, {fetchMode : 3}, function (err, conn) {\n\n    if(err) {\n\n      console.log(err);\n\n      process.exit(-1);\n\n    }\n\n    try {\n\n      conn.querySync({\"sql\":\"create table \" + schema + \".mytab1 (c1 int, c2 varchar(20))\", \"noResults\":true});\n\n    } catch (e) {};\n\n\n\n    if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n      // Db2 on z/OS does not support multi-row inserts\n\n      conn.querySync(\"insert into \" + schema + \".mytab1 values (2, 'bimal')\");\n\n      conn.querySync(\"insert into \" + schema + \".mytab1 values (3, 'kumar')\");\n\n    } else {\n\n      conn.querySync(\"insert into \" + schema + \".mytab1 values (2, 'bimal'), (3, 'kumar')\");\n\n    }\n\n    param2 = {ParamType:\"INOUT\", DataType:1, Data:\"abc\", Length:50};\n\n\n\n    // Create SP with INOUT param and 2 Result Set.\n\n    if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n      // CREATE OR REPLACE is not supported on z/OS.  Explicitly drop procedure.\n\n      try {\n\n         conn.querySync(dropProc);\n\n      } catch(e) { };\n\n    }\n\n    conn.querySync(proc1);\n\n\n\n    // Call SP Synchronously.\n\n    result = conn.querySync(query, ['1', param2]);\n\n    console.log(\"Result for Sync call of proc1 ==>\");\n\n    console.log(result);\n\n    assert.equal(result.length, 3);\n\n    // Call SP Asynchronously.\n\n    conn.query(query, ['1', param2], function (err, result) {\n\n        if (err) console.log(err);\n\n        else {\n\n          console.log(\"Result for Async call of proc1 ==>\");\n\n          console.log(result);\n\n          assert.equal(result.length, 3);\n\n        }\n\n\n\n        // Create SP with only OUT param and no resultset.\n\n        if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n          // CREATE OR REPLACE is not supported on z/OS.  Explicitly drop procedure.\n\n          try {\n\n            conn.querySync(dropProc);\n\n          } catch(e) { };\n\n        }\n\n        conn.querySync(proc2);\n\n        // Call SP Synchronously.\n\n        result = conn.querySync(query, ['1', param2]);\n\n        console.log(\"Result for Sync call of proc2 ==>\");\n\n        console.log(result);\n\n        assert.equal(result.length, 1);\n\n        // Call SP Asynchronously.\n\n        conn.query(query, ['1', param2], function (err, result) {\n\n            if (err) console.log(err);\n\n            else {\n\n              console.log(\"Result for Async call of proc2 ==>\");\n\n              console.log(result);\n\n              assert.equal(result.length, 1);\n\n            }\n\n\n\n            // Create SP with only Result Set and no OUT or INPUT param.\n\n            if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n              // CREATE OR REPLACE is not supported on z/OS.  Explicitly drop procedure.\n\n              try {\n\n                conn.querySync(dropProc);\n\n              } catch(e) { };\n\n            }\n\n            conn.querySync(proc3);\n\n            // Call SP Synchronously.\n\n            result = conn.querySync(query, [1, 'abc']);\n\n            console.log(\"Result for Sync call of proc3 ==>\");\n\n            console.log(result);\n\n            assert.equal(result.length, 2);\n\n            // Call SP Asynchronously.\n\n            conn.query(query, ['1', 'abc'], function (err, result) {\n\n                if (err) console.log(err);\n\n                else {\n\n                  console.log(\"Result for Async call of proc3 ==>\");\n\n                  console.log(result);\n\n                  assert.equal(result.length, 2);\n\n                }\n\n\n\n                // Do Cleanup.\n\n                if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n                  conn.querySync(\"drop procedure \" + schema + \".PROC2\");\n\n                } else {\n\n                  conn.querySync(\"drop procedure \" + schema + \".PROC2 ( INT, VARCHAR(30) )\");\n\n                }\n\n                conn.querySync(\"drop table \" + schema + \".mytab1\");\n\n                // Close connection in last only.\n\n                conn.close(function (err) { console.log(\"done.\");});"
+        },
+        {
+          "file_path": "/src/test/test-query-insert.js",
+          "match_lines": [
+            13,
+            13
+          ],
+          "match_position": [
+            7,
+            100
+          ],
+          "match_string": "      db.query(\"insert into \" + common.tableName + \" (COLTEXT) values ('sandwich')\", insertCallback);"
+        },
+        {
+          "file_path": "/src/test/test-query-insert.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            7,
+            96
+          ],
+          "match_string": "      db.query(\"insert into \" + common.tableName + \" (COLTEXT) values ('fish')\", insertCallback);"
+        },
+        {
+          "file_path": "/src/test/test-query-insert.js",
+          "match_lines": [
+            15,
+            15
+          ],
+          "match_position": [
+            7,
+            97
+          ],
+          "match_string": "      db.query(\"insert into \" + common.tableName + \" (COLTEXT) values ('scarf')\", insertCallback);"
+        },
+        {
+          "file_path": "/src/test/test-multi-open-query-close.js",
+          "match_lines": [
+            38,
+            48
+          ],
+          "match_position": [
+            5,
+            17
+          ],
+          "match_string": "    var seconds = connections.length - ix;\n\n    \n\n    var query = \"WAITFOR DELAY '00:00:0\" + seconds + \"'; select \" + seconds + \" as result from SYSIBM.SYSDUMMY1\";\n\n    \n\n    db.query(query, function (err, rows, moreResultSets) {\n\n             \n\n      //console.error(\"Query: %s %s %s %s\", ix, openCount, queryCallback, moreResultSets, rows, err);\n\n    \n\n      queryCallback += 1;\n\n      \n\n      maybeClose();"
+        },
+        {
+          "file_path": "/src/test/test-open-close.js",
+          "match_lines": [
+            8,
+            12
+          ],
+          "match_position": [
+            1,
+            35
+          ],
+          "match_string": "db.query(\"select * from \" + common.tableName, function (err, rs, sqlca) {\n\n  assert.deepEqual(err.message, 'Connection not open.');\n\n  assert.deepEqual(rs, []);\n\n  assert.equal(sqlca.sqlcode, -30081);\n\n  assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/test-open-close.js",
+          "match_lines": [
+            22,
+            26
+          ],
+          "match_position": [
+            5,
+            39
+          ],
+          "match_string": "    db.query(\"select * from \" + common.tableName, function (err, rs, sqlca) {\n\n      assert.deepEqual(err.message, 'Connection not open.');\n\n      assert.deepEqual(rs, []);\n\n      assert.equal(sqlca.sqlcode, -30081);\n\n      assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/common.js",
+          "match_lines": [
+            86,
+            86
+          ],
+          "match_position": [
+            3,
+            49
+          ],
+          "match_string": "  db.query(\"drop table \" + exports.tableName, cb);"
+        },
+        {
+          "file_path": "/src/test/common.js",
+          "match_lines": [
+            90,
+            90
+          ],
+          "match_position": [
+            3,
+            118
+          ],
+          "match_string": "  db.query(\"create table \" + exports.tableName + \" (COLINT INTEGER, COLDATETIME TIMESTAMP, COLTEXT VARCHAR(255))\", cb);"
+        },
+        {
+          "file_path": "/src/test/test-open-connectTimeout.js",
+          "match_lines": [
+            25,
+            29
+          ],
+          "match_position": [
+            5,
+            39
+          ],
+          "match_string": "    db.query(\"select * from \" + common.tableName, function (err, rs, sqlca) {\n\n      assert.deepEqual(err.message, 'Connection not open.');\n\n      assert.deepEqual(rs, []);\n\n      assert.equal(sqlca.sqlcode, -30081);\n\n      assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/test-openSync.js",
+          "match_lines": [
+            8,
+            12
+          ],
+          "match_position": [
+            1,
+            35
+          ],
+          "match_string": "db.query(\"select * from \" + common.tableName, function (err, rs, sqlca) {\n\n  assert.deepEqual(err.message, 'Connection not open.');\n\n  assert.deepEqual(rs, []);\n\n  assert.equal(sqlca.sqlcode, -30081);\n\n  assert.equal(db.connected, false);"
+        },
+        {
+          "file_path": "/src/test/test-call-async.js",
+          "match_lines": [
+            4,
+            77
+          ],
+          "match_position": [
+            1,
+            27
+          ],
+          "match_string": "var common = require(\"./common\")\n\n  , ibmdb = require(\"../\")\n\n  , assert = require(\"assert\")\n\n  , cn = common.connectionString\n\n  , schema = common.connectionObject.CURRENTSCHEMA;\n\n\n\nif(schema == undefined) schema = \"NEWTON\";\n\nibmdb.open(cn, function (err, conn)\n\n{\n\n    var query = \"CaLL \" + schema + \".PROC1(?, ?, ?)\";\n\n    if(err) console.log(err);\n\n    assert.equal(err, null);\n\n    try {\n\n      if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n        // The DROP PROCEDURE syntax on z/OS can only specify the name of the procedure to drop.\n\n        conn.querySync(\"drop procedure \" + schema + \".PROC1\");\n\n      } else {\n\n        conn.querySync(\"drop procedure \" + schema + \".PROC1(INT, INT, VARCHAR(20))\");\n\n      }\n\n      console.log(\"PROC1 dropped.\\n\");\n\n    } catch(e) { }\n\n\n\n    if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n      // CREATE OR REPLACE syntax is not supported on z/OS.\n\n      // When creating an SQL native procedure on z/OS, you will need to have a WLM environment\n\n      // defined for your system if you want to run the procedure in debugging mode.\n\n      // Adding \"disable debug mode\" to bypass this requirement.\n\n      conn.querySync(\"create procedure \" + schema + \".PROC1 \" +\n\n                     \"(IN v1 INTEGER, OUT v2 INTEGER, INOUT v3 VARCHAR(20)) \" +\n\n                     \"disable debug mode \" +\n\n                     \"BEGIN set v2 = v1 + 1; set v3 = 'verygood'; END\");\n\n    } else {\n\n      conn.querySync(\"create procedure \" + schema + \".PROC1 \" +\n\n                     \"(IN v1 INTEGER, OUT v2 INTEGER, INOUT v3 VARCHAR(20)) \" +\n\n                     \"BEGIN set v2 = v1 + 1; set v3 = 'verygood'; END\");\n\n    }\n\n    console.log(\"created PROC1...\\n\");\n\n    conn.commitTransactionSync();\n\n    var param1 = {ParamType:\"INPUT\", DataType:1, Data:3};\n\n    var param2 = {ParamType:\"OUTPUT\", DataType:1, Data:0};\n\n    var param3 = {ParamType:\"INOUT\", DataType:1, Data:\"abc\", Length:30};\n\n\n\n    conn.query(query, [param1, param2, param3], function(err, result){\n\n        if(err) console.log(err);\n\n        else {\n\n            console.log(\"return value = \", result[0], result[1]);\n\n        }\n\n        if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n          // The DROP PROCEDURE syntax on z/OS can only specify the name of the procedure to drop.\n\n          conn.querySync(\"drop procedure \" + schema + \".PROC1\");\n\n        } else {\n\n          conn.querySync(\"drop procedure \" + schema + \".PROC1(INT, INT, VARCHAR(20))\");\n\n        }\n\n        assert.deepEqual(result, [ 4, 'verygood' ]);\n\n    });\n\n    if (process.env.IBM_DB_SERVER_TYPE === \"ZOS\") {\n\n      // CREATE OR REPLACE syntax is not supported on z/OS.  Drop PROCEDURE first.\n\n      // When creating an SQL native procedure on z/OS, you will need to have a WLM environment\n\n      // defined for your system if you want to run the procedure in debugging mode.\n\n      // Adding \"disable debug mode\" to bypass this requirement.\n\n      try {\n\n\tconn.querySync(\"drop procedure \" + schema + \".PROC2\");\n\n      } catch (e) { }\n\n      conn.querySync(\"create procedure \" + schema + \".PROC2 (IN v1 INTEGER) disable debug mode BEGIN END\");\n\n    } else {\n\n      conn.querySync(\"create or replace procedure \" + schema + \".PROC2 (IN v1 INTEGER) BEGIN END\");\n\n    }\n\n    query = \"call \" + schema + \".PROC2(?)\";\n\n    conn.query({\"sql\":query, \"params\" : [param1]}, function(err, result){\n\n        if(err) console.log(err);\n\n        conn.querySync(\"drop procedure \" + schema + \".PROC2(INT)\");\n\n        conn.closeSync();\n\n        assert.equal(result.length, 0);\n\n        console.log('done');"
+        },
+        {
+          "file_path": "/src/test/promise-test-open-close.js",
+          "match_lines": [
+            6,
+            6
+          ],
+          "match_position": [
+            1,
+            45
+          ],
+          "match_string": "db.query(\"select * from \" + common.tableName).then(null, function (err) {"
+        },
+        {
+          "file_path": "/src/test/promise-test-open-close.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            3,
+            47
+          ],
+          "match_string": "  db.query(\"select * from \" + common.tableName).then(null, function (err) {"
+        },
+        {
+          "file_path": "/src/test/promise-test-open-close.js",
+          "match_lines": [
+            25,
+            25
+          ],
+          "match_position": [
+            7,
+            51
+          ],
+          "match_string": "      db.query(\"select * from \" + common.tableName).then(null, function (err) {"
+        },
+        {
+          "file_path": "/src/test/test-date.js",
+          "match_lines": [
+            12,
+            28
+          ],
+          "match_position": [
+            3,
+            100
+          ],
+          "match_string": "  var dtString = dt.toISOString().replace('Z','').replace('T', ' ') + '000';\n\n  var sql = \"SELECT cast('\" + dtString + \"' as timestamp) as DT1 FROM SYSIBM.SYSDUMMY1\";\n\n  \n\n  console.log(sql);\n\n  \n\n  db.query(sql, function (err, data) {\n\n    assert.equal(err, null);\n\n    assert.equal(data.length, 1);\n\n\n\n    db.close(function () {\n\n      assert.equal(db.connected, false);\n\n      console.log(dt);\n\n      console.log(data);\n\n      \n\n      //test selected data after the connection\n\n      //is closed, in case the assertion fails\n\n\t  assert.equal(data[0].DT1.constructor.name, \"String\", \"DT1 is not an instance of a String object\");"
+        },
+        {
+          "file_path": "/src/test/sql-cli.js",
+          "match_lines": [
+            16,
+            25
+          ],
+          "match_position": [
+            3,
+            29
+          ],
+          "match_string": "\t\tdb.query(strInput.toString(), function (err, rs, moreResultSets) {\n\n\t\t\tif (err) {\n\n\t\t\t\tconsole.log(err);\n\n\t\t\t\tconsole.log(rs);\n\n\t\t\t}\n\n\t\t\telse {\n\n\t\t\t\tconsole.log(rs);\n\n\t\t\t}\n\n\t\t\t\n\n\t\t\tprocess.stdout.write('> ');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

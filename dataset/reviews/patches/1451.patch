@@ -1,0 +1,20 @@
+diff --git a/seeftl-0.1.1/package/bin/seeftl b/patched_seeftl
+index a1ab89c..c4a2424 100644
+--- a/seeftl-0.1.1/package/bin/seeftl
++++ b/patched_seeftl
+@@ -5,6 +5,7 @@ var os = require('os');
+ var connect = require('connect');
+ var serveStatic = require('serve-static');
+ var serveIndex = require('serve-index');
++var sanitizer = require('sanitizer');
+ 
+ var exec = require('child_process').exec;
+ var spawn = require('child_process').spawn;
+@@ -102,6 +103,7 @@ app.use(function (req, res, next) {
+               var reg = new RegExp('\\$\{\\s*'+ key +'\\s*\}','g');
+               str = str.replace(reg,config.vars[key])
+             }
++            str = sanitizer.sanitize(str);
+             res.write(str);
+             res.end();
+           }

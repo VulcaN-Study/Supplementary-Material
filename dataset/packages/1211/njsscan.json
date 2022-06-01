@@ -1,0 +1,94 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"esnext\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 11,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/docs/demo/test-api.js",
+          "match_lines": [
+            11,
+            11
+          ],
+          "match_position": [
+            26,
+            37
+          ],
+          "match_string": "    id += chars[parseInt(Math.random() * chars.length)]"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/api.js",
+          "match_lines": [
+            215,
+            219
+          ],
+          "match_position": [
+            7,
+            33
+          ],
+          "match_string": "      var source = file.path.slice(hexo.source_dir.length)\n\n\n\n      hexo.source.process([source]).then(function () {\n\n        var page = hexo.model('Page').findOne({source: source})\n\n        res.done(addIsDraft(page));"
+        },
+        {
+          "file_path": "/src/api.js",
+          "match_lines": [
+            286,
+            289
+          ],
+          "match_position": [
+            7,
+            33
+          ],
+          "match_string": "      var source = file.path.slice(hexo.source_dir.length)\n\n      hexo.source.process([source]).then(function () {\n\n        var post = hexo.model('Post').findOne({source: source.replace(/\\\\/g, '\\/')})\n\n        res.done(addIsDraft(post));"
+        },
+        {
+          "file_path": "/src/api.js",
+          "match_lines": [
+            288,
+            288
+          ],
+          "match_position": [
+            9,
+            84
+          ],
+          "match_string": "        var post = hexo.model('Post').findOne({source: source.replace(/\\\\/g, '\\/')})"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

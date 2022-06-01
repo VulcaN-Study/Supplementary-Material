@@ -1,0 +1,601 @@
+<report_mosca>
+ <Path>/src/dist/server/next-dev-server.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -  this.router.addFsRoute({match:(0,_router.route)(path),type:'route',name:`${path} exportpathmap route`,fn:async(req,res,params,parsedUrl)=>{const{query:urlQuery}=parsedUrl;Object.keys(urlQuery).filter(key=>query[key]===undefined).forEach(key=>console.warn(`Url '${path}' defines a query parameter '${key}' that is missing in exportPathMap`));const mergedQuery={...urlQuery,...query};await this.render(req,res,page,mergedQuery,parsedUrl);return{finished:true};}});}}}async startWatcher(){if(this.webpackWatcher){return;}const regexPageExtension=new RegExp(`\\.+(?:${this.nextConfig.pageExtensions.join('|')})$`);let resolved=false;return new Promise(resolve=>{const pagesDir=this.pagesDir;// Watchpack doesn't emit an event for an empty directory
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/server/lib/error-overlay-middleware.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 0 -  "use strict";exports.__esModule=true;exports.default=errorOverlayMiddleware;var _url=_interopRequireDefault(require("url"));var _launchEditor=_interopRequireDefault(require("launch-editor"));var _fs=_interopRequireDefault(require("fs"));var _path=_interopRequireDefault(require("path"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function errorOverlayMiddleware(options){return(req,res,next)=>{if(req.url.startsWith('/_next/development/open-stack-frame-in-editor')){const query=_url.default.parse(req.url,true).query;const lineNumber=parseInt(query.lineNumber,10)||1;const colNumber=parseInt(query.colNumber,10)||1;let resolvedFileName=query.fileName;if(!_fs.default.existsSync(resolvedFileName)){resolvedFileName=_path.default.join(options.dir,resolvedFileName);}(0,_launchEditor.default)(`${resolvedFileName}:${lineNumber}:${colNumber}`);res.end();}else{next();}};}
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/server/on-demand-entry-handler.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  for(const pagePath of pagePaths){const page=normalizePage('/'+pagePath);const entry=entries[page];if(!entry){continue;}if(entry.status!==BUILDING){continue;}entry.status=BUILT;entry.lastActiveTime=Date.now();doneCallbacks.emit(page);}invalidator.doneBuilding();if(hardFailedPages.length>0&&!reloading){console.log(`> Reloading webpack due to inconsistant state of pages(s): ${hardFailedPages.join(', ')}`);reloading=true;reload().then(()=>{console.log('> Webpack reloaded.');reloadCallbacks.emit('done');stop();}).catch(err=>{console.error(`> Webpack reloading failed: ${err.message}`);console.error(err.stack);process.exit(1);});}});const disposeHandler=setInterval(function(){if(stopped)return;disposeInactiveEntries(devMiddleware,entries,lastAccessPages,maxInactiveAge);},5000);disposeHandler.unref();function stop(){clearInterval(disposeHandler);stopped=true;doneCallbacks=null;reloadCallbacks=null;}function handlePing(pg){const page=normalizePage(pg);const entryInfo=entries[page];let toSend;// If there's no entry, it may have been invalidated and needs to be re-built.
+
+ Line: 20 -  this.waitUntilReloaded().then(()=>{res.statusCode=302;res.setHeader('Location',req.url);res.end('302');});}else{if(!/^\/_next\/webpack-hmr/.test(req.url))return next();const{query}=(0,_url.parse)(req.url,true);const page=query.page;if(!page)return next();const runPing=()=>{const data=handlePing(query.page);if(!data)return;res.write('data: '+JSON.stringify(data)+'\n\n');};const pingInterval=setInterval(()=>runPing(),5000);req.on('close',()=>{clearInterval(pingInterval);});next();}};}};}function disposeInactiveEntries(devMiddleware,entries,lastAccessPages,maxInactiveAge){const disposingPages=[];Object.keys(entries).forEach(page=>{const{lastActiveTime,status}=entries[page];// This means this entry is currently building or just added
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/webpack/loaders/emit-file-loader.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 0 -  "use strict";var _loaderUtils=_interopRequireDefault(require("loader-utils"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}module.exports=function(content,sourceMap){this.cacheable();const callback=this.async();const resourcePath=this.resourcePath;const query=_loaderUtils.default.getOptions(this);// Allows you to do checks on the file name. For example it's used to check if there's both a .js and .jsx file.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/webpack/plugins/profiling-plugin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 21 -  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/webpack/plugins/react-loadable-plugin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/webpack/plugins/next-esm-plugin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 54 -  setTimeout(()=>{this.updateOptions(childCompiler);childCompiler.runAsChild((err,entries,childCompilation)=>{if(err){return reject(err);}if(childCompilation.errors.length>0){return reject(childCompilation.errors[0]);}this.updateAssets(compilation,childCompilation);resolve();});},500);}});});compilation.hooks.optimizeAssets.tapPromise(PLUGIN_NAME,()=>child);}}exports.default=NextEsmPlugin;
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/webpack/plugins/next-esm-plugin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/webpack/config/blocks/css/loaders/client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 19 -  ;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});}}}:{loader:_miniCssExtractPlugin.default.loader,options:{publicPath:`${assetPrefix}/_next/`}};}
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -  const allStaticPages=new Set();let allPageInfos=new Map();const previewProps={previewModeId:_crypto.default.randomBytes(16).toString('hex'),previewModeSigningKey:_crypto.default.randomBytes(32).toString('hex'),previewModeEncryptionKey:_crypto.default.randomBytes(32).toString('hex')};const mappedPages=(0,_entries.createPagesMapping)(pagePaths,config.pageExtensions);const entrypoints=(0,_entries.createEntrypoints)(mappedPages,target,buildId,previewProps,config);const pageKeys=Object.keys(mappedPages);const dynamicRoutes=pageKeys.filter(page=>(0,_utils.isDynamicRoute)(page));const conflictingPublicFiles=[];const hasCustomErrorPage=mappedPages['/_error'].startsWith('private-next-pages');const hasPages404=Boolean(mappedPages['/404']&&mappedPages['/404'].startsWith('private-next-pages'));let hasNonStaticErrorPage;if(hasPublicDir){try{await fsStat(_path.default.join(publicDir,'_next'));throw new Error(_constants.PUBLIC_DIR_MIDDLEWARE_CONFLICT);}catch(err){}}for(let file of publicFiles){file=file.replace(/\\/g,'/').replace(/\/index$/,'').split(publicDir).pop();if(mappedPages[file]){conflictingPublicFiles.push(file);}}const numConflicting=conflictingPublicFiles.length;if(numConflicting){throw new Error(`Conflicting public and page file${numConflicting===1?' was':'s were'} found. https://err.sh/zeit/next.js/conflicting-public-file-page\n${conflictingPublicFiles.join('\n')}`);}const buildCustomRoute=(r,type)=>{const keys=[];const routeRegex=(0,_pathToRegexp.pathToRegexp)(r.source,keys,{strict:true,sensitive:false,delimiter:'/'// default is `/#?`, but Next does not pass query info
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/build/babel/plugins/react-loadable-plugin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -  exports.createRouter=createRouter;function makePublicRouterInstance(router){var _router=router;var instance={};for(var property of urlPropertyFields){if(typeof _router[property]==='object'){instance[property]=Object.assign({},_router[property]);// makes sure query is not stateful
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 18 -  shallow:!isFallback});}if(process.env.__NEXT_TEST_MODE){window.__NEXT_HYDRATED=true;if(window.__NEXT_HYDRATED_CB){window.__NEXT_HYDRATED_CB();}}}componentDidUpdate(){this.scrollToHash();}scrollToHash(){var{hash}=location;hash=hash&&hash.substring(1);if(!hash)return;var el=document.getElementById(hash);if(!el)return;// If we call scrollIntoView() in here without a setTimeout
+
+ Line: 20 -  setTimeout(()=>el.scrollIntoView(),0);}render(){return this.props.children;}}var emitter=(0,_mitt.default)();exports.emitter=emitter;var _default=async function _default(_temp){var{webpackHMR:passedWebpackHMR}=_temp===void 0?{}:_temp;// This makes sure this specific lines are removed in production
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -  // - the page was (auto) exported and has a query string or search (hash)
+
+ Line: 10 -  if(router.isSsr&&(isFallback||data.nextExport&&((0,_isDynamic.isDynamicRoute)(router.pathname)||location.search)||props.__N_SSG&&location.search)){// update query on mount for exported pages
+
+ Line: 16 -  // Other pages (strictly updating query) happens shallowly, as data
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/dev/dev-build-watcher.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  timeoutId=setTimeout(()=>{isVisible=false;updateContainer();},100);updateContainer();break;}}function updateContainer(){if(isBuilding){container.classList.add(prefix+"building");}else{container.classList.remove(prefix+"building");}if(isVisible){container.classList.add(prefix+"visible");}else{container.classList.remove(prefix+"visible");}}}function createContainer(prefix){var container=document.createElement('div');container.id=prefix+"container";container.innerHTML="\n    <div id=\""+prefix+"icon-wrapper\">\n      <svg viewBox=\"0 0 226 200\">\n        <defs>\n          <linearGradient\n            x1=\"114.720775%\"\n            y1=\"181.283245%\"\n            x2=\"39.5399306%\"\n            y2=\"100%\"\n            id=\""+prefix+"linear-gradient\"\n          >\n            <stop stop-color=\"#FFFFFF\" offset=\"0%\" />\n            <stop stop-color=\"#000000\" offset=\"100%\" />\n          </linearGradient>\n        </defs>\n        <g id=\""+prefix+"icon-group\" fill=\"none\" stroke=\"url(#"+prefix+"linear-gradient)\" stroke-width=\"18\">\n          <path d=\"M113,5.08219117 L4.28393801,197.5 L221.716062,197.5 L113,5.08219117 Z\" />\n        </g>\n      </svg>\n    </div>\n  ";return container;}function createCss(prefix){var css=document.createElement('style');css.textContent="\n    #"+prefix+"container {\n      position: absolute;\n      bottom: 10px;\n      right: 30px;\n\n      background: #fff;\n      color: #000;\n      font: initial;\n      cursor: initial;\n      letter-spacing: initial;\n      text-shadow: initial;\n      text-transform: initial;\n      visibility: initial;\n\n      padding: 8px 10px;\n      align-items: center;\n      box-shadow: 0 11px 40px 0 rgba(0, 0, 0, 0.25), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\n\n      display: none;\n      opacity: 0;\n      transition: opacity 0.1s ease, bottom 0.1s ease;\n      animation: "+prefix+"fade-in 0.1s ease-in-out;\n    }\n\n    #"+prefix+"container."+prefix+"visible {\n      display: flex;\n    }\n\n    #"+prefix+"container."+prefix+"building {\n      bottom: 20px;\n      opacity: 1;\n    }\n\n    #"+prefix+"icon-wr</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/dev/fouc.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3 -  ;(window.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}if(callback){callback();}});}
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/dev/event-source-polyfill.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 18 -  if(xhr.readyState===4){onFinish();}else if(xhr.readyState===3){onProgress();}else if(xhr.readyState===2){onStart();}}};var onTimeout=function onTimeout(){timeout=setTimeout(function(){onTimeout();},500);if(xhr.readyState===3){onProgress();}};// XDomainRequest#abort removes onprogress, onerror, onload
+
+ Line: 33 -  timeout=setTimeout(function(){onTimeout();},0);}};XHRWrapper.prototype.abort=function(){this._abort(false);};XHRWrapper.prototype.getResponseHeader=function(name){return this._contentType;};XHRWrapper.prototype.setRequestHeader=function(name,value){var xhr=this._xhr;if('setRequestHeader'in xhr){xhr.setRequestHeader(name,value);}};XHRWrapper.prototype.getAllResponseHeaders=function(){return this._xhr.getAllResponseHeaders!=undefined?this._xhr.getAllResponseHeaders():'';};XHRWrapper.prototype.send=function(){// loading indicator in Safari < ? (6), Chrome < 14, Firefox
+
+ Line: 34 -  if(!('ontimeout'in XMLHttpRequest.prototype)&&document!=undefined&&document.readyState!=undefined&&document.readyState!=='complete'){var that=this;that._sendTimeout=setTimeout(function(){that._sendTimeout=0;that.send();},4);return;}var xhr=this._xhr;// withCredentials should be set after "open" for Safari and Chrome (< 19 ?)
+
+ Line: 40 -  resolve(undefined);}else{var chunk=textDecoder.decode(result.value,{stream:true});onProgressCallback(chunk);readNextChunk();}})['catch'](function(error){reject(error);});};readNextChunk();});}).then(function(result){onFinishCallback();return result;},function(error){onFinishCallback();return Promise.reject(error);});};function EventTarget(){this._listeners=Object.create(null);}function throwError(e){setTimeout(function(){throw e;},0);}EventTarget.prototype.dispatchEvent=function(event){event.target=this;var typeListeners=this._listeners[event.type];if(typeListeners!=undefined){var length=typeListeners.length;for(var i=0;i<length;i+=1){var listener=typeListeners[i];try{if(typeof listener.handleEvent==='function'){listener.handleEvent(event);}else{listener.call(this,event);}}catch(e){throwError(e);}}}};EventTarget.prototype.addEventListener=function(type,listener){type=String(type);var listeners=this._listeners;var typeListeners=listeners[type];if(typeListeners==undefined){typeListeners=[];listeners[type]=typeListeners;}var found=false;for(var i=0;i<typeListeners.length;i+=1){if(typeListeners[i]===listener){found=true;}}if(!found){typeListeners.push(listener);}};EventTarget.prototype.removeEventListener=function(type,listener){type=String(type);var listeners=this._listeners;var typeListeners=listeners[type];if(typeListeners!=undefined){var filtered=[];for(var i=0;i<typeListeners.length;i+=1){if(typeListeners[i]!==listener){filtered.push(typeListeners[i]);}}if(filtered.length===0){delete listeners[type];}else{listeners[type]=filtered;}}};function Event(type){this.type=type;this.target=undefined;}function MessageEvent(type,options){Event.call(this,type);this.data=options.data;this.lastEventId=options.lastEventId;}MessageEvent.prototype=Object.create(Event.prototype);function ConnectionEvent(type,options){Event.call(this,type);this.status=options.status;this.statusText=options.statusText;this.headers=options.headers;}ConnectionEvent.prototype=Object.create(Event.prototype);var WAITING=-1;var CONNECTING=0;var OPEN=1;var CLOSED=2;var AFTER_CR=-1;var FIELD_START=0;var FIELD=1;var VALU Line: 42 -  t('open',{status:status,statusText:statusText,headers:headers});es.dispatchEvent(event);fire(es,es.onopen,event);}else{var message='';if(status!==200){if(statusText){statusText=statusText.replace(/\s+/g,' ');}message="EventSource's response has a status "+status+' '+statusText+' that is not 200. Aborting the connection.';}else{message="EventSource's response has a Content-Type specifying an unsupported type: "+(contentType==undefined?'-':contentType.replace(/\s+/g,' '))+'. Aborting the connection.';}throwError(new Error(message));close();var event=new ConnectionEvent('error',{status:status,statusText:statusText,headers:headers});es.dispatchEvent(event);fire(es,es.onerror,event);}}};var onProgress=function onProgress(textChunk){if(currentState===OPEN){var n=-1;for(var i=0;i<textChunk.length;i+=1){var c=textChunk.charCodeAt(i);if(c==='\n'.charCodeAt(0)||c==='\r'.charCodeAt(0)){n=i;}}var chunk=(n!==-1?textBuffer:'')+textChunk.slice(0,n+1);textBuffer=(n===-1?textBuffer:'')+textChunk.slice(n+1);if(chunk!==''){wasActivity=true;}for(var position=0;position<chunk.length;position+=1){var c=chunk.charCodeAt(position);if(state===AFTER_CR&&c==='\n'.charCodeAt(0)){state=FIELD_START;}else{if(state===AFTER_CR){state=FIELD_START;}if(c==='\r'.charCodeAt(0)||c==='\n'.charCodeAt(0)){if(state!==FIELD_START){if(state===FIELD){valueStart=position+1;}var field=chunk.slice(fieldStart,valueStart-1);var value=chunk.slice(valueStart+(valueStart<position&&chunk.charCodeAt(valueStart)===' '.charCodeAt(0)?1:0),position);if(field==='data'){dataBuffer+='\n';dataBuffer+=value;}else if(field==='id'){lastEventIdBuffer=value;}else if(field==='event'){eventTypeBuffer=value;}else if(field==='retry'){initialRetry=parseDuration(value,initialRetry);retry=initialRetry;}else if(field==='heartbeatTimeout'){heartbeatTimeout=parseDuration(value,heartbeatTimeout);if(timeout!==0){clearTimeout(timeout);timeout=setTimeout(function(){onTimeout();},heartbeatTimeout);}}}if(state===FIELD_START){if(dataBuffer!==''){lastEventId=lastEventIdBuffer;if(eventTypeBuffer===''){eventTypeBuffer='message';}var event=new MessageEvent(eventTyp Line: 43 -  :dataBuffer.slice(1),lastEventId:lastEventIdBuffer});es.dispatchEvent(event);if(eventTypeBuffer==='message'){fire(es,es.onmessage,event);}if(currentState===CLOSED){return;}}dataBuffer='';eventTypeBuffer='';}state=c==='\r'.charCodeAt(0)?AFTER_CR:FIELD_START;}else{if(state===FIELD_START){fieldStart=position;state=FIELD;}if(state===FIELD){if(c===':'.charCodeAt(0)){valueStart=position+1;state=VALUE_START;}}else if(state===VALUE_START){state=VALUE;}}}}}};var onFinish=function onFinish(){if(currentState===OPEN||currentState===CONNECTING){currentState=WAITING;if(timeout!==0){clearTimeout(timeout);timeout=0;}timeout=setTimeout(function(){onTimeout();},retry);retry=clampDuration(Math.min(initialRetry*16,retry*2));es.readyState=CONNECTING;var event=new Event('error');es.dispatchEvent(event);fire(es,es.onerror,event);}};var close=function close(){currentState=CLOSED;if(cancelFunction!=undefined){cancelFunction();cancelFunction=undefined;}if(timeout!==0){clearTimeout(timeout);timeout=0;}es.readyState=CLOSED;};var onTimeout=function onTimeout(){timeout=0;if(currentState!==WAITING){if(!wasActivity&&cancelFunction!=undefined){throwError(new Error('No activity within '+heartbeatTimeout+' milliseconds. Reconnecting.'));cancelFunction();cancelFunction=undefined;}else{wasActivity=false;timeout=setTimeout(function(){onTimeout();},heartbeatTimeout);}return;}wasActivity=false;timeout=setTimeout(function(){onTimeout();},heartbeatTimeout);currentState=CONNECTING;dataBuffer='';eventTypeBuffer='';lastEventIdBuffer=lastEventId;textBuffer='';fieldStart=0;valueStart=0;state=FIELD_START;// https://bugzilla.mozilla.org/show_bug.cgi?id=428916
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/dev/error-overlay/eventsource.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  "use strict";exports.__esModule=true;exports.getEventSourceWrapper=getEventSourceWrapper;var eventCallbacks=[];function EventSourceWrapper(options){var source;var lastActivity=new Date();var listeners=[];if(!options.timeout){options.timeout=20*1000;}init();var timer=setInterval(function(){if(new Date()-lastActivity>options.timeout){handleDisconnect();}},options.timeout/2);function init(){source=new window.EventSource(options.path);source.onopen=handleOnline;source.onerror=handleDisconnect;source.onmessage=handleMessage;}function handleOnline(){if(options.log)console.log('[HMR] connected');lastActivity=new Date();}function handleMessage(event){lastActivity=new Date();for(var i=0;i<listeners.length;i++){listeners[i](event);}if(event.data.indexOf('action')!==-1){eventCallbacks.forEach(cb=>cb(event));}}function handleDisconnect(){clearInterval(timer);source.close();setTimeout(init,options.timeout);}return{close:()=>{clearInterval(timer);source.close();},addMessageListener:function addMessageListener(fn){listeners.push(fn);}};}function getEventSourceWrapper(options){if(!options.ondemand){return{addMessageListener:cb=>{eventCallbacks.push(cb);}};}return EventSourceWrapper(options);}
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/dev/error-overlay/format-webpack-messages.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/dev/error-overlay/hot-dev-client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 19 -  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/client/dev/prerender-indicator.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  var dismissKey='__NEXT_DISMISS_PRERENDER_INDICATOR';var dismissUntil=parseInt(window.localStorage.getItem(dismissKey),10);var dismissed=dismissUntil>new Date().getTime();var isVisible=!dismissed&&window.__NEXT_DATA__.nextExport;function updateContainer(){if(isVisible){container.classList.add(prefix+"visible");}else{container.classList.remove(prefix+"visible");}}var expandedClass=prefix+"expanded";var toggleTimeout;var toggleExpand=function toggleExpand(expand){if(expand===void 0){expand=true;}clearTimeout(toggleTimeout);toggleTimeout=setTimeout(()=>{if(expand){expandEl.classList.add(expandedClass);closeEl.style.display='flex';}else{expandEl.classList.remove(expandedClass);closeEl.style.display='none';}},50);};closeEl.addEventListener('click',()=>{var oneHourAway=new Date().getTime()+1*60*60*1000;window.localStorage.setItem(dismissKey,oneHourAway+'');isVisible=false;updateContainer();});closeEl.addEventListener('mouseenter',()=>toggleExpand());closeEl.addEventListener('mouseleave',()=>toggleExpand(false));expandEl.addEventListener('mouseenter',()=>toggleExpand());expandEl.addEventListener('mouseleave',()=>toggleExpand(false));_router.default.events.on('routeChangeComplete',()=>{isVisible=window.next.isPrerendered;updateContainer();});updateContainer();}function createContainer(prefix){var container=document.createElement('div');container.id=prefix+"container";container.innerHTML="\n    <button id=\""+prefix+"close\" title=\"Hide indicator for session\">\n      <span>\xD7</span>\n    </button>\n    <a href=\"https://nextjs.org/docs#automatic-static-optimization-indicator\" target=\"_blank\" rel=\"noreferrer\">\n      <div id=\""+prefix+"icon-wrapper\">\n          <svg width=\"15\" height=\"20\" viewBox=\"0 0 60 80\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n          <path d=\"M36 3L30.74 41H8L36 3Z\" fill=\"black\"/>\n          <path d=\"M25 77L30.26 39H53L25 77Z\" fill=\"black\"/>\n          <path d=\"M13.5 33.5L53 39L47.5 46.5L7 41.25L13.5 33.5Z\" fill=\"black\"/>\n          </svg>\n          Prerendered Page\n      </div>\n    </a>\n  ";return container;}function c</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/export/worker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 0 -  "use strict";exports.__esModule=true;exports.default=_default;var _mkdirp=_interopRequireDefault(require("mkdirp"));var _util=require("util");var _url=_interopRequireDefault(require("url"));var _path=require("path");var _render=require("../next-server/server/render");var _fs=require("fs");var _amphtmlValidator=_interopRequireDefault(require("amphtml-validator"));var _loadComponents=require("../next-server/server/load-components");var _isDynamic=require("../next-server/lib/router/utils/is-dynamic");var _routeMatcher=require("../next-server/lib/router/utils/route-matcher");var _routeRegex=require("../next-server/lib/router/utils/route-regex");var _normalizePagePath=require("../next-server/server/normalize-page-path");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}const envConfig=require('../next-server/lib/runtime-config');const writeFileP=(0,_util.promisify)(_fs.writeFile);const mkdirp=(0,_util.promisify)(_mkdirp.default);const accessP=(0,_util.promisify)(_fs.access);global.__NEXT_DATA__={nextExport:true};async function _default({path,pathMap,distDir,buildId,outDir,pagesDataDir,renderOpts,buildExport,serverRuntimeConfig,subFolders,serverless}){let results={ampValidations:[]};try{const{query:originalQuery={}}=pathMap;const{page}=pathMap;const filePath=(0,_normalizePagePath.normalizePagePath)(path);const ampPath=`${filePath}.amp`;let query={...originalQuery};let params;// We need to show a warning if they try to provide query values
+
+ Line: 2 -  const hasOrigQueryValues=Object.keys(originalQuery).length>0;const queryWithAutoExportWarn=()=>{if(hasOrigQueryValues){throw new Error(`\nError: you provided query values for ${path} which is an auto-exported page. These can not be applied since the page can no longer be re-rendered on the server. To disable auto-export for this page add \`getInitialProps\`\n`);}};// Check if the page is a specified dynamic route
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/lib/pretty-bytes.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/lib/recursive-delete.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  "use strict";exports.__esModule=true;exports.recursiveDelete=recursiveDelete;var _fs=_interopRequireDefault(require("fs"));var _path=require("path");var _util=require("util");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}const readdir=(0,_util.promisify)(_fs.default.readdir);const stat=(0,_util.promisify)(_fs.default.stat);const rmdir=(0,_util.promisify)(_fs.default.rmdir);const unlink=(0,_util.promisify)(_fs.default.unlink);const sleep=(0,_util.promisify)(setTimeout);const unlinkFile=async(p,t=1)=>{try{await unlink(p);}catch(e){if((e.code==='EBUSY'||e.code==='ENOTEMPTY'||e.code==='EPERM'||e.code==='EMFILE')&&t<3){await sleep(t*100);return unlinkFile(p,t++);}if(e.code==='ENOENT'){return;}throw e;}};/**
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/server/api-utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 30 -          // Parsing query string
+
+ Line: 118 -   * Parsing query arguments from request `url` string
+
+ Line: 120 -   * @returns Object with key name of query argument and its value
+
+ Line: 127 -          const query = {};
+
+ Line: 132 -                      query[key].push(value);
+
+ Line: 135 -                      query[key] = [query[key], value];
+
+ Line: 139 -                  query[key] = value;
+
+ Line: 142 -          return query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/server/router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 21 -      // update any params in query values
+
+ Line: 25 -              const queryCompiler = path_to_regexp_1.compile(value, { validate: false });
+
+ Line: 26 -              value = queryCompiler(params);
+
+ Line: 30 -      // add params to query
+
+ Line: 34 -              // Don't add segment to query if used in destination
+
+ Line: 35 -              // and it's a redirect so that we don't pollute the query
+
+ Line: 132 -                  // Combine parameters and querystring
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/server/render.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 34 -      constructor(pathname, query, as, { isFallback }) {
+
+ Line: 37 -          this.query = query;
+
+ Line: 88 -  function renderDocument(Document, { props, docProps, pathname, query, buildId, canonicalBase, assetPrefix, runtimeConfig, nextExport, autoExport, isFallback, dynamicImportsIds, dangerousAsPath, hasCssMode, err, dev, ampPath, ampState, inAmpMode, hybridAmp, staticMarkup, devFiles, files, lowPriorityFiles, polyfillFiles, dynamicImports, htmlProps, bodyTags, headTags, gsp, gssp, customServer, }) {
+
+ Line: 93 -                  query,
+
+ Line: 127 -  async function renderToHTML(req, res, pathname, query, renderOpts) {
+
+ Line: 153 -      delete query.__nextFallback;
+
+ Line: 202 -              // remove query values except ones that will be set during export
+
+ Line: 203 -              query = {
+
+ Line: 204 -                  amp: query.amp,
+
+ Line: 220 -      const router = new ServerRouter(pathname, query, asPath, {
+
+ Line: 228 -          query,
+
+ Line: 266 -              const data = await getStaticProps(Object.assign(Object.assign({}, (pageIsDynamic ? { params: query } : undefined)), (previewData !== false
+
+ Line: 314 -                  query }, (pageIsDynamic ? { params: params } : undefined)), (previewData !== false
+
+ Line: 415 -          query,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/server/next-server.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  const querystring_1 = require("querystring");
+
+ Line: 120 -          // Parse the querystring ourselves if the user doesn't handle querystring parsing
+
+ Line: 122 -              parsedUrl.query = querystring_1.parse(parsedUrl.query);
+
+ Line: 343 -                              query: parsedDestination.query,
+
+ Line: 355 -                  const { pathname, query } = parsedUrl;
+
+ Line: 360 -                      const handled = await this.handleApiRequest(req, res, pathname, query);
+
+ Line: 365 -                  await this.render(req, res, pathname, query, parsedUrl);
+
+ Line: 408 -      async handleApiRequest(req, res, pathname, query) {
+
+ Line: 430 -          query = Object.assign(Object.assign({}, query), params);
+
+ Line: 433 -                  prepareServerlessUrl(req, query);
+
+ Line: 438 -          await api_utils_1.apiResolver(req, res, query, pageModule, this.renderOpts.previewProps, this.onErrorMiddleware);
+
+ Line: 497 -      async render(req, res, pathname, query = {}, parsedUrl) {
+
+ Line: 506 -          const html = await this.renderToHTML(req, res, pathname, query);
+
+ Line: 513 -      async findPageComponents(pathname, query = {}, params = null) {
+
+ Line: 516 -              query.amp ? normalize_page_path_1.normalizePagePath(pathname) + '.amp' : null,
+
+ Line: 524 -                      query: Object.assign(Object.assign({}, (components.getStaticProps
+
+ Line: 525 -                          ? { _nextDataReq: query._nextDataReq }
+
+ Line: 526 -                          : query)), (params || {})),
+
+ Line: 559 -      async renderToHTMLWithComponents(req, res, pathname, { components, query }, opts) {
+
+ Line: 577 -          delete query._nextDataReq;
+
+ Line: 585 -                  query,
+
+ Line: 608 -                  prepareServerlessUrl(req, query);
+
+ Line: 612 -                  const props = await render_1.renderToHTML(req, res, pathname, query, Object.assign(Object.assign(Object.assign({}, components), opts), { isDataReq }));
+
+ Line: 621 -              const html = await render_1.renderToHTML(req, res, pathname, query, Object.assign(Object.assign({}, components), opts));
+
+ Line: 674 -                  renderResult = await render_1.renderToHTML(req, res, pathname, query, renderOpts);
+
+ Line: 725 -                  query.__nextFallback = 'true';
+
+ Line: 727 -                      prepareServerlessUrl(req, query);
+
+ Line: 732 -                      html = (await render_1.renderToHTML(req, res, pathname, query, Object.assign(Object.assign({}, components), opts)));
+
+ Line: 756 -      async renderToHTML(req, res, pathname, query = {}) {
+
+ Line: 758 -              const result = await this.findPageComponents(pathname, query);
+
+ Line: 775 -                      const result = await this.findPageComponents(dynamicRoute.page, query, params);
+
+ Line: 792 -              return await this.renderErrorToHTML(err, req, res, pathname, query);
+
+ Line: 795 -          return await this.renderErrorToHTML(null, req, res, pathname, query);
+
+ Line: 797 -      async renderError(err, req, res, pathname, query = {}) {
+
+ Line: 799 -          const html = await this.renderErrorToHTML(err, req, res, pathname, query);
+
+ Line: 805 -      async renderErrorToHTML(err, req, res, _pathname, query = {}) {
+
+ Line: 815 -              result = await this.findPageComponents('/_error', query);
+
+ Line: 838 -          const { pathname, query } = parsedUrl ? parsedUrl : url_1.parse(url, true);
+
+ Line: 840 -          return this.renderError(null, req, res, pathname, query);
+
+ Line: 894 -  function prepareServerlessUrl(req, query) {
+
+ Line: 896 -      req.url = url_1.format(Object.assign(Object.assign({}, curUrl), { search: undefined, query: Object.assign(Object.assign({}, curUrl.query), query) }));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/lib/loadable.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 198 -                      this._delay = setTimeout(() => {
+
+ Line: 206 -                  this._timeout = setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/lib/loadable.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/lib/router/router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 20 -  function fetchNextData(pathname, query, isServerRender, cb) {
+
+ Line: 26 -              query,
+
+ Line: 66 -      constructor(pathname, query, as, { initialProps, pageLoader, App, wrapApp, Component, err, subscription, isFallback, }) {
+
+ Line: 80 -                  const { pathname, query } = this;
+
+ Line: 81 -                  this.changeState('replaceState', utils_1.formatWithValidation({ pathname, query }), utils_1.getURL());
+
+ Line: 112 -              let { pathname, query } = url_1.parse(asPath, true);
+
+ Line: 114 -              return fetchNextData(pathname, query, this.isSsr);
+
+ Line: 138 -          this.query = query;
+
+ Line: 154 -              this.changeState('replaceState', utils_1.formatWithValidation({ pathname, query }), as);
+
+ Line: 250 -              const { pathname, query, protocol } = url_1.parse(url, true);
+
+ Line: 289 -              this.getRouteInfo(route, pathname, query, as, shallow).then(routeInfo => {
+
+ Line: 302 -                  this.set(route, pathname, query, as, routeInfo);
+
+ Line: 335 -      getRouteInfo(route, pathname, query, as, shallow = false) {
+
+ Line: 369 -                              query,
+
+ Line: 411 -                          query,
+
+ Line: 421 -      set(route, pathname, query, as, data) {
+
+ Line: 425 -          this.query = query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/next-server/lib/mitt.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/pages/_app.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -  var{pathname,asPath,query}=router;return{get query(){if(process.env.NODE_ENV!=='production')warnUrl();return query;},get pathname(){if(process.env.NODE_ENV!=='production')warnUrl();return pathname;},get asPath(){if(process.env.NODE_ENV!=='production')warnUrl();return asPath;},back:()=>{if(process.env.NODE_ENV!=='production')warnUrl();router.back();},push:(url,as)=>{if(process.env.NODE_ENV!=='production')warnUrl();return router.push(url,as);},pushTo:(href,as)=>{if(process.env.NODE_ENV!=='production')warnUrl();var pushRoute=as?href:'';var pushUrl=as||href;return router.push(pushRoute,pushUrl);},replace:(url,as)=>{if(process.env.NODE_ENV!=='production')warnUrl();return router.replace(url,as);},replaceTo:(href,as)=>{if(process.env.NODE_ENV!=='production')warnUrl();var replaceRoute=as?href:'';var replaceUrl=as||href;return router.replace(replaceRoute,replaceUrl);}};}
+</Result>
+</report_mosca>
+

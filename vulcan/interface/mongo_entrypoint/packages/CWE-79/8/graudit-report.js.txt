@@ -1,0 +1,36 @@
+/src/History.md-180-   - express(1) - moved to [express-generator](https://github.com/expressjs/generator)
+/src/History.md:181:   - `express.createServer()` - it has been deprecated for a long time. Use `express()`
+/src/History.md-182-   - `app.configure` - use logic in your own app code
+##############################################
+/src/History.md-663-  * update connect dep
+/src/History.md:664:  * deprecate `.createServer()` & remove old stale examples
+/src/History.md-665-  * fix: escape `res.redirect()` link
+##############################################
+/src/History.md-777-  * Added `res.header()` and `req.header()` aliases for BC
+/src/History.md:778:  * Added `express.createServer()` for BC
+/src/History.md-779-  * Perf: memoize parsed urls
+##############################################
+/src/History.md-1433-  * Added ETag support to Request#sendfile()
+/src/History.md:1434:  * Added options to Request#sendfile(), passed to fs.createReadStream()
+/src/History.md-1435-  * Added filename arg to Request#download()
+##############################################
+/src/lib/request.js-336-/**
+/src/lib/request.js:337: * Short-hand for `url.parse(req.url).pathname`.
+/src/lib/request.js-338- *
+##############################################
+/src/lib/application.js-538- *
+/src/lib/application.js:539: *    http.createServer(app).listen(80);
+/src/lib/application.js:540: *    https.createServer({ ... }, app).listen(443);
+/src/lib/application.js-541- *
+##############################################
+/src/lib/application.js-546-app.listen = function(){
+/src/lib/application.js:547:  var server = http.createServer(this);
+/src/lib/application.js-548-  return server.listen.apply(server, arguments);
+##############################################
+/src/lib/middleware/query.js-16- *
+/src/lib/middleware/query.js:17: *       .use(connect.query())
+/src/lib/middleware/query.js-18- *       .use(function(req, res){
+##############################################
+/src/lib/middleware/query.js-32-      req.query = ~req.url.indexOf('?')
+/src/lib/middleware/query.js:33:        ? qs.parse(parseUrl(req).query, options)
+/src/lib/middleware/query.js-34-        : {};

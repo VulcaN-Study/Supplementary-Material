@@ -1,0 +1,194 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 1
+        },
+        "extra": {
+          "line": "*#",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 2,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/app/lower.js",
+          "match_lines": [
+            37,
+            200
+          ],
+          "match_position": [
+            3,
+            16
+          ],
+          "match_string": "  options.delay = options.delay || 100;\n\n\n\n  // Flag `sails._exiting` as soon as the app has begun to shutdown.\n\n  // This may be used by core hooks and other parts of core.\n\n  // (e.g. to stop handling HTTP requests and prevent ugly error msgs)\n\n  sails._exiting = true;\n\n\n\n  var beforeShutdown = (sails.config && sails.config.beforeShutdown) || function(cb) {\n\n    return cb();\n\n  };\n\n\n\n  // Wait until beforeShutdown logic runs\n\n  beforeShutdown(function(err) {\n\n\n\n    // If an error occurred, don't stop-- still go ahead and take care of other teardown tasks.\n\n    if (err) {\n\n      sails.log.error(err);\n\n    }\n\n\n\n    // Try to kill all child processes\n\n    _.each(sails.childProcesses, function kill(childProcess) {\n\n      sails.log.verbose('Sent kill signal to child process (' + childProcess.pid + ')...');\n\n      try {\n\n        childProcess.kill('SIGINT');\n\n      } catch (e) {\n\n        sails.log.error('While lowering Sails app: received error killing child process: ', e.stack);\n\n      }\n\n    });\n\n\n\n    // Shut down HTTP server\n\n    sails.emit('lower');\n\n    // (Note for future: would be cleaner to provide a way to defer this to the http\n\n    // and sockets hooks-- i.e. having hooks expose a `teardown(cb)` interceptor. Keep\n\n    // in mind we'd need a way to distinguish between a graceful shutdown and a force\n\n    // kill.  In a force kill situation, it's never ok for the process to hang.)\n\n\n\n    async.series([\n\n\n\n      function shutdownSockets(cb) {\n\n\n\n        // If the sockets hook is disabled, skip this.\n\n        // Also skip if the socket server is piggybacking on the main HTTP server, to avoid\n\n        // the onClose event possibly being called multiple times (because you can't tell\n\n        // socket.io to close without it trying to close the http server).  If we're piggybacking\n\n        // we'll call sails.io.close in the main \"shutdownHTTP\" code below.\n\n        if (!_.isObject(sails.hooks) || !sails.hooks.sockets || (sails.io && sails.io.httpServer && sails.hooks.http.server === sails.io.httpServer)) {\n\n          return cb();\n\n        }\n\n\n\n        var timeOut;\n\n\n\n        try {\n\n          sails.log.verbose('Shutting down socket server...');\n\n          timeOut = setTimeout(function() {\n\n            sails.io.httpServer.removeListener('close', onClose);\n\n            return cb();\n\n          }, 100);\n\n          sails.io.httpServer.unref();\n\n          sails.io.httpServer.once('close', onClose);\n\n          sails.io.close();\n\n        } catch (e) {\n\n          sails.log.verbose('Error occurred closing socket server: ', e);\n\n          clearTimeout(timeOut);\n\n          cb();\n\n        }\n\n\n\n        function onClose() {\n\n          sails.log.verbose('Socket server shut down successfully.');\n\n          clearTimeout(timeOut);\n\n          cb();\n\n        }\n\n\n\n      },\n\n\n\n      function shutdownHTTP(cb) {\n\n        if (!_.isObject(sails.hooks) || !sails.hooks.http) {\n\n          return cb();\n\n        }\n\n\n\n        var timeOut;\n\n\n\n        try {\n\n          sails.log.verbose('Shutting down HTTP server...');\n\n\n\n          // Allow process to exit once this server is closed\n\n          sails.hooks.http.server.unref();\n\n\n\n          // If we have a socket server and it's piggybacking on the main HTTP server, tell\n\n          // socket.io to close now.  This may call `.close()` on the HTTP server, which will\n\n          // happen again below, but the second synchronous call to .close() will have no\n\n          // additional effect.  Leaving this as-is in case future versions of socket.io\n\n          // DON'T automatically close the http server for you.\n\n          if (sails.io && sails.io.httpServer && sails.hooks.http.server === sails.io.httpServer) {\n\n            sails.io.close();\n\n          }\n\n\n\n          // If the \"hard shutdown\" option is on, destroy the server immediately,\n\n          // severing all connections\n\n          if (options.hardShutdown) {\n\n            sails.hooks.http.destroy();\n\n          }\n\n          // Otherwise just stop the server from accepting new connections,\n\n          // and wait options.delay for the existing connections to close\n\n          // gracefully before destroying.\n\n          else {\n\n            timeOut = setTimeout(sails.hooks.http.destroy, options.delay);\n\n            sails.hooks.http.server.close();\n\n          }\n\n\n\n          // Wait for the existing connections to close\n\n          sails.hooks.http.server.once('close', function () {\n\n            sails.log.verbose('HTTP server shut down successfully.');\n\n            clearTimeout(timeOut);\n\n            cb();\n\n          });\n\n\n\n        } catch (e) {\n\n          sails.log.verbose('Error occurred closing HTTP server: ', e);\n\n          clearTimeout(timeOut);\n\n          cb();\n\n        }\n\n      },\n\n\n\n      function removeListeners(cb) {\n\n        // Manually remove all event listeners\n\n        _.each(_.keys(sails._events)||[], function (eventName){\n\n          sails.removeAllListeners(eventName);\n\n        });\n\n\n\n        var listeners = sails._processListeners;\n\n        if (listeners) {\n\n          process.removeListener('SIGUSR2', listeners.sigusr2);\n\n          process.removeListener('SIGINT', listeners.sigint);\n\n          process.removeListener('SIGTERM', listeners.sigterm);\n\n          process.removeListener('exit', listeners.exit);\n\n        }\n\n        sails._processListeners = null;\n\n\n\n        // If `sails.config.process.removeAllListeners` is set, do that.\n\n        // This is no longer necessary due to https://github.com/balderdashy/sails/pull/2693\n\n        // Deprecating for v0.12.\n\n        if (sails.config && sails.config.process && sails.config.process.removeAllListeners) {\n\n          sails.log.debug('sails.config.process.removeAllListeners is deprecated; please remove listeners indivually!');\n\n          process.removeAllListeners();\n\n        }\n\n\n\n        cb();\n\n      },\n\n    ], function (err) {\n\n      if (err) {\n\n        // This should never happen because `err` is never passed in any of the async\n\n        // functions above.  Still, just to be safe, we set up an error log.\n\n        sails.log.error('While lowering Sails app: received unexpected error:', err.stack);\n\n        return cb(err);\n\n      }\n\n\n\n      // If `sails._setNodeEnvAutomatically` is set, then we should revert it to what it was\n\n      // beforehand (`sails._originalNodeEnv`), even if it wasn't set at all.\n\n      // (see load.js for more background)\n\n      if (sails._setNodeEnvAutomatically) {\n\n        process.env['NODE_ENV'] = sails._originalNodeEnv;\n\n      }\n\n\n\n      return cb();"
+        },
+        {
+          "file_path": "/src/lib/app/lower.js",
+          "match_lines": [
+            142,
+            142
+          ],
+          "match_position": [
+            23,
+            73
+          ],
+          "match_string": "            timeOut = setTimeout(sails.hooks.http.destroy, options.delay);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_header_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/hooks/cors/to-prepare-send-headers.js",
+          "match_lines": [
+            64,
+            64
+          ],
+          "match_position": [
+            13,
+            70
+          ],
+          "match_string": "            res.set('Access-Control-Allow-Origin', req.headers.origin);"
+        },
+        {
+          "file_path": "/src/lib/hooks/csrf/index.js",
+          "match_lines": [
+            130,
+            130
+          ],
+          "match_position": [
+            19,
+            76
+          ],
+          "match_string": "                  res.set('Access-Control-Allow-Origin', req.headers.origin);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-644: Improper Neutralization of HTTP Headers for Scripting Syntax",
+        "description": "Untrusted user input in response header will result in HTTP Header Injection or Response Splitting Attacks.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/hooks/session/generateSecret.js",
+          "match_lines": [
+            17,
+            17
+          ],
+          "match_position": [
+            13,
+            24
+          ],
+          "match_string": "    random: Math.random() * (Math.random() * 1000),"
+        },
+        {
+          "file_path": "/src/lib/hooks/session/generateSecret.js",
+          "match_lines": [
+            17,
+            17
+          ],
+          "match_position": [
+            30,
+            41
+          ],
+          "match_string": "    random: Math.random() * (Math.random() * 1000),"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/hooks/session/generateSecret.js",
+          "match_lines": [
+            27,
+            27
+          ],
+          "match_position": [
+            3,
+            26
+          ],
+          "match_string": "  crypto.createHash('md5')"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/hooks/blueprints/actions/add.js",
+          "match_lines": [
+            54,
+            182
+          ],
+          "match_position": [
+            3,
+            37
+          ],
+          "match_string": "  var supposedChildPk = actionUtil.parsePk(req);\n\n  if (supposedChildPk) {\n\n    child = {};\n\n    child[childPkAttr] = supposedChildPk;\n\n  }\n\n  // ...or an object of values:\n\n  else {\n\n    req.options.values = req.options.values || {};\n\n    req.options.values.blacklist = req.options.values.blacklist || ['limit', 'skip', 'sort', 'id', 'parentid'];\n\n    child = actionUtil.parseValues(req);\n\n  }\n\n\n\n  if (!child) {\n\n    res.badRequest('You must specify the record to add (either the primary key of an existing record to link, or a new object without a primary key which will be used to create a record then link it.)');\n\n  }\n\n\n\n\n\n  var createdChild = false;\n\n\n\n  async.auto({\n\n\n\n    // Look up the parent record\n\n    parent: function (cb) {\n\n      Model.findOne(parentPk).exec(function foundParent(err, parentRecord) {\n\n        if (err) return cb(err);\n\n        if (!parentRecord) return cb({status: 404});\n\n        if (!parentRecord[relation]) return cb({status: 404});\n\n        cb(null, parentRecord);\n\n      });\n\n    },\n\n\n\n    // If a primary key was specified in the `child` object we parsed\n\n    // from the request, look it up to make sure it exists.  Send back its primary key value.\n\n    // This is here because, although you can do this with `.save()`, you can't actually\n\n    // get ahold of the created child record data, unless you create it first.\n\n    actualChildPkValue: ['parent', function(cb) {\n\n\n\n      // Below, we use the primary key attribute to pull out the primary key value\n\n      // (which might not have existed until now, if the .add() resulted in a `create()`)\n\n\n\n      // If the primary key was specified for the child record, we should try to find\n\n      // it before we create it.\n\n      if (child[childPkAttr]) {\n\n        ChildModel.findOne(child[childPkAttr]).exec(function foundChild(err, childRecord) {\n\n          if (err) return cb(err);\n\n          // Didn't find it?  Then try creating it.\n\n          if (!childRecord) {return createChild();}\n\n          // Otherwise use the one we found.\n\n          return cb(null, childRecord[childPkAttr]);\n\n        });\n\n      }\n\n      // Otherwise, it must be referring to a new thing, so create it.\n\n      else {\n\n        return createChild();\n\n      }\n\n\n\n      // Create a new instance and send out any required pubsub messages.\n\n      function createChild() {\n\n        ChildModel.create(child).exec(function createdNewChild (err, newChildRecord){\n\n          if (err) return cb(err);\n\n          if (req._sails.hooks.pubsub) {\n\n            if (req.isSocket) {\n\n              ChildModel.subscribe(req, newChildRecord);\n\n              ChildModel.introduce(newChildRecord);\n\n            }\n\n            ChildModel.publishCreate(newChildRecord, !req.options.mirror && req);\n\n          }\n\n\n\n          createdChild = true;\n\n          return cb(null, newChildRecord[childPkAttr]);\n\n        });\n\n      }\n\n\n\n    }],\n\n\n\n    // Add the child record to the parent's collection\n\n    add: ['parent', 'actualChildPkValue', function(cb, async_data) {\n\n      try {\n\n        // `collection` is the parent record's collection we\n\n        // want to add the child to.\n\n        var collection = async_data.parent[relation];\n\n        collection.add(async_data.actualChildPkValue);\n\n        return cb();\n\n      }\n\n      // Ignore `insert` errors\n\n      catch (err) {\n\n        // if (err && err.type !== 'insert') {\n\n        if (err) {\n\n          return cb(err);\n\n        }\n\n        // else if (err) {\n\n        //   // if we made it here, then this child record is already\n\n        //   // associated with the collection.  But we do nothing:\n\n        //   // `add` is idempotent.\n\n        // }\n\n\n\n        return cb();\n\n      }\n\n    }]\n\n  },\n\n\n\n  // Save the parent record\n\n  function readyToSave (err, async_data) {\n\n\n\n    if (err) return res.negotiate(err);\n\n    async_data.parent.save(function saved(err) {\n\n\n\n      // Ignore `insert` errors for duplicate adds\n\n      // (but keep in mind, we should not publishAdd if this is the case...)\n\n      var isDuplicateInsertError = (err && typeof err === 'object' && err.length && err[0] && err[0].type === 'insert');\n\n      if (err && !isDuplicateInsertError) return res.negotiate(err);\n\n\n\n      // Only broadcast an update if this isn't a duplicate `add`\n\n      // (otherwise connected clients will see duplicates)\n\n      if (!isDuplicateInsertError && req._sails.hooks.pubsub) {\n\n\n\n        // Subscribe to the model you're adding to, if this was a socket request\n\n        if (req.isSocket) { Model.subscribe(req, async_data.parent); }\n\n          // Publish to subscribed sockets\n\n        Model.publishAdd(async_data.parent[Model.primaryKey], relation, async_data.actualChildPkValue, !req.options.mirror && req, {noReverse: createdChild});\n\n      }\n\n\n\n      // Finally, look up the parent record again and populate the relevant collection.\n\n      // TODO: populateRequest\n\n      Model.findOne(parentPk).populate(relation).exec(function(err, matchingRecord) {\n\n        if (err) return res.serverError(err);\n\n        if (!matchingRecord) return res.serverError();\n\n        if (!matchingRecord[relation]) return res.serverError();\n\n        return res.ok(matchingRecord);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/router/bind.js",
+          "match_lines": [
+            254,
+            266
+          ],
+          "match_position": [
+            3,
+            26
+          ],
+          "match_string": "  var matches = path.match(regExRoute);\n\n\n\n  // If it *is* a regex, create a RegExp object that Express can bind,\n\n  // pull out the params, and wrap the handler in regexRouteWrapper\n\n  if (matches) {\n\n    path = new RegExp(matches[1]);\n\n    var params = matches[2].split(',');\n\n    targetFn = regexRouteWrapper(params);\n\n  }\n\n\n\n  // Otherwise just bind enhancedFn\n\n  else {\n\n    targetFn = enhancedFn;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

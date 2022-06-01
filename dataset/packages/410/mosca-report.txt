@@ -1,0 +1,587 @@
+<report_mosca>
+ <Path>/src/examples/test-server.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 4 -    setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/nodeload.ex.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 49 -              return client.request('DELETE', "/" + i++, { 'host': 'localhost', 'connection': 'keep-alive' });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nodeload.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  return true;};util.argarray=function(args){return Array.prototype.slice.call(args);};util.readStream=function(stream,callback){var data=[];stream.on('data',function(chunk){data.push(chunk.toString());});stream.on('end',function(){callback(data.join(''));});};util.PeriodicUpdater=function(updateIntervalMs){var self=this,updateTimeoutId;this.__defineGetter__('updateInterval',function(){return updateIntervalMs;});this.__defineSetter__('updateInterval',function(milliseconds){clearInterval(updateTimeoutId);if(milliseconds>0&&milliseconds<Infinity){updateTimeoutId=setInterval(self.update.bind(self),milliseconds);}
+
+ Line: 41 -  return eval("'"+s+"'");};var nextGaussian=stats.nextGaussian=function(mean,stddev){mean=mean||0;stddev=stddev||1;var s=0,z0,z1;while(s===0||s>=1){z0=2*Math.random()-1;z1=2*Math.random()-1;s=z0*z0+z1*z1;}
+
+ Line: 49 -  result=null;active=true;lagging=(self.timeout_<=0);if(!lagging){setTimeout(function(){lagging=active;if(!lagging){self.loop_();}},self.timeout_);}
+
+ Line: 55 -  if(this.spec.duration>0&&this.spec.duration<Infinity){this.endTimeoutId=setTimeout(this.stop.bind(this),this.spec.duration*1000);}
+
+ Line: 68 -  this.concurrency=concurrency;this.rps=rps;if(timeout<Infinity){this.updateTimeoutId=setTimeout(this.updater_,timeout);}};MultiLoop.prototype.checkFinished_=function(){if(!this.running){return true;}
+
+ Line: 106 -  e;Dygraph.prototype.__old_init__=function(f,d,e,b){if(e!=null){var a=[\"Date\"];for(var c=0;c<e.length;c++){a.push(e[c])}Dygraph.update(b,{labels:a})}this.__init__(f,d,b)};Dygraph.prototype.__init__=function(d,c,b){if(/MSIE/.test(navigator.userAgent)&&!window.opera&&typeof(G_vmlCanvasManager)!=\"undefined\"&&document.readyState!=\"complete\"){var a=this;setTimeout(function(){a.__init__(d,c,b)},100)}if(b==null){b={}}this.maindiv_=d;this.file_=c;this.rollPeriod_=b.rollPeriod||Dygraph.DEFAULT_ROLL_PERIOD;this.previousVerticalX_=-1;this.fractions_=b.fractions||false;this.dateWindow_=b.dateWindow||null;this.wilsonInterval_=b.wilsonInterval||true;this.is_initial_draw_=true;this.annotations_=[];this.zoomed_x_=false;this.zoomed_y_=false;d.innerHTML=\"\";if(d.style.width==\"\"){d.style.width=(b.width||Dygraph.DEFAULT_WIDTH)+\"px\"}if(d.style.height==\"\"){d.style.height=(b.height||Dygraph.DEFAULT_HEIGHT)+\"px\"}this.width_=parseInt(d.style.width,10);this.height_=parseInt(d.style.height,10);if(d.style.width.indexOf(\"%\")==d.style.width.length-1){this.width_=d.offsetWidth}if(d.style.height.indexOf(\"%\")==d.style.height.length-1){this.height_=d.offsetHeight}if(this.width_==0){this.error(\"dygraph has zero width. Please specify a width in pixels.\")}if(this.height_==0){this.error(\"dygraph has zero height. Please specify a height in pixels.\")}if(b.stackedGraph){b.fillGraph=true}this.user_attrs_={};Dygraph.update(this.user_attrs_,b);this.attrs_={};Dygraph.update(this.attrs_,Dygraph.DEFAULT_ATTRS);this.boundaryIds_=[];this.createInterface_();this.start_()};Dygraph.prototype.isZoomed=function(a){if(a==null){return this.zoomed_x_||this.zoomed_y_}if(a==\"x\"){return this.zoomed_x_}if(a==\"y\"){return this.zoomed_y_}throw\"axis parameter to Dygraph.isZoomed must be missing, 'x' or 'y'.\"};Dygraph.prototype.toString=function(){var a=this.maindiv_;var b=(a&&a.id)?a.id:a;return\"[Dygraph \"+b+\"]\"};Dygraph.prototype.attr_=function(b,a){if(a&&typeof(this.user_attrs_[a])!=\"undefined\"&&this.user_attrs_[a]!=null&&typeof(this.user_attrs_[a][b])!=\"undefined\"){return this.user_attrs_[a][b]}else{i Line: 135 -  arts[j];\n                    var rows = chart.rows.map(function(x) { return [new Date(x[0])].concat(x.slice(1)) });\n                    if (graphs[chart.uid]) {\n                        graphs[chart.uid].updateOptions({\"file\": rows, labels: chart.columns});\n                    } else {\n                        var newchart = document.createElement(\"div\");\n                        newchart.setAttribute(\"class\", \"post\");\n                        newchart.innerHTML = [].concat(\n                            '<h2>', report.name, ': ', chart.name, '</h2>',\n                            '<div class=\"entry\" style=\"width:100%;float:left\">',\n                                '<div id=\"chart', chart.uid, '\" style=\"float:left;width:660px;height:200px;\"></div>',\n                                '<div id=\"chartlegend', chart.uid, '\" style=\"float:left;width:80px;height:200px;\"></div>',\n                            '</div>'\n                        ).join('');\n                        main.appendChild(newchart);\n                        graphs[chart.uid] = new Dygraph(\n                            document.getElementById(\"chart\" + chart.uid),\n                            rows,\n                            {\n                                labelsDiv: document.getElementById(\"chartlegend\" + chart.uid),\n                                labelsSeparateLines: true,\n                                labels: chart.columns,\n                                xAxisLabelWidth: 80\n                            });\n                    }\n                }\n            });\n        }\n\n        if(navigator.appName == \"Microsoft Internet Explorer\") { http = new ActiveXObject(\"Microsoft.XMLHTTP\"); } else { http = new XMLHttpRequest(); }\n\n        setInterval(function() {\n            if (document.getElementById(\"chkAutoRefresh\").checked) {\n                http.open(\"GET\", \"/reports\");\n                http.onreadystatechange=function() { \n                    if (http.readyState == 4 && http.status == 200) {\n                        updateDate();\n                         Line: 144 -  row[col]=val;});self.rows.push(row);},updateFromEventEmitter:function(eventEmitter,fields,event){var self=this;eventEmitter.on(event||'data',function(data){var row={};fields.forEach(function(i){if(data[i]!==undefined){row[i]=data[i];}});self.put(row);});}};var ReportGroup=exports.ReportGroup=function(){this.reports=[];this.logNameOrObject='results-'+START.toISOString()+'.html';};ReportGroup.prototype={addReport:function(report){report=(typeof report==='string')?new Report(report):report;this.reports.push(report);return report;},getReport:function(report){var reports=this.reports.filter(function(r){return r.name===report;});return reports[0]||this.addReport(report);},setLogFile:function(logNameOrObject){this.logNameOrObject=logNameOrObject;},setLoggingEnabled:function(enabled){clearTimeout(this.loggingTimeoutId);if(enabled){this.logger=this.logger||(typeof this.logNameOrObject==='string')?new LogFile(this.logNameOrObject):this.logNameOrObject;this.loggingTimeoutId=setTimeout(this.writeToLog_.bind(this),this.refreshIntervalMs);}else if(this.logger){this.logger.close();this.logger=null;}
+
+ Line: 145 -  return this;},reset:function(){this.reports={};},getHtml:function(){var self=this,t=template.create(REPORT_SUMMARY_TEMPLATE);return t({DYGRAPH_SOURCE:DYGRAPH_SOURCE,querystring:querystring,refreshPeriodMs:self.refreshIntervalMs,reports:self.reports});},writeToLog_:function(){this.loggingTimeoutId=setTimeout(this.writeToLog_.bind(this),this.refreshIntervalMs);this.logger.clear(this.getHtml());}};var BUILD_AS_SINGLE_FILE;if(!BUILD_AS_SINGLE_FILE){var ReportGroup=require('./report').ReportGroup;var config=require('../config');var NODELOAD_CONFIG=config.NODELOAD_CONFIG;var HTTP_SERVER=require('../http').HTTP_SERVER;}
+
+ Line: 161 -  function requestGeneratorLoop(generator){return function(finished,client){var running=true,timeoutId,request=generator(client);var callFinished=function(response){if(running){running=false;clearTimeout(timeoutId);response.statusCode=response.statusCode||0;finished({req:request,res:response});}};if(request){if(request.timeout>0){timeoutId=setTimeout(function(){callFinished(new EventEmitter());},request.timeout);}
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nodeload.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 3 -  exports.quiet=function(){NODELOAD_CONFIG.QUIET=true;return exports;};exports.usePort=function(port){NODELOAD_CONFIG.HTTP_PORT=port;return exports;};exports.disableServer=function(){NODELOAD_CONFIG.HTTP_ENABLED=false;return exports;};exports.setMonitorIntervalMs=function(milliseconds){NODELOAD_CONFIG.MONITOR_INTERVAL_MS=milliseconds;return exports;};exports.setAjaxRefreshIntervalMs=function(milliseconds){NODELOAD_CONFIG.AJAX_REFRESH_INTERVAL_MS=milliseconds;return exports;};exports.disableLogs=function(){NODELOAD_CONFIG.LOGS_ENABLED=false;return exports;};exports.setSlaveUpdateIntervalMs=function(milliseconds){NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS=milliseconds;};var NODELOAD_CONFIG=exports.NODELOAD_CONFIG={START:new Date(),QUIET:Boolean(process.env.QUIET)||false,HTTP_ENABLED:true,HTTP_PORT:Number(process.env.HTTP_PORT)||8000,MONITOR_INTERVAL_MS:2000,AJAX_REFRESH_INTERVAL_MS:2000,LOGS_ENABLED:process.env.LOGS?process.env.LOGS!=='0':true,SLAVE_UPDATE_INTERVAL_MS:3000,eventEmitter:new EventEmitter(),on:function(event,fun){this.eventEmitter.on(event,fun);},apply:function(){this.eventEmitter.emit('apply');}};process.nextTick(function(){NODELOAD_CONFIG.apply();});var BUILD_AS_SINGLE_FILE;if(!BUILD_AS_SINGLE_FILE){var util=require('util');var EventEmitter=require('events').EventEmitter;var NODELOAD_CONFIG=require('./config').NODELOAD_CONFIG;var LOG=require('nlogger').logger('nodeload');}
+
+ Line: 141 -  else{return data?fn(data):fn;}}};exports.create=template.create.bind(template);var BUILD_AS_SINGLE_FILE;if(!BUILD_AS_SINGLE_FILE){var util=require('../util');var querystring=require('querystring');var LogFile=require('../stats').LogFile;var template=require('./template');var config=require('../config');var REPORT_SUMMARY_TEMPLATE=require('./summary.tpl.js').REPORT_SUMMARY_TEMPLATE;var NODELOAD_CONFIG=config.NODELOAD_CONFIG;var START=NODELOAD_CONFIG.START;var DYGRAPH_SOURCE=require('./dygraph.tpl.js').DYGRAPH_SOURCE;}
+
+ Line: 167 -  this.server.removeRoute(this.route_,this.handler_);this.state='initialized';this.emit('end');};Endpoint.prototype.handle=function(path,req,res){var self=this;if(path===self.basepath_){if(req.method==='DELETE'){self.end();res.writeHead(204,{'Content-Length':0});res.end();}else{res.writeHead(405);res.end();}}else if(req.method==='POST'){var method=path.slice(this.basepath_.length+1);if(self.methods[method]){util.readStream(req,function(params){var status=200,ret;try{params=JSON.parse(params);}catch(e1){res.writeHead(400);res.end();return;}
+
+ Line: 172 -  var Slave=exports.Slave=function Slave(id,host,port,masterEndpoint,pingInterval){EventEmitter.call(this);this.id=id;this.client=new EndpointClient(host,port);this.client.on('error',this.emit.bind(this,'slaveError'));this.masterEndpoint=masterEndpoint;this.pingInterval=pingInterval||NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS;this.methodDefs=[];this.state='initialized';};util.inherits(Slave,EventEmitter);Slave.prototype.start=function(){if(this.masterEndpoint&&this.masterEndpoint.state!=='started'){throw new Error('Slave must be started after its Master.');}
+
+ Line: 174 -  self.client.basepath=url.parse(res.headers['location']).pathname;self.state='started';self.emit('start');});self.state='connecting';};Slave.prototype.end=function(){var self=this,req=self.client.rawRequest('DELETE',self.client.basepath),done=function(){if(self.client.destroy){self.client.destroy();}
+
+ Line: 180 -  var SlaveNode=exports.SlaveNode=function SlaveNode(server,spec){EventEmitter.call(this);util.PeriodicUpdater.call(this);var self=this,slaveState='initialized';this.id=spec.id;this.masterClient_=spec.master?this.createMasterClient_(spec.master,spec.masterMethods):null;this.slaveEndpoint_=this.createEndpoint_(server,spec.slaveMethods);this.slaveEndpoint_.setStaticParams([this.masterClient_]);this.slaveEndpoint_.on('start',function(){this.emit.bind(this,'start');});this.slaveEndpoint_.on('end',this.end.bind(this));this.slaveEndpoint_.start();this.slaveEndpoint_.context.id=this.id;this.slaveEndpoint_.context.__defineGetter__('state',function(){return slaveState;});this.slaveEndpoint_.context.__defineSetter__('state',function(val){slaveState=val;self.update();});this.url=this.slaveEndpoint_.url;this.updateInterval=(spec.pingInterval>=0)?spec.pingInterval:NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS;};util.inherits(SlaveNode,EventEmitter);SlaveNode.prototype.end=function(){this.updateInterval=0;this.slaveEndpoint_.end();if(this.masterClient_&&this.masterClient_.destroy){this.masterClient_.destroy();}
+
+ Line: 185 -  var Cluster=exports.Cluster=function Cluster(spec){EventEmitter.call(this);util.PeriodicUpdater.call(this);var self=this,masterSpec=spec.master||{},slavesSpec=spec.slaves||{hosts:[]},masterHost=spec.master&&spec.master.host||'localhost';self.pingInterval=spec.pingInterval||NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS;self.server=spec.server||HTTP_SERVER;self.masterEndpoint=new Endpoint(self.server,masterHost);self.slaves=new Slaves(self.masterEndpoint,self.pingInterval);self.slaveState_={};self.masterEndpoint.setStaticParams([self.slaves]);self.masterEndpoint.defineMethod('updateSlaveState_',self.updateSlaveState_.bind(self));util.forEach(masterSpec,function(method,val){if(typeof val==='function'){self.masterEndpoint.defineMethod(method,val);}});slavesSpec.hosts.forEach(function(h){self.slaves.add(h);});util.forEach(spec.slaves,function(method,val){if(typeof val==='function'){self.slaves.defineMethod(method,val);self[method]=function(){self.slaves[method].apply(self.slaves,arguments);};}});self.slaves.slaves.forEach(function(s){if(!self.slaveState_[s.id]){self.slaveState_[s.id]={alive:true,aliveSinceLastCheck:false};}});self.slaves.on('start',function(){self.state='started';self.emit('start');});self.slaves.on('end',function(){self.masterEndpoint.end();self.state='stopped';self.emit('end');});self.slaves.on('slaveError',function(slave,err){self.emit('slaveError',slave,err);});if(self.server.running){self.state='initialized';process.nextTick(function(){self.emit('init');});}else{self.state='initializing';self.server.on('start',function(){self.state='initialized';self.emit('init');});}};util.inherits(Cluster,EventEmitter);Cluster.prototype.started=function(){return this.state==='started';};Cluster.prototype.start=function(){if(!this.server.running){throw new Error('A Cluster can only be started after it has emitted \'init\'.');}
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/scripts/jsmin.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 48 -  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/stats.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 487 -      return eval("'" + s + "'");
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/config.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 58 -      NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS = milliseconds;
+
+ Line: 79 -      SLAVE_UPDATE_INTERVAL_MS: 3000,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/loop/loop.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 11 -  /*global setTimeout: false */
+
+ Line: 146 -                  setTimeout(function() { 
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/loop/multiloop.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 44 -          this.endTimeoutId = setTimeout(this.stop.bind(this), this.spec.duration * 1000);
+
+ Line: 136 -          this.updateTimeoutId = setTimeout(this.updater_, timeout);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/remote/cluster.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 73 -      self.pingInterval = spec.pingInterval || NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/remote/remotetesting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 228 -                      eval('specs='+specsStr);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/remote/endpoint.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 104 -  /** The main HTTP request handler. On DELETE /{basepath}, it will self-destruct this endpoint. POST 
+
+ Line: 110 -          if (req.method === 'DELETE') {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/remote/slave.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 40 -      this.pingInterval = pingInterval || NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS;
+
+ Line: 74 -  /** Stop this slave by sending a DELETE request to terminate the slave's endpoint. */
+
+ Line: 77 -          req = self.client.rawRequest('DELETE', self.client.basepath),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/remote/slavenode.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 73 -      // "Compile" the methods by eval()'ing the string in "fun", and add to the endpoint
+
+ Line: 78 -                  eval('fun=' + m.fun);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/remote/slavenode.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 53 -      this.updateInterval = (spec.pingInterval >= 0) ? spec.pingInterval : NODELOAD_CONFIG.SLAVE_UPDATE_INTERVAL_MS;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/util.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 89 -              updateTimeoutId = setInterval(self.update.bind(self), milliseconds);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/loadtesting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 322 -                  timeoutId = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/reporting/summary.tpl.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2 -                var newchart = document.createElement(\"div\");\n                        newchart.setAttribute(\"class\", \"post\");\n                        newchart.innerHTML = [].concat(\n                            '<h2>', report.name, ': ', chart.name, '</h2>',\n                            '<div class=\"entry\" style=\"width:100%;float:left\">',\n                                '<div id=\"chart', chart.uid, '\" style=\"float:left;width:660px;height:200px;\"></div>',\n                                '<div id=\"chartlegend', chart.uid, '\" style=\"float:left;width:80px;height:200px;\"></div>',\n                            '</div>'\n                        ).join('');\n                        main.appendChild(newchart);\n                        graphs[chart.uid] = new Dygraph(\n                            document.getElementById(\"chart\" + chart.uid),\n                            rows,\n                            {\n                                labelsDiv: document.getElementById(\"chartlegend\" + chart.uid),\n                                labelsSeparateLines: true,\n                                labels: chart.columns,\n                                xAxisLabelWidth: 80\n                            });\n                    }\n                }\n            });\n        }\n\n        if(navigator.appName == \"Microsoft Internet Explorer\") { http = new ActiveXObject(\"Microsoft.XMLHTTP\"); } else { http = new XMLHttpRequest(); }\n\n        setInterval(function() {\n            if (document.getElementById(\"chkAutoRefresh\").checked) {\n                http.open(\"GET\", \"/reports\");\n                http.onreadystatechange=function() { \n                    if (http.readyState == 4 && http.status == 200) {\n                        updateDate();\n                        update(JSON.parse(http.responseText));\n                    }\n                }\n                http.send(null);\n            }\n        }, <%=refreshPeriodMs%>);\n        \n        graphs = {};\n        update(<%=JSON.stringify(reports)%>);\n    </script>\n</html>";
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/reporting/dygraph.tpl.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 9 -  x,u.canvasy,m,0,2*Math.PI,false);t.fill()}}}}}d.restore()};Dygraph=function(c,b,a){if(arguments.length>0){if(arguments.length==4){this.warn(\"Using deprecated four-argument dygraph constructor\");this.__old_init__(c,b,arguments[2],arguments[3])}else{this.__init__(c,b,a)}}};Dygraph.NAME=\"Dygraph\";Dygraph.VERSION=\"1.2\";Dygraph.__repr__=function(){return\"[\"+this.NAME+\" \"+this.VERSION+\"]\"};Dygraph.toString=function(){return this.__repr__()};Dygraph.DEFAULT_ROLL_PERIOD=1;Dygraph.DEFAULT_WIDTH=480;Dygraph.DEFAULT_HEIGHT=320;Dygraph.DEFAULT_ATTRS={highlightCircleSize:3,pixelsPerXLabel:60,pixelsPerYLabel:30,labelsDivWidth:250,labelsDivStyles:{},labelsSeparateLines:false,labelsShowZeroValues:true,labelsKMB:false,labelsKMG2:false,showLabelsOnHighlight:true,yValueFormatter:function(d,c){return Dygraph.numberFormatter(d,c)},digitsAfterDecimal:2,maxNumberWidth:6,sigFigs:null,strokeWidth:1,axisTickSize:3,axisLabelFontSize:14,xAxisLabelWidth:50,yAxisLabelWidth:50,xAxisLabelFormatter:Dygraph.dateAxisFormatter,rightGap:5,showRoller:false,xValueFormatter:Dygraph.dateString_,xValueParser:Dygraph.dateParser,xTicker:Dygraph.dateTicker,delimiter:\",\",sigma:2,errorBars:false,fractions:false,wilsonInterval:true,customBars:false,fillGraph:false,fillAlpha:0.15,connectSeparatedPoints:false,stackedGraph:false,hideOverlayOnMouseOut:true,legend:\"onmouseover\",stepPlot:false,avoidMinZero:false,titleHeight:28,xLabelHeight:18,yLabelWidth:18,drawXAxis:true,drawYAxis:true,axisLineColor:\"black\",axisLineWidth:0.3,gridLineWidth:0.3,axisLabelColor:\"black\",axisLabelFont:\"Arial\",axisLabelWidth:50,drawYGrid:true,drawXGrid:true,gridLineColor:\"rgb(128,128,128)\",interactionModel:null};Dygraph.HORIZONTAL=1;Dygraph.VERTICAL=2;Dygraph.addedAnnotationCSS=false;Dygraph.prototype.__old_init__=function(f,d,e,b){if(e!=null){var a=[\"Date\"];for(var c=0;c<e.length;c++){a.push(e[c])}Dygraph.update(b,{labels:a})}this.__init__(f,d,b)};Dygraph.prototype.__init__=function(d,c,b){if(/MSIE/.test(navigator.userAgent)&&!window.opera&&typeof(G_vmlCanvasManager)!=\"undefined\"&&document.readyState!=\"complete\"){var a=thi</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/reporting/report.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 147 -              this.loggingTimeoutId = setTimeout(this.writeToLog_.bind(this), this.refreshIntervalMs);
+
+ Line: 168 -          this.loggingTimeoutId = setTimeout(this.writeToLog_.bind(this), this.refreshIntervalMs);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/reporting/report.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 7 -  var querystring = require('querystring');
+
+ Line: 162 -              querystring: querystring,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/header.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -      querystring = require('querystring'),
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/nl/options.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/monitoring.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -  setTimeout(function() { svr.close(); }, 1000);
+
+ Line: 20 -              setTimeout(function() { opcallback(); }, 25);
+
+ Line: 23 -      setTimeout(function() { callback(conn); }, 75);
+
+ Line: 31 -                  setTimeout(function() { ctx.end(); }, runtime);
+
+ Line: 94 -              setTimeout(obj.run, i * 100);
+
+ Line: 113 -                  setTimeout(function() { self.emit('end'); }, Math.floor(Math.random() * 100));
+
+ Line: 122 -              setTimeout(obj.run, i * 100);
+
+ Line: 183 -                  setTimeout(function() { ctx.end(); }, runtime);
+
+ Line: 190 -              setTimeout(f, i*100);
+
+ Line: 194 -          setTimeout(function() { m.updateInterval = 0; }, 510);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/http.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 6 -  setTimeout(function() { server.stop(); }, 1500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/loop.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 120 -          setTimeout(function() { l.rps = 10; }, 1000);
+
+ Line: 121 -          setTimeout(function() { l.rps = 20; }, 1500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/remote.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 69 -          testTimeout = setTimeout(stopAll, 500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/reporting.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  setTimeout(function() { REPORT_MANAGER.setLoggingEnabled(false); }, 1000);
+
+ Line: 15 -              setTimeout(function() { opcallback(); }, 25);
+
+ Line: 18 -      setTimeout(function() { callback(conn); }, 75);
+
+ Line: 66 -              setTimeout(f, i*50);
+
+ Line: 70 -          setTimeout(function() { m.updateInterval = 0; }, 510);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/util.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 45 -          testTimeout = setTimeout(function() { if (svr) { svr.close(); } }, 2000);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/console/js/console.data.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -          setTimeout(function() { refreshReports(); }, 2000);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/console/js/console.ui.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 65 -      setTimeout(function() { refreshReportGraphs(node); }, 200);
+
+ Line: 285 -          setTimeout(function() { refreshGraphs(); }, 2000);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/console/js/jquery-1.4.2.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -  (function(A,w){function ma(){if(!c.isReady){try{s.documentElement.doScroll("left")}catch(a){setTimeout(ma,1);return}c.ready()}}function Qa(a,b){b.src?c.ajax({url:b.src,async:false,dataType:"script"}):c.globalEval(b.text||b.textContent||b.innerHTML||"");b.parentNode&&b.parentNode.removeChild(b)}function X(a,b,d,f,e,j){var i=a.length;if(typeof b==="object"){for(var o in b)X(a,o,b[o],f,e,d);return a}if(d!==w){f=!j&&f&&c.isFunction(d);for(o=0;o<i;o++)e(a[o],b,f?d.call(a[o],o,e(a[o],b)):d,j);return a}return i?
+
+ Line: 25 -  c.isArray(i))?i:c.isArray(o)?[]:{};a[j]=c.extend(f,i,o)}else if(o!==w)a[j]=o}return a};c.extend({noConflict:function(a){A.$=Sa;if(a)A.jQuery=Ra;return c},isReady:false,ready:function(){if(!c.isReady){if(!s.body)return setTimeout(c.ready,13);c.isReady=true;if(Q){for(var a,b=0;a=Q[b++];)a.call(s,c);Q=null}c.fn.triggerHandler&&c(s).triggerHandler("ready")}},bindReady:function(){if(!xa){xa=true;if(s.readyState==="complete")return c.ready();if(s.addEventListener){s.addEventListener("DOMContentLoaded",
+
+ Line: 26 -  L,false);A.addEventListener("load",c.ready,false)}else if(s.attachEvent){s.attachEvent("onreadystatechange",L);A.attachEvent("onload",c.ready);var a=false;try{a=A.frameElement==null}catch(b){}s.documentElement.doScroll&&a&&ma()}}},isFunction:function(a){return $.call(a)==="[object Function]"},isArray:function(a){return $.call(a)==="[object Array]"},isPlainObject:function(a){if(!a||$.call(a)!=="[object Object]"||a.nodeType||a.setInterval)return false;if(a.constructor&&!aa.call(a,"constructor")&&!aa.call(a.constructor.prototype,
+
+ Line: 29 -  d)===false)break}else for(;e<j;){if(b.apply(a[e++],d)===false)break}else if(i)for(f in a){if(b.call(a[f],f,a[f])===false)break}else for(d=a[0];e<j&&b.call(d,e,d)!==false;d=a[++e]);return a},trim:function(a){return(a||"").replace(Wa,"")},makeArray:function(a,b){b=b||[];if(a!=null)a.length==null||typeof a==="string"||c.isFunction(a)||typeof a!=="function"&&a.setInterval?ba.call(b,a):c.merge(b,a);return b},inArray:function(a,b){if(b.indexOf)return b.indexOf(a);for(var d=0,f=b.length;d<f;d++)if(b[d]===
+
+ Line: 40 -  w)return c.queue(this[0],a);return this.each(function(){var d=c.queue(this,a,b);a==="fx"&&d[0]!=="inprogress"&&c.dequeue(this,a)})},dequeue:function(a){return this.each(function(){c.dequeue(this,a)})},delay:function(a,b){a=c.fx?c.fx.speeds[a]||a:a;b=b||"fx";return this.queue(b,function(){var d=this;setTimeout(function(){c.dequeue(d,b)},a)})},clearQueue:function(a){return this.queue(a||"fx",[])}});var Aa=/[\n\t]/g,ca=/\s+/,Za=/\r/g,$a=/href|src|style/,ab=/(button|input)/i,bb=/(button|input|object|select|textarea)/i,
+
+ Line: 48 -  function(b){return"\\"+b})};c.event={add:function(a,b,d,f){if(!(a.nodeType===3||a.nodeType===8)){if(a.setInterval&&a!==A&&!a.frameElement)a=A;var e,j;if(d.handler){e=d;d=e.handler}if(!d.guid)d.guid=c.guid++;if(j=c.data(a)){var i=j.events=j.events||{},o=j.handle;if(!o)j.handle=o=function(){return typeof c!=="undefined"&&!c.event.triggered?c.event.handle.apply(o.elem,arguments):w};o.elem=a;b=b.split(" ");for(var k,n=0,r;k=b[n++];){j=e?c.extend({},e):{handler:d,data:f};if(k.indexOf(".")>-1){r=k.split(".");
+
+ Line: 57 -  "events").live||[],function(){if(d===this.origType.replace(O,""))return b=false});b&&c.event.remove(this,a.origType,oa)}},beforeunload:{setup:function(a,b,d){if(this.setInterval)this.onbeforeunload=d;return false},teardown:function(a,b){if(this.onbeforeunload===b)this.onbeforeunload=null}}}};var Ca=s.removeEventListener?function(a,b,d){a.removeEventListener(b,d,false)}:function(a,b,d){a.detachEvent("on"+b,d)};c.Event=function(a){if(!this.preventDefault)return new c.Event(a);if(a&&a.type){this.originalEvent=
+
+ Line: 129 -  g("abort")}}catch(l){}e.async&&e.timeout>0&&setTimeout(function(){x&&!E&&g("timeout")},e.timeout);try{x.send(n==="POST"||n==="PUT"||n==="DELETE"?e.data:null)}catch(m){c.handleError(e,x,null,m);d()}e.async||g();return x}},handleError:function(a,b,d,f){if(a.error)a.error.call(a.context||a,b,d,f);if(a.global)(a.context?c(a.context):c.event).trigger("ajaxError",[b,a,f])},active:0,httpSuccess:function(a){try{return!a.status&&location.protocol==="file:"||a.status>=200&&a.status<300||a.status===304||a.status===
+
+ Line: 140 -  this.pos=this.state=0;var e=this;f.elem=this.elem;if(f()&&c.timers.push(f)&&!W)W=setInterval(c.fx.tick,13)},show:function(){this.options.orig[this.prop]=c.style(this.elem,this.prop);this.options.show=true;this.custom(this.prop==="width"||this.prop==="height"?1:0,this.cur());c(this.elem).show()},hide:function(){this.options.orig[this.prop]=c.style(this.elem,this.prop);this.options.hide=true;this.custom(this.cur(),0)},step:function(a){var b=J(),d=true;if(a||b>=this.options.duration+this.startTime){this.now=
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/console/js/jquery-1.4.2.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 129 -  g("abort")}}catch(l){}e.async&&e.timeout>0&&setTimeout(function(){x&&!E&&g("timeout")},e.timeout);try{x.send(n==="POST"||n==="PUT"||n==="DELETE"?e.data:null)}catch(m){c.handleError(e,x,null,m);d()}e.async||g();return x}},handleError:function(a,b,d,f){if(a.error)a.error.call(a.context||a,b,d,f);if(a.global)(a.context?c(a.context):c.event).trigger("ajaxError",[b,a,f])},active:0,httpSuccess:function(a){try{return!a.status&&location.protocol==="file:"||a.status>=200&&a.status<300||a.status===304||a.status===
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/console/js/dygraph-combined.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 9 -  ERIOD=1;Dygraph.DEFAULT_WIDTH=480;Dygraph.DEFAULT_HEIGHT=320;Dygraph.DEFAULT_ATTRS={highlightCircleSize:3,pixelsPerXLabel:60,pixelsPerYLabel:30,labelsDivWidth:250,labelsDivStyles:{},labelsSeparateLines:false,labelsShowZeroValues:true,labelsKMB:false,labelsKMG2:false,showLabelsOnHighlight:true,yValueFormatter:function(d,c){return Dygraph.numberFormatter(d,c)},digitsAfterDecimal:2,maxNumberWidth:6,sigFigs:null,strokeWidth:1,axisTickSize:3,axisLabelFontSize:14,xAxisLabelWidth:50,yAxisLabelWidth:50,xAxisLabelFormatter:Dygraph.dateAxisFormatter,rightGap:5,showRoller:false,xValueFormatter:Dygraph.dateString_,xValueParser:Dygraph.dateParser,xTicker:Dygraph.dateTicker,delimiter:",",sigma:2,errorBars:false,fractions:false,wilsonInterval:true,customBars:false,fillGraph:false,fillAlpha:0.15,connectSeparatedPoints:false,stackedGraph:false,hideOverlayOnMouseOut:true,legend:"onmouseover",stepPlot:false,avoidMinZero:false,titleHeight:28,xLabelHeight:18,yLabelWidth:18,drawXAxis:true,drawYAxis:true,axisLineColor:"black",axisLineWidth:0.3,gridLineWidth:0.3,axisLabelColor:"black",axisLabelFont:"Arial",axisLabelWidth:50,drawYGrid:true,drawXGrid:true,gridLineColor:"rgb(128,128,128)",interactionModel:null};Dygraph.HORIZONTAL=1;Dygraph.VERTICAL=2;Dygraph.addedAnnotationCSS=false;Dygraph.prototype.__old_init__=function(f,d,e,b){if(e!=null){var a=["Date"];for(var c=0;c<e.length;c++){a.push(e[c])}Dygraph.update(b,{labels:a})}this.__init__(f,d,b)};Dygraph.prototype.__init__=function(d,c,b){if(/MSIE/.test(navigator.userAgent)&&!window.opera&&typeof(G_vmlCanvasManager)!="undefined"&&document.readyState!="complete"){var a=this;setTimeout(function(){a.__init__(d,c,b)},100)}if(b==null){b={}}this.maindiv_=d;this.file_=c;this.rollPeriod_=b.rollPeriod||Dygraph.DEFAULT_ROLL_PERIOD;this.previousVerticalX_=-1;this.fractions_=b.fractions||false;this.dateWindow_=b.dateWindow||null;this.wilsonInterval_=b.wilsonInterval||true;this.is_initial_draw_=true;this.annotations_=[];this.zoomed_x_=false;this.zoomed_y_=false;d.innerHTML="";if(d.style.width==""){d.style.width=(b.width||Dygraph.DEFAULT_WIDTH)+"px"}if(d.style.height</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/console/js/jquery-ui-1.8.5.custom.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  NUMPAD_SUBTRACT:109,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SHIFT:16,SPACE:32,TAB:9,UP:38,WINDOWS:91}});c.fn.extend({_focus:c.fn.focus,focus:function(a,b){return typeof a==="number"?this.each(function(){var d=this;setTimeout(function(){c(d).focus();b&&b.call(d)},a)}):this._focus.apply(this,arguments)},scrollParent:function(){var a;a=c.browser.msie&&/(static|relative)/.test(this.css("position"))||/absolute/.test(this.css("position"))?this.parents().filter(function(){return/(relative|absolute|fixed)/.test(c.curCSS(this,
+
+ Line: 45 -  this._mouseUp(a);this._mouseDownEvent=a;var b=this,e=a.which==1,f=typeof this.options.cancel=="string"?c(a.target).parents().add(a.target).filter(this.options.cancel).length:false;if(!e||f||!this._mouseCapture(a))return true;this.mouseDelayMet=!this.options.delay;if(!this.mouseDelayMet)this._mouseDelayTimer=setTimeout(function(){b.mouseDelayMet=true},this.options.delay);if(this._mouseDistanceMet(a)&&this._mouseDelayMet(a)){this._mouseStarted=this._mouseStart(a)!==false;if(!this._mouseStarted){a.preventDefault();
+
+ Line: 262 -  e?0:c.scrollTop()),left:f-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+(d.browser.safari&&this.cssPosition=="fixed"?0:this.cssPosition=="fixed"?-this.scrollParent.scrollLeft():e?0:c.scrollLeft())}},_rearrange:function(a,b,c,e){c?c[0].appendChild(this.placeholder[0]):b.item[0].parentNode.insertBefore(this.placeholder[0],this.direction=="down"?b.item[0]:b.item[0].nextSibling);this.counter=this.counter?++this.counter:1;var f=this,g=this.counter;window.setTimeout(function(){g==
+
+ Line: 314 -  c);break;case d.PAGE_DOWN:a._move("nextPage",c);break;case d.UP:a._move("previous",c);c.preventDefault();break;case d.DOWN:a._move("next",c);c.preventDefault();break;case d.ENTER:case d.NUMPAD_ENTER:a.menu.element.is(":visible")&&c.preventDefault();case d.TAB:if(!a.menu.active)return;a.menu.select(c);break;case d.ESCAPE:a.element.val(a.term);a.close(c);break;default:clearTimeout(a.searching);a.searching=setTimeout(function(){if(a.term!=a.element.val()){a.selectedItem=null;a.search(null,c)}},a.options.delay);
+
+ Line: 315 -  break}}}).bind("focus.autocomplete",function(){if(!a.options.disabled){a.selectedItem=null;a.previous=a.element.val()}}).bind("blur.autocomplete",function(c){if(!a.options.disabled){clearTimeout(a.searching);a.closing=setTimeout(function(){a.close(c);a._change(c)},150)}});this._initSource();this.response=function(){return a._response.apply(a,arguments)};this.menu=e("<ul></ul>").addClass("ui-autocomplete").appendTo(e(this.options.appendTo||"body",b)[0]).mousedown(function(c){var d=a.menu.element[0];
+
+ Line: 316 -  c.target===d&&setTimeout(function(){e(document).one("mousedown",function(f){f.target!==a.element[0]&&f.target!==d&&!e.ui.contains(d,f.target)&&a.close()})},1);setTimeout(function(){clearTimeout(a.closing)},13)}).menu({focus:function(c,d){d=d.item.data("item.autocomplete");false!==a._trigger("focus",null,{item:d})&&/^key/.test(c.originalEvent.type)&&a.element.val(d.value)},selected:function(c,d){d=d.item.data("item.autocomplete");var f=a.previous;if(a.element[0]!==b.activeElement){a.element.focus();
+
+ Line: 343 -  (function(a){var g,i=function(b){a(":ui-button",b.target.form).each(function(){var c=a(this).data("button");setTimeout(function(){c.refresh()},1)})},h=function(b){var c=b.name,d=b.form,e=a([]);if(c)e=d?a(d).find("[name='"+c+"']"):a("[name='"+c+"']",b.ownerDocument).filter(function(){return!this.form});return e};a.widget("ui.button",{options:{disabled:null,text:true,label:null,icons:{primary:null,secondary:null}},_create:function(){this.element.closest("form").unbind("reset.button").bind("reset.button",
+
+ Line: 390 -  function(a){return a+".dialog-overlay"}).join(" "),create:function(a){if(this.instances.length===0){setTimeout(function(){c.ui.dialog.overlay.instances.length&&c(document).bind(c.ui.dialog.overlay.events,function(d){if(c(d.target).zIndex()<c.ui.dialog.overlay.maxZ)return false})},1);c(document).bind("keydown.dialog-overlay",function(d){if(a.options.closeOnEscape&&d.keyCode&&d.keyCode===c.ui.keyCode.ESCAPE){a.close(d);d.preventDefault()}});c(window).bind("resize.dialog-overlay",c.ui.dialog.overlay.resize)}var b=
+
+ Line: 460 -  e){this.anchors.eq(a).removeData("cache.tabs").data("load.tabs",e);return this},length:function(){return this.anchors.length}});d.extend(d.ui.tabs,{version:"1.8.5"});d.extend(d.ui.tabs.prototype,{rotation:null,rotate:function(a,e){var b=this,c=this.options,h=b._rotate||(b._rotate=function(j){clearTimeout(b.rotation);b.rotation=setTimeout(function(){var k=c.selected;b.select(++k<b.anchors.length?k:0)},a);j&&j.stopPropagation()});e=b._unrotate||(b._unrotate=!e?function(j){j.clientX&&b.rotate(null)}:
+
+ Line: 508 -  this._getInst(d(a)[0]);b.input&&b._selectingMonthYear&&setTimeout(function(){b.input.focus()},0);b._selectingMonthYear=!b._selectingMonthYear},_selectDay:function(a,b,c,e){var f=d(a);if(!(d(e).hasClass(this._unselectableClass)||this._isDisabledDatepicker(f[0]))){f=this._getInst(f[0]);f.selectedDay=f.currentDay=d("a",e).html();f.selectedMonth=f.currentMonth=b;f.selectedYear=f.currentYear=c;this._selectDate(a,this._formatDate(f,f.currentDay,f.currentMonth,f.currentYear))}},_clearDate:function(a){a=
+
+ Line: 659 -  e*(i/c)+(a.options.mode=="show"?0:(e-Math.floor(c/2))*(i/c)),opacity:a.options.mode=="show"?1:0},a.duration||500);setTimeout(function(){a.options.mode=="show"?b.css({visibility:"visible"}):b.css({visibility:"visible"}).hide();a.callback&&a.callback.apply(b[0]);b.dequeue();j("div.ui-effects-explode").remove()},a.duration||500)})}})(jQuery);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/console/js/jquery-ui-1.8.5.custom.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -  (function(c,j){function k(a){return!c(a).parents().andSelf().filter(function(){return c.curCSS(this,"visibility")==="hidden"||c.expr.filters.hidden(this)}).length}c.ui=c.ui||{};if(!c.ui.version){c.extend(c.ui,{version:"1.8.5",keyCode:{ALT:18,BACKSPACE:8,CAPS_LOCK:20,COMMA:188,COMMAND:91,COMMAND_LEFT:91,COMMAND_RIGHT:93,CONTROL:17,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,INSERT:45,LEFT:37,MENU:93,NUMPAD_ADD:107,NUMPAD_DECIMAL:110,NUMPAD_DIVIDE:111,NUMPAD_ENTER:108,NUMPAD_MULTIPLY:106,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nl.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -   FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+
+</Result>
+</report_mosca>
+

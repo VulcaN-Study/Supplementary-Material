@@ -1,0 +1,14 @@
+--- index.js	2020-10-23 15:23:52.233267667 +0100
++++ patch.js	2020-10-23 15:25:24.143203458 +0100
+@@ -29,7 +29,10 @@
+   }
+ 
+   if (isWindows) {
+-    exec('taskkill /pid ' + pid + ' /T /F');
++    var reg = new RegExp('^[0-9]+$')
++    if (reg.test(pat)) {
++      exec('taskkill /pid ' + pid + ' /T /F');
++    }
+   } else {
+     var tree = {};
+     tree[pid] = [];

@@ -1,0 +1,238 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "FatalError",
+        "end": {
+          "col": 1,
+          "line": 1
+        },
+        "extra": {
+          "line": "var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {",
+          "message": "Fatal Error: Ast_js_build.UnhandledConstruct(\"reexporting namespace\", _)"
+        },
+        "path": "/src/browser/index.js",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/typeorm-browser.js",
+          "match_lines": [
+            1368,
+            1368
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "                        var r = Math.random() * 16 | 0, v = c === \"x\" ? r : (r & 0x3 | 0x8);"
+        },
+        {
+          "file_path": "/src/typeorm-browser.js",
+          "match_lines": [
+            12780,
+            12780
+          ],
+          "match_position": [
+            49,
+            60
+          ],
+          "match_string": "                        var random = Math.floor(Math.random() * _this.slaves.length);"
+        },
+        {
+          "file_path": "/src/typeorm-browser.js",
+          "match_lines": [
+            16655,
+            16655
+          ],
+          "match_position": [
+            45,
+            56
+          ],
+          "match_string": "                    var random = Math.floor(Math.random() * this.slaves.length);"
+        },
+        {
+          "file_path": "/src/typeorm-browser.js",
+          "match_lines": [
+            18541,
+            18541
+          ],
+          "match_position": [
+            49,
+            60
+          ],
+          "match_string": "                        var random = Math.floor(Math.random() * _this.slaves.length);"
+        },
+        {
+          "file_path": "/src/driver/postgres/PostgresDriver.js",
+          "match_lines": [
+            586,
+            586
+          ],
+          "match_position": [
+            37,
+            48
+          ],
+          "match_string": "            var random = Math.floor(Math.random() * _this.slaves.length);"
+        },
+        {
+          "file_path": "/src/browser/driver/oracle/OracleDriver.js",
+          "match_lines": [
+            430,
+            430
+          ],
+          "match_position": [
+            37,
+            48
+          ],
+          "match_string": "            var random = Math.floor(Math.random() * _this.slaves.length);"
+        },
+        {
+          "file_path": "/src/util/RandomGenerator.js",
+          "match_lines": [
+            135,
+            135
+          ],
+          "match_position": [
+            21,
+            32
+          ],
+          "match_string": "            var r = Math.random() * 16 | 0, v = c === \"x\" ? r : (r & 0x3 | 0x8);"
+        },
+        {
+          "file_path": "/src/driver/sqlserver/SqlServerDriver.js",
+          "match_lines": [
+            452,
+            452
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "        var random = Math.floor(Math.random() * this.slaves.length);"
+        },
+        {
+          "file_path": "/src/browser/driver/postgres/PostgresDriver.js",
+          "match_lines": [
+            584,
+            584
+          ],
+          "match_position": [
+            37,
+            48
+          ],
+          "match_string": "            var random = Math.floor(Math.random() * _this.slaves.length);"
+        },
+        {
+          "file_path": "/src/driver/oracle/OracleDriver.js",
+          "match_lines": [
+            432,
+            432
+          ],
+          "match_position": [
+            37,
+            48
+          ],
+          "match_string": "            var random = Math.floor(Math.random() * _this.slaves.length);"
+        },
+        {
+          "file_path": "/src/browser/util/RandomGenerator.js",
+          "match_lines": [
+            133,
+            133
+          ],
+          "match_position": [
+            21,
+            32
+          ],
+          "match_string": "            var r = Math.random() * 16 | 0, v = c === \"x\" ? r : (r & 0x3 | 0x8);"
+        },
+        {
+          "file_path": "/src/browser/driver/sqlserver/SqlServerDriver.js",
+          "match_lines": [
+            450,
+            450
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "        var random = Math.floor(Math.random() * this.slaves.length);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/typeorm-browser.js",
+          "match_lines": [
+            16982,
+            17006
+          ],
+          "match_position": [
+            21,
+            62
+          ],
+          "match_string": "                    var QueryStream = this.driver.loadStreamDependency();\n\n                    if (this.isReleased)\n\n                        throw new QueryRunnerAlreadyReleasedError_4.QueryRunnerAlreadyReleasedError();\n\n                    return new Promise(function (ok, fail) { return __awaiter(_this, void 0, void 0, function () {\n\n                        var databaseConnection, stream, err_6;\n\n                        return __generator(this, function (_a) {\n\n                            switch (_a.label) {\n\n                                case 0:\n\n                                    _a.trys.push([0, 2, , 3]);\n\n                                    return [4 /*yield*/, this.connect()];\n\n                                case 1:\n\n                                    databaseConnection = _a.sent();\n\n                                    this.driver.connection.logger.logQuery(query, parameters, this);\n\n                                    stream = databaseConnection.query(new QueryStream(query, parameters));\n\n                                    if (onEnd)\n\n                                        stream.on(\"end\", onEnd);\n\n                                    if (onError)\n\n                                        stream.on(\"error\", onError);\n\n                                    ok(stream);\n\n                                    return [3 /*break*/, 3];\n\n                                case 2:\n\n                                    err_6 = _a.sent();\n\n                                    fail(err_6);\n\n                                    return [3 /*break*/, 3];\n\n                                case 3: return [2 /*return*/];"
+        },
+        {
+          "file_path": "/src/driver/postgres/PostgresQueryRunner.js",
+          "match_lines": [
+            232,
+            256
+          ],
+          "match_position": [
+            9,
+            50
+          ],
+          "match_string": "        var QueryStream = this.driver.loadStreamDependency();\n\n        if (this.isReleased)\n\n            throw new QueryRunnerAlreadyReleasedError_1.QueryRunnerAlreadyReleasedError();\n\n        return new Promise(function (ok, fail) { return __awaiter(_this, void 0, void 0, function () {\n\n            var databaseConnection, stream, err_1;\n\n            return __generator(this, function (_a) {\n\n                switch (_a.label) {\n\n                    case 0:\n\n                        _a.trys.push([0, 2, , 3]);\n\n                        return [4 /*yield*/, this.connect()];\n\n                    case 1:\n\n                        databaseConnection = _a.sent();\n\n                        this.driver.connection.logger.logQuery(query, parameters, this);\n\n                        stream = databaseConnection.query(new QueryStream(query, parameters));\n\n                        if (onEnd)\n\n                            stream.on(\"end\", onEnd);\n\n                        if (onError)\n\n                            stream.on(\"error\", onError);\n\n                        ok(stream);\n\n                        return [3 /*break*/, 3];\n\n                    case 2:\n\n                        err_1 = _a.sent();\n\n                        fail(err_1);\n\n                        return [3 /*break*/, 3];\n\n                    case 3: return [2 /*return*/];"
+        },
+        {
+          "file_path": "/src/commands/QueryCommand.js",
+          "match_lines": [
+            92,
+            92
+          ],
+          "match_position": [
+            46,
+            72
+          ],
+          "match_string": "                        return [4 /*yield*/, queryRunner.query(argv._[1])];"
+        },
+        {
+          "file_path": "/src/browser/driver/postgres/PostgresQueryRunner.js",
+          "match_lines": [
+            230,
+            254
+          ],
+          "match_position": [
+            9,
+            50
+          ],
+          "match_string": "        var QueryStream = this.driver.loadStreamDependency();\n\n        if (this.isReleased)\n\n            throw new QueryRunnerAlreadyReleasedError();\n\n        return new Promise(function (ok, fail) { return __awaiter(_this, void 0, void 0, function () {\n\n            var databaseConnection, stream, err_1;\n\n            return __generator(this, function (_a) {\n\n                switch (_a.label) {\n\n                    case 0:\n\n                        _a.trys.push([0, 2, , 3]);\n\n                        return [4 /*yield*/, this.connect()];\n\n                    case 1:\n\n                        databaseConnection = _a.sent();\n\n                        this.driver.connection.logger.logQuery(query, parameters, this);\n\n                        stream = databaseConnection.query(new QueryStream(query, parameters));\n\n                        if (onEnd)\n\n                            stream.on(\"end\", onEnd);\n\n                        if (onError)\n\n                            stream.on(\"error\", onError);\n\n                        ok(stream);\n\n                        return [3 /*break*/, 3];\n\n                    case 2:\n\n                        err_1 = _a.sent();\n\n                        fail(err_1);\n\n                        return [3 /*break*/, 3];\n\n                    case 3: return [2 /*return*/];"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

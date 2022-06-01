@@ -1,0 +1,78 @@
+/src/lib/schema.js-291-    acceptEncoding: Joi.boolean().when('passThrough', { is: true, otherwise: Joi.forbidden() }),
+/src/lib/schema.js:292:    rejectUnauthorized: Joi.boolean(),
+/src/lib/schema.js-293-    xforward: Joi.boolean(),
+##############################################
+/src/lib/proxy.js-20-
+/src/lib/proxy.js:21:    if (options.rejectUnauthorized !== undefined) {
+/src/lib/proxy.js:22:        settings.rejectUnauthorized = options.rejectUnauthorized;
+/src/lib/proxy.js-23-    }
+##############################################
+/src/lib/proxy.js-43-                timeout: settings.timeout,
+/src/lib/proxy.js:44:                rejectUnauthorized: settings.rejectUnauthorized             // in case maxSockets is not specified
+/src/lib/proxy.js-45-            };
+##############################################
+/src/lib/proxy.js-49-            options.agent = protocol === 'http' ? request.server._agents.http :
+/src/lib/proxy.js:50:                (settings.rejectUnauthorized === false ? request.server._agents.insecureAgent : request.server._agents.https);
+/src/lib/proxy.js-51-
+##############################################
+/src/lib/server.js-231-
+/src/lib/server.js:232:        this._agents.insecureAgent = new Https.Agent({ rejectUnauthorized: false });
+/src/lib/server.js:233:        this._agents.insecureAgent.maxSockets = this.settings.maxSockets;
+/src/lib/server.js-234-
+##############################################
+/src/test/response.js-2288-
+/src/test/response.js:2289:                Nipple.get('https://localhost:' + server.info.port, { rejectUnauthorized: false }, function (err, res, body) {
+/src/test/response.js-2290-
+##############################################
+/src/test/response.js-2629-
+/src/test/response.js:2630:            var insecureHandler = function (request, reply) {
+/src/test/response.js-2631-
+##############################################
+/src/test/response.js-2634-
+/src/test/response.js:2635:            server.route({ method: 'GET', path: '/views/insecure', config: { handler: insecureHandler } });
+/src/test/response.js-2636-
+/src/test/response.js:2637:            server.inject('/views/insecure', function (res) {
+/src/test/response.js-2638-
+##############################################
+/src/test/response.js-2655-
+/src/test/response.js:2656:            var insecureHandler = function (request, reply) {
+/src/test/response.js-2657-
+##############################################
+/src/test/response.js-2660-
+/src/test/response.js:2661:            server.route({ method: 'GET', path: '/views/insecure', config: { handler: insecureHandler } });
+/src/test/response.js-2662-
+/src/test/response.js:2663:            server.inject('/views/insecure', function (res) {
+/src/test/response.js-2664-
+##############################################
+/src/test/proxy.js-946-
+/src/test/proxy.js:947:    it('uses rejectUnauthorized to allow proxy to self signed ssl server', function (done) {
+/src/test/proxy.js-948-
+##############################################
+/src/test/proxy.js-963-            var server = new Hapi.Server();
+/src/test/proxy.js:964:            server.route({ method: 'GET', path: '/allow', handler: { proxy: { mapUri: mapSslUri, rejectUnauthorized: false } } });
+/src/test/proxy.js-965-            server.inject('/allow', function (res) {
+##############################################
+/src/test/proxy.js-973-
+/src/test/proxy.js:974:    it('uses rejectUnauthorized to not allow proxy to self signed ssl server', function (done) {
+/src/test/proxy.js-975-
+##############################################
+/src/test/proxy.js-990-            var server = new Hapi.Server();
+/src/test/proxy.js:991:            server.route({ method: 'GET', path: '/reject', handler: { proxy: { mapUri: mapSslUri, rejectUnauthorized: true } } });
+/src/test/proxy.js-992-            server.inject('/reject', function (res) {
+##############################################
+/src/test/proxy.js-999-
+/src/test/proxy.js:1000:    it('the default rejectUnauthorized should not allow proxied server cert to be self signed', function (done) {
+/src/test/proxy.js-1001-
+##############################################
+/src/docs/Reference.md-426-          to avoid receiving an encoded response (e.g. gzipped). Can only be used together with `passThrough`. Defaults to `true` (passing header).
+/src/docs/Reference.md:427:        - `rejectUnauthorized` - sets the `rejectUnauthorized` property on the https [agent](http://nodejs.org/api/https.html#https_https_request_options_callback)
+/src/docs/Reference.md:428:          making the request. This value is only used when the proxied server uses TLS/SSL.  When set it will override the node.js `rejectUnauthorized` property.
+/src/docs/Reference.md-429-          If `false` then ssl errors will be ignored. When `true` the server certificate is verified and an 500 response will be sent when verification fails.
+##############################################
+/src/CHANGELOG.md-86-- [**#1521**](https://github.com/spumko/hapi/issues/1521) Allow plugins to register handler types
+/src/CHANGELOG.md:87:- [**#1551**](https://github.com/spumko/hapi/issues/1551) add an insecureAgent when maxSockets is set, closes #1512
+/src/CHANGELOG.md-88-
+##############################################
+/src/CHANGELOG.md-467-## [**1.6.0**](https://github.com/spumko/hapi/issues?milestone=40&state=closed)
+/src/CHANGELOG.md:468:- [**#891**](https://github.com/spumko/hapi/issues/891) Exposing rejectUnauthorized property on proxy
+/src/CHANGELOG.md-469-

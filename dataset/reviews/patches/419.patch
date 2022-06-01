@@ -1,0 +1,41 @@
+--- package/package.json	2020-10-21 12:51:48.487778858 +0100
++++ patch/package.json	2020-10-21 13:14:33.709786596 +0100
+@@ -3,7 +3,17 @@
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+-  "dependencies": {},
++  "dependencies": {
++    "path": {
++      "version": "0.12.7",
++      "resolved": "https://registry.npmjs.org/path/-/path-0.12.7.tgz",
++      "integrity": "sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=",
++      "requires": {
++        "process": "^0.11.1",
++        "util": "^0.10.3"
++      }
++    }
++  },
+   "devDependencies": {},
+   "scripts": {
+     "test": "echo \"Error: no test specified\" && exit 1"
+--- package/index.js	2020-10-21 13:02:05.653064376 +0100
++++ patch/index.js	2020-10-21 13:12:18.135725939 +0100
+@@ -10,6 +10,7 @@
+ var http=require("http");
+ var url=require("url");
+ var fs=require("fs");
++var p=require("path");
+ //没有写端口号就无法开启服务器，不能写1024以下
+ http.createServer(function(request, response) {
+     //客户端请求之后才会执行此回调函数
+@@ -18,7 +19,8 @@
+     response.write("<meta charset=utf-8>");
+     // response.write("<em>斜体<em>");
+     // response.write("<strong>文件</strong>");
+-    var path="."+url.parse(request.url).pathname;
++    var newurl=p.normalize(request.url);
++    var path="."+url.parse(newurl).pathname;
+     fs.readFile(path,function (error,file) {
+         if(error){
+             response.write("<strong>文件不存在</strong>");

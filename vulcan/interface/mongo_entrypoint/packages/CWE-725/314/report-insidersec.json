@@ -1,0 +1,209 @@
+{
+ "dra": [
+  {
+   "dra": "http://www.w3.org/TR/cors/#resource-processing-model",
+   "type": "url",
+   "file": "/src/lib/plugins/cors.js"
+  },
+  {
+   "dra": "https://github.com/restify/node-restify/issues/284",
+   "type": "url",
+   "file": "/src/lib/plugins/full_response.js"
+  },
+  {
+   "dra": "https://github.com/restify/node-restify/issues/287",
+   "type": "url",
+   "file": "/src/lib/plugins/pre/pause.js"
+  },
+  {
+   "dra": "https://github.com/restify/node-restify/issues/409",
+   "type": "url",
+   "file": "/src/lib/plugins/pre/pause.js"
+  },
+  {
+   "dra": "https://github.com/restify/node-restify/wiki/1.4-to-2.0-Migration-Tips",
+   "type": "url",
+   "file": "/src/lib/plugins/pre/pause.js"
+  },
+  {
+   "dra": "http://en.wikipedia.org/wiki/Token_bucket",
+   "type": "url",
+   "file": "/src/lib/plugins/throttle.js"
+  },
+  {
+   "dra": "http://code.activestate.com/recipes/511490",
+   "type": "url",
+   "file": "/src/lib/plugins/throttle.js"
+  },
+  {
+   "dra": "mcavage@gmail.com",
+   "type": "email",
+   "file": "/src/lib/plugins/throttle.js"
+  },
+  {
+   "dra": "http://tools.ietf.org/html/rfc6265#section-3",
+   "type": "url",
+   "file": "/src/lib/response.js"
+  },
+  {
+   "dra": "http://expressjs.com/guide.html#route-param%20pre-conditions",
+   "type": "url",
+   "file": "/src/lib/server.js"
+  }
+ ],
+ "sast": {
+  "name": "restify",
+  "version": "4.0.4",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "231369 Bytes",
+  "numberOfLines": 7695
+ },
+ "libraries": [
+  {
+   "name": "lru-cache",
+   "current": "^2.5.0"
+  },
+  {
+   "name": "negotiator",
+   "current": "^0.5.1"
+  },
+  {
+   "name": "once",
+   "current": "^1.3.0"
+  },
+  {
+   "name": "backoff",
+   "current": "^2.4.0"
+  },
+  {
+   "name": "csv",
+   "current": "^0.4.0"
+  },
+  {
+   "name": "escape-regexp-component",
+   "current": "^1.0.2"
+  },
+  {
+   "name": "bunyan",
+   "current": "^1.4.0"
+  },
+  {
+   "name": "mime",
+   "current": "^1.2.11"
+  },
+  {
+   "name": "semver",
+   "current": "^4.3.3"
+  },
+  {
+   "name": "tunnel-agent",
+   "current": "^0.4.0"
+  },
+  {
+   "name": "assert-plus",
+   "current": "^0.1.5"
+  },
+  {
+   "name": "keep-alive-agent",
+   "current": "^0.0.1"
+  },
+  {
+   "name": "node-uuid",
+   "current": "^1.4.1"
+  },
+  {
+   "name": "spdy",
+   "current": "^1.26.5"
+  },
+  {
+   "name": "vasync",
+   "current": "1.6.3"
+  },
+  {
+   "name": "verror",
+   "current": "^1.4.0"
+  },
+  {
+   "name": "formidable",
+   "current": "^1.0.14"
+  },
+  {
+   "name": "http-signature",
+   "current": "^0.11.0"
+  },
+  {
+   "name": "qs",
+   "current": "^3.1.0"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 96,
+   "class": "string_client.js (96:31)",
+   "vul_id": "f1192541e8377fd17b4bc1377332e1c8",
+   "method": "var hash = crypto.createHash('md5');",
+   "column": 31,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/clients/string_client.js (96:31)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/clients/index.js",
+    "/lib/clients/json_client.js",
+    "/lib/index.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 172,
+   "class": "string_client.js (172:31)",
+   "vul_id": "2007776e0fad9f8b9c03899c4316941c",
+   "method": "hash = crypto.createHash('md5');",
+   "column": 31,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/clients/string_client.js (172:31)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/clients/index.js",
+    "/lib/clients/json_client.js",
+    "/lib/index.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 86,
+   "class": "body_reader.js (86:27)",
+   "vul_id": "2272a1d28939708e776913ad2d6dabfa",
+   "method": "hash = crypto.createHash('md5');",
+   "column": 27,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/plugins/body_reader.js (86:27)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/index.js",
+    "/lib/plugins/body_parser.js",
+    "/lib/plugins/form_body_parser.js",
+    "/lib/plugins/json_body_parser.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 62,
+   "class": "full_response.js (62:23)",
+   "vul_id": "9f897eb685e32348706501473c0f92e7",
+   "method": "hash = crypto.createHash('md5');",
+   "column": 23,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/plugins/full_response.js (62:23)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/index.js"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,124 @@
+/src/examples/validation.js-39-        { method: 'GET', path: '/test', config: { handler: internals.get, validate: { query: { num: N().min(0) } } } },
+/src/examples/validation.js:40:        { method: 'GET', path: '/test2', config: { handler: internals.get, validate: { query: { p1: S().required().rename('itemId') } } } },
+/src/examples/validation.js-41-        { method: 'GET', path: '/simple', config: { handler: internals.get, validate: { query: { input: S().min(3) } } } }
+##############################################
+/src/README.md-35-// Create a server with a host and port
+/src/README.md:36:var server = Hapi.createServer('localhost', 8000);
+/src/README.md-37-
+##############################################
+/src/bin/hapi-25-    try {
+/src/bin/hapi:26:        manifest = JSON.parse(Fs.readFileSync(manifestPath));
+/src/bin/hapi-27-    }
+##############################################
+/src/lib/payload.js-75-    if (request.route.payload.parse) {
+/src/lib/payload.js:76:        return internals.parse(request, failActionNext);
+/src/lib/payload.js-77-    }
+##############################################
+/src/lib/payload.js-126-    if (output === 'file') {
+/src/lib/payload.js:127:        internals.writeFile(source, request.route.payload.uploads, function (err, path, bytes) {
+/src/lib/payload.js-128-
+##############################################
+/src/lib/payload.js-188-    if (output === 'file') {
+/src/lib/payload.js:189:        internals.writeFile(source, request.route.payload.uploads, function (err, path, bytes) {
+/src/lib/payload.js-190-
+##############################################
+/src/lib/payload.js-249-    if (mime === 'application/x-www-form-urlencoded') {
+/src/lib/payload.js:250:        return next(null, Qs.parse(payload.toString('utf8')));
+/src/lib/payload.js-251-    }
+##############################################
+/src/lib/payload.js-259-    try {
+/src/lib/payload.js:260:        return next(null, JSON.parse(payload.toString('utf8')));
+/src/lib/payload.js-261-    }
+##############################################
+/src/lib/payload.js-287-        if (arrayFields) {
+/src/lib/payload.js:288:            data = Qs.parse(data);
+/src/lib/payload.js-289-        }
+##############################################
+/src/lib/payload.js-348-            pendingFiles[id] = true;
+/src/lib/payload.js:349:            internals.writeFile(part, options.uploads, function (err, path, bytes) {
+/src/lib/payload.js-350-
+##############################################
+/src/lib/payload.js-389-    source.headers = source.headers || request.headers;
+/src/lib/payload.js:390:    form.parse(source);
+/src/lib/payload.js-391-};
+##############################################
+/src/lib/payload.js-408-        file.destroy();
+/src/lib/payload.js:409:        Fs.unlink(path, function (fsErr) {      // Ignore unlink errors
+/src/lib/payload.js-410-
+##############################################
+/src/lib/request.js-158-
+/src/lib/request.js:159:    this.url = Url.parse(url, false);
+/src/lib/request.js:160:    this.url.query = Qs.parse(this.url.query) || {};    // Override parsed value
+/src/lib/request.js-161-    this.query = this.url.query;
+##############################################
+/src/lib/views.js-317-
+/src/lib/views.js:318:    Fs.readFile(template, { encoding: settings.encoding }, function (err, data) {
+/src/lib/views.js-319-
+##############################################
+/src/lib/server.js-177-    if (this.settings.tls) {
+/src/lib/server.js:178:        this.listener = Https.createServer(this.settings.tls, this._dispatch());
+/src/lib/server.js-179-    }
+/src/lib/server.js-180-    else {
+/src/lib/server.js:181:        this.listener = Http.createServer(this._dispatch());
+/src/lib/server.js-182-    }
+##############################################
+/src/lib/state.js-239-                    var decoded = (new Buffer(value, 'base64')).toString('binary');
+/src/lib/state.js:240:                    result = JSON.parse(decoded);
+/src/lib/state.js-241-                    break;
+##############################################
+/src/lib/state.js-245-                case 'form':
+/src/lib/state.js:246:                    result = Querystring.parse(value);
+/src/lib/state.js-247-                    break;
+##############################################
+/src/lib/file.js-95-
+/src/lib/file.js:96:        var fileStream = Fs.createReadStream(filePath);
+/src/lib/file.js-97-        response = response || new internals.Response(path, options, request);
+##############################################
+/src/lib/file.js-145-
+/src/lib/file.js:146:                fileStream._hapi = { gzipped: Fs.createReadStream(gzFile) };
+/src/lib/file.js-147-            }
+##############################################
+/src/lib/response/index.js-150-
+/src/lib/response/index.js:151:                var ifModifiedSince = Date.parse(ifModifiedSinceHeader);
+/src/lib/response/index.js:152:                var lastModified = Date.parse(lastModifiedHeader);
+/src/lib/response/index.js-153-
+##############################################
+/src/test/integration/payload.js-968-                var form = new FormData();
+/src/test/integration/payload.js:969:                form.append('my_file', Fs.createReadStream(path));
+/src/test/integration/payload.js-970-                Nipple.post(server.info.uri + '/file', { payload: form, headers: form.getHeaders() }, function (err, res, payload) { });
+##############################################
+/src/test/integration/payload.js-989-                var form = new FormData();
+/src/test/integration/payload.js:990:                form.append('my_file', Fs.createReadStream(path));
+/src/test/integration/payload.js-991-                Nipple.post(server.info.uri + '/file', { payload: form, headers: form.getHeaders() }, function (err, res, payload) { });
+##############################################
+/src/test/integration/payload.js-1014-            var stats = Fs.statSync(path);
+/src/test/integration/payload.js:1015:            var fileStream = Fs.createReadStream(path);
+/src/test/integration/payload.js-1016-            var fileContents = Fs.readFileSync(path);
+##############################################
+/src/test/integration/proxy.js-340-
+/src/test/integration/proxy.js:341:            Fs.readFile(__dirname + '/../../package.json', { encoding: 'utf8' }, function (err, file) {
+/src/test/integration/proxy.js-342-
+##############################################
+/src/test/integration/server.js-40-
+/src/test/integration/server.js:41:        var server = Hapi.createServer(0);
+/src/test/integration/server.js-42-        server.start(function () {
+##############################################
+/src/test/integration/server.js-75-
+/src/test/integration/server.js:76:        var server = Hapi.createServer(0);
+/src/test/integration/server.js-77-        server.start(function () {
+##############################################
+/src/test/integration/server.js-113-
+/src/test/integration/server.js:114:        var server = Hapi.createServer(0);
+/src/test/integration/server.js-115-        server.start(function () {
+##############################################
+/src/test/integration/server.js-161-
+/src/test/integration/server.js:162:        var server = Hapi.createServer(0);
+/src/test/integration/server.js-163-        server.start(function () {
+##############################################
+/src/docs/Reference.md-136-var Hapi = require('hapi');
+/src/docs/Reference.md:137:var server = Hapi.createServer('localhost', 8000, { cors: true });
+/src/docs/Reference.md-138-```
+##############################################
+/src/docs/Reference.md-1910-    try {
+/src/docs/Reference.md:1911:        result = JSON.parse(request.query.value);
+/src/docs/Reference.md-1912-    }

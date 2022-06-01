@@ -1,0 +1,31 @@
+/src/package.json-43-      "no-mixed-operators": 0,
+/src/package.json:44:      "no-eval": 0
+/src/package.json-45-    }
+##############################################
+/src/censorfn.js-15-    }
+/src/censorfn.js:16:    if (value.name === 'eval' && value('a => a')(unreachableSymbol) === unreachableSymbol || value === eval) {
+/src/censorfn.js:17:      throw new CensorStop('eval')
+/src/censorfn.js-18-    }
+/src/censorfn.js-19-    if (value.name === 'GeneratorFunction' && typeof value === 'function' || value === GeneratorFunction) {
+/src/censorfn.js:20:      throw new CensorStop('eval')
+/src/censorfn.js-21-    }
+##############################################
+/src/test/index.js-8-describe('value-censorship', () => {
+/src/test/index.js:9:  it('can run code and censor eval, Function and require', () => {
+/src/test/index.js-10-    assert.equal(censor('return 42'), 42)
+/src/test/index.js-11-    assert.equal(censor('function foo () { return 42 }; return foo()'), 42)
+/src/test/index.js:12:    assert.throws(() => censor(identity + 'return x(eval)'))
+/src/test/index.js-13-    assert.throws(() => censor(identity + 'return x(Function)'))
+##############################################
+/src/test/index.js-21-  })
+/src/test/index.js:22:  it('disallows eval', () => {
+/src/test/index.js:23:    assert.throws(() => censor('eval("666")'))
+/src/test/index.js-24-  })
+/src/test/index.js:25:  it('disallows getting eval from global', () => {
+/src/test/index.js-26-    assert.throws(() => censor('global["eva" + "l"]')('42'))
+##############################################
+/src/test/index.js-40-describe('censorFn', () => {
+/src/test/index.js:41:  it('censors require, function and eval', () => {
+/src/test/index.js-42-    assert.throws(() => censorFn(Function), censor.CensorStop)
+/src/test/index.js:43:    assert.throws(() => censorFn(eval), censor.CensorStop)
+/src/test/index.js-44-    assert.throws(() => censorFn(require), censor.CensorStop)

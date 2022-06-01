@@ -1,0 +1,89 @@
+/src/README.md-87-
+/src/README.md:88:#### useragent.parse(useragent string[, js useragent]);
+/src/README.md-89-
+##############################################
+/src/README.md-102-```js
+/src/README.md:103:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-104-
+/src/README.md-105-// example for parsing both the useragent header and a optional js useragent
+/src/README.md:106:var agent2 = useragent.parse(req.headers['user-agent'], req.query.jsuseragent);
+/src/README.md-107-```
+##############################################
+/src/README.md-141-```js
+/src/README.md:142:var agent = useragent.parse(req.headers['user-agent'])
+/src/README.md-143-  , another = useragent.fromJSON(JSON.stringify(agent));
+##############################################
+/src/README.md-213-```js
+/src/README.md:214:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-215-agent.toAgent(); // 'Chrome 15.0.874'
+##############################################
+/src/README.md-223-```js
+/src/README.md:224:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-225-agent.toString(); // 'Chrome 15.0.874 / Mac OS X 10.8.1'
+##############################################
+/src/README.md-235-```js
+/src/README.md:236:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-237-agent.toVersion(); // '15.0.874'
+##############################################
+/src/README.md-246-```js
+/src/README.md:247:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-248-agent.toJSON(); // returns an object
+##############################################
+/src/README.md-257-```js
+/src/README.md:258:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-259-agent.os.toString(); // 'Mac OSX 10.8.1'
+##############################################
+/src/README.md-266-```js
+/src/README.md:267:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-268-agent.os.toVersion(); // '10.8.1'
+##############################################
+/src/README.md-277-```js
+/src/README.md:278:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-279-agent.os.toJSON(); // returns an object
+##############################################
+/src/README.md-288-```js
+/src/README.md:289:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-290-agent.device.toString(); // 'Asus A100'
+##############################################
+/src/README.md-297-```js
+/src/README.md:298:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-299-agent.device.toVersion(); // '' , no version found but could also be '0.0.0'
+##############################################
+/src/README.md-308-```js
+/src/README.md:309:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-310-agent.device.toJSON(); // returns an object
+##############################################
+/src/README.md-354-```js
+/src/README.md:355:var agent = useragent.parse(req.headers['user-agent']);
+/src/README.md-356-agent.satisfies('15.x || >=19.5.0 || 25.0.0 - 17.2.3'); // true
+##############################################
+/src/README.md-377-- `useragent.browser(ua)` has been renamed to `useragent.is(ua)`.
+/src/README.md:378:- `useragent.parser(ua, jsua)` has been renamed to `useragent.parse(ua, jsua)`.
+/src/README.md-379-- `result.pretty()` has been renamed to `result.toAgent()`.
+##############################################
+/src/index.js-514-  if (cached) return cached;
+/src/index.js:515:  LRU.set(key, (cached = exports.parse(userAgent, jsAgent)));
+/src/index.js-516-
+##############################################
+/src/index.js-588-exports.fromJSON = function fromJSON(details) {
+/src/index.js:589:  if (typeof details === 'string') details = JSON.parse(details);
+/src/index.js-590-
+##############################################
+/src/lib/update.js-24-  // Prepend local additions that are missing from the source
+/src/lib/update.js:25:  fs.readFile(exports.before, 'utf8', function reading(err, before) {
+/src/lib/update.js-26-    if (err) return callback(err);
+##############################################
+/src/lib/update.js-33-      // Append get some local additions that are missing from the source
+/src/lib/update.js:34:      fs.readFile(exports.after, 'utf8', function reading(err, after) {
+/src/lib/update.js-35-        if (err) return callback(err);
+##############################################
+/src/lib/update.js-37-        // Parse the contents
+/src/lib/update.js:38:        exports.parse([ before, remote, after ], function parsing(err, results, source) {
+/src/lib/update.js-39-          callback(err, results);
+##############################################
+/src/lib/update.js-48-
+/src/lib/update.js:49:            fs.writeFile(tempFilePath, source, function idk(err) {
+/src/lib/update.js-50-              if (err) return
+/src/lib/update.js-51-
+/src/lib/update.js:52:              fs.rename(tempFilePath, exports.output, function(err) {
+/src/lib/update.js-53-

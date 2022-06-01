@@ -1,0 +1,93 @@
+{
+    "advisory": {
+        "id": 1338,
+        "cwe": "CWE-693"
+    },
+    "correct_cwe": "CWE-693",
+    "correct_package_link": "https://registry.npmjs.org/notevil/-/notevil-1.3.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 15,
+                    "code": "function safeEval(src, parentContext){"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 18,
+                    "code": "  return finalValue(evaluateAst(tree, context))"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 45,
+                    "code": "function evaluateAst(tree, context){"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 53,
+                    "code": "return walk(tree)"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 70,
+                    "code": "  function walk(node, traceNode){"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 340,
+                    "code": "return finalValue(blockContext[node.name])"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://www.npmjs.com/advisories/1338"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/mmckegg/notevil/commit/d699f21d98124f90e7c6b8f09c35650c26e27d01"
+        },
+        {
+            "url": "https://github.com/mmckegg/notevil/commit/1096348767ecf1689a786e114981ee518f86427d"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

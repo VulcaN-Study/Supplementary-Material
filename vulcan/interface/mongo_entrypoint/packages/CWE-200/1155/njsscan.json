@@ -1,0 +1,48 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/common.js",
+          "match_lines": [
+            290,
+            469
+          ],
+          "match_position": [
+            5,
+            22
+          ],
+          "match_string": "    var so = instance.options()\n\n    var test = so.test\n\n\n\n    // undead is only for testing, do not use in production\n\n    var undead = (so.debug && so.debug.undead) || (err && err.undead)\n\n    var full =\n\n      (so.debug && so.debug.print && 'full' === so.debug.print.fatal) || false\n\n\n\n    if (0 < diecount) {\n\n      if (!undead) {\n\n        throw error(err, '[DEATH LOOP] die count: ' + diecount)\n\n      }\n\n      return\n\n    } else {\n\n      diecount++\n\n    }\n\n\n\n    try {\n\n      if (!err) {\n\n        err = new Error('unknown')\n\n      } else if (!Util.isError(err)) {\n\n        err = new Error(_.isString(err) ? err : Util.inspect(err))\n\n      }\n\n\n\n      err.fatal$ = true\n\n\n\n      var logdesc = {\n\n        kind: ctxt.txt || 'fatal',\n\n        level: ctxt.level || 'fatal',\n\n        plugin: ctxt.plugin,\n\n        tag: ctxt.tag,\n\n        id: ctxt.id,\n\n        code: err.code || 'fatal',\n\n        notice: err.message,\n\n        err: err,\n\n        callpoint: ctxt.callpoint && ctxt.callpoint()\n\n      }\n\n\n\n      instance.log.fatal.call(instance, logdesc)\n\n\n\n      var stack = err.stack || ''\n\n      stack = stack\n\n        .substring(stack.indexOf('\\n') + 5)\n\n        .replace(/\\n\\s+/g, '\\n               ')\n\n\n\n      var procdesc =\n\n        'pid=' +\n\n        process.pid +\n\n        ', arch=' +\n\n        process.arch +\n\n        ', platform=' +\n\n        process.platform +\n\n        (!full ? '' : ', path=' + process.execPath) +\n\n        ', argv=' +\n\n        Util.inspect(process.argv).replace(/\\n/g, '') +\n\n        (!full ? '' : ', env=' + Util.inspect(process.env).replace(/\\n/g, ''))\n\n\n\n      var when = new Date()\n\n\n\n      var stderrmsg =\n\n        '\\n\\n' +\n\n        '=== SENECA FATAL ERROR ===' +\n\n        '\\nMESSAGE   :::  ' +\n\n        err.message +\n\n        '\\nCODE      :::  ' +\n\n        err.code +\n\n        '\\nINSTANCE  :::  ' +\n\n        instance.toString() +\n\n        '\\nDETAILS   :::  ' +\n\n        Util.inspect(\n\n          full ? err.details : _.omit(clean(err.details), ['instance']),\n\n          { depth: null }\n\n        ).replace(/\\n/g, '\\n               ') +\n\n        '\\nSTACK     :::  ' +\n\n        stack +\n\n        '\\nWHEN      :::  ' +\n\n        when.toISOString() +\n\n        ', ' +\n\n        when.getTime() +\n\n        '\\nLOG       :::  ' +\n\n        Jsonic.stringify(logdesc) +\n\n        '\\nNODE      :::  ' +\n\n        process.version +\n\n        ', ' +\n\n        process.title +\n\n        (!full\n\n          ? ''\n\n          : ', ' +\n\n            Util.inspect(process.versions).replace(/\\s+/g, ' ') +\n\n            ', ' +\n\n            Util.inspect(process.features).replace(/\\s+/g, ' ') +\n\n            ', ' +\n\n            Util.inspect(process.moduleLoadList).replace(/\\s+/g, ' ')) +\n\n        '\\nPROCESS   :::  ' +\n\n        procdesc +\n\n        '\\nFOLDER    :::  ' +\n\n        process.env.PWD\n\n\n\n      if (so.errhandler) {\n\n        so.errhandler.call(instance, err)\n\n      }\n\n\n\n      if (instance.flags.closed) {\n\n        return\n\n      }\n\n\n\n      if (!undead) {\n\n        instance.act('role:seneca,info:fatal,closing$:true', { err: err })\n\n\n\n        instance.close(\n\n          // terminate process, err (if defined) is from seneca.close\n\n          function(close_err) {\n\n            if (!undead) {\n\n              process.nextTick(function() {\n\n                if (close_err) {\n\n                  instance.log.fatal({\n\n                    kind: 'close',\n\n                    err: Util.inspect(close_err)\n\n                  })\n\n                }\n\n\n\n                if (test) {\n\n                  if (close_err) {\n\n                    Print.err(close_err)\n\n                  }\n\n\n\n                  Print.err(stderrmsg)\n\n                  Print.err(\n\n                    '\\nSENECA TERMINATED at ' +\n\n                      new Date().toISOString() +\n\n                      '. See above for error report.\\n'\n\n                  )\n\n                }\n\n\n\n                so.system.exit(1)\n\n              })\n\n            }\n\n          }\n\n        )\n\n      }\n\n\n\n      // make sure we close down within options.death_delay seconds\n\n      if (!undead) {\n\n        var killtimer = setTimeout(function() {\n\n          instance.log.fatal({ kind: 'close', timeout: true })\n\n\n\n          if (so.test) {\n\n            Print.err(stderrmsg)\n\n            Print.err(\n\n              '\\n\\nSENECA TERMINATED (on timeout) at ' +\n\n                new Date().toISOString() +\n\n                '.\\n\\n'\n\n            )\n\n          }\n\n\n\n          so.system.exit(2)\n\n        }, so.death_delay)\n\n\n\n        if (killtimer.unref) {\n\n          killtimer.unref()\n\n        }\n\n      }\n\n    } catch (panic) {\n\n      this.log.fatal({\n\n        kind: 'panic',\n\n        panic: Util.inspect(panic),\n\n        orig: arguments[0]\n\n      })\n\n\n\n      if (so.test) {\n\n        var msg =\n\n          '\\n\\n' +\n\n          'Seneca Panic\\n' +\n\n          '============\\n\\n' +\n\n          panic.stack +\n\n          '\\n\\nOriginal Error:\\n' +\n\n          (arguments[0] && arguments[0].stack\n\n            ? arguments[0].stack\n\n            : arguments[0])\n\n        Print.err(msg)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

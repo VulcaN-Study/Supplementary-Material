@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 561,
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/serve/-/serve-6.4.8.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/server.js",
+                    "lineno": 59,
+                    "code": "const { pathname } = parse(req.url)"
+                },
+                "sink": {
+                    "file": "lib/server.js",
+                    "lineno": 163,
+                    "code": "return stream(req, indexPath, streamOptions).pipe(res)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/307666"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/vercel/serve/pull/316"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

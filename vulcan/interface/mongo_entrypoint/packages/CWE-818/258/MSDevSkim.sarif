@@ -1,0 +1,430 @@
+{
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "devskim",
+        "fullName": "Microsoft DevSkim Command Line Interface",
+        "version": "0.4.109+4fce942601"
+      },
+      "results": [
+        {
+          "ruleId": "DS137138",
+          "level": "error",
+          "message": "Insecure URL",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/install.sh",
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 35,
+                  "endLine": 4,
+                  "endColumn": 41,
+                  "offset": 125,
+                  "length": 6
+                }
+              }
+            }
+          ],
+          "snippet": "http:/",
+          "fixes": [
+            {
+              "description": "Change to HTTPS ",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/install.sh",
+                  "replacements": [
+                    {
+                      "offset": 125,
+                      "deletedLength": 6,
+                      "insertedBytes": "http:/"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["ThreatModel.Integration.HTTP"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/dhcpv6.h",
+                "region": {
+                  "startLine": 934,
+                  "startColumn": 14,
+                  "endLine": 934,
+                  "endColumn": 71,
+                  "offset": 25709,
+                  "length": 57
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(&buffer[index], &uint16_t_buffer, sizeof(uint16_t)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/dhcpv6.h",
+                  "replacements": [
+                    {
+                      "offset": 25709,
+                      "deletedLength": 57,
+                      "insertedBytes": "memcpy_s(&buffer[index], <size of &buffer[index]>,  &uint16_t_buffer,  sizeof(uint16_t)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/dhcpv6.h",
+                "region": {
+                  "startLine": 950,
+                  "startColumn": 14,
+                  "endLine": 950,
+                  "endColumn": 57,
+                  "offset": 26223,
+                  "length": 43
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(&size, ptr + index, sizeof(uint16_t)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/dhcpv6.h",
+                  "replacements": [
+                    {
+                      "offset": 26223,
+                      "deletedLength": 43,
+                      "insertedBytes": "memcpy_s(&size, <size of &size>,  ptr + index,  sizeof(uint16_t)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 10,
+                  "endLine": 51,
+                  "endColumn": 45,
+                  "offset": 1795,
+                  "length": 35
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(output_buffer, buffer, size)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                  "replacements": [
+                    {
+                      "offset": 1795,
+                      "deletedLength": 35,
+                      "insertedBytes": "memcpy_s(output_buffer, <size of output_buffer>,  buffer,  size)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 10,
+                  "endLine": 56,
+                  "endColumn": 46,
+                  "offset": 1917,
+                  "length": 36
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(&value, buffer, sizeof(value)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                  "replacements": [
+                    {
+                      "offset": 1917,
+                      "deletedLength": 36,
+                      "insertedBytes": "memcpy_s(&value, <size of &value>,  buffer,  sizeof(value)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 10,
+                  "endLine": 60,
+                  "endColumn": 35,
+                  "offset": 2043,
+                  "length": 25
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(buffer, ptr, size)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                  "replacements": [
+                    {
+                      "offset": 2043,
+                      "deletedLength": 25,
+                      "insertedBytes": "memcpy_s(buffer, <size of buffer>,  ptr,  size)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 10,
+                  "endLine": 65,
+                  "endColumn": 46,
+                  "offset": 2156,
+                  "length": 36
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(buffer, &value, sizeof(value)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/memory_helpers.h",
+                  "replacements": [
+                    {
+                      "offset": 2156,
+                      "deletedLength": 36,
+                      "insertedBytes": "memcpy_s(buffer, <size of buffer>,  &value,  sizeof(value)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/pdu_option.h",
+                "region": {
+                  "startLine": 289,
+                  "startColumn": 18,
+                  "endLine": 289,
+                  "endColumn": 65,
+                  "offset": 10025,
+                  "length": 47
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(&output.first, opt.data_ptr(), sizeof(T)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/pdu_option.h",
+                  "replacements": [
+                    {
+                      "offset": 10025,
+                      "deletedLength": 47,
+                      "insertedBytes": "memcpy_s(&output.first, <size of &output.first>,  opt.data_ptr(),  sizeof(T)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS121708",
+          "level": "warning",
+          "message": "Problematic C function detected (memcpy)",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/pdu_option.h",
+                "region": {
+                  "startLine": 290,
+                  "startColumn": 18,
+                  "endLine": 290,
+                  "endColumn": 78,
+                  "offset": 10092,
+                  "length": 60
+                }
+              }
+            }
+          ],
+          "snippet": "memcpy(&output.second, opt.data_ptr() + sizeof(T), sizeof(U)",
+          "fixes": [
+            {
+              "description": "Change to memcpy_s (Recommended for VC++)",
+              "fileChanges": [
+                {
+                  "uri": "file:///src/c++/include/tins/pdu_option.h",
+                  "replacements": [
+                    {
+                      "offset": 10092,
+                      "deletedLength": 60,
+                      "insertedBytes": "memcpy_s(&output.second, <size of &output.second>,  opt.data_ptr() + sizeof(T),  sizeof(U)"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "tags": ["API.DangerousAPI.ProblematicFunction"]
+          }
+        },
+        {
+          "ruleId": "DS187371",
+          "level": "error",
+          "message": "A weak cipher mode of operation was used",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///src/c++/include/tins/dot11/dot11_base.h",
+                "region": {
+                  "startLine": 164,
+                  "startColumn": 9,
+                  "endLine": 164,
+                  "endColumn": 12,
+                  "offset": 4156,
+                  "length": 3
+                }
+              }
+            }
+          ],
+          "snippet": "CTS",
+          "properties": {
+            "tags": ["Cryptography.Symmetric.CipherMode.Weak"]
+          }
+        }
+      ],
+      "rules": {
+        "DS137138": {
+          "id": "DS137138",
+          "name": "Insecure URL",
+          "fullDescription": "An HTTP-based URL without TLS was detected.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS137138.md"
+        },
+        "DS121708": {
+          "id": "DS121708",
+          "name": "Problematic C function detected (memcpy)",
+          "fullDescription": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer",
+          "defaultLevel": "warning",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS121708.md"
+        },
+        "DS187371": {
+          "id": "DS187371",
+          "name": "A weak cipher mode of operation was used",
+          "fullDescription": "A potentially weak cipher mode of operation was used.",
+          "defaultLevel": "error",
+          "helpUri": "https://github.com/Microsoft/DevSkim/blob/master/guidance/DS187371.md"
+        }
+      }
+    }
+  ]
+}

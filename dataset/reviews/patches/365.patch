@@ -1,0 +1,23 @@
+--- index.js	2016-05-16 22:53:53.000000000 -0400
++++ index.js	2020-10-30 10:27:47.656000000 -0400
+@@ -1,12 +1,16 @@
+ var http=require("http");
+ var fs=require("fs");
++const path = require("path")
+ http.createServer(function (request,reponse) {
+-    var path="./"+request.url;
+-    fs.readFile(path,function (error,data) {
++     var basePath="./"
++     var unsafeSuffix = request.url;
++     var safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, '');
++     var safePath = path.join(basePath, safeSuffix);
++    fs.readFile(safePath,function (error,data) {
+         if(error){
+             reponse.end("this url is not found");
+         }else{
+             reponse.end(data);
+         }
+     })
+-}).listen("8888");
+\ No newline at end of file
++}).listen("8888");

@@ -1,0 +1,79 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 5
+        },
+        "extra": {
+          "line": "!.npmignore\r",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 5
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 19,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright (c) 2016, Project contributors.",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 15,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/dist/client.js",
+          "match_lines": [
+            206,
+            206
+          ],
+          "match_position": [
+            41,
+            83
+          ],
+          "match_string": "        var timeout = options.timeout ? setTimeout(timeoutHandler, options.timeout) : null;"
+        },
+        {
+          "file_path": "/src/lib/client.js",
+          "match_lines": [
+            205,
+            205
+          ],
+          "match_position": [
+            44,
+            86
+          ],
+          "match_string": "        const timeout = (options.timeout ? setTimeout(timeoutHandler, options.timeout) : null);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,97 @@
+<report_mosca>
+ <Path>/src/lib/uri-template.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 15 -    var queryParameters = arguments.length <= 3 || arguments[3] === undefined ? [] : arguments[3];
+
+ Line: 19 -      // the ones marked as query parameters are relevant though
+
+ Line: 26 -      var queryParameterNames = queryParameters.map(function (parameter) {
+
+ Line: 31 -      var parameterNames = _lodash2['default'].uniq([].concat(pathObjectParameterNames, queryParameterNames));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/parser.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 783 -          var queryParameters = transitionParameters.filter(function (parameter) {
+
+ Line: 790 -          var hrefForTransition = (0, _uriTemplate2['default'])(_this8.basePath, href, resourceParameters, queryParameters);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/uri-template.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -      context('when the path object parameters are not query parameters', () => {
+
+ Line: 18 -        const queryParameters = [
+
+ Line: 28 -            description: 'For tests. Unknown type of query parameter.',
+
+ Line: 36 -          const hrefForResource = buildUriTemplate(basePath, href, pathObjectParameters, queryParameters);
+
+ Line: 41 -      context('when there are no query parameters but have one path object parameter', () => {
+
+ Line: 53 -        const queryParameters = [];
+
+ Line: 56 -          const hrefForResource = buildUriTemplate(basePath, href, pathObjectParameters, queryParameters);
+
+ Line: 61 -      context('when there are query parameters defined', () => {
+
+ Line: 73 -        const queryParameters = [
+
+ Line: 83 -            description: 'For tests. Unknown type of query parameter.',
+
+ Line: 91 -          const hrefForResource = buildUriTemplate(basePath, href, pathObjectParameters, queryParameters);
+
+ Line: 99 -        const queryParameters = [
+
+ Line: 110 -          const hrefForResource = buildUriTemplate(basePath, href, [], queryParameters);
+
+ Line: 127 -        const queryParameters = [
+
+ Line: 137 -        it('only adds one to the query parameters', () => {
+
+ Line: 138 -          const hrefForResource = buildUriTemplate(basePath, href, pathObjectParameters, queryParameters);
+
+ Line: 143 -      context('when there are no query parameters defined', () => {
+
+ Line: 155 -        const queryParameters = [];
+
+ Line: 158 -          const hrefForResource = buildUriTemplate(basePath, href, pathObjectParameters, queryParameters);
+
+ Line: 164 -    context('when there are query parameters but no path object parameters', () => {
+
+ Line: 168 -      const queryParameters = [
+
+ Line: 178 -          description: 'For tests. Unknown type of query parameter.',
+
+ Line: 186 -        const hrefForResource = buildUriTemplate(basePath, href, pathObjectParameters, queryParameters);
+
+ Line: 191 -    context('when there are no query or path object parameters', () => {
+
+ Line: 195 -      const queryParameters = [];
+
+ Line: 198 -        const hrefForResource = buildUriTemplate(basePath, href, pathObjectParameters, queryParameters);
+
+</Result>
+</report_mosca>
+

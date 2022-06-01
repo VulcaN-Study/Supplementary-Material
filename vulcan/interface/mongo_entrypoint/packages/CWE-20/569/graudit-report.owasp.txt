@@ -1,0 +1,58 @@
+/src/src/html-janitor.js-42-  HTMLJanitor.prototype.clean = function (html) {
+/src/src/html-janitor.js:43:    var sandbox = document.createElement('div');
+/src/src/html-janitor.js-44-    sandbox.innerHTML = html;
+##############################################
+/src/src/html-janitor.js-140-  function createTreeWalker(node) {
+/src/src/html-janitor.js:141:    return document.createTreeWalker(node,
+/src/src/html-janitor.js-142-                                     NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT,
+##############################################
+/src/test/janitor.spec.js-48-    it('should clean attributes not in the whitelist', function () {
+/src/test/janitor.spec.js:49:      var p = document.createElement('p');
+/src/test/janitor.spec.js-50-      p.setAttribute('style', 'font-size: 16px;');
+##############################################
+/src/test/janitor.spec.js-55-    it('should not clean attributes in the whitelist', function () {
+/src/test/janitor.spec.js:56:      var p = document.createElement('p');
+/src/test/janitor.spec.js-57-      p.setAttribute('foo', 'true');
+##############################################
+/src/test/janitor.spec.js-64-    it('should remove elements not in the whitelist', function () {
+/src/test/janitor.spec.js:65:      var aside = document.createElement('aside');
+/src/test/janitor.spec.js:66:      var p = document.createElement('p');
+/src/test/janitor.spec.js-67-      aside.appendChild(p);
+##############################################
+/src/test/janitor.spec.js-71-    it('should not keep the inner text of a script element', function () {
+/src/test/janitor.spec.js:72:      var script = document.createElement('script');
+/src/test/janitor.spec.js:73:      script.innerText = 'window.alert(\'foo\');';
+/src/test/janitor.spec.js-74-      expect(janitor.clean(script.outerHTML)).toBe('');
+##############################################
+/src/test/janitor.spec.js-77-    it('should not keep the inner text of a style element', function () {
+/src/test/janitor.spec.js:78:      var style = document.createElement('style');
+/src/test/janitor.spec.js-79-      style.innerText = '.foo {}';
+##############################################
+/src/test/janitor.spec.js-83-    it('should clean invalid markup', function () {
+/src/test/janitor.spec.js:84:      var b = document.createElement('b');
+/src/test/janitor.spec.js:85:      var p = document.createElement('p');
+/src/test/janitor.spec.js-86-      b.appendChild(p);
+##############################################
+/src/test/janitor.spec.js-90-    it('should clean paragraphs in lists', function () {
+/src/test/janitor.spec.js:91:      var ul = document.createElement('ul');
+/src/test/janitor.spec.js-92-      ul.innerHTML = '<li><p>Some text</p></li>';
+##############################################
+/src/test/janitor.spec.js-96-    it('should remove comments', function () {
+/src/test/janitor.spec.js:97:      var p = document.createElement('p');
+/src/test/janitor.spec.js-98-      p.innerHTML = 'Hello <b>world</b> <!-- a salutation -->!';
+##############################################
+/src/test/janitor.spec.js-161-    it('should allow all attributes for elements with catch-all whitelist', function () {
+/src/test/janitor.spec.js:162:      var el = document.createElement('small');
+/src/test/janitor.spec.js-163-      el.setAttribute('data-test', 'true');
+##############################################
+/src/test/janitor.spec.js-165-
+/src/test/janitor.spec.js:166:      var outputEl = document.createElement('div');
+/src/test/janitor.spec.js-167-      outputEl.innerHTML = janitor.clean(el.outerHTML);
+##############################################
+/src/test/janitor.spec.js-183-    it('should remove an element if blacklisted', function() {
+/src/test/janitor.spec.js:184:        var el = document.createElement('figure');
+/src/test/janitor.spec.js-185-        el.setAttribute('class', 'test');
+##############################################
+/src/example.js-9-
+/src/example.js:10:  var p = document.createElement('p');
+/src/example.js-11-  p.setAttribute('style', 'font-size: 16px;');

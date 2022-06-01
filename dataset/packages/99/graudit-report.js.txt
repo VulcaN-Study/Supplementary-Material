@@ -1,0 +1,121 @@
+/src/History.md-58-  * bump `ws` for several improvements
+/src/History.md:59:  * fix rejectUnauthorized bug
+/src/History.md-60-  * websocket: improve firing of `drain` in websocket transport
+##############################################
+/src/README.md-220-      - `ciphers` (`String`): A string describing the ciphers to use or exclude. Consult the [cipher format list](http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT) for details on the format. Can be used in Node.js client environment to manually specify certificate information.
+/src/README.md:221:      - `rejectUnauthorized` (`Boolean`): If true, the server certificate is verified against the list of supplied CAs. An 'error' event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent. Can be used in Node.js client environment to manually specify certificate information.
+/src/README.md-222-      - `perMessageDeflate` (`Object|Boolean`): parameters of the WebSocket permessage-deflate extension
+##############################################
+/src/lib/transport.js-40-  this.ciphers = opts.ciphers;
+/src/lib/transport.js:41:  this.rejectUnauthorized = opts.rejectUnauthorized;
+/src/lib/transport.js-42-
+##############################################
+/src/lib/transports/websocket.js-94-  opts.ciphers = this.ciphers;
+/src/lib/transports/websocket.js:95:  opts.rejectUnauthorized = this.rejectUnauthorized;
+/src/lib/transports/websocket.js-96-  if (this.extraHeaders) {
+##############################################
+/src/lib/transports/polling-xhr.js-85-  opts.ciphers = this.ciphers;
+/src/lib/transports/polling-xhr.js:86:  opts.rejectUnauthorized = this.rejectUnauthorized;
+/src/lib/transports/polling-xhr.js-87-
+##############################################
+/src/lib/transports/polling-xhr.js-157-  this.ciphers = opts.ciphers;
+/src/lib/transports/polling-xhr.js:158:  this.rejectUnauthorized = opts.rejectUnauthorized;
+/src/lib/transports/polling-xhr.js-159-
+##############################################
+/src/lib/transports/polling-xhr.js-187-  opts.ciphers = this.ciphers;
+/src/lib/transports/polling-xhr.js:188:  opts.rejectUnauthorized = this.rejectUnauthorized;
+/src/lib/transports/polling-xhr.js-189-
+##############################################
+/src/lib/transports/polling-xhr.js-194-    debug('xhr open %s: %s', this.method, this.uri);
+/src/lib/transports/polling-xhr.js:195:    xhr.open(this.method, this.uri, this.async);
+/src/lib/transports/polling-xhr.js-196-    try {
+##############################################
+/src/lib/socket.js-100-  this.ciphers = opts.ciphers || null;
+/src/lib/socket.js:101:  this.rejectUnauthorized = opts.rejectUnauthorized === undefined ? null : opts.rejectUnauthorized;
+/src/lib/socket.js-102-
+##############################################
+/src/lib/socket.js-110-
+/src/lib/socket.js:111:  this.open();
+/src/lib/socket.js-112-}
+##############################################
+/src/lib/socket.js-181-    ciphers: this.ciphers,
+/src/lib/socket.js:182:    rejectUnauthorized: this.rejectUnauthorized,
+/src/lib/socket.js-183-    perMessageDeflate: this.perMessageDeflate,
+##############################################
+/src/lib/socket.js-222-  try {
+/src/lib/socket.js:223:    transport = this.createTransport(transport);
+/src/lib/socket.js-224-  } catch (e) {
+/src/lib/socket.js-225-    this.transports.shift();
+/src/lib/socket.js:226:    this.open();
+/src/lib/socket.js-227-    return;
+##############################################
+/src/lib/socket.js-229-
+/src/lib/socket.js:230:  transport.open();
+/src/lib/socket.js-231-  this.setTransport(transport);
+##############################################
+/src/lib/socket.js-276-  debug('probing transport "%s"', name);
+/src/lib/socket.js:277:  var transport = this.createTransport(name, { probe: 1 })
+/src/lib/socket.js-278-    , failed = false
+##############################################
+/src/lib/socket.js-381-
+/src/lib/socket.js:382:  transport.open();
+/src/lib/socket.js-383-
+##############################################
+/src/engine.io.js-118-  this.ciphers = opts.ciphers || null;
+/src/engine.io.js:119:  this.rejectUnauthorized = opts.rejectUnauthorized === undefined ? null : opts.rejectUnauthorized;
+/src/engine.io.js-120-
+##############################################
+/src/engine.io.js-128-
+/src/engine.io.js:129:  this.open();
+/src/engine.io.js-130-}
+##############################################
+/src/engine.io.js-199-    ciphers: this.ciphers,
+/src/engine.io.js:200:    rejectUnauthorized: this.rejectUnauthorized,
+/src/engine.io.js-201-    perMessageDeflate: this.perMessageDeflate,
+##############################################
+/src/engine.io.js-240-  try {
+/src/engine.io.js:241:    transport = this.createTransport(transport);
+/src/engine.io.js-242-  } catch (e) {
+/src/engine.io.js-243-    this.transports.shift();
+/src/engine.io.js:244:    this.open();
+/src/engine.io.js-245-    return;
+##############################################
+/src/engine.io.js-247-
+/src/engine.io.js:248:  transport.open();
+/src/engine.io.js-249-  this.setTransport(transport);
+##############################################
+/src/engine.io.js-294-  debug('probing transport "%s"', name);
+/src/engine.io.js:295:  var transport = this.createTransport(name, { probe: 1 })
+/src/engine.io.js-296-    , failed = false
+##############################################
+/src/engine.io.js-399-
+/src/engine.io.js:400:  transport.open();
+/src/engine.io.js-401-
+##############################################
+/src/engine.io.js-789-  this.ciphers = opts.ciphers;
+/src/engine.io.js:790:  this.rejectUnauthorized = opts.rejectUnauthorized;
+/src/engine.io.js-791-
+##############################################
+/src/engine.io.js-1291-  opts.ciphers = this.ciphers;
+/src/engine.io.js:1292:  opts.rejectUnauthorized = this.rejectUnauthorized;
+/src/engine.io.js-1293-
+##############################################
+/src/engine.io.js-1363-  this.ciphers = opts.ciphers;
+/src/engine.io.js:1364:  this.rejectUnauthorized = opts.rejectUnauthorized;
+/src/engine.io.js-1365-
+##############################################
+/src/engine.io.js-1393-  opts.ciphers = this.ciphers;
+/src/engine.io.js:1394:  opts.rejectUnauthorized = this.rejectUnauthorized;
+/src/engine.io.js-1395-
+##############################################
+/src/engine.io.js-1400-    debug('xhr open %s: %s', this.method, this.uri);
+/src/engine.io.js:1401:    xhr.open(this.method, this.uri, this.async);
+/src/engine.io.js-1402-    try {
+##############################################
+/src/engine.io.js-1965-  opts.ciphers = this.ciphers;
+/src/engine.io.js:1966:  opts.rejectUnauthorized = this.rejectUnauthorized;
+/src/engine.io.js-1967-  if (this.extraHeaders) {
+##############################################
+/src/engine.io.js-3834-  if (global.JSON && JSON.parse) {
+/src/engine.io.js:3835:    return JSON.parse(data);
+/src/engine.io.js-3836-  }

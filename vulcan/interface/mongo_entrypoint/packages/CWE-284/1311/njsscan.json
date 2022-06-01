@@ -1,0 +1,67 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 3,
+          "line": 3
+        },
+        "extra": {
+          "line": "[*]",
+          "message": "Syntax error"
+        },
+        "path": "/src/.editorconfig",
+        "start": {
+          "col": 2,
+          "line": 3
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/.snyk",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/core-api/service.js",
+          "match_lines": [
+            10,
+            107
+          ],
+          "match_position": [
+            19,
+            4
+          ],
+          "match_string": "module.exports = ({ model, strapi }) => {\n\n  return {\n\n    /**\n\n     * expose some utils so the end users can use them\n\n     */\n\n    uploadFiles,\n\n    /**\n\n     * Promise to fetch all records\n\n     *\n\n     * @return {Promise}\n\n     */\n\n    find(params, populate) {\n\n      return strapi.query(model).find(params, populate);\n\n    },\n\n\n\n    /**\n\n     * Promise to fetch record\n\n     *\n\n     * @return {Promise}\n\n     */\n\n\n\n    findOne(params, populate) {\n\n      return strapi.query(model).findOne(params, populate);\n\n    },\n\n\n\n    /**\n\n     * Promise to count record\n\n     *\n\n     * @return {Promise}\n\n     */\n\n\n\n    count(params) {\n\n      return strapi.query(model).count(params);\n\n    },\n\n\n\n    /**\n\n     * Promise to add record\n\n     *\n\n     * @return {Promise}\n\n     */\n\n\n\n    async create(data, { files } = {}) {\n\n      const entry = await strapi.query(model).create(data);\n\n\n\n      if (files) {\n\n        await this.uploadFiles(entry, files, { model });\n\n        return this.findOne({ id: entry.id });\n\n      }\n\n\n\n      return entry;\n\n    },\n\n\n\n    /**\n\n     * Promise to edit record\n\n     *\n\n     * @return {Promise}\n\n     */\n\n\n\n    async update(params, data, { files } = {}) {\n\n      const entry = await strapi.query(model).update(params, data);\n\n\n\n      if (files) {\n\n        await this.uploadFiles(entry, files, { model });\n\n        return this.findOne({ id: entry.id });\n\n      }\n\n\n\n      return entry;\n\n    },\n\n\n\n    /**\n\n     * Promise to delete a record\n\n     *\n\n     * @return {Promise}\n\n     */\n\n\n\n    delete(params) {\n\n      return strapi.query(model).delete(params);\n\n    },\n\n\n\n    /**\n\n     * Promise to search records\n\n     *\n\n     * @return {Promise}\n\n     */\n\n\n\n    search(params) {\n\n      return strapi.query(model).search(params);\n\n    },\n\n\n\n    /**\n\n     * Promise to count searched records\n\n     *\n\n     * @return {Promise}\n\n     */\n\n    countSearch(params) {\n\n      return strapi.query(model).countSearch(params);\n\n    },\n\n  };"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

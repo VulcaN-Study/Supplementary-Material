@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 571,
+        "cwe": "CWE-29"
+    },
+    "correct_cwe": "CWE-29",
+    "correct_package_link": "https://registry.npmjs.org/public/-/public-0.1.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "bin/public",
+                    "lineno": 73,
+                    "code": "var pathname = url.parse(req.url).pathname;,"
+                },
+                "sink": {
+                    "file": "bin/public",
+                    "lineno": 78,
+                    "code": "fs.readFile(filePath, function(err, data) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "bin/public",
+                    "lineno": 73,
+                    "code": "var pathname = url.parse(req.url).pathname;,"
+                },
+                "sink": {
+                    "file": "bin/public",
+                    "lineno": 90,
+                    "code": "fs.readdir(filePath, function(err, files) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/312918"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/tnantoka/public/commit/eae8ad8017b260f8667ded5e12801bd72b877af2"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

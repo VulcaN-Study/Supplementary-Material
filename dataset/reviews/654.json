@@ -1,0 +1,90 @@
+{
+    "advisory": {
+        "id": 654,
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/macaddress/-/macaddress-0.2.8.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/macosx.js",
+                    "lineno": 3,
+                    "code": "module.exports = function (iface, callback) {"
+                },
+                "sink": {
+                    "file": "lib/macosx.js",
+                    "lineno": 4,
+                    "code": "exec(\"networksetup -getmacaddress \" + iface, function (err, out)"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/linux.js",
+                    "lineno": 3,
+                    "code": "module.exports = function (iface, callback) {"
+                },
+                "sink": {
+                    "file": "lib/linux.js",
+                    "lineno": 4,
+                    "code": "exec(\"cat /sys/class/net/\" + iface + \"/address\", function (err, out) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/unix.js",
+                    "lineno": 3,
+                    "code": "module.exports = function (iface, callback) {"
+                },
+                "sink": {
+                    "file": "lib/unix.js",
+                    "lineno": 4,
+                    "code": "exec(\"ifconfig \" + iface, function (err, out) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/319467"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/scravy/node-macaddress/pull/20/commits/99b23e61c791921ed90c1bc4c186f31fd405aecf"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

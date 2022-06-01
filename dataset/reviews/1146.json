@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 1146,
+        "cwe": "CWE-89"
+    },
+    "correct_cwe": "CWE-89",
+    "correct_package_link": "https://registry.npmjs.org/sequelize/-/sequelize-5.15.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/sequelize.js",
+                    "lineno": 1022,
+                    "code": "static json(conditionsOrPath, value) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1076,
+                    "code": "pathStr = this.escape(['$'].concat(paths).join('.'));"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/sequelize.js",
+                    "lineno": 1022,
+                    "code": "static json(conditionsOrPath, value) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1080,
+                    "code": "pathStr = this.escape(['$'].concat(paths).join('.'));"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://snyk.io/vuln/SNYK-JS-SEQUELIZE-459751"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/sequelize/sequelize/pull/11329/commits/d87b1221a9ee4595b701464e22537793addde3a8"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

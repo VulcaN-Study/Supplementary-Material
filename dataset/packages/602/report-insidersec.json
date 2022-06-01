@@ -1,0 +1,69 @@
+{
+ "dra": [
+  {
+   "dra": "http://www.dsprelated.com/showmessage/89790/1.php",
+   "type": "url",
+   "file": "/src/lib/protocol/Auth.js"
+  },
+  {
+   "dra": "http://dev.mysql.com/doc/refman/5.5/en/c-api-prepared-statement-type-codes.html",
+   "type": "url",
+   "file": "/src/lib/protocol/constants/types.js"
+  },
+  {
+   "dra": "http://dev.mysql.com/doc/refman/5.0/en/precision-math-decimal-changes.html",
+   "type": "url",
+   "file": "/src/lib/protocol/constants/types.js"
+  },
+  {
+   "dra": "http://dev.mysql.com/doc/internals/en/ssl.html",
+   "type": "url",
+   "file": "/src/lib/protocol/packets/SSLRequestPacket.js"
+  },
+  {
+   "dra": "http://dev.mysql.com/doc/internals/en/connection-phase-packets.html#packet-Protocol::SSLRequest",
+   "type": "url",
+   "file": "/src/lib/protocol/packets/SSLRequestPacket.js"
+  }
+ ],
+ "sast": {
+  "name": "mysql",
+  "version": "2.13.0",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "400213 Bytes",
+  "numberOfLines": 7500
+ },
+ "libraries": [
+  {
+   "name": "sqlstring",
+   "current": "2.2.0"
+  },
+  {
+   "name": "bignumber.js",
+   "current": "3.1.2"
+  },
+  {
+   "name": "readable-stream",
+   "current": "1.1.14"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 6,
+   "class": "Auth.js (6:21)",
+   "vul_id": "330be4b053a905c27a8491bc34179444",
+   "method": "var hash = Crypto.createHash('sha1');",
+   "column": 21,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/protocol/Auth.js (6:21)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/protocol/sequences/ChangeUser.js",
+    "/lib/protocol/sequences/Handshake.js"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,519 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 9,
+          "line": 2
+        },
+        "extra": {
+          "line": "\"curly\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 8,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 7
+        },
+        "extra": {
+          "line": "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+          "message": "Lexical error: WIERD end of file in quoted string"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 1,
+          "line": 7
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 30,
+          "line": 1
+        },
+        "extra": {
+          "line": "source 'https://rubygems.org'",
+          "message": "Syntax error"
+        },
+        "path": "/src/public/font-awesome/Gemfile",
+        "start": {
+          "col": 8,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 3,
+          "line": 22
+        },
+        "extra": {
+          "line": "\t@echo \"Compiling Less files\"",
+          "message": "Lexical error: unrecognised symbol, in token rule:@"
+        },
+        "path": "/src/public/font-awesome/src/Makefile",
+        "start": {
+          "col": 2,
+          "line": 22
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 9,
+          "line": 2
+        },
+        "extra": {
+          "line": "\"curly\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/public/js/.jshintrc",
+        "start": {
+          "col": 8,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/lib/appy.js",
+          "match_lines": [
+            64,
+            64
+          ],
+          "match_position": [
+            31,
+            56
+          ],
+          "match_string": "              return callback(options.redirect(req.user));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/apostrophe.js",
+          "match_lines": [
+            69,
+            69
+          ],
+          "match_position": [
+            5,
+            45
+          ],
+          "match_string": "    res.send('500 error, URL was ' + req.url);"
+        },
+        {
+          "file_path": "/src/lib/apostrophe.js",
+          "match_lines": [
+            83,
+            83
+          ],
+          "match_position": [
+            5,
+            55
+          ],
+          "match_string": "    res.send('404 not found error, URL was ' + req.url);"
+        },
+        {
+          "file_path": "/src/lib/apostrophe.js",
+          "match_lines": [
+            200,
+            200
+          ],
+          "match_position": [
+            7,
+            54
+          ],
+          "match_string": "      return res.send(self.partial('pager', req.query));"
+        },
+        {
+          "file_path": "/src/lib/editor.js",
+          "match_lines": [
+            524,
+            542
+          ],
+          "match_position": [
+            7,
+            63
+          ],
+          "match_string": "      var options = req.body.options || {};\n\n      var content = req.body.content || [];\n\n      return self.sanitizeItems(req, content, function(err, items) {\n\n        var area = {\n\n          type: 'area',\n\n          items: items\n\n        };\n\n        var type = req.body.type;\n\n        // A temporary id for the duration of the editing activity, useful\n\n        // in the DOM. Regular areas are permanently identified by their slugs,\n\n        // not their IDs. Virtual areas are identified as the implementation sees fit.\n\n        area.wid = 'w-' + self.generateId();\n\n        extend(options, _.omit(req.body, 'content', 'type'), true);\n\n        options.type = type;\n\n        options.area = area;\n\n        options.edit = true;\n\n        // Must do this before directly invoking an apos* that might render a partial\n\n        self.initI18nLocal(req);\n\n        return res.send(self._aposLocals.aposSingleton(options));"
+        },
+        {
+          "file_path": "/src/lib/editor.js",
+          "match_lines": [
+            547,
+            581
+          ],
+          "match_position": [
+            7,
+            77
+          ],
+          "match_string": "      var options = req.body.options;\n\n      var slug = req.body.slug;\n\n      var content = req.body.content;\n\n      var items;\n\n      var area;\n\n      return async.series({\n\n        sanitize: function(callback) {\n\n          return self.sanitizeItems(req, content, function(err, _items) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            items = _items;\n\n            return callback(null);\n\n          });\n\n        },\n\n        put: function(callback) {\n\n          area = {\n\n            slug: slug,\n\n            items: items,\n\n            type: 'area'\n\n          };\n\n          return self.putArea(req, slug, area, callback);\n\n        },\n\n        load: function(callback) {\n\n          return self.callLoadersForArea(req, area, callback);\n\n        }\n\n      }, function(err) {\n\n        if (err) {\n\n          console.error('error occurred in edit-area');\n\n          console.error(err);\n\n          return self.notfound(req, res);\n\n        }\n\n        // Must do this before directly invoking an apos* that might render a partial\n\n        self.initI18nLocal(req);\n\n        return res.send(self._aposLocals.aposAreaContent(area.items, options));"
+        },
+        {
+          "file_path": "/src/lib/editor.js",
+          "match_lines": [
+            650,
+            716
+          ],
+          "match_position": [
+            7,
+            74
+          ],
+          "match_string": "      var item = req.body;\n\n      var options = {};\n\n      extend(options, req.body._options || {}, true);\n\n      extend(options, req.query || {}, true);\n\n      delete item._options;\n\n\n\n      var itemType = self.itemTypes[item.type];\n\n      if (!itemType) {\n\n        res.statusCode = 404;\n\n        return res.send('No such item type');\n\n      }\n\n\n\n      return async.series({\n\n        sanitize: function(callback) {\n\n          return self.sanitizeItems(req, [ item ], function(err, items) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            if (!items.length) {\n\n              return callback(new Error('notfound'));\n\n            }\n\n            item = items[0];\n\n            return callback(null);\n\n          });\n\n        },\n\n        load: function(callback) {\n\n          if (!itemType.load) {\n\n            return callback(null);\n\n          }\n\n          return itemType.load(req, item, callback);\n\n        },\n\n        loadWidgets: function(callback) {\n\n          // Schema widget loaders invoke joins but do not\n\n          // invoke the loaders of areas and singletons, because\n\n          // that would be redundant; those are all invoked\n\n          // by callLoadersForPage when a page has been\n\n          // fully fetched.\n\n          //\n\n          // However, when we're previewing a widget or adding\n\n          // it to the page, we need to be able to correctly\n\n          // render a schema widget all by itself.\n\n          //\n\n          // So as a second loading pass, we invoke loaders\n\n          // for other widgets in the data properties of this\n\n          // widget exactly as a page would.\n\n          //\n\n          // We do it here, rather than in the schema widget\n\n          // loader, because here we know we're at the end of\n\n          // the process and avoiding redundant invocations.\n\n          // This also benefits any other widgets besides\n\n          // our official schema widget that may contain areas\n\n          // in their data. -Tom\n\n\n\n          return self.callLoadersForPage(\n\n            req,\n\n            {\n\n              _id: self.generateId(),\n\n              widget: item\n\n            }, callback\n\n          );\n\n        }\n\n      }, function(err) {\n\n        if (err) {\n\n          return self.notfound(req, res);\n\n        }\n\n        self.initI18nLocal(req);\n\n        return res.send(self._aposLocals.aposItemNormalView(item, options));"
+        },
+        {
+          "file_path": "/src/lib/tags.js",
+          "match_lines": [
+            314,
+            317
+          ],
+          "match_position": [
+            7,
+            48
+          ],
+          "match_string": "      var data = (req.method === 'POST') ? req.body : req.query;\n\n      if (data.values) {\n\n        return res.send(_.map(data.values, function(value) {\n\n          return { value: value, label: value };"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/test/test.js",
+          "match_lines": [
+            65,
+            68
+          ],
+          "match_position": [
+            7,
+            30
+          ],
+          "match_string": "      try {\n\n        assert(apos.build('#') === '#');\n\n      } catch (e) {\n\n        console.error(e.stack);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/apostrophe.js",
+          "match_lines": [
+            91,
+            91
+          ],
+          "match_position": [
+            23,
+            34
+          ],
+          "match_string": "    return Math.floor(Math.random() * 1000000000) + '' + Math.floor(Math.random() * 1000000000);"
+        },
+        {
+          "file_path": "/src/lib/apostrophe.js",
+          "match_lines": [
+            91,
+            91
+          ],
+          "match_position": [
+            69,
+            80
+          ],
+          "match_string": "    return Math.floor(Math.random() * 1000000000) + '' + Math.floor(Math.random() * 1000000000);"
+        },
+        {
+          "file_path": "/src/lib/pages.js",
+          "match_lines": [
+            1160,
+            1160
+          ],
+          "match_position": [
+            33,
+            44
+          ],
+          "match_string": "          var num = (Math.floor(Math.random() * 10)).toString();"
+        },
+        {
+          "file_path": "/src/public/js/content.js",
+          "match_lines": [
+            1003,
+            1003
+          ],
+          "match_position": [
+            27,
+            38
+          ],
+          "match_string": "  return 'w' + Math.floor(Math.random() * 1000000000) + Math.floor(Math.random() * 1000000000);"
+        },
+        {
+          "file_path": "/src/public/js/content.js",
+          "match_lines": [
+            1003,
+            1003
+          ],
+          "match_position": [
+            68,
+            79
+          ],
+          "match_string": "  return 'w' + Math.floor(Math.random() * 1000000000) + Math.floor(Math.random() * 1000000000);"
+        },
+        {
+          "file_path": "/src/public/js/vendor/setImmediate.js",
+          "match_lines": [
+            87,
+            87
+          ],
+          "match_position": [
+            47,
+            58
+          ],
+          "match_string": "        var messagePrefix = \"setImmediate$\" + Math.random() + \"$\";"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/files.js",
+          "match_lines": [
+            1271,
+            1271
+          ],
+          "match_position": [
+            17,
+            40
+          ],
+          "match_string": "      var md5 = crypto.createHash('md5');"
+        },
+        {
+          "file_path": "/src/lib/files.js",
+          "match_lines": [
+            1291,
+            1291
+          ],
+          "match_position": [
+            17,
+            40
+          ],
+          "match_string": "      var md5 = crypto.createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_nosqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/files.js",
+          "match_lines": [
+            425,
+            433
+          ],
+          "match_position": [
+            11,
+            50
+          ],
+          "match_string": "          return self.files.findOne({ md5: info.md5 }, function(err, existing) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            if (existing) {\n\n              infos.push(existing);\n\n              return callback(null);\n\n            } else {\n\n              async.series([upload, db], callback);"
+        },
+        {
+          "file_path": "/src/lib/files.js",
+          "match_lines": [
+            495,
+            623
+          ],
+          "match_position": [
+            7,
+            55
+          ],
+          "match_string": "      var id = req.query.id;\n\n      var originalFile;\n\n      return self.files.findOne({ _id: id }, function(err, file) {\n\n        if (err || (!file)) {\n\n          return self.fail(req, res);\n\n        }\n\n        if (!self.permissions.can(req, 'edit-file', file)) {\n\n          return self.fail(req, res);\n\n        }\n\n        originalFile = _.clone(file);\n\n        var newFiles = req.files.files;\n\n        if (!(newFiles instanceof Array)) {\n\n          newFiles = [ newFiles ];\n\n        }\n\n        if (!newFiles.length) {\n\n          return self.fail(req, res);\n\n        }\n\n        // The last file is the one we're interested in if they\n\n        // somehow send more than one\n\n        var upload = newFiles.pop();\n\n        var extension = path.extname(upload.name);\n\n        if (extension && extension.length) {\n\n          extension = extension.substr(1);\n\n        }\n\n        extension = extension.toLowerCase();\n\n        // Do we accept this file extension?\n\n        var accepted = [];\n\n        var group = _.find(self.fileGroups, function(group) {\n\n          accepted.push(group.extensions);\n\n          var candidate = group.extensionMaps[extension] || extension;\n\n          if (_.contains(group.extensions, candidate)) {\n\n            return true;\n\n          }\n\n        });\n\n        if (!group) {\n\n          res.statusCode = 400;\n\n          return res.send(\"File extension not accepted. Acceptable extensions: \" + accepted.join(\", \"));\n\n        }\n\n        // Don't mess with previously edited metadata, but do allow\n\n        // the actual filename, extension, etc. to be updated\n\n        var image = group.image;\n\n        extend(file, {\n\n          length: file.length,\n\n          group: group.name,\n\n          createdAt: new Date(),\n\n          name: self.slugify(path.basename(upload.name, path.extname(upload.name))),\n\n          extension: extension\n\n        });\n\n\n\n        function md5(callback) {\n\n          return self.md5File(upload.path, function(err, md5) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            file.md5 = md5;\n\n            return callback(null);\n\n          });\n\n        }\n\n\n\n        // If a duplicate file is uploaded, quietly reuse the old one to\n\n        // avoid filling the hard drive\n\n        //\n\n        // Quietly removed for now due to issues with the occasional need\n\n        // for two copies to allow two titles. Now that we have a good\n\n        // media library automatic duplicate prevention is less urgent.\n\n        //\n\n        // function reuseOrUpload(callback) {\n\n        //   return files.findOne({ md5: info.md5 }, function(err, existing) {\n\n        //     if (err) {\n\n        //       return callback(err);\n\n        //     }\n\n        //     if (existing) {\n\n        //       infos.push(existing);\n\n        //       return callback(null);\n\n        //     } else {\n\n        //       async.series([upload, db], callback);\n\n        //     }\n\n        //   });\n\n        // }\n\n\n\n        function copyIn(callback) {\n\n          if (image) {\n\n            // For images we correct automatically for common file extension mistakes\n\n            return self.uploadfs.copyImageIn(upload.path, '/files/' + file._id + '-' + file.name, function(err, result) {\n\n              if (err) {\n\n                return callback(err);\n\n              }\n\n              file.extension = result.extension;\n\n              file.width = result.width;\n\n              file.height = result.height;\n\n              file._owner = req.user;\n\n              file.searchText = self.fileSearchText(file);\n\n              if (file.width > file.height) {\n\n                file.landscape = true;\n\n              } else {\n\n                file.portrait = true;\n\n              }\n\n              return callback(null);\n\n            });\n\n          } else {\n\n            // For non-image files we have to trust the file extension\n\n            // (but we only serve it as that content type, so this should\n\n            // be reasonably safe)\n\n            return self.uploadfs.copyIn(upload.path, '/files/' + file._id + '-' + file.name + '.' + file.extension, callback);\n\n          }\n\n        }\n\n\n\n        function hideOld(callback) {\n\n          return self.hideInUploadfs(originalFile, true, false, function(err, affected) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            file.oldVersions = (file.oldVersions || []).concat(affected);\n\n            return callback(null);\n\n          });\n\n        }\n\n\n\n        function db(callback) {\n\n          self.pruneTemporaryProperties(file);\n\n          self.files.update({ _id: file._id }, file, function(err, count) {\n\n            return callback(err);\n\n          });\n\n        }\n\n\n\n        async.series([ md5, copyIn, hideOld, db ], function(err) {\n\n          if (err) {\n\n            return self.fail(req, res);\n\n          }\n\n          return res.send({ file: file, status: 'ok' });"
+        },
+        {
+          "file_path": "/src/lib/files.js",
+          "match_lines": [
+            1057,
+            1108
+          ],
+          "match_position": [
+            7,
+            18
+          ],
+          "match_string": "      id = self.sanitizeString(id);\n\n      if (!id.length) {\n\n        return callback('invalid');\n\n      }\n\n      var results = [];\n\n      var info;\n\n\n\n      var criteria = {\n\n        _id: id\n\n      };\n\n      if (trash) {\n\n        criteria.trash = { $ne: true };\n\n      } else {\n\n        criteria.trash = true;\n\n      }\n\n\n\n      return async.series({\n\n        get: function(callback) {\n\n          return self.files.findOne(criteria, function(err, _info) {\n\n            info = _info;\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            if (!info) {\n\n              return callback('notfound');\n\n            }\n\n            return callback(null);\n\n          });\n\n        },\n\n        permissions: function(callback) {\n\n          return callback(self.permissions.can(req, 'edit-file', info) ? null : 'forbidden');\n\n        },\n\n        update: function(callback) {\n\n          var update;\n\n          if (trash) {\n\n            update = { $set: { trash: true } };\n\n          } else {\n\n            update = { $unset: { trash: 1 } };\n\n          }\n\n          return self.files.update(criteria,\n\n            update, function(err, count) {\n\n            if (err || (!count)) {\n\n              return callback('notfound');\n\n            } else {\n\n              return callback(null);\n\n            }\n\n          });\n\n        },\n\n        uploadfs: function(callback) {\n\n          return self.hideInUploadfs(info, trash, callback);\n\n        }\n\n      }, callback);"
+        },
+        {
+          "file_path": "/src/lib/files.js",
+          "match_lines": [
+            1246,
+            1251
+          ],
+          "match_position": [
+            11,
+            33
+          ],
+          "match_string": "          self.pages.findOne({ _id: file.ownerId }, function(err, _owner) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            file._owner = _owner;\n\n            return callback(null);"
+        },
+        {
+          "file_path": "/src/lib/migration.js",
+          "match_lines": [
+            546,
+            568
+          ],
+          "match_position": [
+            9,
+            70
+          ],
+          "match_string": "        return self.files.findOne({ _id: file._id }, function(err, realFile) {\n\n          if (err) {\n\n            return callback(err);\n\n          }\n\n          if (!realFile) {\n\n            return callback(null);\n\n          }\n\n          if ((file.title === realFile.title) && (file.description === realFile.description) && (file.credit === realFile.credit)) {\n\n            // We have values but they are not more exciting than what's\n\n            // already in the file object\n\n            return callback(null);\n\n          }\n\n          var value = { $set: {} };\n\n          if (file.title) {\n\n            value.$set.title = file.title;\n\n          }\n\n          if (file.description) {\n\n            value.$set.description = file.description;\n\n          }\n\n          if (file.credit) {\n\n            value.$set.credit = file.credit;\n\n          }\n\n          return self.files.update({ _id: file._id }, value, callback);"
+        },
+        {
+          "file_path": "/src/lib/videos.js",
+          "match_lines": [
+            571,
+            628
+          ],
+          "match_position": [
+            5,
+            43
+          ],
+          "match_string": "    var url = self.sanitizeString(info.url || info.video);\n\n    var alwaysIframe = self.sanitizeBoolean(info.alwaysIframe);\n\n    var iframeHeight = self.sanitizeInteger(info.iframeHeight);\n\n    return self.oembed(url, { alwaysIframe: alwaysIframe }, function(err, result) {\n\n      if (err) {\n\n        return callback(err);\n\n      }\n\n      var width = result.width;\n\n      var height = result.height;\n\n      var video = {\n\n        title: result.title,\n\n        width: width,\n\n        height: height,\n\n        video: url,\n\n        type: result.type,\n\n        alwaysIframe: alwaysIframe,\n\n        thumbnail: result.thumbnail_url,\n\n        landscape: width > height,\n\n        portrait: height > width,\n\n        searchText: self.sortify(result.title),\n\n        createdAt: new Date(),\n\n        iframeHeight: iframeHeight\n\n      };\n\n      var doc;\n\n      return async.series({\n\n        find: function(callback) {\n\n          return self.videos.findOne({ video: url }, function(err, _doc) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            doc = _doc;\n\n            return callback(null);\n\n          });\n\n        },\n\n        update: function(callback) {\n\n          if (!doc) {\n\n            return setImmediate(callback);\n\n          }\n\n          video._id = doc._id;\n\n          return self.videos.update({ video: url }, video, callback);\n\n        },\n\n        insert: function(callback) {\n\n          if (doc) {\n\n            return setImmediate(callback);\n\n          }\n\n          return self.videos.insert(video, function(err, _doc) {\n\n            if (err) {\n\n              return callback(err);\n\n            }\n\n            doc = _doc;\n\n            return callback(null);\n\n          });\n\n        }\n\n      }, function(err) {\n\n        if (err) {\n\n          return callback(err);\n\n        }\n\n        return callback(null, doc || video);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-943: Improper Neutralization of Special Elements in Data Query Logic",
+        "description": "Untrusted user input in findOne() function can result in NoSQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/search.js",
+          "match_lines": [
+            58,
+            59
+          ],
+          "match_position": [
+            5,
+            21
+          ],
+          "match_string": "    q = q.replace(/ /g, ' .{0,20}?');\n\n    q = new RegExp(q);"
+        },
+        {
+          "file_path": "/src/lib/tags.js",
+          "match_lines": [
+            36,
+            87
+          ],
+          "match_position": [
+            7,
+            38
+          ],
+          "match_string": "      var prefix = self.sanitizeString(options.prefix);\n\n      var contains = self.sanitizeString(options.contains);\n\n      var results = [];\n\n      var resultsMap = {};\n\n      return async.eachSeries(self.getTaggables(), function(taggable, callback) {\n\n        var criteria = {};\n\n        if (prefix.length) {\n\n          criteria.tags = new RegExp('^' + RegExp.quote(self.filterTag(prefix)));\n\n        } else if (contains.length) {\n\n          criteria.tags = new RegExp(RegExp.quote(self.filterTag(contains)));\n\n        } else if (options.tags) {\n\n          criteria.tags = { $in: options.tags };\n\n        }\n\n        return taggable.distinct(\"tags\", criteria, function(err, tags) {\n\n          if (err) {\n\n            return callback(err);\n\n          }\n\n          // \"Why do we have to apply the criteria twice?\"\n\n          // The query above just limits the documents whose distinct tags are\n\n          // returned. If one of the documents that has at least one tag\n\n          // starting with \"m\" also has other tags not starting with \"m,\" we\n\n          // still have them at this point. The query is still worthwhile\n\n          // because it cuts back the number of documents examined.\n\n          if (prefix.length || contains.length) {\n\n            tags = _.filter(tags, function(tag) {\n\n              return tag.toString().match(criteria.tags);\n\n            });\n\n          } else if (options.tags) {\n\n            tags = _.intersection(options.tags, tags);\n\n          }\n\n          _.each(tags, function(tag) {\n\n            if ((tag === null) || (tag === undefined)) {\n\n              // \"distinct\" will return undefined for the records\n\n              // that didn't have the property at all and null for\n\n              // the records in which the property was empty.\n\n              // Because that's useful, I guess, if you're expecting\n\n              // it, which I wasn't\n\n              return;\n\n            }\n\n            if (!_.has(resultsMap, tag)) {\n\n              resultsMap[tag] = true;\n\n              results.push(tag);\n\n            }\n\n          });\n\n          return callback(null);\n\n        });\n\n      }, function(err) {\n\n        if (err) {\n\n          return callback(err);\n\n        }\n\n        results.sort();\n\n        return callback(null, results);"
+        },
+        {
+          "file_path": "/src/lib/tags.js",
+          "match_lines": [
+            37,
+            87
+          ],
+          "match_position": [
+            7,
+            38
+          ],
+          "match_string": "      var contains = self.sanitizeString(options.contains);\n\n      var results = [];\n\n      var resultsMap = {};\n\n      return async.eachSeries(self.getTaggables(), function(taggable, callback) {\n\n        var criteria = {};\n\n        if (prefix.length) {\n\n          criteria.tags = new RegExp('^' + RegExp.quote(self.filterTag(prefix)));\n\n        } else if (contains.length) {\n\n          criteria.tags = new RegExp(RegExp.quote(self.filterTag(contains)));\n\n        } else if (options.tags) {\n\n          criteria.tags = { $in: options.tags };\n\n        }\n\n        return taggable.distinct(\"tags\", criteria, function(err, tags) {\n\n          if (err) {\n\n            return callback(err);\n\n          }\n\n          // \"Why do we have to apply the criteria twice?\"\n\n          // The query above just limits the documents whose distinct tags are\n\n          // returned. If one of the documents that has at least one tag\n\n          // starting with \"m\" also has other tags not starting with \"m,\" we\n\n          // still have them at this point. The query is still worthwhile\n\n          // because it cuts back the number of documents examined.\n\n          if (prefix.length || contains.length) {\n\n            tags = _.filter(tags, function(tag) {\n\n              return tag.toString().match(criteria.tags);\n\n            });\n\n          } else if (options.tags) {\n\n            tags = _.intersection(options.tags, tags);\n\n          }\n\n          _.each(tags, function(tag) {\n\n            if ((tag === null) || (tag === undefined)) {\n\n              // \"distinct\" will return undefined for the records\n\n              // that didn't have the property at all and null for\n\n              // the records in which the property was empty.\n\n              // Because that's useful, I guess, if you're expecting\n\n              // it, which I wasn't\n\n              return;\n\n            }\n\n            if (!_.has(resultsMap, tag)) {\n\n              resultsMap[tag] = true;\n\n              results.push(tag);\n\n            }\n\n          });\n\n          return callback(null);\n\n        });\n\n      }, function(err) {\n\n        if (err) {\n\n          return callback(err);\n\n        }\n\n        results.sort();\n\n        return callback(null, results);"
+        },
+        {
+          "file_path": "/src/public/js/vendor/selectize.js",
+          "match_lines": [
+            3076,
+            3103
+          ],
+          "match_position": [
+            3,
+            35
+          ],
+          "match_string": "\t\tvar settings             = $.extend({}, defaults, settings_user);\n\n\t\tvar attr_data            = settings.dataAttr;\n\n\t\tvar field_label          = settings.labelField;\n\n\t\tvar field_value          = settings.valueField;\n\n\t\tvar field_optgroup       = settings.optgroupField;\n\n\t\tvar field_optgroup_label = settings.optgroupLabelField;\n\n\t\tvar field_optgroup_value = settings.optgroupValueField;\n\n\n\n\t\t/**\n\n\t\t * Initializes selectize from a <input type=\"text\"> element.\n\n\t\t *\n\n\t\t * @param {object} $input\n\n\t\t * @param {object} settings_element\n\n\t\t */\n\n\t\tvar init_textbox = function($input, settings_element) {\n\n\t\t\tvar i, n, values, option, value = $.trim($input.val() || '');\n\n\t\t\tif (!settings.allowEmptyOption && !value.length) return;\n\n\n\n\t\t\tvalues = value.split(settings.delimiter);\n\n\t\t\tfor (i = 0, n = values.length; i < n; i++) {\n\n\t\t\t\toption = {};\n\n\t\t\t\toption[field_label] = values[i];\n\n\t\t\t\toption[field_value] = values[i];\n\n\n\n\t\t\t\tsettings_element.options[values[i]] = option;\n\n\t\t\t}\n\n\n\n\t\t\tsettings_element.items = values;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "pug_jade_template": {
+      "files": [
+        {
+          "file_path": "/src/views/baseModal.html",
+          "match_position": [
+            284,
+            299
+          ],
+          "match_string": "!{% endblock %}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Pug.js/Jade.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "pug_jade_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "!{.+}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

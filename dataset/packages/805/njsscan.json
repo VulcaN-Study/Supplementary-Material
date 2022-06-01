@@ -1,0 +1,28 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            13,
+            39
+          ],
+          "match_position": [
+            5,
+            45
+          ],
+          "match_string": "    const staticPath=path.resolve('.'+decodeURIComponent(req.url));\n\n    const indexPath=path.resolve(staticPath,'index.html');\n\n    if(fs.existsSync(indexPath)){\n\n        fs.createReadStream(indexPath).pipe(res);\n\n    }else {\n\n        if(fs.lstatSync(staticPath).isDirectory()){\n\n            var files=fs.readdirSync(staticPath);\n\n            var lis='';\n\n            files.forEach((v,i)=>{\n\n                if(fs.lstatSync(path.resolve(staticPath,v)).isDirectory()){\n\n                    lis+=`<li><a href=\"${req.url}${v}/\">${v}/</a></li>`;\n\n                }else {\n\n                    lis+=`<li><a href=\"${req.url}${v}\">${v}</a></li>`\n\n                }\n\n            });\n\n            res.end(`<html><head><style>\n\nbody{margin: 0;padding: 0;font-family: Consolas,sans-serif;}\n\np{line-height: 50px;background: #2a333c;color: #fff;padding-left: 80px;font-size: 22px;}\n\nul{margin-top: 30px;margin-left: 100px;min-height: 500px;}\n\nli{line-height: 30px;font-size: 18px;list-style: none;}\n\na{color: #373737; }\n\np.copy{line-height: 30px;font-size: 14px;text-align: center;background: #fff;color: #373737;}</style></head><body><p>statics-server</p><ul>${lis}</ul><p class=\"copy\">copy right @ 2017 song</p></body></html>`)\n\n        }else {\n\n            if(fs.existsSync(staticPath)){\n\n                fs.createReadStream(staticPath).pipe(res);\n\n            }else {\n\n                res.end('404\u6587\u4ef6\u672a\u627e\u5230');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

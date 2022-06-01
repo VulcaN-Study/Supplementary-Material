@@ -1,0 +1,17 @@
+diff -urN package/tencent-server.js package/tencent-server.js
+--- package/tencent-server.js	2014-11-12 14:43:05.000000000 +0000
++++ package/tencent-server.js	2020-10-30 16:24:20.539935439 +0000
+@@ -1,9 +1,11 @@
+ var http = require('http'), //官方的核心模块， 处理HTTP服务请求和响应
+ 	fs = require('fs'),
+-	mime = require('mime');
++	mime = require('mime'), path = require('path');
+ var base = process.argv[2] || 'd:/';
+ http.createServer(function (req, res) { //事件处理机制
+-		var pathurl = base + req.url;
++	        var safeSuffix = path.normalize(req.url).replace(/^(\.\.(\/|\\|$))+/, '');
++		var pathurl = path.join(base, safeSuffix);
++	
+ 		//console.log( req.url );
+ 		// 默认是二进制流: 浏览器一般会直接下载 application/octet-stream
+ 		res.writeHead(200, {'Content-Type': mime.lookup(req.url) });

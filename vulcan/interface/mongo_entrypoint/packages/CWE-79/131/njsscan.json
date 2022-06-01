@@ -1,0 +1,346 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 2,
+          "line": 1
+        },
+        "extra": {
+          "line": ".git",
+          "message": "Syntax error"
+        },
+        "path": "/src/.dockerignore",
+        "start": {
+          "col": 1,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 10,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"node\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 9,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 12,
+          "line": 1
+        },
+        "extra": {
+          "line": "FROM alpine:3.3",
+          "message": "Syntax error"
+        },
+        "path": "/src/Dockerfile",
+        "start": {
+          "col": 6,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 75,
+          "line": 5
+        },
+        "extra": {
+          "line": "You may obtain a copy of the License at [apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)",
+          "message": "Lexical error: look_close_paren"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 74,
+          "line": 5
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"extends\": \"../.jshintrc\",",
+          "message": "Syntax error"
+        },
+        "path": "/src/test/.jshintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "handlebars_safestring": {
+      "files": [
+        {
+          "file_path": "/src/src/main/javascript/helpers/handlebars.js",
+          "match_lines": [
+            7,
+            7
+          ],
+          "match_position": [
+            12,
+            42
+          ],
+          "match_string": "    return new Handlebars.SafeString(html);"
+        },
+        {
+          "file_path": "/src/src/main/javascript/helpers/handlebars.js",
+          "match_lines": [
+            53,
+            53
+          ],
+          "match_position": [
+            12,
+            44
+          ],
+          "match_string": "    return new Handlebars.SafeString(result);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Handlebars SafeString will not escape the data passed through it. Untrusted user input passing through SafeString can cause XSS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "layer7_object_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2159,
+            2201
+          ],
+          "match_position": [
+            4,
+            58
+          ],
+          "match_string": "\t  for (var i = 0, l = body.length; i < l; i++) {\n\n\t    var current = body[i],\n\n\t        strip = this.accept(current);\n\n\n\n\t    if (!strip) {\n\n\t      continue;\n\n\t    }\n\n\n\n\t    var _isPrevWhitespace = isPrevWhitespace(body, i, isRoot),\n\n\t        _isNextWhitespace = isNextWhitespace(body, i, isRoot),\n\n\t        openStandalone = strip.openStandalone && _isPrevWhitespace,\n\n\t        closeStandalone = strip.closeStandalone && _isNextWhitespace,\n\n\t        inlineStandalone = strip.inlineStandalone && _isPrevWhitespace && _isNextWhitespace;\n\n\n\n\t    if (strip.close) {\n\n\t      omitRight(body, i, true);\n\n\t    }\n\n\t    if (strip.open) {\n\n\t      omitLeft(body, i, true);\n\n\t    }\n\n\n\n\t    if (doStandalone && inlineStandalone) {\n\n\t      omitRight(body, i);\n\n\n\n\t      if (omitLeft(body, i)) {\n\n\t        // If we are on a standalone node, save the indent info for partials\n\n\t        if (current.type === 'PartialStatement') {\n\n\t          // Pull out the whitespace from the final line\n\n\t          current.indent = /([ \\t]+$)/.exec(body[i - 1].original)[1];\n\n\t        }\n\n\t      }\n\n\t    }\n\n\t    if (doStandalone && openStandalone) {\n\n\t      omitRight((current.program || current.inverse).body);\n\n\n\n\t      // Strip out the previous content node if it's whitespace only\n\n\t      omitLeft(body, i);\n\n\t    }\n\n\t    if (doStandalone && closeStandalone) {\n\n\t      // Always strip the next node\n\n\t      omitRight(body, i);\n\n\n\n\t      omitLeft((current.inverse || current.program).body);"
+        },
+        {
+          "file_path": "/src/dist/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2859,
+            2860
+          ],
+          "match_position": [
+            6,
+            34
+          ],
+          "match_string": "\t    var body = program.body,\n\n\t        bodyLength = body.length;"
+        },
+        {
+          "file_path": "/src/dist/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2861,
+            2862
+          ],
+          "match_position": [
+            6,
+            26
+          ],
+          "match_string": "\t    for (var i = 0; i < bodyLength; i++) {\n\n\t      this.accept(body[i]);"
+        },
+        {
+          "file_path": "/src/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2159,
+            2201
+          ],
+          "match_position": [
+            4,
+            58
+          ],
+          "match_string": "\t  for (var i = 0, l = body.length; i < l; i++) {\n\n\t    var current = body[i],\n\n\t        strip = this.accept(current);\n\n\n\n\t    if (!strip) {\n\n\t      continue;\n\n\t    }\n\n\n\n\t    var _isPrevWhitespace = isPrevWhitespace(body, i, isRoot),\n\n\t        _isNextWhitespace = isNextWhitespace(body, i, isRoot),\n\n\t        openStandalone = strip.openStandalone && _isPrevWhitespace,\n\n\t        closeStandalone = strip.closeStandalone && _isNextWhitespace,\n\n\t        inlineStandalone = strip.inlineStandalone && _isPrevWhitespace && _isNextWhitespace;\n\n\n\n\t    if (strip.close) {\n\n\t      omitRight(body, i, true);\n\n\t    }\n\n\t    if (strip.open) {\n\n\t      omitLeft(body, i, true);\n\n\t    }\n\n\n\n\t    if (doStandalone && inlineStandalone) {\n\n\t      omitRight(body, i);\n\n\n\n\t      if (omitLeft(body, i)) {\n\n\t        // If we are on a standalone node, save the indent info for partials\n\n\t        if (current.type === 'PartialStatement') {\n\n\t          // Pull out the whitespace from the final line\n\n\t          current.indent = /([ \\t]+$)/.exec(body[i - 1].original)[1];\n\n\t        }\n\n\t      }\n\n\t    }\n\n\t    if (doStandalone && openStandalone) {\n\n\t      omitRight((current.program || current.inverse).body);\n\n\n\n\t      // Strip out the previous content node if it's whitespace only\n\n\t      omitLeft(body, i);\n\n\t    }\n\n\t    if (doStandalone && closeStandalone) {\n\n\t      // Always strip the next node\n\n\t      omitRight(body, i);\n\n\n\n\t      omitLeft((current.inverse || current.program).body);"
+        },
+        {
+          "file_path": "/src/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2859,
+            2860
+          ],
+          "match_position": [
+            6,
+            34
+          ],
+          "match_string": "\t    var body = program.body,\n\n\t        bodyLength = body.length;"
+        },
+        {
+          "file_path": "/src/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2861,
+            2862
+          ],
+          "match_position": [
+            6,
+            26
+          ],
+          "match_string": "\t    for (var i = 0; i < bodyLength; i++) {\n\n\t      this.accept(body[i]);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "Layer7 Denial of Service. Looping over user controlled objects can result in DoS.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/dist/lib/marked.js",
+          "match_lines": [
+            740,
+            740
+          ],
+          "match_position": [
+            9,
+            20
+          ],
+          "match_string": "    if (Math.random() > 0.5) {"
+        },
+        {
+          "file_path": "/src/lib/marked.js",
+          "match_lines": [
+            740,
+            740
+          ],
+          "match_position": [
+            9,
+            20
+          ],
+          "match_string": "    if (Math.random() > 0.5) {"
+        },
+        {
+          "file_path": "/src/src/main/javascript/view/ContentTypeView.js",
+          "match_lines": [
+            7,
+            7
+          ],
+          "match_position": [
+            38,
+            49
+          ],
+          "match_string": "  \tthis.model.contentTypeId = 'ct' + Math.random();"
+        },
+        {
+          "file_path": "/src/src/main/javascript/view/ParameterContentTypeView.js",
+          "match_lines": [
+            7,
+            7
+          ],
+          "match_position": [
+            49,
+            60
+          ],
+          "match_string": "    this.model.parameterContentTypeId = 'pct' + Math.random();"
+        },
+        {
+          "file_path": "/src/src/main/javascript/view/ParameterView.js",
+          "match_lines": [
+            50,
+            50
+          ],
+          "match_position": [
+            50,
+            61
+          ],
+          "match_string": "    this.model.valueId = 'm' + this.model.name + Math.random();"
+        },
+        {
+          "file_path": "/src/src/main/javascript/view/ResponseContentTypeView.js",
+          "match_lines": [
+            7,
+            7
+          ],
+          "match_position": [
+            48,
+            59
+          ],
+          "match_string": "    this.model.responseContentTypeId = 'rct' + Math.random();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/dist/lib/es5-shim.js",
+          "match_lines": [
+            1887,
+            1887
+          ],
+          "match_position": [
+            63,
+            96
+          ],
+          "match_string": "            var hasCapturingGroups = isRegex(searchValue) && (/\\)[*?]/).test(searchValue.source);"
+        },
+        {
+          "file_path": "/src/dist/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2647,
+            2647
+          ],
+          "match_position": [
+            20,
+            44
+          ],
+          "match_string": "\t  var decorator = /\\*/.test(openBlock.open);"
+        },
+        {
+          "file_path": "/src/lib/handlebars-4.0.5.js",
+          "match_lines": [
+            2647,
+            2647
+          ],
+          "match_position": [
+            20,
+            44
+          ],
+          "match_string": "\t  var decorator = /\\*/.test(openBlock.open);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

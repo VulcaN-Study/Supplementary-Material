@@ -1,0 +1,104 @@
+<report_mosca>
+ <Path>/src/lib/validation.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 64 -  var sleep = function (ms) { return new Promise(function (resolve) { return setTimeout(resolve, ms); }); };
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/slpvalidate.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 537 -  var sleep = function (ms) { return new Promise(function (resolve) { return setTimeout(resolve, ms); }); };
+
+ Line: 19705 -      throw new Error('setTimeout has not been defined');
+
+ Line: 19712 -          if (typeof setTimeout === 'function') {
+
+ Line: 19713 -              cachedSetTimeout = setTimeout;
+
+ Line: 19731 -      if (cachedSetTimeout === setTimeout) {
+
+ Line: 19733 -          return setTimeout(fun, 0);
+
+ Line: 19735 -      // if setTimeout wasn't available but was latter defined
+
+ Line: 19736 -      if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+
+ Line: 19737 -          cachedSetTimeout = setTimeout;
+
+ Line: 19738 -          return setTimeout(fun, 0);
+
+ Line: 19741 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 19766 -          // when when somebody has screwed with setTimeout but no I.E. maddness
+
+ Line: 19774 -              // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+
+ Line: 24127 -  exports.setTimeout = function() {
+
+ Line: 24128 -    return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+
+ Line: 24130 -  exports.setInterval = function() {
+
+ Line: 24131 -    return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+
+ Line: 24161 -      item._idleTimeoutId = setTimeout(function onTimeout() {
+
+ Line: 24377 -      return eval(this.code); // maybe...
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/slpvalidate.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 11071 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 16532 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 20320 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 20452 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 20501 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 21522 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 21738 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 22649 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 24005 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/slpvalidate.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -   ar},__importDefault=this&&this.__importDefault||function(mod){return mod&&mod.__esModule?mod:{default:mod}};Object.defineProperty(exports,"__esModule",{value:!0});var crypto_1=require("./crypto"),transaction_1=require("./transaction"),slp_1=require("./slp"),big_js_1=__importDefault(require("big.js")),sleep=function(ms){return new Promise(function(resolve){return setTimeout(resolve,ms)})},ValidatorType1=function(){function ValidatorType1(getRawTransaction,logger){if(void 0===logger&&(logger=console),!getRawTransaction)throw Error("Must provide method getRawTransaction to class constructor.");this.logger=logger,this.getRawTransaction=getRawTransaction,this.cachedValidations={},this.cachedRawTransactions={}}return ValidatorType1.prototype.addValidationFromStore=function(hex,isValid){var id=crypto_1.Crypto.hash256(Buffer.from(hex,"hex")).toString("hex");this.cachedValidations[id]||(this.cachedValidations[id]={validity:isValid,parents:[],details:null,invalidReason:null,waiting:!1}),this.cachedRawTransactions[id]||(this.cachedRawTransactions[id]=Buffer.from(hex,"hex"))},ValidatorType1.prototype.waitForCurrentValidationProcessing=function(txid){return __awaiter(this,void 0,void 0,function(){var cached;return __generator(this,function(_a){switch(_a.label){case 0:cached=this.cachedValidations[txid],_a.label=1;case 1:return"boolean"==typeof cached.validity?(cached.waiting=!1,[3,3]):[4,sleep(10)];case 2:return _a.sent(),[3,1];case 3:return[2]}})})},ValidatorType1.prototype.waitForTransactionDownloadToComplete=function(txid){return __awaiter(this,void 0,void 0,function(){return __generator(this,function(_a){switch(_a.label){case 0:return this.cachedRawTransactions[txid]&&"waiting"!==this.cachedRawTransactions[txid]?[3,2]:[4,sleep(10)];case 1:return _a.sent(),[3,0];case 2:return[2]}})})},ValidatorType1.prototype.retrieveRawTransaction=function(txid){return __awaiter(this,void 0,void 0,function(){var _a,_b,_c,_d;return __generator(this,function(_e){switch(_e.label){case 0:return this.cachedRawTransactions[txid]?[2,this.cachedRawTransactions[txid]]:(this.cachedRawTransactions[txid]="waiting" Line: 168 -  :148,"safe-buffer":149,"sha.js":151}],123:[function(require,module,exports){(function(process){"use strict";void 0===process||!process.version||0===process.version.indexOf("v0.")||0===process.version.indexOf("v1.")&&0!==process.version.indexOf("v1.8.")?module.exports={nextTick:function(fn,arg1,arg2,arg3){if("function"!=typeof fn)throw new TypeError('"callback" argument must be a function');var args,i,len=arguments.length;switch(len){case 0:case 1:return process.nextTick(fn);case 2:return process.nextTick(function(){fn.call(null,arg1)});case 3:return process.nextTick(function(){fn.call(null,arg1,arg2)});case 4:return process.nextTick(function(){fn.call(null,arg1,arg2,arg3)});default:for(args=new Array(len-1),i=0;i<args.length;)args[i++]=arguments[i];return process.nextTick(function(){fn.apply(null,args)})}}}:module.exports=process}).call(this,require("_process"))},{_process:124}],124:[function(require,module,exports){var cachedSetTimeout,cachedClearTimeout,process=module.exports={};function defaultSetTimout(){throw new Error("setTimeout has not been defined")}function defaultClearTimeout(){throw new Error("clearTimeout has not been defined")}function runTimeout(fun){if(cachedSetTimeout===setTimeout)return setTimeout(fun,0);if((cachedSetTimeout===defaultSetTimout||!cachedSetTimeout)&&setTimeout)return cachedSetTimeout=setTimeout,setTimeout(fun,0);try{return cachedSetTimeout(fun,0)}catch(e){try{return cachedSetTimeout.call(null,fun,0)}catch(e){return cachedSetTimeout.call(this,fun,0)}}}!function(){try{cachedSetTimeout="function"==typeof setTimeout?setTimeout:defaultSetTimout}catch(e){cachedSetTimeout=defaultSetTimout}try{cachedClearTimeout="function"==typeof clearTimeout?clearTimeout:defaultClearTimeout}catch(e){cachedClearTimeout=defaultClearTimeout}}();var currentQueue,queue=[],draining=!1,queueIndex=-1;function cleanUpNextTick(){draining&&currentQueue&&(draining=!1,currentQueue.length?queue=currentQueue.concat(queue):queueIndex=-1,queue.length&&drainQueue())}function drainQueue(){if(!draining){var timeout=runTimeout(cleanUpNextTick);draining=!0;for(var len=queue.length;len;){ Line: 201 -  ){dest.writable&&!1===dest.write(chunk)&&source.pause&&source.pause()}function ondrain(){source.readable&&source.resume&&source.resume()}source.on("data",ondata),dest.on("drain",ondrain),dest._isStdio||options&&!1===options.end||(source.on("end",onend),source.on("close",onclose));var didOnEnd=!1;function onend(){didOnEnd||(didOnEnd=!0,dest.end())}function onclose(){didOnEnd||(didOnEnd=!0,"function"==typeof dest.destroy&&dest.destroy())}function onerror(er){if(cleanup(),0===EE.listenerCount(this,"error"))throw er}function cleanup(){source.removeListener("data",ondata),dest.removeListener("drain",ondrain),source.removeListener("end",onend),source.removeListener("close",onclose),source.removeListener("error",onerror),dest.removeListener("error",onerror),source.removeListener("end",cleanup),source.removeListener("close",cleanup),dest.removeListener("close",cleanup)}return source.on("error",onerror),dest.on("error",onerror),source.on("end",cleanup),source.on("close",cleanup),dest.on("close",cleanup),dest.emit("pipe",source),dest}},{events:89,inherits:106,"readable-stream/duplex.js":133,"readable-stream/passthrough.js":144,"readable-stream/readable.js":145,"readable-stream/transform.js":146,"readable-stream/writable.js":147}],159:[function(require,module,exports){arguments[4][143][0].apply(exports,arguments)},{dup:143,"safe-buffer":149}],160:[function(require,module,exports){(function(setImmediate,clearImmediate){var nextTick=require("process/browser.js").nextTick,apply=Function.prototype.apply,slice=Array.prototype.slice,immediateIds={},nextImmediateId=0;function Timeout(id,clearFn){this._id=id,this._clearFn=clearFn}exports.setTimeout=function(){return new Timeout(apply.call(setTimeout,window,arguments),clearTimeout)},exports.setInterval=function(){return new Timeout(apply.call(setInterval,window,arguments),clearInterval)},exports.clearTimeout=exports.clearInterval=function(timeout){timeout.close()},Timeout.prototype.unref=Timeout.prototype.ref=function(){},Timeout.prototype.close=function(){this._clearFn.call(window,this._id)},exports.enroll=function(item,msecs){clearTimeout(item Line: 202 -  d),item._idleTimeout=msecs},exports.unenroll=function(item){clearTimeout(item._idleTimeoutId),item._idleTimeout=-1},exports._unrefActive=exports.active=function(item){clearTimeout(item._idleTimeoutId);var msecs=item._idleTimeout;msecs>=0&&(item._idleTimeoutId=setTimeout(function(){item._onTimeout&&item._onTimeout()},msecs))},exports.setImmediate="function"==typeof setImmediate?setImmediate:function(fn){var id=nextImmediateId++,args=!(arguments.length<2)&&slice.call(arguments,1);return immediateIds[id]=!0,nextTick(function(){immediateIds[id]&&(args?fn.apply(null,args):fn.call(null),exports.clearImmediate(id))}),id},exports.clearImmediate="function"==typeof clearImmediate?clearImmediate:function(id){delete immediateIds[id]}}).call(this,require("timers").setImmediate,require("timers").clearImmediate)},{"process/browser.js":124,timers:160}],161:[function(require,module,exports){(function(global){function config(name){try{if(!global.localStorage)return!1}catch(_){return!1}var val=global.localStorage[name];return null!=val&&"true"===String(val).toLowerCase()}module.exports=function(fn,msg){if(config("noDeprecation"))return fn;var warned=!1;return function(){if(!warned){if(config("throwDeprecation"))throw new Error(msg);config("traceDeprecation")?console.trace(msg):console.warn(msg),warned=!0}return fn.apply(this,arguments)}}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}],162:[function(require,module,exports){var indexOf=function(xs,item){if(xs.indexOf)return xs.indexOf(item);for(var i=0;i<xs.length;i++)if(xs[i]===item)return i;return-1},Object_keys=function(obj){if(Object.keys)return Object.keys(obj);var res=[];for(var key in obj)res.push(key);return res},forEach=function(xs,fn){if(xs.forEach)return xs.forEach(fn);for(var i=0;i<xs.length;i++)fn(xs[i],i,xs)},defineProp=function(){try{return Object.defineProperty({},"_",{}),function(obj,name,value){Object.defineProperty(obj,name,{writable:!0,enumerable:!1,configurable:!0,value:value})}}catch(e){return function(obj,name,value){obj[name]=value}}}(),globals=["Array" Line: 203 -  te","Error","EvalError","Function","Infinity","JSON","Math","NaN","Number","Object","RangeError","ReferenceError","RegExp","String","SyntaxError","TypeError","URIError","decodeURI","decodeURIComponent","encodeURI","encodeURIComponent","escape","eval","isFinite","isNaN","parseFloat","parseInt","undefined","unescape"];function Context(){}Context.prototype={};var Script=exports.Script=function(code){if(!(this instanceof Script))return new Script(code);this.code=code};Script.prototype.runInContext=function(context){if(!(context instanceof Context))throw new TypeError("needs a 'context' argument.");var iframe=document.createElement("iframe");iframe.style||(iframe.style={}),iframe.style.display="none",document.body.appendChild(iframe);var win=iframe.contentWindow,wEval=win.eval,wExecScript=win.execScript;!wEval&&wExecScript&&(wExecScript.call(win,"null"),wEval=win.eval),forEach(Object_keys(context),function(key){win[key]=context[key]}),forEach(globals,function(key){context[key]&&(win[key]=context[key])});var winKeys=Object_keys(win),res=wEval.call(win,this.code);return forEach(Object_keys(win),function(key){(key in context||-1===indexOf(winKeys,key))&&(context[key]=win[key])}),forEach(globals,function(key){key in context||defineProp(context,key,win[key])}),document.body.removeChild(iframe),res},Script.prototype.runInThisContext=function(){return eval(this.code)},Script.prototype.runInNewContext=function(context){var ctx=Script.createContext(context),res=this.runInContext(ctx);return context&&forEach(Object_keys(ctx),function(key){context[key]=ctx[key]}),res},forEach(Object_keys(Script.prototype),function(name){exports[name]=Script[name]=function(code){var s=Script(code);return s[name].apply(s,[].slice.call(arguments,1))}}),exports.isContext=function(context){return context instanceof Context},exports.createScript=function(code){return exports.Script(code)},exports.createContext=Script.createContext=function(context){var copy=new Context;return"object"==typeof context&&forEach(Object_keys(context),function(key){copy[key]=context[key]}),copy}},{}]},{},[1])(1)});
+
+</Result>
+</report_mosca>
+

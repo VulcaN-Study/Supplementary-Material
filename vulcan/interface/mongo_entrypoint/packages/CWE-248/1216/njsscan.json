@@ -1,0 +1,101 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"extends\": [",
+          "message": "Syntax error"
+        },
+        "path": "/src/.eslintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 8,
+          "line": 1
+        },
+        "extra": {
+          "line": "The MIT License (MIT)",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 5,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/processMultipart.js",
+          "match_lines": [
+            46,
+            76
+          ],
+          "match_position": [
+            5,
+            23
+          ],
+          "match_string": "    const timeout = options.uploadTimeout;\n\n    // Decode file name if uriDecodeFileNames option set true.\n\n    const filename = uriDecodeFileName(options, name);\n\n    // Define methods and handlers for upload process.\n\n    const {dataHandler, getFilePath, getFileSize, getHash, complete, cleanup} = options.useTempFiles\n\n      ? tempFileHandler(options, field, filename) // Upload into temporary file.\n\n      : memHandler(options, field, filename);     // Upload into RAM.\n\n\n\n    file.on('limit', () => {\n\n      debugLog(options, `Size limit reached for ${field}->${filename}, bytes:${getFileSize()}`);\n\n      // Reset upload timer in case of file limit reached.\n\n      clearTimeout(uploadTimer);\n\n      // Run a user defined limit handler if it has been set.\n\n      if (isFunc(options.limitHandler)) return options.limitHandler(req, res, next);\n\n      // Close connection with 413 code and do cleanup if abortOnLimit set(default: false).\n\n      if (options.abortOnLimit) {\n\n        debugLog(options, `Aborting upload because of size limit ${field}->${filename}.`);\n\n        closeConnection(413, options.responseOnLimit);\n\n        cleanup();\n\n      }\n\n    });\n\n\n\n    file.on('data', (data) => {\n\n      // Reset and set new upload timer each time when new data came.\n\n      clearTimeout(uploadTimer);\n\n      uploadTimer = setTimeout(() => {\n\n        debugLog(options, `Upload timeout ${field}->${filename}, bytes:${getFileSize()}`);\n\n        cleanup();\n\n      }, timeout);\n\n      // Handle new piece of data.\n\n      dataHandler(data);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/memHandler.js",
+          "match_lines": [
+            14,
+            14
+          ],
+          "match_position": [
+            14,
+            37
+          ],
+          "match_string": "  let hash = crypto.createHash('md5');"
+        },
+        {
+          "file_path": "/src/lib/tempFileHandler.js",
+          "match_lines": [
+            18,
+            18
+          ],
+          "match_position": [
+            16,
+            39
+          ],
+          "match_string": "  const hash = crypto.createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

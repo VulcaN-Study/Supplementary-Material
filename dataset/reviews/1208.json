@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": 1208,
+        "cwe": "CWE-248"
+    },
+    "correct_cwe": "CWE-248",
+    "correct_package_link": "https://registry.npmjs.org/node-static/-/node-static-0.7.11.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/node-static.js",
+                    "lineno": 133,
+                    "code": "Server.prototype.servePath = function (pathname, status, headers, req, res, finish) {"
+                },
+                "sink": {
+                    "file": "lib/node-static.js",
+                    "lineno": 142,
+                    "code": "fs.stat(pathname, function (e, stat) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "https://github.com/frankdean/node-static/commit/64151eb49b9f3cb28685150a3451e0fa3cded6bb"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/cloudhead/node-static/pull/213/commits/b6ae31c9653c3aedf750b25bc795a1fddfc928e1"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

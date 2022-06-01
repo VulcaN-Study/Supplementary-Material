@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": 1493,
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/lazysizes/-/lazysizes-5.2.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "plugins/video-embed/ls.video-embed.js",
+                    "lineno": 62,
+                    "code": "function embedVimeoIframe(e){"
+                },
+                "sink": {
+                    "file": "plugins/video-embed/ls.video-embed.js",
+                    "lineno": 73,
+                    "code": "elem.innerHTML = '<iframe src=\"' + (vimeoIframe.replace(regId, id)) + vimeoParams +'\" ' +\n'frameborder=\"0\" allowfullscreen=\"\" width=\"640\" height=\"390\"></iframe>'\n;"
+                }
+            },
+            {
+                "source": {
+                    "file": "plugins/video-embed/ls.video-embed.js",
+                    "lineno": 87,
+                    "code": "function embedYoutubeIframe(e){"
+                },
+                "sink": {
+                    "file": "plugins/video-embed/ls.video-embed.js",
+                    "lineno": 98,
+                    "code": "elem.innerHTML = '<iframe src=\"' + (youtubeIframe.replace(regId, id)) + youtubeParams +'\" ' +\n'frameborder=\"0\" allowfullscreen=\"\" width=\"640\" height=\"390\"></iframe>'\n;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "file_path": "1493.poc.html"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/aFarkas/lazysizes/commit/3720ab8262552d4e063a38d8492f9490a231fd48"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

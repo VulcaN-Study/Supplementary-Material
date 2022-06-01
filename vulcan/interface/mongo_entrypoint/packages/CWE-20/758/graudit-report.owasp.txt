@@ -1,0 +1,144 @@
+/src/readme.markdown:1:# static-eval
+/src/readme.markdown-2-
+/src/readme.markdown:3:evaluate statically-analyzable expressions
+/src/readme.markdown-4-
+/src/readme.markdown:5:[![testling badge](https://ci.testling.com/substack/static-eval.png)](https://ci.testling.com/substack/static-eval)
+/src/readme.markdown-6-
+/src/readme.markdown:7:[![build status](https://secure.travis-ci.org/substack/static-eval.png)](http://travis-ci.org/substack/static-eval)
+/src/readme.markdown-8-
+##############################################
+/src/readme.markdown-11-``` js
+/src/readme.markdown:12:var evaluate = require('static-eval');
+/src/readme.markdown-13-var parse = require('esprima').parse;
+##############################################
+/src/readme.markdown-17-
+/src/readme.markdown:18:console.log(evaluate(ast));
+/src/readme.markdown-19-```
+##############################################
+/src/readme.markdown-25-65
+/src/readme.markdown:26:$ node eval.js '[1,2,3+4*5-(5*11)]'
+/src/readme.markdown-27-[ 1, 2, -32 ]
+##############################################
+/src/readme.markdown-30-but if you use statements, undeclared identifiers, or syntax, the result is no
+/src/readme.markdown:31:longer statically analyzable and `evaluate()` returns `undefined`:
+/src/readme.markdown-32-
+/src/readme.markdown-33-```
+/src/readme.markdown:34:$ node eval.js '1+2+3*n'
+/src/readme.markdown-35-undefined
+/src/readme.markdown:36:$ node eval.js 'x=5; x*2'
+/src/readme.markdown-37-undefined
+/src/readme.markdown:38:$ node eval.js '5-4*3'
+/src/readme.markdown-39--7
+##############################################
+/src/readme.markdown-41-
+/src/readme.markdown:42:You can also declare variables and functions to use in the static evaluation:
+/src/readme.markdown-43-
+/src/readme.markdown-44-``` js
+/src/readme.markdown:45:var evaluate = require('static-eval');
+/src/readme.markdown-46-var parse = require('esprima').parse;
+##############################################
+/src/readme.markdown-50-
+/src/readme.markdown:51:console.log(evaluate(ast, {
+/src/readme.markdown-52-    n: 6,
+##############################################
+/src/readme.markdown-60-``` js
+/src/readme.markdown:61:var evaluate = require('static-eval');
+/src/readme.markdown-62-```
+/src/readme.markdown-63-
+/src/readme.markdown:64:## evaluate(ast, vars={})
+/src/readme.markdown-65-
+##############################################
+/src/readme.markdown-69-
+/src/readme.markdown:70:If the expression contained in `ast` can't be statically resolved, `evaluate()`
+/src/readme.markdown-71-returns undefined.
+##############################################
+/src/readme.markdown-77-```
+/src/readme.markdown:78:npm install static-eval
+/src/readme.markdown-79-```
+##############################################
+/src/package.json-1-{
+/src/package.json:2:  "name": "static-eval",
+/src/package.json-3-  "version": "2.0.1",
+/src/package.json:4:  "description": "evaluate statically-analyzable expressions",
+/src/package.json-5-  "main": "index.js",
+##############################################
+/src/package.json-27-    "type": "git",
+/src/package.json:28:    "url": "git://github.com/substack/static-eval.git"
+/src/package.json-29-  },
+/src/package.json:30:  "homepage": "https://github.com/substack/static-eval",
+/src/package.json-31-  "keywords": [
+/src/package.json-32-    "static",
+/src/package.json:33:    "eval",
+/src/package.json-34-    "expression",
+##############################################
+/src/test/template-strings.js-1-var test = require('tape');
+/src/test/template-strings.js:2:var evaluate = require('../');
+/src/test/template-strings.js-3-var parse = require('esprima').parse;
+##############################################
+/src/test/template-strings.js-9-    var ast = parse(src).body[0].expression;
+/src/test/template-strings.js:10:    var res = evaluate(ast, {
+/src/test/template-strings.js-11-        n: 6
+##############################################
+/src/test/template-strings.js-20-    var ast = parse(src).body[0].expression;
+/src/test/template-strings.js:21:    var res = evaluate(ast, {
+/src/test/template-strings.js-22-        template: function (strings) {
+##############################################
+/src/test/eval.js-1-var test = require('tape');
+/src/test/eval.js:2:var evaluate = require('../');
+/src/test/eval.js-3-var parse = require('esprima').parse;
+##############################################
+/src/test/eval.js-9-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:10:    var res = evaluate(ast, {
+/src/test/eval.js-11-        n: false,
+##############################################
+/src/test/eval.js-22-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:23:    var res = evaluate(ast, {
+/src/test/eval.js-24-        n: 6,
+##############################################
+/src/test/eval.js-35-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:36:    t.deepEqual(evaluate(ast), [ true, true, true, true ]);
+/src/test/eval.js-37-});
+##############################################
+/src/test/eval.js-43-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:44:    t.deepEqual(evaluate(ast), [2, 4, 6]);
+/src/test/eval.js-45-});
+##############################################
+/src/test/eval.js-51-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:52:    t.deepEqual(evaluate(ast, {x: 2}), [2, 4, 6]);
+/src/test/eval.js-53-});
+/src/test/eval.js-54-
+/src/test/eval.js:55:test('evaluate this', function(t) {
+/src/test/eval.js-56-    t.plan(1);
+##############################################
+/src/test/eval.js-59-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:60:    var res = evaluate(ast, {
+/src/test/eval.js-61-        'this': { x: 1, y: { z: 100 } }
+##############################################
+/src/test/eval.js-70-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:71:    var res = evaluate(ast, {});
+/src/test/eval.js-72-    t.equal(res, undefined);
+##############################################
+/src/test/eval.js-79-    var ast = parse(src).body[0].expression;
+/src/test/eval.js:80:    var res = evaluate(ast, {});
+/src/test/eval.js-81-    t.equal(res, undefined);
+##############################################
+/src/test/prop.js-1-var test = require('tape');
+/src/test/prop.js:2:var evaluate = require('../');
+/src/test/prop.js-3-var parse = require('esprima').parse;
+##############################################
+/src/test/prop.js-9-    var ast = parse(src).body[0].expression;
+/src/test/prop.js:10:    var res = evaluate(ast, {
+/src/test/prop.js-11-        n: 6,
+##############################################
+/src/example/eval.js:1:var evaluate = require('static-eval');
+/src/example/eval.js-2-var parse = require('esprima').parse;
+##############################################
+/src/example/eval.js-6-
+/src/example/eval.js:7:console.log(evaluate(ast));
+##############################################
+/src/example/vars.js:1:var evaluate = require('../');
+/src/example/vars.js-2-var parse = require('esprima').parse;
+##############################################
+/src/example/vars.js-6-
+/src/example/vars.js:7:console.log(evaluate(ast, {
+/src/example/vars.js-8-    n: 6,

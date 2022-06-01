@@ -1,0 +1,50 @@
+{
+  "errors": [],
+  "nodejs": {
+    "generic_os_command_exec": {
+      "files": [
+        {
+          "file_path": "/src/broadcast.js",
+          "match_lines": [
+            43,
+            48
+          ],
+          "match_position": [
+            9,
+            76
+          ],
+          "match_string": "        child_process.exec(req.body.command + \" \" + req.body.arguments, {cwd: cwd}, function(err, stdout){\n\n\n\n           if(err)\n\n           res.send( JSON.stringify({cwd: path.basename(cwd), data: \"an error has occurred.\"}) );\n\n           else\n\n            res.send(JSON.stringify({cwd: path.basename(cwd), data: stdout}));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "description": "User controlled data in 'child_process.exec()' can result in Remote OS Command Execution.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            57,
+            57
+          ],
+          "match_position": [
+            16,
+            29
+          ],
+          "match_string": "            if(path.test(url))"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

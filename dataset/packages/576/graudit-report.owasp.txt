@@ -1,0 +1,54 @@
+/src/src/html-janitor.js-136-  function createTreeWalker(document, node) {
+/src/src/html-janitor.js:137:    return document.createTreeWalker(node,
+/src/src/html-janitor.js-138-                                     NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT,
+##############################################
+/src/examples/example.html-14-
+/src/examples/example.html:15:      const p = document.createElement('p');
+/src/examples/example.html-16-      p.setAttribute('style', 'font-size: 16px;');
+##############################################
+/src/test/janitor.spec.js-50-test('should clean attributes not in the whitelist', function () {
+/src/test/janitor.spec.js:51:  var p = document.createElement('p');
+/src/test/janitor.spec.js-52-  p.setAttribute('style', 'font-size: 16px;');
+##############################################
+/src/test/janitor.spec.js-57-test('should not clean attributes in the whitelist', function () {
+/src/test/janitor.spec.js:58:  var p = document.createElement('p');
+/src/test/janitor.spec.js-59-  p.setAttribute('foo', 'true');
+##############################################
+/src/test/janitor.spec.js-66-test('should remove elements not in the whitelist', function () {
+/src/test/janitor.spec.js:67:  var aside = document.createElement('aside');
+/src/test/janitor.spec.js:68:  var p = document.createElement('p');
+/src/test/janitor.spec.js-69-  aside.appendChild(p);
+##############################################
+/src/test/janitor.spec.js-73-test('should not keep the inner text of a script element', function () {
+/src/test/janitor.spec.js:74:  var script = document.createElement('script');
+/src/test/janitor.spec.js:75:  script.innerText = 'window.alert(\'foo\');';
+/src/test/janitor.spec.js-76-  expect(janitor.clean(script.outerHTML)).toBe('');
+##############################################
+/src/test/janitor.spec.js-79-test('should not keep the inner text of a style element', function () {
+/src/test/janitor.spec.js:80:  var style = document.createElement('style');
+/src/test/janitor.spec.js-81-  style.innerText = '.foo {}';
+##############################################
+/src/test/janitor.spec.js-85-test('should clean invalid markup', function () {
+/src/test/janitor.spec.js:86:  var b = document.createElement('b');
+/src/test/janitor.spec.js:87:  var p = document.createElement('p');
+/src/test/janitor.spec.js-88-  b.appendChild(p);
+##############################################
+/src/test/janitor.spec.js-92-test('should clean paragraphs in lists', function () {
+/src/test/janitor.spec.js:93:  var ul = document.createElement('ul');
+/src/test/janitor.spec.js-94-  ul.innerHTML = '<li><p>Some text</p></li>';
+##############################################
+/src/test/janitor.spec.js-98-test('should remove comments', function () {
+/src/test/janitor.spec.js:99:  var p = document.createElement('p');
+/src/test/janitor.spec.js-100-  p.innerHTML = 'Hello <b>world</b> <!-- a salutation -->!';
+##############################################
+/src/test/janitor.spec.js-163-test('should allow all attributes for elements with catch-all whitelist', function () {
+/src/test/janitor.spec.js:164:  var el = document.createElement('small');
+/src/test/janitor.spec.js-165-  el.setAttribute('data-test', 'true');
+##############################################
+/src/test/janitor.spec.js-167-
+/src/test/janitor.spec.js:168:  var outputEl = document.createElement('div');
+/src/test/janitor.spec.js-169-  outputEl.innerHTML = janitor.clean(el.outerHTML);
+##############################################
+/src/test/janitor.spec.js-185-test('should remove an element if blacklisted', function() {
+/src/test/janitor.spec.js:186:    var el = document.createElement('figure');
+/src/test/janitor.spec.js-187-    el.setAttribute('class', 'test');

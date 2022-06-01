@@ -1,0 +1,39 @@
+--- package/package.json	2020-10-21 16:59:52.689994073 +0100
++++ patch/package.json	2020-10-21 16:58:17.349267490 +0100
+@@ -7,7 +7,17 @@
+     "doc": "doc",
+     "test": "test"
+   },
+-  "dependencies": {},
++  "dependencies": {
++    "path": {
++      "version": "0.12.7",
++      "resolved": "https://registry.npmjs.org/path/-/path-0.12.7.tgz",
++      "integrity": "sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=",
++      "requires": {
++        "process": "^0.11.1",
++        "util": "^0.10.3"
++      }
++    }
++  },
+   "devDependencies": {},
+   "scripts": {
+     "test": "app.js"
+--- package/controller.js	2020-10-21 17:00:00.170051210 +0100
++++ patch/controller.js	2020-10-21 16:59:44.553265274 +0100
+@@ -6,6 +6,7 @@
+ var config = require('./lib/config.js');
+ var fs = require('fs');
+ var util = require('util');
++var p = require('path')
+ 
+ var formidable = require('formidable');
+ 
+@@ -180,6 +181,7 @@
+ 			response.end('cant\'t find:' + pathname);
+ 		}
+ 	}else{ //对未配置路径的请求进行处理(比如静态文件.js, .css, img)
++        pathname = p.normalize(pathname);
+ 		util4HTML.getHTMLBinary('.' + pathname, function (err, file){
+ 			if(err){
+ 				response.writeHead(500, {'Content-Type': 'text/plain'});

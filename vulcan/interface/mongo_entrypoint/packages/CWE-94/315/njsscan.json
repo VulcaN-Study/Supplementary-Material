@@ -1,0 +1,154 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 2
+        },
+        "extra": {
+          "line": "  \"bitwise\": true,",
+          "message": "Syntax error"
+        },
+        "path": "/src/.jshintrc",
+        "start": {
+          "col": 12,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 1,
+          "line": 14
+        },
+        "extra": {
+          "line": "summit.sublime-workspace",
+          "message": "Lexical error: end of file in comment"
+        },
+        "path": "/src/.npmignore",
+        "start": {
+          "col": 1,
+          "line": 14
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/lib/router.js",
+          "match_lines": [
+            42,
+            48
+          ],
+          "match_position": [
+            7,
+            41
+          ],
+          "match_string": "      var canAccess = app.invoke(handler);\n\n\n\n      if (canAccess === true) {\n\n        return next();\n\n      }\n\n      else {\n\n        return bogart.redirect(canAccess);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/lib/collection/user.js",
+          "match_lines": [
+            397,
+            401
+          ],
+          "match_position": [
+            3,
+            17
+          ],
+          "match_string": "  if (token === goodToken) {\n\n    return this.findByTwitterId(twitterId);\n\n  }\n\n  else {\n\n    return false;"
+        },
+        {
+          "file_path": "/src/lib/collection/user.js",
+          "match_lines": [
+            412,
+            416
+          ],
+          "match_position": [
+            3,
+            17
+          ],
+          "match_string": "  if (token === goodToken) {\n\n    return this.findByFacebookId(facebookId);\n\n  }\n\n  else {\n\n    return false;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_injection_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/collection.js",
+          "match_lines": [
+            368,
+            368
+          ],
+          "match_position": [
+            5,
+            38
+          ],
+          "match_string": "    return this.app.search(opts.query);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-400: Uncontrolled Resource Consumption",
+        "description": "User controlled data in RegExp() can make the application vulnerable to layer 7 DoS.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/cms/views/view_post.hbs",
+          "match_position": [
+            92,
+            102
+          ],
+          "match_string": "{{{body}}}"
+        },
+        {
+          "file_path": "/src/cms/views/view_page.hbs",
+          "match_position": [
+            92,
+            102
+          ],
+          "match_string": "{{{body}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "id": "handlebar_mustache_template",
+        "input_case": "exact",
+        "owasp": "A1: Injection",
+        "pattern": "{{{.+}}}|{{[ ]*&[\\w]+.*}}",
+        "severity": "ERROR",
+        "type": "Regex"
+      }
+    }
+  }
+}

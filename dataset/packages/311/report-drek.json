@@ -1,0 +1,12 @@
+[
+ {
+  "id": 1,
+  "file": "/src/lib/serialize.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    if(obj.hasOwnProperty(key)) {\n      if(typeof obj[key] === 'object') {\n        obj[key] = exports.unserialize(obj[key], originObj);\n      } else if(typeof obj[key] === 'string') {\n        if(obj[key].indexOf(FUNCFLAG) === 0) {\n          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');\n        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {\n          obj[key] = obj[key].substring(CIRCULARFLAG.length);\n          circularTasks.push({obj: obj, key: key});\n        }\n      }",
+  "line": 75,
+  "start": 70,
+  "end": 81
+ }
+]

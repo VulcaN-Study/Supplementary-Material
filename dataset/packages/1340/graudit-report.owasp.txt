@@ -1,0 +1,95 @@
+/src/localeval.js-11-    // Browser globals (root is window)
+/src/localeval.js:12:    root.localeval = factory().localeval;
+/src/localeval.js-13-  }
+##############################################
+/src/localeval.js-62-        for (var i = 0; i < globals.length; i++) {
+/src/localeval.js:63:          if (globals[i] !== 'eval') {
+/src/localeval.js-64-            reset += globals[i] + ',';
+##############################################
+/src/localeval.js-96-  // Keep in store all real builtin prototypes to restore them after
+/src/localeval.js:97:  // a possible alteration during the evaluation.
+/src/localeval.js-98-  var builtins = [Object, Function, Array, String, Boolean, Number, Date, RegExp, Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, URIError];
+##############################################
+/src/localeval.js-129-    alienate();
+/src/localeval.js:130:    var ret = Function(sandboxName, resetEnv() + sandboxed + 'return eval(' +
+/src/localeval.js-131-          JSON.stringify(source) + ')').bind(Object.create(null))(sandbox);
+##############################################
+/src/localeval.js-140-
+/src/localeval.js:141:  function localeval(source, sandbox, timeout, cb) {
+/src/localeval.js-142-    // Optional parameters: sandbox, timeout, cb.
+##############################################
+/src/localeval.js-162-
+/src/localeval.js:163:  return {localeval: localeval};
+/src/localeval.js-164-
+##############################################
+/src/readme.md-4-
+/src/readme.md:5:Always use that instead of `eval()`. Always.
+/src/readme.md-6-
+##############################################
+/src/readme.md-8-
+/src/readme.md:9:    localeval(code :: String, sandbox :: Object) :: Object.
+/src/readme.md-10-
+/src/readme.md:11:    localeval(code :: String,    sandbox :: Object,
+/src/readme.md-12-              timeout :: Number, cb :: Function)
+##############################################
+/src/readme.md-15-going to be accessible in the JS code.
+/src/readme.md:16:It returns the last evaluated piece of JS code in `code`, if no timeout is
+/src/readme.md-17-given. Otherwise, the callback gives that result as a parameter.
+##############################################
+/src/readme.md-21-```javascript
+/src/readme.md:22:var localeval = require('localeval');
+/src/readme.md:23:localeval('console.log("Do I have access to the console?")');  // Throws.
+/src/readme.md-24-```
+##############################################
+/src/readme.md-29-<!doctype html><title></title>
+/src/readme.md:30:<script src='localeval.js'></script>
+/src/readme.md-31-<!-- Alerts "32". -->
+/src/readme.md:32:<script> alert(localeval('a + b', {a: 14, b: 18})) </script>
+/src/readme.md-33-```
+##############################################
+/src/readme.md-45-
+/src/readme.md:46:2. Variables defined while evaluating code don't pollute any scope.
+/src/readme.md-47-
+##############################################
+/src/readme.md-49-   Think
+/src/readme.md:50:   `localeval('([]).__proto__.push = function(a) { return "nope"; }')`.
+/src/readme.md-51-
+##############################################
+/src/readme.md-53-
+/src/readme.md:54:Trying to find a reasonable cross-environment ES5 sandbox evaluation function.
+##############################################
+/src/package.json-1-{
+/src/package.json:2:  "name": "localeval",
+/src/package.json:3:  "main": "localeval.js",
+/src/package.json:4:  "description": "A sandboxed eval().",
+/src/package.json-5-  "author": "Thaddee Tyl <thaddee.tyl@gmail.com> (http://espadrine.github.com/)",
+##############################################
+/src/package.json-9-  "version": "13.06.10",
+/src/package.json:10:  "homepage": "http://espadrine.github.com/localeval/",
+/src/package.json-11-  "repository": {
+/src/package.json-12-    "type": "git",
+/src/package.json:13:    "url": "git://github.com/espadrine/localeval.git"
+/src/package.json-14-  },
+##############################################
+/src/worker.js-7-
+/src/worker.js:8:// Do not change what is below without changing localeval.js
+/src/worker.js-9-//
+##############################################
+/src/worker.js-21-      for (var i = 0; i < globals.length; i++) {
+/src/worker.js:22:        if (globals[i] !== 'eval') {
+/src/worker.js-23-          reset += globals[i] + ',';
+##############################################
+/src/worker.js-55-// Keep in store all real builtin prototypes to restore them after
+/src/worker.js:56:// a possible alteration during the evaluation.
+/src/worker.js-57-var builtins = [Object, Function, Array, String, Boolean, Number, Date, RegExp, Error, EvalError, RangeError, ReferenceError, SyntaxError, TypeError, URIError];
+##############################################
+/src/worker.js-88-  alienate();
+/src/worker.js:89:  var ret = Function(sandboxName, resetEnv() + sandboxed + 'return eval(' +
+/src/worker.js-90-        JSON.stringify(source) + ')').bind(Object.create(null))(sandbox);
+##############################################
+/src/main.html-3-<form
+/src/main.html:4:  action='javascript:localeval(source.value,{},1000,function(m){alert(m)})'>
+/src/main.html-5-  <!-- FIXME: use a proper editor. -->
+##############################################
+/src/main.html-9-
+/src/main.html:10:<script src=localeval.js></script>

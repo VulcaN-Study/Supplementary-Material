@@ -1,0 +1,89 @@
+{
+  "errors": [
+    {
+      "data": {
+        "check_id": "ParseError",
+        "end": {
+          "col": 13,
+          "line": 1
+        },
+        "extra": {
+          "line": "Copyright JS Foundation and other contributors, http://js.foundation",
+          "message": "Syntax error"
+        },
+        "path": "/src/LICENSE",
+        "start": {
+          "col": 11,
+          "line": 1
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    },
+    {
+      "data": {
+        "check_id": "LexicalError",
+        "end": {
+          "col": 2,
+          "line": 2
+        },
+        "extra": {
+          "line": "#",
+          "message": "Lexical error: unrecognised symbol, in token rule:#"
+        },
+        "path": "/src/bin/node-red-pi",
+        "start": {
+          "col": 1,
+          "line": 2
+        }
+      },
+      "message": "SemgrepCoreRuntimeErrors"
+    }
+  ],
+  "nodejs": {
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/red.js",
+          "match_lines": [
+            222,
+            222
+          ],
+          "match_position": [
+            20,
+            43
+          ],
+          "match_string": "            return crypto.createHash('md5').update(p,'utf8').digest('hex') === pass;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/red.js",
+          "match_lines": [
+            222,
+            222
+          ],
+          "match_position": [
+            13,
+            84
+          ],
+          "match_string": "            return crypto.createHash('md5').update(p,'utf8').digest('hex') === pass;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}
