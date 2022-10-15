@@ -1,0 +1,489 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 180	        return payload.length ? payload : null;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 197	            return Bourne.parse(payload.toString('utf8'), { protoAction: options.protoAction });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 139	internals.raw = async function (req, tap, options) {
+
+    const output = options.output;      // Output: 'data', 'stream', 'file'
+    let source = req;
+
+    // Content-encoding (optional)
+
+    if (options.parse === 'gunzip') {
+        source = internals.decoder(source, options);
+    }
+
+    // Setup source
+
+    if (tap) {
+        source = internals.pipe(source, tap);
+    }
+
+    // Output: 'stream'
+
+    if (output === 'stream') {
+        return source;
+    }
+
+    // Output: 'file'
+
+    if (output === 'file') {
+        const file = await internals.writeFile(req, options, source);
+        return file.item;
+    }
+
+    // Output: 'data'
+
+    return await Wreck.read(source, { timeout: options.timeout, maxBytes: options.maxBytes });
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 73	internals.parse = async function (req, tap, options, contentType) {
+
+    const output = options.output;        // Output: 'data', 'stream', 'file'
+    let source = internals.decoder(req, options);
+
+    // Tap request
+
+    if (tap) {
+        source = internals.pipe(source, tap);
+    }
+
+    // Multipart
+
+    if (contentType.mime === 'multipart/form-data') {
+        if (options.multipart === false) {                            // Defaults to true
+            throw Boom.unsupportedMediaType();
+        }
+
+        return await internals.multipart(req, options, source, contentType);
+    }
+
+    // Output: 'stream'
+
+    if (output === 'stream') {
+        return source;
+    }
+
+    // Output: 'file'
+
+    if (output === 'file') {
+        const file = await internals.writeFile(req, options, source);
+        return file.item;
+    }
+
+    // Output: 'data'
+
+    const payload = await Wreck.read(source, { timeout: options.timeout, maxBytes: options.maxBytes });
+    return internals.object(options, payload, contentType.mime);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 230	        const dispenserOptions = Hoek.applyToDefaults(contentType, { maxBytes: options.maxBytes });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 122	    const decoderOptions = options.compression && options.compression[contentEncoding] || null;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 18	const internals = {
+    decoders: {
+        gzip: (options) => Zlib.createGunzip(options),
+        deflate: (options) => Zlib.createInflate(options)
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 114	internals.decoder = function (source, options) {
+
+    const contentEncoding = source.headers['content-encoding'];
+    const decoders = options.decoders || internals.decoders;
+    if (!decoders.hasOwnProperty(contentEncoding)) {
+        return source;
+    }
+
+    const decoderOptions = options.compression && options.compression[contentEncoding] || null;
+    const stream = decoders[contentEncoding](decoderOptions);
+
+    const orig = stream.emit;
+    stream.emit = (event, ...args) => {
+
+        if (event === 'error') {
+            args = [Boom.badRequest('Invalid compressed payload', args[0])];
+        }
+
+        return orig.call(stream, event, ...args);
+    };
+
+    return internals.pipe(source, stream);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 180	        return payload.length ? payload : null;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 197	            return Bourne.parse(payload.toString('utf8'), { protoAction: options.protoAction });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 139	internals.raw = async function (req, tap, options) {
+
+    const output = options.output;      // Output: 'data', 'stream', 'file'
+    let source = req;
+
+    // Content-encoding (optional)
+
+    if (options.parse === 'gunzip') {
+        source = internals.decoder(source, options);
+    }
+
+    // Setup source
+
+    if (tap) {
+        source = internals.pipe(source, tap);
+    }
+
+    // Output: 'stream'
+
+    if (output === 'stream') {
+        return source;
+    }
+
+    // Output: 'file'
+
+    if (output === 'file') {
+        const file = await internals.writeFile(req, options, source);
+        return file.item;
+    }
+
+    // Output: 'data'
+
+    return await Wreck.read(source, { timeout: options.timeout, maxBytes: options.maxBytes });
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 73	internals.parse = async function (req, tap, options, contentType) {
+
+    const output = options.output;        // Output: 'data', 'stream', 'file'
+    let source = internals.decoder(req, options);
+
+    // Tap request
+
+    if (tap) {
+        source = internals.pipe(source, tap);
+    }
+
+    // Multipart
+
+    if (contentType.mime === 'multipart/form-data') {
+        if (options.multipart === false) {                            // Defaults to true
+            throw Boom.unsupportedMediaType();
+        }
+
+        return await internals.multipart(req, options, source, contentType);
+    }
+
+    // Output: 'stream'
+
+    if (output === 'stream') {
+        return source;
+    }
+
+    // Output: 'file'
+
+    if (output === 'file') {
+        const file = await internals.writeFile(req, options, source);
+        return file.item;
+    }
+
+    // Output: 'data'
+
+    const payload = await Wreck.read(source, { timeout: options.timeout, maxBytes: options.maxBytes });
+    return internals.object(options, payload, contentType.mime);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 230	        const dispenserOptions = Hoek.applyToDefaults(contentType, { maxBytes: options.maxBytes });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 122	    const decoderOptions = options.compression && options.compression[contentEncoding] || null;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 18	const internals = {
+    decoders: {
+        gzip: (options) => Zlib.createGunzip(options),
+        deflate: (options) => Zlib.createInflate(options)
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 114	internals.decoder = function (source, options) {
+
+    const contentEncoding = source.headers['content-encoding'];
+    const decoders = options.decoders || internals.decoders;
+    if (!decoders.hasOwnProperty(contentEncoding)) {
+        return source;
+    }
+
+    const decoderOptions = options.compression && options.compression[contentEncoding] || null;
+    const stream = decoders[contentEncoding](decoderOptions);
+
+    const orig = stream.emit;
+    stream.emit = (event, ...args) => {
+
+        if (event === 'error') {
+            args = [Boom.badRequest('Invalid compressed payload', args[0])];
+        }
+
+        return orig.call(stream, event, ...args);
+    };
+
+    return internals.pipe(source, stream);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 180	        return payload.length ? payload : null;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 197	            return Bourne.parse(payload.toString('utf8'), { protoAction: options.protoAction });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 139	internals.raw = async function (req, tap, options) {
+
+    const output = options.output;      // Output: 'data', 'stream', 'file'
+    let source = req;
+
+    // Content-encoding (optional)
+
+    if (options.parse === 'gunzip') {
+        source = internals.decoder(source, options);
+    }
+
+    // Setup source
+
+    if (tap) {
+        source = internals.pipe(source, tap);
+    }
+
+    // Output: 'stream'
+
+    if (output === 'stream') {
+        return source;
+    }
+
+    // Output: 'file'
+
+    if (output === 'file') {
+        const file = await internals.writeFile(req, options, source);
+        return file.item;
+    }
+
+    // Output: 'data'
+
+    return await Wreck.read(source, { timeout: options.timeout, maxBytes: options.maxBytes });
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 73	internals.parse = async function (req, tap, options, contentType) {
+
+    const output = options.output;        // Output: 'data', 'stream', 'file'
+    let source = internals.decoder(req, options);
+
+    // Tap request
+
+    if (tap) {
+        source = internals.pipe(source, tap);
+    }
+
+    // Multipart
+
+    if (contentType.mime === 'multipart/form-data') {
+        if (options.multipart === false) {                            // Defaults to true
+            throw Boom.unsupportedMediaType();
+        }
+
+        return await internals.multipart(req, options, source, contentType);
+    }
+
+    // Output: 'stream'
+
+    if (output === 'stream') {
+        return source;
+    }
+
+    // Output: 'file'
+
+    if (output === 'file') {
+        const file = await internals.writeFile(req, options, source);
+        return file.item;
+    }
+
+    // Output: 'data'
+
+    const payload = await Wreck.read(source, { timeout: options.timeout, maxBytes: options.maxBytes });
+    return internals.object(options, payload, contentType.mime);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 230	        const dispenserOptions = Hoek.applyToDefaults(contentType, { maxBytes: options.maxBytes });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 122	    const decoderOptions = options.compression && options.compression[contentEncoding] || null;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 18	const internals = {
+    decoders: {
+        gzip: (options) => Zlib.createGunzip(options),
+        deflate: (options) => Zlib.createInflate(options)
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 114	internals.decoder = function (source, options) {
+
+    const contentEncoding = source.headers['content-encoding'];
+    const decoders = options.decoders || internals.decoders;
+    if (!decoders.hasOwnProperty(contentEncoding)) {
+        return source;
+    }
+
+    const decoderOptions = options.compression && options.compression[contentEncoding] || null;
+    const stream = decoders[contentEncoding](decoderOptions);
+
+    const orig = stream.emit;
+    stream.emit = (event, ...args) => {
+
+        if (event === 'error') {
+            args = [Boom.badRequest('Invalid compressed payload', args[0])];
+        }
+
+        return orig.call(stream, event, ...args);
+    };
+
+    return internals.pipe(source, stream);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 123	    const stream = decoders[contentEncoding](decoderOptions);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-400/1476/package/lib/index.js
+Line 401	    return from.pipe(to);
+

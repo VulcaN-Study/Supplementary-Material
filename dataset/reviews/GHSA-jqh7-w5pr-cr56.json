@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-jqh7-w5pr-cr56",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/@shopify/koa-shopify-auth/-/koa-shopify-auth-3.1.62.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "dist/src/auth/create-enable-cookies.js",
+                    "lineno": 14,
+                    "code": "return function enableCookies(ctx) {"
+                },
+                "sink": {
+                    "file": "dist/src/auth/create-enable-cookies.js",
+                    "lineno": 21,
+                    "code": "ctx.body = \"\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <style>\n    \" + polaris_css_1.default + \"\n  </style>\n  <base target=\"_top\">\n  <title>Redirecting\u2026</title>\n\n  <script>\n    window.apiKey = \"\" + apiKey + \"\";\n    window.shopOrigin = \"https://\" + shop + \"\";\n\n    \" + itp_helper_1.default + \"\n    \" + top_level_interaction_1.default(shop, prefix) + \"\n  </script>\n</head>\n<body>\n  <main id=\"TopLevelInteractionContent\">\n    <div class=\"Polaris-Page\">\n      <div class=\"Polaris-Page__Content\">\n        <div class=\"Polaris-Layout\">\n          <div class=\"Polaris-Layout__Section\">\n            <div class=\"Polaris-Stack Polaris-Stack--vertical\">\n              <div class=\"Polaris-Stack__Item\">\n                <div class=\"Polaris-Card\">\n                  <div class=\"Polaris-Card__Header\">\n                    <h1 class=\"Polaris-Heading\">\" + HEADING + \"</h1>\n                  </div>\n                  <div class=\"Polaris-Card__Section\">\n                    <p>\" + BODY + \"</p>\n                  </div>\n                  <div class=\"Polaris-Card__Section Polaris-Card__Section--subdued\">\n                    <p>\" + FOOTER + \"</p>\n                  </div>\n                </div>\n              </div>\n              <div class=\"Polaris-Stack__Item\">\n                <div class=\"Polaris-Stack Polaris-Stack--distributionTrailing\">\n                  <div class=\"Polaris-Stack__Item\">\n                    <button type=\"button\" class=\"Polaris-Button Polaris-Button--primary\" id=\"TopLevelInteractionButton\">\n                      <span class=\"Polaris-Button__Content\"><span>\" + ACTION + \"</span></span>\n                    </button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </main>\n</body>\n</html>\";"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/Shopify/quilt/pull/1455/files"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

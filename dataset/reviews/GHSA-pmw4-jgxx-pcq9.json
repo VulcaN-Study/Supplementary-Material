@@ -1,0 +1,123 @@
+{
+    "advisory": {
+        "id": "GHSA-pmw4-jgxx-pcq9",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/ftp-srv/-/ftp-srv-2.19.6.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/fs.js",
+                    "lineno": 79,
+                    "code": "write(fileName, {append = false, start = undefined} = {}) {"
+                },
+                "sink": {
+                    "file": "src/fs.js",
+                    "lineno": 81,
+                    "code": "const stream = fs.createWriteStream(fsPath, {flags: !append ? 'w+' : 'a+', start});"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/fs.js",
+                    "lineno": 87,
+                    "code": "read(fileName, {start = undefined} = {}) {"
+                },
+                "sink": {
+                    "file": "src/fs.js",
+                    "lineno": 94,
+                    "code": "const stream = fs.createReadStream(fsPath, {flags: 'r', start});"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/fs.js",
+                    "lineno": 99,
+                    "code": "delete(path) {"
+                },
+                "sink": {
+                    "file": "src/fs.js",
+                    "lineno": 104,
+                    "code": "else return fs.unlinkAsync(fsPath);"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/fs.js",
+                    "lineno": 108,
+                    "code": "mkdir(path) {"
+                },
+                "sink": {
+                    "file": "src/fs.js",
+                    "lineno": 110,
+                    "code": "return fs.mkdirAsync(fsPath)"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/fs.js",
+                    "lineno": 114,
+                    "code": "rename(from, to) {"
+                },
+                "sink": {
+                    "file": "src/fs.js",
+                    "lineno": 117,
+                    "code": "return fs.renameAsync(fromPath, toPath);"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/fs.js",
+                    "lineno": 120,
+                    "code": "chmod(path, mode) {"
+                },
+                "sink": {
+                    "file": "src/fs.js",
+                    "lineno": 122,
+                    "code": "return fs.chmodAsync(fsPath, mode);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/QuorumDMS/ftp-srv/commit/457b859450a37cba10ff3c431eb4aa67771122e3"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "A"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

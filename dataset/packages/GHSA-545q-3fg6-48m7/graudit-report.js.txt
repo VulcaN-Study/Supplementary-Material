@@ -1,0 +1,95 @@
+/src/README.md-49-
+/src/README.md:50:## `.parse(htmlString, options)`
+/src/README.md-51-
+##############################################
+/src/README.md-68-// becomes this AST:
+/src/README.md:69:var ast = HTML.parse(html);
+/src/README.md-70-
+##############################################
+/src/README.md-136-
+/src/README.md:137:If you pass an object of `components` as part of the `options` object passed as the second argument to `.parse()` then the AST won't keep parsing that branch of the DOM tree when it one of those registered components.
+/src/README.md-138-
+##############################################
+/src/test/parse.js-7-    var html = '<div class="oh"><p></p></div>';
+/src/test/parse.js:8:    var parsed = HTML.parse(html);
+/src/test/parse.js-9-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-28-    html = '<div class="oh"><p>hi</p></div>';
+/src/test/parse.js:29:    parsed = HTML.parse(html);
+/src/test/parse.js-30-
+##############################################
+/src/test/parse.js-55-    html = '<div>oh <strong>hello</strong> there! How are <span>you</span>?</div>';
+/src/test/parse.js:56:    parsed = HTML.parse(html);
+/src/test/parse.js-57-
+##############################################
+/src/test/parse.js-104-    html = '<div class="handles multiple classes" and="attributes"></div>';
+/src/test/parse.js:105:    parsed = HTML.parse(html);
+/src/test/parse.js-106-
+##############################################
+/src/test/parse.js-119-    html = '<div class=\'handles\' other=47 and="attributes"></div>';
+/src/test/parse.js:120:    parsed = HTML.parse(html);
+/src/test/parse.js-121-
+##############################################
+/src/test/parse.js-135-    html = '<div-custom class="oh"><my-component some="thing"><p>should be ignored</p></my-component></div-custom>';
+/src/test/parse.js:136:    parsed = HTML.parse(html, {
+/src/test/parse.js-137-        components: {
+##############################################
+/src/test/parse.js-162-    html = '<div><my-component thing="one">ok</my-component><my-component thing="two">ok</my-component></div>';
+/src/test/parse.js:163:    parsed = HTML.parse(html, {
+/src/test/parse.js-164-        components: {
+##############################################
+/src/test/parse.js-196-    html = '<div><img></div>';
+/src/test/parse.js:197:    parsed = HTML.parse(html);
+/src/test/parse.js-198-
+##############################################
+/src/test/parse.js-216-    html = '<div></div><img>';
+/src/test/parse.js:217:    parsed = HTML.parse(html);
+/src/test/parse.js-218-
+##############################################
+/src/test/parse.js-237-    html = '<div><void-web-component/></div>';
+/src/test/parse.js:238:    parsed = HTML.parse(html);
+/src/test/parse.js-239-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-255-    html = '<div><void-registered-component/></div>';
+/src/test/parse.js:256:    parsed = HTML.parse(html, {components: {'void-registered-component': true}});
+/src/test/parse.js-257-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-274-    html = '<div> 9 <input type="text"/> 10 </div>';
+/src/test/parse.js:275:    parsed = HTML.parse(html);
+/src/test/parse.js-276-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-296-    html = '<div></div>\n';
+/src/test/parse.js:297:    parsed = HTML.parse(html);
+/src/test/parse.js-298-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-306-    html = '<div>Hi</div> There ';
+/src/test/parse.js:307:    parsed = HTML.parse(html);
+/src/test/parse.js-308-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-320-    html = '<div>Hi</div> There <span>something</span> <a></a>else ';
+/src/test/parse.js:321:    parsed = HTML.parse(html);
+/src/test/parse.js-322-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-354-    html = '\n<div>  <span>Hi!</span> </div>\n';
+/src/test/parse.js:355:    parsed = HTML.parse(html);
+/src/test/parse.js-356-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-376-    html = '<div>Hi</div>\n\n <span>There</span> \t <div>\n\t</div>';
+/src/test/parse.js:377:    parsed = HTML.parse(html);
+/src/test/parse.js-378-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-412-    html = '<div>Hi</div>\n\n <span>There</span> \t <iframe>\n\t</iframe>';
+/src/test/parse.js:413:    parsed = HTML.parse(html, { ignoreWhitespace: true });
+/src/test/parse.js-414-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-438-    html = '<!--\n\t<style type="text/css">\n\t\t.header {\n\t\t\tfont-size: 14px;\n\t\t}\n\t</style>\n\n-->\n<div>Hi</div>';
+/src/test/parse.js:439:    parsed = HTML.parse(html);
+/src/test/parse.js-440-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-450-    html = '<div>Hi <!-- I\'m a nested comment! with a <span></span> -->there<strong>!</strong></div><span><!--test--></span>';
+/src/test/parse.js:451:    parsed = HTML.parse(html);
+/src/test/parse.js-452-    t.deepEqual(parsed, [{
+##############################################
+/src/test/parse.js-476-    html = 'Hello, world!';
+/src/test/parse.js:477:    parsed = HTML.parse(html);
+/src/test/parse.js-478-    t.deepEqual(parsed, [{

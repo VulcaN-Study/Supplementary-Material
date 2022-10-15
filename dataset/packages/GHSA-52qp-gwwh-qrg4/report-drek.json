@@ -1,0 +1,102 @@
+[
+ {
+  "id": 1,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\supdate\\s*\\(",
+  "match": "            $filePath,\n            '<?php'.PHP_EOL.'return '.varexport($this->config, true).';' . PHP_EOL\n        );\n    }\n\n    public function update(){\n        $this->loadConfig();\n        $this->loadPortConfig();\n        $this->modifyConfig();\n        $this->saveConfig(joinpaths(getcwd(), './app/etc/env.php'));\n    }",
+  "line": 128,
+  "start": 123,
+  "end": 134
+ },
+ {
+  "id": 2,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\sfile_get_contents\\s*\\(",
+  "match": "    {\n        return $this->portConfig;\n    }\n\n    public function loadPortConfig() {\n        $portConfigContent = file_get_contents('./node_modules/.create-magento-app-cache/port-config.json');\n        if ($portConfigContent === false) {\n            throw new Error('Port config file does not exists in cache directory');\n        }\n\n        $portConfigJsonData = json_decode($portConfigContent, true);",
+  "line": 57,
+  "start": 52,
+  "end": 63
+ },
+ {
+  "id": 3,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\srequire\\s",
+  "match": "     * @var mixed\n     */\n    private $portConfig;\n\n    public function loadConfig() {\n        $this->config = require './app/etc/env.php';\n    }\n\n    /**\n     * @return mixed\n     */",
+  "line": 37,
+  "start": 32,
+  "end": 43
+ },
+ {
+  "id": 4,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\secho",
+  "match": "    $export = var_export($expression, TRUE);\n    $export = preg_replace(\"/^([ ]*)(.*)/m\", '$1$1$2', $export);\n    $array = preg_split(\"/\\r\\n|\\n|\\r/\", $export);\n    $array = preg_replace([\"/\\s*array\\s\\($/\", \"/\\)(,)?$/\", \"/\\s=>\\s$/\"], [NULL, ']$1', ' => ['], $array);\n    $export = join(PHP_EOL, array_filter([\"[\"] + $array));\n    if ((bool)$return) return $export; else echo $export;\n}\n\nfunction joinpaths(): string\n{\n    $paths = array();",
+  "line": 10,
+  "start": 5,
+  "end": 16
+ },
+ {
+  "id": 5,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\squery",
+  "match": "                    $frontendCache['backend_options']['server'] = '127.0.0.1';\n                }\n            }\n        }\n\n        // update persisted query redis config\n        if (isset($this->config['cache']['persisted-query'])) {\n            $persistedQuery = &$this->config['cache']['persisted-query'];\n\n            if (isset($persistedQuery['redis'])) {\n                if ($persistedQuery['redis']['port'] !== strval($this->portConfig['redis'])) {",
+  "line": 106,
+  "start": 101,
+  "end": 112
+ },
+ {
+  "id": 6,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\supdate",
+  "match": "\n        $this->portConfig = $portConfigJsonData;\n    }\n\n    public function modifyConfig() {\n        // update mysql config\n        if (isset($this->config['db']['connection']['default'])) {\n            $conn = &$this->config['db']['connection']['default'];\n            if (\n                isset($conn['engine']) &&\n                isset($conn['host']) &&",
+  "line": 71,
+  "start": 66,
+  "end": 77
+ },
+ {
+  "id": 7,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\supdate",
+  "match": "            ) {\n                $conn['host'] = '127.0.0.1:' . $this->portConfig['mysql'];\n            }\n        }\n\n        // update redis session config\n        if (\n            isset($this->config['session']) &&\n            $this->config['session']['save'] === 'redis' &&\n            $this->config['session']['redis']['port'] !== strval($this->portConfig['redis'])\n        ) {",
+  "line": 84,
+  "start": 79,
+  "end": 90
+ },
+ {
+  "id": 8,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\supdate",
+  "match": "            $this->config['session']['redis']['port'] !== strval($this->portConfig['redis'])\n        ) {\n            $this->config['session']['redis']['port'] = strval($this->portConfig['redis']);\n        }\n\n        // update redis frontend config\n        if (isset($this->config['cache']['frontend']['default'])) {\n            $frontendCache = &$this->config['cache']['frontend']['default'];\n            if ($frontendCache['backend'] === 'Magento\\\\Framework\\\\Cache\\\\Backend\\\\Redis') {\n                if ($frontendCache['backend_options']['port'] !== strval($this->portConfig['redis'])) {\n                    $frontendCache['backend_options']['port'] = strval($this->portConfig['redis']);",
+  "line": 93,
+  "start": 88,
+  "end": 99
+ },
+ {
+  "id": 9,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\supdate",
+  "match": "                    $frontendCache['backend_options']['server'] = '127.0.0.1';\n                }\n            }\n        }\n\n        // update persisted query redis config\n        if (isset($this->config['cache']['persisted-query'])) {\n            $persistedQuery = &$this->config['cache']['persisted-query'];\n\n            if (isset($persistedQuery['redis'])) {\n                if ($persistedQuery['redis']['port'] !== strval($this->portConfig['redis'])) {",
+  "line": 106,
+  "start": 101,
+  "end": 112
+ },
+ {
+  "id": 10,
+  "file": "/src/lib/tasks/php/update-env.php",
+  "filetype": "php",
+  "search": "\\supdate",
+  "match": "            $filePath,\n            '<?php'.PHP_EOL.'return '.varexport($this->config, true).';' . PHP_EOL\n        );\n    }\n\n    public function update(){\n        $this->loadConfig();\n        $this->loadPortConfig();\n        $this->modifyConfig();\n        $this->saveConfig(joinpaths(getcwd(), './app/etc/env.php'));\n    }",
+  "line": 128,
+  "start": 123,
+  "end": 134
+ }
+]

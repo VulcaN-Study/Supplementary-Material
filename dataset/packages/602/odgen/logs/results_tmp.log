@@ -1,0 +1,2868 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 25	function bindToCurrentDomain(callback) {
+  if (!callback) {
+    return undefined;
+  }
+
+  var domain = process.domain;
+
+  return domain
+    ? domain.bind(callback)
+    : callback;
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 30	  var domain = process.domain;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 25	function bindToCurrentDomain(callback) {
+  if (!callback) {
+    return undefined;
+  }
+
+  var domain = process.domain;
+
+  return domain
+    ? domain.bind(callback)
+    : callback;
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 30	  var domain = process.domain;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$13$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$14$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$15$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$16$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$17$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$18$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$19$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$20$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$21$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$22$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$23$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 155	Connection.prototype.beginTransaction = function beginTransaction(options, callback) {
+  if (!callback && typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
+  options = options || {};
+  options.sql = 'START TRANSACTION';
+  options.values = null;
+
+  return this.query(options, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$24$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 194	Connection.prototype.query = function query(sql, values, cb) {
+  var query = Connection.createQuery(sql, values, cb);
+  query._connection = this;
+
+  if (!(typeof sql === 'object' && 'typeCast' in sql)) {
+    query.typeCast = this.config.typeCast;
+  }
+
+  if (query.sql) {
+    query.sql = this.format(query.sql, query.values);
+  }
+
+  this._implyConnect();
+
+  return this._protocol._enqueue(query);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$25$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 13	  return new Connection({config: new ConnectionConfig(config)});
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$26$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 13	  this.port               = options.port || 3306;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$27$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$28$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 158	    options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$29$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 161	  options = options || {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$30$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 12	  this.host               = options.host || 'localhost';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 25	function bindToCurrentDomain(callback) {
+  if (!callback) {
+    return undefined;
+  }
+
+  var domain = process.domain;
+
+  return domain
+    ? domain.bind(callback)
+    : callback;
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 30	  var domain = process.domain;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 25	function bindToCurrentDomain(callback) {
+  if (!callback) {
+    return undefined;
+  }
+
+  var domain = process.domain;
+
+  return domain
+    ? domain.bind(callback)
+    : callback;
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 30	  var domain = process.domain;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$13$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$14$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$15$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$16$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$17$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$18$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$19$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$20$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$21$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$22$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$23$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 155	Connection.prototype.beginTransaction = function beginTransaction(options, callback) {
+  if (!callback && typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
+  options = options || {};
+  options.sql = 'START TRANSACTION';
+  options.values = null;
+
+  return this.query(options, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$24$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 194	Connection.prototype.query = function query(sql, values, cb) {
+  var query = Connection.createQuery(sql, values, cb);
+  query._connection = this;
+
+  if (!(typeof sql === 'object' && 'typeCast' in sql)) {
+    query.typeCast = this.config.typeCast;
+  }
+
+  if (query.sql) {
+    query.sql = this.format(query.sql, query.values);
+  }
+
+  this._implyConnect();
+
+  return this._protocol._enqueue(query);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$25$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 13	  return new Connection({config: new ConnectionConfig(config)});
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$26$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 13	  this.port               = options.port || 3306;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$27$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$28$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 158	    options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$29$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 161	  options = options || {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$30$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 12	  this.host               = options.host || 'localhost';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 25	function bindToCurrentDomain(callback) {
+  if (!callback) {
+    return undefined;
+  }
+
+  var domain = process.domain;
+
+  return domain
+    ? domain.bind(callback)
+    : callback;
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 30	  var domain = process.domain;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 25	function bindToCurrentDomain(callback) {
+  if (!callback) {
+    return undefined;
+  }
+
+  var domain = process.domain;
+
+  return domain
+    ? domain.bind(callback)
+    : callback;
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 30	  var domain = process.domain;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 32	  return domain
+    ? domain.bind(callback)
+    : callback;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$13$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 192	        options[key] = JSON.parse(value);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$14$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 171	ConnectionConfig.parseUrl = function(url) {
+  url = urlParse(url, true);
+
+  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+
+  if (url.auth) {
+    var auth = url.auth.split(':');
+    options.user     = auth.shift();
+    options.password = auth.join(':');
+  }
+
+  if (url.query) {
+    for (var key in url.query) {
+      var value = url.query[key];
+
+      try {
+        // Try to parse this as a JSON expression first
+        options[key] = JSON.parse(value);
+      } catch (err) {
+        // Otherwise assume it is a plain string
+        options[key] = value;
+      }
+    }
+  }
+
+  return options;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$15$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 9	exports.createConnection = function createConnection(config) {
+  var Connection       = loadClass('Connection');
+  var ConnectionConfig = loadClass('ConnectionConfig');
+
+  return new Connection({config: new ConnectionConfig(config)});
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$16$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 7	function ConnectionConfig(options) {
+  if (typeof options === 'string') {
+    options = ConnectionConfig.parseUrl(options);
+  }
+
+  this.host               = options.host || 'localhost';
+  this.port               = options.port || 3306;
+  this.localAddress       = options.localAddress;
+  this.socketPath         = options.socketPath;
+  this.user               = options.user || undefined;
+  this.password           = options.password || undefined;
+  this.database           = options.database;
+  this.connectTimeout     = (options.connectTimeout === undefined)
+    ? (10 * 1000)
+    : options.connectTimeout;
+  this.insecureAuth       = options.insecureAuth || false;
+  this.supportBigNumbers  = options.supportBigNumbers || false;
+  this.bigNumberStrings   = options.bigNumberStrings || false;
+  this.dateStrings        = options.dateStrings || false;
+  this.debug              = options.debug;
+  this.trace              = options.trace !== false;
+  this.stringifyObjects   = options.stringifyObjects || false;
+  this.timezone           = options.timezone || 'local';
+  this.flags              = options.flags || '';
+  this.queryFormat        = options.queryFormat;
+  this.pool               = options.pool || undefined;
+  this.ssl                = (typeof options.ssl === 'string')
+    ? ConnectionConfig.getSSLProfile(options.ssl)
+    : (options.ssl || false);
+  this.multipleStatements = options.multipleStatements || false;
+  this.typeCast           = (options.typeCast === undefined)
+    ? true
+    : options.typeCast;
+
+  if (this.timezone[0] === ' ') {
+    // "+" is a url encoded char for space so it
+    // gets translated to space when giving a
+    // connection string..
+    this.timezone = '+' + this.timezone.substr(1);
+  }
+
+  if (this.ssl) {
+    // Default rejectUnauthorized to true
+    this.ssl.rejectUnauthorized = this.ssl.rejectUnauthorized !== false;
+  }
+
+  this.maxPacketSize = 0;
+  this.charsetNumber = (options.charset)
+    ? ConnectionConfig.getCharsetNumber(options.charset)
+    : options.charsetNumber || Charsets.UTF8_GENERAL_CI;
+
+  // Set the client flags
+  var defaultFlags = ConnectionConfig.getDefaultFlags(options);
+  this.clientFlags = ConnectionConfig.mergeFlags(defaultFlags, options.flags);
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 172	  url = urlParse(url, true);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 174	  var options = {
+    host     : url.hostname,
+    port     : url.port,
+    database : url.pathname.substr(1)
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$17$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$18$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$19$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 61	    return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$20$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 37	Connection.createQuery = function createQuery(sql, values, callback) {
+  if (sql instanceof Query) {
+    return sql;
+  }
+
+  var cb      = bindToCurrentDomain(callback);
+  var options = {};
+
+  if (typeof sql === 'function') {
+    cb = bindToCurrentDomain(sql);
+    return new Query(options, cb);
+  }
+
+  if (typeof sql === 'object') {
+    for (var prop in sql) {
+      options[prop] = sql[prop];
+    }
+
+    if (typeof values === 'function') {
+      cb = bindToCurrentDomain(values);
+    } else if (values !== undefined) {
+      options.values = values;
+    }
+
+    return new Query(options, cb);
+  }
+
+  options.sql    = sql;
+  options.values = values;
+
+  if (typeof values === 'function') {
+    cb = bindToCurrentDomain(values);
+    options.values = undefined;
+  }
+
+  if (cb === undefined && callback !== undefined) {
+    throw new TypeError('argument callback must be a function when provided');
+  }
+
+  return new Query(options, cb);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$21$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 49	exports.createQuery = function createQuery(sql, values, callback) {
+  var Connection = loadClass('Connection');
+
+  return Connection.createQuery(sql, values, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$22$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 76	  return new Query(options, cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$23$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 155	Connection.prototype.beginTransaction = function beginTransaction(options, callback) {
+  if (!callback && typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
+  options = options || {};
+  options.sql = 'START TRANSACTION';
+  options.values = null;
+
+  return this.query(options, callback);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$24$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 194	Connection.prototype.query = function query(sql, values, cb) {
+  var query = Connection.createQuery(sql, values, cb);
+  query._connection = this;
+
+  if (!(typeof sql === 'object' && 'typeCast' in sql)) {
+    query.typeCast = this.config.typeCast;
+  }
+
+  if (query.sql) {
+    query.sql = this.format(query.sql, query.values);
+  }
+
+  this._implyConnect();
+
+  return this._protocol._enqueue(query);
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$25$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/index.js
+Line 13	  return new Connection({config: new ConnectionConfig(config)});
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$26$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 13	  this.port               = options.port || 3306;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$27$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 43	  var options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$28$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 158	    options = {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$29$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 161	  options = options || {};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+
+|checker| success id$30$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/ConnectionConfig.js
+Line 12	  this.host               = options.host || 'localhost';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 89	    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-20/602/package/lib/Connection.js
+Line 369	    securePair.encrypted.pipe(this._socket);
+

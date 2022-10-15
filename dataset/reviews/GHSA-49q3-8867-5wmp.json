@@ -1,0 +1,102 @@
+{
+    "advisory": {
+        "id": "GHSA-49q3-8867-5wmp",
+        "cwe": [
+            "CWE-78",
+            "CWE-94"
+        ]
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/reg-keygen-git-hash-plugin/-/reg-keygen-git-hash-plugin-0.10.15.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 21,
+                    "code": "containedBranches(hash) {"
+                },
+                "sink": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 22,
+                    "code": "return child_process_1.execSync(`git branch -a --contains ${hash}`, { encoding: \"utf8\" });"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 24,
+                    "code": "logTime(hash) {"
+                },
+                "sink": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 25,
+                    "code": "return child_process_1.execSync(`git log --pretty=%ci -n 1 ${hash}`, { encoding: \"utf8\" });\"utf8\" });"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 27,
+                    "code": "logBetween(a, b) {"
+                },
+                "sink": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 28,
+                    "code": "return child_process_1.execSync(`git log --oneline ${a}..${b}`, { encoding: \"utf8\" });\"utf8\" });"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 33,
+                    "code": "mergeBase(a, b) {"
+                },
+                "sink": {
+                    "file": "lib/git-cmd-client.js",
+                    "lineno": 34,
+                    "code": "return child_process_1.execSync(`git merge-base -a ${a} ${b}`, { encoding: \"utf8\" });\"utf8\" });"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/reg-viz/reg-suit/commit/f84ad9c7a22144d6c147dc175c52756c0f444d87"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

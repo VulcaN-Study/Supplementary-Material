@@ -1,0 +1,111 @@
+{
+    "advisory": {
+        "id": "GHSA-m33v-338h-4v9f",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/@node-red/runtime/-/runtime-1.2.7.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 242,
+                    "code": "Project.prototype.update = function (user, data) {"
+                },
+                "sink": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 317,
+                    "code": "fs.writeFileSync(fspath.join(this.path,this.paths['package.json']),newPackage);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 489,
+                    "code": "Project.prototype.getFile = function (filePath,treeish) {"
+                },
+                "sink": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 493,
+                    "code": "return fs.readFile(fspath.join(this.path,filePath),\"utf8\");"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 640,
+                    "code": "Project.prototype.resolveMerge = function (file,resolutions) {"
+                },
+                "sink": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 644,
+                    "code": "return util.writeFile(filePath, resolutions).then(function() {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 640,
+                    "code": "Project.prototype.resolveMerge = function (file,resolutions) {"
+                },
+                "sink": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 648,
+                    "code": "return fs.readFile(filePath,\"utf8\").then(function(content) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 640,
+                    "code": "Project.prototype.resolveMerge = function (file,resolutions) {"
+                },
+                "sink": {
+                    "file": "lib/storage/localfilesystem/projects/Project.js",
+                    "lineno": 681,
+                    "code": "return util.writeFile(filePath,finalResult).then(function() {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/node-red/node-red/commit/74db3e17d075f23d9c95d7871586cf461524c456"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

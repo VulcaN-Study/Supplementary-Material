@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-q6pj-jh94-5fpr",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/docker-compose-remote-api/-/docker-compose-remote-api-0.1.4.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 90,
+                    "code": "exec: function(serviceName, cmd, fnStdout, fnStderr, fnExit){"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 91, 
+                    "code": "var execDockerCompose  = exec(\"docker-compose exec \" + serviceName + \" \" + cmd, { cwd: cwd });"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://security.snyk.io/vuln/SNYK-JS-DOCKERCOMPOSEREMOTEAPI-560125"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

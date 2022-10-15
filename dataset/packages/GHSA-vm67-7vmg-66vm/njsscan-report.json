@@ -1,0 +1,78 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "9532e7830e52f3dac5b95608ec98defac69d78117f438919f3216a380e59b6d6",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "9532e7830e52f3dac5b95608ec98defac69d78117f438919f3216a380e59b6d6",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            3,
+            19
+          ],
+          "match_position": [
+            2,
+            3
+          ],
+          "match_string": "\ttry {\n\t\tconst result = (await exec(`lsof -i :${port}`)).output.split('\\n');\n\t\tconst headers = result.shift().split(' ').filter(item => !!item.trim() && item.trim() !== \"\").map(item => item.toLowerCase());\n\t\treturn result.filter(item => !!item.trim() && item.trim() !== \"\").reduce((accumulator, currentValue) => {\n\t\t\taccumulator.push(currentValue.split(' ').filter(item => !!item.trim() && item.trim() !== \"\").reduce((accumulator, currentValue, index) => {\n\t\t\t\tif (index > headers.length - 1) {\n\t\t\t\t\taccumulator[headers[headers.length - 1]] = (!!accumulator[headers[headers.length - 1]].trim() && accumulator[headers[headers.length - 1]].trim() !== \"\") ? `${accumulator[headers[headers.length - 1]]} ${currentValue}` : currentValue;\n\t\t\t\t} else {\n\t\t\t\t\taccumulator[headers[index]] = currentValue;\n\t\t\t\t}\n\t\t\t\treturn accumulator;\n\t\t\t}, {}));\n\t\t\treturn accumulator;\n\t\t}, []);\n\t} catch (e) {\n\t\tconsole.error(e);\n\t}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

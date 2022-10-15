@@ -1,0 +1,136 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 49,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "6dc0e068dcf3a5bc8e054205b85b7720e1d49265bbc64bf515d2cf79197df69a",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 11124,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "6dc0e068dcf3a5bc8e054205b85b7720e1d49265bbc64bf515d2cf79197df69a",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "join_resolve_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/huemagic/hue-magic.js",
+          "match_lines": [
+            277,
+            277
+          ],
+          "match_position": [
+            16,
+            82
+          ],
+          "match_string": "\t\tres.sendFile(path.resolve(__dirname, 'animations', 'previews', req.params.file));"
+        },
+        {
+          "file_path": "/src/huemagic/hue-magic.js",
+          "match_lines": [
+            285,
+            285
+          ],
+          "match_position": [
+            16,
+            66
+          ],
+          "match_string": "\t\tres.sendFile(path.resolve(__dirname, 'assets', req.params.file));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory (Path Traversal)",
+        "description": "Path constructed with user input can result in Path Traversal. Ensure that user input does not reach `join()` or `resolve()`. ",
+        "owasp": "A5: Broken Access Control",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/huemagic/hue-bridge-config.js",
+          "match_lines": [
+            283,
+            283
+          ],
+          "match_position": [
+            106,
+            119
+          ],
+          "match_string": "\t\t\trequest.post('http://'+bridgeIP+'/api', {body: JSON.stringify({\"devicetype\": \"nodered_\" + Math.floor((Math.random() * 100) + 1)}) }, function(err,httpResponse,body)"
+        },
+        {
+          "file_path": "/src/huemagic/hue-magic.js",
+          "match_lines": [
+            57,
+            57
+          ],
+          "match_position": [
+            32,
+            45
+          ],
+          "match_string": "                j = Math.floor(Math.random() * (i + 1));"
+        },
+        {
+          "file_path": "/src/utils/color.js",
+          "match_lines": [
+            7,
+            7
+          ],
+          "match_position": [
+            17,
+            30
+          ],
+          "match_string": "\t\treturn '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, \"0\");"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

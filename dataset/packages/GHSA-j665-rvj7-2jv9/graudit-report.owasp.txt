@@ -1,0 +1,51 @@
+/src/README.md-29-## Pass in a context dictionary
+/src/README.md:30:You can pass a context dictionary argument for Mosc to use when evaluating certain placeholders in your build arguments
+/src/README.md-31-```
+##############################################
+/src/README.md-36-/*
+/src/README.md:37:*SEQ*.string is evaluated using the context dictionary passed
+/src/README.md-38-Mosc looks for the property SEQ in the context dictionary, 
+/src/README.md-39-it then checks if there is a corresponding string property
+/src/README.md:40:if there is, Mosq evaluates SEQ.string and returns the result hence:
+/src/README.md-41-result = {
+##############################################
+/src/README.md-45-}
+/src/README.md:46:if there isn't MOSC throws a context not found in eval dict error
+/src/README.md-47-*/
+##############################################
+/src/mosc.js:1:var MoscBase = function (evaluation_context_dictionary)
+/src/mosc.js-2-{
+/src/mosc.js:3:	this.eval_ctx_dict = evaluation_context_dictionary;
+/src/mosc.js-4-	this.baseObject    = {};
+##############################################
+/src/mosc.js-13-
+/src/mosc.js:14:	this.parse_properties = function (key, properties, baseObject, eval_dict)
+/src/mosc.js-15-	{
+/src/mosc.js:16:		function get_eval_string(path) {
+/src/mosc.js:17:			var eval_prop = path.match(/\*([a-zA-Z_0-9]+)\*/)[1];
+/src/mosc.js:18:			return 'eval_dict["'+eval_prop+'"]' + path.replace(/\*[a-zA-Z_0-9]+\*/, '');
+/src/mosc.js-19-		}
+##############################################
+/src/mosc.js-49-		    	{
+/src/mosc.js:50:		    		propertyBase[property_parts[0]] = eval(get_eval_string(pvalue));
+/src/mosc.js-51-		    	}
+##############################################
+/src/mosc.js-53-		    	{
+/src/mosc.js:54:		    		throw new Error('Context not found in eval_dict');
+/src/mosc.js-55-		    	}
+##############################################
+/src/mosc.js-67-		properties = properties || null;
+/src/mosc.js:68:		this.parse_properties(property_key, properties, this.baseObject, this.eval_ctx_dict);
+/src/mosc.js-69-		return this.noMoreBuild ? this.baseObject : this;
+##############################################
+/src/mosc.js-101-		{
+/src/mosc.js:102:			this.parse_properties(properties, null, buildBase, this.eval_ctx_dict);
+/src/mosc.js-103-		}
+##############################################
+/src/test/test.js-85-
+/src/test/test.js:86:	it('Should throw a Context not found in eval_dict error', function () {
+/src/test/test.js-87-		var result = new mosc({});
+##############################################
+/src/test/test.js-92-
+/src/test/test.js:93:		expect(testNoPropThrow).to.throw('Context not found in eval_dict');
+/src/test/test.js-94-	});

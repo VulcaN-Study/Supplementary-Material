@@ -1,0 +1,265 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse .editorconfig as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 35,
+            "line": 1
+          },
+          "file": "/src/.editorconfig",
+          "source_hash": "34fad44391909656498c45602f0a3d08bff0e461e2a2e073e7c4777eb37549d5",
+          "start": {
+            "col": 3,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse .editorconfig as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 35,
+            "line": 1
+          },
+          "file": "/src/.editorconfig",
+          "source_hash": "34fad44391909656498c45602f0a3d08bff0e461e2a2e073e7c4777eb37549d5",
+          "start": {
+            "col": 3,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 8,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "403528b76030cedffbb6760d5a7d14ec22dff9643bfdb5e16b026476fcf163f1",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 8,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "403528b76030cedffbb6760d5a7d14ec22dff9643bfdb5e16b026476fcf163f1",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "express_lfr_warning": {
+      "files": [
+        {
+          "file_path": "/src/test/apps/async/index.js",
+          "match_lines": [
+            76,
+            79
+          ],
+          "match_position": [
+            5,
+            7
+          ],
+          "match_string": "    res.render('index', {\n      message: 'Hello,',\n      username: req.cookies.user\n    });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in express render() function can result in arbitrary file read if hbs templating is used.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/generate-id.js",
+          "match_lines": [
+            11,
+            11
+          ],
+          "match_position": [
+            32,
+            45
+          ],
+          "match_string": "    res += alphabet[Math.floor(Math.random() * alphabet.length)];"
+        },
+        {
+          "file_path": "/src/test/apps/async/index.js",
+          "match_lines": [
+            58,
+            58
+          ],
+          "match_position": [
+            10,
+            23
+          ],
+          "match_string": "  return Math.random() * (max - min) + min;"
+        },
+        {
+          "file_path": "/src/test/helperSpecs.js",
+          "match_lines": [
+            36,
+            36
+          ],
+          "match_position": [
+            24,
+            37
+          ],
+          "match_string": "        }, Math.floor((Math.random()*10)+1));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_username": {
+      "files": [
+        {
+          "file_path": "/src/test/asyncSpecs.js",
+          "match_lines": [
+            25,
+            25
+          ],
+          "match_position": [
+            5,
+            33
+          ],
+          "match_string": "    status[users[i]] = 'Pending';"
+        },
+        {
+          "file_path": "/src/test/asyncSpecs.js",
+          "match_lines": [
+            30,
+            30
+          ],
+          "match_position": [
+            9,
+            35
+          ],
+          "match_string": "        status[user] = 'Completed'"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded username in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {
+    "handlebar_mustache_template": {
+      "files": [
+        {
+          "file_path": "/src/test/issues/153/index.hbs",
+          "match_lines": [
+            2,
+            3
+          ],
+          "match_position": [
+            88,
+            111
+          ],
+          "match_string": "{{{block \"testBlock\"}}}"
+        },
+        {
+          "file_path": "/src/test/issues/59/index.hbs",
+          "match_lines": [
+            1,
+            2
+          ],
+          "match_position": [
+            16,
+            33
+          ],
+          "match_string": "{{{async \"foo\"}}}"
+        },
+        {
+          "file_path": "/src/test/issues/53/default.hbs",
+          "match_lines": [
+            11,
+            11
+          ],
+          "match_position": [
+            109,
+            127
+          ],
+          "match_string": "{{{block \"meta\"}}}"
+        },
+        {
+          "file_path": "/src/test/apps/async/views/index.hbs",
+          "match_lines": [
+            2,
+            2
+          ],
+          "match_position": [
+            38,
+            57
+          ],
+          "match_string": "{{{user username}}}"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "The Handlebar.js/Mustache.js template has an unescaped variable. Untrusted user input passed to this variable results in Cross Site Scripting (XSS).",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+/src/lib/routes/collection.js-407-
+/src/lib/routes/collection.js:408:    req.db.createCollection(name, function (err) {
+/src/lib/routes/collection.js-409-      if (err) {
+##############################################
+/src/lib/routes/database.js-59-
+/src/lib/routes/database.js:60:    ndb.createCollection('delete_me', function (err) {
+/src/lib/routes/database.js-61-      if (err) {
+##############################################
+/src/lib/db.js-96-      const client = await Bluebird.fromCallback(
+/src/lib/db.js:97:        (cb) => mongodb.MongoClient.connect(connectionString, connectionOptions, cb),
+/src/lib/db.js-98-      );
+##############################################
+/src/test/testMongoUtils.js-23-exports.createConnection = () => asPromise(
+/src/test/testMongoUtils.js:24:  (cb) => MongoClient.connect(mongoConfig.makeConnectionUrl(), cb),
+/src/test/testMongoUtils.js-25-);
+##############################################
+/src/test/testMongoUtils.js-27-exports.createTestCollection = (client) => asPromise(
+/src/test/testMongoUtils.js:28:  (cb) => client.db().collection(exports.testCollectionName).insertMany(exports.testData, cb),
+/src/test/testMongoUtils.js-29-).then((results) => {
+##############################################
+/src/test/testMongoUtils.js-34-exports.dropTestCollection = (client) => asPromise(
+/src/test/testMongoUtils.js:35:  (cb) => client.db().collection(exports.testCollectionName).drop(cb),
+/src/test/testMongoUtils.js-36-);
+##############################################
+/src/test/testMongoUtils.js-39-
+/src/test/testMongoUtils.js:40:exports.initializeDb = () => exports.createConnection()
+/src/test/testMongoUtils.js-41-  .then((client) => exports.createTestCollection(client).then(() => client));

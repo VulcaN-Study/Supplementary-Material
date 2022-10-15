@@ -1,0 +1,138 @@
+{
+    "advisory": {
+        "id": "GHSA-jff2-qjw8-5476",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/systeminformation/-/systeminformation-4.34.23.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/internet.js",
+                    "lineno": 127,
+                    "code": "function inetLatency(host, callback) {"
+                },
+                "sink": {
+                    "file": "lib/util.js",
+                    "lineno": 399,
+                    "code": "const child = spawn(cmd, args, options);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/internet.js",
+                    "lineno": 31,
+                    "code": "function inetChecksite(url, callback) {"
+                },
+                "sink": {
+                    "file": "lib/util.js",
+                    "lineno": 399,
+                    "code": "const child = spawn(cmd, args, options);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/processes.js",
+                    "lineno": 881,
+                    "code": "function processLoad(proc, callback) {"
+                },
+                "sink": {
+                    "file": "lib/processes.js",
+                    "lineno": 993,
+                    "code": "exec('ps -axo pid,pcpu,pmem,comm | grep -i ' + procSanitized + ' | grep -v grep', { maxBuffer: 1024 * 20000 }, function (error, stdout) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/processes.js",
+                    "lineno": 881,
+                    "code": "function processLoad(proc, callback) {"
+                },
+                "sink": {
+                    "file": "lib/processes.js",
+                    "lineno": 1026,
+                    "code": "exec(cmd, { maxBuffer: 1024 * 20000 }, function (error, stdout) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/processes.js",
+                    "lineno": 90,
+                    "code": "function services(srv, callback) {"
+                },
+                "sink": {
+                    "file": "lib/processes.js",
+                    "lineno": 171,
+                    "code": "util.execSafe('ps', args).then((stdout) => {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/processes.js",
+                    "lineno": 90,
+                    "code": "function services(srv, callback) {"
+                },
+                "sink": {
+                    "file": "lib/processes.js",
+                    "lineno": 216,
+                    "code": "exec(cmd, { maxBuffer: 1024 * 20000 }, function (error, stdout) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/processes.js",
+                    "lineno": 90,
+                    "code": "function services(srv, callback) {"
+                },
+                "sink": {
+                    "file": "lib/processes.js",
+                    "lineno": 269,
+                    "code": "util.execSafe('ps', args).then((stdout) => {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://security.snyk.io/vuln/SNYK-JS-CLOSURECOMPILERSTREAM-560123"
+        }
+    ],
+    "patch": [
+        {
+            "url": ["https://github.com/sebhildebrandt/systeminformation/commit/07daa05fb06f24f96297abaa30c2ace8bfd8b525",
+                    "https://github.com/sebhildebrandt/systeminformation/commit/01ef56cd5824ed6da1c11b37013a027fdef67524",
+                    "https://github.com/sebhildebrandt/systeminformation/commit/0be6fcd575c05687d1076d5cd6d75af2ebae5a46",
+                    "https://github.com/sebhildebrandt/systeminformation/commit/7922366d707de7f20995fc8e30ac3153636bf35f#diff-970ae648187190f86bafc8f193b7538200eba164fad0674428b6487582c089cc"]
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

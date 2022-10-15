@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": "GHSA-whq6-mj2r-mjqc",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/lsof/-/lsof-0.0.4.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lsof.js",
+                    "lineno": 3,
+                    "code": "var raw = exports.raw = function(pid, fn) {"
+                },
+                "sink": {
+                    "file": "lsof.js",
+                    "lineno": 9,
+                    "code": "cp.exec('lsof -p ' + pid, function(err, d) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lsof.js",
+                    "lineno": 36,
+                    "code": "var rawTcpPort = exports.rawTcpPort = function(port, fn) {"
+                },
+                "sink": {
+                    "file": "lsof.js",
+                    "lineno": 37,
+                    "code": "cp.exec('lsof -i tcp:' + port, function(err, d) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://security.snyk.io/vuln/SNYK-JS-LSOF-543632"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": ""
+        },
+        "njsscan": {
+            "score": ""
+        },
+        "graudit": {
+            "score": ""
+        },
+        "insidersec": {
+            "score": ""
+        },
+        "eslint": {
+            "score": ""
+        },
+        "appinspector": {
+            "score": ""
+        },
+        "msdevskim": {
+            "score": ""
+        },
+        "drek": {
+            "score": ""
+        },
+        "mosca": {
+            "score": ""
+        },
+        "odgen": {
+            "score": ""
+        }
+    }
+}

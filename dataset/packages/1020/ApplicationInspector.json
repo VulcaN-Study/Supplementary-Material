@@ -1,0 +1,223 @@
+{
+  "appVersion": "Microsoft Application Inspector 1.2.77+275dbc0449",
+  "resultCode": 0,
+  "metaData": {
+    "applicationName": "src",
+    "sourcePath": "/src",
+    "sourceVersion": "2.0.0",
+    "authors": "\"",
+    "description": "Find devices connected to the current local network.",
+    "lastUpdated": "10/26/1985 08:15:00",
+    "dateScanned": "10/18/2020 20:35:34",
+    "filesAnalyzed": 6,
+    "totalFiles": 9,
+    "filesSkipped": 3,
+    "filesAffected": 6,
+    "totalMatchesCount": 8,
+    "uniqueMatchesCount": 8,
+    "packageTypes": [
+      "uncompressed"
+    ],
+    "appTypes": [
+      "web.application"
+    ],
+    "uniqueTags": [
+      "Metadata.Application.Author",
+      "Metadata.Application.Description",
+      "Metadata.Application.Version",
+      "Metadata.CloudServices.Code.Repo.GitHub",
+      "Metadata.CloudServices.Code.Repo.NPM",
+      "Metadata.Platform.OS.Linux.Distro",
+      "OS.Network.Connection.Socket",
+      "OS.Process.Multiprocessing"
+    ],
+    "uniqueDependencies": [],
+    "outputs": [],
+    "targets": [],
+    "OSTargets": [
+      "Distro"
+    ],
+    "fileExtensions": [
+      "",
+      "js",
+      "json",
+      "md",
+      "ts"
+    ],
+    "cloudTargets": [],
+    "CPUTargets": [],
+    "languages": {
+      "javascript": 4,
+      "package.json": 1,
+      "typescript": 1
+    },
+    "tagCounters": [
+      {
+        "tag": "Metric.Code.Function.Defined",
+        "count": 21
+      }
+    ],
+    "detailedMatchList": [
+      {
+        "ruleId": "AI029500",
+        "ruleName": "Platform: Linux",
+        "ruleDescription": "Platform: Linux",
+        "tags": [
+          "Metadata.Platform.OS.Linux.Distro"
+        ],
+        "severity": "moderate",
+        "pattern": "\\b(linux|xubuntu|ubuntu|coreos|manjaro|archlinux|debian|mint|gentoo|opensuse|redhat|mandrake|mandriva|slackware)\\b",
+        "confidence": "high",
+        "type": "Regex",
+        "language": "javascript",
+        "fileName": "/src/src/parser/linux.js",
+        "sample": "linux",
+        "excerpt": "/**\n * Parses each row in the arp table into { name, ip, mac } on linux.\n *\n * partially inspired by https://github.com/goliatone/arpscan/blob/master/lib/arpscanner.js\n */\nmodule.exports = function parseLinux (row, servers, parseOne) {\n  var result = {}\n",
+        "startLocationLine": 2,
+        "startLocationColumn": 0,
+        "endLocationLine": 2,
+        "endLocationColumn": 0
+      },
+      {
+        "ruleId": "AI001200",
+        "ruleName": "Cloud Service: Code Repository (GitHub)",
+        "ruleDescription": "Cloud Service: Code Repository (GitHub)",
+        "tags": [
+          "Metadata.CloudServices.Code.Repo.GitHub"
+        ],
+        "severity": "moderate",
+        "pattern": "\\b(github)\\b",
+        "confidence": "high",
+        "type": "Regex",
+        "language": "javascript",
+        "fileName": "/src/src/parser/linux.js",
+        "sample": "github",
+        "excerpt": "/**\n * Parses each row in the arp table into { name, ip, mac } on linux.\n *\n * partially inspired by https://github.com/goliatone/arpscan/blob/master/lib/arpscanner.js\n */\nmodule.exports = function parseLinux (row, servers, parseOne) {\n  var result = {}\n\n  // Ignore unresolved hosts.\n",
+        "startLocationLine": 4,
+        "startLocationColumn": 0,
+        "endLocationLine": 4,
+        "endLocationColumn": 0
+      },
+      {
+        "ruleId": "AI032100",
+        "ruleName": "Network Connection: Socket",
+        "ruleDescription": "Network Socket",
+        "tags": [
+          "OS.Network.Connection.Socket"
+        ],
+        "severity": "moderate",
+        "pattern": "\\b(socket)\\b",
+        "confidence": "high",
+        "type": "Regex",
+        "language": "javascript",
+        "fileName": "/src/src/index.js",
+        "sample": "socket",
+        "excerpt": " */\nfunction pingServer (address) {\n  return new Promise(function (resolve) {\n    var socket = new net.Socket()\n    socket.setTimeout(1000, close)\n    socket.connect(80, address, close)\n    socket.once('error', close)\n\n    function close () {\n",
+        "startLocationLine": 62,
+        "startLocationColumn": 0,
+        "endLocationLine": 62,
+        "endLocationColumn": 0
+      },
+      {
+        "ruleId": "AI036700",
+        "ruleName": "OS: Multiprocessing / Multithreading",
+        "ruleDescription": "OS: Multiprocessing / Multithreading",
+        "tags": [
+          "OS.Process.Multiprocessing"
+        ],
+        "severity": "moderate",
+        "pattern": "\\b(mutex|semaphore|thread|lock|fork)\\b",
+        "confidence": "high",
+        "type": "Regex",
+        "language": "javascript",
+        "fileName": "/src/src/index.js",
+        "sample": "lock",
+        "excerpt": "var parseRow = require('./parser')\n\nvar servers = getServers()\nvar lock = {}\n\n/**\n * Finds all local devices (ip and mac address) connectd to the current network.\n */\nmodule.exports = function findLocalDevices (address) {\n",
+        "startLocationLine": 11,
+        "startLocationColumn": 0,
+        "endLocationLine": 11,
+        "endLocationColumn": 0
+      },
+      {
+        "ruleId": "AI031200",
+        "ruleName": "Metadata: Application Author",
+        "ruleDescription": "Metadata: Application Author",
+        "tags": [
+          "Metadata.Application.Author"
+        ],
+        "severity": "moderate",
+        "pattern": "\\\"author\\\"\\s*:\\s*\\\"([^\\\"])+\\\"",
+        "confidence": "high",
+        "type": "Regex",
+        "language": "package.json",
+        "fileName": "/src/package.json",
+        "sample": "\"author\": \"Dylan Piercey <pierceydylan@gmail.com>\"",
+        "excerpt": "\"name\": \"local-devices\",\n\"description\": \"Find devices connected to the current local network.\",\n\"version\": \"2.0.0\",\n\"author\": \"Dylan Piercey <pierceydylan@gmail.com>\",\n\"bugs\": \"https://github.com/DylanPiercey/local-devices/issues\",\n\"dependencies\": {\n  \"ip\": \"^1.1.5\",\n  \"mz\": \"^2.7.0\"\n},\n",
+        "startLocationLine": 5,
+        "startLocationColumn": 0,
+        "endLocationLine": 5,
+        "endLocationColumn": 0
+      },
+      {
+        "ruleId": "AI031000",
+        "ruleName": "Metadata: Application Version",
+        "ruleDescription": "Metadata: Application Version",
+        "tags": [
+          "Metadata.Application.Version"
+        ],
+        "severity": "moderate",
+        "pattern": "\\\"version\\\"\\s*:\\s*\\\"([^\\\"])+\\\"",
+        "confidence": "high",
+        "type": "Regex",
+        "language": "package.json",
+        "fileName": "/src/package.json",
+        "sample": "\"version\": \"2.0.0\"",
+        "excerpt": "{\n  \"name\": \"local-devices\",\n  \"description\": \"Find devices connected to the current local network.\",\n  \"version\": \"2.0.0\",\n  \"author\": \"Dylan Piercey <pierceydylan@gmail.com>\",\n  \"bugs\": \"https://github.com/DylanPiercey/local-devices/issues\",\n  \"dependencies\": {\n    \"ip\": \"^1.1.5\",\n    \"mz\": \"^2.7.0\"\n",
+        "startLocationLine": 4,
+        "startLocationColumn": 0,
+        "endLocationLine": 4,
+        "endLocationColumn": 0
+      },
+      {
+        "ruleId": "AI030900",
+        "ruleName": "Metadata: Application Description",
+        "ruleDescription": "Metadata: Application Description",
+        "tags": [
+          "Metadata.Application.Description"
+        ],
+        "severity": "moderate",
+        "pattern": "\\\"description\\\"\\s*:\\s*\\\"([^\\\"])+\\\"",
+        "confidence": "high",
+        "type": "Regex",
+        "language": "package.json",
+        "fileName": "/src/package.json",
+        "sample": "\"description\": \"Find devices connected to the current local network.\"",
+        "excerpt": "{\n  \"name\": \"local-devices\",\n  \"description\": \"Find devices connected to the current local network.\",\n  \"version\": \"2.0.0\",\n  \"author\": \"Dylan Piercey <pierceydylan@gmail.com>\",\n  \"bugs\": \"https://github.com/DylanPiercey/local-devices/issues\",\n  \"dependencies\": {\n    \"ip\": \"^1.1.5\",\n",
+        "startLocationLine": 3,
+        "startLocationColumn": 0,
+        "endLocationLine": 3,
+        "endLocationColumn": 0
+      },
+      {
+        "ruleId": "AI001800",
+        "ruleName": "Cloud Service: Code Package Repository (NPM)",
+        "ruleDescription": "Cloud Service: Code Package Repository (NPM)",
+        "tags": [
+          "Metadata.CloudServices.Code.Repo.NPM"
+        ],
+        "severity": "moderate",
+        "pattern": "\\b(npm)\\b",
+        "confidence": "medium",
+        "type": "Regex",
+        "language": "package.json",
+        "fileName": "/src/package.json",
+        "sample": "npm",
+        "excerpt": "  \"coveralls\": \"jest --coverage && cat ./coverage/lcov.info | coveralls\",\n  \"lint\": \"standard --verbose | snazzy\",\n  \"test\": \"jest\",\n  \"pretest\": \"npm run lint\",\n  \"watch-test\": \"jest --watch\"\n},\n\"types\": \"./src/index.d.ts\",\n\"husky\": {\n  \"hooks\": {\n",
+        "startLocationLine": 45,
+        "startLocationColumn": 0,
+        "endLocationLine": 45,
+        "endLocationColumn": 0
+      }
+    ]
+  }
+}

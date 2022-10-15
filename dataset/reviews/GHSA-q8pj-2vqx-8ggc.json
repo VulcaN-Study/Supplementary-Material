@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-q8pj-2vqx-8ggc",
+        "cwe": "CWE-400"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/css-what/-/css-what-5.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/parse.js",
+                    "start_lineno": 227,
+                    "end_lineno": 235,
+                    "code": "var attributeMatch = selector .slice(selectorIndex + 1) .match(reAttr); if (!attributeMatch) { throw new Error(\"Malformed attribute selector: \" + selector.slice(selectorIndex)); var completeSelector = attributeMatch[0], _d = attributeMatch[1], namespace = _d === void 0 ? null : _d, baseName = attributeMatch[2], actionType = attributeMatch[3], _e = attributeMatch[5], quotedValue = _e === void 0 ? \"\" : _e, _f = attributeMatch[6], value = _f === void 0 ? quotedValue : _f, forceIgnore = attributeMatch[7]; selectorIndex += completeSelector.length + 1; var name_2 = unescapeCSS(baseName);"
+                }
+            },
+            {
+                "block": {
+                    "file": "lib/parse.js",
+                    "start_lineno": 241,
+                    "end_lineno": 247,
+                    "code": "forceIgnore ? forceIgnore.toLowerCase() === \"i\" : // If `xmlMode` is set, there are no rules; return `null`.  options.xmlMode ? null : // Otherwise, use the `caseInsensitiveAttributes` list.  caseInsensitiveAttributes.has(name_2);"
+                }
+            },
+            {
+                "block": {
+                    "file": "lib/parse.js",
+                    "start_lineno": 251,
+                    "end_lineno": 252,
+                    "code": "action: actionTypes[actionType], value: unescapeCSS(value),"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/fb55/css-what/commit/4cdaacfd0d4b6fd00614be030da0dea6c2994655"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

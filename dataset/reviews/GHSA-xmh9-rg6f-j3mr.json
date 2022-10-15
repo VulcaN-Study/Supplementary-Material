@@ -1,0 +1,99 @@
+{
+    "advisory": {
+        "id": "GHSA-xmh9-rg6f-j3mr",
+        "cwe": "CWE-290"
+    },
+    "correct_cwe": "CWE-290",
+    "correct_package_link": "https://registry.npmjs.org/@solid/identity-token-verifier/-/identity-token-verifier-0.5.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "dist/lib/DPoP.js",
+                    "lineno": 13,
+                    "code": "function isValidProof(accessToken, dpop, method, url, isDuplicateJTI) {"
+                },
+                "sink": {
+                    "file": "dist/lib/DPoP.js",
+                    "lineno": 17,
+                    "code": "ts_guards_1.asserts.isLiteral(dpop.header.jwk.kid, accessToken.payload.cnf.jkt);"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/guards/DPoPJWKGuard.js",
+                    "lineno": 42,
+                    "code": "function isECPublicJWK(x) {"
+                },
+                "sink": {
+                    "file": "dist/guards/DPoPJWKGuard.js",
+                    "lineno": 43,
+                    "code": "ts_guards_1.asserts.areObjectPropertiesOf(x, [\"kid\", \"kty\", \"crv\", \"x\", \"y\"]); ts_guards_1.asserts.isString(x.kid);"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/guards/DPoPJWKGuard.js",
+                    "lineno": 63,
+                    "code": "function isRSAPublicJWK(x) {"
+                },
+                "sink": {
+                    "file": "dist/guards/DPoPJWKGuard.js",
+                    "lineno": 64,
+                    "code": "ts_guards_1.asserts.areObjectPropertiesOf(x, [\"alg\", \"kid\", \"kty\", \"n\", \"e\"]);"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/guards/DPoPJWKGuard.js",
+                    "lineno": 63,
+                    "code": "function isRSAPublicJWK(x) {"
+                },
+                "sink": {
+                    "file": "dist/guards/DPoPJWKGuard.js",
+                    "lineno": 66,
+                    "code": "asserts.isString(x.kid);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/CommunitySolidServer/access-token-verifier/commit/fbdeb4aa8c12694b3744cd0454acb826817d9e6c"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

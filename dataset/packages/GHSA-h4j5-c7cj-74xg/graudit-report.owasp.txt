@@ -1,0 +1,22 @@
+/src/lib/XMLHttpRequest.js-519-        + "response.on('end', function() {"
+/src/lib/XMLHttpRequest.js:520:        + "fs.writeFileSync('" + contentFile + "', 'NODE-XMLHTTPREQUEST-STATUS:' + response.statusCode + ',' + responseText, 'utf8');"
+/src/lib/XMLHttpRequest.js-521-        + "fs.unlinkSync('" + syncFile + "');"
+##############################################
+/src/lib/XMLHttpRequest.js-523-        + "response.on('error', function(error) {"
+/src/lib/XMLHttpRequest.js:524:        + "fs.writeFileSync('" + contentFile + "', 'NODE-XMLHTTPREQUEST-ERROR:' + JSON.stringify(error), 'utf8');"
+/src/lib/XMLHttpRequest.js-525-        + "fs.unlinkSync('" + syncFile + "');"
+##############################################
+/src/lib/XMLHttpRequest.js-527-        + "}).on('error', function(error) {"
+/src/lib/XMLHttpRequest.js:528:        + "fs.writeFileSync('" + contentFile + "', 'NODE-XMLHTTPREQUEST-ERROR:' + JSON.stringify(error), 'utf8');"
+/src/lib/XMLHttpRequest.js-529-        + "fs.unlinkSync('" + syncFile + "');"
+##############################################
+/src/lib/XMLHttpRequest.js-543-      fs.unlinkSync(contentFile);
+/src/lib/XMLHttpRequest.js:544:      if (self.responseText.match(/^NODE-XMLHTTPREQUEST-ERROR:/)) {
+/src/lib/XMLHttpRequest.js-545-        // If the file returned an error, handle it
+/src/lib/XMLHttpRequest.js:546:        var errorObj = self.responseText.replace(/^NODE-XMLHTTPREQUEST-ERROR:/, "");
+/src/lib/XMLHttpRequest.js-547-        self.handleError(errorObj, 503);
+##############################################
+/src/lib/XMLHttpRequest.js-549-        // If the file returned okay, parse its data and move to the DONE state
+/src/lib/XMLHttpRequest.js:550:        self.status = self.responseText.replace(/^NODE-XMLHTTPREQUEST-STATUS:([0-9]*),.*/, "$1");
+/src/lib/XMLHttpRequest.js:551:        self.responseText = self.responseText.replace(/^NODE-XMLHTTPREQUEST-STATUS:[0-9]*,(.*)/, "$1");
+/src/lib/XMLHttpRequest.js-552-        setState(self.DONE);

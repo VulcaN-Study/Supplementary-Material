@@ -1,0 +1,54 @@
+|checker| success id$0$color:red$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-471/893/package/merge.js
+Line 188	    return types.reduce(function(hash, key) { hash[key] = true; return hash }, {})
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-471/893/package/merge.js
+Line 156	            obj1[key] = obj2[key]
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-471/893/package/merge.js
+Line 98	            options.depth = args[1].depth !== undefined ? args[1].depth : options.depth
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-471/893/package/merge.js
+Line 127	    for ( var key in iterated ) {
+        if ( ! obj2.hasOwnProperty(key) ) continue
+
+        var obj1Type = typeOf(obj1[key])
+        var obj2Type = typeOf(obj2[key])
+
+        var testOptions = {
+            obj1     : obj1,
+            obj2     : obj2,
+            iterated : iterated,
+            key      : key,
+            depth    : depth,
+            options  : options,
+            assigning: false,
+            recursing: false,
+        }
+
+        if (
+            ( obj2Type in options.types ) &&
+            ( obj1Type in options.types)
+        ) {
+            testOptions.recursing = true
+            if ( ! _runTests(options.tests, testOptions) ) continue
+
+            _iterate(obj1[key], obj2[key], depth, options)
+        } else {
+            testOptions.assigning = true
+            if ( ! _runTests(options.tests, testOptions) ) continue
+
+            obj1[key] = obj2[key]
+        }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-471/893/package/merge.js
+Line 156	            obj1[key] = obj2[key]
+
+|checker| success id$0$color:blue$: 
+==========================
+$FilePath$None
+Object.prototype
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-471/893/package/merge.js
+Line 156	            obj1[key] = obj2[key]
+

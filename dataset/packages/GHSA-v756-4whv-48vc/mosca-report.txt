@@ -1,0 +1,24 @@
+<report_mosca>
+ <Path>/src/src/messenger-node.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 70 -          eval(`cl.${color}()`); // eslint-disable-line
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/examples/lib/messenger.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  var _Mathround=Math.round,_MathPI=Math.PI,_Mathfloor=Math.floor,_Mathpow=Math.pow,_Mathmax=Math.max,_Mathmin=Math.min;(function(C,E){'object'==typeof exports&&'object'==typeof module?module.exports=E():'function'==typeof define&&define.amd?define('messenger',[],E):'object'==typeof exports?exports.messenger=E():C.messenger=E()})(this,function(){return function(u){function C(O){if(E[O])return E[O].exports;var M=E[O]={i:O,l:!1,exports:{}};return u[O].call(M.exports,M,M.exports,C),M.l=!0,M.exports}var E={};return C.m=u,C.c=E,C.i=function(O){return O},C.d=function(O,M,B){C.o(O,M)||Object.defineProperty(O,M,{configurable:!1,enumerable:!0,get:B})},C.n=function(O){var M=O&&O.__esModule?function(){return O['default']}:function(){return O};return C.d(M,'a',M),M},C.o=function(O,M){return Object.prototype.hasOwnProperty.call(O,M)},C.p='',C(C.s=39)}([function(u){function E(){throw new Error('setTimeout has not been defined')}function O(){throw new Error('clearTimeout has not been defined')}function M(U){if(S===setTimeout)return setTimeout(U,0);if((S===E||!S)&&setTimeout)return S=setTimeout,setTimeout(U,0);try{return S(U,0)}catch(W){try{return S.call(null,U,0)}catch(Y){return S.call(this,U,0)}}}function B(U){if(G===clearTimeout)return clearTimeout(U);if((G===O||!G)&&clearTimeout)return G=clearTimeout,clearTimeout(U);try{return G(U)}catch(W){try{return G.call(null,U)}catch(Y){return G.call(this,U)}}}function R(){D&&A&&(D=!1,A.length?I=A.concat(I):L=-1,I.length&&P())}function P(){if(!D){var U=M(R);D=!0;for(var W=I.length;W;){for(A=I,I=[];++L<W;)A&&A[L].run();L=-1,W=I.length}A=null,D=!1,B(U)}}function F(U,W){this.fun=U,this.array=W}function N(){}var T=u.exports={},S,G;(function(){try{S='function'==typeof setTimeout?setTimeout:E}catch(U){S=E}try{G='function'==typeof clearTimeout?clearTimeout:O}catch(U){G=O}})();var I=[],D=!1,A,L=-1;T.nextTick=function(U){var W=Array(arguments.length-1);if(1<arguments.length)for(var Y=1;Y<arguments.length;Y++)W[Y-1]=arguments[Y];I.push(new F(U,W)),1!==I.length||D||M(P)},F.prototype.run=function(){this.fun.apply(null,this.array)},T.title='browser',T.browser=!0,T.e</Result>
+</report_mosca>
+

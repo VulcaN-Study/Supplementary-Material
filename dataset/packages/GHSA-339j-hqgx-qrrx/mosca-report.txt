@@ -1,0 +1,835 @@
+<report_mosca>
+ <Path>/src/browser-version/out/nedb.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 4 -  +typeof t+"] != 'object'");var r=function(){};r.prototype=t,n=new r,n.__proto__=t}return"undefined"!=typeof e&&Object.defineProperties&&Object.defineProperties(n,e),n};n.inherits=function(t,e){t.super_=e,t.prototype=s(e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}})};var c=/%[sdj%]/g;n.format=function(t){if("string"!=typeof t){for(var e=[],r=0;r<arguments.length;r++)e.push(n.inspect(arguments[r]));return e.join(" ")}for(var r=1,i=arguments,o=i.length,a=String(t).replace(c,function(t){if("%%"===t)return"%";if(r>=o)return t;switch(t){case"%s":return String(i[r++]);case"%d":return Number(i[r++]);case"%j":return JSON.stringify(i[r++]);default:return t}}),u=i[r];o>r;u=i[++r])a+=null===u||"object"!=typeof u?" "+u:" "+n.inspect(u);return a}},{events:1}],4:[function(t,e){var n=e.exports={};n.nextTick=function(){var t="undefined"!=typeof window&&window.setImmediate,e="undefined"!=typeof window&&window.postMessage&&window.addEventListener;if(t)return function(t){return window.setImmediate(t)};if(e){var n=[];return window.addEventListener("message",function(t){var e=t.source;if((e===window||null===e)&&"process-tick"===t.data&&(t.stopPropagation(),n.length>0)){var r=n.shift();r()}},!0),function(t){n.push(t),window.postMessage("process-tick","*")}}return function(t){setTimeout(t,0)}}(),n.title="browser",n.browser=!0,n.env={},n.argv=[],n.binding=function(){throw new Error("process.binding is not supported")},n.cwd=function(){return"/"},n.chdir=function(){throw new Error("process.chdir is not supported")}},{}],5:[function(t,e){function n(t,e,n){this.db=t,this.query=e||{},n&&(this.execFn=n)}var r=t("./model"),i=t("underscore");n.prototype.limit=function(t){return this._limit=t,this},n.prototype.skip=function(t){return this._skip=t,this},n.prototype.sort=function(t){return this._sort=t,this},n.prototype.projection=function(t){return this._projection=t,this},n.prototype.project=function(t){var e,n,r,o=[],a=this;return void 0===this._projection||0===Object.keys(this._projection).length?t:(e=0===this._projection._id?!1:!0,this._projection=i.omit(this._projection,"_id" Line: 17 -  (t){var e=this,n=5e3,r=Math.max(t||0,n);this.stopAutocompaction(),this.autocompactionIntervalId=setInterval(function(){e.compactDatafile()},r)},n.prototype.stopAutocompaction=function(){this.autocompactionIntervalId&&clearInterval(this.autocompactionIntervalId)},n.prototype.persistNewState=function(t,e){var n=this,r="",o=e||function(){};return n.inMemoryOnly?o(null):(t.forEach(function(t){r+=n.afterSerialization(a.serialize(t))+"\n"}),0===r.length?o(null):(i.appendFile(n.filename,r,"utf8",function(t){return o(t)}),void 0))},n.prototype.treatRawData=function(t){var e,n=t.split("\n"),r={},i=[],o={},u=-1;for(e=0;e<n.length;e+=1){var s;try{s=a.deserialize(this.beforeDeserialization(n[e])),s._id?s.$$deleted===!0?delete r[s._id]:r[s._id]=s:s.$$indexCreated&&void 0!=s.$$indexCreated.fieldName?o[s.$$indexCreated.fieldName]=s.$$indexCreated:"string"==typeof s.$$indexRemoved&&delete o[s.$$indexRemoved]}catch(c){u+=1}}if(n.length>0&&u/n.length>this.corruptAlertThreshold)throw new Error("More than "+Math.floor(100*this.corruptAlertThreshold)+"% of the data file is corrupt, the wrong beforeDeserialization hook may be used. Cautiously refusing to start NeDB to prevent dataloss");return Object.keys(r).forEach(function(t){i.push(r[t])}),{data:i,indexes:o}},n.prototype.loadDatabase=function(t){var e=t||function(){},r=this;return r.db.resetIndexes(),r.inMemoryOnly?e(null):(u.waterfall([function(t){n.ensureDirectoryExists(o.dirname(r.filename),function(){i.ensureDatafileIntegrity(r.filename,function(){i.readFile(r.filename,"utf8",function(e,n){if(e)return t(e);try{var i=r.treatRawData(n)}catch(o){return t(o)}Object.keys(i.indexes).forEach(function(t){r.db.indexes[t]=new c(i.indexes[t])});try{r.db.resetIndexes(i.data)}catch(o){return r.db.resetIndexes(),t(o)}r.db.persistence.persistCachedDatabase(t)})})})}],function(t){return t?e(t):(r.db.executor.processBuffer(),e(null))}),void 0)},e.exports=n},{"./customUtils":6,"./indexes":9,"./model":10,"./storage":12,__browserify_process:4,async:13,path:2}],12:[function(t,e){function n(t,e){f.getItem(t,function(t,n){return null!==n?e(!0):e(!1)})}function r(t Line: 18 -  em(t,function(r,i){null===i?f.removeItem(e,function(){return n()}):f.setItem(e,i,function(){f.removeItem(t,function(){return n()})})})}function i(t,e,n,r){"function"==typeof n&&(r=n),f.setItem(t,e,function(){return r()})}function o(t,e,n,r){"function"==typeof n&&(r=n),f.getItem(t,function(n,i){i=i||"",i+=e,f.setItem(t,i,function(){return r()})})}function a(t,e,n){"function"==typeof e&&(n=e),f.getItem(t,function(t,e){return n(null,e||"")})}function u(t,e){f.removeItem(t,function(){return e()})}function s(t,e){return e()}function c(t,e){return e(null)}var f=t("localforage");f.config({name:"NeDB",storeName:"nedbdata"}),e.exports.exists=n,e.exports.rename=r,e.exports.writeFile=i,e.exports.crashSafeWriteFile=i,e.exports.appendFile=o,e.exports.readFile=a,e.exports.unlink=u,e.exports.mkdirp=s,e.exports.ensureDatafileIntegrity=c},{localforage:18}],13:[function(e,n){var r=e("__browserify_process");!function(){function e(t){var e=!1;return function(){if(e)throw new Error("Callback was already called.");e=!0,t.apply(i,arguments)}}var i,o,a={};i=this,null!=i&&(o=i.async),a.noConflict=function(){return i.async=o,a};var u=function(t,e){if(t.forEach)return t.forEach(e);for(var n=0;n<t.length;n+=1)e(t[n],n,t)},s=function(t,e){if(t.map)return t.map(e);var n=[];return u(t,function(t,r,i){n.push(e(t,r,i))}),n},c=function(t,e,n){return t.reduce?t.reduce(e,n):(u(t,function(t,r,i){n=e(n,t,r,i)}),n)},f=function(t){if(Object.keys)return Object.keys(t);var e=[];for(var n in t)t.hasOwnProperty(n)&&e.push(n);return e};"undefined"!=typeof r&&r.nextTick?(a.nextTick=r.nextTick,a.setImmediate="undefined"!=typeof setImmediate?function(t){setImmediate(t)}:a.nextTick):"function"==typeof setImmediate?(a.nextTick=function(t){setImmediate(t)},a.setImmediate=a.nextTick):(a.nextTick=function(t){setTimeout(t,0)},a.setImmediate=a.nextTick),a.each=function(t,n,r){if(r=r||function(){},!t.length)return r();var i=0;u(t,function(o){n(o,e(function(e){e?(r(e),r=function(){}):(i+=1,i>=t.length&&r(null))}))})},a.forEach=a.each,a.eachSeries=function(t,e,n){if(n=n||function(){},!t.length)return n();var r=0,i=function(){e(t[r],f Line: 29 -  }):f.push(e(n(s[l])));var p=c.apply(this,f);return o[t]=a||p}}(),t("promise/all",["./utils","exports"],function(t,e){"use strict";function n(t){var e=this;if(!r(t))throw new TypeError("You must pass an array to all.");return new e(function(e,n){function r(t){return function(e){o(t,e)}}function o(t,n){u[t]=n,0===--s&&e(u)}var a,u=[],s=t.length;0===s&&e([]);for(var c=0;c<t.length;c++)a=t[c],a&&i(a.then)?a.then(r(c),n):o(c,a)})}var r=t.isArray,i=t.isFunction;e.all=n}),t("promise/asap",["exports"],function(t){"use strict";function e(){return function(){i.nextTick(a)}}function n(){var t=0,e=new f(a),n=document.createTextNode("");return e.observe(n,{characterData:!0}),function(){n.data=t=++t%2}}function r(){return function(){l.setTimeout(a,1)}}function a(){for(var t=0;t<h.length;t++){var e=h[t],n=e[0],r=e[1];n(r)}h=[]}function u(t,e){var n=h.push([t,e]);1===n&&s()}var s,c="undefined"!=typeof window?window:{},f=c.MutationObserver||c.WebKitMutationObserver,l="undefined"!=typeof o?o:void 0===this?window:this,h=[];s="undefined"!=typeof i&&"[object process]"==={}.toString.call(i)?e():f?n():r(),t.asap=u}),t("promise/config",["exports"],function(t){"use strict";function e(t,e){return 2!==arguments.length?n[t]:(n[t]=e,void 0)}var n={instrument:!1};t.config=n,t.configure=e}),t("promise/polyfill",["./promise","./utils","exports"],function(t,e,n){"use strict";function r(){var t;t="undefined"!=typeof o?o:"undefined"!=typeof window&&window.document?window:self;var e="Promise"in t&&"resolve"in t.Promise&&"reject"in t.Promise&&"all"in t.Promise&&"race"in t.Promise&&function(){var e;return new t.Promise(function(t){e=t}),a(e)}();e||(t.Promise=i)}var i=t.Promise,a=e.isFunction;n.polyfill=r}),t("promise/promise",["./config","./utils","./all","./race","./resolve","./reject","./asap","exports"],function(t,e,n,r,i,o,a,u){"use strict";function s(t){if(!_(t))throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");if(!(this instanceof s))throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be call Line: 45 -  .lastIndexOf(e,n):t.lastIndexOf(e);for(var i=r?n:t.length;i--;)if(t[i]===e)return i;return-1},A.range=function(t,e,n){arguments.length<=1&&(e=t||0,t=0),n=arguments[2]||1;for(var r=Math.max(Math.ceil((e-t)/n),0),i=0,o=new Array(r);r>i;)o[i++]=t,t+=n;return o},A.bind=function(t,e){if(t.bind===E&&E)return E.apply(t,c.call(arguments,1));var n=c.call(arguments,2);return function(){return t.apply(e,n.concat(c.call(arguments)))}},A.partial=function(t){var e=c.call(arguments,1);return function(){return t.apply(this,e.concat(c.call(arguments)))}},A.bindAll=function(t){var e=c.call(arguments,1);return 0===e.length&&(e=A.functions(t)),O(e,function(e){t[e]=A.bind(t[e],t)}),t},A.memoize=function(t,e){var n={};return e||(e=A.identity),function(){var r=e.apply(this,arguments);return A.has(n,r)?n[r]:n[r]=t.apply(this,arguments)}},A.delay=function(t,e){var n=c.call(arguments,2);return setTimeout(function(){return t.apply(null,n)},e)},A.defer=function(t){return A.delay.apply(A,[t,1].concat(c.call(arguments,1)))},A.throttle=function(t,e){var n,r,i,o,a=0,u=function(){a=new Date,i=null,o=t.apply(n,r)};return function(){var s=new Date,c=e-(s-a);return n=this,r=arguments,0>=c?(clearTimeout(i),i=null,a=s,o=t.apply(n,r)):i||(i=setTimeout(u,c)),o}},A.debounce=function(t,e,n){var r,i;return function(){var o=this,a=arguments,u=function(){r=null,n||(i=t.apply(o,a))},s=n&&!r;return clearTimeout(r),r=setTimeout(u,e),s&&(i=t.apply(o,a)),i}},A.once=function(t){var e,n=!1;return function(){return n?e:(n=!0,e=t.apply(this,arguments),t=null,e)}},A.wrap=function(t,e){return function(){var n=[t];return s.apply(n,arguments),e.apply(this,n)}},A.compose=function(){var t=arguments;return function(){for(var e=arguments,n=t.length-1;n>=0;n--)e=[t[n].apply(this,e)];return e[0]}},A.after=function(t,e){return 0>=t?e():function(){return--t<1?e.apply(this,arguments):void 0}},A.keys=x||function(t){if(t!==Object(t))throw new TypeError("Invalid object");var e=[];for(var n in t)A.has(t,n)&&(e[e.length]=n);return e},A.values=function(t){var e=[];for(var n in t)A.has(t,n)&&e.push(t[n]);return e},A.pairs=function(t){var e=[];for(va</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/out/nedb.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 40 -  r>>4,l[c++]=(15&r)<<4|i>>2,l[c++]=(3&i)<<6|63&o;return f}function o(t){var e,n=new Uint8Array(t),r="";for(e=0;e<n.length;e+=3)r+=a[n[e]>>2],r+=a[(3&n[e])<<4|n[e+1]>>4],r+=a[(15&n[e+1])<<2|n[e+2]>>6],r+=a[63&n[e+2]];return 2===n.length%3?r=r.substring(0,r.length-1)+"=":1===n.length%3&&(r=r.substring(0,r.length-2)+"=="),r}var a="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",u="~~local_forage_type~",s=/^~~local_forage_type~([^~]+)~/,c="__lfsc__:",f=c.length,l="arbf",h="blob",p="si08",d="ui08",y="uic8",v="si16",g="si32",m="ur16",b="ui32",w="fl32",_="fl64",k=f+l.length,x=this,E={serialize:n,deserialize:r,stringToBuffer:i,bufferToString:o};e["default"]=E}.call("undefined"!=typeof window?window:self),t.exports=e["default"]},function(t,e,n){"use strict";e.__esModule=!0,function(){function t(t){var e=this,r={db:null};if(t)for(var i in t)r[i]="string"!=typeof t[i]?t[i].toString():t[i];var o=new Promise(function(n,i){try{r.db=p(r.name,String(r.version),r.description,r.size)}catch(o){return e.setDriver(e.LOCALSTORAGE).then(function(){return e._initStorage(t)}).then(n)["catch"](i)}r.db.transaction(function(t){t.executeSql("CREATE TABLE IF NOT EXISTS "+r.storeName+" (id INTEGER PRIMARY KEY, key unique, value)",[],function(){e._dbInfo=r,n()},function(t,e){i(e)})})});return new Promise(function(t){t(n(3))}).then(function(t){return r.serializer=t,o})}function r(t,e){var n=this;"string"!=typeof t&&(h.console.warn(t+" used as a key, but it is not a string."),t=String(t));var r=new Promise(function(e,r){n.ready().then(function(){var i=n._dbInfo;i.db.transaction(function(n){n.executeSql("SELECT * FROM "+i.storeName+" WHERE key = ? LIMIT 1",[t],function(t,n){var r=n.rows.length?n.rows.item(0).value:null;r&&(r=i.serializer.deserialize(r)),e(r)},function(t,e){r(e)})})})["catch"](r)});return l(r,e),r}function i(t,e){var n=this,r=new Promise(function(e,r){n.ready().then(function(){var i=n._dbInfo;i.db.transaction(function(n){n.executeSql("SELECT * FROM "+i.storeName,[],function(n,r){for(var o=r.rows,a=o.length,u=0;a>u;u++){var s=o.item(u),c=s.value;if(c&&(c=i.serializer.deserialize( Line: 41 -  ey,u+1),void 0!==c)return e(c),void 0}e()},function(t,e){r(e)})})})["catch"](r)});return l(r,e),r}function o(t,e,n){var r=this;"string"!=typeof t&&(h.console.warn(t+" used as a key, but it is not a string."),t=String(t));var i=new Promise(function(n,i){r.ready().then(function(){void 0===e&&(e=null);var o=e,a=r._dbInfo;a.serializer.serialize(e,function(e,r){r?i(r):a.db.transaction(function(r){r.executeSql("INSERT OR REPLACE INTO "+a.storeName+" (key, value) VALUES (?, ?)",[t,e],function(){n(o)},function(t,e){i(e)})},function(t){t.code===t.QUOTA_ERR&&i(t)})})})["catch"](i)});return l(i,n),i}function a(t,e){var n=this;"string"!=typeof t&&(h.console.warn(t+" used as a key, but it is not a string."),t=String(t));var r=new Promise(function(e,r){n.ready().then(function(){var i=n._dbInfo;i.db.transaction(function(n){n.executeSql("DELETE FROM "+i.storeName+" WHERE key = ?",[t],function(){e()},function(t,e){r(e)})})})["catch"](r)});return l(r,e),r}function u(t){var e=this,n=new Promise(function(t,n){e.ready().then(function(){var r=e._dbInfo;r.db.transaction(function(e){e.executeSql("DELETE FROM "+r.storeName,[],function(){t()},function(t,e){n(e)})})})["catch"](n)});return l(n,t),n}function s(t){var e=this,n=new Promise(function(t,n){e.ready().then(function(){var r=e._dbInfo;r.db.transaction(function(e){e.executeSql("SELECT COUNT(key) as c FROM "+r.storeName,[],function(e,n){var r=n.rows.item(0).c;t(r)},function(t,e){n(e)})})})["catch"](n)});return l(n,t),n}function c(t,e){var n=this,r=new Promise(function(e,r){n.ready().then(function(){var i=n._dbInfo;i.db.transaction(function(n){n.executeSql("SELECT key FROM "+i.storeName+" WHERE id = ? LIMIT 1",[t+1],function(t,n){var r=n.rows.length?n.rows.item(0).key:null;e(r)},function(t,e){r(e)})})})["catch"](r)});return l(r,e),r}function f(t){var e=this,n=new Promise(function(t,n){e.ready().then(function(){var r=e._dbInfo;r.db.transaction(function(e){e.executeSql("SELECT key FROM "+r.storeName,[],function(e,n){for(var r=[],i=0;i<n.rows.length;i++)r.push(n.rows.item(i).key);t(r)},function(t,e){n(e)})})})["catch"](n)});return l(n,t),n}function l(t,</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/out/nedb.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 759 -          setTimeout(fn, 0);
+
+ Line: 3008 -    this.autocompactionIntervalId = setInterval(function () {
+
+ Line: 3257 -  var process=require("__browserify_process");/*global setImmediate: false, setTimeout: false, console: false */
+
+ Line: 3342 -                  setTimeout(fn, 0);
+
+ Line: 5452 -          local.setTimeout(flush, 1);
+
+ Line: 5780 -          setTimeout(function(){
+
+ Line: 5786 -          setTimeout(function(){
+
+ Line: 5805 -          setTimeout(function(){
+
+ Line: 5811 -          setTimeout(function(){
+
+ Line: 8667 -      return setTimeout(function(){ return func.apply(null, args); }, wait);
+
+ Line: 8697 -          timeout = setTimeout(later, remaining);
+
+ Line: 8717 -        timeout = setTimeout(later, wait);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/out/nedb.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 791 -   * @param {Query} query - The query this cursor will operate on
+
+ Line: 794 -  function Cursor (db, query, execFn) {
+
+ Line: 796 -    this.query = query || {};
+
+ Line: 820 -   * Sort results of the query
+
+ Line: 1285 -   * Return the list of candidates for a given query
+
+ Line: 1287 -   * We try the following query types, in this order: basic match, $in match, comparison match
+
+ Line: 1300 -      if (typeof query[k] === 'string' || typeof query[k] === 'number' || typeof query[k] === 'boolean' || util.isDate(query[k]) || query[k] === null) {
+
+ Line: 1312 -      if (query[k] && query[k].hasOwnProperty('$in')) {
+
+ Line: 1324 -      if (query[k] && (query[k].hasOwnProperty('$lt') || query[k].hasOwnProperty('$lte') || query[k].hasOwnProperty('$gt') || query[k].hasOwnProperty('$gte'))) {
+
+ Line: 1442 -   * Count all documents matching the query
+
+ Line: 1443 -   * @param {Object} query MongoDB-style query
+
+ Line: 1446 -    var cursor = new Cursor(this, query, function(err, docs, callback) {
+
+ Line: 1460 -   * Find all documents matching the query
+
+ Line: 1462 -   * @param {Object} query MongoDB-style query
+
+ Line: 1479 -    var cursor = new Cursor(this, query, function(err, docs, callback) {
+
+ Line: 1500 -   * Find one document matching the query
+
+ Line: 1501 -   * @param {Object} query MongoDB-style query
+
+ Line: 1518 -    var cursor = new Cursor(this, query, function(err, docs, callback) {
+
+ Line: 1537 -   * Update all docs matching query
+
+ Line: 1538 -   * @param {Object} query
+
+ Line: 1542 -   *                 options.upsert If true, document is inserted if the query doesn't match anything
+
+ Line: 1566 -      var cursor = new Cursor(self, query);
+
+ Line: 1579 -            // updateQuery contains modifiers, use the find query as the base,
+
+ Line: 1605 -          if (model.match(candidates[i], query) && (multi || numReplaced === 0)) {
+
+ Line: 1644 -   * Remove all docs matching the query
+
+ Line: 1646 -   * @param {Object} query
+
+ Line: 1668 -        if (model.match(d, query) && (multi || numRemoved === 0)) {
+
+ Line: 2033 -   * Get all documents in index whose key is between bounds are they are defined by query
+
+ Line: 2035 -   * @param {Query} query
+
+ Line: 2454 -   * Modify a DB object according to an update query
+
+ Line: 2470 -      // Simply replace the object with the update query contents
+
+ Line: 2597 -   * @param {Native value} b Value in the query
+
+ Line: 2675 -   * @param {Array of Queries} query
+
+ Line: 2677 -  logicalOperators.$or = function (obj, query) {
+
+ Line: 2682 -    for (i = 0; i < query.length; i += 1) {
+
+ Line: 2683 -      if (match(obj, query[i])) { return true; }
+
+ Line: 2693 -   * @param {Array of Queries} query
+
+ Line: 2695 -  logicalOperators.$and = function (obj, query) {
+
+ Line: 2700 -    for (i = 0; i < query.length; i += 1) {
+
+ Line: 2701 -      if (!match(obj, query[i])) { return false; }
+
+ Line: 2709 -   * Inverted match of the query
+
+ Line: 2711 -   * @param {Query} query
+
+ Line: 2713 -  logicalOperators.$not = function (obj, query) {
+
+ Line: 2714 -    return !match(obj, query);
+
+ Line: 2721 -   * @param {Query} query
+
+ Line: 2736 -   * Tell if a given document matches a query
+
+ Line: 2738 -   * @param {Object} query
+
+ Line: 2740 -  function match (obj, query) {
+
+ Line: 2741 -    var queryKeys, queryKey, queryValue, i;
+
+ Line: 2743 -    // Primitive query against a primitive type
+
+ Line: 2747 -      return matchQueryPart({ needAKey: obj }, 'needAKey', query);
+
+ Line: 2750 -    // Normal query
+
+ Line: 2751 -    queryKeys = Object.keys(query);
+
+ Line: 2752 -    for (i = 0; i < queryKeys.length; i += 1) {
+
+ Line: 2753 -      queryKey = queryKeys[i];
+
+ Line: 2754 -      queryValue = query[queryKey];
+
+ Line: 2757 -        if (!logicalOperators[queryKey]) { throw new Error("Unknown logical operator " + queryKey); }
+
+ Line: 2758 -        if (!logicalOperators[queryKey](obj, queryValue)) { return false; }
+
+ Line: 2760 -        if (!matchQueryPart(obj, queryKey, queryValue)) { return false; }
+
+ Line: 2769 -   * Match an object against a specific { key: value } part of a query
+
+ Line: 2772 -  function matchQueryPart (obj, queryKey, queryValue, treatObjAsValue) {
+
+ Line: 2773 -    var objValue = getDotValue(obj, queryKey)
+
+ Line: 2778 -      // If the queryValue is an array, try to perform an exact match
+
+ Line: 2780 -        return matchQueryPart(obj, queryKey, queryValue, true);
+
+ Line: 2784 -      if (queryValue !== null && typeof queryValue === 'object' && !util.isRegExp(queryValue)) {
+
+ Line: 2787 -          if (arrayComparisonFunctions[keys[i]]) { return matchQueryPart(obj, queryKey, queryValue, true); }
+
+ Line: 2791 -      // If not, treat it as an array of { obj, query } where there needs to be at least one match
+
+ Line: 2793 -        if (matchQueryPart({ k: objValue[i] }, 'k', queryValue)) { return true; }   // k here could be any string
+
+ Line: 2798 -    // queryValue is an actual object. Determine whether it contains comparison operators
+
+ Line: 2800 -    if (queryValue !== null && typeof queryValue === 'object' && !util.isRegExp(queryValue) && !util.isArray(queryValue)) {
+
+ Line: 2809 -      // queryValue is an object of this form: { $comparisonOperator1: value1, ... }
+
+ Line: 2814 -          if (!comparisonFunctions[keys[i]](objValue, queryValue[keys[i]])) { return false; }
+
+ Line: 2820 -    // Using regular expressions with basic querying
+
+ Line: 2821 -    if (util.isRegExp(queryValue)) { return comparisonFunctions.$regex(objValue, queryValue); }
+
+ Line: 2823 -    // queryValue is either a native value or a normal object
+
+ Line: 2825 -    if (!areThingsEqual(objValue, queryValue)) { return false; }
+
+ Line: 4957 -    if (query.hasOwnProperty('$gt') && query.hasOwnProperty('$gte')) {
+
+ Line: 4958 -      if (self.compareKeys(query.$gte, query.$gt) === 0) {
+
+ Line: 4959 -        return function (key) { return self.compareKeys(key, query.$gt) > 0; };
+
+ Line: 4962 -      if (self.compareKeys(query.$gte, query.$gt) > 0) {
+
+ Line: 4963 -        return function (key) { return self.compareKeys(key, query.$gte) >= 0; };
+
+ Line: 4965 -        return function (key) { return self.compareKeys(key, query.$gt) > 0; };
+
+ Line: 4970 -      return function (key) { return self.compareKeys(key, query.$gt) > 0; };
+
+ Line: 4972 -      return function (key) { return self.compareKeys(key, query.$gte) >= 0; };
+
+ Line: 4988 -    if (query.hasOwnProperty('$lt') && query.hasOwnProperty('$lte')) {
+
+ Line: 4989 -      if (self.compareKeys(query.$lte, query.$lt) === 0) {
+
+ Line: 4990 -        return function (key) { return self.compareKeys(key, query.$lt) < 0; };
+
+ Line: 4993 -      if (self.compareKeys(query.$lte, query.$lt) < 0) {
+
+ Line: 4994 -        return function (key) { return self.compareKeys(key, query.$lte) <= 0; };
+
+ Line: 4996 -        return function (key) { return self.compareKeys(key, query.$lt) < 0; };
+
+ Line: 5001 -      return function (key) { return self.compareKeys(key, query.$lt) < 0; };
+
+ Line: 5003 -      return function (key) { return self.compareKeys(key, query.$lte) <= 0; };
+
+ Line: 5021 -   * @param {Object} query Mongo-style query where keys are $lt, $lte, $gt or $gte (other keys are not considered)
+
+ Line: 7765 -  	                    t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function (t, results) {
+
+ Line: 7795 -  	                    t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function (t, results) {
+
+ Line: 7858 -  	                            t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function () {
+
+ Line: 7899 -  	                    t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function () {
+
+ Line: 7922 -  	                    t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function () {
+
+ Line: 7945 -  	                    t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function (t, results) {
+
+ Line: 7962 -  	    // `WHERE id = ?`. This is the most efficient way I can think to implement
+
+ Line: 7964 -  	    // inconsistent, because we do `INSERT OR REPLACE INTO` on `setItem()`, so
+
+ Line: 7975 -  	                    t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function (t, results) {
+
+ Line: 7996 -  	                    t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function (t, results) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/underscore.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  ar o=1;r>o&&m.contains(arguments[o],i);o++);o===r&&t.push(i)}}return t},m.difference=function(n){var t=S(arguments,!0,!0,1);return m.filter(n,function(n){return!m.contains(t,n)})},m.zip=function(){return m.unzip(arguments)},m.unzip=function(n){for(var t=n&&m.max(n,O).length||0,r=Array(t),e=0;t>e;e++)r[e]=m.pluck(n,e);return r},m.object=function(n,t){for(var r={},e=0,u=O(n);u>e;e++)t?r[n[e]]=t[e]:r[n[e][0]]=n[e][1];return r},m.findIndex=t(1),m.findLastIndex=t(-1),m.sortedIndex=function(n,t,r,e){r=x(r,e,1);for(var u=r(t),i=0,o=O(n);o>i;){var a=Math.floor((i+o)/2);r(n[a])<u?i=a+1:o=a}return i},m.indexOf=r(1,m.findIndex,m.sortedIndex),m.lastIndexOf=r(-1,m.findLastIndex),m.range=function(n,t,r){null==t&&(t=n||0,n=0),r=r||1;for(var e=Math.max(Math.ceil((t-n)/r),0),u=Array(e),i=0;e>i;i++,n+=r)u[i]=n;return u};var E=function(n,t,r,e,u){if(!(e instanceof t))return n.apply(r,u);var i=j(n.prototype),o=n.apply(i,u);return m.isObject(o)?o:i};m.bind=function(n,t){if(g&&n.bind===g)return g.apply(n,l.call(arguments,1));if(!m.isFunction(n))throw new TypeError("Bind must be called on a function");var r=l.call(arguments,2),e=function(){return E(n,e,t,this,r.concat(l.call(arguments)))};return e},m.partial=function(n){var t=l.call(arguments,1),r=function(){for(var e=0,u=t.length,i=Array(u),o=0;u>o;o++)i[o]=t[o]===m?arguments[e++]:t[o];for(;e<arguments.length;)i.push(arguments[e++]);return E(n,r,this,this,i)};return r},m.bindAll=function(n){var t,r,e=arguments.length;if(1>=e)throw new Error("bindAll must be passed function names");for(t=1;e>t;t++)r=arguments[t],n[r]=m.bind(n[r],n);return n},m.memoize=function(n,t){var r=function(e){var u=r.cache,i=""+(t?t.apply(this,arguments):e);return m.has(u,i)||(u[i]=n.apply(this,arguments)),u[i]};return r.cache={},r},m.delay=function(n,t){var r=l.call(arguments,2);return setTimeout(function(){return n.apply(null,r)},t)},m.defer=m.partial(m.delay,m,1),m.throttle=function(n,t,r){var e,u,i,o=null,a=0;r||(r={});var c=function(){a=r.leading===!1?0:m.now(),o=null,i=n.apply(e,u),o||(e=u=null)};return function(){var f=m.now();a||r.leading!==!1||(a=f);var l=t-(f-a);retu Line: 8 -  arguments,0>=l||l>t?(o&&(clearTimeout(o),o=null),a=f,i=n.apply(e,u),o||(e=u=null)):o||r.trailing===!1||(o=setTimeout(c,l)),i}},m.debounce=function(n,t,r){var e,u,i,o,a,c=function(){var f=m.now()-o;t>f&&f>=0?e=setTimeout(c,t-f):(e=null,r||(a=n.apply(i,u),e||(i=u=null)))};return function(){i=this,u=arguments,o=m.now();var f=r&&!e;return e||(e=setTimeout(c,t)),f&&(a=n.apply(i,u),i=u=null),a}},m.wrap=function(n,t){return m.partial(t,n)},m.negate=function(n){return function(){return!n.apply(this,arguments)}},m.compose=function(){var n=arguments,t=n.length-1;return function(){for(var r=t,e=n[t].apply(this,arguments);r--;)e=n[r].call(this,e);return e}},m.after=function(n,t){return function(){return--n<1?t.apply(this,arguments):void 0}},m.before=function(n,t){var r;return function(){return--n>0&&(r=t.apply(this,arguments)),1>=n&&(t=null),r}},m.once=m.partial(m.before,2);var M=!{toString:null}.propertyIsEnumerable("toString"),I=["valueOf","isPrototypeOf","toString","propertyIsEnumerable","hasOwnProperty","toLocaleString"];m.keys=function(n){if(!m.isObject(n))return[];if(v)return v(n);var t=[];for(var r in n)m.has(n,r)&&t.push(r);return M&&e(n,t),t},m.allKeys=function(n){if(!m.isObject(n))return[];var t=[];for(var r in n)t.push(r);return M&&e(n,t),t},m.values=function(n){for(var t=m.keys(n),r=t.length,e=Array(r),u=0;r>u;u++)e[u]=n[t[u]];return e},m.mapObject=function(n,t,r){t=x(t,r);for(var e,u=m.keys(n),i=u.length,o={},a=0;i>a;a++)e=u[a],o[e]=t(n[e],e,n);return o},m.pairs=function(n){for(var t=m.keys(n),r=t.length,e=Array(r),u=0;r>u;u++)e[u]=[t[u],n[t[u]]];return e},m.invert=function(n){for(var t={},r=m.keys(n),e=0,u=r.length;u>e;e++)t[n[r[e]]]=r[e];return t},m.functions=m.methods=function(n){var t=[];for(var r in n)m.isFunction(n[r])&&t.push(r);return t.sort()},m.extend=_(m.allKeys),m.extendOwn=m.assign=_(m.keys),m.findKey=function(n,t,r){t=x(t,r);for(var e,u=m.keys(n),i=0,o=u.length;o>i;i++)if(e=u[i],t(n[e],e,n))return e},m.pick=function(n,t,r){var e,u,i={},o=n;if(null==o)return i;m.isFunction(t)?(u=m.allKeys(o),e=b(t,r)):(u=S(arguments,!1,!1,1),e=function(n,t,r){return t in r},o=Obje</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/nedb-browser.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 26 -    it('Insertion and querying', function (done) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/localforage.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 178 -          local.setTimeout(flush, 1);
+
+ Line: 504 -          setTimeout(function(){
+
+ Line: 509 -          setTimeout(function(){
+
+ Line: 525 -          setTimeout(function(){
+
+ Line: 530 -          setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/localforage.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2476 -  	                    t.executeSql('SELECT * FROM ' + dbInfo.storeName + ' WHERE key = ? LIMIT 1', [key], function (t, results) {
+
+ Line: 2506 -  	                    t.executeSql('SELECT * FROM ' + dbInfo.storeName, [], function (t, results) {
+
+ Line: 2569 -  	                            t.executeSql('INSERT OR REPLACE INTO ' + dbInfo.storeName + ' (key, value) VALUES (?, ?)', [key, value], function () {
+
+ Line: 2610 -  	                    t.executeSql('DELETE FROM ' + dbInfo.storeName + ' WHERE key = ?', [key], function () {
+
+ Line: 2633 -  	                    t.executeSql('DELETE FROM ' + dbInfo.storeName, [], function () {
+
+ Line: 2656 -  	                    t.executeSql('SELECT COUNT(key) as c FROM ' + dbInfo.storeName, [], function (t, results) {
+
+ Line: 2673 -  	    // `WHERE id = ?`. This is the most efficient way I can think to implement
+
+ Line: 2675 -  	    // inconsistent, because we do `INSERT OR REPLACE INTO` on `setItem()`, so
+
+ Line: 2686 -  	                    t.executeSql('SELECT key FROM ' + dbInfo.storeName + ' WHERE id = ? LIMIT 1', [n + 1], function (t, results) {
+
+ Line: 2707 -  	                    t.executeSql('SELECT key FROM ' + dbInfo.storeName, [], function (t, results) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/async.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2 -  {return m(function(t,e){var r=m(function(e){var r=this,u=e.pop();return n(t,function(n,t,u){n.apply(r,e.concat([u]))},u)});return e.length?r.apply(this,e):r})}function z(n){return m(function(t){var e=t.pop();t.push(function(){var n=arguments;r?C.setImmediate(function(){e.apply(null,n)}):e.apply(null,n)});var r=!0;n.apply(this,t),r=!1})}var q,C={},P="object"==typeof self&&self.self===self&&self||"object"==typeof global&&global.global===global&&global||this;null!=P&&(q=P.async),C.noConflict=function(){return P.async=q,C};var H=Object.prototype.toString,M=Array.isArray||function(n){return"[object Array]"===H.call(n)},U=function(n){var t=typeof n;return"function"===t||"object"===t&&!!n},W=Object.keys||function(n){var t=[];for(var e in n)n.hasOwnProperty(e)&&t.push(e);return t},B="function"==typeof setImmediate&&setImmediate,D=B?function(n){B(n)}:function(n){setTimeout(n,0)};"object"==typeof process&&"function"==typeof process.nextTick?C.nextTick=process.nextTick:C.nextTick=D,C.setImmediate=B?D:C.nextTick,C.forEach=C.each=function(n,t,e){return C.eachOf(n,y(t),e)},C.forEachSeries=C.eachSeries=function(n,t,e){return C.eachOfSeries(n,y(t),e)},C.forEachLimit=C.eachLimit=function(n,t,e,r){return v(t)(n,y(e),r)},C.forEachOf=C.eachOf=function(t,e,r){function o(n){f--,n?r(n):null===c&&0>=f&&r(null)}r=i(r||n),t=t||[];for(var c,a=h(t),f=0;null!=(c=a());)f+=1,e(t[c],c,u(o));0===f&&r(null)},C.forEachOfSeries=C.eachOfSeries=function(t,e,r){function o(){var n=!0;return null===a?r(null):(e(t[a],a,u(function(t){if(t)r(t);else{if(a=c(),null===a)return r(null);n?C.setImmediate(o):o()}})),void(n=!1))}r=i(r||n),t=t||[];var c=h(t),a=c();o()},C.forEachOfLimit=C.eachOfLimit=function(n,t,e,r){v(t)(n,e,r)},C.map=d(b),C.mapSeries=k(b),C.mapLimit=g(b),C.inject=C.foldl=C.reduce=function(n,t,e,r){C.eachOfSeries(n,function(n,r,u){e(t,n,function(n,e){t=e,u(n)})},function(n){r(n,t)})},C.foldr=C.reduceRight=function(n,e,r,u){var i=a(n,t).reverse();C.reduce(i,e,r,u)},C.transform=function(n,t,e,r){3===arguments.length&&(r=e,e=t,t=M(n)?[]:{}),C.eachOf(n,function(n,r,u){e(t,n,r,u)},function(n){r(n,t)})},C.select=C.fil Line: 3 -  electLimit=C.filterLimit=g(w),C.selectSeries=C.filterSeries=k(w),C.reject=d(O),C.rejectLimit=g(O),C.rejectSeries=k(O),C.any=C.some=S(C.eachOf,e,t),C.someLimit=S(C.eachOfLimit,e,t),C.all=C.every=S(C.eachOf,r,r),C.everyLimit=S(C.eachOfLimit,r,r),C.detect=S(C.eachOf,t,E),C.detectSeries=S(C.eachOfSeries,t,E),C.detectLimit=S(C.eachOfLimit,t,E),C.sortBy=function(n,t,e){function r(n,t){var e=n.criteria,r=t.criteria;return r>e?-1:e>r?1:0}C.map(n,function(n,e){t(n,function(t,r){t?e(t):e(null,{value:n,criteria:r})})},function(n,t){return n?e(n):void e(null,a(t.sort(r),function(n){return n.value}))})},C.auto=function(t,e,r){function u(n){d.unshift(n)}function o(n){var t=p(d,n);t>=0&&d.splice(t,1)}function a(){h--,c(d.slice(0),function(n){n()})}r||(r=e,e=null),r=i(r||n);var f=W(t),h=f.length;if(!h)return r(null);e||(e=h);var y={},v=0,d=[];u(function(){h||r(null,y)}),c(f,function(n){function i(){return e>v&&l(g,function(n,t){return n&&y.hasOwnProperty(t)},!0)&&!y.hasOwnProperty(n)}function c(){i()&&(v++,o(c),h[h.length-1](d,y))}for(var f,h=M(t[n])?t[n]:[t[n]],d=m(function(t,e){if(v--,e.length<=1&&(e=e[0]),t){var u={};s(y,function(n,t){u[t]=n}),u[n]=e,r(t,u)}else y[n]=e,C.setImmediate(a)}),g=h.slice(0,h.length-1),k=g.length;k--;){if(!(f=t[g[k]]))throw new Error("Has inexistant dependency");if(M(f)&&p(f,n)>=0)throw new Error("Has cyclic dependencies")}i()?(v++,h[h.length-1](d,y)):u(c)})},C.retry=function(n,t,e){function r(n,t){if("number"==typeof t)n.times=parseInt(t,10)||i;else{if("object"!=typeof t)throw new Error("Unsupported argument type for 'times': "+typeof t);n.times=parseInt(t.times,10)||i,n.interval=parseInt(t.interval,10)||o}}function u(n,t){function e(n,e){return function(r){n(function(n,t){r(!n||e,{err:n,result:t})},t)}}function r(n){return function(t){setTimeout(function(){t(null)},n)}}for(;a.times;){var u=!(a.times-=1);c.push(e(a.task,u)),!u&&a.interval>0&&c.push(r(a.interval))}C.series(c,function(t,e){e=e[e.length-1],(n||a.callback)(e.err,e.result)})}var i=5,o=0,c=[],a={times:i,interval:o},f=arguments.length;if(1>f||f>3)throw new Error("Invalid arguments - must be either (task</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/jquery.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -  nction(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return  Line: 33 -  },cur:function(){var a=Zb.propHooks[this.prop];return a&&a.get?a.get(this):Zb.propHooks._default.get(this)},run:function(a){var b,c=Zb.propHooks[this.prop];return this.pos=b=this.options.duration?m.easing[this.easing](a,this.options.duration*a,0,1,this.options.duration):a,this.now=(this.end-this.start)*b+this.start,this.options.step&&this.options.step.call(this.elem,this.now,this),c&&c.set?c.set(this):Zb.propHooks._default.set(this),this}},Zb.prototype.init.prototype=Zb.prototype,Zb.propHooks={_default:{get:function(a){var b;return null==a.elem[a.prop]||a.elem.style&&null!=a.elem.style[a.prop]?(b=m.css(a.elem,a.prop,""),b&&"auto"!==b?b:0):a.elem[a.prop]},set:function(a){m.fx.step[a.prop]?m.fx.step[a.prop](a):a.elem.style&&(null!=a.elem.style[m.cssProps[a.prop]]||m.cssHooks[a.prop])?m.style(a.elem,a.prop,a.now+a.unit):a.elem[a.prop]=a.now}}},Zb.propHooks.scrollTop=Zb.propHooks.scrollLeft={set:function(a){a.elem.nodeType&&a.elem.parentNode&&(a.elem[a.prop]=a.now)}},m.easing={linear:function(a){return a},swing:function(a){return.5-Math.cos(a*Math.PI)/2}},m.fx=Zb.prototype.init,m.fx.step={};var $b,_b,ac=/^(?:toggle|show|hide)$/,bc=new RegExp("^(?:([+-])=|)("+S+")([a-z%]*)$","i"),cc=/queueHooks$/,dc=[ic],ec={"*":[function(a,b){var c=this.createTween(a,b),d=c.cur(),e=bc.exec(b),f=e&&e[3]||(m.cssNumber[a]?"":"px"),g=(m.cssNumber[a]||"px"!==f&&+d)&&bc.exec(m.css(c.elem,a)),h=1,i=20;if(g&&g[3]!==f){f=f||g[3],e=e||[],g=+d||1;do h=h||".5",g/=h,m.style(c.elem,a,g+f);while(h!==(h=c.cur()/d)&&1!==h&&--i)}return e&&(g=c.start=+g||+d||0,c.unit=f,c.end=e[1]?g+(e[1]+1)*e[2]:+e[2]),c}]};function fc(){return setTimeout(function(){$b=void 0}),$b=m.now()}function gc(a,b){var c,d={height:a},e=0;for(b=b?1:0;4>e;e+=2-b)c=T[e],d["margin"+c]=d["padding"+c]=a;return b&&(d.opacity=d.width=a),d}function hc(a,b,c){for(var d,e=(ec[b]||[]).concat(ec["*"]),f=0,g=e.length;g>f;f++)if(d=e[f].call(c,b,a))return d}function ic(a,b,c){var d,e,f,g,h,i,j,l,n=this,o={},p=a.style,q=a.nodeType&&U(a),r=m._data(a,"fxshow");c.queue||(h=m._queueHooks(a,"fx"),null==h.unqueued&&(h.unqueued=0,i=h.empty.fire,h.empty.fire=function Line: 36 -  g>b;b++)d[b]&&d[b].finish&&d[b].finish.call(this);delete c.finish})}}),m.each(["toggle","show","hide"],function(a,b){var c=m.fn[b];m.fn[b]=function(a,d,e){return null==a||"boolean"==typeof a?c.apply(this,arguments):this.animate(gc(b,!0),a,d,e)}}),m.each({slideDown:gc("show"),slideUp:gc("hide"),slideToggle:gc("toggle"),fadeIn:{opacity:"show"},fadeOut:{opacity:"hide"},fadeToggle:{opacity:"toggle"}},function(a,b){m.fn[a]=function(a,c,d){return this.animate(b,a,c,d)}}),m.timers=[],m.fx.tick=function(){var a,b=m.timers,c=0;for($b=m.now();c<b.length;c++)a=b[c],a()||b[c]!==a||b.splice(c--,1);b.length||m.fx.stop(),$b=void 0},m.fx.timer=function(a){m.timers.push(a),a()?m.fx.start():m.timers.pop()},m.fx.interval=13,m.fx.start=function(){_b||(_b=setInterval(m.fx.tick,m.fx.interval))},m.fx.stop=function(){clearInterval(_b),_b=null},m.fx.speeds={slow:600,fast:200,_default:400},m.fn.delay=function(a,b){return a=m.fx?m.fx.speeds[a]||a:a,b=b||"fx",this.queue(b,function(b,c){var d=setTimeout(b,a);c.stop=function(){clearTimeout(d)}})},function(){var a,b,c,d,e;b=y.createElement("div"),b.setAttribute("className","t"),b.innerHTML="  <link/><table></table><a href='/a'>a</a><input type='checkbox'/>",d=b.getElementsByTagName("a")[0],c=y.createElement("select"),e=c.appendChild(y.createElement("option")),a=b.getElementsByTagName("input")[0],d.style.cssText="top:1px",k.getSetAttribute="t"!==b.className,k.style=/top/.test(d.getAttribute("style")),k.hrefNormalized="/a"===d.getAttribute("href"),k.checkOn=!!a.value,k.optSelected=e.selected,k.enctype=!!y.createElement("form").enctype,c.disabled=!0,k.optDisabled=!e.disabled,a=y.createElement("input"),a.setAttribute("value",""),k.input=""===a.getAttribute("value"),a.value="t",a.setAttribute("type","radio"),k.radioValue="t"===a.value}();var lc=/\r/g;m.fn.extend({val:function(a){var b,c,d,e=this[0];{if(arguments.length)return d=m.isFunction(a),this.each(function(c){var e;1===this.nodeType&&(e=d?a.call(this,c,m(this).val()):a,null==e?e="":"number"==typeof e?e+="":m.isArray(e)&&(e=m.map(e,function(a){return null==a?"":a+""})),b=m.valHooks[this.type]||m.valHooks[th Line: 42 -  =k.statusCode||{},r={},s={},t=0,u="canceled",v={readyState:0,getResponseHeader:function(a){var b;if(2===t){if(!j){j={};while(b=Cc.exec(f))j[b[1].toLowerCase()]=b[2]}b=j[a.toLowerCase()]}return null==b?null:b},getAllResponseHeaders:function(){return 2===t?f:null},setRequestHeader:function(a,b){var c=a.toLowerCase();return t||(a=s[c]=s[c]||a,r[a]=b),this},overrideMimeType:function(a){return t||(k.mimeType=a),this},statusCode:function(a){var b;if(a)if(2>t)for(b in a)q[b]=[q[b],a[b]];else v.always(a[v.status]);return this},abort:function(a){var b=a||u;return i&&i.abort(b),x(0,b),this}};if(o.promise(v).complete=p.add,v.success=v.done,v.error=v.fail,k.url=((a||k.url||zc)+"").replace(Ac,"").replace(Fc,yc[1]+"//"),k.type=b.method||b.type||k.method||k.type,k.dataTypes=m.trim(k.dataType||"*").toLowerCase().match(E)||[""],null==k.crossDomain&&(c=Gc.exec(k.url.toLowerCase()),k.crossDomain=!(!c||c[1]===yc[1]&&c[2]===yc[2]&&(c[3]||("http:"===c[1]?"80":"443"))===(yc[3]||("http:"===yc[1]?"80":"443")))),k.data&&k.processData&&"string"!=typeof k.data&&(k.data=m.param(k.data,k.traditional)),Mc(Hc,k,b,v),2===t)return v;h=k.global,h&&0===m.active++&&m.event.trigger("ajaxStart"),k.type=k.type.toUpperCase(),k.hasContent=!Ec.test(k.type),e=k.url,k.hasContent||(k.data&&(e=k.url+=(wc.test(e)?"&":"?")+k.data,delete k.data),k.cache===!1&&(k.url=Bc.test(e)?e.replace(Bc,"$1_="+vc++):e+(wc.test(e)?"&":"?")+"_="+vc++)),k.ifModified&&(m.lastModified[e]&&v.setRequestHeader("If-Modified-Since",m.lastModified[e]),m.etag[e]&&v.setRequestHeader("If-None-Match",m.etag[e])),(k.data&&k.hasContent&&k.contentType!==!1||b.contentType)&&v.setRequestHeader("Content-Type",k.contentType),v.setRequestHeader("Accept",k.dataTypes[0]&&k.accepts[k.dataTypes[0]]?k.accepts[k.dataTypes[0]]+("*"!==k.dataTypes[0]?", "+Jc+"; q=0.01":""):k.accepts["*"]);for(d in k.headers)v.setRequestHeader(d,k.headers[d]);if(k.beforeSend&&(k.beforeSend.call(l,v,k)===!1||2===t))return v.abort();u="abort";for(d in{success:1,error:1,complete:1})v[d](k[d]);if(i=Mc(Ic,k,b,v)){v.readyState=1,h&&n.trigger("ajaxSend",[v,k]),k.async&&k.timeout>0&&(g=setTimeout Line: 45 -  e]&&f.setRequestHeader(e,c[e]+"");f.send(a.hasContent&&a.data||null),b=function(c,e){var h,i,j;if(b&&(e||4===f.readyState))if(delete Xc[g],b=void 0,f.onreadystatechange=m.noop,e)4!==f.readyState&&f.abort();else{j={},h=f.status,"string"==typeof f.responseText&&(j.text=f.responseText);try{i=f.statusText}catch(k){i=""}h||!a.isLocal||a.crossDomain?1223===h&&(h=204):h=j.text?200:404}j&&d(h,i,j,f.getAllResponseHeaders())},a.async?4===f.readyState?setTimeout(b):f.onreadystatechange=Xc[g]=b:b()},abort:function(){b&&b(void 0,!0)}}}});function Zc(){try{return new a.XMLHttpRequest}catch(b){}}function $c(){try{return new a.ActiveXObject("Microsoft.XMLHTTP")}catch(b){}}m.ajaxSetup({accepts:{script:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"},contents:{script:/(?:java|ecma)script/},converters:{"text script":function(a){return m.globalEval(a),a}}}),m.ajaxPrefilter("script",function(a){void 0===a.cache&&(a.cache=!1),a.crossDomain&&(a.type="GET",a.global=!1)}),m.ajaxTransport("script",function(a){if(a.crossDomain){var b,c=y.head||m("head")[0]||y.documentElement;return{send:function(d,e){b=y.createElement("script"),b.async=!0,a.scriptCharset&&(b.charset=a.scriptCharset),b.src=a.url,b.onload=b.onreadystatechange=function(a,c){(c||!b.readyState||/loaded|complete/.test(b.readyState))&&(b.onload=b.onreadystatechange=null,b.parentNode&&b.parentNode.removeChild(b),b=null,c||e(200,"success"))},c.insertBefore(b,c.firstChild)},abort:function(){b&&b.onload(void 0,!0)}}}});var _c=[],ad=/(=)\?(?=&|$)|\?\?/;m.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var a=_c.pop()||m.expando+"_"+vc++;return this[a]=!0,a}}),m.ajaxPrefilter("json jsonp",function(b,c,d){var e,f,g,h=b.jsonp!==!1&&(ad.test(b.url)?"url":"string"==typeof b.data&&!(b.contentType||"").indexOf("application/x-www-form-urlencoded")&&ad.test(b.data)&&"data");return h||"jsonp"===b.dataTypes[0]?(e=b.jsonpCallback=m.isFunction(b.jsonpCallback)?b.jsonpCallback():b.jsonpCallback,h?b[h]=b[h].replace(ad,"$1"+e):b.jsonp!==!1&&(b.url+=(wc.test(b.url)?"&":"?")+b.jsonp+"="+e),b.converters["script json"]=f</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/mocha.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1335 -    , setTimeout = global.setTimeout
+
+ Line: 1336 -    , setInterval = global.setInterval
+
+ Line: 1874 -    , setTimeout = global.setTimeout
+
+ Line: 1875 -    , setInterval = global.setInterval
+
+ Line: 3312 -    , setTimeout = global.setTimeout
+
+ Line: 3313 -    , setInterval = global.setInterval
+
+ Line: 3432 -    , setTimeout = global.setTimeout
+
+ Line: 3433 -    , setInterval = global.setInterval
+
+ Line: 3481 -    if (this.timer) this.resetTimeout();
+
+ Line: 3544 -  Runnable.prototype.resetTimeout = function(){
+
+ Line: 3550 -      this.timer = setTimeout(function(){
+
+ Line: 3577 -        this.timer = setTimeout(function(){
+
+ Line: 3601 -    // for .resetTimeout()
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/browser-version/test/mocha.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 4849 -      var query = Mocha.utils.parseQuery(window.location.search || '');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/benchmarks/update.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 6 -    , profiler = new execTime('UPDATE BENCH')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/benchmarks/findOne.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 24 -  , function (cb) { setTimeout(function () {cb();}, 500); }
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/benchmarks/insert.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 4 -    , profiler = new execTime('INSERT BENCH')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/benchmarks/ensureIndex.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 5 -    , profiler = new execTime('INSERT BENCH')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/cursor.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 12 -   * @param {Query} query - The query this cursor will operate on
+
+ Line: 15 -  function Cursor (db, query, execFn) {
+
+ Line: 17 -    this.query = query || {};
+
+ Line: 41 -   * Sort results of the query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/indexes.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 261 -   * Get all documents in index whose key is between bounds are they are defined by query
+
+ Line: 263 -   * @param {Query} query
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/persistence.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 164 -    this.autocompactionIntervalId = setInterval(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/datastore.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 242 -   * Return the list of candidates for a given query
+
+ Line: 244 -   * We try the following query types, in this order: basic match, $in match, comparison match
+
+ Line: 250 -   * @param {Query} query
+
+ Line: 270 -        if (typeof query[k] === 'string' || typeof query[k] === 'number' || typeof query[k] === 'boolean' || util.isDate(query[k]) || query[k] === null) {
+
+ Line: 282 -        if (query[k] && query[k].hasOwnProperty('$in')) {
+
+ Line: 294 -        if (query[k] && (query[k].hasOwnProperty('$lt') || query[k].hasOwnProperty('$lte') || query[k].hasOwnProperty('$gt') || query[k].hasOwnProperty('$gte'))) {
+
+ Line: 438 -   * Count all documents matching the query
+
+ Line: 439 -   * @param {Object} query MongoDB-style query
+
+ Line: 442 -    var cursor = new Cursor(this, query, function(err, docs, callback) {
+
+ Line: 456 -   * Find all documents matching the query
+
+ Line: 458 -   * @param {Object} query MongoDB-style query
+
+ Line: 475 -    var cursor = new Cursor(this, query, function(err, docs, callback) {
+
+ Line: 496 -   * Find one document matching the query
+
+ Line: 497 -   * @param {Object} query MongoDB-style query
+
+ Line: 514 -    var cursor = new Cursor(this, query, function(err, docs, callback) {
+
+ Line: 533 -   * Update all docs matching query
+
+ Line: 534 -   * @param {Object} query
+
+ Line: 538 -   *                 options.upsert If true, document is inserted if the query doesn't match anything
+
+ Line: 552 -   *          user to check whether an upsert had occured: checking the type of affectedDocuments or running another find query on
+
+ Line: 575 -      var cursor = new Cursor(self, query);
+
+ Line: 588 -            // updateQuery contains modifiers, use the find query as the base,
+
+ Line: 614 -            if (model.match(candidates[i], query) && (multi || numReplaced === 0)) {
+
+ Line: 659 -   * Remove all docs matching the query
+
+ Line: 661 -   * @param {Object} query
+
+ Line: 682 -          if (model.match(d, query) && (multi || numRemoved === 0)) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/model.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 434 -   * Modify a DB object according to an update query
+
+ Line: 450 -      // Simply replace the object with the update query contents
+
+ Line: 577 -   * @param {Native value} b Value in the query
+
+ Line: 668 -   * @param {Array of Queries} query
+
+ Line: 670 -  logicalOperators.$or = function (obj, query) {
+
+ Line: 675 -    for (i = 0; i < query.length; i += 1) {
+
+ Line: 676 -      if (match(obj, query[i])) { return true; }
+
+ Line: 686 -   * @param {Array of Queries} query
+
+ Line: 688 -  logicalOperators.$and = function (obj, query) {
+
+ Line: 693 -    for (i = 0; i < query.length; i += 1) {
+
+ Line: 694 -      if (!match(obj, query[i])) { return false; }
+
+ Line: 702 -   * Inverted match of the query
+
+ Line: 704 -   * @param {Query} query
+
+ Line: 706 -  logicalOperators.$not = function (obj, query) {
+
+ Line: 707 -    return !match(obj, query);
+
+ Line: 714 -   * @param {Query} query
+
+ Line: 729 -   * Tell if a given document matches a query
+
+ Line: 731 -   * @param {Object} query
+
+ Line: 733 -  function match (obj, query) {
+
+ Line: 734 -    var queryKeys, queryKey, queryValue, i;
+
+ Line: 736 -    // Primitive query against a primitive type
+
+ Line: 740 -      return matchQueryPart({ needAKey: obj }, 'needAKey', query);
+
+ Line: 743 -    // Normal query
+
+ Line: 744 -    queryKeys = Object.keys(query);
+
+ Line: 745 -    for (i = 0; i < queryKeys.length; i += 1) {
+
+ Line: 746 -      queryKey = queryKeys[i];
+
+ Line: 747 -      queryValue = query[queryKey];
+
+ Line: 750 -        if (!logicalOperators[queryKey]) { throw new Error("Unknown logical operator " + queryKey); }
+
+ Line: 751 -        if (!logicalOperators[queryKey](obj, queryValue)) { return false; }
+
+ Line: 753 -        if (!matchQueryPart(obj, queryKey, queryValue)) { return false; }
+
+ Line: 762 -   * Match an object against a specific { key: value } part of a query
+
+ Line: 765 -  function matchQueryPart (obj, queryKey, queryValue, treatObjAsValue) {
+
+ Line: 766 -    var objValue = getDotValue(obj, queryKey)
+
+ Line: 771 -      // If the queryValue is an array, try to perform an exact match
+
+ Line: 773 -        return matchQueryPart(obj, queryKey, queryValue, true);
+
+ Line: 777 -      if (queryValue !== null && typeof queryValue === 'object' && !util.isRegExp(queryValue)) {
+
+ Line: 780 -          if (arrayComparisonFunctions[keys[i]]) { return matchQueryPart(obj, queryKey, queryValue, true); }
+
+ Line: 784 -      // If not, treat it as an array of { obj, query } where there needs to be at least one match
+
+ Line: 786 -        if (matchQueryPart({ k: objValue[i] }, 'k', queryValue)) { return true; }   // k here could be any string
+
+ Line: 791 -    // queryValue is an actual object. Determine whether it contains comparison operators
+
+ Line: 793 -    if (queryValue !== null && typeof queryValue === 'object' && !util.isRegExp(queryValue) && !util.isArray(queryValue)) {
+
+ Line: 802 -      // queryValue is an object of this form: { $comparisonOperator1: value1, ... }
+
+ Line: 807 -          if (!comparisonFunctions[keys[i]](objValue, queryValue[keys[i]])) { return false; }
+
+ Line: 813 -    // Using regular expressions with basic querying
+
+ Line: 814 -    if (util.isRegExp(queryValue)) { return comparisonFunctions.$regex(objValue, queryValue); }
+
+ Line: 816 -    // queryValue is either a native value or a normal object
+
+ Line: 818 -    if (!areThingsEqual(objValue, queryValue)) { return false; }
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/db.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 531 -            setTimeout(function () {
+
+ Line: 536 -                setTimeout(function () {
+
+ Line: 571 -                setTimeout(function () {
+
+ Line: 576 -                    setTimeout(function () {
+
+ Line: 582 -                        setTimeout(function () {
+
+ Line: 605 -                setTimeout(function () {
+
+ Line: 610 -                    setTimeout(function () {
+
+ Line: 1077 -          setTimeout(function () {
+
+ Line: 1628 -          setTimeout(function () {
+
+ Line: 1635 -              setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/db.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 58 -      it('Can autoload a database and query it right away', function (done) {
+
+ Line: 635 -      it('Can find all documents if an empty query is used', function (done) {
+
+ Line: 658 -      it('Can find all documents matching a basic query', function (done) {
+
+ Line: 667 -        , function (cb) {   // Test with query that will return docs
+
+ Line: 675 -        , function (cb) {   // Test with query that doesn't match anything
+
+ Line: 685 -      it('Can find one document matching a basic query and return null if none is found', function (done) {
+
+ Line: 694 -        , function (cb) {   // Test with query that will return docs
+
+ Line: 703 -        , function (cb) {   // Test with query that doesn't match anything
+
+ Line: 743 -      it('Can use dot-notation to query subfields', function (done) {
+
+ Line: 793 -      it('Returns an error if the query is not well formed', function (done) {
+
+ Line: 854 -                // No skip no query
+
+ Line: 859 -                  // A query
+
+ Line: 949 -      it('Count all documents if an empty query is used', function (done) {
+
+ Line: 968 -      it('Count all documents matching a basic query', function (done) {
+
+ Line: 977 -        , function (cb) {   // Test with query that will return docs
+
+ Line: 984 -        , function (cb) {   // Test with query that doesn't match anything
+
+ Line: 1019 -      it('Returns an error if the query is not well formed', function (done) {
+
+ Line: 1034 -      it("If the query doesn't match anything, database is not modified", function (done) {
+
+ Line: 1043 -        , function (cb) {   // Test with query that doesn't match anything
+
+ Line: 1096 -      it("Can update multiple documents matching the query", function (done) {
+
+ Line: 1154 -      it("Can update only one document matching the query", function (done) {
+
+ Line: 1197 -        , function (cb) {   // Test with query that doesn't match anything
+
+ Line: 1247 -        it('If the update query is a normal object with no modifiers, it is the doc that will be upserted', function (done) {
+
+ Line: 1261 -        it('If the update query contains modifiers, it is applied to the object resulting from removing all operators from the find query 1', function (done) {
+
+ Line: 1275 -        it('If the update query contains modifiers, it is applied to the object resulting from removing all operators from the find query 2', function (done) {
+
+ Line: 1300 -      it('Cannot perform update if the update query is not either registered-modifiers-only or copy-only, or contain badly formatted fields', function (done) {
+
+ Line: 1386 -      it('Returns an error if the query is not well formed', function (done) {
+
+ Line: 1537 -              // With this query, candidates are always returned in the order 4, 5, 'abc' so it's always the last one which fails
+
+ Line: 1566 -            // With this query, candidates are always returned in the order 4, 5, 'abc' so it's always the last one which fails
+
+ Line: 1764 -        , function (cb) {   // Test with query that doesn't match anything
+
+ Line: 1804 -      it('Returns an error if the query is not well formed', function (done) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/cursor.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 58 -      it('Without query, an empty query or a simple query and no skip or limit', function (done) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/model.test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 291 -      it('Queries not containing any modifier just replace the document by the contents of the query but keep its _id', function () {
+
+ Line: 731 -        it('Can use any kind of nedb query with $pull', function () {
+
+ Line: 1106 -        it('Can match strings using basic querying', function () {
+
+ Line: 1266 -        it('Can query on the size of an array field', function () {
+
+ Line: 1292 -        it('Should throw an error if a query operator is used without comparing to an integer', function () {
+
+ Line: 1307 -        it('Can query array documents with multiple simultaneous conditions', function () {
+
+ Line: 1325 -        it('Can use more complex comparisons inside nested query documents', function () {
+
+ Line: 1437 -        it('Can query inside arrays thanks to dot notation', function () {
+
+ Line: 1449 -        it('Can query for a specific element inside arrays thanks to dot notation', function () {
+
+ Line: 1456 -        it('A single array-specific operator and the query is treated as array specific', function () {
+
+</Result>
+</report_mosca>
+

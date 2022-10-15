@@ -1,0 +1,90 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 19,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "7b74375d3b3c9011fc55d15148ed2a2ba3a8333bab506abfc6ccc0cf133f8d8a",
+          "start": {
+            "col": 15,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 19,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "7b74375d3b3c9011fc55d15148ed2a2ba3a8333bab506abfc6ccc0cf133f8d8a",
+          "start": {
+            "col": 15,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "generic_os_command_exec": {
+      "files": [
+        {
+          "file_path": "/src/dist/gitlog.cjs.development.js",
+          "match_lines": [
+            209,
+            225
+          ],
+          "match_position": [
+            3,
+            4
+          ],
+          "match_string": "  var execOptions = _extends({\n    cwd: userOptions.repo\n  }, userOptions.execOptions);\n\n  var command = createCommand(options);\n\n  if (!cb) {\n    var stdout = child_process.execSync(command, execOptions).toString();\n    var commits = stdout.split(\"@begin@\");\n\n    if (commits[0] === \"\") {\n      commits.shift();\n    }\n\n    debug(\"commits\", commits);\n    return parseCommits(commits, options.fields, options.nameStatus);\n  }"
+        },
+        {
+          "file_path": "/src/dist/gitlog.cjs.development.js",
+          "match_lines": [
+            209,
+            237
+          ],
+          "match_position": [
+            3,
+            6
+          ],
+          "match_string": "  var execOptions = _extends({\n    cwd: userOptions.repo\n  }, userOptions.execOptions);\n\n  var command = createCommand(options);\n\n  if (!cb) {\n    var stdout = child_process.execSync(command, execOptions).toString();\n    var commits = stdout.split(\"@begin@\");\n\n    if (commits[0] === \"\") {\n      commits.shift();\n    }\n\n    debug(\"commits\", commits);\n    return parseCommits(commits, options.fields, options.nameStatus);\n  }\n\n  child_process.exec(command, execOptions, function (err, stdout, stderr) {\n    debug(\"stdout\", stdout);\n    var commits = stdout.split(\"@begin@\");\n\n    if (commits[0] === \"\") {\n      commits.shift();\n    }\n\n    debug(\"commits\", commits);\n    cb(stderr || err, parseCommits(commits, options.fields, options.nameStatus));\n  });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "description": "User controlled data in 'child_process.exec()' can result in Remote OS Command Execution.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

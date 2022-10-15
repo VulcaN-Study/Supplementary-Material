@@ -1,0 +1,114 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "48a8c61bb815742e319d49497c164eadfad969aec22bc5576c4476afb630213c",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "48a8c61bb815742e319d49497c164eadfad969aec22bc5576c4476afb630213c",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "join_resolve_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/lib/ng-package/discover-packages.js",
+          "match_lines": [
+            139,
+            139
+          ],
+          "match_position": [
+            36,
+            66
+          ],
+          "match_string": "    if (path.resolve(basePath) === path.resolve(primary.basePath)) {"
+        },
+        {
+          "file_path": "/src/lib/ng-package/discover-packages.js",
+          "match_lines": [
+            143,
+            149
+          ],
+          "match_position": [
+            5,
+            8
+          ],
+          "match_string": "    const relativeSourcePath = path.relative(primary.basePath, basePath);\n    const secondaryModuleId = path_1.ensureUnixPath(`${primary.moduleId}/${relativeSourcePath}`);\n    return new entry_point_1.NgEntryPoint(packageJson, ngPackageJson, basePath, {\n        moduleId: secondaryModuleId,\n        primaryDestinationPath: primary.destinationPath,\n        destinationPath: path.join(primary.destinationPath, relativeSourcePath),\n    });"
+        },
+        {
+          "file_path": "/src/lib/ng-package/discover-packages.js",
+          "match_lines": [
+            148,
+            148
+          ],
+          "match_position": [
+            26,
+            80
+          ],
+          "match_string": "        destinationPath: path.join(primary.destinationPath, relativeSourcePath),"
+        },
+        {
+          "file_path": "/src/lib/ng-package/entry-point/write-package.transform.js",
+          "match_lines": [
+            158,
+            158
+          ],
+          "match_position": [
+            29,
+            82
+          ],
+          "match_string": "        yield fs.outputJson(path.join(entryPoint.destinationPath, 'package.json'), packageJson, {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory (Path Traversal)",
+        "description": "Path constructed with user input can result in Path Traversal. Ensure that user input does not reach `join()` or `resolve()`. ",
+        "owasp": "A5: Broken Access Control",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

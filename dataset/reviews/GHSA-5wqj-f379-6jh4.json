@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-5wqj-f379-6jh4",
+        "cwe": "CWE-77"
+    },
+    "correct_cwe": ["CWE-77", "CWE-78"],
+    "correct_package_link": "https://registry.npmjs.org/kill-process-on-port/-/kill-process-on-port-1.0.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "build/main/lib/index.js",
+                    "lineno": 38,
+                    "code": "exports.killProcessOnPort = async (port, askQuestion = true) => {"
+                },
+                "sink": {
+                    "file": "build/main/lib/index.js",
+                    "lineno": 9,
+                    "code": "const res = child_process_1.execSync(`netstat -a -n -o | grep '${port}' | grep 'LISTENING'`);"
+                }
+            },
+            {
+                "source": {
+                    "file": "build/main/lib/index.js",
+                    "lineno": 38,
+                    "code": "exports.killProcessOnPort = async (port, askQuestion = true) => {"
+                },
+                "sink": {
+                    "file": "build/main/lib/index.js",
+                    "lineno": 15,
+                    "code": "const result = (await child_process_1.execSync(`fuser ${port}/tcp`)).toString();"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "file_path": "GHSA-5wqj-f379-6jh4.poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

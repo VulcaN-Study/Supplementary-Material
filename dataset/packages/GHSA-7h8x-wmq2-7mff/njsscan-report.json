@@ -1,0 +1,100 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 27,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "97b7975e2c02b6dc78fe534f4e472960ec4f02a2ed78ca30cf981ad66e955a10",
+          "start": {
+            "col": 11,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 27,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "97b7975e2c02b6dc78fe534f4e472960ec4f02a2ed78ca30cf981ad66e955a10",
+          "start": {
+            "col": 11,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "join_resolve_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/lib/local/browser.js",
+          "match_lines": [
+            75,
+            75
+          ],
+          "match_position": [
+            23,
+            79
+          ],
+          "match_string": "    browser.binPath = path.join(newPath, 'Contents', 'MacOS', browser.process);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory (Path Traversal)",
+        "description": "Path constructed with user input can result in Path Traversal. Ensure that user input does not reach `join()` or `resolve()`. ",
+        "owasp": "A5: Broken Access Control",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/local/index.js",
+          "match_lines": [
+            25,
+            25
+          ],
+          "match_position": [
+            33,
+            46
+          ],
+          "match_string": "  var randomNumber = Math.floor(Math.random() * 9e7 + 1e7);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

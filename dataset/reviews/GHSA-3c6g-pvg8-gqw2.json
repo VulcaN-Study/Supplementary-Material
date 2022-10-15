@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-3c6g-pvg8-gqw2",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-74",
+    "correct_package_link": "https://registry.npmjs.org/json/-/json-9.0.6.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/json.js",
+                    "lineno": 764,
+                    "code": "function parseLookup(lookup, lookupDelim) {"
+                },
+                "sink": {
+                    "file": "lib/json.js",
+                    "lineno": 828,
+                    "code": "var evaled = vm.runInNewContext("
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/trentm/json/issues/144"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/trentm/json/commit/cc4798169f9e0f181f8aa61905b88479badcd483#diff-d52327d893de06d159266c2904764245c93122e778b698a719298976ef976d60"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,216 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 8,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "1158545edf6725853b8d989e42c7db3f2f8d0c113e632a2167d075ddf414b634",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 8,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "1158545edf6725853b8d989e42c7db3f2f8d0c113e632a2167d075ddf414b634",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/guid.js",
+          "match_lines": [
+            6,
+            6
+          ],
+          "match_position": [
+            26,
+            39
+          ],
+          "match_string": "  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);"
+        },
+        {
+          "file_path": "/src/lib/password.js",
+          "match_lines": [
+            29,
+            29
+          ],
+          "match_position": [
+            28,
+            41
+          ],
+          "match_string": "        var p = Math.floor(Math.random() * setLen);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/lib/password.js",
+          "match_lines": [
+            36,
+            36
+          ],
+          "match_position": [
+            12,
+            36
+          ],
+          "match_string": "    return crypto.createHash('md5').update(string).digest('hex');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/lib/date.js",
+          "match_lines": [
+            240,
+            240
+          ],
+          "match_position": [
+            13,
+            45
+          ],
+          "match_string": "            if (token==='yyyy') { x=4;y=4; }"
+        },
+        {
+          "file_path": "/src/lib/date.js",
+          "match_lines": [
+            241,
+            241
+          ],
+          "match_position": [
+            13,
+            45
+          ],
+          "match_string": "            if (token==='yy')   { x=2;y=2; }"
+        },
+        {
+          "file_path": "/src/lib/date.js",
+          "match_lines": [
+            242,
+            242
+          ],
+          "match_position": [
+            13,
+            45
+          ],
+          "match_string": "            if (token==='y')    { x=2;y=4; }"
+        },
+        {
+          "file_path": "/src/lib/date.js",
+          "match_lines": [
+            307,
+            315
+          ],
+          "match_position": [
+            14,
+            10
+          ],
+          "match_string": "        else if (token==='a') {\n            if (val.substring(i_val,i_val+2).toLowerCase()==='am') {ampm='AM';}\n            else if (val.substring(i_val,i_val+2).toLowerCase()==='pm') {ampm='PM';}\n            else {return now;}\n            i_val+=2;}\n        else {\n            if (val.substring(i_val,i_val+token.length)!==token) {return now;}\n            else {i_val+=token.length;}\n        }"
+        },
+        {
+          "file_path": "/src/lib/date.js",
+          "match_lines": [
+            313,
+            314
+          ],
+          "match_position": [
+            13,
+            40
+          ],
+          "match_string": "            if (val.substring(i_val,i_val+token.length)!==token) {return now;}\n            else {i_val+=token.length;}"
+        },
+        {
+          "file_path": "/src/lib/password.js",
+          "match_lines": [
+            21,
+            21
+          ],
+          "match_position": [
+            5,
+            31
+          ],
+          "match_string": "    return hash === validHash;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/validator.js",
+          "match_lines": [
+            73,
+            73
+          ],
+          "match_position": [
+            37,
+            58
+          ],
+          "match_string": "        if(!len || len % 4 !== 0 || notBase64.test(value)) encoding = 'binary';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

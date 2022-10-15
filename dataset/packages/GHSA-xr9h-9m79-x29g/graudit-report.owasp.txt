@@ -1,0 +1,22 @@
+/src/build/renderer.js-30-        function injectBaseHref(origin) {
+/src/build/renderer.js:31:            const base = document.createElement('base');
+/src/build/renderer.js-32-            base.setAttribute('href', origin);
+##############################################
+/src/build/renderer.js-50-        }
+/src/build/renderer.js:51:        page.evaluateOnNewDocument('customElements.forcePolyfill = true');
+/src/build/renderer.js:52:        page.evaluateOnNewDocument('ShadyDOM = {force: true}');
+/src/build/renderer.js:53:        page.evaluateOnNewDocument('ShadyCSS = {shimcssproperties: true}');
+/src/build/renderer.js-54-        let response = null;
+##############################################
+/src/build/renderer.js-86-        const newStatusCode = await page
+/src/build/renderer.js:87:            .$eval('meta[name="render:status_code"]', (element) => parseInt(element.getAttribute('content') || ''))
+/src/build/renderer.js-88-            .catch(() => undefined);
+##############################################
+/src/build/renderer.js-99-        // Remove script & import tags.
+/src/build/renderer.js:100:        await page.evaluate(stripPage);
+/src/build/renderer.js-101-        // Inject <base> tag with the origin of the request (ie. no path).
+/src/build/renderer.js-102-        const parsedUrl = url.parse(requestUrl);
+/src/build/renderer.js:103:        await page.evaluate(injectBaseHref, `${parsedUrl.protocol}//${parsedUrl.host}`);
+/src/build/renderer.js-104-        // Serialize page.
+/src/build/renderer.js:105:        const result = await page.evaluate('document.firstElementChild.outerHTML');
+/src/build/renderer.js-106-        await page.close();

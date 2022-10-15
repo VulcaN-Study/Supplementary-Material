@@ -1,0 +1,87 @@
+{
+    "advisory": {
+        "id": "GHSA-hfwx-c7q6-g54c",
+        "cwe": "CWE-552"
+    },
+    "correct_cwe": ["CWE-552", "CWE-22"],
+    "correct_package_link": "https://registry.npmjs.org/highcharts-export-server/-/highcharts-export-server-2.0.30.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/server.js",
+                    "lineno": 170,
+                    "code": "function handlePost(req, res) {"
+                },
+                "sink": {
+                    "file": "lib/server.js",
+                    "lineno": 270,
+                    "code": "fs.readFile(info.filename, function (err, data) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/server.js",
+                    "lineno": 305,
+                    "code": "start: function (port, sslPort, sslPath, fn, sslOnly, newTmpDir, host) {"
+                },
+                "sink": {
+                    "file": "lib/server.js",
+                    "lineno": 350,
+                    "code": "fs.readFile(sslPath + 'server.key', function (err, skey) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/server.js",
+                    "lineno": 305,
+                    "code": "start: function (port, sslPort, sslPath, fn, sslOnly, newTmpDir, host) {"
+                },
+                "sink": {
+                    "file": "lib/server.js",
+                    "lineno": 352,
+                    "code": "fs.readFile(sslPath + 'server.crt', function (err, cert) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/highcharts/node-export-server/commit/53fa992a96785a5a08390e55ec30ea2ad217dfe6#diff-1b48bb429de959672dadab9c87c215e19177dd70e3bd932d131ce74294c44cd5"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

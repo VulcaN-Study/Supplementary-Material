@@ -1,0 +1,72 @@
+{
+    "advisory": {
+        "id": "GHSA-3fr8-mwpp-8h9p",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/tileserver-gl/-/tileserver-gl-3.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/server.js",
+                    "lineno": 310,
+                    "code": "app.use(urlPath, (req, res, next) => {"
+                },
+                "sink": {
+                    "file": "src/server.js",
+                    "lineno": 325,
+                    "code": "return res.status(200).send(compiled(data));"
+                }
+            },
+            {
+                "block": {
+                    "file": "src/server.js",
+                    "start_lineno": 322,
+                    "end_lineno": 323,
+                    "code": "req.query.key ? `key=${req.query.key}&amp;` : ''; data['key_query'] = req.query.key ? `?key=${req.query.key}` : '';"
+                }
+
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/maptiler/tileserver-gl/issues/461"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "A"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

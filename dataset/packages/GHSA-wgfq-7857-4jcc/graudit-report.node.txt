@@ -1,0 +1,65 @@
+/src/README.md-24-console.log('node.js bult-in JSON:')
+/src/README.md:25:var r = JSON.parse(json);
+/src/README.md:26:console.log('JSON.parse(input).value : ', r.value.toString());
+/src/README.md:27:console.log('JSON.stringify(JSON.parse(input)):', JSON.stringify(r));
+/src/README.md-28-
+/src/README.md-29-console.log('\n\nbig number JSON:');
+/src/README.md:30:var r1 = JSONbig.parse(json);
+/src/README.md:31:console.log('JSONbig.parse(input).value : ', r1.value.toString());
+/src/README.md:32:console.log('JSONbig.stringify(JSONbig.parse(input)):', JSONbig.stringify(r1));
+/src/README.md-33-```
+##############################################
+/src/README.md-40-node.js bult-in JSON:
+/src/README.md:41:JSON.parse(input).value :  9223372036854776000
+/src/README.md:42:JSON.stringify(JSON.parse(input)): {"value":9223372036854776000,"v2":123}
+/src/README.md-43-
+##############################################
+/src/README.md-45-big number JSON:
+/src/README.md:46:JSONbig.parse(input).value :  9223372036854775807
+/src/README.md:47:JSONbig.stringify(JSONbig.parse(input)): {"value":9223372036854775807,"v2":123}
+/src/README.md-48-```
+##############################################
+/src/README.md-65-console.log('Input:', dupkeys);
+/src/README.md:66:var works = JSONbig.parse(dupkeys);
+/src/README.md:67:console.log('JSON.parse(dupkeys).dupkey: %s', works.dupkey);
+/src/README.md-68-var fails = "will stay like this";
+/src/README.md-69-try {
+/src/README.md:70:    fails = JSONstrict.parse(dupkeys);
+/src/README.md-71-    console.log('ERROR!! Should never get here');
+##############################################
+/src/README.md-80-Input: { "dupkey": "value 1", "dupkey": "value 2"}
+/src/README.md:81:JSON.parse(dupkeys).dupkey: value 2
+/src/README.md-82-Succesfully catched expected exception on duplicate keys: {"name":"SyntaxError","message":"Duplicate key \"dupkey\"","at":33,"text":"{ \"dupkey\": \"value 1\", \"dupkey\": \"value 2\"}"}
+##############################################
+/src/README.md-97-console.log('Input:', key);
+/src/README.md:98:var withInt = JSONbig.parse(key);
+/src/README.md:99:var withString = JSONbigString.parse(key);
+/src/README.md-100-console.log('Default type: %s, With option type: %s', typeof withInt.key, typeof withString.key);
+##############################################
+/src/README.md-121-console.log('Input:', key);
+/src/README.md:122:var normal = JSONbig.parse(key);
+/src/README.md:123:var nativeBigInt = JSONbigNative.parse(key);
+/src/README.md-124-console.log('Default type: %s, With option type: %s', typeof normal.key, typeof nativeBigInt.key);
+##############################################
+/src/README.md-147-console.log('Input:', key);
+/src/README.md:148:var normal = JSONbig.parse(key);
+/src/README.md:149:var always = JSONbigAlways.parse(key);
+/src/README.md-150-console.log('Default type: %s, With option type: %s', typeof normal.key, typeof always.key);
+##############################################
+/src/README.md-182-
+/src/README.md:183:`s === JSONbig.stringify(JSONbig.parse(s))` but
+/src/README.md-184-
+/src/README.md:185:`o !== JSONbig.parse(JSONbig.stringify(o))` 
+/src/README.md-186-
+##############################################
+/src/lib/stringify.js-104-
+/src/lib/stringify.js:105:        JSON.parse(text, reviver)
+/src/lib/stringify.js-106-            This method parses a JSON text to produce an object or array.
+##############################################
+/src/lib/stringify.js-119-
+/src/lib/stringify.js:120:            myData = JSON.parse(text, function (key, value) {
+/src/lib/stringify.js-121-                var a;
+##############################################
+/src/lib/stringify.js-132-
+/src/lib/stringify.js:133:            myData = JSON.parse('["Date(09/09/2001)"]', function (key, value) {
+/src/lib/stringify.js-134-                var d;

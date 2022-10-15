@@ -1,0 +1,8478 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$13$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$14$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$15$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$16$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$17$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$18$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$19$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$20$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$21$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$22$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$23$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$24$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$25$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$13$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$14$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$15$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$16$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$17$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$18$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$19$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$20$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$21$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$22$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$23$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$24$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$25$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$8$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$9$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$10$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$11$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$12$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$13$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$14$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$15$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$16$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$17$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$18$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$19$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 60	      args.push('--verbose', opts.verbose);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$20$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$21$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$22$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 52	      args.push('--preprocessor', opts.preprocessor);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$23$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 49	      args.push('--name', '"' + opts.name + '"');
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$24$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 45	    var args = [];
+$FilePath$/src/index.js
+Line 47	    args.push('--out', opts.out);
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$25$color:green$: 
+==========================
+$FilePath$/src/index.js
+Line 9	module.exports = function (options) {
+  'use strict';
+
+  var firstFile = null;
+  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+  var count = 0;
+
+  function transform (file, encoding, cb) {
+
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
+    }
+
+    if (file.isStream()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      return cb();
+    }
+
+    count++;
+
+    if (!firstFile) {
+      firstFile = file;
+    }
+
+    cb();
+  }
+
+  function flush (cb) {
+
+    var bin = 'styledocco ';
+    var args = [];
+
+    args.push('--out', opts.out);
+    if (opts.name !== null) {
+      args.push('--name', '"' + opts.name + '"');
+    }
+    if (opts.preprocessor !== null) {
+      args.push('--preprocessor', opts.preprocessor);
+    }
+    if (opts.include !== null) {
+      opts.include.forEach(function (value) {
+        return args.push('--include', value);
+      });
+    }
+    if (opts.verbose) {
+      args.push('--verbose', opts.verbose);
+    }
+    if (opts['no-minify']) {
+      args.push('--no-minify');
+    }
+
+    if (count > 1) {
+      args.push(firstFile.base);
+    } else {
+      args.push(firstFile.path);
+    }
+
+    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+
+  }
+
+  return through.obj(transform, flush);
+};
+$FilePath$/src/index.js
+Line 13	  var opts = defaults(options || {}, {
+    out: 'docs',
+    name: 'Styledocco',
+    include: null,
+    preprocessor: null
+  });
+$FilePath$/src/index.js
+Line 72	    exec(bin + args.join(' '), function (error, stdout, stderr) {
+      if (stderr) {
+        gutil.log(stderr);
+      }
+      if (stdout) {
+        stdout = stdout.trim();
+        gutil.log(stdout);
+      }
+      cb(error);
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+

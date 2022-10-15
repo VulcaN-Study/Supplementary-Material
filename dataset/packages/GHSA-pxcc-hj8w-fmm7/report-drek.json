@@ -1,0 +1,42 @@
+[
+ {
+  "id": 1,
+  "file": "/src/dist/getGenerators.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "    }\n    const platform = await get_platform_1.getPlatform();\n    let prismaPath = binaryPathsOverride === null || binaryPathsOverride === void 0 ? void 0 : binaryPathsOverride.queryEngine;\n    // overwrite query engine if the version is provided\n    if (version && !prismaPath) {\n        const potentialPath = eval(`require('path').join(__dirname, '..')`);\n        // for pkg we need to make an exception\n        if (!potentialPath.startsWith('/snapshot/')) {\n            const downloadParams = {\n                binaries: {\n                    'query-engine': potentialPath,",
+  "line": 49,
+  "start": 44,
+  "end": 55
+ },
+ {
+  "id": 2,
+  "file": "/src/dist/getGenerators.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "        if (process.env.NETLIFY &&\n            !neededVersion.binaryTargets.includes('rhel-openssl-1.0.x')) {\n            neededVersion.binaryTargets.push('rhel-openssl-1.0.x');\n        }\n        // download\n        let binaryTargetBaseDir = eval(`require('path').join(__dirname, '..')`);\n        if (version !== currentVersion) {\n            binaryTargetBaseDir = path_1.default.join(binaryTargetBaseDir, `./engines/${currentVersion}/`);\n            await make_dir_1.default(binaryTargetBaseDir).catch((e) => console.error(e));\n        }\n        const binariesConfig = neededVersion.engines.reduce((acc, curr) => {",
+  "line": 253,
+  "start": 248,
+  "end": 259
+ },
+ {
+  "id": 3,
+  "file": "/src/dist/resolveBinary.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "        if (!fs_1.default.existsSync(process.env[envVar])) {\n            throw new Error(`Env var ${envVar} is provided, but provided path ${process.env[envVar]} can't be resolved.`);\n        }\n        return process.env[envVar];\n    }\n    const dir = eval('__dirname');\n    const platform = await get_platform_1.getPlatform();\n    const extension = platform === 'windows' ? '.exe' : '';\n    const binaryName = `${name}-${platform}${extension}`;\n    let prismaPath = path_1.default.join(engines_1.getEnginesPath(), binaryName);\n    if (fs_1.default.existsSync(prismaPath)) {",
+  "line": 37,
+  "start": 32,
+  "end": 43
+ },
+ {
+  "id": 4,
+  "file": "/src/dist/resolveBinary.js",
+  "filetype": "js",
+  "search": "\\seval\\s*\\(",
+  "match": "}\nexports.resolveBinary = resolveBinary;\nasync function maybeCopyToTmp(file) {\n    // in this case, we are in a \"pkg\" context with a virtual fs\n    // to make this work, we need to copy the binary to /tmp and execute it from there\n    const dir = eval('__dirname');\n    if (dir.startsWith('/snapshot/')) {\n        const targetDir = path_1.default.join(temp_dir_1.default, 'prisma-binaries');\n        await make_dir_1.default(targetDir);\n        const target = path_1.default.join(targetDir, path_1.default.basename(file));\n        const data = await readFile(file);",
+  "line": 65,
+  "start": 60,
+  "end": 71
+ }
+]

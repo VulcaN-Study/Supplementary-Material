@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-r9p9-mrjm-926w",
+        "cwe": "CWE-327"
+    },
+    "correct_cwe": "CWE-327",
+    "correct_package_link": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/elliptic/ec/key.js",
+                    "lineno": 102,
+                    "code": "KeyPair.prototype.derive = function derive(pub) {"
+                },
+                "sink": {
+                    "file": "lib/elliptic/ec/key.js",
+                    "lineno": 103,
+                    "code": "return pub.mul(this.priv).getX();"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/indutny/elliptic/commit/441b7428b0e8f6636c42118ad2aaa186d3c34c3f"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

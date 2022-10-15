@@ -1,0 +1,853 @@
+/src/nosqlworker.js-76-		case 'find':
+/src/nosqlworker.js:77:			db.find().parse(msg.data).callback(function(err, response, count, repository) {
+/src/nosqlworker.js-78-				RESFIND.err = err;
+##############################################
+/src/nosqlworker.js-86-		case 'find2':
+/src/nosqlworker.js:87:			db.find2().parse(msg.data).callback(function(err, response, count, repository) {
+/src/nosqlworker.js-88-				RESFIND.err = err;
+##############################################
+/src/nosqlworker.js-96-		case 'top':
+/src/nosqlworker.js:97:			db.top().parse(msg.data).callback(function(err, response, count, repository) {
+/src/nosqlworker.js-98-				RESFIND.err = err;
+##############################################
+/src/nosqlworker.js-106-		case 'one':
+/src/nosqlworker.js:107:			db.one().parse(msg.data).callback(function(err, response, count, repository) {
+/src/nosqlworker.js-108-				RESFIND.err = err;
+##############################################
+/src/nosqlworker.js-116-		case 'insert':
+/src/nosqlworker.js:117:			db.insert(msg.arg[0], msg.arg[1]).parse(msg.data).callback(function(err, response) {
+/src/nosqlworker.js-118-				RESINSERT.err = err;
+##############################################
+/src/nosqlworker.js-126-			if (typeof(msg.arg[0]) === 'string')
+/src/nosqlworker.js:127:				msg.arg[0] = eval('(' + msg.arg[0] + ')');
+/src/nosqlworker.js-128-
+/src/nosqlworker.js:129:			db.update(msg.arg[0], msg.arg[1]).parse(msg.data).callback(function(err, response, repository) {
+/src/nosqlworker.js-130-				RESUPDATE.err = err;
+##############################################
+/src/nosqlworker.js-139-			if (typeof(msg.arg[0]) === 'string')
+/src/nosqlworker.js:140:				msg.arg[0] = eval('(' + msg.arg[0] + ')');
+/src/nosqlworker.js-141-
+/src/nosqlworker.js:142:			db.modify(msg.arg[0], msg.arg[1]).parse(msg.data).callback(function(err, response, repository) {
+/src/nosqlworker.js-143-				RESUPDATE.err = err;
+##############################################
+/src/nosqlworker.js-150-		case 'count':
+/src/nosqlworker.js:151:			db.count().parse(msg.data).callback(function(err, response, count, repository) {
+/src/nosqlworker.js-152-				RESCOUNT.err = err;
+##############################################
+/src/nosqlworker.js-160-		case 'remove':
+/src/nosqlworker.js:161:			db.remove(msg.arg ? msg.arg[0] : undefined).parse(msg.data).callback(function(err, response, repository) {
+/src/nosqlworker.js-162-				RESREMOVE.err = err;
+##############################################
+/src/nosqlworker.js-237-		case 'storage.scan':
+/src/nosqlworker.js:238:			db.storage.scan(msg.arg[0], msg.arg[1], eval('(' + msg.arg[2] + ')'), function(err, response, repository) {
+/src/nosqlworker.js-239-				RESTORAGESCAN.id = msg.id;
+##############################################
+/src/nosqlworker.js-254-		case 'stream':
+/src/nosqlworker.js:255:			db[msg.TYPE](eval('(' + msg.arg[0] + ')'), msg.arg[1], function(err, repository, count) {
+/src/nosqlworker.js-256-				RESSTREAM.id = msg.id;
+##############################################
+/src/internal.js-315-		} else {
+/src/internal.js:316:			rm && F.unlink(rm);
+/src/internal.js-317-			req.$total_end2();
+##############################################
+/src/internal.js-687-	var self = this;
+/src/internal.js:688:	Fs.rename(self.path, filename, function(err) {
+/src/internal.js-689-
+##############################################
+/src/internal.js-704-	if (!callback) {
+/src/internal.js:705:		Fs.createReadStream(self.path).pipe(Fs.createWriteStream(filename));
+/src/internal.js-706-		return;
+##############################################
+/src/internal.js-708-
+/src/internal.js:709:	var reader = Fs.createReadStream(self.path);
+/src/internal.js-710-	var writer = Fs.createWriteStream(filename);
+##############################################
+/src/internal.js-719-	return function(callback) {
+/src/internal.js:720:		return self.rename(filename, callback);
+/src/internal.js-721-	};
+##############################################
+/src/internal.js-737-	F.stats.performance.open++;
+/src/internal.js:738:	Fs.readFile(self.path, callback);
+/src/internal.js-739-	return self;
+##############################################
+/src/internal.js-751-	var md5 = Crypto.createHash('md5');
+/src/internal.js:752:	var stream = Fs.createReadStream(self.path);
+/src/internal.js-753-
+##############################################
+/src/internal.js-780-HFP.stream = function(options) {
+/src/internal.js:781:	return Fs.createReadStream(this.path, options);
+/src/internal.js-782-};
+##############################################
+/src/internal.js-784-HFP.pipe = function(stream, options) {
+/src/internal.js:785:	return Fs.createReadStream(this.path, options).pipe(stream, options);
+/src/internal.js-786-};
+##############################################
+/src/internal.js-812-	var storage = FILESTORAGE(storagename);
+/src/internal.js:813:	var stream = Fs.createReadStream(this.path);
+/src/internal.js-814-	return id ? storage.update(id, this.filename, stream, custom, callback) : storage.insert(this.filename, stream, custom, callback);
+##############################################
+/src/internal.js-823-	var storage = NOSQL(name).binary;
+/src/internal.js:824:	var stream = Fs.createReadStream(this.path);
+/src/internal.js-825-	return id ? storage.update(id, this.filename, stream, custom, callback) : storage.insert(this.filename, stream, custom, callback);
+##############################################
+/src/internal.js-2040-	try {
+/src/internal.js:2041:		fn = eval(fn);
+/src/internal.js-2042-		fn.components = keys;
+##############################################
+/src/internal.js-3433-			try {
+/src/internal.js:3434:				r.push({ cmd: command.phrase, value: eval('(' + cmd + ')') });
+/src/internal.js-3435-			} catch (e) {
+##############################################
+/src/bundles.js-368-		if (append) {
+/src/bundles.js:369:			Fs.appendFile(filename, '\n' + Fs.readFileSync(file.filename).toString('utf8'), next);
+/src/bundles.js-370-		} else
+##############################################
+/src/bundles.js-383-	writer.on('finish', callback);
+/src/bundles.js:384:	Fs.createReadStream(oldname).pipe(writer);
+/src/bundles.js-385-}
+##############################################
+/src/session.js-70-		}
+/src/session.js:71:		Fs.writeFile(PATH.databases(filename.format((t.name && t.name !== 'default' ? ('_' + t.name) : ''))), storage.join('\n'), t.$savecallback);
+/src/session.js-72-		timeoutsave = null;
+##############################################
+/src/cluster.js-283-		if (!err) {
+/src/cluster.js:284:			Fs.unlink(filename, NOOP);
+/src/cluster.js-285-			if (!F.restarting) {
+##############################################
+/src/cluster.js-317-			main.stats = STATS;
+/src/cluster.js:318:			Fs.writeFile(process.mainModule.filename + '.json', JSON.stringify(main, null, '  '), NOOP);
+/src/cluster.js-319-		}
+##############################################
+/src/nosqlstream.js-438-	self.position = self.start;
+/src/nosqlstream.js:439:	self.open();
+/src/nosqlstream.js-440-	return self;
+##############################################
+/src/nosqlstream.js-447-	self.$reverse = true;
+/src/nosqlstream.js:448:	self.open();
+/src/nosqlstream.js-449-	return self;
+##############################################
+/src/nosqlstream.js-455-	F.stats.performance.open++;
+/src/nosqlstream.js:456:	Fs.open(self.filename, self.type, function(err, fd) {
+/src/nosqlstream.js-457-
+##############################################
+/src/nosqlstream.js-519-	F.stats.performance.open++;
+/src/nosqlstream.js:520:	Fs.open(self.filename, self.type, function(err, fd) {
+/src/nosqlstream.js-521-
+##############################################
+/src/mail.js-371-	var opt = framework_utils.copy(options.tls, { socket: obj.socket, host: obj.socket.$host, ciphers: 'SSLv3' });
+/src/mail.js:372:	obj.socket2 = Tls.connect(opt, () => self.$send(obj, options, true));
+/src/mail.js-373-
+##############################################
+/src/mail.js-467-		F.stats.performance.open++;
+/src/mail.js:468:		stream = Fs.createReadStream(attachment.filename, ATTACHMENT_SO);
+/src/mail.js-469-		writeattachemnt_stream(attachment, obj, stream);
+##############################################
+/src/mail.js-592-		internal.host = smtp;
+/src/mail.js:593:		obj.socket = Tls.connect(internal, () => mailer.$send(obj, options));
+/src/mail.js-594-	} else
+/src/mail.js:595:		obj.socket = Net.createConnection(options.port, smtp);
+/src/mail.js-596-
+##############################################
+/src/bin/tpm-246-
+/src/bin/tpm:247:	Fs.readFile(filename, function(err, data) {
+/src/bin/tpm-248-		Zlib.gzip(data, function(err, data) {
+##############################################
+/src/bin/tpm-253-			var name = filename.replace(self.path, '').replace(/\\/g, '/');
+/src/bin/tpm:254:			Fs.appendFile(self.filename, name.padRight(PADDING) + ':' + data.toString('base64') + '\n', () => self.$compress());
+/src/bin/tpm-255-		});
+##############################################
+/src/bin/tpm-329-
+/src/bin/tpm:330:	var stream = Fs.createReadStream(filename);
+/src/bin/tpm-331-	stream.on('data', buffer => self.restoreKey(buffer));
+##############################################
+/src/bin/tpm-377-	Zlib.gunzip(buffer, function(err, data) {
+/src/bin/tpm:378:		Fs.writeFile(Path.join(self.path, key), data, () => self.pending--);
+/src/bin/tpm-379-		buffer = null;
+##############################################
+/src/bin/tpm-477-	if (filename)
+/src/bin/tpm:478:		Fs.unlink(filename, () => self.removeFile());
+/src/bin/tpm-479-	else
+##############################################
+/src/bin/tpm-492-function download(url, callback) {
+/src/bin/tpm:493:	var uri = parser.parse(url);
+/src/bin/tpm-494-	var h = {};
+##############################################
+/src/bin/tpm-652-					if (Fs.existsSync(filename)) {
+/src/bin/tpm:653:						var obj = JSON.parse(Fs.readFileSync(filename).toString('utf8'));
+/src/bin/tpm-654-						if (!obj.tpm)
+##############################################
+/src/bin/tpm-755-					if (Fs.existsSync(filename)) {
+/src/bin/tpm:756:						var obj = JSON.parse(Fs.readFileSync(filename).toString('utf8'));
+/src/bin/tpm-757-						if (obj.tpm)
+##############################################
+/src/bin/tpm-896-	if (Fs.existsSync(filename))
+/src/bin/tpm:897:		settings = JSON.parse(Fs.readFileSync(filename).toString('utf8'));
+/src/bin/tpm-898-
+##############################################
+/src/bin/tpm-981-
+/src/bin/tpm:982:			packagejson = JSON.parse(Fs.readFileSync(filename).toString('utf8'));
+/src/bin/tpm-983-
+##############################################
+/src/bin/tpm-1026-
+/src/bin/tpm:1027:			packagejson = JSON.parse(Fs.readFileSync(filename).toString('utf8'));
+/src/bin/tpm-1028-
+##############################################
+/src/bin/totaljs-865-			F.rmdir(path.join(dir, '.git'), function() {
+/src/bin/totaljs:866:				F.unlink(path.join(dir, '.gitignore'), function() {
+/src/bin/totaljs-867-					F.path.exists(path.join(dir, 'package.json'), function(e) {
+##############################################
+/src/nosqlcrawler.js-50-	var builder = new framework_nosql.DatabaseBuilder();
+/src/nosqlcrawler.js:51:	builder.parse(msg.builder);
+/src/nosqlcrawler.js-52-
+##############################################
+/src/nosqlcrawler.js-69-	fs.ondocuments = function() {
+/src/nosqlcrawler.js:70:		return filters.compare(JSON.parse('[' + fs.docs + ']', jsonparser));
+/src/nosqlcrawler.js-71-	};
+##############################################
+/src/flow.js-307-	curr.install && !prev && curr.install();
+/src/flow.js:308:	curr.connect && curr.connect();
+/src/flow.js-309-	curr.destroy = function() {
+##############################################
+/src/utils.js-356-
+/src/utils.js:357:	var uri = Url.parse(url);
+/src/utils.js-358-
+##############################################
+/src/utils.js-517-
+/src/utils.js:518:	var obj = Url.parse(p);
+/src/utils.js-519-
+##############################################
+/src/utils.js-719-
+/src/utils.js:720:	var uri = Url.parse(url);
+/src/utils.js-721-
+##############################################
+/src/utils.js-835-PAP.addRequest = function(req, options) {
+/src/utils.js:836:	this.createConnection({ host: options.host, port: options.port, request: req });
+/src/utils.js-837-};
+##############################################
+/src/utils.js-844-		PROXYTLS.socket = socket;
+/src/utils.js:845:		var tls = Tls.connect(0, PROXYTLS);
+/src/utils.js-846-		callback(tls);
+##############################################
+/src/utils.js-956-	} else {
+/src/utils.js:957:		var stream = Fs.createReadStream(file.filename);
+/src/utils.js-958-		stream.once('close', next);
+##############################################
+/src/utils.js-1025-
+/src/utils.js:1026:		var tmp = Url.parse(loc);
+/src/utils.js-1027-		tmp.headers = uri.headers;
+##############################################
+/src/utils.js-1354-
+/src/utils.js:1355:	var uri = Url.parse(url);
+/src/utils.js-1356-	uri.method = method;
+##############################################
+/src/utils.js-1502-
+/src/utils.js:1503:		var tmp = Url.parse(loc);
+/src/utils.js-1504-		tmp.headers = uri.headers;
+##############################################
+/src/utils.js-1596-	if (typeof(stream) === 'string')
+/src/utils.js:1597:		stream = Fs.createReadStream(stream, STREAM_READONLY);
+/src/utils.js-1598-
+##############################################
+/src/utils.js-1621-	var e = new EventEmitter2();
+/src/utils.js:1622:	var uri = Url.parse(url);
+/src/utils.js-1623-	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'POST', hostname: uri.hostname, port: uri.port, path: uri.path, agent: false, headers: h };
+##############################################
+/src/utils.js-1719-	var e = new EventEmitter2();
+/src/utils.js:1720:	var uri = Url.parse(url);
+/src/utils.js-1721-	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'POST', hostname: uri.hostname, port: uri.port, path: uri.path, agent: false, headers: h };
+##############################################
+/src/utils.js-1809-
+/src/utils.js:1810:		!item.stream && (item.stream = Fs.createReadStream(item.filename));
+/src/utils.js-1811-		item.stream.pipe(req, STREAM_END);
+##############################################
+/src/utils.js-2820-	try {
+/src/utils.js:2821:		return JSON.parse(value, date ? jsonparser : undefined);
+/src/utils.js-2822-	} catch(e) {
+##############################################
+/src/utils.js-2982-	var dt = this.toLocaleString('en-US', { timeZone: timezone, hour12: false, dateStyle: 'short', timeStyle: 'short' });
+/src/utils.js:2983:	return new Date(Date.parse(dt));
+/src/utils.js-2984-};
+##############################################
+/src/utils.js-3063-		if (to === 'string')
+/src/utils.js:3064:			date = Date.parse(date);
+/src/utils.js-3065-		else if (exports.isDate(date))
+##############################################
+/src/utils.js-3920-	if (lc === 90)
+/src/utils.js:3921:		return new Date(Date.parse(self));
+/src/utils.js-3922-
+##############################################
+/src/utils.js-4727-		index++;
+/src/utils.js:4728:	Fs.writeFile(filename, self.substring(index), 'base64', callback || exports.noop);
+/src/utils.js-4729-	return this;
+##############################################
+/src/utils.js-6834-			Zlib.deflate(Buffer.from(JSON.stringify(self.stack), ENCODING), function(err, buffer) {
+/src/utils.js:6835:				Fs.writeFile(self.filename + index + '.chunker', buffer, () => self.flushing--);
+/src/utils.js-6836-			});
+/src/utils.js-6837-		} else
+/src/utils.js:6838:			Fs.writeFile(self.filename + index + '.chunker', JSON.stringify(self.stack), () => self.flushing--);
+/src/utils.js-6839-
+##############################################
+/src/utils.js-6857-			Zlib.deflate(Buffer.from(JSON.stringify(self.stack), ENCODING), function(err, buffer) {
+/src/utils.js:6858:				Fs.writeFile(self.filename + index + '.chunker', buffer, () => self.flushing--);
+/src/utils.js-6859-			});
+/src/utils.js-6860-		} else
+/src/utils.js:6861:			Fs.writeFile(self.filename + index + '.chunker', JSON.stringify(self.stack), () => self.flushing--);
+/src/utils.js-6862-
+##############################################
+/src/utils.js-6898-
+/src/utils.js:6899:	Fs.readFile(filename, function(err, data) {
+/src/utils.js-6900-
+##############################################
+/src/utils.js-6910-				} else {
+/src/utils.js:6911:					self.autoremove && Fs.unlink(filename, NOOP);
+/src/utils.js-6912-					callback(null, data.toString('utf8').parseJSON(true));
+##############################################
+/src/utils.js-6915-		} else {
+/src/utils.js:6916:			self.autoremove && Fs.unlink(filename, NOOP);
+/src/utils.js-6917-			callback(null, data.toString('utf8').parseJSON(true));
+##############################################
+/src/utils.js-6927-		files.push(this.filename + i + '.chunker');
+/src/utils.js:6928:	files.wait((filename, next) => Fs.unlink(filename, next));
+/src/utils.js-6929-	return this;
+##############################################
+/src/debug.js-105-		callback && writer.on('finish', callback);
+/src/debug.js:106:		Fs.createReadStream(oldname).pipe(writer);
+/src/debug.js-107-	}
+##############################################
+/src/debug.js-438-			process.isending = true;
+/src/debug.js:439:			Fs.unlink(pid, noop);
+/src/debug.js-440-
+##############################################
+/src/debug.js-466-
+/src/debug.js:467:					Fs.unlink(pid, noop);
+/src/debug.js-468-
+##############################################
+/src/image.js-176-	var extension = self.filename.substring(index).toLowerCase();
+/src/image.js:177:	var stream = require('fs').createReadStream(self.filename, { start: 0, end: extension === '.jpg' ? 40000 : 24 });
+/src/image.js-178-
+##############################################
+/src/image.js-251-		F.stats.performance.open++;
+/src/image.js:252:		var reader = Fs.createReadStream(filename);
+/src/image.js-253-		var writer = Fs.createWriteStream(filename + '_');
+##############################################
+/src/image.js-255-		reader.pipe(middleware()).pipe(writer);
+/src/image.js:256:		writer.on('finish', () => Fs.rename(filename + '_', filename, () => callback(null, true)));
+/src/image.js-257-	});
+##############################################
+/src/index.js-501-	if (o)
+/src/index.js:502:		o.query(options, callback, controller);
+/src/index.js-503-	else
+##############################################
+/src/index.js-1868-
+/src/index.js:1869:	var obj = { url: url, uri: require('url').parse(target), before: before, after: after, copypath: copypath };
+/src/index.js-1870-	F.routes.proxies.push(obj);
+##############################################
+/src/index.js-3143-	F.routes.merge[url] = { filename: filename.replace(/\.(js|css)$/g, ext => '.min' + ext), files: arr };
+/src/index.js:3144:	Fs.unlink(F.routes.merge[url].filename, NOOP);
+/src/index.js-3145-	F.owners.push({ type: 'merge', owner: _owner, id: url });
+##############################################
+/src/index.js-3935-
+/src/index.js:3936:	Fs.readFile(filename, function(err, content) {
+/src/index.js-3937-
+##############################################
+/src/index.js-4332-						if (F.$bundling) {
+/src/index.js:4333:							var stream = Fs.createReadStream(filename);
+/src/index.js-4334-							var writer = Fs.createWriteStream(Path.join(dir, filename.replace(item.filename, '').replace(/\.package$/i, '')));
+##############################################
+/src/index.js-4702-
+/src/index.js:4703:		F.routes.middleware[name] = typeof(declaration) === 'function' ? declaration : eval(declaration);
+/src/index.js-4704-		F._length_middleware = Object.keys(F.routes.middleware).length;
+##############################################
+/src/index.js-4828-			F.components.views[name] = '.' + F.path.temp('component_' + name);
+/src/index.js:4829:			F.$bundling && Fs.writeFile(F.components.views[name].substring(1) + '.html', U.minifyHTML(content.body), NOOP);
+/src/index.js-4830-		} else
+##############################################
+/src/index.js-5051-			} else
+/src/index.js:5052:				obj = typeof(declaration) === 'function' ? eval('(' + declaration.toString() + ')()') : eval(declaration);
+/src/index.js-5053-
+##############################################
+/src/index.js-5104-			else {
+/src/index.js:5105:				obj = typeof(declaration) === 'function' ? eval('(' + declaration.toString() + ')()') : eval(declaration);
+/src/index.js-5106-				content = declaration.toString();
+##############################################
+/src/index.js-5647-		fsFileExists(obj.filename, function(e) {
+/src/index.js:5648:			e && Fs.unlink(obj.filename, NOOP);
+/src/index.js-5649-			F.consoledebug('uninstall', type + '#' + name);
+##############################################
+/src/index.js-6107-		try {
+/src/index.js:6108:			return JSON.parse(value);
+/src/index.js-6109-		} catch (e) {}
+##############################################
+/src/index.js-6114-F.$onParseJSON = function(req) {
+/src/index.js:6115:	req.body = F.onParseJSON.$def ? JSON.parse(req.buffer_data) : F.onParseJSON(req.buffer_data);
+/src/index.js-6116-};
+##############################################
+/src/index.js-6216-	if (value) {
+/src/index.js:6217:		// var val = Qs.parse(value, null, null, QUERYPARSEROPTIONS);
+/src/index.js-6218-		var val = parseQueryArguments(value);
+##############################################
+/src/index.js-6228-		if (req.buffer_data) {
+/src/index.js:6229:			// req.body = Qs.parse(req.buffer_data, null, null, QUERYPARSEROPTIONS);
+/src/index.js-6230-			req.body = parseQueryArguments(req.buffer_data);
+##############################################
+/src/index.js-6240-		if (req.uri.query) {
+/src/index.js:6241:			// req._querydata = Qs.parse(req.uri.query, null, null, QUERYPARSEROPTIONS);
+/src/index.js-6242-			req._querydata = parseQueryArguments(req.uri.query);
+##############################################
+/src/index.js-6432-	F.path.verify('logs');
+/src/index.js:6433:	U.queue('F.log', 5, (next) => Fs.appendFile(U.combine(CONF.directory_logs, filename + '.log'), time + ' | ' + str + '\n', next));
+/src/index.js-6434-	return F;
+##############################################
+/src/index.js-6454-	F.path.verify('logs');
+/src/index.js:6455:	U.queue('F.logger', 5, (next) => Fs.appendFile(U.combine(CONF.directory_logs, arguments[0] + '.log'), dt + ' | ' + str + '\n', next));
+/src/index.js-6456-	return F;
+##############################################
+/src/index.js-6619-F.onPrefSave = function(val) {
+/src/index.js:6620:	Fs.writeFile(F.path.databases(PREFFILE), JSON.stringify(val), ERROR('F.onPrefSave'));
+/src/index.js-6621-};
+##############################################
+/src/index.js-6623-F.onPrefLoad = function(next) {
+/src/index.js:6624:	Fs.readFile(U.combine(CONF.directory_databases, PREFFILE), function(err, data) {
+/src/index.js-6625-		if (data)
+##############################################
+/src/index.js-6633-	F.path.verify('logs');
+/src/index.js:6634:	U.queue('F.logger', 5, (next) => Fs.appendFile(U.combine(CONF.directory_logs, name + '.log'), JSON.stringify(data) + '\n', next));
+/src/index.js-6635-};
+##############################################
+/src/index.js-6943-	F.stats.performance.open++;
+/src/index.js:6944:	var reader = Fs.createReadStream(arr[0]);
+/src/index.js-6945-	var writer = Fs.createWriteStream(filename);
+##############################################
+/src/index.js-6992-	var item = null;
+/src/index.js:6993:	var stream = Fs.createReadStream(filename);
+/src/index.js-6994-	var index = 0;
+##############################################
+/src/index.js-7192-
+/src/index.js:7193:	Fs.unlink(filename, function() {
+/src/index.js-7194-
+##############################################
+/src/index.js-7279-				writer.write(item.padRight(padding) + ':');
+/src/index.js:7280:				Fs.createReadStream(file).pipe(Zlib.createGzip(GZIPFILE)).on('data', function(chunk) {
+/src/index.js-7281-
+##############################################
+/src/index.js-7679-
+/src/index.js:7680:				F.server = http.createServer(meta, F.listener);
+/src/index.js-7681-
+/src/index.js-7682-			} else
+/src/index.js:7683:				F.server = http.createServer(F.listener);
+/src/index.js-7684-
+##############################################
+/src/index.js-7980-F.usagesnapshot = function(filename) {
+/src/index.js:7981:	Fs.writeFile(filename || F.path.root('usage' + (F.id ? ('-' + F.id) : '') + '.log'), JSON.stringify(F.usage(true), null, '\t'), NOOP);
+/src/index.js-7982-	return F;
+##############################################
+/src/index.js-9147-				U.ls(dir, function(files) {
+/src/index.js:9148:					F.unlink(files, function() {
+/src/index.js-9149-						callback && callback();
+##############################################
+/src/index.js-9193-
+/src/index.js:9194:		F.unlink(files, () => F.rmdir(directories, callback));
+/src/index.js-9195-	});
+##############################################
+/src/index.js-9224-	if (filename)
+/src/index.js:9225:		Fs.unlink(filename, () => F.unlink(arr, callback));
+/src/index.js-9226-	else
+##############################################
+/src/index.js-9251-			directories.push(path);
+/src/index.js:9252:			files.wait((item, next) => Fs.unlink(item, next), function() {
+/src/index.js-9253-				directories.wait(function(item, next) {
+##############################################
+/src/index.js-10475-
+/src/index.js:10476:	process.env.NODE_TLS_REJECT_UNAUTHORIZED = CONF.allow_ssc_validation === false ? '0' : '1';
+/src/index.js-10477-
+##############################################
+/src/index.js-11431-FrameworkCacheProto.save = function() {
+/src/index.js:11432:	Fs.writeFile(F.path.temp((F.id ? 'i-' + F.id + '_' : '') + 'framework_cachesnapshot.jsoncache'), JSON.stringify(this.items), NOOP);
+/src/index.js-11433-	return this;
+##############################################
+/src/index.js-11437-	var self = this;
+/src/index.js:11438:	Fs.readFile(F.path.temp((F.id ? 'i-' + F.id + '_' : '') + 'framework_cachesnapshot.jsoncache'), function(err, data) {
+/src/index.js-11439-		if (!err) {
+/src/index.js-11440-			try {
+/src/index.js:11441:				data = JSON.parse(data.toString('utf8'), (key, value) => typeof(value) === 'string' && value.isJSONDate() ? new Date(value) : value);
+/src/index.js-11442-				self.items = data;
+##############################################
+/src/index.js-11461-
+/src/index.js:11462:		Fs.writeFile(F.path.temp((F.id ? 'i-' + F.id + '_' : '') + 'framework_cachepersist.jsoncache'), JSON.stringify(obj), NOOP);
+/src/index.js-11463-	}, 1000, 50, this);
+##############################################
+/src/index.js-11468-	var self = this;
+/src/index.js:11469:	Fs.readFile(F.path.temp((F.id ? 'i-' + F.id + '_' : '') + 'framework_cachepersist.jsoncache'), function(err, data) {
+/src/index.js-11470-		if (!err) {
+/src/index.js-11471-			try {
+/src/index.js:11472:				data = JSON.parse(data.toString('utf8'), (key, value) => typeof(value) === 'string' && value.isJSONDate() ? new Date(value) : value);
+/src/index.js-11473-				var keys = Object.keys(data);
+##############################################
+/src/index.js-11952-
+/src/index.js:11953:	this.getSchema().query(helper, callback, this);
+/src/index.js-11954-	return this;
+##############################################
+/src/index.js-16870-
+/src/index.js:16871:		F.unlink(arr);
+/src/index.js-16872-		self.files = null;
+##############################################
+/src/index.js-18893-		F.stats.performance.open++;
+/src/index.js:18894:		Fs.readFile(filename, function(err, result) {
+/src/index.js-18895-			next();
+##############################################
+/src/index.js-18933-		F.stats.performance.open++;
+/src/index.js:18934:		var stream = Fs.createReadStream(filename, opt);
+/src/index.js-18935-		stream.on('error', NOOP);
+##############################################
+/src/index.js-19366-		data = data.substring(tmp + 1);
+/src/index.js:19367:		F.$bundling && Fs.writeFile(U.join(p, name), data.trim(), encoding || 'base64', NOOP);
+/src/index.js-19368-		response.files[name] = 1;
+##############################################
+/src/index.js-19569-	F.path.verify('logs');
+/src/index.js:19570:	U.queue('F.ilogger', 5, (next) => Fs.appendFile(U.combine(CONF.directory_logs, 'logger.log'), body, next));
+/src/index.js-19571-}
+##############################################
+/src/index.js-19764-		} else
+/src/index.js:19765:			Fs.writeFile(process.mainModule.filename + '.json', JSON.stringify(main, null, '  '), NOOP);
+/src/index.js-19766-	};
+##############################################
+/src/nosql.js-90-function clusterlock(db, method) {
+/src/nosql.js:91:	Fs.open(db.filenameLock, 'wx', function(err, fd) {
+/src/nosql.js-92-
+##############################################
+/src/nosql.js-111-		db.locked = false;
+/src/nosql.js:112:		Fs.unlink(db.filenameLock, NOOP);
+/src/nosql.js-113-	}
+##############################################
+/src/nosql.js-573-
+/src/nosql.js:574:	Fs.createReadStream(t.filename, { end: 1200 }).once('data', function(chunk) {
+/src/nosql.js-575-
+##############################################
+/src/nosql.js-803-
+/src/nosql.js:804:	var stream = Fs.createReadStream(self.filenameBackup);
+/src/nosql.js-805-	var output = [];
+##############################################
+/src/nosql.js-1045-	var builder = new DatabaseBuilder2(self);
+/src/nosql.js:1046:	var stream = Fs.createReadStream(self.filename);
+/src/nosql.js-1047-
+##############################################
+/src/nosql.js-1347-			builder.push(JSON.stringify(data[i]).replace(REGBOOL, JSONBOOL));
+/src/nosql.js:1348:		Fs.writeFile(self.filename, builder.join(NEWLINE) + NEWLINE, F.errorcallback);
+/src/nosql.js-1349-	}, 50, 100);
+##############################################
+/src/nosql.js-1371-
+/src/nosql.js:1372:	Fs.readFile(filename, function(err, data) {
+/src/nosql.js-1373-		if (err)
+##############################################
+/src/nosql.js-1379-				try {
+/src/nosql.js:1380:					item = JSON.parse(item.trim(), jsonparser);
+/src/nosql.js-1381-					item && self.inmemory[view].push(item);
+##############################################
+/src/nosql.js-1397-		self.readonly && self.throwReadonly();
+/src/nosql.js:1398:		Fs.writeFile(self.filenameMeta, JSON.stringify(self.metadata), F.errorcallback);
+/src/nosql.js-1399-		return self;
+##############################################
+/src/nosql.js-1405-	try {
+/src/nosql.js:1406:		self.metadata = JSON.parse(Fs.readFileSync(self.filenameMeta).toString('utf8'), jsonparser);
+/src/nosql.js-1407-	} catch (err) {}
+##############################################
+/src/nosql.js-1429-
+/src/nosql.js:1430:		Fs.appendFile(self.filename, json, function(err) {
+/src/nosql.js-1431-
+##############################################
+/src/nosql.js-1465-		for (var i = 0, length = items.length; i < length; i++) {
+/src/nosql.js:1466:			self.inmemory['#'].push(JSON.parse(items[i].doc, jsonparser));
+/src/nosql.js-1467-			items[i].builder.$options.log && items[i].builder.log();
+##############################################
+/src/nosql.js-1576-	fs.ondocuments = function() {
+/src/nosql.js:1577:		filters.compare2(JSON.parse('[' + fs.docs + ']', jsonparser), update, updateflush);
+/src/nosql.js-1578-	};
+##############################################
+/src/nosql.js-1764-	fs.ondocuments = function() {
+/src/nosql.js:1765:		return filters.compare(JSON.parse('[' + fs.docs + ']', jsonparser));
+/src/nosql.js-1766-	};
+##############################################
+/src/nosql.js-1803-	fs.ondocuments = function() {
+/src/nosql.js:1804:		return filters.compare(JSON.parse('[' + fs.docs + ']', jsonparser));
+/src/nosql.js-1805-	};
+##############################################
+/src/nosql.js-1841-	fs.ondocuments = function() {
+/src/nosql.js:1842:		var docs = JSON.parse('[' + fs.docs + ']', jsonparser);
+/src/nosql.js-1843-		for (var j = 0; j < docs.length; j++) {
+##############################################
+/src/nosql.js-1967-	fs.ondocuments = function() {
+/src/nosql.js:1968:		filters.compare2(JSON.parse('[' + fs.docs + ']', jsonparser), remove, removeflush);
+/src/nosql.js-1969-	};
+##############################################
+/src/nosql.js-1995-	var filter = self.pending_clear.splice(0);
+/src/nosql.js:1996:	Fs.unlink(self.filename, function() {
+/src/nosql.js-1997-		for (var i = 0; i < filter.length; i++)
+##############################################
+/src/nosql.js-2040-	writer.on('finish', function() {
+/src/nosql.js:2041:		Fs.rename(self.filename + '-tmp', self.filename, function() {
+/src/nosql.js-2042-			CONF.nosql_logger && PRINTLN('NoSQL embedded "{0}" cleaning (end, {1}s)'.format(self.name, (((Date.now() - now) / 1000) >> 0)));
+##############################################
+/src/nosql.js-2147-
+/src/nosql.js:2148:	remove.wait((filename, next) => Fs.unlink(filename, next), function() {
+/src/nosql.js-2149-		self.next(0);
+##############################################
+/src/nosql.js-2172-	} else if (self.$options.log) {
+/src/nosql.js:2173:		self.db.filenameLog && Fs.appendFile(self.db.filenameLog, self.$options.log, F.errorcallback);
+/src/nosql.js-2174-		self.$options.log = '';
+##############################################
+/src/nosql.js-2247-	} else if (self.$options.log) {
+/src/nosql.js:2248:		self.db.filenameLog && Fs.appendFile(self.db.filenameLog, self.$options.log, F.errorcallback);
+/src/nosql.js-2249-		self.$options.log = '';
+##############################################
+/src/nosql.js-2588-DatabaseBuilder.prototype.$backupdoc = function(doc) {
+/src/nosql.js:2589:	this.db.filenameBackup && Fs.appendFile(this.db.filenameBackup, NOW.toUTC().format('yyyy-MM-dd HH:mm') + ' | ' + this.$options.backup.padRight(20) + ' | ' + (typeof(doc) === 'string' ? doc : JSON.stringify(doc)) + NEWLINE, F.errorcallback);
+/src/nosql.js-2590-	return this;
+##############################################
+/src/nosql.js-2868-
+/src/nosql.js:2869:	data = JSON.parse(data, jsonparser);
+/src/nosql.js-2870-	this.$options = data.options;
+##############################################
+/src/nosql.js-2875-	this.$repository = data.repository;
+/src/nosql.js:2876:	this.$insertcallback = data.insert ? eval('(' + data.insert + ')') : null;
+/src/nosql.js-2877-
+##############################################
+/src/nosql.js-2879-		for (var i = 0; i < data.functions.length; i++)
+/src/nosql.js:2880:			data.functions[i] = eval('(' + data.functions[i] + ')');
+/src/nosql.js-2881-		this.$functions = data.functions;
+##############################################
+/src/nosql.js-3530-		F.stats.performance.open++;
+/src/nosql.js:3531:		reader = Fs.createReadStream(self.db.filenameCounter);
+/src/nosql.js-3532-	}
+##############################################
+/src/nosql.js-3716-		F.stats.performance.open++;
+/src/nosql.js:3717:		reader = Fs.createReadStream(self.db.filenameCounter);
+/src/nosql.js-3718-	}
+##############################################
+/src/nosql.js-4126-	var filename = self.db.filenameCounter;
+/src/nosql.js:4127:	var reader = Fs.createReadStream(filename);
+/src/nosql.js-4128-	var writer = Fs.createWriteStream(filename + '-tmp');
+##############################################
+/src/nosql.js-4245-	CLEANUP(writer, function() {
+/src/nosql.js:4246:		Fs.rename(filename + '-tmp', filename, function() {
+/src/nosql.js-4247-			F.isCluster && clusterunlock(self);
+##############################################
+/src/nosql.js-4273-	var filename = self.db.filenameCounter;
+/src/nosql.js:4274:	var reader = Fs.createReadStream(filename);
+/src/nosql.js-4275-	var writer = Fs.createWriteStream(filename + '-tmp');
+##############################################
+/src/nosql.js-4377-	CLEANUP(writer, function() {
+/src/nosql.js:4378:		Fs.rename(filename + '-tmp', filename, function() {
+/src/nosql.js-4379-			F.isCluster && clusterunlock(self);
+##############################################
+/src/nosql.js-4399-
+/src/nosql.js:4400:	Fs.unlink(self.db.filename + EXTENSION_COUNTER, function() {
+/src/nosql.js-4401-		self.type = 0;
+##############################################
+/src/nosql.js-4428-		if (json.length) {
+/src/nosql.js:4429:			var config = JSON.parse(json, jsonparser);
+/src/nosql.js-4430-			this.meta.index = config.index;
+##############################################
+/src/nosql.js-4441-	self.meta.updated = NOW;
+/src/nosql.js:4442:	Fs.writeFile(self.metafile, JSON.stringify(self.meta), F.error());
+/src/nosql.js-4443-	return self;
+##############################################
+/src/nosql.js-4550-		F.stats.performance.open++;
+/src/nosql.js:4551:		var reader = Fs.createReadStream(name);
+/src/nosql.js-4552-		CLEANUP(reader);
+##############################################
+/src/nosql.js-4719-
+/src/nosql.js:4720:		Fs.open(filepath, 'r+', function(err, fd) {
+/src/nosql.js-4721-			if (!err) {
+##############################################
+/src/nosql.js-4794-	var header = Buffer.alloc(BINARY_HEADER_LENGTH, ' ');
+/src/nosql.js:4795:	var reader = isbuffer ? null : filename instanceof Readable ? filename : Fs.createReadStream(filename);
+/src/nosql.js-4796-	var writer = Fs.createWriteStream(filenameto);
+##############################################
+/src/nosql.js-4830-
+/src/nosql.js:4831:		Fs.open(filenameto, 'r+', function(err, fd) {
+/src/nosql.js-4832-
+##############################################
+/src/nosql.js-4862-					meta.type = 'save';
+/src/nosql.js:4863:					Fs.appendFile(self.logger, JSON.stringify(meta) + '\n', NOOP);
+/src/nosql.js-4864-					Fs.close(fd, () => callback(null, meta));
+##############################################
+/src/nosql.js-4901-		F.stats.performance.open++;
+/src/nosql.js:4902:		var reader = Fs.createReadStream(name);
+/src/nosql.js-4903-		CLEANUP(reader);
+##############################################
+/src/nosql.js-5013-	F.stats.performance.open++;
+/src/nosql.js:5014:	var stream = Fs.createReadStream(filename, BINARYREADMETA);
+/src/nosql.js-5015-	stream.on('error', err => callback(err));
+##############################################
+/src/nosql.js-5018-		if (json) {
+/src/nosql.js:5019:			callback(null, JSON.parse(json, jsonparser));
+/src/nosql.js-5020-			CLEANUP(stream);
+##############################################
+/src/nosql.js-5060-	F.stats.performance.open++;
+/src/nosql.js:5061:	var stream = Fs.createReadStream(filename, BINARYREADMETA);
+/src/nosql.js-5062-
+##############################################
+/src/nosql.js-5075-			try {
+/src/nosql.js:5076:				obj = JSON.parse(json, jsonparser);
+/src/nosql.js-5077-			} catch (e) {
+##############################################
+/src/nosql.js-5104-				res.options.type = obj.type;
+/src/nosql.js:5105:				res.options.stream = Fs.createReadStream(filename, BINARYREADDATA);
+/src/nosql.js-5106-				res.options.lastmodified = true;
+##############################################
+/src/nosql.js-5165-	F.stats.performance.open++;
+/src/nosql.js:5166:	var stream = Fs.createReadStream(filename, BINARYREADMETA);
+/src/nosql.js-5167-	stream.on('error', err => callback(err));
+##############################################
+/src/nosql.js-5170-		if (json) {
+/src/nosql.js:5171:			var meta = JSON.parse(json, jsonparser);
+/src/nosql.js:5172:			stream = Fs.createReadStream(filename, BINARYREADDATA);
+/src/nosql.js-5173-			callback(null, stream, meta);
+##############################################
+/src/nosql.js-5212-	F.stats.performance.open++;
+/src/nosql.js:5213:	var stream = Fs.createReadStream(filename, BINARYREADMETA);
+/src/nosql.js-5214-	stream.on('error', err => callback(err));
+##############################################
+/src/nosql.js-5217-		if (json) {
+/src/nosql.js:5218:			var meta = JSON.parse(json, jsonparser);
+/src/nosql.js:5219:			stream = Fs.createReadStream(filename, BINARYREADDATABASE64);
+/src/nosql.js-5220-			callback(null, stream, meta);
+##############################################
+/src/nosql.js-5257-
+/src/nosql.js:5258:	Fs.unlink(filename, function(err) {
+/src/nosql.js-5259-
+##############################################
+/src/nosql.js-5272-		if (!err && version === 2)
+/src/nosql.js:5273:			Fs.appendFile(self.logger, JSON.stringify({ type: 'remove', id: id, date: new Date() }) + '\n', NOOP);
+/src/nosql.js-5274-
+##############################################
+/src/nosql.js-5327-		self.$events.clear && self.emit('clear', pending.length);
+/src/nosql.js:5328:		pending.length && F.unlink(pending, F.errorhandling);
+/src/nosql.js-5329-		directories.wait(function(path, next) {
+##############################################
+/src/nosql.js-5332-					files[i] = path + '/' + files[i];
+/src/nosql.js:5333:				F.unlink(files, () => Fs.unlink(path, next));
+/src/nosql.js-5334-			});
+##############################################
+/src/nosql.js-5376-					F.stats.performance.open++;
+/src/nosql.js:5377:					var stream = Fs.createReadStream(target + '/' + item, BINARYREADMETA);
+/src/nosql.js-5378-
+##############################################
+/src/nosql.js-5434-				F.stats.performance.open++;
+/src/nosql.js:5435:				var stream = Fs.createReadStream(target + '/' + item, BINARYREADMETA);
+/src/nosql.js-5436-				stream.on('data', function(buffer) {
+##############################################
+/src/nosql.js-5515-			self.check();
+/src/nosql.js:5516:			Fs.appendFile(self.db.filenameStorage.format(dt), self.pending.join(NEWLINE) + NEWLINE, function(err) {
+/src/nosql.js-5517-				err && F.error(err, 'NoSQL storage insert: ' + self.db.name);
+##############################################
+/src/nosql.js-5544-	self.locked_writer = true;
+/src/nosql.js:5545:	Fs.appendFile(self.db.filenameStorage.format(NOW.format('yyyyMMdd')), JSON.stringify(doc) + NEWLINE, function(err) {
+/src/nosql.js-5546-		self.locked_writer = false;
+##############################################
+/src/nosql.js-5601-	var self = this;
+/src/nosql.js:5602:	Fs.writeFile(self.$mapreducefile, JSON.stringify(self.$mapreduce, (k, v) => k !== 'reduce' ? v : undefined), F.errorcallback);
+/src/nosql.js-5603-	return self;
+##############################################
+/src/nosql.js-5762-			reader.ondocuments = function() {
+/src/nosql.js:5763:				var docs = JSON.parse('[' + reader.docs + ']', jsonparser);
+/src/nosql.js-5764-				for (var j = 0; j < docs.length; j++) {
+##############################################
+/src/nosql.js-5831-		var remove = function(filename, callback, attemp) {
+/src/nosql.js:5832:			Fs.unlink(filename, function(err) {
+/src/nosql.js-5833-				if (err) {
+##############################################
+/src/nosql.js-6050-		writer.on('finish', function() {
+/src/nosql.js:6051:			Fs.rename(tmp, self.filename, function() {
+/src/nosql.js-6052-				next();
+##############################################
+/src/nosql.js-6257-
+/src/nosql.js:6258:		Fs.appendFile(self.filename, data, function(err) {
+/src/nosql.js-6259-			err && F.error(err, 'Table insert: ' + self.name);
+##############################################
+/src/nosql.js-6643-	writer.on('finish', function() {
+/src/nosql.js:6644:		Fs.rename(self.filename + '-tmp', self.filename, function() {
+/src/nosql.js-6645-			CONF.nosql_logger && PRINTLN('NoSQL Table "{0}" cleaning (end, {1}s)'.format(self.name, (((Date.now() - now) / 1000) >> 0)));
+##############################################
+/src/nosql.js-6667-	var filter = self.pending_clear.splice(0);
+/src/nosql.js:6668:	Fs.unlink(self.filename, function() {
+/src/nosql.js-6669-		for (var i = 0; i < filter.length; i++)
+##############################################
+/src/nosql.js-6671-
+/src/nosql.js:6672:		Fs.appendFile(self.filename, self.stringifySchema() + NEWLINE, function() {
+/src/nosql.js-6673-			self.$events.change && self.emit('change', 'clear');
+##############################################
+/src/builders.js-3915-	} else
+/src/builders.js:3916:		this.$$schema.query(this, helper, callback, this.$$controller);
+/src/builders.js-3917-
+##############################################
+/src/changes.txt-514-- added: `DatabaseBuilder.insert(fn(doc))` can modify a document after `update` or `modify` has `insert` mode
+/src/changes.txt:515:- added: `DatabaseBuilder.query(code)` can contain a raw JS condition in the form e.g. `doc.age > 18 && doc.age < 33`
+/src/changes.txt-516-- added: `DatabaseBuilder.regexp(name, regexp)` RegExp search in strings
+##############################################
+/src/changes.txt-762-- added: `F.path.rmdir(directory/directories, callback)`
+/src/changes.txt:763:- added: `F.path.unlink(file/files, callback)`
+/src/changes.txt-764-- added: `LOCALIZE()` a new global alias to `F.localize()`
+##############################################
+/src/changes.txt-889-- added: `HttpFile` is set in `global` for extending of prototype
+/src/changes.txt:890:- added: `file.move()` a new alias for `file.rename()`
+/src/changes.txt-891-- added: `SchemaBuilderEntity.$controller(new_controller)`
+##############################################
+/src/changes.txt-1137-- added: new alias `SCRIPT()` for `F.script()`
+/src/changes.txt:1138:- added: `HttpFile.rename(filename, [callback(err)])` moves file to another directory
+/src/changes.txt-1139-
+##############################################
+/src/changes.txt-1227-- fixed: (critical) view compilation in release mode (problem with just-in-time rendering)
+/src/changes.txt:1228:- fixed: (critical) `F.eval()`
+/src/changes.txt-1229-- fixed: (critical) parsing Date instance as Date instance in SchemaBuilder
+##############################################
+/src/changes.txt-1972-- added: framework.config['allow-custom-titles'] - (default: false)
+/src/changes.txt:1973:- added: new option into Mail: rejectUnauthorized (for TLS)
+/src/changes.txt-1974-- added: @{log()} and @{LOG()} into views
+##############################################
+/src/changes.txt-2319-- updated: utils.download(url, flags, [data], callback, cookies, headers, encoding, timeout)
+/src/changes.txt:2320:- updated: framework.eval(string/url/function) - this function supports eval code from another URL
+/src/changes.txt-2321-- updated: assertion testing (new features)
+##############################################
+/src/websocketclient.js-64-
+/src/websocketclient.js:65:	url = Url.parse(url);
+/src/websocketclient.js-66-
+##############################################
+/src/websocketclient.js-105-		if (self.options.reconnectserver)
+/src/websocketclient.js:106:			self.connect(url, protocol, origin);
+/src/websocketclient.js-107-		else
+##############################################
+/src/websocketclient.js-170-		ws.reconnect++;
+/src/websocketclient.js:171:		ws.connect(ws.url, ws.protocol, ws.origin);
+/src/websocketclient.js-172-	}, ws.options.reconnect, ws);
+##############################################
+/src/graphdb.js-104-	F.path.verify('databases');
+/src/graphdb.js:105:	// t.open();
+/src/graphdb.js-106-
+##############################################
+/src/graphdb.js-115-	F.grapdbinstance = true;
+/src/graphdb.js:116:	self.open();
+/src/graphdb.js-117-}
+##############################################
+/src/graphdb.js-1289-	var self = this;
+/src/graphdb.js:1290:	Fs.unlink(filename, function() {
+/src/graphdb.js-1291-		var buf = U.createBufferSize(HEADERSIZE);
+##############################################
+/src/graphdb.js-1302-		buf.write('{"c":[],"r":[]}', 51);     // classes and relations
+/src/graphdb.js:1303:		Fs.open(filename, 'w', function(err, fd) {
+/src/graphdb.js-1304-			Fs.write(fd, buf, 0, buf.length, 0, function(err) {
+##############################################
+/src/graphdb.js-1319-			// file not found
+/src/graphdb.js:1320:			self.create(self.filename, DOCUMENTSIZE, () => self.open());
+/src/graphdb.js-1321-		} else {
+/src/graphdb.js-1322-			self.header.size = stat.size;
+/src/graphdb.js:1323:			Fs.open(self.filename, 'r+', function(err, fd) {
+/src/graphdb.js-1324-				self.fd = fd;
+##############################################
+/src/graphdb.js-1614-
+/src/graphdb.js:1615:		Fs.open(filename, 'r+', function(err, fd) {
+/src/graphdb.js-1616-
+##############################################
+/src/graphdb.js-1672-								Fs.copyFile(self.filename, self.filename.replace(/\.gdb$/, NOW.format('_yyyyMMddHHmm') + '.gdp'), function() {
+/src/graphdb.js:1673:									Fs.rename(self.filename + '-tmp', self.filename, function() {
+/src/graphdb.js-1674-										callback(null);

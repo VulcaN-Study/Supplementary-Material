@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-5w25-hxp5-h8c9",
+        "cwe": "CWE-347"
+    },
+    "correct_cwe": "CWE-347",
+    "correct_package_link": "https://registry.npmjs.org/tenvoy/-/tenvoy-7.0.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "node/tenvoy.js",
+                    "lineno": 2158,
+                    "code": "this.verifyWithMessage = (signed, message, password = null) => {"
+                },
+                "sink": {
+                    "file": "node/tenvoy.js",
+                    "lineno": 2169,
+                    "code": "return this.verify(signed, password) && _tEnvoy.util.bytesToHex(_nacl.hash(_tEnvoy.util.pack(message))) == _tEnvoy.util.bytesToHex(hash);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/TogaTech/tEnvoy/commit/a121b34a45e289d775c62e58841522891dee686b"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

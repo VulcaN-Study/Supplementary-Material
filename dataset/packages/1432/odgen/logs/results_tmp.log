@@ -1,0 +1,396 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 7	module.exports = function (pid, signal, callback) {
+    var tree = {};
+    var pidsToProcess = {};
+    tree[pid] = [];
+    pidsToProcess[pid] = 1;
+    
+    if (typeof signal === 'function' && callback === undefined) {
+      callback = signal;
+      signal = undefined;
+    }
+
+    switch (process.platform) {
+    case 'win32':
+        exec('taskkill /pid ' + pid + ' /T /F', callback);
+        break;
+    case 'darwin':
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('pgrep', ['-P', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    // case 'sunos':
+    //     buildProcessTreeSunOS(pid, tree, pidsToProcess, function () {
+    //         killAll(tree, signal, callback);
+    //     });
+    //     break;
+    default: // Linux
+        buildProcessTree(pid, tree, pidsToProcess, function (parentPid) {
+          return spawn('ps', ['-o', 'pid', '--no-headers', '--ppid', parentPid]);
+        }, function () {
+            killAll(tree, signal, callback);
+        });
+        break;
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-78/1432/package/index.js
+Line 20	        exec('taskkill /pid ' + pid + ' /T /F', callback);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+

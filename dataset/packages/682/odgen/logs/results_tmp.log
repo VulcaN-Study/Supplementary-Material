@@ -1,0 +1,435 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 19	var defaultOptions = {
+  concurrency: 100,
+  heartbeatInterval: 60000, // 1 minute
+  connectTimeout: 30000, // 30 secs
+  authenticate: defaultAuthenticate,
+  authorizePublish: defaultAuthorizePublish,
+  authorizeSubscribe: defaultAuthorizeSubscribe,
+  authorizeForward: defaultAuthorizeForward,
+  published: defaultPublished
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 37	  opts = xtend(defaultOptions, opts)
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 30	function Aedes (opts) {
+  var that = this
+
+  if (!(this instanceof Aedes)) {
+    return new Aedes(opts)
+  }
+
+  opts = xtend(defaultOptions, opts)
+
+  this.id = shortid()
+  this.counter = 0
+  this.connectTimeout = opts.connectTimeout
+  this.mq = opts.mq || mqemitter(opts)
+  this.handle = function handle (conn) {
+    conn.setMaxListeners(opts.concurrency * 2)
+    // return, just to please standard
+    return new Client(that, conn)
+  }
+  this.persistence = opts.persistence || memory()
+  this.persistence.broker = this
+  this._parallel = parallel()
+  this._series = series()
+  this._enqueuers = reusify(DoEnqueues)
+
+  this.authenticate = opts.authenticate
+  this.authorizePublish = opts.authorizePublish
+  this.authorizeSubscribe = opts.authorizeSubscribe
+  this.authorizeForward = opts.authorizeForward
+  this.published = opts.published
+
+  this.clients = {}
+  this.brokers = {}
+
+  var heartbeatTopic = '$SYS/' + that.id + '/heartbeat'
+  this._heartbeatInterval = setInterval(heartbeat, opts.heartbeatInterval)
+
+  var bufId = Buffer.from(that.id, 'utf8')
+
+  function heartbeat () {
+    that.publish({
+      topic: heartbeatTopic,
+      payload: bufId
+    }, noop)
+  }
+
+  function deleteOldBrokers (broker) {
+    if (that.brokers[broker] + (3 * opts.heartbeatInterval) < Date.now()) {
+      delete that.brokers[broker]
+    }
+  }
+
+  this._clearWillInterval = setInterval(function () {
+    Object.keys(that.brokers).forEach(deleteOldBrokers)
+
+    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+  }, opts.heartbeatInterval * 4)
+
+  function receiveWills (chunks, done) {
+    that._parallel(that, checkAndPublish, chunks, done)
+  }
+
+  function checkAndPublish (will, done) {
+    var needsPublishing =
+      !that.brokers[will.brokerId] ||
+      that.brokers[will.brokerId] + (3 * opts.heartbeatInterval) <
+      Date.now()
+
+    if (needsPublishing) {
+      // randomize this, so that multiple brokers
+      // do not publish the same wills at the same time
+      that.publish(will, function publishWill (err) {
+        if (err) {
+          return done(err)
+        }
+
+        that.persistence.delWill({
+          id: will.clientId,
+          brokerId: will.brokerId
+        }, done)
+      })
+    } else {
+      done()
+    }
+  }
+
+  this.mq.on('$SYS/+/heartbeat', function storeBroker (packet, done) {
+    that.brokers[packet.payload.toString()] = Date.now()
+    done()
+  })
+
+  this.mq.on('$SYS/+/new/clients', function closeSameClients (packet, done) {
+    var serverId = packet.topic.split('/')[1]
+    var clientId = packet.payload.toString()
+
+    if (that.clients[clientId] && serverId !== that.id) {
+      that.clients[clientId].close(done)
+    } else {
+      done()
+    }
+  })
+
+  // metadata
+  this.connectedClients = 0
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 37	  opts = xtend(defaultOptions, opts)
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 41	  this.connectTimeout = opts.connectTimeout
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 19	var defaultOptions = {
+  concurrency: 100,
+  heartbeatInterval: 60000, // 1 minute
+  connectTimeout: 30000, // 30 secs
+  authenticate: defaultAuthenticate,
+  authorizePublish: defaultAuthorizePublish,
+  authorizeSubscribe: defaultAuthorizeSubscribe,
+  authorizeForward: defaultAuthorizeForward,
+  published: defaultPublished
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 37	  opts = xtend(defaultOptions, opts)
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 30	function Aedes (opts) {
+  var that = this
+
+  if (!(this instanceof Aedes)) {
+    return new Aedes(opts)
+  }
+
+  opts = xtend(defaultOptions, opts)
+
+  this.id = shortid()
+  this.counter = 0
+  this.connectTimeout = opts.connectTimeout
+  this.mq = opts.mq || mqemitter(opts)
+  this.handle = function handle (conn) {
+    conn.setMaxListeners(opts.concurrency * 2)
+    // return, just to please standard
+    return new Client(that, conn)
+  }
+  this.persistence = opts.persistence || memory()
+  this.persistence.broker = this
+  this._parallel = parallel()
+  this._series = series()
+  this._enqueuers = reusify(DoEnqueues)
+
+  this.authenticate = opts.authenticate
+  this.authorizePublish = opts.authorizePublish
+  this.authorizeSubscribe = opts.authorizeSubscribe
+  this.authorizeForward = opts.authorizeForward
+  this.published = opts.published
+
+  this.clients = {}
+  this.brokers = {}
+
+  var heartbeatTopic = '$SYS/' + that.id + '/heartbeat'
+  this._heartbeatInterval = setInterval(heartbeat, opts.heartbeatInterval)
+
+  var bufId = Buffer.from(that.id, 'utf8')
+
+  function heartbeat () {
+    that.publish({
+      topic: heartbeatTopic,
+      payload: bufId
+    }, noop)
+  }
+
+  function deleteOldBrokers (broker) {
+    if (that.brokers[broker] + (3 * opts.heartbeatInterval) < Date.now()) {
+      delete that.brokers[broker]
+    }
+  }
+
+  this._clearWillInterval = setInterval(function () {
+    Object.keys(that.brokers).forEach(deleteOldBrokers)
+
+    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+  }, opts.heartbeatInterval * 4)
+
+  function receiveWills (chunks, done) {
+    that._parallel(that, checkAndPublish, chunks, done)
+  }
+
+  function checkAndPublish (will, done) {
+    var needsPublishing =
+      !that.brokers[will.brokerId] ||
+      that.brokers[will.brokerId] + (3 * opts.heartbeatInterval) <
+      Date.now()
+
+    if (needsPublishing) {
+      // randomize this, so that multiple brokers
+      // do not publish the same wills at the same time
+      that.publish(will, function publishWill (err) {
+        if (err) {
+          return done(err)
+        }
+
+        that.persistence.delWill({
+          id: will.clientId,
+          brokerId: will.brokerId
+        }, done)
+      })
+    } else {
+      done()
+    }
+  }
+
+  this.mq.on('$SYS/+/heartbeat', function storeBroker (packet, done) {
+    that.brokers[packet.payload.toString()] = Date.now()
+    done()
+  })
+
+  this.mq.on('$SYS/+/new/clients', function closeSameClients (packet, done) {
+    var serverId = packet.topic.split('/')[1]
+    var clientId = packet.payload.toString()
+
+    if (that.clients[clientId] && serverId !== that.id) {
+      that.clients[clientId].close(done)
+    } else {
+      done()
+    }
+  })
+
+  // metadata
+  this.connectedClients = 0
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 37	  opts = xtend(defaultOptions, opts)
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 41	  this.connectTimeout = opts.connectTimeout
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 19	var defaultOptions = {
+  concurrency: 100,
+  heartbeatInterval: 60000, // 1 minute
+  connectTimeout: 30000, // 30 secs
+  authenticate: defaultAuthenticate,
+  authorizePublish: defaultAuthorizePublish,
+  authorizeSubscribe: defaultAuthorizeSubscribe,
+  authorizeForward: defaultAuthorizeForward,
+  published: defaultPublished
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 37	  opts = xtend(defaultOptions, opts)
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 30	function Aedes (opts) {
+  var that = this
+
+  if (!(this instanceof Aedes)) {
+    return new Aedes(opts)
+  }
+
+  opts = xtend(defaultOptions, opts)
+
+  this.id = shortid()
+  this.counter = 0
+  this.connectTimeout = opts.connectTimeout
+  this.mq = opts.mq || mqemitter(opts)
+  this.handle = function handle (conn) {
+    conn.setMaxListeners(opts.concurrency * 2)
+    // return, just to please standard
+    return new Client(that, conn)
+  }
+  this.persistence = opts.persistence || memory()
+  this.persistence.broker = this
+  this._parallel = parallel()
+  this._series = series()
+  this._enqueuers = reusify(DoEnqueues)
+
+  this.authenticate = opts.authenticate
+  this.authorizePublish = opts.authorizePublish
+  this.authorizeSubscribe = opts.authorizeSubscribe
+  this.authorizeForward = opts.authorizeForward
+  this.published = opts.published
+
+  this.clients = {}
+  this.brokers = {}
+
+  var heartbeatTopic = '$SYS/' + that.id + '/heartbeat'
+  this._heartbeatInterval = setInterval(heartbeat, opts.heartbeatInterval)
+
+  var bufId = Buffer.from(that.id, 'utf8')
+
+  function heartbeat () {
+    that.publish({
+      topic: heartbeatTopic,
+      payload: bufId
+    }, noop)
+  }
+
+  function deleteOldBrokers (broker) {
+    if (that.brokers[broker] + (3 * opts.heartbeatInterval) < Date.now()) {
+      delete that.brokers[broker]
+    }
+  }
+
+  this._clearWillInterval = setInterval(function () {
+    Object.keys(that.brokers).forEach(deleteOldBrokers)
+
+    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+  }, opts.heartbeatInterval * 4)
+
+  function receiveWills (chunks, done) {
+    that._parallel(that, checkAndPublish, chunks, done)
+  }
+
+  function checkAndPublish (will, done) {
+    var needsPublishing =
+      !that.brokers[will.brokerId] ||
+      that.brokers[will.brokerId] + (3 * opts.heartbeatInterval) <
+      Date.now()
+
+    if (needsPublishing) {
+      // randomize this, so that multiple brokers
+      // do not publish the same wills at the same time
+      that.publish(will, function publishWill (err) {
+        if (err) {
+          return done(err)
+        }
+
+        that.persistence.delWill({
+          id: will.clientId,
+          brokerId: will.brokerId
+        }, done)
+      })
+    } else {
+      done()
+    }
+  }
+
+  this.mq.on('$SYS/+/heartbeat', function storeBroker (packet, done) {
+    that.brokers[packet.payload.toString()] = Date.now()
+    done()
+  })
+
+  this.mq.on('$SYS/+/new/clients', function closeSameClients (packet, done) {
+    var serverId = packet.topic.split('/')[1]
+    var clientId = packet.payload.toString()
+
+    if (that.clients[clientId] && serverId !== that.id) {
+      that.clients[clientId].close(done)
+    } else {
+      done()
+    }
+  })
+
+  // metadata
+  this.connectedClients = 0
+}
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 37	  opts = xtend(defaultOptions, opts)
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 41	  this.connectTimeout = opts.connectTimeout
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-285/682/package/aedes.js
+Line 84	    that.persistence
+      .streamWill(that.brokers)
+      .pipe(bulk.obj(receiveWills))
+

@@ -1,0 +1,60 @@
+{
+    "advisory": {
+        "id": "GHSA-pch5-whg9-qr2r",
+        "cwe": "CWE-20"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/netmask/-/netmask-2.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/netmask.js",
+                    "start_lineno": 14,
+                    "end_lineno": 43,
+                    "code": "ip2long = function(ip) { var b, byte, i, j, len; b = (ip + '').split('.'); if (b.length === 0 || b.length > 4) { throw new Error('Invalid IP'); } for (i = j = 0, len = b.length; j < len; i = ++j) { byte = b[i]; if (byte && byte[0] === '0') { if (byte.length > 2 && (byte[1] === 'x' || byte[1] === 'x')) { byte = parseInt(byte, 16); } else { byte = parseInt(byte, 8); } } else { byte = parseInt(byte, 10); } if (isNaN(byte)) { throw new Error(\"Invalid byte: \" + byte); } if (byte < 0 || byte > 255) { throw new Error(\"Invalid byte: \" + byte); } b[i] = byte; } while (b.length < 4) { b.unshift(0); } return (b[0] << 24 | b[1] << 16 | b[2] << 8 | b[3]) >>> 0; };"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ["https://sick.codes/universal-netmask-npm-package-used-by-270000-projects-vulnerable-to-octal-input-data-server-side-request-forgery-remote-file-inclusion-local-file-inclusion-and-more-cve-2021-28918/",
+                    "https://sick.codes/sick-2021-011"]
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/rs/node-netmask/commit/3f19a056c4eb808ea4a29f234274c67bc5a848f4"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

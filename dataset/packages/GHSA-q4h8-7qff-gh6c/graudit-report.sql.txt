@@ -1,0 +1,183 @@
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-311-e.default=t}),define("ghost-admin/components/gh-psm-authors-input",["exports"],function(e){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:312:var t=Ember.Component.extend({store:Ember.inject.service(),selectedAuthors:null,tagName:"",triggerId:"",availableAuthors:null,updateAuthors(){},availableAuthorNames:Ember.computed("availableAuthors.@each.name",function(){return this.availableAuthors.map(e=>e.get("name").toLowerCase())}),init(){this._super(...arguments),this.store.query("user",{limit:"all"}),this.set("availableAuthors",this.store.peekAll("user"))},actions:{updateAuthors(e){this.updateAuthors(e)}}})
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-313-e.default=t}),define("ghost-admin/components/gh-psm-tags-input",["exports"],function(e){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:314:var t=Ember.Component.extend({store:Ember.inject.service(),post:null,tagName:"",_availableTags:null,availableTags:Ember.computed.sort("_availableTags.[]",function(e,t){return e.name.localeCompare(t.name,void 0,{ignorePunctuation:!0})}),availableTagNames:Ember.computed("availableTags.@each.name",function(){return this.availableTags.map(e=>e.name.toLowerCase())}),init(){this._super(...arguments),this.store.query("tag",{limit:"all"}),this.set("_availableTags",this.store.peekAll("tag"))},actions:{matchTags:(e,t)=>e.toLowerCase()===t.trim().toLowerCase(),hideCreateOptionOnMatchingTag(e){return!this.availableTagNames.includes(e.toLowerCase())},updateTags(e){return this.get("post.tags").forEach(function(t){!e.includes(t)&&t.get("isNew")&&t.destroyRecord()}),this.set("post.tags",e)},createTag(e){let t,s=this.get("post.tags"),n=s.map(e=>e.get("name").toLowerCase())
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-315-if(e=e.trim(),!n.includes(e.toLowerCase()))return(t=this._findTagByName(e))||(t=this.store.createRecord("tag",{name:e})).updateVisibility(),s.pushObject(t)}},_findTagByName(e){return this.availableTags.find(function(t){return t.name.toLowerCase()===e.toLowerCase()})}})
+##############################################
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-587-return new a((t,s)=>this._super().then(()=>Ember.RSVP.hash({users:this.store.findAll("user",{reload:!0}),invites:this.store.findAll("invite",{reload:!0})}).then(n=>{let a=n.users.findBy("email",e),r=n.invites.findBy("email",e)
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:588:a||r?(this.errors.clear("email"),a?this.errors.add("email","A user with that email address already exists."):this.errors.add("email","A user with that email address was already invited."),this.hasValidated.addObject("email"),s()):t()}),()=>{this.hasValidated.addObject("email"),s()}))},fetchRoles:(0,n.task)(function*(){let e=yield this.store.query("role",{permissions:"assign"}),t=e.findBy("name","Author")
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-589-this.set("roles",e),this.set("authorRole",t),this.role||this.set("role",t)}),sendInvitation:(0,n.task)(function*(){let e,t=this.email,s=this.role,n=this.notifications,a="Invitation sent! (".concat(t,")")
+##############################################
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-726-n||((n=document.createElement("iframe")).id="iframeDownload",n.style.display="none",document.body.append(n)),n.setAttribute("src",s)}},fetchMembers:(0,n.task)(function*(){let e,t=new Date
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:727:this._hasFetchedAll?e=yield this.store.query("member",{limit:"all",filter:"updated_at:>='".concat(s.default.utc(this._lastFetchDate).format("YYYY-MM-DD HH:mm:ss"),"'"),order:"created_at desc"}):(e=yield this.store.query("member",{limit:"all",order:"created_at desc"}),this._hasFetchedAll=!0,this.set("meta",e.meta)),this._lastFetchDate=t})})
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-728-e.default=a}),define("ghost-admin/controllers/members/import",["exports"],function(e){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
+##############################################
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-921-var s=Ember.Controller.extend({session:Ember.inject.service(),store:Ember.inject.service(),showInviteUserModal:!1,inviteOrder:null,userOrder:null,init(){this._super(...arguments),this.inviteOrder=["email"],this.userOrder=["name","email"]},currentUser:Ember.computed.alias("model"),sortedInvites:Ember.computed.sort("filteredInvites","inviteOrder"),sortedActiveUsers:Ember.computed.sort("activeUsers","userOrder"),sortedSuspendedUsers:Ember.computed.sort("suspendedUsers","userOrder"),invites:Ember.computed(function(){return this.store.peekAll("invite")}),filteredInvites:Ember.computed("invites.@each.isNew",function(){return this.invites.filterBy("isNew",!1)}),allUsers:Ember.computed(function(){return this.store.peekAll("user")}),activeUsers:Ember.computed("allUsers.@each.status",function(){return this.allUsers.filter(e=>"inactive"!==e.status)}),suspendedUsers:Ember.computed("allUsers.@each.status",function(){return this.allUsers.filter(e=>"inactive"===e.status)}),actions:{toggleInviteUserModal(){this.toggleProperty("showInviteUserModal")}},backgroundUpdate:(0,t.task)(function*(){let e=this.fetchUsers.perform(),t=this.fetchInvites.perform()
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:922:try{yield Ember.RSVP.all([e,t])}catch(s){this.send("error",s)}}),fetchUsers:(0,t.task)(function*(){yield this.store.query("user",{limit:"all"})}),fetchInvites:(0,t.task)(function*(){if(this.currentUser.isAuthorOrContributor)return
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:923:return this.store.peekAll("role").length<=1&&(yield this.store.query("role",{limit:"all"})),yield this.store.query("invite",{limit:"all"})})})
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-924-e.default=s}),define("ghost-admin/controllers/staff/user",["exports","ghost-admin/utils/bound-one-way","ghost-admin/utils/isNumber","validator","ghost-admin/utils/window-proxy","ember-concurrency"],function(e,t,s,n,a,r){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:925:var i=Ember.Controller.extend({ajax:Ember.inject.service(),config:Ember.inject.service(),dropdown:Ember.inject.service(),ghostPaths:Ember.inject.service(),notifications:Ember.inject.service(),session:Ember.inject.service(),slugGenerator:Ember.inject.service(),leaveSettingsTransition:null,dirtyAttributes:!1,showDeleteUserModal:!1,showSuspendUserModal:!1,showTransferOwnerModal:!1,showUploadCoverModal:!1,showUplaodImageModal:!1,_scratchFacebook:null,_scratchTwitter:null,saveHandlers:(0,r.taskGroup)().enqueue(),user:Ember.computed.alias("model"),currentUser:Ember.computed.alias("session.user"),email:Ember.computed.readOnly("user.email"),slugValue:(0,t.default)("user.slug"),canChangeEmail:Ember.computed.not("isAdminUserOnOwnerProfile"),canChangePassword:Ember.computed.not("isAdminUserOnOwnerProfile"),canMakeOwner:Ember.computed.and("currentUser.isOwner","isNotOwnProfile","user.isAdmin","isNotSuspended"),isAdminUserOnOwnerProfile:Ember.computed.and("currentUser.isAdmin","user.isOwner"),isNotOwnersProfile:Ember.computed.not("user.isOwner"),isNotSuspended:Ember.computed.not("user.isSuspended"),rolesDropdownIsVisible:Ember.computed.and("currentUser.isOwnerOrAdmin","isNotOwnProfile","isNotOwnersProfile"),userActionsAreVisible:Ember.computed.or("deleteUserActionIsVisible","canMakeOwner"),isNotOwnProfile:Ember.computed.not("isOwnProfile"),isOwnProfile:Ember.computed("user.id","currentUser.id",function(){return this.get("user.id")===this.get("currentUser.id")}),deleteUserActionIsVisible:Ember.computed("currentUser.{isOwnerOrAdmin,isEditor}","user.{isOwner,isAuthorOrContributor}","isOwnProfile",function(){return!this.isOwnProfile&&!!(this.currentUser.get("isOwnerOrAdmin")&&!this.user.isOwner||this.currentUser.get("isEditor")&&this.user.isAuthorOrContributor)}),coverTitle:Ember.computed("user.name",function(){return"".concat(this.get("user.name"),"'s Cover Image")}),roles:Ember.computed(function(){return this.store.query("role",{permissions:"assign"})}),actions:{changeRole(e){this.user.set("role",e),this.set("dirtyAttributes",!0)},deleteUser(){return this._deleteUser().then(()=>{this._deleteUserSuccess()},()=>{this._deleteUserFailure()})},toggleDeleteUserModal(){this.deleteUserActionIsVisible&&this.toggleProperty("showDeleteUserModal")},suspendUser(){return this.user.set("status","inactive"),this.save.perform()},toggleSuspendUserModal(){this.deleteUserActionIsVisible&&this.toggleProperty("showSuspendUserModal")},unsuspendUser(){return this.user.set("status","active"),this.save.perform()},toggleUnsuspendUserModal(){this.deleteUserActionIsVisible&&this.toggleProperty("showUnsuspendUserModal")},validateFacebookUrl(){let e=this._scratchFacebook,t=this.get("user.facebook"),s=""
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-926-if(this.get("user.errors").remove("facebook"),this.get("user.hasValidated").removeObject("facebook"),""!==e){e||(e=t)
+##############################################
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-955-0===r.length&&(r=(0,t.default)("<iframe>",{id:"iframeDownload"}).hide().appendTo("body")),r.attr("src",a)}},fetchSubscribers:(0,a.task)(function*(){let e,t=new Date
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:956:if(this._hasFetchedAll)e=yield this.store.query("subscriber",{limit:"all",filter:"updated_at:>='".concat(n.default.utc(this._lastFetchDate).format("YYYY-MM-DD HH:mm:ss"),"'")})
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:957:else{for(;!e||e.meta.pagination.page<e.meta.pagination.pages;)e=yield this.store.query("subscriber",{limit:200,order:"".concat(this.order," ").concat(this.direction),page:e?e.meta.pagination.page+1:1})
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-958-this._hasFetchedAll=!0}this._lastFetchDate=t})})
+##############################################
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-1256-return this.replaceWith("error404",{path:e,status:404})}let a={id:n,status:"all"}
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:1257:return this.store.query(s,a).then(e=>e.get("firstObject"))},afterModel(e){return this._super(...arguments),this.get("session.user").then(t=>{let n=(0,s.pluralize)(e.constructor.modelName)
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-1258-return t.get("isAuthorOrContributor")&&!e.isAuthoredByUser(t)?this.replaceWith(n):t.get("isContributor")&&!e.get("isDraft")?this.replaceWith(n):void 0})},serialize:e=>({type:e.constructor.modelName,post_id:e.id}),setupController(e,t){this.controllerFor("editor").setPost(t)}})
+##############################################
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-1286-let r=this.perPage,i=Ember.assign({perPage:r,startingPage:1},{perPageParam:"limit",totalPagesParam:"meta.pagination.pages"},s)
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:1287:return this.infinity.model(this.modelName,i)})},setupController(e){this._super(...arguments),e._hasLoadedTags||this.store.query("tag",{limit:"all"}).then(()=>{e._hasLoadedTags=!0}),this.session.user.then(t=>{t.isAuthorOrContributor||e._hasLoadedAuthors||this.store.query("user",{limit:"all"}).then(()=>{e._hasLoadedAuthors=!0})})},actions:{queryParamsDidChange(){let e=document.querySelector(".content-list")
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-1288-e&&(e.scrollTop=0),this._super(...arguments)}},buildRouteInfoMetadata:()=>({titleToken:"Posts"}),_getTypeFilters(e){let t="[draft,scheduled,published]"
+##############################################
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-1382-e.default=t}),define("ghost-admin/routes/tags",["exports","ghost-admin/routes/authenticated","ghost-admin/mixins/current-user-settings","ghost-admin/mixins/shortcuts-route"],function(e,t,s,n){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js:1383:var a=t.default.extend(s.default,n.default,{queryParams:{type:{refreshModel:!0,replace:!0}},shortcuts:null,init(){this._super(...arguments),this.shortcuts={c:"newTag"}},beforeModel(){return this._super(...arguments),this.get("session.user").then(this.transitionAuthor())},model(){let e=this.store.query("tag",{limit:"all",include:"count.posts"}),t=this.store.peekAll("tag")
+/src/core/built/assets/ghost.min-b0a755237f752946124f52a7d192be0e.js-1384-return 0===this.store.peekAll("tag").get("length")?e.then(()=>t):t},actions:{newTag(){this.transitionTo("tags.new")}},buildRouteInfoMetadata:()=>({titleToken:"Tags"})})
+##############################################
+/src/core/built/assets/vendor.min-9a614fcf6610a3db1a11c9b341a727e7.js-8750-r=r||t.recordArrayManager.createAdapterPopulatedRecordArray(n,i)
+/src/core/built/assets/vendor.min-9a614fcf6610a3db1a11c9b341a727e7.js:8751:var s=Ember.RSVP.Promise.resolve().then(()=>e.query(t,a,i,r,o))
+/src/core/built/assets/vendor.min-9a614fcf6610a3db1a11c9b341a727e7.js-8752-return(s=Y(s,t,"DS: Handle Adapter#query of "+n)).then(o=>{var s=Ce(Se(t,e,n),t,a,o,null,"query"),l=t._push(s)
+##############################################
+/src/core/server/models/webhook.js-48-        return webhooksCollection
+/src/core/server/models/webhook.js:49:            .query('where', 'event', '=', event)
+/src/core/server/models/webhook.js-50-            .fetch(options);
+##############################################
+/src/core/server/models/relations/authors.js-309-                return postCollection
+/src/core/server/models/relations/authors.js:310:                    .query('where', 'author_id', '=', authorId)
+/src/core/server/models/relations/authors.js-311-                    .fetch(options)
+##############################################
+/src/core/server/models/plugins/include-count.js-12-            posts: function addPostCountToTags(model, options) {
+/src/core/server/models/plugins/include-count.js:13:                model.query('columns', 'tags.*', function (qb) {
+/src/core/server/models/plugins/include-count.js-14-                    qb.count('posts.id')
+##############################################
+/src/core/server/models/plugins/include-count.js-29-            posts: function addPostCountToUsers(model, options) {
+/src/core/server/models/plugins/include-count.js:30:                model.query('columns', 'users.*', function (qb) {
+/src/core/server/models/plugins/include-count.js-31-                    qb.count('posts.id')
+##############################################
+/src/core/server/models/plugins/include-count.js-68-            if (_debug.enabled('ghost-query')) {
+/src/core/server/models/plugins/include-count.js:69:                debug('QUERY', this.query().toQuery());
+/src/core/server/models/plugins/include-count.js-70-            }
+##############################################
+/src/core/server/models/plugins/include-count.js-80-            if (_debug.enabled('ghost-query')) {
+/src/core/server/models/plugins/include-count.js:81:                debug('QUERY', this.query().toQuery());
+/src/core/server/models/plugins/include-count.js-82-            }
+##############################################
+/src/core/server/models/plugins/has-posts.js-34-            if (this.shouldHavePosts) {
+/src/core/server/models/plugins/has-posts.js:35:                this.query(addHasPostsWhere(_.result(this, 'tableName'), this.shouldHavePosts));
+/src/core/server/models/plugins/has-posts.js-36-            }
+##############################################
+/src/core/server/models/plugins/has-posts.js-38-            if (_debug.enabled('ghost-query')) {
+/src/core/server/models/plugins/has-posts.js:39:                debug('QUERY', this.query().toQuery());
+/src/core/server/models/plugins/has-posts.js-40-            }
+##############################################
+/src/core/server/models/plugins/has-posts.js-46-            if (this.shouldHavePosts) {
+/src/core/server/models/plugins/has-posts.js:47:                this.query(addHasPostsWhere(_.result(this, 'tableName'), this.shouldHavePosts));
+/src/core/server/models/plugins/has-posts.js-48-            }
+##############################################
+/src/core/server/models/plugins/has-posts.js-50-            if (_debug.enabled('ghost-query')) {
+/src/core/server/models/plugins/has-posts.js:51:                debug('QUERY', this.query().toQuery());
+/src/core/server/models/plugins/has-posts.js-52-            }
+##############################################
+/src/core/server/models/plugins/pagination.js-54-            model
+/src/core/server/models/plugins/pagination.js:55:                .query('limit', options.limit)
+/src/core/server/models/plugins/pagination.js:56:                .query('offset', options.limit * (options.page - 1));
+/src/core/server/models/plugins/pagination.js-57-        }
+##############################################
+/src/core/server/models/plugins/pagination.js-147-                self = this,
+/src/core/server/models/plugins/pagination.js:148:                countPromise = this.query().clone().select(
+/src/core/server/models/plugins/pagination.js-149-                    bookshelf.knex.raw('count(distinct ' + tableName + '.' + idAttribute + ') as aggregate')
+##############################################
+/src/core/server/models/plugins/pagination.js-167-                        if (property === 'count.posts') {
+/src/core/server/models/plugins/pagination.js:168:                            self.query('orderBy', 'count__posts', direction);
+/src/core/server/models/plugins/pagination.js-169-                        } else {
+/src/core/server/models/plugins/pagination.js:170:                            self.query('orderBy', tableName + '.' + property, direction);
+/src/core/server/models/plugins/pagination.js-171-                        }
+##############################################
+/src/core/server/models/plugins/pagination.js-173-                } else if (options.orderRaw) {
+/src/core/server/models/plugins/pagination.js:174:                    self.query(function (qb) {
+/src/core/server/models/plugins/pagination.js-175-                        qb.orderByRaw(options.orderRaw);
+##############################################
+/src/core/server/models/plugins/pagination.js-180-                    _.each(options.groups, function (group) {
+/src/core/server/models/plugins/pagination.js:181:                        self.query('groupBy', group);
+/src/core/server/models/plugins/pagination.js-182-                    });
+##############################################
+/src/core/server/models/plugins/filter.js-78-            try {
+/src/core/server/models/plugins/filter.js:79:                this.query((qb) => {
+/src/core/server/models/plugins/filter.js-80-                    nql(custom, {
+##############################################
+/src/core/server/models/base/token.js-19-        return ghostBookshelf.Collection.forge([], {model: this})
+/src/core/server/models/base/token.js:20:            .query('where', 'expires', '<', Date.now())
+/src/core/server/models/base/token.js-21-            .fetch(options)
+##############################################
+/src/core/server/models/base/token.js-36-            return ghostBookshelf.Collection.forge([], {model: this})
+/src/core/server/models/base/token.js:37:                .query('where', 'user_id', '=', userId)
+/src/core/server/models/base/token.js-38-                .fetch(options)
+##############################################
+/src/core/server/models/base/token.js-57-        return this.forge()
+/src/core/server/models/base/token.js:58:            .query('where', 'token', '=', token)
+/src/core/server/models/base/token.js-59-            .fetch(options)
+##############################################
+/src/core/server/models/base/index.js-816-        if (this.orderDefaultRaw && !options.migrating) {
+/src/core/server/models/base/index.js:817:            itemCollection.query((qb) => {
+/src/core/server/models/base/index.js-818-                qb.orderByRaw(this.orderDefaultRaw(options));
+##############################################
+/src/core/server/models/post.js-539-            .withPivot('sort_order')
+/src/core/server/models/post.js:540:            .query('orderBy', 'sort_order', 'ASC');
+/src/core/server/models/post.js-541-    },
+##############################################
+/src/core/server/models/post.js-545-            .withPivot('sort_order')
+/src/core/server/models/post.js:546:            .query('orderBy', 'sort_order', 'ASC');
+/src/core/server/models/post.js-547-    },
+##############################################
+/src/core/server/models/user.js-425-
+/src/core/server/models/user.js:426:            query.query('join', 'roles_users', 'users.id', '=', 'roles_users.user_id');
+/src/core/server/models/user.js:427:            query.query('join', 'roles', 'roles_users.role_id', '=', 'roles.id');
+/src/core/server/models/user.js:428:            query.query('where', 'roles.name', '=', lookupRole);
+/src/core/server/models/user.js-429-        } else {
+##############################################
+/src/core/server/models/user.js-433-        if (status === 'active') {
+/src/core/server/models/user.js:434:            query.query('whereIn', 'status', activeStates);
+/src/core/server/models/user.js-435-        } else if (status !== 'all') {
+/src/core/server/models/user.js:436:            query.query('where', {status: status});
+/src/core/server/models/user.js-437-        }
+##############################################
+/src/core/server/models/user.js-968-                return Users.forge()
+/src/core/server/models/user.js:969:                    .query('whereIn', 'id', [contextUser.id, results[2]])
+/src/core/server/models/user.js-970-                    .fetch({withRelated: ['roles']});
+##############################################
+/src/core/server/api/shared/validators/input/all.js-137-            _.each(apiConfig.data, (value, key) => {
+/src/core/server/api/shared/validators/input/all.js:138:                if (jsonpath.query(frame.data[apiConfig.docName][0], key).length === 0) {
+/src/core/server/api/shared/validators/input/all.js-139-                    missedDataProperties.push(key);
+##############################################
+/src/core/server/api/shared/pipeline.js-155-
+/src/core/server/api/shared/pipeline.js:156:        return apiImpl.query(frame);
+/src/core/server/api/shared/pipeline.js-157-    }
+##############################################
+/src/core/server/api/shared/pipeline.js-239-                .then(() => {
+/src/core/server/api/shared/pipeline.js:240:                    return STAGES.query(apiUtils, apiConfig, apiImpl, frame);
+/src/core/server/api/shared/pipeline.js-241-                })
+##############################################
+/src/core/server/ghost-server.js-259-
+/src/core/server/ghost-server.js:260:            client.connect(socketAddress.port, socketAddress.host, () => {
+/src/core/server/ghost-server.js-261-                if (waitTimeout) {
+##############################################
+/src/core/server/data/db/connection.js-8-// - then this file is cached and you have no chance to connect to the db anymore
+/src/core/server/data/db/connection.js:9:// - bring dynamic into this file (db.connect())
+/src/core/server/data/db/connection.js-10-function configure(dbConfig) {
+##############################################
+/src/core/server/data/migrations/versions/2.27/3-add-subdirectory-to-relative-canonical-urls.js-36-        .forge()
+/src/core/server/data/migrations/versions/2.27/3-add-subdirectory-to-relative-canonical-urls.js:37:        .query((qb) => {
+/src/core/server/data/migrations/versions/2.27/3-add-subdirectory-to-relative-canonical-urls.js-38-            qb.where('canonical_url', 'like', '/%');
+##############################################
+/src/core/server/data/migrations/versions/2.27/3-add-subdirectory-to-relative-canonical-urls.js-79-        .forge()
+/src/core/server/data/migrations/versions/2.27/3-add-subdirectory-to-relative-canonical-urls.js:80:        .query((qb) => {
+/src/core/server/data/migrations/versions/2.27/3-add-subdirectory-to-relative-canonical-urls.js-81-            qb.where('canonical_url', 'LIKE', `${url.pathname}%`);
+##############################################
+/src/core/frontend/helpers/get.js-90-        if (path.charAt(0) === '@') {
+/src/core/frontend/helpers/get.js:91:            result = jsonpath.query(globals, path.substr(1));
+/src/core/frontend/helpers/get.js-92-        } else {
+/src/core/frontend/helpers/get.js-93-            // Do the query, which always returns an array of matches
+/src/core/frontend/helpers/get.js:94:            result = jsonpath.query(data, path);
+/src/core/frontend/helpers/get.js-95-        }

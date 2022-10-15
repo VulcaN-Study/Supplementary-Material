@@ -1,0 +1,204 @@
+/src/lib/flows/Subflow.js-34-function deepCopy(obj) {
+/src/lib/flows/Subflow.js:35:    return JSON.parse(JSON.stringify(obj));
+/src/lib/flows/Subflow.js-36-}
+##############################################
+/src/lib/api/nodes.js-468-            if (iconPath) {
+/src/lib/api/nodes.js:469:                fs.readFile(iconPath,function(err,data) {
+/src/lib/api/nodes.js-470-                    if (err) {
+##############################################
+/src/lib/storage/localfilesystem/sessions.js-34-        return when.promise(function(resolve,reject) {
+/src/lib/storage/localfilesystem/sessions.js:35:            fs.readFile(sessionsFile,'utf8',function(err,data){
+/src/lib/storage/localfilesystem/sessions.js-36-                if (!err) {
+##############################################
+/src/lib/storage/localfilesystem/sessions.js-50-        }
+/src/lib/storage/localfilesystem/sessions.js:51:        return util.writeFile(sessionsFile,JSON.stringify(sessions));
+/src/lib/storage/localfilesystem/sessions.js-52-    }
+##############################################
+/src/lib/storage/localfilesystem/util.js-25-    }
+/src/lib/storage/localfilesystem/util.js:26:    return JSON.parse(data);
+/src/lib/storage/localfilesystem/util.js-27-}
+##############################################
+/src/lib/storage/localfilesystem/util.js-29-    return new Promise(function(resolve) {
+/src/lib/storage/localfilesystem/util.js:30:        fs.readFile(path,'utf8',function(err,data) {
+/src/lib/storage/localfilesystem/util.js-31-            if (!err) {
+##############################################
+/src/lib/storage/localfilesystem/util.js-116-            return new Promise(function(resolve,reject) {
+/src/lib/storage/localfilesystem/util.js:117:                fs.rename(tempFile,path,err => {
+/src/lib/storage/localfilesystem/util.js-118-                    if (err) {
+##############################################
+/src/lib/storage/localfilesystem/library.js-172-        if (type === "flows" && settings.flowFilePretty) {
+/src/lib/storage/localfilesystem/library.js:173:            body = JSON.stringify(JSON.parse(body),null,4);
+/src/lib/storage/localfilesystem/library.js-174-        }
+/src/lib/storage/localfilesystem/library.js-175-        return fs.ensureDir(fspath.dirname(fn)).then(function () {
+/src/lib/storage/localfilesystem/library.js:176:            util.writeFile(fn,headers+body);
+/src/lib/storage/localfilesystem/library.js-177-        });
+##############################################
+/src/lib/storage/localfilesystem/index.js-68-                };
+/src/lib/storage/localfilesystem/index.js:69:                return util.writeFile(packageFile,JSON.stringify(defaultPackage,"",4));
+/src/lib/storage/localfilesystem/index.js-70-            }
+##############################################
+/src/lib/storage/localfilesystem/settings.js-45-    }
+/src/lib/storage/localfilesystem/settings.js:46:    const data = await util.readFile(globalSettingsFile,globalSettingsBackup,{});
+/src/lib/storage/localfilesystem/settings.js-47-    // In a later release we should remove the old settings file. But don't do
+##############################################
+/src/lib/storage/localfilesystem/settings.js-73-            settingsCache[key] = sectionContent;
+/src/lib/storage/localfilesystem/settings.js:74:            writePromises.push(util.writeFile(sectionFilename,sectionContent,sectionFilename+".backup"))
+/src/lib/storage/localfilesystem/settings.js-75-        }
+##############################################
+/src/lib/storage/localfilesystem/settings.js-81-        settingsCache["runtime"] = sectionContent;
+/src/lib/storage/localfilesystem/settings.js:82:        writePromises.push(util.writeFile(sectionFilename,sectionContent,sectionFilename+".backup"));
+/src/lib/storage/localfilesystem/settings.js-83-    }
+##############################################
+/src/lib/storage/localfilesystem/settings.js-89-    const runtimeFilename = getSettingsFilename("runtime");
+/src/lib/storage/localfilesystem/settings.js:90:    const result = await util.readFile(runtimeFilename,runtimeFilename+".backup",{});
+/src/lib/storage/localfilesystem/settings.js-91-    settingsCache["runtime"] = JSON.stringify(result, null ,4);
+##############################################
+/src/lib/storage/localfilesystem/settings.js-95-        const sectionFilename = getSettingsFilename(key);
+/src/lib/storage/localfilesystem/settings.js:96:        readPromises.push(util.readFile(sectionFilename,sectionFilename+".backup",{}).then(sectionData => {
+/src/lib/storage/localfilesystem/settings.js-97-            settingsCache[key] = JSON.stringify(sectionData, null ,4);
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-94-            project.paths['package.json'] = fspath.join(project.paths.root,"package.json");
+/src/lib/storage/localfilesystem/projects/Project.js:95:            promises.push(fs.readFile(fspath.join(project.path,project.paths['package.json']),"utf8").then(function(content) {
+/src/lib/storage/localfilesystem/projects/Project.js-96-                try {
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-113-                project.paths['README.md'] = fspath.join(project.paths.root,"README.md");
+/src/lib/storage/localfilesystem/projects/Project.js:114:                promises.push(fs.readFile(fspath.join(project.path,project.paths['README.md']),"utf8").then(function(content) {
+/src/lib/storage/localfilesystem/projects/Project.js-115-                    project.description = content;
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-164-            var credsFilePath = getCredentialsFilename(flowFilePath);
+/src/lib/storage/localfilesystem/projects/Project.js:165:            promises.push(util.writeFile(flowFilePath,"[]"));
+/src/lib/storage/localfilesystem/projects/Project.js:166:            promises.push(util.writeFile(credsFilePath,"{}"));
+/src/lib/storage/localfilesystem/projects/Project.js-167-            files.push(project.files.flow);
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-174-            if (!fs.existsSync(path)) {
+/src/lib/storage/localfilesystem/projects/Project.js:175:                promises.push(util.writeFile(path,defaultFileSet[file](project)));
+/src/lib/storage/localfilesystem/projects/Project.js-176-            }
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-317-                fs.writeFileSync(fspath.join(this.path,this.paths['package.json']),newPackage);
+/src/lib/storage/localfilesystem/projects/Project.js:318:                this.package = JSON.parse(newPackage);
+/src/lib/storage/localfilesystem/projects/Project.js-319-            }
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-406-    if (saveREADME) {
+/src/lib/storage/localfilesystem/projects/Project.js:407:        promises.push(util.writeFile(fspath.join(this.path,this.paths['README.md']), this.description));
+/src/lib/storage/localfilesystem/projects/Project.js-408-        modifiedFiles.push('README.md');
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-410-    if (savePackage) {
+/src/lib/storage/localfilesystem/projects/Project.js:411:        promises.push(fs.readFile(fspath.join(this.path,this.paths['package.json']),"utf8").then(content => {
+/src/lib/storage/localfilesystem/projects/Project.js-412-            var currentPackage = {};
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-417-            this.package = Object.assign(currentPackage,this.package);
+/src/lib/storage/localfilesystem/projects/Project.js:418:            return util.writeFile(fspath.join(project.path,this.paths['package.json']), JSON.stringify(this.package,"",4));
+/src/lib/storage/localfilesystem/projects/Project.js-419-        }));
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-492-    } else {
+/src/lib/storage/localfilesystem/projects/Project.js:493:        return fs.readFile(fspath.join(this.path,filePath),"utf8");
+/src/lib/storage/localfilesystem/projects/Project.js-494-    }
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-643-    if (typeof resolutions === 'string') {
+/src/lib/storage/localfilesystem/projects/Project.js:644:        return util.writeFile(filePath, resolutions).then(function() {
+/src/lib/storage/localfilesystem/projects/Project.js-645-            return self.stageFile(file);
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-647-    }
+/src/lib/storage/localfilesystem/projects/Project.js:648:    return fs.readFile(filePath,"utf8").then(function(content) {
+/src/lib/storage/localfilesystem/projects/Project.js-649-        var lines = content.split("\n");
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-680-        var finalResult = result.join("\n");
+/src/lib/storage/localfilesystem/projects/Project.js:681:        return util.writeFile(filePath,finalResult).then(function() {
+/src/lib/storage/localfilesystem/projects/Project.js-682-            return self.stageFile(file);
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-904-                        log.trace(project.files.oldFlow+" does not exist - creating blank file");
+/src/lib/storage/localfilesystem/projects/Project.js:905:                        promises.push(util.writeFile(flowFilePath,"[]"));
+/src/lib/storage/localfilesystem/projects/Project.js-906-                    }
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-915-                        }
+/src/lib/storage/localfilesystem/projects/Project.js:916:                        return util.writeFile(credsFilePath,credentialData);
+/src/lib/storage/localfilesystem/projects/Project.js-917-                    }));
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-926-                    credsFilePath = getCredentialsFilename(flowFilePath);
+/src/lib/storage/localfilesystem/projects/Project.js:927:                    promises.push(util.writeFile(flowFilePath,"[]"));
+/src/lib/storage/localfilesystem/projects/Project.js:928:                    promises.push(util.writeFile(credsFilePath,"{}"));
+/src/lib/storage/localfilesystem/projects/Project.js-929-                }
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-933-            if (defaultFileSet.hasOwnProperty(file)) {
+/src/lib/storage/localfilesystem/projects/Project.js:934:                promises.push(util.writeFile(fspath.join(projectPath,file),defaultFileSet[file](project)));
+/src/lib/storage/localfilesystem/projects/Project.js-935-            }
+##############################################
+/src/lib/storage/localfilesystem/projects/Project.js-965-        //     missing.forEach(function(file) {
+/src/lib/storage/localfilesystem/projects/Project.js:966:        //         promises.push(util.writeFile(fspath.join(projectPath,file),defaultFileSet[file](project)));
+/src/lib/storage/localfilesystem/projects/Project.js-967-        //     });
+##############################################
+/src/lib/storage/localfilesystem/projects/ssh/index.js-64-            .reduce(function(prev, current) {
+/src/lib/storage/localfilesystem/projects/ssh/index.js:65:                var parsePath = fspath.parse(current);
+/src/lib/storage/localfilesystem/projects/ssh/index.js-66-                if ( parsePath ) {
+##############################################
+/src/lib/storage/localfilesystem/projects/ssh/index.js-91-    .then(function(publicSSHKeyPath) {
+/src/lib/storage/localfilesystem/projects/ssh/index.js:92:        return fs.readFile(publicSSHKeyPath, 'utf-8');
+/src/lib/storage/localfilesystem/projects/ssh/index.js-93-    }).catch(function() {
+##############################################
+/src/lib/storage/localfilesystem/projects/ssh/index.js-96-        return checkFilePairExist(privateKeyPath,publicKeyPath).then(function() {
+/src/lib/storage/localfilesystem/projects/ssh/index.js:97:            return fs.readFile(publicKeyPath, 'utf-8');
+/src/lib/storage/localfilesystem/projects/ssh/index.js-98-        }).catch(function() {
+##############################################
+/src/lib/storage/localfilesystem/projects/index.js-546-    }
+/src/lib/storage/localfilesystem/projects/index.js:547:    return util.readFile(flowsFullPath,flowsFileBackup,null,'flow').then(function(result) {
+/src/lib/storage/localfilesystem/projects/index.js-548-        if (result === null) {
+##############################################
+/src/lib/storage/localfilesystem/projects/index.js-576-    }
+/src/lib/storage/localfilesystem/projects/index.js:577:    return util.writeFile(flowsFullPath, flowData, flowsFileBackup).then(() => {
+/src/lib/storage/localfilesystem/projects/index.js-578-        var gitSettings = getUserGitSettings(user) || {};
+##############################################
+/src/lib/storage/localfilesystem/projects/index.js-588-function getCredentials() {
+/src/lib/storage/localfilesystem/projects/index.js:589:    return util.readFile(credentialsFile,credentialsFileBackup,{},'credentials');
+/src/lib/storage/localfilesystem/projects/index.js-590-}
+##############################################
+/src/lib/storage/localfilesystem/projects/index.js-603-    }
+/src/lib/storage/localfilesystem/projects/index.js:604:    return util.writeFile(credentialsFile, credentialData, credentialsFileBackup);
+/src/lib/storage/localfilesystem/projects/index.js-605-}
+##############################################
+/src/lib/storage/localfilesystem/projects/git/authServer.js-39-    return new Promise(function(resolve, reject) {
+/src/lib/storage/localfilesystem/projects/git/authServer.js:40:        var server = net.createServer(function(connection) {
+/src/lib/storage/localfilesystem/projects/git/authServer.js-41-            connection.setEncoding('utf8');
+##############################################
+/src/lib/storage/localfilesystem/projects/git/authServer.js-84-    return new Promise(function(resolve, reject) {
+/src/lib/storage/localfilesystem/projects/git/authServer.js:85:        var server = net.createServer(function(connection) {
+/src/lib/storage/localfilesystem/projects/git/authServer.js-86-            connection.setEncoding('utf8');
+##############################################
+/src/lib/library/examples.js-60-                    try {
+/src/lib/library/examples.js:61:                        fs.readFile(examples,'utf8',function(err, data) {
+/src/lib/library/examples.js-62-                            runtime.log.audit({event: "library.get",library:"_examples",type:"flow",path:path});
+##############################################
+/src/lib/nodes/credentials.js-40-    var decrypted = decipher.update(creds, 'base64', 'utf8') + decipher.final('utf8');
+/src/lib/nodes/credentials.js:41:    return JSON.parse(decrypted);
+/src/lib/nodes/credentials.js-42-}
+##############################################
+/src/lib/nodes/context/index.js-137-                if (stores.hasOwnProperty(plugin)) {
+/src/lib/nodes/context/index.js:138:                    promises.push(stores[plugin].open());
+/src/lib/nodes/context/index.js-139-                }
+##############################################
+/src/lib/nodes/context/index.js-168-            log.info(log._("context.log-store-init", {name:"default", info:"module=memory"}));
+/src/lib/nodes/context/index.js:169:            promises.push(stores["_"].open())
+/src/lib/nodes/context/index.js-170-            storeList = ["memory"];
+##############################################
+/src/lib/nodes/context/localfilesystem.js-102-        if(exists === true){
+/src/lib/nodes/context/localfilesystem.js:103:            return fs.readFile(storagePath, "utf8");
+/src/lib/nodes/context/localfilesystem.js-104-        }else{
+##############################################
+/src/lib/nodes/context/localfilesystem.js-145-    await fs.outputFile(tmpFile, content, "utf8");
+/src/lib/nodes/context/localfilesystem.js:146:    return fs.rename(tmpFile,finalFile);
+/src/lib/nodes/context/localfilesystem.js-147-}
+##############################################
+/src/lib/nodes/context/localfilesystem.js-189-                try {
+/src/lib/nodes/context/localfilesystem.js:190:                    var data = res[i]?JSON.parse(res[i]):{};
+/src/lib/nodes/context/localfilesystem.js-191-                    Object.keys(data).forEach(function(key) {
+##############################################
+/src/lib/nodes/context/localfilesystem.js-260-        if(data){
+/src/lib/nodes/context/localfilesystem.js:261:            data = JSON.parse(data);
+/src/lib/nodes/context/localfilesystem.js-262-            if (!Array.isArray(key)) {
+##############################################
+/src/lib/nodes/context/localfilesystem.js-316-        self.writePromise = self.writePromise.then(function() { return loadFile(storagePath + ".json") }).then(function(data){
+/src/lib/nodes/context/localfilesystem.js:317:            var obj = data ? JSON.parse(data) : {}
+/src/lib/nodes/context/localfilesystem.js-318-            if (!Array.isArray(key)) {
+##############################################
+/src/lib/nodes/context/localfilesystem.js-361-        if(data){
+/src/lib/nodes/context/localfilesystem.js:362:            callback(null, Object.keys(JSON.parse(data)));
+/src/lib/nodes/context/localfilesystem.js-363-        }else{

@@ -1,0 +1,1449 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$5$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$6$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 59	exports.unserialize = function(obj, originObj) {
+  var isIndex;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(obj);
+    isIndex = true;
+  }
+  originObj = originObj || obj;
+
+  var circularTasks = [];
+  var key;
+  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+
+  if (isIndex) {
+    circularTasks.forEach(function(task) {
+      task.obj[task.key] = getKeyPath(originObj, task.obj[task.key]);
+    });
+  }
+  return obj;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 62	    obj = JSON.parse(obj);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+
+|checker| success id$7$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 69	  for(key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 70	    if(obj.hasOwnProperty(key)) {
+      if(typeof obj[key] === 'object') {
+        obj[key] = exports.unserialize(obj[key], originObj);
+      } else if(typeof obj[key] === 'string') {
+        if(obj[key].indexOf(FUNCFLAG) === 0) {
+          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+        } else if(obj[key].indexOf(CIRCULARFLAG) === 0) {
+          obj[key] = obj[key].substring(CIRCULARFLAG.length);
+          circularTasks.push({obj: obj, key: key});
+        }
+      }
+    }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-502/311/package/lib/serialize.js
+Line 75	          obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');
+

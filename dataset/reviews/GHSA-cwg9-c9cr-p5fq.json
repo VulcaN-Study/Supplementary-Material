@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-cwg9-c9cr-p5fq",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/@theia/console/-/console-1.8.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/browser/ansi-console-item.js",
+                    "lineno": 22,
+                    "code": "function AnsiConsoleItem(content, severity) {"
+                },
+                "sink": {
+                    "file": "lib/browser/ansi-console-item.js",
+                    "lineno": 38,
+                    "code": "return React.createElement(\"div\", { className: 'theia-console-ansi-console-item', dangerouslySetInnerHTML: { __html: this.htmlContent } });"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/eclipse-theia/theia/issues/8794"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

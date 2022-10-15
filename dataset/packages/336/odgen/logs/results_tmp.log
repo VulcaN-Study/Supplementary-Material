@@ -1,0 +1,486 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 21	        wmic     = platform === 'win32'? path.join(process.env.SystemRoot, 'System32', 'wbem', 'wmic.exe') : null,
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 21	        wmic     = platform === 'win32'? path.join(process.env.SystemRoot, 'System32', 'wbem', 'wmic.exe') : null,
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 21	        wmic     = platform === 'win32'? path.join(process.env.SystemRoot, 'System32', 'wbem', 'wmic.exe') : null,
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 174	        findLoad('node', cb);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 77	    findLoad = exports.findLoad = function findLoad(arg, cb) {
+        if(!isFunction(cb)) cb = emptyFn;
+        if(!checkPlatform(cb)) return;
+        
+        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+        exec(cmd, function (error, res, stderr) {
+            if(error !== null || stderr) return cb(error || stderr);
+            if(!res) return cb('Cannot find results for provided arg: ' + arg, { load: 0, results: [] });
+            
+            var found = res.replace(/[^\S\n]+/g, ':').replace(/\:\s/g, '|').split('|').filter(function(v) {
+                return !!v;
+            }).map(function(v) {
+                var data = v.split(':');
+                return {
+                    pid: +data[0],
+                    process: data[1],
+                    load: +data[2]
+                };
+            });
+            
+            var totalLoad = 0;
+            
+            found.forEach(function(obj) {
+                totalLoad += obj.load;
+            });
+            
+            var output = {
+                load: totalLoad,
+                found: found
+            };
+            
+            cb(null, output);
+        });
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-94/336/package/index.js
+Line 81	        var cmd = "wmic path Win32_PerfFormattedData_PerfProc_Process get Name,PercentProcessorTime,IDProcess | findstr /i /c:" + arg;
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+

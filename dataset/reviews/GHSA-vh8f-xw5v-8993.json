@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-vh8f-xw5v-8993",
+        "cwe": "CWE-74"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/macfromip/-/macfromip-1.1.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "macfromip.js",
+                    "lineno": 64,
+                    "code": "macfromip.getMacInLinux = function(ipAddress, callback){"
+                },
+                "sink": {
+                    "file": "macfromip.js",
+                    "lineno": 66,
+                    "code": "var ls = cp.exec('ping  -c 1 ' + ipAddress,"
+                }
+            },
+            {
+                "source": {
+                    "file": "macfromip.js",
+                    "lineno": 95,
+                    "code": "macfromip.getMacInWin32 = function(ipAddress, callback){"
+                },
+                "sink": {
+                    "file": "macfromip.js",
+                    "lineno": 96,
+                    "code": "var ls = cp.exec('ping  ' + ipAddress + ' -n 1',"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://security.snyk.io/vuln/SNYK-JS-MACFROMIP-1048336"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

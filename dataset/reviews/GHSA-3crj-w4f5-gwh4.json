@@ -1,0 +1,95 @@
+{
+    "advisory": {
+        "id": "GHSA-3crj-w4f5-gwh4",
+        "cwe": "CWE-74"
+    },
+    "correct_cwe": ["CWE-74", "CWE-94"],
+    "correct_package_link": "https://registry.npmjs.org/less-openui5/-/less-openui5-0.9.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/thirdparty/less/tree/quoted.js",
+                    "lineno": 22,
+                    "code": "eval: function (env) {"
+                },
+                "sink": {
+                    "file": "lib/thirdparty/less/tree/quoted.js",
+                    "lineno": 25,
+                    "code": " return new(tree.JavaScript)(exp, that.index, true).eval(env).value;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/thirdparty/less/tree/quoted.js",
+                    "lineno": 22,
+                    "code": "eval: function (env) {"
+                },
+                "sink": {
+                    "file": "lib/thirdparty/less/tree/quoted.js",
+                    "lineno": 27,
+                    "code": "var v = new(tree.Variable)('@' + name, that.index, that.currentFileInfo).eval(env, true);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/thirdparty/less/function.js",
+                    "lineno": 215,
+                    "code": "e: function (str) {"
+                },
+                "sink": {
+                    "file": "lib/thirdparty/less/function.js",
+                    "lineno": 216,
+                    "code": "return new(tree.Anonymous)(str instanceof tree.JavaScript ? str.evaluated : str);"
+                }
+            },
+            {
+                "block": {
+                    "file": "lib/thirdparty/less/parser.js",
+                    "start_lineno": 99,
+                    "end_lineno": 103,
+                    "code": "javascript: function () { var str, j = i, e; if (input.charAt(j) === '~') { j++; e = true; } // Escaped strings if (input.charAt(j) !== '`') { return; } if (env.javascriptEnabled !== undefined && !env.javascriptEnabled) { error(\"You are using JavaScript, which has been disabled.\"); } if (e) { $char('~'); } str = $re(/^`([^`]*)`/); if (str) { return new(tree.JavaScript)(str[1], i, e); } "
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/SAP/less-openui5/commit/c0d3a8572974a20ea6cee42da11c614a54f100e8#diff-6b69dff5fb9d0cc8e3a12aadc300daae3ac2afd10b283cf00b41ef568514e85c"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

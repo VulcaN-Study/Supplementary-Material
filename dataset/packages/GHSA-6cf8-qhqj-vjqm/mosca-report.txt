@@ -1,0 +1,800 @@
+<report_mosca>
+ <Path>/src/nosqlworker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 50 -  setInterval(function() {
+
+ Line: 55 -  setInterval(function() {
+
+ Line: 126 -  				msg.arg[0] = eval('(' + msg.arg[0] + ')');
+
+ Line: 139 -  				msg.arg[0] = eval('(' + msg.arg[0] + ')');
+
+ Line: 237 -  			db.storage.scan(msg.arg[0], msg.arg[1], eval('(' + msg.arg[2] + ')'), function(err, response, repository) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nosqlworker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 29 -  const RESINSERT = { TYPE: 'insert' };
+
+ Line: 31 -  const RESUPDATE = { TYPE: 'update' };
+
+ Line: 117 -  				RESINSERT.err = err;
+
+ Line: 118 -  				RESINSERT.response = response;
+
+ Line: 119 -  				RESINSERT.id = msg.id;
+
+ Line: 120 -  				process.send(RESINSERT);
+
+ Line: 129 -  				RESUPDATE.err = err;
+
+ Line: 130 -  				RESUPDATE.response = response;
+
+ Line: 131 -  				RESUPDATE.id = msg.id;
+
+ Line: 132 -  				RESUPDATE.repository = repository;
+
+ Line: 133 -  				process.send(RESUPDATE);
+
+ Line: 142 -  				RESUPDATE.err = err;
+
+ Line: 143 -  				RESUPDATE.response = response;
+
+ Line: 144 -  				RESUPDATE.id = msg.id;
+
+ Line: 145 -  				RESUPDATE.repository = repository;
+
+ Line: 146 -  				process.send(RESUPDATE);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/internal.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2040 -  		fn = eval(fn);
+
+ Line: 3433 -  				r.push({ cmd: command.phrase, value: eval('(' + cmd + ')') });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/internal.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 1336 -  // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+ Line: 3184 -  	var query = null;
+
+ Line: 3204 -  	return { auth: null, hash: null, host: req.host, hostname: hostname, href: req.$protocol + '://' + req.host + req.url, path: req.url, pathname: pathname, port: port, protocol: req.$protocol + ':', query: query, search: search, slashes: true };
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/bundles.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/session.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 57 -  		timeoutsave = setTimeout(t.$saveforce, 1000 * 10); // 10 seconds
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/session.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/cluster.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 96 -  	obj.timeout = setTimeout(function(obj) {
+
+ Line: 177 -  			setTimeout(index => exports.restart(index), i * 2000, i);
+
+ Line: 268 -  			setTimeout(can, 500, cb);
+
+ Line: 287 -  				setTimeout(function() {
+
+ Line: 307 -  	setInterval(function() {
+
+ Line: 364 -  							setTimeout(killme, 1000, fork);
+
+ Line: 443 -  		TIMEOUTS[index] = setTimeout(exports.restart, 1000, index);
+
+ Line: 452 -  		setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/cluster.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nosqlstream.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 617 -  		setTimeout(self.cb_flush, 100);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nosqlstream.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/mail.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 625 -  	obj.socket.setTimeout(options.timeout || 8000, function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/mail.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 654 -  	buffer.push('MAIL FROM: <' + msg.addressFrom.address + '>');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nosqlcrawler.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 37 -  setInterval(function() {
+
+ Line: 59 -  		setTimeout(() => killprocess(), 1000);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nosqlcrawler.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/flow.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 317 -  	setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/flow.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 79 -  	get query() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 331 -  	var id_interval = setInterval(function() {
+
+ Line: 341 -  	id_timeout = setTimeout(function() {
+
+ Line: 803 -  	req.setTimeout(10000);
+
+ Line: 883 -  	options.timeoutid = setTimeout(request_process_timeout, options.timeout, req);
+
+ Line: 1438 -  	options.timeoutid = setTimeout(download_process_timeout, options.timeout);
+
+ Line: 1660 -  	req.setTimeout(timeout || 60000, function() {
+
+ Line: 1779 -  		timeoutid = setTimeout(timeoutcallback, timeout);
+
+ Line: 1781 -  	req.setTimeout(timeout || 60000, timeoutcallback);
+
+ Line: 5969 -  			self.interval = setTimeout(function() { self.timeout(); }, timeout);
+
+ Line: 5988 -  		setTimeout(function() { self.timeout(); }, timeout);
+
+ Line: 5994 -  		setTimeout(function() { self.timeout(); }, timeout);
+
+ Line: 6896 -  		self.flushing_timeout = setTimeout(() => self.read(index, callback), 300);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 98 -  const REG_AJAX = /('|")+(!)?(GET|POST|PUT|DELETE|PATCH)\s(\(.*?\)\s)?\//g;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/debug.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 230 -  			isRELOAD && setTimeout2('livereload', () => WS && WS.send('reload'), 500);
+
+ Line: 324 -  					setTimeout(refresh_directory, speed);
+
+ Line: 331 -  				setTimeout(refresh_directory, speed);
+
+ Line: 363 -  						setTimeout(restart, 1000);
+
+ Line: 460 -  			setInterval(function() {
+
+ Line: 486 -  		setTimeout(app, 3500);
+
+ Line: 506 -  initdelay = setTimeout(init, 100);
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/debug.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/image.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 380 -  	prefid = setTimeout(F.onPrefSave, 1000, F.pref);
+
+ Line: 1725 -  		fn = new Function('next', 'value', 'now', 'var model=value;var global,require,process,GLOBAL,root,clearImmediate,clearInterval,clearTimeout,setImmediate,setInterval,setTimeout,console,$STRING,$VIEWCACHE,framework_internal,TransformBuilder,Pagination,Page,URLBuilder,UrlBuilder,SchemaBuilder,framework_builders,framework_utils,framework_mail,Image,framework_image,framework_nosql,Builders,U,utils,Utils,Mail,WTF,SOURCE,INCLUDE,MODULE,NOSQL,NOBIN,NOCOUNTER,NOSQLMEMORY,NOMEM,DATABASE,DB,CONFIG,INSTALL,UNINSTALL,RESOURCE,TRANSLATOR,LOG,LOGGER,MODEL,GETSCHEMA,CREATE,UID,TRANSFORM,MAKE,SINGLETON,NEWTRANSFORM,NEWSCHEMA,EACHSCHEMA,FUNCTION,ROUTING,SCHEDULE,OBSOLETE,DEBUG,TEST,RELEASE,is_client,is_server,F,framework,Controller,setTimeout2,clearTimeout2,String,Number,Boolean,Object,Function,Date,isomorphic,I,eval;UPTODATE,NEWOPERATION,OPERATION,$$$,EMIT,ON,$QUERY,$GET,$WORKFLOW,$TRANSFORM,$OPERATION,$MAKE,$CREATE,HttpFile;EMPTYCONTROLLER,ROUTE,FILE,TEST,WEBSOCKET,MAIL,LOGMAIL,FUNC,REPO,FILESTORAGE;try{' + body + ';\n}catch(e){next(e)}');
+
+ Line: 1849 -  		F.server.setTimeout(1);
+
+ Line: 1854 -  	// setTimeout(() => process.exit(signal), global.TEST || extenddelay ? 2000 : 300);
+
+ Line: 1855 -  	setTimeout(() => process.exit(signal), global.TEST ? 2000 : 300);
+
+ Line: 3110 -  		setTimeout(function(arg) {
+
+ Line: 3266 -  	setTimeout(function() {
+
+ Line: 4342 -  						setTimeout(function() {
+
+ Line: 4702 -  		F.routes.middleware[name] = typeof(declaration) === 'function' ? declaration : eval(declaration);
+
+ Line: 4725 -  		setTimeout(function() {
+
+ Line: 4737 -  		setTimeout(function() {
+
+ Line: 4753 -  		setTimeout(function() {
+
+ Line: 4768 -  		setTimeout(function() {
+
+ Line: 4783 -  		setTimeout(function() {
+
+ Line: 4845 -  					setTimeout(function() {
+
+ Line: 4872 -  					setTimeout(function() {
+
+ Line: 4904 -  		!skipEmit && setTimeout(function() {
+
+ Line: 4932 -  				setTimeout(function() {
+
+ Line: 4963 -  		!skipEmit && setTimeout(function() {
+
+ Line: 4974 -  			setTimeout(function() {
+
+ Line: 4987 -  			setTimeout(function() {
+
+ Line: 5019 -  		setTimeout(function() {
+
+ Line: 5048 -  					setTimeout(() => delete require.cache[name], 1000);
+
+ Line: 5051 -  				obj = typeof(declaration) === 'function' ? eval('(' + declaration.toString() + ')()') : eval(declaration);
+
+ Line: 5068 -  		setTimeout(function() {
+
+ Line: 5100 -  					setTimeout(() => delete require.cache[name], 1000);
+
+ Line: 5104 -  				obj = typeof(declaration) === 'function' ? eval('(' + declaration.toString() + ')()') : eval(declaration);
+
+ Line: 5140 -  		setTimeout(function() {
+
+ Line: 5164 -  					setTimeout(() => delete require.cache[name], 1000);
+
+ Line: 5183 -  					setTimeout(function() {
+
+ Line: 5242 -  		!skipEmit && setTimeout(function() {
+
+ Line: 5268 -  					setTimeout(function() {
+
+ Line: 5287 -  					setTimeout(function() {
+
+ Line: 5316 -  		obj.booting && setTimeout(function() {
+
+ Line: 5439 -  	F.temporary.other.dependencies = setTimeout(function() {
+
+ Line: 5498 -  		setTimeout(function() {
+
+ Line: 5991 -  		setTimeout(F.download, 200, url, filename, callback);
+
+ Line: 7156 -  				setTimeout(parser.end, 100);
+
+ Line: 7524 -  				setTimeout(function() {
+
+ Line: 7545 -  					// setTimeout(function() {
+
+ Line: 7717 -  				setTimeout(function() {
+
+ Line: 7734 -  					setTimeout(F.test, sleep);
+
+ Line: 7738 -  				setTimeout(function() {
+
+ Line: 8125 -  			setTimeout(function() {
+
+ Line: 8201 -  	releasegc && global.gc && setTimeout(function() {
+
+ Line: 8782 -  	socket.setTimeout(0);
+
+ Line: 10028 -  				setTimeout((url, callback, count) => makehash(url, callback, (count || 1) + 1), 1000, url, callback, count);
+
+ Line: 10948 -  	fork.__timeout = setTimeout(function() {
+
+ Line: 11175 -  FrameworkRouteProto.setTimeout = function(value) {
+
+ Line: 11426 -  	self.interval = setInterval(() => F.cache.recycle(), 1000 * 60);
+
+ Line: 11450 -  	setTimeout2('framework_cachepersist', function(self) {
+
+ Line: 14951 -  				setTimeout(function() {
+
+ Line: 15314 -  		setTimeout(function() {
+
+ Line: 15783 -  	setTimeout(function() {
+
+ Line: 15816 -  		!self.online && setTimeout2(key, function() {
+
+ Line: 15999 -  	setTimeout(function(self) {
+
+ Line: 17016 -  			this.$total_timeout = setTimeout(subscribe_timeout, route.timeout, this);
+
+ Line: 17831 -  			timeout && client.setTimeout(timeout, function() {
+
+ Line: 17980 -  			setTimeout($continue_timeout, 500, res);
+
+ Line: 18086 -  					setTimeout($file_processing, 500, res);
+
+ Line: 18394 -  				setTimeout($image_processing, 500, res);
+
+ Line: 19278 -  global.setTimeout2 = function(name, fn, timeout, limit, param) {
+
+ Line: 19297 -  		return internal[key] = setTimeout(function(param, key) {
+
+ Line: 19308 -  	return internal[key] = setTimeout(fn, timeout, param);
+
+ Line: 19782 -  	setTimeout(measure_usage_response, 50);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/index.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 554 -  global.$INSERT = function(schema, model, options, callback, controller, novalidate) {
+
+ Line: 558 -  global.$UPDATE = function(schema, model, options, callback, controller, novalidate) {
+
+ Line: 649 -  		meta.validate = meta.method !== 'GET' && meta.method !== 'DELETE';
+
+ Line: 2223 -  		methods = 'POST,PUT,GET,DELETE,PATCH,GET,HEAD'.split(',');
+
+ Line: 11027 -  global.UPDATE = function(versions, callback, pauseserver, noarchive) {
+
+ Line: 11776 -  	get query() {
+
+ Line: 11780 -  	set query(val) {
+
+ Line: 13094 -  function querystring_encode(value, def, key) {
+
+ Line: 13099 -  			tmp += (tmp ? '&' : '') + key + '=' + querystring_encode(value[i], def);
+
+ Line: 13100 -  		return querystring_encode(value[0], def) + (tmp ? tmp : '');
+
+ Line: 13139 -  							str += (str ? '&' : '') + arr[i] + '=' + (key === arr[i] ? '\0' : querystring_encode(val[j]));
+
+ Line: 13141 -  						str += (str ? '&' : '') + arr[i] + '=' + (key === arr[i] ? '\0' : querystring_encode(val));
+
+ Line: 13147 -  		str = str.replace('\0', querystring_encode(value, self.query[key], key));
+
+ Line: 15930 -  	get query() {
+
+ Line: 17106 -  		if (!self.$total_route.schema || self.method === 'DELETE')
+
+ Line: 18998 -  	get query() {
+
+ Line: 19632 -  	if (!controller.route.schema || !controller.route.schema[1] || controller.req.method === 'DELETE' || controller.req.method === 'GET')
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nosql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 93 -  			setTimeout(clusterlock, 100, db, method);
+
+ Line: 774 -  		self.timeoutmeta = setTimeout(() => self.$meta(true), 500);
+
+ Line: 799 -  		setTimeout((self, filter, callback) => self.backups(filter, callback), 500, self, filter, callback);
+
+ Line: 1342 -  	setTimeout2('nosql.' + self.name, function() {
+
+ Line: 2875 -  	this.$insertcallback = data.insert ? eval('(' + data.insert + ')') : null;
+
+ Line: 2879 -  			data.functions[i] = eval('(' + data.functions[i] + ')');
+
+ Line: 3515 -  		setTimeout(() => self.read(options, callback), 200);
+
+ Line: 3697 -  		setTimeout(() => self.stats(top, year, month, day, type, callback), 200);
+
+ Line: 4096 -  	!self.tid && (self.tid = setTimeout(self.$cb_save, self.TIMEOUT));
+
+ Line: 4105 -  		setTimeout((countertype, counterid, date, callback) => self.reset(countertype, counterid, date, callback), 200, countertype, counterid, date, callback);
+
+ Line: 4266 -  		setTimeout(() => self.save(), 200);
+
+ Line: 4393 -  		setTimeout(() => self.clear(callback), 200);
+
+ Line: 5021 -  			setTimeout(readfileattempt, 100, self, id, callback, count || 1);
+
+ Line: 5175 -  			setTimeout(readfileattempt, 100, self, id, callback, count || 1);
+
+ Line: 5222 -  			setTimeout(readfileattempt, 100, self, id, callback, count || 1);
+
+ Line: 5747 -  				setTimeout(process, 100, item, next, index);
+
+ Line: 5794 -  						setTimeout(process, 100, item, next, index);
+
+ Line: 5837 -  							setTimeout(() => remove(filename, callback, (attemp || 0) + 1), 100);
+
+ Line: 5860 -  		setTimeout(function(self, fn) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/nosql.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 7650 -  	var query = $.query || $.options;
+
+ Line: 7696 -  	var fields = query.fields;
+
+ Line: 7736 -  			self.gridfilter(tmp.name, query, tmp.type);
+
+ Line: 7743 -  			if ((!skipped || !skipped[name]) && query[name]) {
+
+ Line: 7757 -  				self.gridfilter(name, query, type);
+
+ Line: 7763 -  		var index = query.sort.lastIndexOf('_');
+
+ Line: 7765 -  			var name = query.sort.substring(0, index);
+
+ Line: 7781 -  				self.sort(name, query.sort[index + 1] === 'd');
+
+ Line: 7791 -  	maxlimit && self.paginate(query.page, query.limit, maxlimit || 50);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/builders.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 126 -  	get query() {
+
+ Line: 218 -  	get query() {
+
+ Line: 1337 -   * Set query handler
+
+ Line: 2300 -  	get query() {
+
+ Line: 3729 -  const PUSHTYPE2 = { query: 1, get: 1, read: 1, remove: 1 };
+
+ Line: 5187 -  	this.$type = 0; // 0 = query, 1 = json, 2 = urlencode, 3 = raw
+
+ Line: 5237 -  RESTBuilder.DELETE = function(url, data) {
+
+ Line: 5421 -  RESTP.delete = RESTP.DELETE = function(data) {
+
+ Line: 6172 -  	get query() {
+
+ Line: 6307 -  	get query() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 83 -  		setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/websocketclient.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 127 -  		self.socket.setTimeout(0);
+
+ Line: 166 -  	ws.options.reconnect && setTimeout(function(ws) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/websocketclient.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/graphdb.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1148 -  			setTimeout(self.cb_next, DELAY, NEXT_INSERT);
+
+ Line: 1155 -  			// setTimeout(insDocument, 100, self);
+
+ Line: 1265 -  			setTimeout(insRelation, DELAY, self);
+
+ Line: 1336 -  						setTimeout(function() {
+
+ Line: 1392 -  			self.$resizedelay = setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/graphdb.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+
+ Line: 57 -  const NEXT_INSERT = 2;
+
+ Line: 59 -  const NEXT_UPDATE = 4;
+
+ Line: 1148 -  			setTimeout(self.cb_next, DELAY, NEXT_INSERT);
+
+ Line: 1180 -  				setImmediate(self.cb_next, NEXT_UPDATE);
+
+ Line: 1187 -  				setImmediate(self.cb_next, NEXT_UPDATE);
+
+ Line: 1195 -  				setImmediate(self.cb_next, NEXT_UPDATE);
+
+ Line: 1419 -  		case NEXT_INSERT:
+
+ Line: 1425 -  		case NEXT_UPDATE:
+
+ Line: 1858 -  	self.next(NEXT_UPDATE);
+
+ Line: 1866 -  	self.next(NEXT_UPDATE);
+
+ Line: 1873 -  	self.next(NEXT_INSERT);
+
+</Result>
+</report_mosca>
+

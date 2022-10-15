@@ -1,0 +1,145 @@
+{
+  "errors": [
+    {
+      "code": 9,
+      "level": "warn",
+      "path": "/src/lib/marked.js",
+      "rule_id": "usr.local.lib.python3.8.site-packages.njsscan.rules.semantic_grep.xml.node_xpath_injection",
+      "type": "MatchTimeoutError"
+    },
+    {
+      "code": 9,
+      "level": "warn",
+      "path": "/src/lib/marked.js",
+      "rule_id": "usr.local.lib.python3.8.site-packages.njsscan.rules.semantic_grep.database.node_knex_sqli_injection",
+      "type": "MatchTimeoutError"
+    },
+    {
+      "code": 9,
+      "level": "warn",
+      "path": "/src/lib/marked.js",
+      "rule_id": "usr.local.lib.python3.8.site-packages.njsscan.rules.semantic_grep.dos.regex_dos",
+      "type": "MatchTimeoutError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/marked.esm.js",
+          "match_lines": [
+            1407,
+            1407
+          ],
+          "match_position": [
+            9,
+            22
+          ],
+          "match_string": "    if (Math.random() > 0.5) {"
+        },
+        {
+          "file_path": "/src/src/Lexer.js",
+          "match_lines": [
+            38,
+            38
+          ],
+          "match_position": [
+            9,
+            22
+          ],
+          "match_string": "    if (Math.random() > 0.5) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/marked.esm.js",
+          "match_lines": [
+            69,
+            69
+          ],
+          "match_position": [
+            9,
+            30
+          ],
+          "match_string": "    if (escapeTest.test(html)) {"
+        },
+        {
+          "file_path": "/src/lib/marked.esm.js",
+          "match_lines": [
+            73,
+            73
+          ],
+          "match_position": [
+            9,
+            38
+          ],
+          "match_string": "    if (escapeTestNoEncode.test(html)) {"
+        },
+        {
+          "file_path": "/src/lib/marked.esm.js",
+          "match_lines": [
+            152,
+            152
+          ],
+          "match_position": [
+            9,
+            30
+          ],
+          "match_string": "    if (justDomain.test(base)) {"
+        },
+        {
+          "file_path": "/src/src/helpers.js",
+          "match_lines": [
+            18,
+            18
+          ],
+          "match_position": [
+            9,
+            30
+          ],
+          "match_string": "    if (escapeTest.test(html)) {"
+        },
+        {
+          "file_path": "/src/src/helpers.js",
+          "match_lines": [
+            22,
+            22
+          ],
+          "match_position": [
+            9,
+            38
+          ],
+          "match_string": "    if (escapeTestNoEncode.test(html)) {"
+        },
+        {
+          "file_path": "/src/src/helpers.js",
+          "match_lines": [
+            101,
+            101
+          ],
+          "match_position": [
+            9,
+            30
+          ],
+          "match_string": "    if (justDomain.test(base)) {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

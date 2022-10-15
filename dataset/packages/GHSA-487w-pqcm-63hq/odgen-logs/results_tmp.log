@@ -1,0 +1,3870 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 512	var buns = {
+    build: function(flag) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Add .tmp dir if it doesn't exist
+        if(!fs.existsSync(__tmp))
+            fs.mkdirSync(__tmp);
+
+        var bunsBase = __tmp + 'buns-base.js';
+
+        outputName = config.outputName || 'buns-' + flag + '.js';
+        currentPath = config.output + DS;
+
+        try {
+            fs.unlinkSync(currentPath + TEMP_FILE);
+        } catch(e) {}
+
+        config.mode = flag || config.mode;
+
+        if(!fs.existsSync(currentPath))
+            fs.mkdirSync(currentPath);
+
+        if('dev' === config.mode) {
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'errorInit.js'));
+        } else //Code is put in a self invoking function in prod mode
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '(function() {');
+        recursiveReaddirSync(__core);
+
+        if(0 < Object.keys(config.modules).length) {
+            loopModules = true;
+            //First, we sort modules by their dependencies
+            for(i in config.modules) {
+                currentModule = i;
+                var modulePath = modulesPath + i + DS + 'buns' + DS, loadedModules = moduleOrder.map(function(val) {
+                    return val.name;
+                });
+
+                if(-1 === loadedModules.indexOf(i)) {
+                    try {
+                        getDependencies(modulesPath, i);
+                    } catch (e) {
+                        throw new Error('Error, module "' + i + '" is not installed.');
+                    }
+                }
+
+            }
+
+            //Then, we load them
+            for(i = 0; i < moduleOrder.length; ++i) {
+                currentModule = moduleOrder[i].name;
+                recursiveReaddirSync(moduleOrder[i].path + 'buns' + DS);
+                //Trying to add module bootstrap file (if it exists)
+                try {
+                    var currentModuleDir = moduleOrder[i].path.replace(modulesPath, ''),
+                     result = babel.transform(preprocess(moduleOrder[i].path + 'buns' + DS + BOOT_FILE, fs.readFileSync(moduleOrder[i].path + 'buns' + DS + BOOT_FILE,'utf-8')), {
+                        presets: [
+                            'es2015', 'stage-0'
+                        ]
+                    });
+
+                    requiredPaths.push(__tmpUri + (currentModuleDir + 'buns' + DS + BOOT_FILE).replace(modulesPath + 'buns', '').replace(/\\/g, '/'));
+                    fs.writeFileSync(__tmp + currentModuleDir + 'buns' + DS + BOOT_FILE, '(function() {' + result.code + '})();');
+                } catch (e) {}
+            }
+            loopModules = false;
+        }
+
+        try {
+            recursiveReaddirSync(config.source);
+        } catch (e) {
+            throw new Error('Source code directory is not defined or does not exist, check your buns.json file.');
+        }
+
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'var BUNS_IS_DEV = ' + ('dev' === config.mode ? 'true' : 'false') + ';');
+        if('dev' === config.mode) {
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json')),
+                infos = JSON.parse(exec('npm info buns --json').toString('utf8'));
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + `var BUNS_FILES = ["` + requiredPaths.join('","') + `"],`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_VERSION = "` + confBuns.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_LATEST_VERSION = "` + infos.version + `",`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + ` BUNS_DEPRECATED_VERSION = "` + infos.deprecatedVersion + `";`);
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + fs.readFileSync(__inc + 'devLaunch.js'));
+        }
+
+        if('dev' === config.mode) {
+            fs.writeFileSync(bunsBase, babel.transform(fs.readFileSync(currentPath + TEMP_FILE, 'utf-8'), {
+                presets: [
+                    'es2015', 'stage-0'
+                ]
+            }).code);
+        }
+
+        var code, sub, parsedData = {};
+        try {
+            fs.statSync(config.source + DS + BOOT_FILE);
+            code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8');
+        } catch(e) {
+            code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8');
+        }
+
+        var tempCode = code;
+
+        if('dev' === config.mode) {
+            walk(esprima.parse(code, {
+                range: true,//set to true to inject code at nth char
+                attachComment: true,//
+                loc: true//set to true to get file position of function calls
+            }), function(node) {
+                tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+            });
+        }
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {');
+        fs.appendFileSync(currentPath + TEMP_FILE, tempCode);
+        fs.appendFileSync(currentPath + TEMP_FILE, NL + '});');
+
+        if('prod' === config.mode)
+            fs.appendFileSync(currentPath + TEMP_FILE, NL + '})();');
+        executeBabel();
+    },
+    clear: function() {
+        var deleteFolderRecursive = function(path) {
+            if(fs.existsSync(path)) {
+                fs.readdirSync(path).forEach(function(file, index){
+                    var curPath = path + DS + file;
+                    if(fs.lstatSync(curPath).isDirectory()) {
+                        deleteFolderRecursive(curPath);
+                    } else {
+                        fs.unlinkSync(curPath);
+                    }
+                });
+                fs.rmdirSync(path);
+            }
+        };
+        deleteFolderRecursive(__tmp);
+    },
+    init: function(data) {
+        data = extend(config, data);
+        fs.writeFileSync(BUILD_CONF, JSON.stringify(data, null, 2));
+    },
+    install: function(requestedModule) {
+        var name = requestedModule;
+
+        function saveModule(module) {
+            if(module.buns || module.bunsDev) {
+                if(!localConfig.modules) {
+                    localConfig.modules = {};
+                }
+                localConfig.modules[module.name] = '^' + module.version;
+                fs.writeFileSync(BUILD_CONF, JSON.stringify(localConfig, null, 2));
+            } else {
+                throw new Error('This module is not made for Buns.');
+            }
+        }
+
+        // var command = 'npm i --prefix ' + __buns;
+        var command = 'npm i';
+        if(requestedModule) {
+            command += ' --save-dev ' + name;
+        } else {
+            command += ' --only=dev';
+            var confBuns = JSON.parse(fs.readFileSync(__buns + 'package.json'));
+            confBuns.devDependencies = localConfig.modules;
+            fs.writeFileSync(__buns + 'package.json', JSON.stringify(confBuns, null, 2));
+        }
+
+        exec(command);
+
+        if(requestedModule) {
+            var conf = JSON.parse(fs.readFileSync(modulesPath + name + DS + 'package.json'));
+            saveModule(conf);
+        }
+    },
+    generate: function(type, name) {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        //Generate a controller, a model or anything that can be generated
+    },
+    watch: function() {
+        if(!configExists) {
+            throw new Error('Error, buns.json does not exist. You can create it with "buns init" command.');
+        }
+        config.mode = 'dev';
+
+        this.build();
+
+        var bs = require('browser-sync').create(), callbacks = {};
+
+        //File change
+        callbacks.change = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/');
+                requiredPaths.push(__tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename);
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Recompiled : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File creation
+        callbacks.add = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Added : ' + __callerDir + file);
+                var result = babel.transform(preprocess(__callerDir + DS + file, fs.readFileSync(__callerDir + file, 'utf-8')), {
+                    presets: [
+                        'es2015', 'stage-0'
+                    ]
+                });
+
+                fs.writeFileSync(__tmp + file, result.code);
+                //console.log(fs.readFileSync(currentPath + outputName, 'utf-8').replace('var BUNS_FILES = \[(?:.*)\];', `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`))
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                );
+            } else {
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(config.source + DS + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        //File deletion
+        callbacks.unlink = function(file) {
+            if(-1 === requiredPaths.indexOf(__tmp + file)) {
+                if(-1 < file.indexOf(__dirname)) {//if we are browsing core dir
+                    var parentDirs = file.replace(__dirname, '');
+                } else {//if we are browsing source dir
+                    var parentDirs = file.replace(__callerDir + config.source, '');
+                }
+                e = parentDirs.split(DS);
+                var filename = e.pop();
+                parentDirs = e.join(DS);
+
+                var filePath = parentDirs.replace(/\\/g, '/'),
+                    newFile = __tmpUri + (0 === filePath.indexOf('/') ? filePath.substr(1) : filePath) + '/' + filename;
+                if(-1 === requiredPaths.indexOf(newFile)) {
+                    requiredPaths.push(newFile);
+                }
+
+            }
+
+            if(config.source + DS + BOOT_FILE !== file) {
+                console.log('Removed : ' + __callerDir + file);
+                var index = requiredPaths.indexOf(newFile);
+                if(-1 !== index) {
+                    requiredPaths.splice(index, 1);
+                    //fs.unlinkSync();
+                    fs.writeFileSync(
+                        currentPath + outputName,
+                        fs.readFileSync(currentPath + outputName, 'utf-8').replace(/var BUNS_FILES = \[(?:.*)\];/, `var BUNS_FILES = ["` + requiredPaths.join('","') + `"];`)
+                    );
+                }
+            } else {
+
+                //Will have to reload the whole buns output file
+                var code = fs.readFileSync(__inc + BOOT_FILE, 'utf-8'), tempCode = code;
+
+                if('dev' === config.mode) {
+                    walk(esprima.parse(code, {
+                        range: true,//set to true to inject code at nth char
+                        attachComment: true,//
+                        loc: true//set to true to get file position of function calls
+                    }), function(node) {
+                        tempCode = walkCallback(node, tempCode, code, '"' + BOOT_FILE + '"');
+                    });
+                }
+
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(__tmp + 'buns-base.js') +
+                    NL + 'document.addEventListener("DOMContentLoaded", function(BUNS_DOM_READY) {' +
+                    tempCode +
+                    NL + '});'
+                );
+            }
+            bs.sockets.emit('browser:reload', {file: file});
+        };
+
+        var bsConf = {
+            files: [
+                {
+                    match: [config.source + DS + '**' + DS + '*.js'],
+                    fn: function(event, file) {
+                        callbacks[event](file);
+                    }
+                }
+            ],
+            notify: false
+        };
+
+        if(config.bs) {
+            bsConf = extend(config.bs, bsConf);
+        }
+        if(!bsConf.proxy && !bsConf.server)
+            bsConf.server = __callerDir;
+
+        bs.init(bsConf);
+
+        //Files watching
+        //bs.watch(config.source + DS + '**/*.js').on('change', onUpdate);
+
+        //Custom watching
+        if(0 < config.watch.length) {
+            for(i = 0; i < config.watch.length; ++i) {
+                bs.watch(config.source + DS + config.watch.length[i]).on('change', function(file) {
+                    bs.sockets.emit('browser:reload', {file: file});
+                });
+            }
+        }
+
+        process.stdin.resume();
+        function onExit(options) {
+            //Setting watcher to false
+            try {
+                fs.writeFileSync(
+                    currentPath + outputName,
+                    fs.readFileSync(currentPath + outputName, 'utf-8').replace('BUNS_WATCH_ENABLED = true;', 'BUNS_WATCH_ENABLED = false;')
+                );
+            } catch (e) {}
+
+            process.exit();
+        };
+
+        process.on('uncaughtException', onExit);
+        process.on('SIGHUP', onExit);
+        process.on('SIGINT', onExit);
+        process.on('SIGTERM', onExit);
+        process.on('exit', onExit);
+        process.on('beforeExit', onExit);
+    }
+}
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/lib/index.js
+Line 668	        var command = 'npm i';
+$FilePath$/src/lib/index.js
+Line 670	            command += ' --save-dev ' + name;
+$FilePath$/src/lib/index.js
+Line 672	            command += ' --only=dev';
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 16	  sink_hqbpillvul_execSync(sink);
+

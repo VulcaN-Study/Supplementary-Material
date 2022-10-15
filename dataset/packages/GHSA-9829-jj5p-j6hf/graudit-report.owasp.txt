@@ -1,0 +1,68 @@
+/src/src/interpolation/index.js-8-    markupHandlers: {
+/src/src/interpolation/index.js:9:        'eval': function(context, source) {
+/src/src/interpolation/index.js-10-            with(context) {
+/src/src/interpolation/index.js:11:                return eval(source)
+/src/src/interpolation/index.js-12-            }
+##############################################
+/src/src/interpolation/Interpolator.js-53-        {
+/src/src/interpolation/Interpolator.js:54:            name: "eval shorthand",
+/src/src/interpolation/Interpolator.js-55-            match: function(value) { return value[0] == '#' },
+##############################################
+/src/src/interpolation/Interpolator.js-57-                with(context) {
+/src/src/interpolation/Interpolator.js:58:                    return eval(value.slice(1))
+/src/src/interpolation/Interpolator.js-59-                }
+##############################################
+/src/stress-test/stress-workflows/workflow1.js-6-            "name": "startTime",
+/src/stress-test/stress-workflows/workflow1.js:7:            "value": "[eval](new Date()).getTime()[/eval]"
+/src/stress-test/stress-workflows/workflow1.js-8-        },
+##############################################
+/src/stress-test/stress-workflows/workflow1.js-18-            "task": "while",
+/src/stress-test/stress-workflows/workflow1.js:19:            "test": "[eval]objectList.length > 0[/eval]",
+/src/stress-test/stress-workflows/workflow1.js-20-            "subflow": [
+##############################################
+/src/stress-test/stress-workflows/workflow1.js-40-            "name": "duration",
+/src/stress-test/stress-workflows/workflow1.js:41:            "value": "[eval](new Date()).getTime() - startTime[/eval]"
+/src/stress-test/stress-workflows/workflow1.js-42-        }
+##############################################
+/src/index.js-116-            with(context) {
+/src/index.js:117:                if (eval(workflowDefinition.condition)) {
+/src/index.js-118-                    return true;
+##############################################
+/src/test/interpolator.test.js-57-        assert.equal(interpolator.interpolate({a:1, b:2}, {
+/src/test/interpolator.test.js:58:                abc: "[eval]a[/eval]", 
+/src/test/interpolator.test.js:59:                def:{ghi: "[eval]b-1[/eval]"} }).abc,1)
+/src/test/interpolator.test.js-60-        assert.equal(interpolator.interpolate({a:1, b:2}, {
+/src/test/interpolator.test.js:61:                abc: "[eval]a[/eval]", 
+/src/test/interpolator.test.js:62:                def:{ghi: "[eval]b-1[/eval]"} }).def.ghi,1)
+/src/test/interpolator.test.js-63-    })
+##############################################
+/src/test/interpolator.test.js-70-    it("should support array type and markup", function() {
+/src/test/interpolator.test.js:71:        assert.deepEqual(interpolator.interpolate({a:1, b:2},{ abc: ["[eval]a[/eval]","[eval]b-1[/eval]"] }).abc,[1,1])
+/src/test/interpolator.test.js-72-    })
+##############################################
+/src/test/interpolator.test.js-91-})
+/src/test/interpolator.test.js:92:describe("interpolator # (eval shortcut)", function() {
+/src/test/interpolator.test.js-93-    it("should support constant values", function() {
+##############################################
+/src/test/interpolator.test.js-97-
+/src/test/interpolator.test.js:98:describe("interpolator [eval]", function() {
+/src/test/interpolator.test.js-99-    it("should support constant values", function() {
+/src/test/interpolator.test.js:100:        assert.equal(interpolator.interpolate({a:1},"[eval]42[/eval]"),42)
+/src/test/interpolator.test.js-101-    })
+/src/test/interpolator.test.js-102-    it("should support solo markup with type return value", function() {
+/src/test/interpolator.test.js:103:        assert.equal(interpolator.interpolate({a:1},"[eval]a[/eval]"),1)
+/src/test/interpolator.test.js-104-    })
+/src/test/interpolator.test.js-105-    it("should support multiple markup with string concat", function() {
+/src/test/interpolator.test.js:106:        assert.equal(interpolator.interpolate({a:1},"[eval]a[/eval][eval]a[/eval]"),"11")
+/src/test/interpolator.test.js-107-    })
+/src/test/interpolator.test.js-108-    it("should support complex expressions", function() {
+/src/test/interpolator.test.js:109:        var mark = "[eval]a[f][/eval]"
+/src/test/interpolator.test.js-110-        var parsed = interpolator.parse(mark) 
+##############################################
+/src/ReleaseNotes.md-9-        { task:"log" message:"@item" }, 
+/src/ReleaseNotes.md:10:        {task:"delay", duration:"[eval]item * 250[/eval]" }
+/src/ReleaseNotes.md-11-     ]}
+##############################################
+/src/ReleaseNotes.md-18-
+/src/ReleaseNotes.md:19:tag support to drive interpolation mode: {{hbs}} and {{eval}} are support out of the box
+/src/ReleaseNotes.md-20-

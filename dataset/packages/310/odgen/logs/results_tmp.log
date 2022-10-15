@@ -1,0 +1,441 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 15	  module.exports = function(cmd, max_wait, options) {
+    var dir, ref;
+    if (max_wait && typeof max_wait === 'object') {
+      ref = [max_wait, null], options = ref[0], max_wait = ref[1];
+    }
+    if (options == null) {
+      options = {};
+    }
+    if (!options.hasOwnProperty('encoding')) {
+      options.encoding = 'utf8';
+    }
+    if (!(typeof options === 'object' && options)) {
+      throw new Error('options must be an object');
+    }
+    if (max_wait == null) {
+      max_wait = options.timeout || options.max_wait || 3600000;
+    }
+    if (!((max_wait == null) || max_wait >= 1)) {
+      throw new Error('`options.timeout` must be >=1 millisecond');
+    }
+    delete options.max_wait;
+    if (options.forceEmulation) {
+      delete options.forceEmulation;
+    } else if (child_process.execSync) {
+      return proxy(cmd, max_wait, options);
+    }
+    delete options.timeout;
+    dir = create_pipes();
+    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+    child_process.exec(cmd, options, function() {});
+    return read_pipes(dir, max_wait);
+  };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 42	    dir = create_pipes();
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-377/310/package/js/sync-exec.js
+Line 43	    cmd = '((((' + cmd + ' > ' + dir + '/stdout 2> ' + dir + '/stderr ) ' + '&& echo $? > ' + dir + '/status) || echo $? > ' + dir + '/status) &&' + ' echo 1 > ' + dir + '/done) || echo 1 > ' + dir + '/done';
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+

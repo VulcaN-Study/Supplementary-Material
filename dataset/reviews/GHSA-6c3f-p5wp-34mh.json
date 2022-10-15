@@ -1,0 +1,76 @@
+{
+    "advisory": {
+        "id": "GHSA-6c3f-p5wp-34mh",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/async-git/-/async-git-1.13.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/reset/index.js",
+                    "lineno": 9,
+                    "code": "module.exports = async function(destination, {hard = true} = {}) {"
+                },
+                "sink": {
+                    "file": "lib/reset/index.js",
+                    "lineno": 11,
+                    "code": "return await exec(`git reset ${destination} ${hard ? '--hard' : ''}`);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/reset/index.js",
+                    "lineno": 9,
+                    "code": "module.exports = async function(destination, {hard = true} = {}) {"
+                },
+                "sink": {
+                    "file": "lib/reset/index.js",
+                    "lineno": 15,
+                    "code": "return await exec(`git reset HEAD~${Math.abs(destination)} ${hard ? '--hard' : ''}`);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": ["https://github.com/omrilotan/async-git/commit/a5f45f58941006c4cc1699609383b533d9b92c6a",
+                    "https://github.com/omrilotan/async-git/pull/14/files"]
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-5q6m-3h65-w53x",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-11.0.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "getProcessForPort.js",
+                    "lineno": 68,
+                    "code": "function getProcessForPort(port) {"
+                },
+                "sink": {
+                    "file": "getProcessForPort.js",
+                    "lineno": 28,
+                    "code": "return execSync('lsof -i:' + port + ' -P -t -sTCP:LISTEN', execOptions)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/facebook/create-react-app/pull/10644"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/facebook/create-react-app/commit/f5e415f3a5b66f07dcc60aba1b445fa7cda97268"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-6m8p-4fxj-pgc2",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/mversion/-/mversion-2.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 67,
+                    "code": "exports.update = function(options, callback) {"
+                },
+                "sink": {
+                    "file": "lib/git.js",
+                    "lineno": 53,
+                    "code": "cp.exec( [gitApp, \"tag\", \"-a\", tagName, \"-m\", message].join(\" \"), gitExtra, done);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://security.snyk.io/vuln/SNYK-JS-MVERSION-573174"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/mikaelbr/mversion/commit/b7a8b32600e60759a7ad3921ec4a2750bf173482"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

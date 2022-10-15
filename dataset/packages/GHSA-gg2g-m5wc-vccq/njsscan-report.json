@@ -1,0 +1,112 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 11145,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "8443d2636940ae65e69fc399d843580c98c1f186adc56d37ec33df302c40e86b",
+          "start": {
+            "col": 34,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 82,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "8443d2636940ae65e69fc399d843580c98c1f186adc56d37ec33df302c40e86b",
+          "start": {
+            "col": 34,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "join_resolve_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/lib/typescript.js",
+          "match_lines": [
+            140,
+            141
+          ],
+          "match_position": [
+            17,
+            121
+          ],
+          "match_string": "                const fullpath = test.replace(libtest, srctest);\n                return path.join(path.dirname(fullpath), '__snapshots__', path.basename(fullpath, '.js') + '.ts' + ext);"
+        },
+        {
+          "file_path": "/src/lib/file.js",
+          "match_lines": [
+            24,
+            24
+          ],
+          "match_position": [
+            29,
+            67
+          ],
+          "match_string": "        this.absolutePath = path.resolve(project.outdir, filePath);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory (Path Traversal)",
+        "description": "Path constructed with user input can result in Path Traversal. Ensure that user input does not reach `join()` or `resolve()`. ",
+        "owasp": "A5: Broken Access Control",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/lib/__tests__/util.test.js",
+          "match_lines": [
+            58,
+            58
+          ],
+          "match_position": [
+            25,
+            62
+          ],
+          "match_string": "                return !/^environment\\./.test(path.join('.'));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

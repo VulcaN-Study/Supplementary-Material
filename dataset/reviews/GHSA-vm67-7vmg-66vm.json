@@ -1,0 +1,81 @@
+{
+    "advisory": {
+        "id": "GHSA-vm67-7vmg-66vm",
+        "cwe": [
+            "CWE-77",
+            "CWE-78"
+        ]
+    },
+    "correct_cwe": [
+        "CWE-77",
+        "CWE-78"
+    ],
+    "correct_package_link": "https://registry.npmjs.org/portprocesses/-/portprocesses-1.0.4.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 2,
+                    "code": "const listProcessesOnPort = module.exports.listProcessesOnPort = async port => {"
+                },
+                "sink": {
+                    "file": "exec.js",
+                    "lineno": 5,
+                    "code": "exec(cmd, (err, stdout, stderr) => {"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 21,
+                    "code": "const killProcess = module.exports.killProcess = async pid => {"
+                },
+                "sink": {
+                    "file": "exec.js",
+                    "lineno": 5,
+                    "code": "exec(cmd, (err, stdout, stderr) => {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://security.snyk.io/vuln/SNYK-JS-PORTPROCESSES-1078536"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/rrainn/PortProcesses/commit/86811216c9b97b01b5722f879f8c88a7aa4214e1"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,29 @@
+/src/lib/config/templates/magentorc.template:1:alias php="$HOME/.phpbrew/php/php-<%= it.php.version %>/bin/php -c $PWD/node_modules/.create-magento-app-cache/php.ini"
+/src/lib/config/templates/magentorc.template-2-alias magento="php $PWD/bin/magento"
+##############################################
+/src/lib/config/templates/cma-config.template.js-4-<% Object.entries(it.magentoConfiguration).forEach(([name, value]) => { %>
+/src/lib/config/templates/cma-config.template.js:5:        <%= name %>: '<%= value%>',
+/src/lib/config/templates/cma-config.template.js-6-<% }) %>
+##############################################
+/src/lib/config/templates/php-fpm.template.conf-18-pm.status_path = /fpmstatus
+/src/lib/config/templates/php-fpm.template.conf:19:listen = 127.0.0.1:<%= it.ports.fpm %>
+/src/lib/config/templates/php-fpm.template.conf-20-
+##############################################
+/src/lib/config/templates/nginx.template.conf-7-    # use tcp connection
+/src/lib/config/templates/nginx.template.conf:8:    server <%= it.hostMachine %>:<%= it.ports.fpm %>;
+/src/lib/config/templates/nginx.template.conf-9-}
+##############################################
+/src/lib/config/templates/nginx.template.conf-11-server {
+/src/lib/config/templates/nginx.template.conf:12:    listen <%= it.hostPort %>;
+/src/lib/config/templates/nginx.template.conf-13-    <% if (it.config.ssl.enabled) { %>listen 443 ssl;<% } %>
+/src/lib/config/templates/nginx.template.conf-14-
+/src/lib/config/templates/nginx.template.conf:15:    <% if (it.config.ssl.enabled) { %>server_name <%= it.networkToBindTo %>;
+/src/lib/config/templates/nginx.template.conf-16-
+##############################################
+/src/lib/config/templates/nginx.template.conf-18-    ssl_certificate_key /etc/nginx/conf.d/ssl_certificate-key.pem;
+/src/lib/config/templates/nginx.template.conf:19:    ssl_protocols TLSv1.2;<% } else if (it.config.host) { %>server_name <%= it.config.host %>;
+/src/lib/config/templates/nginx.template.conf-20-    <% } else { %>
+##############################################
+/src/lib/config/templates/nginx.template.conf-23-
+/src/lib/config/templates/nginx.template.conf:24:    set $MAGE_ROOT <%= it.mageRoot %>;
+/src/lib/config/templates/nginx.template.conf-25-    resolver 127.0.0.11;

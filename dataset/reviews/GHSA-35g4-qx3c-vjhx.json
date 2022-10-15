@@ -1,0 +1,59 @@
+{
+    "advisory": {
+        "id": "GHSA-35g4-qx3c-vjhx",
+        "cwe": "CWE-306"
+    },
+    "correct_cwe": "CWE-306",
+    "correct_package_link": "https://registry.npmjs.org/matrix-appservice-bridge/-/matrix-appservice-bridge-2.6.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/components/room-upgrade-handler.js",
+                    "start_lineno": 106,
+                    "end_lineno": 141,
+                    "code": "async onJoinedNewRoom(oldRoomId, newRoomId) { log.debug(`Joined ${newRoomId}`); const intent = this.bridge.getIntent(); const asBot = this.bridge.getBot(); if (this.opts.migrateStoreEntries) { const success = await this.migrateStoreEntries(oldRoomId, newRoomId); if (!success) { log.error(\"Failed to migrate room entries. Not continuing with migration.\"); return false; } } log.debug(`Migrated entries from ${oldRoomId} to ${newRoomId} successfully.`); if (this.opts.onRoomMigrated) { // This may or may not be a promise, so await it.  await this.opts.onRoomMigrated(oldRoomId, newRoomId); } if (!this.opts.migrateGhosts) { return false; } try { const members = await asBot.getJoinedMembers(oldRoomId); const userIds = Object.keys(members).filter((u) => asBot.isRemoteUser(u)); log.debug(`Migrating ${userIds.length} ghosts`); for (const userId of userIds) { const i = this.bridge.getIntent(userId); await i.leave(oldRoomId); await i.join(newRoomId); } intent.leave(oldRoomId); } catch (ex) { log.warn(\"Failed to migrate ghosts\", ex); return false; } return true; }"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/matrix-org/matrix-appservice-bridge/pull/330/files"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,67 @@
+{
+    "advisory": {
+        "id": "GHSA-pg53-56cg-4m8q",
+        "cwe": "CWE-290"
+    },
+    "correct_cwe": "CWE-290",
+    "correct_package_link": "https://registry.npmjs.org/next-auth/-/next-auth-3.2.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "dist/adapters/prisma/index.js",
+                    "start_lineno": 489,
+                    "end_lineno": 493,
+                    "code": "yield prisma[VerificationRequest].delete({ where: { token: hashedToken } });"
+                }
+            },
+            {
+                "block": {
+                    "file": "dist/adapters/prisma/index.js",
+                    "start_lineno": 517,
+                    "end_lineno": 521,
+                    "code": "yield prisma[VerificationRequest].delete({ where: { token: hashedToken } });"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/nextauthjs/next-auth/commit/c5bb0ac3646b672047e51a42ebe281d7e7727f02"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

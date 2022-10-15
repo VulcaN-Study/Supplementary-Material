@@ -1,0 +1,430 @@
+<report_mosca>
+ <Path>/src/backbone.queryparams.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 15 -  var queryStringParam = /^\?(.*)/,
+
+ Line: 47 -    // this will not perform custom query param serialization specific to the router
+
+ Line: 51 -      // if no query string exists, this will still be the original fragment
+
+ Line: 52 -      var queryString = fragment.replace(fragmentStrip, '');
+
+ Line: 53 -      var match = queryString.match(queryStringParam);
+
+ Line: 55 -        queryString = match[1];
+
+ Line: 123 -        // remove potential invalid data from query params match
+
+ Line: 127 -      // do we have an additional query string?
+
+ Line: 130 -        var queryString = match[1];
+
+ Line: 218 -     * Return the route fragment with queryParameters serialized to query parameter string
+
+ Line: 220 -    toFragment: function(route, queryParameters) {
+
+ Line: 223 -          queryParameters = toQueryString(queryParameters);
+
+ Line: 226 -          route += '?' + queryParameters;
+
+ Line: 235 -   * Serialize the val hash to query parameters and return it.  Use the namePrefix to prefix all param names (for recursion)
+
+ Line: 291 -    var keyValues = queryString.split('&');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1119 -    // * Use `setTimeout` to batch rapid-fire updates into a single request.
+
+ Line: 1393 -          this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 55 -    // will fake `"PUT"` and `"DELETE"` requests via the `_method` parameter and
+
+ Line: 1123 -    // Turn on `Backbone.emulateHTTP` in order to send `PUT` and `DELETE` requests
+
+ Line: 1160 -      if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
+
+ Line: 1196 -      'delete': 'DELETE',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 111 -        this.query = query;
+
+ Line: 147 -      query: function(entity, args) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/sync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 118 -      equal(this.ajaxSettings.type, 'DELETE');
+
+ Line: 130 -      equal(JSON.stringify(this.ajaxSettings.data), '{"_method":"DELETE"}');
+
+ Line: 199 -          strictEqual(value, 'DELETE');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/qunit.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 23 -  		setTimeout: typeof window.setTimeout !== "undefined",
+
+ Line: 436 -  				setTimeout(function() {
+
+ Line: 455 -  		if ( defined.setTimeout ) {
+
+ Line: 456 -  			window.setTimeout(function() {
+
+ Line: 477 -  		if ( config.testTimeout && defined.setTimeout ) {
+
+ Line: 479 -  			config.timeout = window.setTimeout(function() {
+
+ Line: 1418 -  		if ( !defined.setTimeout || config.updateRate <= 0 || ( ( new Date().getTime() - start ) < config.updateRate ) ) {
+
+ Line: 1421 -  			window.setTimeout( next, 13 );
+
+ Line: 1824 -  				} else if ( typeof obj.setInterval !== undefined && typeof obj.document !== "undefined" && typeof obj.nodeType === "undefined" ) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/qunit.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 708 -  	// add checkboxes that are persisted in the query-string
+
+ Line: 714 -  			tooltip: "Enabling this will test if any test introduces new properties on the `window` object. Stored as query-strings."
+
+ Line: 719 -  			tooltip: "Enabling this will run tests outside of a try-catch block. Makes debugging exceptions in IE reasonable. Stored as query-strings."
+
+ Line: 994 -  			window.location.pathname + querystring.slice( 0, -1 );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 393 -  			return setTimeout( jQuery.ready, 1 );
+
+ Line: 851 -  			setTimeout( jQuery.ready, 1 );
+
+ Line: 886 -  							return setTimeout( doScrollCheck, 50 );
+
+ Line: 1953 -  			var timeout = setTimeout( next, time );
+
+ Line: 7978 -  				timeoutTimer = setTimeout( function(){
+
+ Line: 8527 -  						setTimeout( callback, 0 );
+
+ Line: 8604 -  	setTimeout(function() {
+
+ Line: 9198 -  		timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/jquery.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 5241 -  			// Only use querySelectorAll when not filtering,
+
+ Line: 7211 -  //key/values into a query string
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/json2.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 466 -                  j = eval('(' + text + ')');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/json2.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 14 -      USE YOUR OWN COPY. IT IS EXTREMELY UNWISE TO LOAD CODE FROM SERVERS YOU DO
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/underscore.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 615 -      return setTimeout(function(){ return func.apply(null, args); }, wait);
+
+ Line: 645 -          timeout = setTimeout(later, remaining);
+
+ Line: 665 -        timeout = setTimeout(later, wait);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/zepto-0.6.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 679 -          touchTimeout = setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/vendor/zepto-0.6.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 558 -        var queryString = settings.data;
+
+ Line: 560 -          queryString = '&' + queryString;
+
+ Line: 562 -          queryString = '?' + queryString;
+
+ Line: 564 -        settings.url += queryString;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone/test/model.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 989 -          setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone-1.1/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1111 -    // * Use `setTimeout` to batch rapid-fire updates into a single request.
+
+ Line: 1389 -          this._checkUrlInterval = setInterval(this.checkUrl, this.interval);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone-1.1/backbone.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 55 -    // will fake `"PATCH"`, `"PUT"` and `"DELETE"` requests via the `_method` parameter and
+
+ Line: 1115 -    // Turn on `Backbone.emulateHTTP` in order to send `PUT` and `DELETE` requests
+
+ Line: 1152 -      if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
+
+ Line: 1189 -      'delete': 'DELETE',
+
+ Line: 1322 -    // Cached regex for stripping urls of hash and query.
+
+ Line: 1474 -        // Strip the fragment of the query and hash for matching.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone-1.1/test/router.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 108 -        this.query = query;
+
+ Line: 152 -      query: function(entity, args) {
+
+ Line: 705 -    test('#2765 - Fragment matching sans query/hash.', 2, function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone-1.1/test/sync.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 116 -      equal(this.ajaxSettings.type, 'DELETE');
+
+ Line: 128 -      equal(JSON.stringify(this.ajaxSettings.data), '{"_method":"DELETE"}');
+
+ Line: 197 -          strictEqual(value, 'DELETE');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone-1.1/test/model.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 988 -          setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/backbone.query.params-test.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 85 -      search : function(query, page, queryParams) {
+
+ Line: 86 -        this.query = query;
+
+ Line: 88 -        this.queryParams = queryParams;
+
+ Line: 117 -      query: function(entity, args) {
+
+ Line: 133 -    function queryParams(wantPushState, hasPushState) {
+
+ Line: 170 -      test("routes (two part - query params)", 3, function() {
+
+ Line: 179 -      test("routes (two part - query params - hash and list - location)", 24, function() {
+
+ Line: 209 -      test("routes (two part - query params)", 3, function() {
+
+ Line: 218 -      test("routes (two part - query params - hash and list - navigate)", 21, function() {
+
+ Line: 310 -        // only 1 param in this case populated with query parameters and route vars keyd with their associated name
+
+ Line: 324 -          search : function(query, page, queryParams) {
+
+ Line: 325 -            this.query = query;
+
+ Line: 327 -            this.queryParams = queryParams;
+
+ Line: 334 -        // only 1 param in this case populated with query parameters and route vars keyd with their associated name
+
+ Line: 366 -            this.queryParams = queryParams;
+
+ Line: 414 -    queryParams(true, true);
+
+ Line: 415 -    queryParams(true, false);
+
+ Line: 416 -    queryParams(false);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/backbone.queryparams-1.1-shim.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 30 -  		// Strip the fragment of the query and hash for matching.
+
+</Result>
+</report_mosca>
+

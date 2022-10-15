@@ -1,0 +1,1209 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 127	macfromip.getMac = function(ipAddress, callback) {
+
+  if(!macfromip.isIpAddress(ipAddress)) {
+    throw new Error("The value you entered is not a valid IP address");
+  }
+
+  if(macfromip.ipIsSelf(ipAddress)){
+      throw new Error("The IP address cannot be self");
+  }
+
+  switch(os.platform()){
+      case 'linux':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+
+      case 'win32':
+          macfromip.getMacInWin32(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+      // OSX
+      case 'darwin':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+          break;
+
+      default:
+          callback('Unsupported platform: ' + os.platform(), null);
+      break;
+  }
+};
+$FilePath$/src/macfromip.js
+Line 66	  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 64	macfromip.getMacInLinux = function(ipAddress, callback){
+  // OSX requires -c switch first
+  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+};
+$FilePath$/src/macfromip.js
+Line 66	  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 127	macfromip.getMac = function(ipAddress, callback) {
+
+  if(!macfromip.isIpAddress(ipAddress)) {
+    throw new Error("The value you entered is not a valid IP address");
+  }
+
+  if(macfromip.ipIsSelf(ipAddress)){
+      throw new Error("The IP address cannot be self");
+  }
+
+  switch(os.platform()){
+      case 'linux':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+
+      case 'win32':
+          macfromip.getMacInWin32(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+      // OSX
+      case 'darwin':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+          break;
+
+      default:
+          callback('Unsupported platform: ' + os.platform(), null);
+      break;
+  }
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 127	macfromip.getMac = function(ipAddress, callback) {
+
+  if(!macfromip.isIpAddress(ipAddress)) {
+    throw new Error("The value you entered is not a valid IP address");
+  }
+
+  if(macfromip.ipIsSelf(ipAddress)){
+      throw new Error("The IP address cannot be self");
+  }
+
+  switch(os.platform()){
+      case 'linux':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+
+      case 'win32':
+          macfromip.getMacInWin32(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+      // OSX
+      case 'darwin':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+          break;
+
+      default:
+          callback('Unsupported platform: ' + os.platform(), null);
+      break;
+  }
+};
+$FilePath$/src/macfromip.js
+Line 66	  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 64	macfromip.getMacInLinux = function(ipAddress, callback){
+  // OSX requires -c switch first
+  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+};
+$FilePath$/src/macfromip.js
+Line 66	  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 127	macfromip.getMac = function(ipAddress, callback) {
+
+  if(!macfromip.isIpAddress(ipAddress)) {
+    throw new Error("The value you entered is not a valid IP address");
+  }
+
+  if(macfromip.ipIsSelf(ipAddress)){
+      throw new Error("The IP address cannot be self");
+  }
+
+  switch(os.platform()){
+      case 'linux':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+
+      case 'win32':
+          macfromip.getMacInWin32(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+      // OSX
+      case 'darwin':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+          break;
+
+      default:
+          callback('Unsupported platform: ' + os.platform(), null);
+      break;
+  }
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 127	macfromip.getMac = function(ipAddress, callback) {
+
+  if(!macfromip.isIpAddress(ipAddress)) {
+    throw new Error("The value you entered is not a valid IP address");
+  }
+
+  if(macfromip.ipIsSelf(ipAddress)){
+      throw new Error("The IP address cannot be self");
+  }
+
+  switch(os.platform()){
+      case 'linux':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+
+      case 'win32':
+          macfromip.getMacInWin32(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+      // OSX
+      case 'darwin':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+          break;
+
+      default:
+          callback('Unsupported platform: ' + os.platform(), null);
+      break;
+  }
+};
+$FilePath$/src/macfromip.js
+Line 66	  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 64	macfromip.getMacInLinux = function(ipAddress, callback){
+  // OSX requires -c switch first
+  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+};
+$FilePath$/src/macfromip.js
+Line 66	  var ls = cp.exec('ping  -c 1 ' + ipAddress,
+    function(error, stdout, stderr) {
+      if (error !== null) {
+        callback('IP address unreachable', 'exec error: ' + error);
+        return;
+      }
+      if (stderr !== null && stderr !== '') {
+        callback('IP address unreachable', 'stderr: ' + stderr);
+        return;
+      }
+
+      var ls2 = cp.exec('arp -a',
+        function(error2, stdout2, stderr2) {
+          if (error2 !== null) {
+            callback('IP address unreachable', 'exec error: ' + error2);
+            return;
+          }
+          if (stderr2 !== null && stderr2 !== '') {
+            callback('IP address unreachable', 'stderr: ' + stderr2);
+            return;
+          }
+
+          stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + 5))).substring(MACADDRESS_LENGTH, 0);
+          callback(false, stdout2);
+          return;
+        });
+    });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 127	macfromip.getMac = function(ipAddress, callback) {
+
+  if(!macfromip.isIpAddress(ipAddress)) {
+    throw new Error("The value you entered is not a valid IP address");
+  }
+
+  if(macfromip.ipIsSelf(ipAddress)){
+      throw new Error("The IP address cannot be self");
+  }
+
+  switch(os.platform()){
+      case 'linux':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+
+      case 'win32':
+          macfromip.getMacInWin32(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+      break;
+      // OSX
+      case 'darwin':
+          macfromip.getMacInLinux(ipAddress, function(err, mac){
+              callback(err, mac);
+          });
+          break;
+
+      default:
+          callback('Unsupported platform: ' + os.platform(), null);
+      break;
+  }
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/src/macfromip.js
+Line 95	macfromip.getMacInWin32 = function(ipAddress, callback){
+    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+};
+$FilePath$/src/macfromip.js
+Line 96	    var ls = cp.exec('ping  ' + ipAddress + ' -n 1',
+      function(error, stdout, stderr) {
+        if (error !== null) {
+          callback('IP address unreachable', 'exec error: ' + error);
+          return;
+        }
+        if (stderr !== null && stderr !== '') {
+          callback('IP address unreachable', 'stderr: ' + stderr);
+          return;
+        }
+
+        var ls2 = cp.exec('arp -a',
+          function(error2, stdout2, stderr2) {
+            if (error2 !== null) {
+              callback('IP address unreachable', 'exec error: ' + error2);
+              return;
+            }
+            if (stderr2 !== null && stderr2 !== '') {
+              callback('IP address unreachable', 'stderr: ' + stderr2);
+              return;
+            }
+
+            var offset = 22 - ipAddress.length;
+
+            stdout2 = (stdout2.substring(stdout2.indexOf(ipAddress) + (ipAddress.length + offset))).substring(MACADDRESS_LENGTH, 0);
+            callback(false, stdout2);
+            return;
+          });
+      });
+$FilePath$/app/ODGen/builtin_packages/child_process.js
+Line 6	  sink_hqbpillvul_exec(sink);
+

@@ -1,0 +1,83 @@
+{
+    "advisory": {
+        "id": "GHSA-rc4q-9m69-gqp8",
+        "cwe": [
+            "CWE-352",
+            "CWE-565"
+        ]
+    },
+    "correct_cwe": [
+        "CWE-352",
+        "CWE-565"
+    ],
+    "correct_package_link": "https://registry.npmjs.org/fastify-csrf/-/fastify-csrf-3.0.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "index.js",
+                    "start_lineno": 49,
+                    "end_lineno": 58,
+                    "code": "async function generateCsrfCookie (opts) { let secret = isCookieSigned ? this.unsignCookie(this.request.cookies[cookieKey] || '').value : this.request.cookies[cookieKey] if (!secret) { secret = await tokens.secret() this.setCookie(cookieKey, secret, Object.assign({}, cookieOpts, opts)) } return tokens.create(secret)"
+                }
+            },
+            {
+                "block": {
+                    "file": "index.js",
+                    "start_lineno": 60,
+                    "end_lineno": 70,
+                    "code": "async function generateCsrfSecureSession (opts) { let secret = this.request.session.get(sessionKey) if (!secret) { secret = await tokens.secret() this.request.session.set(sessionKey, secret) } if (opts) { this.request.session.options(opts) } return tokens.create(secret) }"
+  
+                }
+            },
+            {
+                "block": {
+                    "file": "index.js",
+                    "start_lineno": 72,
+                    "end_lineno": 79,
+                    "code": "async function generateCsrfSession () { let secret = this.request.session[sessionKey] if (!secret) { secret = await tokens.secret() this.request.session[sessionKey] = secret } return tokens.create(secret) }"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": ["https://github.com/fastify/csrf/pull/2",
+                    "https://github.com/fastify/csrf-protection/pull/51"]
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

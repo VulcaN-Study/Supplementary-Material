@@ -6,3 +6,5 @@ In this repository you will find:
 
 * The curated dataset in **dataset/**;
 * The VulcaN framework and tool docker files in **vulcan/**.
+
+In the dataset directory you will find documentation regarding the structure of the review file and how to interpret it.

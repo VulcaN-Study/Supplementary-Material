@@ -1,0 +1,382 @@
+<report_mosca>
+ <Path>/src/dist/polyfills.umd.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 78 -  )),$e=R("iterator"),tr=!1;try{var er=0,rr={next:function(){return{done:!!er++}},return:function(){tr=!0}};rr[$e]=function(){return this},Array.from(rr,(function(){throw 2}))}catch(t){}var nr,or,ir,ar=function(t,e){if(!e&&!tr)return!1;var r=!1;try{var n={};n[$e]=function(){return{next:function(){return{done:r=!0}}}},t(n)}catch(t){}return r},ur=R("species"),cr=function(t,e){var r,n=l(t).constructor;return void 0===n||null==(r=l(n)[ur])?e:Ye(r)},fr=Tt("navigator","userAgent")||"",sr=/(iphone|ipod|ipad).*applewebkit/i.test(fr),lr=n.location,pr=n.setImmediate,yr=n.clearImmediate,hr=n.process,dr=n.MessageChannel,vr=n.Dispatch,gr=0,br={},Ar=function(t){if(br.hasOwnProperty(t)){var e=br[t];delete br[t],e()}},mr=function(t){return function(){Ar(t)}},wr=function(t){Ar(t.data)},Tr=function(t){n.postMessage(t+"",lr.protocol+"//"+lr.host)};pr&&yr||(pr=function(t){for(var e=[],r=1;arguments.length>r;)e.push(arguments[r++]);return br[++gr]=function(){("function"==typeof t?t:Function(t)).apply(void 0,e)},nr(gr),gr},yr=function(t){delete br[t]},"process"==Z(hr)?nr=function(t){hr.nextTick(mr(t))}:vr&&vr.now?nr=function(t){vr.now(mr(t))}:dr&&!sr?(ir=(or=new dr).port2,or.port1.onmessage=wr,nr=Xe(ir.postMessage,ir,1)):!n.addEventListener||"function"!=typeof postMessage||n.importScripts||o(Tr)||"file:"===lr.protocol?nr="onreadystatechange"in f("script")?function(t){oe.appendChild(f("script")).onreadystatechange=function(){oe.removeChild(this),Ar(t)}}:function(t){setTimeout(mr(t),0)}:(nr=Tr,n.addEventListener("message",wr,!1)));var Sr,Or,Er,jr,Mr,Lr,xr,Rr,Ir={set:pr,clear:yr},_r=At.f,Pr=Ir.set,Br=n.MutationObserver||n.WebKitMutationObserver,Cr=n.process,Fr=n.Promise,Ur="process"==Z(Cr),Dr=_r(n,"queueMicrotask"),kr=Dr&&Dr.value;kr||(Sr=function(){var t,e;for(Ur&&(t=Cr.domain)&&t.exit();Or;){e=Or.fn,Or=Or.next;try{e()}catch(t){throw Or?jr():Er=void 0,t}}Er=void 0,t&&t.enter()},Ur?jr=function(){Cr.nextTick(Sr)}:Br&&!sr?(Mr=!0,Lr=document.createTextNode(""),new Br(Sr).observe(Lr,{characterData:!0}),jr=function(){Lr.data=Mr=!Mr}):Fr&&Fr.resolve?(xr=Fr.resolve(void 0),Rr=xr.then,jr=function(){Rr.call(xr,S Line: 93 -  t of type 'Blob'.");t.result="",setTimeout((function(){this.readyState=f.LOADING,t.dispatchEvent(new Event("load")),t.dispatchEvent(new Event("loadend"))}))}c.prototype.toString=function(){return"[object File]"},f.EMPTY=0,f.LOADING=1,f.DONE=2,f.prototype.error=null,f.prototype.onabort=null,f.prototype.onerror=null,f.prototype.onload=null,f.prototype.onloadend=null,f.prototype.onloadstart=null,f.prototype.onprogress=null,f.prototype.readAsDataURL=function(t){s(this,t,"readAsDataURL"),this.result="data:"+t.type+";base64,"+n(t._buffer)},f.prototype.readAsText=function(t){s(this,t,"readAsText"),this.result=e(t._buffer)},f.prototype.readAsArrayBuffer=function(t){s(this,t,"readAsText"),this.result=t._buffer.slice()},f.prototype.abort=function(){},URL.createObjectURL=function(t){return t instanceof u?"data:"+t.type+";base64,"+n(t._buffer):tu.call(URL,t)},URL.revokeObjectURL=function(t){eu&&eu.call(URL,t)};var l=Qa.XMLHttpRequest&&Qa.XMLHttpRequest.prototype.send;l&&(XMLHttpRequest.prototype.send=function(t){t instanceof u?(this.setRequestHeader("Content-Type",t.type),l.call(this,e(t._buffer))):l.call(this,t)}),Qa.FileReader=f,Qa.File=c,Qa.Blob=u}();var lu="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";void 0===Qa.btoa&&(Qa.btoa=function(t){var e,r,n,o,i,a=0,u=0,c="",f=[];if(!t)return t;do{e=(i=t.charCodeAt(a++)<<16|t.charCodeAt(a++)<<8|t.charCodeAt(a++))>>18&63,r=i>>12&63,n=i>>6&63,o=63&i,f[u++]=lu.charAt(e)+lu.charAt(r)+lu.charAt(n)+lu.charAt(o)}while(a<t.length);c=f.join("");var s=t.length%3;return(s?c.slice(0,s-3):c)+"===".slice(s||3)}),void 0===Qa.atob&&(Qa.atob=function(t){var e,r,n,o,i,a,u=0,c=0,f=[];if(!t)return t;t+="";do{e=(a=lu.indexOf(t.charAt(u++))<<18|lu.indexOf(t.charAt(u++))<<12|(o=lu.indexOf(t.charAt(u++)))<<6|(i=lu.indexOf(t.charAt(u++))))>>16&255,r=a>>8&255,n=255&a,f[c++]=64==o?String.fromCharCode(e):64==i?String.fromCharCode(e,r):String.fromCharCode(e,r,n)}while(u<t.length);return f.join("")})}));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/polyfills.umd.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 67 -   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/polyfills.es.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 63 -  operator, this DOM object constructor cannot be called as a function.");var e=document.createDocumentFragment();this.addEventListener=e.addEventListener,this.dispatchEvent=function(t){var r=this["on"+t.type];"function"==typeof r&&r(t),e.dispatchEvent(t)},this.removeEventListener=e.removeEventListener}function y(e,t,r){if(!(t instanceof f))throw new TypeError("Failed to execute '"+r+"' on 'FileReader': parameter 1 is not of type 'Blob'.");e.result="",setTimeout((function(){this.readyState=d.LOADING,e.dispatchEvent(new Event("load")),e.dispatchEvent(new Event("loadend"))}))}u.prototype.toString=function(){return"[object File]"},d.EMPTY=0,d.LOADING=1,d.DONE=2,d.prototype.error=null,d.prototype.onabort=null,d.prototype.onerror=null,d.prototype.onload=null,d.prototype.onloadend=null,d.prototype.onloadstart=null,d.prototype.onprogress=null,d.prototype.readAsDataURL=function(e){y(this,e,"readAsDataURL"),this.result="data:"+e.type+";base64,"+a(e._buffer)},d.prototype.readAsText=function(e){y(this,e,"readAsText"),this.result=r(e._buffer)},d.prototype.readAsArrayBuffer=function(e){y(this,e,"readAsText"),this.result=e._buffer.slice()},d.prototype.abort=function(){},URL.createObjectURL=function(e){return e instanceof f?"data:"+e.type+";base64,"+a(e._buffer):o.call(URL,e)},URL.revokeObjectURL=function(e){n&&n.call(URL,e)};var h=e.XMLHttpRequest&&e.XMLHttpRequest.prototype.send;h&&(XMLHttpRequest.prototype.send=function(e){e instanceof f?(this.setRequestHeader("Content-Type",e.type),h.call(this,r(e._buffer))):h.call(this,e)}),e.FileReader=d,e.File=u,e.Blob=f}();var y="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";void 0===e.btoa&&(e.btoa=function(e){var t,r,o,n,i,a=0,s=0,c="",l=[];if(!e)return e;do{t=(i=e.charCodeAt(a++)<<16|e.charCodeAt(a++)<<8|e.charCodeAt(a++))>>18&63,r=i>>12&63,o=i>>6&63,n=63&i,l[s++]=y.charAt(t)+y.charAt(r)+y.charAt(o)+y.charAt(n)}while(a<e.length);c=l.join("");var p=e.length%3;return(p?c.slice(0,p-3):c)+"===".slice(p||3)}),void 0===e.atob&&(e.atob=function(e){var t,r,o,n,i,a,s=0,c=0,l=[];if(!e)return e;e+="";do{t=(a=y.indexOf(e.charAt(s++))<<18|y.</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/polyfills.es.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.node.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 285 -  r r,n,i,a,o,s,c,u;if(this.animation){for(u=[],n=o=0,s=(c=this.animation.frames).length;o<s;n=++o)r=c[n],i=e.createImageData(r.width,r.height),a=this.decodePixels(new Uint8Array(r.data)),this.copyToImageData(i,a),r.imageData=i,u.push(r.image=t(i));return u}},a.prototype.renderFrame=function(t,e){var r,n,i;return r=(n=this.animation.frames)[e],i=n[e-1],0===e&&t.clearRect(0,0,this.width,this.height),1===(null!=i?i.disposeOp:void 0)?t.clearRect(i.xOffset,i.yOffset,i.width,i.height):2===(null!=i?i.disposeOp:void 0)&&t.putImageData(i.imageData,i.xOffset,i.yOffset),0===r.blendOp&&t.clearRect(r.xOffset,r.yOffset,r.width,r.height),t.drawImage(r.image,r.xOffset,r.yOffset)},a.prototype.animate=function(t){var e,r,n,i,a,o,s=this;return r=0,o=this.animation,i=o.numFrames,n=o.frames,a=o.numPlays,(e=function(){var o,c;if(o=r++%i,c=n[o],s.renderFrame(t,o),i>1&&r/i<a)return s.animation._timeout=setTimeout(e,c.delay)})()},a.prototype.stopAnimation=function(){var t;return clearTimeout(null!=(t=this.animation)?t._timeout:void 0)},a.prototype.render=function(t){var e,r;return t._png&&t._png.stopAnimation(),t._png=this,t.width=this.width,t.height=this.height,e=t.getContext("2d"),this.animation?(this.decodeFrames(e),this.animate(e)):(r=e.createImageData(this.width,this.height),this.copyToImageData(r,this.decodePixels()),e.putImageData(r,0,0))},a}();
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.node.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 153 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 213 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 260 -  function(t){function e(){return(n.html2canvas?Promise.resolve(n.html2canvas):"object"==typeof exports&&"undefined"!=typeof module?new Promise((function(t,e){try{t(require("html2canvas"))}catch(t){e(t)}})):"function"==typeof define&&define.amd?new Promise((function(t,e){try{require(["html2canvas"],t)}catch(t){e(t)}})):Promise.reject(new Error("Could not load html2canvas"))).catch((function(t){return Promise.reject(new Error("Could not load html2canvas: "+t))})).then((function(t){return t.default?t.default:t}))}function r(){return(n.DOMPurify?Promise.resolve(n.DOMPurify):"object"==typeof exports&&"undefined"!=typeof module?new Promise((function(t,e){try{t(require("dompurify"))}catch(t){e(t)}})):"function"==typeof define&&define.amd?new Promise((function(t,e){try{require(["dompurify"],t)}catch(t){e(t)}})):Promise.reject(new Error("Could not load dompurify"))).catch((function(t){return Promise.reject(new Error("Could not load dompurify: "+t))})).then((function(t){return t.default?t.default:t}))}var i=function(t){var e=typeof t;return"undefined"===e?"undefined":"string"===e||t instanceof String?"string":"number"===e||t instanceof Number?"number":"function"===e||t instanceof Function?"function":t&&t.constructor===Array?"array":t&&1===t.nodeType?"element":"object"===e?"object":"unknown"},a=function(t,e){var r=document.createElement(t);for(var n in e.className&&(r.className=e.className),e.innerHTML&&e.dompurify&&(r.innerHTML=e.dompurify.sanitize(e.innerHTML)),e.style)r.style[n]=e.style[n];return r},o=function(t,e){for(var r=3===t.nodeType?document.createTextNode(t.nodeValue):t.cloneNode(!1),n=t.firstChild;n;n=n.nextSibling)!0!==e&&1===n.nodeType&&"SCRIPT"===n.nodeName||r.appendChild(o(n,e));return 1===t.nodeType&&("CANVAS"===t.nodeName?(r.width=t.width,r.height=t.height,r.getContext("2d").drawImage(t,0,0)):"TEXTAREA"!==t.nodeName&&"SELECT"!==t.nodeName||(r.value=t.value),r.addEventListener("load",(function(){r.scrollTop=t.scrollTop,r.scrollLeft=t.scrollLeft}),!0)),r},s=function t(e){var r=Object.assign(t.convert(Promise.resolve()),JSON.parse(JSON.stringify(t.template))),n=t.convert(P Line: 307 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 332 -   * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+
+ Line: 420 -  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ Line: 469 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 495 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 532 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 560 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.node.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 17421 -          return (_this.animation._timeout = setTimeout(doFrame, frame.delay));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.node.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 9909 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 11815 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 13554 -     * @description The lineTo() method adds a new point and creates a line TO that point FROM the last specified point in the canvas (this method does not draw the line).
+
+ Line: 15557 -        } else if (node.nodeName === "TEXTAREA" || node.nodeName === "SELECT") {
+
+ Line: 15632 -    /* ----- FROM / TO ----- */
+
+ Line: 16463 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 17476 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 17963 -   * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+
+ Line: 25264 -  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ Line: 25752 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 26143 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 26518 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 26667 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 27108 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.es.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 60 -   */function a(t,e,r){var n=new XMLHttpRequest;n.open("GET",t),n.responseType="blob",n.onload=function(){l(n.response,e,r)},n.onerror=function(){i.error("could not download file")},n.send()}function o(t){var e=new XMLHttpRequest;e.open("HEAD",t,!1);try{e.send()}catch(t){}return e.status>=200&&e.status<=299}function s(t){try{t.dispatchEvent(new MouseEvent("click"))}catch(r){var e=document.createEvent("MouseEvents");e.initMouseEvent("click",!0,!0,window,0,0,0,80,20,!1,!1,!1,!1,0,null),t.dispatchEvent(e)}}var u,c,l=r.saveAs||("object"!=typeof window||window!==r?function(){}:"download"in HTMLAnchorElement.prototype?function(t,e,n){var i=r.URL||r.webkitURL,u=document.createElement("a");e=e||t.name||"download",u.download=e,u.rel="noopener","string"==typeof t?(u.href=t,u.origin!==location.origin?o(u.href)?a(t,e,n):s(u,u.target="_blank"):s(u)):(u.href=i.createObjectURL(t),setTimeout((function(){i.revokeObjectURL(u.href)}),4e4),setTimeout((function(){s(u)}),0))}:"msSaveOrOpenBlob"in navigator?function(t,e,r){if(e=e||t.name||"download","string"==typeof t)if(o(t))a(t,e,r);else{var n=document.createElement("a");n.href=t,n.target="_blank",setTimeout((function(){s(n)}))}else navigator.msSaveOrOpenBlob(function(t,e){return void 0===e?e={autoBom:!1}:"object"!=typeof e&&(i.warn("Deprecated: Expected third argument to be a object"),e={autoBom:!e}),e.autoBom&&/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(t.type)?new Blob([String.fromCharCode(65279),t],{type:t.type}):t}(t,r),e)}:function(t,e,n,i){if((i=i||open("","_blank"))&&(i.document.title=i.document.body.innerText="downloading..."),"string"==typeof t)return a(t,e,n);var o="application/octet-stream"===t.type,s=/constructor/i.test(r.HTMLElement)||r.safari,u=/CriOS\/[\d]+/.test(navigator.userAgent);if((u||o&&s)&&"object"==typeof FileReader){var c=new FileReader;c.onloadend=function(){var t=c.result;t=u?t:t.replace(/^data:[^;]*;/,"data:attachment/file;"),i?i.location.href=t:location=t,i=null},c.readAsDataURL(t)}else{var l=r.URL||r.webkitURL,h=l.createObjectURL(t);i?i.location=h:location.href=h,i=null,setTimeout( Line: 121 -  t){isNaN(t)||(n=parseFloat(t))}});var i="pt";return Object.defineProperty(this,"type",{enumerable:!0,get:function(){return i},set:function(t){i=t.toString()}}),this},Ir=function(t,e,r,n){kr.call(this,t,e),this.type="rect";var i=r||0;Object.defineProperty(this,"w",{enumerable:!0,get:function(){return i},set:function(t){isNaN(t)||(i=parseFloat(t))}});var a=n||0;return Object.defineProperty(this,"h",{enumerable:!0,get:function(){return a},set:function(t){isNaN(t)||(a=parseFloat(t))}}),this},Fr=function(){this.page=Et,this.currentPage=K,this.pages=it.slice(0),this.pagesContext=qt.slice(0),this.x=St,this.y=_t,this.matrix=Pt,this.width=Br(K),this.height=Er(K),this.outputDestination=ot,this.id="",this.objectNumber=-1};Fr.prototype.restore=function(){Et=this.page,K=this.currentPage,qt=this.pagesContext,it=this.pages,St=this.x,_t=this.y,Pt=this.matrix,Mr(K,this.width),qr(K,this.height),ot=this.outputDestination};var Cr=function(t,e,r,n,i){zt.push(new Fr),Et=K=0,it=[],St=t,_t=e,Pt=i,Fe([r,n])},jr=function(t){if(!Ut[t]){var e=new Fr,r="Xo"+(Object.keys(Tt).length+1).toString(10);e.id=r,Ut[t]=r,Tt[r]=e,Rt.publish("addFormObject",e),zt.pop().restore()}};for(var Or in b.beginFormObject=function(t,e,r,n,i){return Cr(t,e,r,n,i),this},b.endFormObject=function(t){return jr(t),this},b.doFormObject=function(t,e){var r=Tt[Ut[t]];return ct("q"),ct(e.toString()+" cm"),ct("/"+r.id+" Do"),ct("Q"),this},b.getFormObject=function(t){var e=Tt[Ut[t]];return{x:e.x,y:e.y,width:e.width,height:e.height,matrix:e.matrix}},b.save=function(t,e){return t=t||"generated.pdf",(e=e||{}).returnPromise=e.returnPromise||!1,!1===e.returnPromise?(l(ze(Ue()),t),"function"==typeof l.unload&&r.setTimeout&&setTimeout(l.unload,911),this):new Promise((function(e,n){try{var i=l(ze(Ue()),t);"function"==typeof l.unload&&r.setTimeout&&setTimeout(l.unload,911),e(i)}catch(t){n(t.message)}}))},O.API)O.API.hasOwnProperty(Or)&&("events"===Or&&O.API.events.length?function(t,e){var r,n,i;for(i=e.length-1;-1!==i;i--)r=e[i][0],n=e[i][1],t.subscribe.apply(t,[r].concat("function"==typeof n?[n]:n))}(Rt,O.API.events):b[Or]=O.API[Or]);var Br=b.ge Line: 295 -  ,s,u,c;if(this.animation){for(c=[],n=o=0,s=(u=this.animation.frames).length;o<s;n=++o)r=u[n],i=e.createImageData(r.width,r.height),a=this.decodePixels(new Uint8Array(r.data)),this.copyToImageData(i,a),r.imageData=i,c.push(r.image=t(i));return c}},a.prototype.renderFrame=function(t,e){var r,n,i;return r=(n=this.animation.frames)[e],i=n[e-1],0===e&&t.clearRect(0,0,this.width,this.height),1===(null!=i?i.disposeOp:void 0)?t.clearRect(i.xOffset,i.yOffset,i.width,i.height):2===(null!=i?i.disposeOp:void 0)&&t.putImageData(i.imageData,i.xOffset,i.yOffset),0===r.blendOp&&t.clearRect(r.xOffset,r.yOffset,r.width,r.height),t.drawImage(r.image,r.xOffset,r.yOffset)},a.prototype.animate=function(t){var e,r,n,i,a,o,s=this;return r=0,o=this.animation,i=o.numFrames,n=o.frames,a=o.numPlays,(e=function(){var o,u;if(o=r++%i,u=n[o],s.renderFrame(t,o),i>1&&r/i<a)return s.animation._timeout=setTimeout(e,u.delay)})()},a.prototype.stopAnimation=function(){var t;return clearTimeout(null!=(t=this.animation)?t._timeout:void 0)},a.prototype.render=function(t){var e,r;return t._png&&t._png.stopAnimation(),t._png=this,t.width=this.width,t.height=this.height,e=t.getContext("2d"),this.animation?(this.decodeFrames(e),this.animate(e)):(r=e.createImageData(this.width,this.height),this.copyToImageData(r,this.decodePixels()),e.putImageData(r,0,0))},a}();
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.es.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 164 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 224 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 271 -  function(t){function e(){return(r.html2canvas?Promise.resolve(r.html2canvas):import("html2canvas")).catch((function(t){return Promise.reject(new Error("Could not load html2canvas: "+t))})).then((function(t){return t.default?t.default:t}))}function n(){return(r.DOMPurify?Promise.resolve(r.DOMPurify):import("dompurify")).catch((function(t){return Promise.reject(new Error("Could not load dompurify: "+t))})).then((function(t){return t.default?t.default:t}))}var i=function(t){var e=typeof t;return"undefined"===e?"undefined":"string"===e||t instanceof String?"string":"number"===e||t instanceof Number?"number":"function"===e||t instanceof Function?"function":t&&t.constructor===Array?"array":t&&1===t.nodeType?"element":"object"===e?"object":"unknown"},a=function(t,e){var r=document.createElement(t);for(var n in e.className&&(r.className=e.className),e.innerHTML&&e.dompurify&&(r.innerHTML=e.dompurify.sanitize(e.innerHTML)),e.style)r.style[n]=e.style[n];return r},o=function(t,e){for(var r=3===t.nodeType?document.createTextNode(t.nodeValue):t.cloneNode(!1),n=t.firstChild;n;n=n.nextSibling)!0!==e&&1===n.nodeType&&"SCRIPT"===n.nodeName||r.appendChild(o(n,e));return 1===t.nodeType&&("CANVAS"===t.nodeName?(r.width=t.width,r.height=t.height,r.getContext("2d").drawImage(t,0,0)):"TEXTAREA"!==t.nodeName&&"SELECT"!==t.nodeName||(r.value=t.value),r.addEventListener("load",(function(){r.scrollTop=t.scrollTop,r.scrollLeft=t.scrollLeft}),!0)),r},s=function t(e){var r=Object.assign(t.convert(Promise.resolve()),JSON.parse(JSON.stringify(t.template))),n=t.convert(Promise.resolve(),r);return n=(n=n.setProgress(1,t,1,[t])).set(e)};(s.prototype=Object.create(Promise.prototype)).constructor=s,s.convert=function(t,e){return t.__proto__=e||s.prototype,t},s.template={prop:{src:null,container:null,overlay:null,canvas:null,img:null,pdf:null,pageSize:null,callback:function(){}},progress:{val:0,state:null,n:0,stack:[]},opt:{filename:"file.pdf",margin:[0,0,0,0],enableLinks:!0,x:0,y:0,html2canvas:{},jsPDF:{},backgroundColor:"transparent"}},s.prototype.from=function(t,e){return this.then((function(){switch(e=e||func Line: 317 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 342 -   * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+
+ Line: 430 -  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ Line: 479 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 505 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 542 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 570 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.es.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 207 -            setTimeout(function() {
+
+ Line: 210 -            setTimeout(function() {
+
+ Line: 227 -              setTimeout(function() {
+
+ Line: 274 -            setTimeout(function() {
+
+ Line: 6744 -          if (globalObject.setTimeout) {
+
+ Line: 6745 -            setTimeout(saveAs.unload, 911);
+
+ Line: 6754 -              if (globalObject.setTimeout) {
+
+ Line: 6755 -                setTimeout(saveAs.unload, 911);
+
+ Line: 17593 -          return (_this.animation._timeout = setTimeout(doFrame, frame.delay));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.es.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 10100 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 12006 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 13745 -     * @description The lineTo() method adds a new point and creates a line TO that point FROM the last specified point in the canvas (this method does not draw the line).
+
+ Line: 15729 -        } else if (node.nodeName === "TEXTAREA" || node.nodeName === "SELECT") {
+
+ Line: 15804 -    /* ----- FROM / TO ----- */
+
+ Line: 16635 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 17648 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 18135 -   * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+
+ Line: 25436 -  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ Line: 25924 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 26315 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 26690 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 26821 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 27262 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.umd.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 211 -              setTimeout(function() {
+
+ Line: 214 -              setTimeout(function() {
+
+ Line: 231 -                setTimeout(function() {
+
+ Line: 278 -              setTimeout(function() {
+
+ Line: 6748 -            if (globalObject.setTimeout) {
+
+ Line: 6749 -              setTimeout(saveAs.unload, 911);
+
+ Line: 6758 -                if (globalObject.setTimeout) {
+
+ Line: 6759 -                  setTimeout(saveAs.unload, 911);
+
+ Line: 18366 -            return (_this.animation._timeout = setTimeout(doFrame, frame.delay));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.umd.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 10104 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 12010 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 13749 -       * @description The lineTo() method adds a new point and creates a line TO that point FROM the last specified point in the canvas (this method does not draw the line).
+
+ Line: 16502 -          } else if (node.nodeName === "TEXTAREA" || node.nodeName === "SELECT") {
+
+ Line: 16577 -      /* ----- FROM / TO ----- */
+
+ Line: 17408 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 18421 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 18908 -     * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+
+ Line: 26209 -    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ Line: 26697 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 27088 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 27463 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 27612 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 28053 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.umd.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 60 -     */function i(t,e,r){var i=new XMLHttpRequest;i.open("GET",t),i.responseType="blob",i.onload=function(){c(i.response,e,r)},i.onerror=function(){n.error("could not download file")},i.send()}function a(t){var e=new XMLHttpRequest;e.open("HEAD",t,!1);try{e.send()}catch(t){}return e.status>=200&&e.status<=299}function o(t){try{t.dispatchEvent(new MouseEvent("click"))}catch(r){var e=document.createEvent("MouseEvents");e.initMouseEvent("click",!0,!0,window,0,0,0,80,20,!1,!1,!1,!1,0,null),t.dispatchEvent(e)}}var s,u,c=e.saveAs||("object"!=typeof window||window!==e?function(){}:"download"in HTMLAnchorElement.prototype?function(t,r,n){var s=e.URL||e.webkitURL,u=document.createElement("a");r=r||t.name||"download",u.download=r,u.rel="noopener","string"==typeof t?(u.href=t,u.origin!==location.origin?a(u.href)?i(t,r,n):o(u,u.target="_blank"):o(u)):(u.href=s.createObjectURL(t),setTimeout((function(){s.revokeObjectURL(u.href)}),4e4),setTimeout((function(){o(u)}),0))}:"msSaveOrOpenBlob"in navigator?function(t,e,r){if(e=e||t.name||"download","string"==typeof t)if(a(t))i(t,e,r);else{var s=document.createElement("a");s.href=t,s.target="_blank",setTimeout((function(){o(s)}))}else navigator.msSaveOrOpenBlob(function(t,e){return void 0===e?e={autoBom:!1}:"object"!=typeof e&&(n.warn("Deprecated: Expected third argument to be a object"),e={autoBom:!e}),e.autoBom&&/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(t.type)?new Blob([String.fromCharCode(65279),t],{type:t.type}):t}(t,r),e)}:function(t,r,n,a){if((a=a||open("","_blank"))&&(a.document.title=a.document.body.innerText="downloading..."),"string"==typeof t)return i(t,r,n);var o="application/octet-stream"===t.type,s=/constructor/i.test(e.HTMLElement)||e.safari,u=/CriOS\/[\d]+/.test(navigator.userAgent);if((u||o&&s)&&"object"==typeof FileReader){var c=new FileReader;c.onloadend=function(){var t=c.result;t=u?t:t.replace(/^data:[^;]*;/,"data:attachment/file;"),a?a.location.href=t:location=t,a=null},c.readAsDataURL(t)}else{var l=e.URL||e.webkitURL,h=l.createObjectURL(t);a?a.location=h:location.href=h,a=null,setTimeou Line: 121 -  n(t){isNaN(t)||(n=parseFloat(t))}});var i="pt";return Object.defineProperty(this,"type",{enumerable:!0,get:function(){return i},set:function(t){i=t.toString()}}),this},Fr=function(t,e,r,n){kr.call(this,t,e),this.type="rect";var i=r||0;Object.defineProperty(this,"w",{enumerable:!0,get:function(){return i},set:function(t){isNaN(t)||(i=parseFloat(t))}});var a=n||0;return Object.defineProperty(this,"h",{enumerable:!0,get:function(){return a},set:function(t){isNaN(t)||(a=parseFloat(t))}}),this},Ir=function(){this.page=Et,this.currentPage=K,this.pages=it.slice(0),this.pagesContext=qt.slice(0),this.x=St,this.y=_t,this.matrix=Pt,this.width=Br(K),this.height=Er(K),this.outputDestination=ot,this.id="",this.objectNumber=-1};Ir.prototype.restore=function(){Et=this.page,K=this.currentPage,qt=this.pagesContext,it=this.pages,St=this.x,_t=this.y,Pt=this.matrix,Mr(K,this.width),qr(K,this.height),ot=this.outputDestination};var Cr=function(t,e,r,n,i){zt.push(new Ir),Et=K=0,it=[],St=t,_t=e,Pt=i,Ie([r,n])},jr=function(t){if(!Ut[t]){var e=new Ir,r="Xo"+(Object.keys(Dt).length+1).toString(10);e.id=r,Ut[t]=r,Dt[r]=e,Rt.publish("addFormObject",e),zt.pop().restore()}};for(var Or in b.beginFormObject=function(t,e,r,n,i){return Cr(t,e,r,n,i),this},b.endFormObject=function(t){return jr(t),this},b.doFormObject=function(t,e){var r=Dt[Ut[t]];return ct("q"),ct(e.toString()+" cm"),ct("/"+r.id+" Do"),ct("Q"),this},b.getFormObject=function(t){var e=Dt[Ut[t]];return{x:e.x,y:e.y,width:e.width,height:e.height,matrix:e.matrix}},b.save=function(t,r){return t=t||"generated.pdf",(r=r||{}).returnPromise=r.returnPromise||!1,!1===r.returnPromise?(c(ze(Ue()),t),"function"==typeof c.unload&&e.setTimeout&&setTimeout(c.unload,911),this):new Promise((function(r,n){try{var i=c(ze(Ue()),t);"function"==typeof c.unload&&e.setTimeout&&setTimeout(c.unload,911),r(i)}catch(t){n(t.message)}}))},j.API)j.API.hasOwnProperty(Or)&&("events"===Or&&j.API.events.length?function(t,e){var r,n,i;for(i=e.length-1;-1!==i;i--)r=e[i][0],n=e[i][1],t.subscribe.apply(t,[r].concat("function"==typeof n?[n]:n))}(Rt,j.API.events):b[Or]=j.API[Or]);var Br=b. Line: 331 -  o,s,u,c;if(this.animation){for(c=[],n=o=0,s=(u=this.animation.frames).length;o<s;n=++o)r=u[n],i=e.createImageData(r.width,r.height),a=this.decodePixels(new Uint8Array(r.data)),this.copyToImageData(i,a),r.imageData=i,c.push(r.image=t(i));return c}},i.prototype.renderFrame=function(t,e){var r,n,i;return r=(n=this.animation.frames)[e],i=n[e-1],0===e&&t.clearRect(0,0,this.width,this.height),1===(null!=i?i.disposeOp:void 0)?t.clearRect(i.xOffset,i.yOffset,i.width,i.height):2===(null!=i?i.disposeOp:void 0)&&t.putImageData(i.imageData,i.xOffset,i.yOffset),0===r.blendOp&&t.clearRect(r.xOffset,r.yOffset,r.width,r.height),t.drawImage(r.image,r.xOffset,r.yOffset)},i.prototype.animate=function(t){var e,r,n,i,a,o,s=this;return r=0,o=this.animation,i=o.numFrames,n=o.frames,a=o.numPlays,(e=function(){var o,u;if(o=r++%i,u=n[o],s.renderFrame(t,o),i>1&&r/i<a)return s.animation._timeout=setTimeout(e,u.delay)})()},i.prototype.stopAnimation=function(){var t;return clearTimeout(null!=(t=this.animation)?t._timeout:void 0)},i.prototype.render=function(t){var e,r;return t._png&&t._png.stopAnimation(),t._png=this,t.width=this.width,t.height=this.height,e=t.getContext("2d"),this.animation?(this.decodeFrames(e),this.animate(e)):(r=e.createImageData(this.width,this.height),this.copyToImageData(r,this.decodePixels()),e.putImageData(r,0,0))},i}();
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/jspdf.umd.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 42 -   * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 164 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 231 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 281 -  function(r){function n(){return(e.html2canvas?Promise.resolve(e.html2canvas):"object"==typeof t&&"undefined"!=typeof module?new Promise((function(t,e){try{t(require("html2canvas"))}catch(t){e(t)}})):"function"==typeof define&&define.amd?new Promise((function(t,e){try{require(["html2canvas"],t)}catch(t){e(t)}})):Promise.reject(new Error("Could not load html2canvas"))).catch((function(t){return Promise.reject(new Error("Could not load html2canvas: "+t))})).then((function(t){return t.default?t.default:t}))}function i(){return(e.DOMPurify?Promise.resolve(e.DOMPurify):"object"==typeof t&&"undefined"!=typeof module?new Promise((function(t,e){try{t(require("dompurify"))}catch(t){e(t)}})):"function"==typeof define&&define.amd?new Promise((function(t,e){try{require(["dompurify"],t)}catch(t){e(t)}})):Promise.reject(new Error("Could not load dompurify"))).catch((function(t){return Promise.reject(new Error("Could not load dompurify: "+t))})).then((function(t){return t.default?t.default:t}))}var a=function(t){var e=typeof t;return"undefined"===e?"undefined":"string"===e||t instanceof String?"string":"number"===e||t instanceof Number?"number":"function"===e||t instanceof Function?"function":t&&t.constructor===Array?"array":t&&1===t.nodeType?"element":"object"===e?"object":"unknown"},o=function(t,e){var r=document.createElement(t);for(var n in e.className&&(r.className=e.className),e.innerHTML&&e.dompurify&&(r.innerHTML=e.dompurify.sanitize(e.innerHTML)),e.style)r.style[n]=e.style[n];return r},s=function(t,e){for(var r=3===t.nodeType?document.createTextNode(t.nodeValue):t.cloneNode(!1),n=t.firstChild;n;n=n.nextSibling)!0!==e&&1===n.nodeType&&"SCRIPT"===n.nodeName||r.appendChild(s(n,e));return 1===t.nodeType&&("CANVAS"===t.nodeName?(r.width=t.width,r.height=t.height,r.getContext("2d").drawImage(t,0,0)):"TEXTAREA"!==t.nodeName&&"SELECT"!==t.nodeName||(r.value=t.value),r.addEventListener("load",(function(){r.scrollTop=t.scrollTop,r.scrollLeft=t.scrollLeft}),!0)),r},u=function t(e){var r=Object.assign(t.convert(Promise.resolve()),JSON.parse(JSON.stringify(t.template))),n=t.convert(Promise.resol Line: 308 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 353 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 378 -     * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+
+ Line: 466 -    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ Line: 521 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 547 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 584 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 610 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+ Line: 645 -     * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+
+</Result>
+</report_mosca>
+

@@ -1,0 +1,100 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "b1b2a163417ce7a2f29e7fbb09f46fa8d57af327cd49ef539090dd78214f4ebd",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "b1b2a163417ce7a2f29e7fbb09f46fa8d57af327cd49ef539090dd78214f4ebd",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "eval_nodejs": {
+      "files": [
+        {
+          "file_path": "/src/lib/client.js",
+          "match_lines": [
+            153,
+            155
+          ],
+          "match_position": [
+            24,
+            28
+          ],
+          "match_string": "  this._connectTimer = setTimeout(function () {\n    that.emit('error', new Error('connect did not arrive in time'))\n  }, broker.connectTimeout)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')",
+        "description": "User controlled data in eval() or similar functions may result in Server Side Injection or Remote Code Injection",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/client.js",
+          "match_lines": [
+            44,
+            44
+          ],
+          "match_position": [
+            28,
+            41
+          ],
+          "match_string": "  this._nextId = Math.ceil(Math.random() * 65535)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

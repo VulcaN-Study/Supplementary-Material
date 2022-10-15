@@ -1,0 +1,126 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 10320,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "18bb8624c22d52f8322ce748a278ac47145acc62d51379b9749be3d9c905c2a3",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse cma-config.template.js as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 44,
+            "line": 4
+          },
+          "file": "/src/lib/config/templates/cma-config.template.js",
+          "source_hash": "280320bde2e5c0360cb49e2d6d054024746296df675b03db0e323c02bcc5425d",
+          "start": {
+            "col": 1,
+            "line": 4
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 10320,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "18bb8624c22d52f8322ce748a278ac47145acc62d51379b9749be3d9c905c2a3",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "node_sqli_injection": {
+      "files": [
+        {
+          "file_path": "/src/lib/tasks/mysql/restore-theme-config.js",
+          "match_lines": [
+            25,
+            33
+          ],
+          "match_position": [
+            9,
+            10
+          ],
+          "match_string": "        const themeKeys = Object.keys(themes[0]);\n        await mysqlConnection.query('delete from theme;');\n\n        for (const theme of themes) {\n            await mysqlConnection.query(`\n                insert into theme (${themeKeys.join(', ')})\n                values (${themeKeys.map(() => '?').join(', ')})\n            `, Object.values(theme));\n        }"
+        },
+        {
+          "file_path": "/src/lib/tasks/mysql/restore-theme-config.js",
+          "match_lines": [
+            29,
+            32
+          ],
+          "match_position": [
+            19,
+            37
+          ],
+          "match_string": "            await mysqlConnection.query(`\n                insert into theme (${themeKeys.join(', ')})\n                values (${themeKeys.map(() => '?').join(', ')})\n            `, Object.values(theme));"
+        },
+        {
+          "file_path": "/src/lib/util/database.js",
+          "match_lines": [
+            9,
+            12
+          ],
+          "match_position": [
+            26,
+            7
+          ],
+          "match_string": "    const [rows] = await mysqlConnection.query(`\n        SELECT * FROM ${table}\n        WHERE ${values.map((p) => `path = '${p.path}'`).join(' OR ')};\n    `);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+        "description": "Untrusted input concatinated with raw SQL query can result in SQL Injection.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

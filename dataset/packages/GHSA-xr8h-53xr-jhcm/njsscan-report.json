@@ -1,0 +1,29 @@
+{
+  "errors": [],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "generic_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/index.js",
+          "match_lines": [
+            51,
+            82
+          ],
+          "match_position": [
+            5,
+            8
+          ],
+          "match_string": "    var filePath = (request.url.indexOf(\".\") === 0) ? request.url : \".\" + request.url;\n\n    // attempting to go beyond the served directory should be stopped.\n    if (filePath.indexOf(\"..\") === 0) {\n        response.writeHead(403, \"File path not allowed.\");\n        return;\n    }\n\n    // Redirect for core served files needed to be directly relative to the \n    filePath = reDirectMap[filePath] || filePath;\n\n    console.log(filePath);\n\n    var extname = path.extname(filePath);\n    var contentType = mimeTypes[extname] || \"text/html\";\n\n    fs.readFile(filePath, function(error, content) {\n        if (error) {\n            if(error.code == \"ENOENT\"){\n                response.writeHead(404, \"File not found\");\n                response.end();\n            }\n            else {\n                response.writeHead(500);\n                response.end(\"Sorry, check with the site admin for error: \" + error.code + \" ..\\n\");\n            }\n        }\n        else {\n            response.writeHead(200, { \"Content-Type\": contentType });\n            response.end(content, \"utf-8\");\n        }\n    });"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-23: Relative Path Traversal",
+        "description": "Untrusted user input in readFile()/readFileSync() can endup in Directory Traversal Attacks.",
+        "owasp": "A5: Broken Access Control",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

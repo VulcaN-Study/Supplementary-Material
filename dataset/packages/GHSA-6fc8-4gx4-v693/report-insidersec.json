@@ -1,0 +1,77 @@
+{
+ "dra": [
+  {
+   "dra": "https://github.com/nodejs/node/issues/9006",
+   "type": "url",
+   "file": "/src/lib/buffer-util.js"
+  },
+  {
+   "dra": "https://tools.ietf.org/html/rfc6455#section-9.1",
+   "type": "url",
+   "file": "/src/lib/extension.js"
+  },
+  {
+   "dra": "https://github.com/nodejs/node/issues/8871#issuecomment-250915913",
+   "type": "url",
+   "file": "/src/lib/permessage-deflate.js"
+  },
+  {
+   "dra": "https://github.com/websockets/ws/issues/1202",
+   "type": "url",
+   "file": "/src/lib/permessage-deflate.js"
+  },
+  {
+   "dra": "https://github.com/nodejs/node/commit/5e3f5164",
+   "type": "url",
+   "file": "/src/lib/permessage-deflate.js"
+  }
+ ],
+ "sast": {
+  "name": "ws",
+  "version": "6.2.1",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "101449 Bytes",
+  "numberOfLines": 3241
+ },
+ "libraries": [
+  {
+   "name": "async-limiter",
+   "current": "~1.0.0"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 268,
+   "class": "websocket-server.js (268:8)",
+   "vul_id": "20abb1e16b875ad75e75a6413e1364d9",
+   "method": ".createHash('sha1')",
+   "column": 8,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/websocket-server.js (268:8)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/index.js",
+    "/lib/websocket-server.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 615,
+   "class": "websocket.js (615:8)",
+   "vul_id": "03c3eb3a4c3328e9e93812b8d5da6363",
+   "method": ".createHash('sha1')",
+   "column": 8,
+   "longMessage": "The SHA1 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/websocket.js (615:8)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/index.js",
+    "/lib/websocket-server.js"
+   ]
+  }
+ ]
+}

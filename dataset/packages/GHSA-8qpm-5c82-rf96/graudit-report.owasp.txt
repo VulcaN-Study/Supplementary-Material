@@ -1,0 +1,424 @@
+/src/backbone.queryparams.js-33-        var root = this.root.replace(trailingSlash, '');
+/src/backbone.queryparams.js:34:        var search = this.location.search;
+/src/backbone.queryparams.js-35-        if (!fragment.indexOf(root)) {
+##############################################
+/src/backbone.queryparams.min.js-2-a&&h.push(f+"="+b(encodeURIComponent(a)));else if(e.isArray(a)){for(var g="",k=0;k<a.length;k++){var n=a[k];null!=n&&(g+=c+b(n))}g&&h.push(f+"="+g)}else(g=l(a,f+"."))&&h.push(g)});return h.join("&")}function k(a){try{return decodeURIComponent(a.replace(/\+/g," "))}catch(d){return a}}function p(a,d){var b=a.split("&");e.each(b,function(a){a=a.split("=");d(a.shift(),a.join("="))})}var q=/^\?(.*)/,s=/\((.*?)\)/g,m=/(\(\?)?:\w+/g,r=/\*\w+/g,t=/[\-{}\[\]+?.,\\\^$|#\s]/g,u=/^([^\?]*)/,v=/[\:\*]([^\:\?\/]+)/g,
+/src/backbone.queryparams.min.js:3:w=/^[#\/]|\s+$/g,x=/\/$/;f.Router.arrayValueSplit="|";e.extend(f.History.prototype,{getFragment:function(a,d){if(null==a)if(this._hasPushState||!this._wantsHashChange||d){a=this.location.pathname;var b=this.root.replace(x,""),c=this.location.search;a.indexOf(b)||(a=a.substr(b.length));c&&this._hasPushState&&(a+=c)}else a=this.getHash();return a.replace(w,"")},getQueryParameters:function(a,d){a=this.getFragment(a,d);var b=a.replace(u,"");if(b=b.match(q)){var b=b[1],c={};p(b,function(a,b){b=k(b);c[a]?
+/src/backbone.queryparams.min.js-4-e.isString(c[a])?c[a]=[c[a],b]:c[a].push(b):c[a]=b});return c}return{}}});e.extend(f.Router.prototype,{initialize:function(a){this.encodedSplatParts=a&&a.encodedSplatParts},_routeToRegExp:function(a){var d=r.exec(a)||{index:-1},b=m.exec(a)||{index:-1},c=a.match(v)||[];a=a.replace(t,"\\$&").replace(s,"(?:$1)?").replace(m,function(a,b){return b?a:"([^\\/\\?]+)"}).replace(r,"([^??]*?)");a=new RegExp("^"+(a+"(\\?.*)?")+"$");0<=d.index&&(a.splatMatch=0<=b?d.index-b.index:-1);a.paramNames=e.map(c,function(a){return a.substring(1)});
+##############################################
+/src/test/backbone/backbone.js-1181-      params.xhr = function() {
+/src/test/backbone/backbone.js:1182:        return new ActiveXObject("Microsoft.XMLHTTP");
+/src/test/backbone/backbone.js-1183-      };
+##############################################
+/src/test/backbone/backbone.js-1275-    // Convert a route string into a regular expression, suitable for matching
+/src/test/backbone/backbone.js:1276:    // against the current location hash.
+/src/test/backbone/backbone.js-1277-    _routeToRegExp: function(route) {
+##############################################
+/src/test/backbone/backbone.js-1312-    if (typeof window !== 'undefined') {
+/src/test/backbone/backbone.js:1313:      this.location = window.location;
+/src/test/backbone/backbone.js-1314-      this.history = window.history;
+##############################################
+/src/test/backbone/backbone.js-1339-
+/src/test/backbone/backbone.js:1340:    // Gets the true hash value. Cannot use location.hash directly due to bug
+/src/test/backbone/backbone.js:1341:    // in Firefox where location.hash will always be decoded.
+/src/test/backbone/backbone.js-1342-    getHash: function(window) {
+/src/test/backbone/backbone.js:1343:      var match = (window || this).location.href.match(/#(.*)$/);
+/src/test/backbone/backbone.js-1344-      return match ? match[1] : '';
+##############################################
+/src/test/backbone/backbone.js-1406-        this.fragment = this.getFragment(null, true);
+/src/test/backbone/backbone.js:1407:        this.location.replace(this.root + this.location.search + '#' + this.fragment);
+/src/test/backbone/backbone.js-1408-        // Return immediately as browser will do redirect to new url
+##############################################
+/src/test/backbone/backbone.js-1487-          // want this.
+/src/test/backbone/backbone.js:1488:          if(!options.replace) this.iframe.document.open().close();
+/src/test/backbone/backbone.js-1489-          this._updateHash(this.iframe.location, fragment, options.replace);
+##############################################
+/src/test/backbone/backbone.js-1503-      if (replace) {
+/src/test/backbone/backbone.js:1504:        var href = location.href.replace(/(javascript:|#).*$/, '');
+/src/test/backbone/backbone.js-1505-        location.replace(href + '#' + fragment);
+##############################################
+/src/test/backbone/backbone.js-1507-        // Some browsers require that `hash` contains a leading #.
+/src/test/backbone/backbone.js:1508:        location.hash = '#' + fragment;
+/src/test/backbone/backbone.js-1509-      }
+##############################################
+/src/test/backbone/test/router.js-29-      // In IE, anchor.pathname does not contain a leading slash though
+/src/test/backbone/test/router.js:30:      // window.location.pathname does.
+/src/test/backbone/test/router.js-31-      if (!/^\//.test(this.pathname)) this.pathname = '/' + this.pathname;
+##############################################
+/src/test/backbone/test/view.js-118-    var View = Backbone.View.extend({
+/src/test/backbone/test/view.js:119:      el: document.body
+/src/test/backbone/test/view.js-120-    });
+/src/test/backbone/test/view.js-121-
+/src/test/backbone/test/view.js:122:    equal(new View().el, document.body);
+/src/test/backbone/test/view.js-123-  });
+##############################################
+/src/test/backbone/test/view.js-128-    });
+/src/test/backbone/test/view.js:129:    strictEqual(new View().el, document.body);
+/src/test/backbone/test/view.js-130-
+##############################################
+/src/test/backbone/test/vendor/qunit.js-23-	defined = {
+/src/test/backbone/test/vendor/qunit.js:24:		setTimeout: typeof window.setTimeout !== "undefined",
+/src/test/backbone/test/vendor/qunit.js-25-		sessionStorage: (function() {
+##############################################
+/src/test/backbone/test/vendor/qunit.js-99-		if ( tests ) {
+/src/test/backbone/test/vendor/qunit.js:100:			b = document.createElement( "strong" );
+/src/test/backbone/test/vendor/qunit.js-101-			b.innerHTML = this.nameHtml;
+##############################################
+/src/test/backbone/test/vendor/qunit.js-103-			// `a` initialized at top of scope
+/src/test/backbone/test/vendor/qunit.js:104:			a = document.createElement( "a" );
+/src/test/backbone/test/vendor/qunit.js-105-			a.innerHTML = "Rerun";
+##############################################
+/src/test/backbone/test/vendor/qunit.js-107-
+/src/test/backbone/test/vendor/qunit.js:108:			li = document.createElement( "li" );
+/src/test/backbone/test/vendor/qunit.js-109-			li.appendChild( b );
+##############################################
+/src/test/backbone/test/vendor/qunit.js-242-		if ( tests ) {
+/src/test/backbone/test/vendor/qunit.js:243:			ol = document.createElement( "ol" );
+/src/test/backbone/test/vendor/qunit.js-244-			ol.className = "qunit-assert-list";
+##############################################
+/src/test/backbone/test/vendor/qunit.js-248-
+/src/test/backbone/test/vendor/qunit.js:249:				li = document.createElement( "li" );
+/src/test/backbone/test/vendor/qunit.js-250-				li.className = assertion.result ? "pass" : "fail";
+##############################################
+/src/test/backbone/test/vendor/qunit.js-276-			// `b` initialized at top of scope
+/src/test/backbone/test/vendor/qunit.js:277:			b = document.createElement( "strong" );
+/src/test/backbone/test/vendor/qunit.js-278-			b.innerHTML = this.nameHtml + " <b class='counts'>(<b class='failed'>" + bad + "</b>, <b class='passed'>" + good + "</b>, " + this.assertions.length + ")</b>";
+##############################################
+/src/test/backbone/test/vendor/qunit.js-290-				}
+/src/test/backbone/test/vendor/qunit.js:291:				if ( window.location && target.nodeName.toLowerCase() === "strong" ) {
+/src/test/backbone/test/vendor/qunit.js:292:					window.location = QUnit.url({ testNumber: test.testNumber });
+/src/test/backbone/test/vendor/qunit.js-293-				}
+##############################################
+/src/test/backbone/test/vendor/qunit.js-296-			// `time` initialized at top of scope
+/src/test/backbone/test/vendor/qunit.js:297:			time = document.createElement( "span" );
+/src/test/backbone/test/vendor/qunit.js-298-			time.className = "runtime";
+##############################################
+/src/test/backbone/test/vendor/qunit.js-456-		if ( defined.setTimeout ) {
+/src/test/backbone/test/vendor/qunit.js:457:			window.setTimeout(function() {
+/src/test/backbone/test/vendor/qunit.js-458-				if ( config.semaphore > 0 ) {
+##############################################
+/src/test/backbone/test/vendor/qunit.js-479-			clearTimeout( config.timeout );
+/src/test/backbone/test/vendor/qunit.js:480:			config.timeout = window.setTimeout(function() {
+/src/test/backbone/test/vendor/qunit.js-481-				QUnit.ok( false, "Test timed out" );
+##############################################
+/src/test/backbone/test/vendor/qunit.js-748-	var i,
+/src/test/backbone/test/vendor/qunit.js:749:		location = window.location || { search: "", protocol: "file:" },
+/src/test/backbone/test/vendor/qunit.js:750:		params = location.search.slice( 1 ).split( "&" ),
+/src/test/backbone/test/vendor/qunit.js-751-		length = params.length,
+##############################################
+/src/test/backbone/test/vendor/qunit.js-829-		if ( tests ) {
+/src/test/backbone/test/vendor/qunit.js:830:			result = document.createElement( "p" );
+/src/test/backbone/test/vendor/qunit.js-831-			result.id = "qunit-testresult";
+##############################################
+/src/test/backbone/test/vendor/qunit.js-846-	// Trigger an event on an element.
+/src/test/backbone/test/vendor/qunit.js:847:	// @example triggerEvent( document.body, "click" );
+/src/test/backbone/test/vendor/qunit.js-848-	triggerEvent: function( elem, type, event ) {
+/src/test/backbone/test/vendor/qunit.js:849:		if ( document.createEvent ) {
+/src/test/backbone/test/vendor/qunit.js:850:			event = document.createEvent( "MouseEvents" );
+/src/test/backbone/test/vendor/qunit.js-851-			event.initMouseEvent(type, true, true, elem.ownerDocument.defaultView,
+##############################################
+/src/test/backbone/test/vendor/qunit.js-993-		}
+/src/test/backbone/test/vendor/qunit.js:994:		return window.location.protocol + "//" + window.location.host +
+/src/test/backbone/test/vendor/qunit.js:995:			window.location.pathname + querystring.slice( 0, -1 );
+/src/test/backbone/test/vendor/qunit.js-996-	},
+##############################################
+/src/test/backbone/test/vendor/qunit.js-1105-		// `filter` initialized at top of scope
+/src/test/backbone/test/vendor/qunit.js:1106:		filter = document.createElement( "input" );
+/src/test/backbone/test/vendor/qunit.js-1107-		filter.type = "checkbox";
+##############################################
+/src/test/backbone/test/vendor/qunit.js-1137-		// `label` initialized at top of scope
+/src/test/backbone/test/vendor/qunit.js:1138:		label = document.createElement( "label" );
+/src/test/backbone/test/vendor/qunit.js-1139-		label.setAttribute( "for", "qunit-filter-pass" );
+##############################################
+/src/test/backbone/test/vendor/qunit.js-1143-
+/src/test/backbone/test/vendor/qunit.js:1144:		urlConfigCheckboxesContainer = document.createElement("span");
+/src/test/backbone/test/vendor/qunit.js-1145-		urlConfigCheckboxesContainer.innerHTML = urlConfigHtml;
+##############################################
+/src/test/backbone/test/vendor/qunit.js-1154-			params[ target.name ] = target.checked ? true : undefined;
+/src/test/backbone/test/vendor/qunit.js:1155:			window.location = QUnit.url( params );
+/src/test/backbone/test/vendor/qunit.js-1156-		});
+##############################################
+/src/test/backbone/test/vendor/qunit.js-1159-		if (numModules > 1) {
+/src/test/backbone/test/vendor/qunit.js:1160:			moduleFilter = document.createElement( 'span' );
+/src/test/backbone/test/vendor/qunit.js-1161-			moduleFilter.setAttribute( 'id', 'qunit-modulefilter-container' );
+##############################################
+/src/test/backbone/test/vendor/qunit.js-1166-
+/src/test/backbone/test/vendor/qunit.js:1167:				window.location = QUnit.url( { module: ( selectedModule === "" ) ? undefined : selectedModule } );
+/src/test/backbone/test/vendor/qunit.js-1168-			});
+##############################################
+/src/test/backbone/test/vendor/qunit.js-1421-		} else {
+/src/test/backbone/test/vendor/qunit.js:1422:			window.setTimeout( next, 13 );
+/src/test/backbone/test/vendor/qunit.js-1423-			break;
+##############################################
+/src/test/backbone/test/vendor/jquery.js-23-	document = window.document,
+/src/test/backbone/test/vendor/jquery.js:24:	location = window.location,
+/src/test/backbone/test/vendor/jquery.js-25-	navigator = window.navigator,
+##############################################
+/src/test/backbone/test/vendor/jquery.js-57-	// A simple way to check for HTML strings
+/src/test/backbone/test/vendor/jquery.js:58:	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
+/src/test/backbone/test/vendor/jquery.js-59-	rquickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
+##############################################
+/src/test/backbone/test/vendor/jquery.js-392-		// Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
+/src/test/backbone/test/vendor/jquery.js:393:		if ( !document.body ) {
+/src/test/backbone/test/vendor/jquery.js-394-			return setTimeout( jQuery.ready, 1 );
+##############################################
+/src/test/backbone/test/vendor/jquery.js-556-	// Workarounds based on findings by Jim Driscoll
+/src/test/backbone/test/vendor/jquery.js:557:	// http://weblogs.java.net/blog/driscoll/archive/2009/09/08/eval-javascript-global-context
+/src/test/backbone/test/vendor/jquery.js-558-	globalEval: function( data ) {
+##############################################
+/src/test/backbone/test/vendor/jquery.js-562-			// rather than jQuery in Firefox
+/src/test/backbone/test/vendor/jquery.js:563:			( window.execScript || function( data ) {
+/src/test/backbone/test/vendor/jquery.js:564:				window[ "eval" ].call( window, data );
+/src/test/backbone/test/vendor/jquery.js-565-			} )( data );
+##############################################
+/src/test/backbone/test/vendor/jquery.js-864-			// Ensure firing before onload, maybe late but safe also for iframes
+/src/test/backbone/test/vendor/jquery.js:865:			document.attachEvent( "onreadystatechange", DOMContentLoaded );
+/src/test/backbone/test/vendor/jquery.js-866-
+/src/test/backbone/test/vendor/jquery.js-867-			// A fallback to window.onload, that will always work
+/src/test/backbone/test/vendor/jquery.js:868:			window.attachEvent( "onload", jQuery.ready );
+/src/test/backbone/test/vendor/jquery.js-869-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1255-		clickFn,
+/src/test/backbone/test/vendor/jquery.js:1256:		div = document.createElement("div");
+/src/test/backbone/test/vendor/jquery.js-1257-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1269-	// First batch of tests
+/src/test/backbone/test/vendor/jquery.js:1270:	select = document.createElement("select");
+/src/test/backbone/test/vendor/jquery.js:1271:	opt = select.appendChild( document.createElement("option") );
+/src/test/backbone/test/vendor/jquery.js-1272-	input = div.getElementsByTagName("input")[ 0 ];
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1316-		// Tests for enctype support on a form (#6743)
+/src/test/backbone/test/vendor/jquery.js:1317:		enctype: !!document.createElement("form").enctype,
+/src/test/backbone/test/vendor/jquery.js-1318-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1320-		// Where outerHTML is undefined, this still works
+/src/test/backbone/test/vendor/jquery.js:1321:		html5Clone: document.createElement("nav").cloneNode( true ).outerHTML !== "<:nav></:nav>",
+/src/test/backbone/test/vendor/jquery.js-1322-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1367-	// after being appended to the DOM
+/src/test/backbone/test/vendor/jquery.js:1368:	input = document.createElement("input");
+/src/test/backbone/test/vendor/jquery.js-1369-	input.value = "t";
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1378-	div.appendChild( input );
+/src/test/backbone/test/vendor/jquery.js:1379:	fragment = document.createDocumentFragment();
+/src/test/backbone/test/vendor/jquery.js-1380-	fragment.appendChild( div.lastChild );
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1395-	// are used, namely in IE. Short-circuiting here helps us to
+/src/test/backbone/test/vendor/jquery.js:1396:	// avoid an eval call (in setAttribute) which can cause CSP
+/src/test/backbone/test/vendor/jquery.js-1397-	// to go haywire. See: https://developer.mozilla.org/en/Security/CSP
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1424-
+/src/test/backbone/test/vendor/jquery.js:1425:		container = document.createElement("div");
+/src/test/backbone/test/vendor/jquery.js-1426-		container.style.cssText = "visibility:hidden;border:0;width:0;height:0;position:static;top:0;margin-top:1px";
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1429-		// Construct the test element
+/src/test/backbone/test/vendor/jquery.js:1430:		div = document.createElement("div");
+/src/test/backbone/test/vendor/jquery.js-1431-		container.appendChild( div );
+##############################################
+/src/test/backbone/test/vendor/jquery.js-1468-			// WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
+/src/test/backbone/test/vendor/jquery.js:1469:			marginDiv = document.createElement("div");
+/src/test/backbone/test/vendor/jquery.js-1470-			marginDiv.style.cssText = div.style.cssText = divReset;
+##############################################
+/src/test/backbone/test/vendor/jquery.js-2521-			if ( !ret ) {
+/src/test/backbone/test/vendor/jquery.js:2522:				ret = document.createAttribute( name );
+/src/test/backbone/test/vendor/jquery.js-2523-				elem.setAttributeNode( ret );
+##############################################
+/src/test/backbone/test/vendor/jquery.js-3797-	assert = function( fn ) {
+/src/test/backbone/test/vendor/jquery.js:3798:		var div = document.createElement("div");
+/src/test/backbone/test/vendor/jquery.js-3799-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-3811-	assertTagNameNoComments = assert(function( div ) {
+/src/test/backbone/test/vendor/jquery.js:3812:		div.appendChild( document.createComment("") );
+/src/test/backbone/test/vendor/jquery.js-3813-		return !div.getElementsByTagName("*").length;
+##############################################
+/src/test/backbone/test/vendor/jquery.js-5341-
+/src/test/backbone/test/vendor/jquery.js:5342:// Override sizzle attribute retrieval
+/src/test/backbone/test/vendor/jquery.js-5343-Sizzle.attr = jQuery.attr;
+##############################################
+/src/test/backbone/test/vendor/jquery.js-5650-	var list = nodeNames.split( "|" ),
+/src/test/backbone/test/vendor/jquery.js:5651:	safeFrag = document.createDocumentFragment();
+/src/test/backbone/test/vendor/jquery.js-5652-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-5689-	safeFragment = createSafeFragment( document ),
+/src/test/backbone/test/vendor/jquery.js:5690:	fragmentDiv = safeFragment.appendChild( document.createElement("div") );
+/src/test/backbone/test/vendor/jquery.js-5691-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-6996-
+/src/test/backbone/test/vendor/jquery.js:6997:	var elem = jQuery( "<" + nodeName + ">" ).appendTo( document.body ),
+/src/test/backbone/test/vendor/jquery.js-6998-		display = elem.css("display");
+##############################################
+/src/test/backbone/test/vendor/jquery.js-7004-		// Use the already-created iframe if possible
+/src/test/backbone/test/vendor/jquery.js:7005:		iframe = document.body.appendChild(
+/src/test/backbone/test/vendor/jquery.js:7006:			iframe || jQuery.extend( document.createElement("iframe"), {
+/src/test/backbone/test/vendor/jquery.js-7007-				frameBorder: 0,
+##############################################
+/src/test/backbone/test/vendor/jquery.js-7024-		display = curCSS( elem, "display" );
+/src/test/backbone/test/vendor/jquery.js:7025:		document.body.removeChild( iframe );
+/src/test/backbone/test/vendor/jquery.js-7026-	}
+##############################################
+/src/test/backbone/test/vendor/jquery.js-7319-// #8138, IE may throw an exception when accessing
+/src/test/backbone/test/vendor/jquery.js:7320:// a field from window.location if document.domain has been set
+/src/test/backbone/test/vendor/jquery.js-7321-try {
+/src/test/backbone/test/vendor/jquery.js:7322:	ajaxLocation = location.href;
+/src/test/backbone/test/vendor/jquery.js-7323-} catch( e ) {
+/src/test/backbone/test/vendor/jquery.js-7324-	// Use the href attribute of an A element
+/src/test/backbone/test/vendor/jquery.js:7325:	// since IE will modify it given document.location
+/src/test/backbone/test/vendor/jquery.js:7326:	ajaxLocation = document.createElement( "a" );
+/src/test/backbone/test/vendor/jquery.js-7327-	ajaxLocation.href = "";
+##############################################
+/src/test/backbone/test/vendor/jquery.js-8287-
+/src/test/backbone/test/vendor/jquery.js:8288:				script = document.createElement( "script" );
+/src/test/backbone/test/vendor/jquery.js-8289-
+##############################################
+/src/test/backbone/test/vendor/jquery.js-8351-	try {
+/src/test/backbone/test/vendor/jquery.js:8352:		return new window.ActiveXObject( "Microsoft.XMLHTTP" );
+/src/test/backbone/test/vendor/jquery.js-8353-	} catch( e ) {}
+##############################################
+/src/test/backbone/test/vendor/jquery.js-9367-		return this.map(function() {
+/src/test/backbone/test/vendor/jquery.js:9368:			var offsetParent = this.offsetParent || document.body;
+/src/test/backbone/test/vendor/jquery.js-9369-			while ( offsetParent && (!rroot.test(offsetParent.nodeName) && jQuery.css(offsetParent, "position") === "static") ) {
+##############################################
+/src/test/backbone/test/vendor/jquery.js-9371-			}
+/src/test/backbone/test/vendor/jquery.js:9372:			return offsetParent || document.body;
+/src/test/backbone/test/vendor/jquery.js-9373-		});
+##############################################
+/src/test/backbone/test/vendor/runner.js-36-	page.onInitialized = function() {
+/src/test/backbone/test/vendor/runner.js:37:		page.evaluate(addLogging);
+/src/test/backbone/test/vendor/runner.js-38-	};
+##############################################
+/src/test/backbone/test/vendor/runner.js-60-			// will be too late to attach it if a page does not have any script tags.
+/src/test/backbone/test/vendor/runner.js:61:			var qunitMissing = page.evaluate(function() { return (typeof QUnit === 'undefined' || !QUnit); });
+/src/test/backbone/test/vendor/runner.js-62-			if (qunitMissing) {
+##############################################
+/src/test/backbone/test/vendor/json2.js-454-// we look to see that the remaining characters are only whitespace or ']' or
+/src/test/backbone/test/vendor/json2.js:455:// ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
+/src/test/backbone/test/vendor/json2.js-456-
+##############################################
+/src/test/backbone/test/vendor/json2.js-461-
+/src/test/backbone/test/vendor/json2.js:462:// In the third stage we use the eval function to compile the text into a
+/src/test/backbone/test/vendor/json2.js-463-// JavaScript structure. The '{' operator is subject to a syntactic ambiguity
+##############################################
+/src/test/backbone/test/vendor/json2.js-466-
+/src/test/backbone/test/vendor/json2.js:467:                j = eval('(' + text + ')');
+/src/test/backbone/test/vendor/json2.js-468-
+##############################################
+/src/test/backbone/test/vendor/underscore.js-1084-  _.templateSettings = {
+/src/test/backbone/test/vendor/underscore.js:1085:    evaluate    : /<%([\s\S]+?)%>/g,
+/src/test/backbone/test/vendor/underscore.js-1086-    interpolate : /<%=([\s\S]+?)%>/g,
+##############################################
+/src/test/backbone/test/vendor/underscore.js-1090-  // When customizing `templateSettings`, if you don't want to define an
+/src/test/backbone/test/vendor/underscore.js:1091:  // interpolation, evaluation or escaping regex, we need one that is
+/src/test/backbone/test/vendor/underscore.js-1092-  // guaranteed not to match.
+##############################################
+/src/test/backbone/test/vendor/underscore.js-1119-      (settings.interpolate || noMatch).source,
+/src/test/backbone/test/vendor/underscore.js:1120:      (settings.evaluate || noMatch).source
+/src/test/backbone/test/vendor/underscore.js-1121-    ].join('|') + '|$', 'g');
+##############################################
+/src/test/backbone/test/vendor/underscore.js-1125-    var source = "__p+='";
+/src/test/backbone/test/vendor/underscore.js:1126:    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+/src/test/backbone/test/vendor/underscore.js-1127-      source += text.slice(index, offset)
+##############################################
+/src/test/backbone/test/vendor/underscore.js-1135-      }
+/src/test/backbone/test/vendor/underscore.js:1136:      if (evaluate) {
+/src/test/backbone/test/vendor/underscore.js:1137:        source += "';\n" + evaluate + "\n__p+='";
+/src/test/backbone/test/vendor/underscore.js-1138-      }
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-39-    fragmentRE = /^\s*<[^>]+>/,
+/src/test/backbone/test/vendor/zepto-0.6.js:40:    container = document.createElement('div');
+/src/test/backbone/test/vendor/zepto-0.6.js-41-
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-58-    if (!elementDisplay[nodeName]) {
+/src/test/backbone/test/vendor/zepto-0.6.js:59:      element = document.createElement(nodeName);
+/src/test/backbone/test/vendor/zepto-0.6.js:60:      document.body.insertAdjacentElement("beforeEnd", element);
+/src/test/backbone/test/vendor/zepto-0.6.js-61-      display = getComputedStyle(element, '').getPropertyValue("display");
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-257-      return {
+/src/test/backbone/test/vendor/zepto-0.6.js:258:        left: obj.left + document.body.scrollLeft,
+/src/test/backbone/test/vendor/zepto-0.6.js:259:        top: obj.top + document.body.scrollTop,
+/src/test/backbone/test/vendor/zepto-0.6.js-260-        width: obj.width,
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-462-  $.fn.live = function(event, callback){
+/src/test/backbone/test/vendor/zepto-0.6.js:463:    $(document.body).delegate(this.selector, event, callback);
+/src/test/backbone/test/vendor/zepto-0.6.js-464-    return this;
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-466-  $.fn.die = function(event, callback){
+/src/test/backbone/test/vendor/zepto-0.6.js:467:    $(document.body).undelegate(this.selector, event, callback);
+/src/test/backbone/test/vendor/zepto-0.6.js-468-    return this;
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-472-    return this.each(function(){
+/src/test/backbone/test/vendor/zepto-0.6.js:473:      var e = document.createEvent('Events');
+/src/test/backbone/test/vendor/zepto-0.6.js-474-      e.initEvent(event, true, true)
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-525-    var jsonpString = 'jsonp' + ++jsonpID,
+/src/test/backbone/test/vendor/zepto-0.6.js:526:        script = document.createElement('script');
+/src/test/backbone/test/vendor/zepto-0.6.js-527-    window[jsonpString] = function(data){
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-553-
+/src/test/backbone/test/vendor/zepto-0.6.js:554:    if (!settings.url) settings.url = window.location.toString();
+/src/test/backbone/test/vendor/zepto-0.6.js-555-    if (settings.data && !settings.contentType) settings.contentType = 'application/x-www-form-urlencoded';
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-618-      self.html(selector ?
+/src/test/backbone/test/vendor/zepto-0.6.js:619:        $(document.createElement('div')).html(response).find(selector).html()
+/src/test/backbone/test/vendor/zepto-0.6.js-620-        : response);
+##############################################
+/src/test/backbone/test/vendor/zepto-0.6.js-658-  $(document).ready(function(){
+/src/test/backbone/test/vendor/zepto-0.6.js:659:    $(document.body).bind('touchstart', function(e){
+/src/test/backbone/test/vendor/zepto-0.6.js-660-      var now = Date.now(), delta = now - (touch.last || now);
+##############################################
+/src/test/backbone-1.1/backbone.js-1172-      params.xhr = function() {
+/src/test/backbone-1.1/backbone.js:1173:        return new ActiveXObject("Microsoft.XMLHTTP");
+/src/test/backbone-1.1/backbone.js-1174-      };
+##############################################
+/src/test/backbone-1.1/backbone.js-1268-    // Convert a route string into a regular expression, suitable for matching
+/src/test/backbone-1.1/backbone.js:1269:    // against the current location hash.
+/src/test/backbone-1.1/backbone.js-1270-    _routeToRegExp: function(route) {
+##############################################
+/src/test/backbone-1.1/backbone.js-1305-    if (typeof window !== 'undefined') {
+/src/test/backbone-1.1/backbone.js:1306:      this.location = window.location;
+/src/test/backbone-1.1/backbone.js-1307-      this.history = window.history;
+##############################################
+/src/test/backbone-1.1/backbone.js-1335-
+/src/test/backbone-1.1/backbone.js:1336:    // Gets the true hash value. Cannot use location.hash directly due to bug
+/src/test/backbone-1.1/backbone.js:1337:    // in Firefox where location.hash will always be decoded.
+/src/test/backbone-1.1/backbone.js-1338-    getHash: function(window) {
+/src/test/backbone-1.1/backbone.js:1339:      var match = (window || this).location.href.match(/#(.*)$/);
+/src/test/backbone-1.1/backbone.js-1340-      return match ? match[1] : '';
+##############################################
+/src/test/backbone-1.1/backbone.js-1406-          this.fragment = this.getFragment(null, true);
+/src/test/backbone-1.1/backbone.js:1407:          this.location.replace(this.root + this.location.search + '#' + this.fragment);
+/src/test/backbone-1.1/backbone.js-1408-          // Return immediately as browser will do redirect to new url
+##############################################
+/src/test/backbone-1.1/backbone.js-1495-          // want this.
+/src/test/backbone-1.1/backbone.js:1496:          if(!options.replace) this.iframe.document.open().close();
+/src/test/backbone-1.1/backbone.js-1497-          this._updateHash(this.iframe.location, fragment, options.replace);
+##############################################
+/src/test/backbone-1.1/backbone.js-1511-      if (replace) {
+/src/test/backbone-1.1/backbone.js:1512:        var href = location.href.replace(/(javascript:|#).*$/, '');
+/src/test/backbone-1.1/backbone.js-1513-        location.replace(href + '#' + fragment);
+##############################################
+/src/test/backbone-1.1/backbone.js-1515-        // Some browsers require that `hash` contains a leading #.
+/src/test/backbone-1.1/backbone.js:1516:        location.hash = '#' + fragment;
+/src/test/backbone-1.1/backbone.js-1517-      }
+##############################################
+/src/test/backbone-1.1/test/router.js-29-      // In IE, anchor.pathname does not contain a leading slash though
+/src/test/backbone-1.1/test/router.js:30:      // window.location.pathname does.
+/src/test/backbone-1.1/test/router.js-31-      if (!/^\//.test(this.pathname)) this.pathname = '/' + this.pathname;
+##############################################
+/src/test/backbone-1.1/test/view.js-118-    var View = Backbone.View.extend({
+/src/test/backbone-1.1/test/view.js:119:      el: document.body
+/src/test/backbone-1.1/test/view.js-120-    });
+/src/test/backbone-1.1/test/view.js-121-
+/src/test/backbone-1.1/test/view.js:122:    equal(new View().el, document.body);
+/src/test/backbone-1.1/test/view.js-123-  });
+##############################################
+/src/test/backbone-1.1/test/view.js-128-    });
+/src/test/backbone-1.1/test/view.js:129:    strictEqual(new View().el, document.body);
+/src/test/backbone-1.1/test/view.js-130-
+##############################################
+/src/test/backbone.query.params-test.js-30-      // In IE, anchor.pathname does not contain a leading slash though
+/src/test/backbone.query.params-test.js:31:      // window.location.pathname does.
+/src/test/backbone.query.params-test.js-32-      if (!/^\//.test(this.pathname)) {
+##############################################
+/src/backbone.queryparams-1.1-shim.js-51-				// want this.
+/src/backbone.queryparams-1.1-shim.js:52:				if (!options.replace) this.iframe.document.open().close();
+/src/backbone.queryparams-1.1-shim.js-53-				this._updateHash(this.iframe.location, fragment, options.replace);

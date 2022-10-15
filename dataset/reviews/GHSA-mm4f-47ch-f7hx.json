@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-mm4f-47ch-f7hx",
+        "cwe": "CWE-77"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/kill-by-port/-/kill-by-port-0.0.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 5,
+                    "code": "exports.killByPort = function (port) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 8,
+                    "code": "processId = exec(`lsof -t -i:${port}`)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "file_path": "GHSA-mm4f-47ch-f7hx.poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/GuyMograbi/kill-by-port/commit/ea5b1f377e196a4492e05ff070eba8b30b7372c4"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

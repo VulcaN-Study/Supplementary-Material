@@ -1,0 +1,334 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse _locutus_shared_bc.js as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 6,
+            "line": 6
+          },
+          "file": "/src/php/_locutus_shared/_locutus_shared_bc.js",
+          "source_hash": "17f6f595888d9513a2dca9f56baee9dea2576e62afc498e6db7abbf75f01a0c0",
+          "start": {
+            "col": 1,
+            "line": 6
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/php/misc/uniqid.js",
+          "match_lines": [
+            43,
+            43
+          ],
+          "match_position": [
+            42,
+            55
+          ],
+          "match_string": "    $locutus.php.uniqidSeed = Math.floor(Math.random() * 0x75bcd15);"
+        },
+        {
+          "file_path": "/src/php/misc/uniqid.js",
+          "match_lines": [
+            54,
+            54
+          ],
+          "match_position": [
+            15,
+            28
+          ],
+          "match_string": "    retId += (Math.random() * 10).toFixed(8).toString();"
+        },
+        {
+          "file_path": "/src/php/array/array_rand.js",
+          "match_lines": [
+            27,
+            27
+          ],
+          "match_position": [
+            24,
+            37
+          ],
+          "match_string": "    var j = Math.floor(Math.random() * (i + 1)); // 0 \u2264 j \u2264 i"
+        },
+        {
+          "file_path": "/src/php/math/mt_rand.js",
+          "match_lines": [
+            22,
+            22
+          ],
+          "match_position": [
+            21,
+            34
+          ],
+          "match_string": "  return Math.floor(Math.random() * (max - min + 1)) + min;"
+        },
+        {
+          "file_path": "/src/php/strings/str_shuffle.js",
+          "match_lines": [
+            26,
+            26
+          ],
+          "match_position": [
+            23,
+            36
+          ],
+          "match_string": "    rand = Math.floor(Math.random() * i);"
+        },
+        {
+          "file_path": "/src/php/math/rand.js",
+          "match_lines": [
+            20,
+            20
+          ],
+          "match_position": [
+            21,
+            34
+          ],
+          "match_string": "  return Math.floor(Math.random() * (max - min + 1)) + min;"
+        },
+        {
+          "file_path": "/src/php/math/lcg_value.js",
+          "match_lines": [
+            11,
+            11
+          ],
+          "match_position": [
+            10,
+            23
+          ],
+          "match_string": "  return Math.random();"
+        },
+        {
+          "file_path": "/src/php/array/shuffle.js",
+          "match_lines": [
+            31,
+            31
+          ],
+          "match_position": [
+            18,
+            31
+          ],
+          "match_string": "    return 0.5 - Math.random();"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_md5": {
+      "files": [
+        {
+          "file_path": "/src/php/strings/md5.js",
+          "match_lines": [
+            20,
+            20
+          ],
+          "match_position": [
+            18,
+            42
+          ],
+          "match_string": "    var md5sum = crypto.createHash('md5');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "MD5 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/php/strings/sha1.js",
+          "match_lines": [
+            18,
+            18
+          ],
+          "match_position": [
+            19,
+            44
+          ],
+          "match_string": "    var sha1sum = crypto.createHash('sha1');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_timing_attack": {
+      "files": [
+        {
+          "file_path": "/src/php/strings/md5.js",
+          "match_lines": [
+            27,
+            29
+          ],
+          "match_position": [
+            3,
+            4
+          ],
+          "match_string": "  if (hash !== undefined) {\n    return hash;\n  }"
+        },
+        {
+          "file_path": "/src/php/strings/sha1.js",
+          "match_lines": [
+            25,
+            27
+          ],
+          "match_position": [
+            3,
+            4
+          ],
+          "match_string": "  if (hash !== undefined) {\n    return hash;\n  }"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-208: Observable Timing Discrepancy",
+        "description": "String comparisons using '===', '!==', '!=' and '==' is vulnerable to timing attacks. More info: https://snyk.io/blog/node-js-timing-attack-ccc-ctf/",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/php/strings/sscanf.js",
+          "match_lines": [
+            250,
+            250
+          ],
+          "match_position": [
+            11,
+            35
+          ],
+          "match_string": "      if (_NWS.test(str.charAt(j)) || str.charAt(j) === '') {"
+        },
+        {
+          "file_path": "/src/php/var/unserialize.js",
+          "match_lines": [
+            25,
+            26
+          ],
+          "match_position": [
+            3,
+            40
+          ],
+          "match_string": "  var types = /^(?:N(?=;)|[bidsSaOCrR](?=:)|[^:]+(?=:))/g;\n  var type = (types.exec(str) || [])[0];"
+        },
+        {
+          "file_path": "/src/php/var/unserialize.js",
+          "match_lines": [
+            258,
+            260
+          ],
+          "match_position": [
+            3,
+            47
+          ],
+          "match_string": "  var reObjectLiteral = /^O:(\\d+):\"([^\"]+)\":(\\d+):\\{/;\n\n  var _ref11 = reObjectLiteral.exec(str) || [],"
+        },
+        {
+          "file_path": "/src/php/var/unserialize.js",
+          "match_lines": [
+            312,
+            314
+          ],
+          "match_position": [
+            3,
+            37
+          ],
+          "match_string": "  var reRef = /^[rR]:([1-9]\\d*);/;\n\n  var _ref13 = reRef.exec(str) || [],"
+        },
+        {
+          "file_path": "/src/php/var/unserialize.js",
+          "match_lines": [
+            327,
+            329
+          ],
+          "match_position": [
+            3,
+            45
+          ],
+          "match_string": "  var reArrayLength = /^a:(\\d+):{/;\n\n  var _ref15 = reArrayLength.exec(str) || [],"
+        },
+        {
+          "file_path": "/src/php/var/is_callable.js",
+          "match_lines": [
+            56,
+            56
+          ],
+          "match_position": [
+            7,
+            52
+          ],
+          "match_string": "  if (/(^class|\\(this\\,)/.test(mixedVar.toString())) {"
+        },
+        {
+          "file_path": "/src/php/strings/strnatcmp.js",
+          "match_lines": [
+            50,
+            50
+          ],
+          "match_position": [
+            12,
+            40
+          ],
+          "match_string": "    while (whitespace.test(a.charAt(i))) {"
+        },
+        {
+          "file_path": "/src/php/strings/strnatcmp.js",
+          "match_lines": [
+            54,
+            56
+          ],
+          "match_position": [
+            6,
+            34
+          ],
+          "match_string": "    }var ac = a.charAt(i);\n    var bc = b.charAt(j);\n    var aIsDigit = digit.test(ac);"
+        },
+        {
+          "file_path": "/src/php/strings/strnatcmp.js",
+          "match_lines": [
+            86,
+            89
+          ],
+          "match_position": [
+            9,
+            35
+          ],
+          "match_string": "        ac = a.charAt(++i);\n        bc = b.charAt(++j);\n\n        aIsDigit = digit.test(ac);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

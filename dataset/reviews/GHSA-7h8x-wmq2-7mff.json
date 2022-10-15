@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-7h8x-wmq2-7mff",
+        "cwe": "CWE-77"
+    },
+    "correct_cwe": ["CWE-77", "CWE-78"],
+    "correct_package_link": "https://registry.npmjs.org/launchpad/-/launchpad-0.7.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/local/instance.js",
+                    "lineno": 71,
+                    "code": "Instance.prototype.stop = function (callback) {"
+                },
+                "sink": {
+                    "file": "lib/local/instance.js",
+                    "lineno": 95,
+                    "code": "exec(command);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/local/instance.js",
+                    "lineno": 71,
+                    "code": "Instance.prototype.stop = function (callback) {"
+                },
+                "sink": {
+                    "file": "lib/local/instance.js",
+                    "lineno": 99,
+                    "code": "exec(command).once('exit', function(data) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/bitovi/launchpad/pull/124"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

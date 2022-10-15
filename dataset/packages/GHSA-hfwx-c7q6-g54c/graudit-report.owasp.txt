@@ -1,0 +1,86 @@
+/src/lib/chart.js-208-    function doStraightInject() {
+/src/lib/chart.js:209:        //Pass it directly to the phantom script which will run an eval in the
+/src/lib/chart.js-210-        //document context. This is not cool, but there are some crazy edge cases
+##############################################
+/src/phantom/export.js-46-    //Create the chart
+/src/phantom/export.js:47:    page.evaluate(function (chartJson) {
+/src/phantom/export.js-48-      if (typeof window['Highcharts'] !== 'undefined') {        
+##############################################
+/src/phantom/worker.js-105-
+/src/phantom/worker.js:106:        page.evaluate(function (name, js) {
+/src/phantom/worker.js-107-            if (js === 'null' || typeof js === 'undefined' || !js) {
+##############################################
+/src/phantom/worker.js-111-
+/src/phantom/worker.js:112:            var script = document.createElement('script');
+/src/phantom/worker.js-113-            script.type = 'text/javascript';
+##############################################
+/src/phantom/worker.js-170-        function isDone() {
+/src/phantom/worker.js:171:          return page.evaluate(function () {
+/src/phantom/worker.js-172-            return window.isDoneLoadingImages;
+##############################################
+/src/phantom/worker.js-185-        if (data.chart) {
+/src/phantom/worker.js:186:            page.evaluate(function (chartJson, constr) {
+/src/phantom/worker.js-187-                var options = chartJson;
+##############################################
+/src/phantom/worker.js-239-                            //open up things that aren't already open.
+/src/phantom/worker.js:240:                            var __chartData = eval('(' + chartJson + ')');
+/src/phantom/worker.js-241-
+##############################################
+/src/phantom/worker.js-305-    function applyStyleToSVG() {
+/src/phantom/worker.js:306:        page.evaluate(function (css) {
+/src/phantom/worker.js-307-            //We need to apply the style to the SVG
+/src/phantom/worker.js:308:            var defs = document.createElement('defs'),
+/src/phantom/worker.js:309:                style = document.createElement('style')
+/src/phantom/worker.js-310-            ;
+##############################################
+/src/phantom/worker.js-320-
+/src/phantom/worker.js:321:        page.evaluate(function () {
+/src/phantom/worker.js-322-            var bodyElem,
+##############################################
+/src/phantom/worker.js-326-            if (foreignObjectElem && !foreignObjectElem.getElementsByTagName('body').length) {
+/src/phantom/worker.js:327:                bodyElem = document.body || document.createElement('body');
+/src/phantom/worker.js-328-                bodyElem.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+##############################################
+/src/phantom/worker.js-340-
+/src/phantom/worker.js:341:        clipW = page.evaluate(function (scale) {
+/src/phantom/worker.js-342-                    var svg = document.querySelector('svg');
+##############################################
+/src/phantom/worker.js-347-
+/src/phantom/worker.js:348:        clipH = page.evaluate(function (scale) {
+/src/phantom/worker.js-349-                    var svg = document.querySelector('svg');
+##############################################
+/src/phantom/worker.js-389-            if (data.svgstr) {
+/src/phantom/worker.js:390:                page.evaluate(function () {
+/src/phantom/worker.js:391:                    document.body.style.margin = '0';
+/src/phantom/worker.js-392-                });
+##############################################
+/src/phantom/worker.js-396-            if (data.width && parseFloat(data.width) > 0) {
+/src/phantom/worker.js:397:                data.scale = parseFloat(data.width) / page.evaluate(function () {
+/src/phantom/worker.js-398-                    var svg = document.querySelector('svg');
+##############################################
+/src/phantom/worker.js-413-            if (data.format === 'jpeg') {
+/src/phantom/worker.js:414:                page.evaluate(function () {
+/src/phantom/worker.js:415:                    document.body.style.backgroundColor = 'white';
+/src/phantom/worker.js-416-                });
+##############################################
+/src/phantom/worker.js-427-                    //This temporary file nonesense has to go at some point.
+/src/phantom/worker.js:428:                    fs.write(data.out, xmlDoctype + page.evaluate(function (data) {
+/src/phantom/worker.js:429:                        var element = document.body.querySelector('#highcharts').firstChild;
+/src/phantom/worker.js-430-                        //When we're in styled mode, prefer getChartHTML.
+##############################################
+/src/phantom/worker.js-454-                    //actually scale the contents.
+/src/phantom/worker.js:455:                    page.evaluate(function (zoom) {
+/src/phantom/worker.js:456:                        document.body.style['zoom'] = zoom;
+/src/phantom/worker.js-457-                    }, data.scale);
+##############################################
+/src/phantom/worker.js-492-            process();
+/src/phantom/worker.js:493:        } else if (page.evaluate(function () {
+/src/phantom/worker.js-494-            return highexp.isDone();
+##############################################
+/src/phantom/worker.js-504-    function softPoll() {
+/src/phantom/worker.js:505:        var readyState = page.evaluate(function () {
+/src/phantom/worker.js-506-            return document.readyState;
+##############################################
+/src/phantom/worker.js-579-
+/src/phantom/worker.js:580:            page.evaluate(function () {
+/src/phantom/worker.js-581-              window.isDoneLoadingImages = false;

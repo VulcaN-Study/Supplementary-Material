@@ -1,0 +1,43 @@
+/src/index.js-18-
+/src/index.js:19:    return cb(null, module.exports.parse(path, stdout, opts));
+/src/index.js-20-  });
+##############################################
+/src/test.js-23-
+/src/test.js:24:describe('metadata.parse()', function() {
+/src/test.js-25-  var path = '/foo/bar/baz.jpg';
+##############################################
+/src/test.js-27-  it('returns object for single value', function() {
+/src/test.js:28:    assert.deepEqual(metadata.parse(path, 'foo=bar'), {
+/src/test.js-29-      path: path,
+##############################################
+/src/test.js-34-  it('returns object for metadata string', function() {
+/src/test.js:35:    assert.deepEqual(metadata.parse(path, 'foo=bar\nbar=foo'), {
+/src/test.js-36-      path: path,
+##############################################
+/src/test.js-42-  it('skips empty lines', function() {
+/src/test.js:43:    assert.deepEqual(metadata.parse(path, 'foo=bar\n\nbar=foo\n\n'), {
+/src/test.js-44-      path: path,
+##############################################
+/src/test.js-50-  it('returns correct size for bogus value', function() {
+/src/test.js:51:    assert.deepEqual(metadata.parse(path, 'size=4.296MBB'), {
+/src/test.js-52-      path: path,
+##############################################
+/src/test.js-57-  it('returns size in bytes', function() {
+/src/test.js:58:    assert.deepEqual(metadata.parse(path, 'size=20MB'), {
+/src/test.js-59-      path: path,
+##############################################
+/src/test.js-64-  it('returns RGB for sRGB colorspace', function() {
+/src/test.js:65:    assert.deepEqual(metadata.parse(path, 'colorspace=sRGB'), {
+/src/test.js-66-      path: path,
+##############################################
+/src/test.js-71-  it('returns "" for Undefined orientation', function() {
+/src/test.js:72:    assert.deepEqual(metadata.parse(path, 'orientation=Undefined'), {
+/src/test.js-73-      path: path,
+##############################################
+/src/test.js-87-    for (var i = 0; i < 4; i++) {
+/src/test.js:88:      assert.deepEqual(metadata.parse(path, meta + orientation[i], opts), {
+/src/test.js-89-        height: 150,
+##############################################
+/src/test.js-96-    for (var j = 4; j < 8; j++) {
+/src/test.js:97:      assert.deepEqual(metadata.parse(path, meta + orientation[j], opts), {
+/src/test.js-98-        height: 100,

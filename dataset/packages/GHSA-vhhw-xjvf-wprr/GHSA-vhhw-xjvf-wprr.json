@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": "GHSA-vhhw-xjvf-wprr",
+        "cwe": "CWE-77"
+    },
+    "correct_cwe": "CWE-77",
+    "correct_package_link": "https://registry.npmjs.org/@graphql-tools/git-loader/-/git-loader-6.2.5.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.esm.js",
+                    "lineno": 12,
+                    "code": "async function loadFromGit(input) {"
+                },
+                "sink": {
+                    "file": "index.esm.js",
+                    "lineno": 15,
+                    "code": "exec(createCommand(input), { encoding: 'utf-8', maxBuffer: 1024 * 1024 * 1024 }, (error, stdout) => {"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.esm.js",
+                    "lineno": 32,
+                    "code": "function loadFromGitSync(input) {"
+                },
+                "sink": {
+                    "file": "index.esm.js",
+                    "lineno": 34,
+                    "code": "return execSync(createCommand(input), { encoding: 'utf-8' });"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/ardatan/graphql-tools/commit/6a966beee8ca8b2f4adfe93318b96e4a5c501eac"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": ""
+        },
+        "njsscan": {
+            "score": ""
+        },
+        "graudit": {
+            "score": ""
+        },
+        "insidersec": {
+            "score": ""
+        },
+        "eslint": {
+            "score": ""
+        },
+        "appinspector": {
+            "score": ""
+        },
+        "msdevskim": {
+            "score": ""
+        },
+        "drek": {
+            "score": ""
+        },
+        "mosca": {
+            "score": ""
+        },
+        "odgen": {
+            "score": ""
+        }
+    }
+}

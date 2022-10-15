@@ -1,0 +1,29 @@
+{
+  "errors": [],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "host_header_injection": {
+      "files": [
+        {
+          "file_path": "/src/dist/src/auth/oauth-query-string.js",
+          "match_lines": [
+            9,
+            19
+          ],
+          "match_position": [
+            5,
+            6
+          ],
+          "match_string": "    var host = ctx.host, cookies = ctx.cookies;\n    var _a = options.scopes, scopes = _a === void 0 ? [] : _a, apiKey = options.apiKey, accessMode = options.accessMode;\n    var requestNonce = createNonce();\n    cookies.set('shopifyNonce', requestNonce, cookie_options_1.default(ctx));\n    /* eslint-disable @typescript-eslint/camelcase */\n    var redirectParams = {\n        state: requestNonce,\n        scope: scopes.join(', '),\n        client_id: apiKey,\n        redirect_uri: \"https://\" + host + callbackPath,\n    };"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-20: Improper Input Validation",
+        "description": "Using untrusted Host header for generating dynamic URLs can result in web cache and or password reset poisoning.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

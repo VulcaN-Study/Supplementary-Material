@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-43ch-2h55-2vj7",
+        "cwe": "CWE-918"
+    },
+    "correct_cwe": "CWE-918",
+    "correct_package_link": "https://registry.npmjs.org/private-ip/-/private-ip-1.0.5.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/index.js",
+                    "lineno": 7,
+                    "code": "exports.default = function (ip) {"
+                },
+                "sink": {
+                    "file": "lib/index.js",
+                    "lineno": 8,
+                    "code": "return (/^(::f{4}:)?10\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$/i.test(ip) || /^(::f{4}:)?192\\.168\\.([0-9]{1,3})\\.([0-9]{1,3})$/i.test(ip) || /^(::f{4}:)?172\\.(1[6-9]|2\\d|30|31)\\.([0-9]{1,3})\\.([0-9]{1,3})$/i.test(ip) || /^(::f{4}:)?127\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$/i.test(ip) || /^(::f{4}:)?169\\.254\\.([0-9]{1,3})\\.([0-9]{1,3})$/i.test(ip) || /^f[cd][0-9a-f]{2}:/i.test(ip) || /^fe80:/i.test(ip) || /^::1$/.test(ip) || /^::$/.test(ip)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/frenchbread/private-ip/commit/840664c4b9ba7888c41cfee9666e9a593db133e9#diff-bfe9874d239014961b1ae4e89875a6155667db834a410aaaa2ebe3cf89820556"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

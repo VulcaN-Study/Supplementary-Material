@@ -1,0 +1,203 @@
+<report_mosca>
+ <Path>/src/lib/docsify.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 200 -     * @returns {Number|void} If the page is already laoded returns the result of the setTimeout callback,
+
+ Line: 209 -        return setTimeout(callback, 0);
+
+ Line: 1621 -        timeId = setTimeout(function (_) {
+
+ Line: 1668 -            var id = setInterval(
+
+ Line: 4603 -            setTimeout(function () {
+
+ Line: 6192 -    			window.setTimeout(highlightAutomaticallyCallback, 16);
+
+ Line: 7562 -      setTimeout(function (_) {
+
+ Line: 7593 -        setTimeout(function (_) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/docsify.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 125 -     * @param {Element} node The query
+
+ Line: 138 -     * @param {Element} node The query
+
+ Line: 1896 -      query = query.trim().replace(/^(\?|#|&)/, '');
+
+ Line: 1903 -      query.split('&').forEach(function(param) {
+
+ Line: 6640 -    	var SELECTOR = 'pre[data-src]:not([' + STATUS_ATTR + '="' + STATUS_LOADED + '"])'
+
+ Line: 6660 -    		env.selector += ', ' + SELECTOR;
+
+ Line: 6665 -    		if (pre.matches(SELECTOR)) {
+
+ Line: 6732 -    			var elements = (container || document).querySelectorAll(SELECTOR);
+
+ Line: 8001 -       * @return {object} { path, query }
+
+ Line: 8006 -        var query = '';
+
+ Line: 8013 -        var queryIndex = path.indexOf('?');
+
+ Line: 8015 -          query = path.slice(queryIndex + 1);
+
+ Line: 8016 -          path = path.slice(0, queryIndex);
+
+ Line: 8022 -          query: parseQuery(query),
+
+ Line: 8082 -       * @return {object} { path, query }
+
+ Line: 8087 -        var query = '';
+
+ Line: 8089 -        var queryIndex = path.indexOf('?');
+
+ Line: 8091 -          query = path.slice(queryIndex + 1);
+
+ Line: 8092 -          path = path.slice(0, queryIndex);
+
+ Line: 8105 -          query: parseQuery(query),
+
+ Line: 8301 -        var query = ref.query;
+
+ Line: 8346 -        var query = this.route.query;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/docsify.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  !function(){function s(n){var r=Object.create(null);return function(e){var t=c(e)?e:JSON.stringify(e);return r[t]||(r[t]=n(e))}}var a=s(function(e){return e.replace(/([A-Z])/g,function(e){return"-"+e.toLowerCase()})}),l=Object.prototype.hasOwnProperty,f=Object.assign||function(e){for(var t=arguments,n=1;n<arguments.length;n++){var r=Object(t[n]);for(var i in r)l.call(r,i)&&(e[i]=r[i])}return e};function c(e){return"string"==typeof e||"number"==typeof e}function p(){}function r(e){return"function"==typeof e}var h=document.body.clientWidth<=600,i=window.history&&window.history.pushState&&window.history.replaceState&&!navigator.userAgent.match(/((iPod|iPhone|iPad).+\bOS\s+[1-4]\D|WebApps\/.+CFNetwork)/),n={};function m(e,t){if(void 0===t&&(t=!1),"string"==typeof e){if(void 0!==window.Vue)return b(e);e=t?b(e):n[e]||(n[e]=b(e))}return e}var u=document,v=u.body,d=u.head;function b(e,t){return t?e.querySelector(t):u.querySelector(e)}function y(e,t){return[].slice.call(t?e.querySelectorAll(t):u.querySelectorAll(e))}function g(e,t){return e=u.createElement(e),t&&(e.innerHTML=t),e}function o(e,t){return e.appendChild(t)}function k(e,t){return e.insertBefore(t,e.children[0])}function x(e,t,n){r(t)?window.addEventListener(e,t):e.addEventListener(t,n)}function w(e,t,n){r(t)?window.removeEventListener(e,t):e.removeEventListener(t,n)}function _(e,t,n){e&&e.classList[n?t:"toggle"](n||t)}function e(e,t){void 0===t&&(t=document);var n=t.readyState;if("complete"===n||"interactive"===n)return setTimeout(e,0);t.addEventListener("DOMContentLoaded",e)}var t=Object.freeze({__proto__:null,getNode:m,$:u,body:v,head:d,find:b,findAll:y,create:g,appendTo:o,before:k,on:x,off:w,toggleClass:_,style:function(e){o(d,g("style",e))},documentReady:e}),S=document.currentScript;function A(e){var t=f({el:"#app",repo:"",maxLevel:6,subMaxLevel:0,loadSidebar:null,loadNavbar:null,homepage:"README.md",coverpage:"",basePath:"",auto2top:!1,name:"",themeColor:"",nameLink:window.location.pathname,autoHeader:!1,executeScript:null,noEmoji:!1,ga:"",ext:".md",mergeNavbar:!1,formatUpdated:"",externalLinkTarget:"_blank",cornerExter Line: 9 -  ction(){E={}},d}();function H(e){var t,n=e.loaded,r=e.total,i=e.step;P||function(){var e=g("div");e.classList.add("progress"),o(v,e),P=e}(),t=i?80<(t=parseInt(P.style.width||0,10)+i)?80:t:Math.floor(n/r*100),P.style.opacity=1,P.style.width=95<=t?"100%":t+"%",95<=t&&(clearTimeout(D),D=setTimeout(function(e){P.style.opacity=0,P.style.width="0%"},200))}var I={};function q(a,e,t){void 0===e&&(e=!1),void 0===t&&(t={});function n(){o.addEventListener.apply(o,arguments)}var o=new XMLHttpRequest,r=I[a];if(r)return{then:function(e){return e(r.content,r.opt)},abort:p};for(var i in o.open("GET",a),t)l.call(t,i)&&o.setRequestHeader(i,t[i]);return o.send(),{then:function(r,i){if(void 0===i&&(i=p),e){var t=setInterval(function(e){return H({step:Math.floor(5*Math.random()+1)})},500);n("progress",H),n("loadend",function(e){H(e),clearInterval(t)})}n("error",i),n("load",function(e){var t=e.target;if(400<=t.status)i(t);else{var n=I[a]={content:t.response,opt:{updatedAt:o.getResponseHeader("last-modified")}};r(n.content,n.opt)}})},abort:function(e){return 4!==o.readyState&&o.abort()}}}function U(e,t){e.innerHTML=e.innerHTML.replace(/var\(\s*--theme-color.*?\)/g,t)}function B(e,t,r,i){void 0===i&&(i=p);var a=e._hooks[t],o=function(t){var e=a[t];if(t>=a.length)i(r);else if("function"==typeof e)if(2===e.length)e(r,function(e){r=e,o(t+1)});else{var n=e(r);r=void 0===n?r:n,o(t+1)}else o(t+1)};o(0)}var Z=u.title;function W(){var e=m("section.cover");if(e){var t=e.getBoundingClientRect().height;window.pageYOffset>=t||e.classList.contains("hidden")?_(v,"add","sticky"):_(v,"remove","sticky")}}function Y(e,t,r,n){var i=[];null!=(t=m(t))&&(i=y(t,"a"));var a,o=decodeURI(e.toURL(e.getCurrentPath()));return i.sort(function(e,t){return t.href.length-e.href.length}).forEach(function(e){var t=e.getAttribute("href"),n=r?e.parentNode:e;e.title=e.innerText,0!==o.indexOf(t)||a?_(n,"remove","active"):(a=e,_(n,"add","active"))}),n&&(u.title=a?a.title||a.innerText+" - "+Z:Z),a}var G=decodeURIComponent,V=encodeURIComponent;function X(e){var n={};return(e=e.trim().replace(/^(\?|#|&)/,""))&&e.split("&").forEach(function(e){ Line: 27 -  parseInline(r.tokens,t));break;case"em":i+=t.em(this.parseInline(r.tokens,t));break;case"codespan":i+=t.codespan(r.text);break;case"br":i+=t.br();break;case"del":i+=t.del(this.parseInline(r.tokens,t));break;case"text":i+=t.text(r.text);break;default:var o='Token with "'+r.type+'" type was not found.';if(this.options.silent)return void console.error(o);throw new Error(o)}return i},n}(),cn=Rt,un=zt,pn=St,dn=st.getDefaults,fn=st.changeDefaults,hn=st.defaults;function gn(e,n,r){if(null==e)throw new Error("marked(): input parameter is undefined or null");if("string"!=typeof e)throw new Error("marked(): input parameter is of type "+Object.prototype.toString.call(e)+", string expected");if("function"==typeof n&&(r=n,n=null),n=cn({},gn.defaults,n||{}),un(n),r){var i,a=n.highlight;try{i=Qt.lex(e,n)}catch(e){return r(e)}function o(t){var e;if(!t)try{e=ln.parse(i,n)}catch(e){t=e}return n.highlight=a,t?r(t):r(null,e)}if(!a||a.length<3)return o();if(delete n.highlight,!i.length)return o();var s=0;return gn.walkTokens(i,function(n){"code"===n.type&&(s++,setTimeout(function(){a(n.text,n.lang,function(e,t){if(e)return o(e);null!=t&&t!==n.text&&(n.text=t,n.escaped=!0),0===--s&&o()})},0))}),void(0===s&&o())}try{var t=Qt.lex(e,n);return n.walkTokens&&gn.walkTokens(t,n.walkTokens),ln.parse(t,n)}catch(e){if(e.message+="\nPlease report this to https://github.com/markedjs/marked.",n.silent)return"<p>An error occurred:</p><pre>"+pn(e.message+"",!0)+"</pre>";throw e}}gn.options=gn.setOptions=function(e){return cn(gn.defaults,e),fn(gn.defaults),gn},gn.getDefaults=dn,gn.defaults=hn,gn.use=function(a){var e=cn({},a);if(a.renderer){function t(r){var i=o[r];o[r]=function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];var n=a.renderer[r].apply(o,e);return!1===n&&(n=i.apply(o,e)),n}}var o=gn.defaults.renderer||new nn;for(var n in a.renderer)t(n);e.renderer=o}if(a.tokenizer){function r(e){var r=i[s];i[s]=function(){for(var e=[],t=arguments.length;t--;)e[t]=arguments[t];var n=a.tokenizer[s].apply(i,e);return!1===n&&(n=r.apply(i,e)),n}}var i=gn.defaults.tokenizer||new Ht;for(var s in a.tokenizer)r();e Line: 32 -  ename=e.src,e.hasAttribute("data-manual")&&(z.manual=!0)),!z.manual){var r=document.readyState;"loading"===r||"interactive"===r&&e&&e.defer?document.addEventListener("DOMContentLoaded",n):window.requestAnimationFrame?window.requestAnimationFrame(n):window.setTimeout(n,16)}return z}("undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{});e.exports&&(e.exports=a),void 0!==it&&(it.Prism=a),a.languages.markup={comment:/<!--[\s\S]*?-->/,prolog:/<\?[\s\S]+?\?>/,doctype:{pattern:/<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,greedy:!0,inside:{"internal-subset":{pattern:/(\[)[\s\S]+(?=\]>$)/,lookbehind:!0,greedy:!0,inside:null},string:{pattern:/"[^"]*"|'[^']*'/,greedy:!0},punctuation:/^<!|>$|[[\]]/,"doctype-tag":/^DOCTYPE/,name:/[^\s<>'"]+/}},cdata:/<!\[CDATA\[[\s\S]*?]]>/i,tag:{pattern:/<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,greedy:!0,inside:{tag:{pattern:/^<\/?[^\s>\/]+/,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"attr-value":{pattern:/=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+)/,inside:{punctuation:[{pattern:/^=/,alias:"attr-equals"},/"|'/]}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:[{pattern:/&[\da-z]{1,8};/i,alias:"named-entity"},/&#x?[\da-f]{1,8};/i]},a.languages.markup.tag.inside["attr-value"].inside.entity=a.languages.markup.entity,a.languages.markup.doctype.inside["internal-subset"].inside=a.languages.markup,a.hooks.add("wrap",function(e){"entity"===e.type&&(e.attributes.title=e.content.replace(/&amp;/,"&"))}),Object.defineProperty(a.languages.markup.tag,"addInlined",{value:function(e,t){var n={};n["language-"+t]={pattern:/(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,lookbehind:!0,inside:a.languages[t]},n.cdata=/^<!\[CDATA\[|\]\]>$/i;var r={"included-cdata":{pattern:/<!\[CDATA\[[\s\S]*?\]\]>/i,inside:n}};r["language-"+t]={pattern:/[\s\S]+/,inside:a.languages[t]};var i={};i[e]={pattern:RegExp(/(<__[\s\S]*?>)(?:<!\[CDATA\[( Line: 40 -  ;return r.links=n.links,i(r)}var s=o._marked,l=s.lexer(a),c=[],u=s.Lexer.rules.inline.link,p=l.links;l.forEach(function(e,a){"paragraph"===e.type&&(e.text=e.text.replace(new RegExp(u.source,"g"),function(e,t,n,r){var i=o.compileEmbed(n,r);return i&&c.push({index:a,embed:i}),e}))});var d=[];!function(e,o){var t,n=e.embedTokens,s=e.compile,l=(e.fetch,0),c=1;if(!n.length)return o({});for(;t=n[l++];){var r=function(a){return function(e){var t;if(e)if("markdown"===a.embed.type){var n=a.embed.url.split("/");n.pop(),n=n.join("/"),e=e.replace(/\[([^[\]]+)\]\(([^)]+)\)/g,function(e){var t=e.indexOf("(");return e.substring(t).startsWith("(.")?e.substring(0,t)+"("+window.location.protocol+"//"+window.location.host+n+"/"+e.substring(t+1,e.length-1)+")":e}),!0===(($docsify.frontMatter||{}).installed||!1)&&(e=$docsify.frontMatter.parseMarkdown(e)),t=s.lexer(e)}else if("code"===a.embed.type){if(a.embed.fragment){var r=a.embed.fragment,i=new RegExp("(?:###|\\/\\/\\/)\\s*\\["+r+"\\]([\\s\\S]*)(?:###|\\/\\/\\/)\\s*\\["+r+"\\]");e=Fn((e.match(i)||[])[1]||"").trim()}t=s.lexer("```"+a.embed.lang+"\n"+e.replace(/`/g,"@DOCSIFY_QM@")+"\n```\n")}else"mermaid"===a.embed.type?(t=[{type:"html",text:'<div class="mermaid">\n'+e+"\n</div>"}]).links={}:(t=[{type:"html",text:e}]).links={};o({token:a,embedToken:t}),++c>=l&&o({})}}(t);t.embed.url?q(t.embed.url).then(r):r(t.embed.html)}}({compile:s,embedTokens:c,fetch:t},function(e){var t=e.embedToken,n=e.token;if(n){var r=n.index;d.forEach(function(e){r>e.start&&(r+=e.length)}),f(p,t.links),l=l.slice(0,r).concat(t,l.slice(r+1)),d.push({start:r,length:t.length-1})}else zn[a]=l.concat(),l.links=zn[a].links=p,i(l)})}function Mn(){var e=y(".markdown-section>script").filter(function(e){return!/template/.test(e.type)})[0];if(!e)return!1;var t=e.innerText.trim();if(!t)return!1;setTimeout(function(e){window.__EXECUTE_RESULT__=new Function(t)()},0)}function Nn(e,t,n){return t="function"==typeof n?n(t):"string"==typeof n?function(r,i){var a=[],o=0;return r.replace(T,function(t,e,n){a.push(r.substring(o,n-1)),o=n+=t.length+1,a.push(i&&i[t]||function(e){return("00"+("strin Line: 41 -  t]?e[E[t]]():E[t](e))).slice(-t.length)})}),o!==r.length&&a.push(r.substring(o)),function(e){for(var t="",n=0,r=e||new Date;n<a.length;n++)t+="string"==typeof a[n]?a[n]:a[n](r);return t}}(n)(new Date(t)):t,e.replace(/{docsify-updated}/g,t)}function Pn(e){e=e||"<h1>404 - Not found</h1>",this._renderTo(".markdown-section",e),this.config.loadSidebar||this._renderSidebar(),!1===this.config.executeScript||void 0===window.Vue||Mn()?this.config.executeScript&&Mn():setTimeout(function(e){var t=window.__EXECUTE_RESULT__;t&&t.$destroy&&t.$destroy(),window.__EXECUTE_RESULT__=(new window.Vue).$mount("#main")},0)}function Dn(e){var t=e.config;e.compiler=new $n(t,e.router),window.__current_docsify_compiler__=e.compiler;var n=t.el||"#app",r=b("nav")||g("nav"),i=b(n),a="",o=v;if(i){if(t.repo&&(a+=function(e,t){return e?(/\/\//.test(e)||(e="https://github.com/"+e),'<a href="'+(e=e.replace(/^git\+/,""))+'" target="'+(t=t||"_blank")+'" class="github-corner" aria-label="View source on Github"><svg viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>'):""}(t.repo,t.cornerExternalLinkTarge)),t.coverpage&&(a+=function(){var e=", 100%, 85%";return'<section class="cover show" style="backg</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/search.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2 -  \n.search input:focus {\n  box-shadow: 0 0 5px var(--theme-color, #42b983);\n  border: 1px solid var(--theme-color, #42b983);\n}\n\n.search input::-webkit-search-decoration,\n.search input::-webkit-search-cancel-button,\n.search input {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\n.search .clear-button {\n  cursor: pointer;\n  width: 36px;\n  text-align: right;\n  display: none;\n}\n\n.search .clear-button.show {\n  display: block;\n}\n\n.search .clear-button svg {\n  transform: scale(.5);\n}\n\n.search h2 {\n  font-size: 17px;\n  margin: 10px 0;\n}\n\n.search a {\n  text-decoration: none;\n  color: inherit;\n}\n\n.search .matching-post {\n  border-bottom: 1px solid #eee;\n}\n\n.search .matching-post:last-child {\n  border-bottom: 0;\n}\n\n.search p {\n  font-size: 14px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\n\n.search p.empty {\n  text-align: center;\n}\n\n.app-name.hide, .sidebar-nav.hide {\n  display: none;\n}"),function(e){void 0===e&&(e="");var n='<div class="input-wrap">\n      <input type="search" value="'+e+'" aria-label="Search text" />\n      <div class="clear-button">\n        <svg width="26" height="24">\n          <circle cx="12" cy="12" r="11" fill="#ccc" />\n          <path stroke="white" stroke-width="2" d="M8.25,8.25,15.75,15.75" />\n          <path stroke="white" stroke-width="2"d="M8.25,15.75,15.75,8.25" />\n        </svg>\n      </div>\n    </div>\n    <div class="results-panel"></div>\n    </div>',t=Docsify.dom.create("div",n),a=Docsify.dom.find("aside");Docsify.dom.toggleClass(t,"search"),Docsify.dom.before(a,t)}(t),function(){var e,n=Docsify.dom.find("div.search"),t=Docsify.dom.find(n,"input"),a=Docsify.dom.find(n,".input-wrap");Docsify.dom.on(n,"click",function(e){return-1===["A","H2","P","EM"].indexOf(e.target.tagName)&&e.stopPropagation()}),Docsify.dom.on(t,"input",function(n){clearTimeout(e),e=setTimeout(function(e){return r(n.target.value.trim())},100)}),Docsify.dom.on(a,"click",function(e){"INPUT"!==e.target.tagName&&( Line: 3 -  ())})}(),t&&setTimeout(function(e){return r(t)},500)}function s(e,n){a(e),function(e,n){var t=Docsify.dom.getNode('.search input[type="search"]');if(t)if("string"==typeof e)t.placeholder=e;else{var a=Object.keys(e).filter(function(e){return-1<n.indexOf(e)})[0];t.placeholder=e[a]}}(e.placeholder,n.route.path),function(e,n){if("string"==typeof e)m=e;else{var t=Object.keys(e).filter(function(e){return-1<n.indexOf(e)})[0];m=e[t]}}(e.noData,n.route.path)}var g={placeholder:"Type to search",noData:"No Results!",paths:"auto",depth:2,maxAge:864e5,hideOtherSidebarContent:!1,namespace:void 0,pathNamespaces:void 0};$docsify.plugins=[].concat(function(e,n){var t=Docsify.util,a=n.config.search||g;Array.isArray(a)?g.paths=a:"object"==typeof a&&(g.paths=Array.isArray(a.paths)?a.paths:"auto",g.maxAge=t.isPrimitive(a.maxAge)?a.maxAge:g.maxAge,g.placeholder=a.placeholder||g.placeholder,g.noData=a.noData||g.noData,g.depth=a.depth||g.depth,g.hideOtherSidebarContent=a.hideOtherSidebarContent||g.hideOtherSidebarContent,g.namespace=a.namespace||g.namespace,g.pathNamespaces=a.pathNamespaces||g.pathNamespaces);var r="auto"===g.paths;e.mounted(function(e){o(g,n),r||i(g,n)}),e.doneEach(function(e){s(g,n),r&&i(g,n)})},$docsify.plugins)}();
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/matomo.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 12 -      setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/zoom-image.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 144 -          setTimeout(close, 150);
+
+ Line: 428 -            var getZoomTargetSize = setInterval(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/search.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 380 -        timeId = setTimeout(function (_) { return doSearch(e.target.value.trim()); }, 100);
+
+ Line: 426 -      keywords && setTimeout(function (_) { return doSearch(keywords); }, 500);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/search.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 162 -     * @param {String} query Search query
+
+ Line: 172 -      query = query.trim();
+
+ Line: 173 -      var keywords = query.split(/[\s\-，\\/]+/);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/zoom-image.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1 -  tyle.transform=y)}var d=(0<arguments.length&&void 0!==e?e:{}).target;return new a(function(t){if(d&&-1===c.indexOf(d))t(f);else{if(E.zoomed)t(f);else{if(d)E.original=d;else{if(!(0<c.length))return void t(f);var e=c;E.original=e[0]}if(E.original.dispatchEvent(g("medium-zoom:open",{detail:{zoom:f}})),u=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0,l=!0,E.zoomed=function(e){var t=e.getBoundingClientRect(),o=t.top,n=t.left,i=t.width,r=t.height,d=e.cloneNode(),a=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0,m=window.pageXOffset||document.documentElement.scrollLeft||document.body.scrollLeft||0;return d.removeAttribute("id"),d.style.position="absolute",d.style.top=o+a+"px",d.style.left=n+m+"px",d.style.width=i+"px",d.style.height=r+"px",d.style.transform="",d}(E.original),document.body.appendChild(s),b.template){var o=w(b.template)?b.template:document.querySelector(b.template);E.template=document.createElement("div"),E.template.appendChild(o.content.cloneNode(!0)),document.body.appendChild(E.template)}if(document.body.appendChild(E.zoomed),window.requestAnimationFrame(function(){document.body.classList.add("medium-zoom--opened")}),E.original.classList.add("medium-zoom-image--hidden"),E.zoomed.classList.add("medium-zoom-image--opened"),E.zoomed.addEventListener("click",m),E.zoomed.addEventListener("transitionend",function e(){l=!1,E.zoomed.removeEventListener("transitionend",e),E.original.dispatchEvent(g("medium-zoom:opened",{detail:{zoom:f}})),t(f)}),E.original.getAttribute("data-zoom-src")){E.zoomedHd=E.zoomed.cloneNode(),E.zoomedHd.removeAttribute("srcset"),E.zoomedHd.removeAttribute("sizes"),E.zoomedHd.src=E.zoomed.getAttribute("data-zoom-src"),E.zoomedHd.onerror=function(){clearInterval(n),console.warn("Unable to reach the zoom image target "+E.zoomedHd.src),E.zoomedHd=null,r()};var n=setInterval(function(){E.zoomedHd.complete&&(clearInterval(n),E.zoomedHd.classList.add("medium-zoom-image--opened"),E.zoomedHd.addEventListener("click",m),document.body.appendChild(E.zoomedHd),r())},10)}else if(E.original.hasAt Line: 3 -  t.documentElement.scrollTop||document.body.scrollTop||0;Math.abs(u-e)>b.scrollOffset&&setTimeout(m,150)}}),window.addEventListener("resize",m);var f={open:n,close:m,toggle:r,update:function(e){var t=0<arguments.length&&void 0!==e?e:{},o=t;if(t.background&&(s.style.background=t.background),t.container&&t.container instanceof Object&&(o.container=H({},b.container,t.container)),t.template){var n=w(t.template)?t.template:document.querySelector(t.template);o.template=n}return b=H({},b,o),c.forEach(function(e){e.dispatchEvent(g("medium-zoom:update",{detail:{zoom:f}}))}),f},clone:function(e){return v(H({},b,0<arguments.length&&void 0!==e?e:{}))},attach:o,detach:function(){for(var e=arguments,t=arguments.length,o=Array(t),n=0;n<t;n++)o[n]=e[n];E.zoomed&&m();var i=0<o.length?o.reduce(function(e,t){return[].concat(e,p(t))},[]):c;return i.forEach(function(e){e.classList.remove("medium-zoom-image"),e.dispatchEvent(g("medium-zoom:detach",{detail:{zoom:f}}))}),c=c.filter(function(e){return-1===i.indexOf(e)}),f},on:function(t,o,e){var n=2<arguments.length&&void 0!==e?e:{};return c.forEach(function(e){e.addEventListener("medium-zoom:"+t,o,n)}),d.push({type:"medium-zoom:"+t,listener:o,options:n}),f},off:function(t,o,e){var n=2<arguments.length&&void 0!==e?e:{};return c.forEach(function(e){e.removeEventListener("medium-zoom:"+t,o,n)}),d=d.filter(function(e){return!(e.type==="medium-zoom:"+t&&e.listener.toString()===o.toString())}),f},getOptions:function(){return b},getImages:function(){return c},getZoomedImage:function(){return E.original}};return f}var H=Object.assign||function(e){for(var t=arguments,o=1;o<arguments.length;o++){var n=t[o];for(var i in n)Object.prototype.hasOwnProperty.call(n,i)&&(e[i]=n[i])}return e};!function(e,t){void 0===t&&(t={});var o=t.insertAt;if(e&&"undefined"!=typeof document){var n=document.head||document.getElementsByTagName("head")[0],i=document.createElement("style");i.type="text/css","top"===o&&n.firstChild?n.insertBefore(i,n.firstChild):n.appendChild(i),i.styleSheet?i.styleSheet.cssText=e:i.appendChild(document.createTextNode(e))}}(".medium-zoom-overlay{position:</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/matomo.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  !function(){function o(o){window._paq=window._paq||[],window._paq.push(["trackPageView"]),window._paq.push(["enableLinkTracking"]),setTimeout(function(){!function(o){var i=document.createElement("script");i.async=!0,i.src=o.host+"/matomo.js",document.body.appendChild(i)}(o),window._paq.push(["setTrackerUrl",o.host+"/matomo.php"]),window._paq.push(["setSiteId",String(o.id)])},0)}function i(){window._paq||o($docsify.matomo),window._paq.push(["setCustomUrl",window.location.hash.substr(1)]),window._paq.push(["setDocumentTitle",document.title]),window._paq.push(["trackPageView"])}$docsify.plugins=[].concat(function(o){$docsify.matomo?o.beforeEach(i):console.error("[Docsify] matomo is required.")},$docsify.plugins)}();
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/plugins/front-matter.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 22 -     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+

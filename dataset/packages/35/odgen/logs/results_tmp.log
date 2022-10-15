@@ -1,0 +1,174 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-601/35/package/index.js
+Line 57	  return function serveStatic(req, res, next) {
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      return next()
+    }
+
+    var opts = merge({}, options)
+    var originalUrl = parseurl.original(req)
+    var path = parseurl(req).pathname
+    var hasTrailingSlash = originalUrl.pathname[originalUrl.pathname.length - 1] === '/'
+
+    if (path === '/' && !hasTrailingSlash) {
+      // make sure redirect occurs at mount
+      path = ''
+    }
+
+    // create send stream
+    var stream = send(req, path, opts)
+
+    if (redirect) {
+      // redirect relative to originalUrl
+      stream.on('directory', function redirect() {
+        if (hasTrailingSlash) {
+          return next()
+        }
+
+        originalUrl.pathname += '/'
+
+        var target = url.format(originalUrl)
+
+        res.statusCode = 303
+        res.setHeader('Content-Type', 'text/html; charset=utf-8')
+        res.setHeader('Location', target)
+        res.end('Redirecting to <a href="' + escapeHtml(target) + '">' + escapeHtml(target) + '</a>\n')
+      })
+    } else {
+      // forward to next middleware on directory
+      stream.on('directory', next)
+    }
+
+    // add headers listener
+    if (setHeaders) {
+      stream.on('headers', setHeaders)
+    }
+
+    // forward non-404 errors
+    stream.on('error', function error(err) {
+      next(err.status === 404 ? null : err)
+    })
+
+    // pipe
+    stream.pipe(res)
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-601/35/package/index.js
+Line 107	    stream.pipe(res)
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-601/35/package/index.js
+Line 57	  return function serveStatic(req, res, next) {
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      return next()
+    }
+
+    var opts = merge({}, options)
+    var originalUrl = parseurl.original(req)
+    var path = parseurl(req).pathname
+    var hasTrailingSlash = originalUrl.pathname[originalUrl.pathname.length - 1] === '/'
+
+    if (path === '/' && !hasTrailingSlash) {
+      // make sure redirect occurs at mount
+      path = ''
+    }
+
+    // create send stream
+    var stream = send(req, path, opts)
+
+    if (redirect) {
+      // redirect relative to originalUrl
+      stream.on('directory', function redirect() {
+        if (hasTrailingSlash) {
+          return next()
+        }
+
+        originalUrl.pathname += '/'
+
+        var target = url.format(originalUrl)
+
+        res.statusCode = 303
+        res.setHeader('Content-Type', 'text/html; charset=utf-8')
+        res.setHeader('Location', target)
+        res.end('Redirecting to <a href="' + escapeHtml(target) + '">' + escapeHtml(target) + '</a>\n')
+      })
+    } else {
+      // forward to next middleware on directory
+      stream.on('directory', next)
+    }
+
+    // add headers listener
+    if (setHeaders) {
+      stream.on('headers', setHeaders)
+    }
+
+    // forward non-404 errors
+    stream.on('error', function error(err) {
+      next(err.status === 404 ? null : err)
+    })
+
+    // pipe
+    stream.pipe(res)
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-601/35/package/index.js
+Line 107	    stream.pipe(res)
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-601/35/package/index.js
+Line 57	  return function serveStatic(req, res, next) {
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      return next()
+    }
+
+    var opts = merge({}, options)
+    var originalUrl = parseurl.original(req)
+    var path = parseurl(req).pathname
+    var hasTrailingSlash = originalUrl.pathname[originalUrl.pathname.length - 1] === '/'
+
+    if (path === '/' && !hasTrailingSlash) {
+      // make sure redirect occurs at mount
+      path = ''
+    }
+
+    // create send stream
+    var stream = send(req, path, opts)
+
+    if (redirect) {
+      // redirect relative to originalUrl
+      stream.on('directory', function redirect() {
+        if (hasTrailingSlash) {
+          return next()
+        }
+
+        originalUrl.pathname += '/'
+
+        var target = url.format(originalUrl)
+
+        res.statusCode = 303
+        res.setHeader('Content-Type', 'text/html; charset=utf-8')
+        res.setHeader('Location', target)
+        res.end('Redirecting to <a href="' + escapeHtml(target) + '">' + escapeHtml(target) + '</a>\n')
+      })
+    } else {
+      // forward to next middleware on directory
+      stream.on('directory', next)
+    }
+
+    // add headers listener
+    if (setHeaders) {
+      stream.on('headers', setHeaders)
+    }
+
+    // forward non-404 errors
+    stream.on('error', function error(err) {
+      next(err.status === 404 ? null : err)
+    })
+
+    // pipe
+    stream.pipe(res)
+  }
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-601/35/package/index.js
+Line 107	    stream.pipe(res)
+

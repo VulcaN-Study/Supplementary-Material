@@ -1,0 +1,563 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 218	    default_options = {
+      version: require('../package.json').version,
+      logging: true,
+      log: console.log,
+      static_route: (process.cwd()) + "/public",
+      serve_static: true,
+      list_dir: true,
+      default_home: ['index.html', 'index.htm', 'default.htm'],
+      cgi_dir: "cgi-bin",
+      serve_cgi: true,
+      serve_php: true,
+      php_cgi: "php-cgi",
+      served_by: 'Node Simple Router',
+      software_name: 'node-simple-router',
+      regex: "/([A-Za-z0-9_\-]+)",
+      admin_user: 'admin',
+      admin_pwd: 'admin',
+      use_nsr_session: true,
+      avail_nsr_session_handlers: ['dispatch.memory_store', 'dispatch.text_store'],
+      nsr_session_handler: 'dispatch.memory_store'
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 833	      full_path = "" + dispatch.static_route + (unescape(pathname));
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 30	  sink_hqbpillvul_spawn(command);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 829	    dispatch.cgi = function(pathname, req, res) {
+      var body, child, d, data, e, env, error, full_path, isPHP, prepareChild, respbuffer, urlobj;
+      urlobj = urlparse(req.url);
+      respbuffer = '';
+      full_path = "" + dispatch.static_route + (unescape(pathname));
+      env = dispatch.getEnv(pathname, req, res);
+      isPHP = !!pathname.match(/\.php$/);
+      prepareChild = function(req_body) {
+        var child;
+        if (req_body && isPHP) {
+          if (!env['QUERY_STRING']) {
+            env['QUERY_STRING'] = '';
+          }
+          env['QUERY_STRING'] += req_body;
+        }
+        if (isPHP) {
+          if (!dispatch.serve_php) {
+            dispatch._405(null, res, pathname, "PHP scripts not allowed");
+            return null;
+          } else {
+            if (!!dispatch.logging) {
+              dispatch.log("Spawning " + dispatch.php_cgi + " " + full_path);
+            }
+            child = spawn(dispatch.php_cgi, [full_path], {
+              env: env
+            });
+          }
+        } else {
+          if (!!dispatch.logging) {
+            dispatch.log("Spawning " + full_path);
+          }
+          child = spawn(full_path, [], {
+            env: env
+          });
+        }
+        child.stderr.pipe(process.stderr);
+        child.stdout.on('data', function(data) {
+          var arrdata, e, elem, error, i, len1, pair, results;
+          arrdata = data.toString().split('\n');
+          results = [];
+          for (i = 0, len1 = arrdata.length; i < len1; i++) {
+            elem = arrdata[i];
+            if (elem.substr(0, 8).toLowerCase() !== "content-") {
+              results.push(respbuffer += elem);
+            } else {
+              pair = elem.split(/:\s+/);
+              try {
+                results.push(res.setHeader(pair[0], pair[1]));
+              } catch (error) {
+                e = error;
+                if (!!dispatch.logging) {
+                  results.push(dispatch.log("Error setting response header: " + e.message));
+                } else {
+                  results.push(void 0);
+                }
+              }
+            }
+          }
+          return results;
+        });
+        child.stdout.on('end', function(moredata) {
+          var e, error;
+          try {
+            if (!!moredata) {
+              respbuffer += moredata;
+            }
+            return res.end(respbuffer);
+          } catch (error) {
+            e = error;
+            if (!!dispatch.logging) {
+              return dispatch.log("Error terminating response: " + e.message);
+            }
+          }
+        });
+        return child;
+      };
+      body = [];
+      if (req.method.toLowerCase() === "post") {
+        req.on('data', function(chunk) {
+          return body.push(chunk);
+        });
+        req.on('end', function() {
+          var child, contentType, d, data, e, error;
+          contentType = 'application/x-www-form-urlencoded';
+          if (req.headers['content-type']) {
+            contentType = req.headers['content-type'];
+          }
+          body = body.join('');
+          req.post = _bodyparser(body, contentType);
+          req.body = _extend(req.body, req.post);
+          try {
+            data = querystring.stringify(req.body);
+            child = prepareChild(data);
+            if (!child) {
+              return;
+            }
+            d = domain.create();
+            d.add(child.stdin);
+            d.on('error', function(err) {
+              if (!!dispatch.logging) {
+                return dispatch.log("Child process input error (captured by domain): " + err.message);
+              }
+            });
+            return d.run(function() {
+              child.stdin.write(data + "\n");
+              return child.stdin.end();
+            });
+          } catch (error) {
+            e = error;
+            if (!!dispatch.logging) {
+              return dispatch.log("Child process input error: " + e.message);
+            }
+          }
+        });
+      } else {
+        try {
+          data = querystring.stringify(req.body);
+          if (!!dispatch.logging) {
+            dispatch.log("Data to be sent: " + data);
+          }
+          child = prepareChild();
+          if (!child) {
+            return;
+          }
+          d = domain.create();
+          d.add(child.stdin);
+          d.on('error', function(err) {
+            if (!!dispatch.logging) {
+              return dispatch.log("Child process input error (captured by domain): " + err.message);
+            }
+          });
+          d.run(function() {
+            child.stdin.write(data + "\n");
+            return child.stdin.end();
+          });
+        } catch (error) {
+          e = error;
+          if (!!dispatch.logging) {
+            dispatch.log("Child process input error: " + e.message);
+          }
+        }
+      }
+      return 0;
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 833	      full_path = "" + dispatch.static_route + (unescape(pathname));
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 30	  sink_hqbpillvul_spawn(command);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 218	    default_options = {
+      version: require('../package.json').version,
+      logging: true,
+      log: console.log,
+      static_route: (process.cwd()) + "/public",
+      serve_static: true,
+      list_dir: true,
+      default_home: ['index.html', 'index.htm', 'default.htm'],
+      cgi_dir: "cgi-bin",
+      serve_cgi: true,
+      serve_php: true,
+      php_cgi: "php-cgi",
+      served_by: 'Node Simple Router',
+      software_name: 'node-simple-router',
+      regex: "/([A-Za-z0-9_\-]+)",
+      admin_user: 'admin',
+      admin_pwd: 'admin',
+      use_nsr_session: true,
+      avail_nsr_session_handlers: ['dispatch.memory_store', 'dispatch.text_store'],
+      nsr_session_handler: 'dispatch.memory_store'
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 833	      full_path = "" + dispatch.static_route + (unescape(pathname));
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 30	  sink_hqbpillvul_spawn(command);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 829	    dispatch.cgi = function(pathname, req, res) {
+      var body, child, d, data, e, env, error, full_path, isPHP, prepareChild, respbuffer, urlobj;
+      urlobj = urlparse(req.url);
+      respbuffer = '';
+      full_path = "" + dispatch.static_route + (unescape(pathname));
+      env = dispatch.getEnv(pathname, req, res);
+      isPHP = !!pathname.match(/\.php$/);
+      prepareChild = function(req_body) {
+        var child;
+        if (req_body && isPHP) {
+          if (!env['QUERY_STRING']) {
+            env['QUERY_STRING'] = '';
+          }
+          env['QUERY_STRING'] += req_body;
+        }
+        if (isPHP) {
+          if (!dispatch.serve_php) {
+            dispatch._405(null, res, pathname, "PHP scripts not allowed");
+            return null;
+          } else {
+            if (!!dispatch.logging) {
+              dispatch.log("Spawning " + dispatch.php_cgi + " " + full_path);
+            }
+            child = spawn(dispatch.php_cgi, [full_path], {
+              env: env
+            });
+          }
+        } else {
+          if (!!dispatch.logging) {
+            dispatch.log("Spawning " + full_path);
+          }
+          child = spawn(full_path, [], {
+            env: env
+          });
+        }
+        child.stderr.pipe(process.stderr);
+        child.stdout.on('data', function(data) {
+          var arrdata, e, elem, error, i, len1, pair, results;
+          arrdata = data.toString().split('\n');
+          results = [];
+          for (i = 0, len1 = arrdata.length; i < len1; i++) {
+            elem = arrdata[i];
+            if (elem.substr(0, 8).toLowerCase() !== "content-") {
+              results.push(respbuffer += elem);
+            } else {
+              pair = elem.split(/:\s+/);
+              try {
+                results.push(res.setHeader(pair[0], pair[1]));
+              } catch (error) {
+                e = error;
+                if (!!dispatch.logging) {
+                  results.push(dispatch.log("Error setting response header: " + e.message));
+                } else {
+                  results.push(void 0);
+                }
+              }
+            }
+          }
+          return results;
+        });
+        child.stdout.on('end', function(moredata) {
+          var e, error;
+          try {
+            if (!!moredata) {
+              respbuffer += moredata;
+            }
+            return res.end(respbuffer);
+          } catch (error) {
+            e = error;
+            if (!!dispatch.logging) {
+              return dispatch.log("Error terminating response: " + e.message);
+            }
+          }
+        });
+        return child;
+      };
+      body = [];
+      if (req.method.toLowerCase() === "post") {
+        req.on('data', function(chunk) {
+          return body.push(chunk);
+        });
+        req.on('end', function() {
+          var child, contentType, d, data, e, error;
+          contentType = 'application/x-www-form-urlencoded';
+          if (req.headers['content-type']) {
+            contentType = req.headers['content-type'];
+          }
+          body = body.join('');
+          req.post = _bodyparser(body, contentType);
+          req.body = _extend(req.body, req.post);
+          try {
+            data = querystring.stringify(req.body);
+            child = prepareChild(data);
+            if (!child) {
+              return;
+            }
+            d = domain.create();
+            d.add(child.stdin);
+            d.on('error', function(err) {
+              if (!!dispatch.logging) {
+                return dispatch.log("Child process input error (captured by domain): " + err.message);
+              }
+            });
+            return d.run(function() {
+              child.stdin.write(data + "\n");
+              return child.stdin.end();
+            });
+          } catch (error) {
+            e = error;
+            if (!!dispatch.logging) {
+              return dispatch.log("Child process input error: " + e.message);
+            }
+          }
+        });
+      } else {
+        try {
+          data = querystring.stringify(req.body);
+          if (!!dispatch.logging) {
+            dispatch.log("Data to be sent: " + data);
+          }
+          child = prepareChild();
+          if (!child) {
+            return;
+          }
+          d = domain.create();
+          d.add(child.stdin);
+          d.on('error', function(err) {
+            if (!!dispatch.logging) {
+              return dispatch.log("Child process input error (captured by domain): " + err.message);
+            }
+          });
+          d.run(function() {
+            child.stdin.write(data + "\n");
+            return child.stdin.end();
+          });
+        } catch (error) {
+          e = error;
+          if (!!dispatch.logging) {
+            dispatch.log("Child process input error: " + e.message);
+          }
+        }
+      }
+      return 0;
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 833	      full_path = "" + dispatch.static_route + (unescape(pathname));
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 30	  sink_hqbpillvul_spawn(command);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 218	    default_options = {
+      version: require('../package.json').version,
+      logging: true,
+      log: console.log,
+      static_route: (process.cwd()) + "/public",
+      serve_static: true,
+      list_dir: true,
+      default_home: ['index.html', 'index.htm', 'default.htm'],
+      cgi_dir: "cgi-bin",
+      serve_cgi: true,
+      serve_php: true,
+      php_cgi: "php-cgi",
+      served_by: 'Node Simple Router',
+      software_name: 'node-simple-router',
+      regex: "/([A-Za-z0-9_\-]+)",
+      admin_user: 'admin',
+      admin_pwd: 'admin',
+      use_nsr_session: true,
+      avail_nsr_session_handlers: ['dispatch.memory_store', 'dispatch.text_store'],
+      nsr_session_handler: 'dispatch.memory_store'
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 833	      full_path = "" + dispatch.static_route + (unescape(pathname));
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 30	  sink_hqbpillvul_spawn(command);
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 829	    dispatch.cgi = function(pathname, req, res) {
+      var body, child, d, data, e, env, error, full_path, isPHP, prepareChild, respbuffer, urlobj;
+      urlobj = urlparse(req.url);
+      respbuffer = '';
+      full_path = "" + dispatch.static_route + (unescape(pathname));
+      env = dispatch.getEnv(pathname, req, res);
+      isPHP = !!pathname.match(/\.php$/);
+      prepareChild = function(req_body) {
+        var child;
+        if (req_body && isPHP) {
+          if (!env['QUERY_STRING']) {
+            env['QUERY_STRING'] = '';
+          }
+          env['QUERY_STRING'] += req_body;
+        }
+        if (isPHP) {
+          if (!dispatch.serve_php) {
+            dispatch._405(null, res, pathname, "PHP scripts not allowed");
+            return null;
+          } else {
+            if (!!dispatch.logging) {
+              dispatch.log("Spawning " + dispatch.php_cgi + " " + full_path);
+            }
+            child = spawn(dispatch.php_cgi, [full_path], {
+              env: env
+            });
+          }
+        } else {
+          if (!!dispatch.logging) {
+            dispatch.log("Spawning " + full_path);
+          }
+          child = spawn(full_path, [], {
+            env: env
+          });
+        }
+        child.stderr.pipe(process.stderr);
+        child.stdout.on('data', function(data) {
+          var arrdata, e, elem, error, i, len1, pair, results;
+          arrdata = data.toString().split('\n');
+          results = [];
+          for (i = 0, len1 = arrdata.length; i < len1; i++) {
+            elem = arrdata[i];
+            if (elem.substr(0, 8).toLowerCase() !== "content-") {
+              results.push(respbuffer += elem);
+            } else {
+              pair = elem.split(/:\s+/);
+              try {
+                results.push(res.setHeader(pair[0], pair[1]));
+              } catch (error) {
+                e = error;
+                if (!!dispatch.logging) {
+                  results.push(dispatch.log("Error setting response header: " + e.message));
+                } else {
+                  results.push(void 0);
+                }
+              }
+            }
+          }
+          return results;
+        });
+        child.stdout.on('end', function(moredata) {
+          var e, error;
+          try {
+            if (!!moredata) {
+              respbuffer += moredata;
+            }
+            return res.end(respbuffer);
+          } catch (error) {
+            e = error;
+            if (!!dispatch.logging) {
+              return dispatch.log("Error terminating response: " + e.message);
+            }
+          }
+        });
+        return child;
+      };
+      body = [];
+      if (req.method.toLowerCase() === "post") {
+        req.on('data', function(chunk) {
+          return body.push(chunk);
+        });
+        req.on('end', function() {
+          var child, contentType, d, data, e, error;
+          contentType = 'application/x-www-form-urlencoded';
+          if (req.headers['content-type']) {
+            contentType = req.headers['content-type'];
+          }
+          body = body.join('');
+          req.post = _bodyparser(body, contentType);
+          req.body = _extend(req.body, req.post);
+          try {
+            data = querystring.stringify(req.body);
+            child = prepareChild(data);
+            if (!child) {
+              return;
+            }
+            d = domain.create();
+            d.add(child.stdin);
+            d.on('error', function(err) {
+              if (!!dispatch.logging) {
+                return dispatch.log("Child process input error (captured by domain): " + err.message);
+              }
+            });
+            return d.run(function() {
+              child.stdin.write(data + "\n");
+              return child.stdin.end();
+            });
+          } catch (error) {
+            e = error;
+            if (!!dispatch.logging) {
+              return dispatch.log("Child process input error: " + e.message);
+            }
+          }
+        });
+      } else {
+        try {
+          data = querystring.stringify(req.body);
+          if (!!dispatch.logging) {
+            dispatch.log("Data to be sent: " + data);
+          }
+          child = prepareChild();
+          if (!child) {
+            return;
+          }
+          d = domain.create();
+          d.add(child.stdin);
+          d.on('error', function(err) {
+            if (!!dispatch.logging) {
+              return dispatch.log("Child process input error (captured by domain): " + err.message);
+            }
+          });
+          d.run(function() {
+            child.stdin.write(data + "\n");
+            return child.stdin.end();
+          });
+        } catch (error) {
+          e = error;
+          if (!!dispatch.logging) {
+            dispatch.log("Child process input error: " + e.message);
+          }
+        }
+      }
+      return 0;
+    };
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/352/package/lib/router.js
+Line 833	      full_path = "" + dispatch.static_route + (unescape(pathname));
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/child_process.js
+Line 30	  sink_hqbpillvul_spawn(command);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/http.js
+Line 17	    sink_hqbpillvul_http_setHeader(value);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/http.js
+Line 17	    sink_hqbpillvul_http_setHeader(value);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/http.js
+Line 17	    sink_hqbpillvul_http_setHeader(value);
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/tools-testing/tools-docker/odgen/ODGen/builtin_packages/http.js
+Line 17	    sink_hqbpillvul_http_setHeader(value);
+

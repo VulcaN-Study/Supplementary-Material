@@ -1,0 +1,98 @@
+{
+ "dra": [
+  {
+   "dra": "http://js.foundation",
+   "type": "url",
+   "file": "/src/lib/api/comms.js"
+  },
+  {
+   "dra": "http://www.apache.org/licenses/LICENSE-2.0",
+   "type": "url",
+   "file": "/src/lib/api/comms.js"
+  },
+  {
+   "dra": "https://github.com/node-red/node-red/issues/2099",
+   "type": "url",
+   "file": "/src/lib/flows/Subflow.js"
+  },
+  {
+   "dra": "https://github.com/nodejs/node/pull/3455",
+   "type": "url",
+   "file": "/src/lib/nodes/index.js"
+  }
+ ],
+ "sast": {
+  "name": "@node-red/runtime",
+  "version": "1.2.7",
+  "averageCvss": 7.1,
+  "securityScore": 29,
+  "size": "520832 Bytes",
+  "numberOfLines": 13092
+ },
+ "libraries": [
+  {
+   "name": "json-stringify-safe",
+   "current": "5.0.1"
+  },
+  {
+   "name": "when",
+   "current": "3.7.8"
+  },
+  {
+   "name": "@node-red/registry",
+   "current": "1.2.7"
+  },
+  {
+   "name": "@node-red/util",
+   "current": "1.2.7"
+  },
+  {
+   "name": "async-mutex",
+   "current": "0.2.6"
+  },
+  {
+   "name": "clone",
+   "current": "2.1.2"
+  },
+  {
+   "name": "express",
+   "current": "4.17.1"
+  },
+  {
+   "name": "fs-extra",
+   "current": "8.1.0"
+  }
+ ],
+ "vulnerabilities": [
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 83,
+   "class": "index.js (83:41)",
+   "vul_id": "4461ee7cd46a8bf0c40520745535de3f",
+   "method": "result.rev = crypto.createHash('md5').update(JSON.stringify(result.flows)).digest(\"hex\");",
+   "column": 41,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/storage/index.js (83:41)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/index.js"
+   ]
+  },
+  {
+   "cvss": 7.1,
+   "cwe": "CWE-327",
+   "line": 101,
+   "class": "index.js (101:35)",
+   "vul_id": "a47a0ebcd44892ef34bead868091ffd2",
+   "method": "return crypto.createHash('md5').update(JSON.stringify(config.flows)).digest(\"hex\");",
+   "column": 35,
+   "longMessage": "The MD5 hash algorithm that was used is considered weak. It can also cause hash collisions.",
+   "classMessage": "/lib/storage/index.js (101:35)",
+   "shortMessage": "It is always recommended to use some CHF (Cryptographic Hash Function), which is mathematically strong and not reversible. SHA512 would be the most recommended hash for storing the password and it is also important to adopt some type of Salt, so that the Hash is more secure.",
+   "affectedFiles": [
+    "/lib/index.js"
+   ]
+  }
+ ]
+}

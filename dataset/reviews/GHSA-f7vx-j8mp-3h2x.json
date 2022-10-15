@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-f7vx-j8mp-3h2x",
+        "cwe": "CWE-345"
+    },
+    "correct_cwe": "CWE-345",
+    "correct_package_link": "https://registry.npmjs.org/@theia/mini-browser/-/mini-browser-0.15.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/node/mini-browser-endpoint.js",
+                    "lineno": 340,
+                    "code": "ImageHandler.prototype.respond = function (statWithContent, response) {"
+                },
+                "sink": {
+                    "file": "lib/node/mini-browser-endpoint.js",
+                    "lineno": 341,
+                    "code": "fs.readFile(file_uri_1.FileUri.fsPath(statWithContent.stat.uri), function (error, data) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/node/mini-browser-endpoint.js",
+                    "lineno": 368,
+                    "code": "PdfHandler.prototype.respond = function (statWithContent, response) {"
+                },
+                "sink": {
+                    "file": "lib/node/mini-browser-endpoint.js",
+                    "lineno": 379,
+                    "code": "fs.readFile(file_uri_1.FileUri.fsPath(statWithContent.stat.uri), function (error, data) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/eclipse-theia/theia/commit/b212d07f915df1509180944ee3132714bc2636bf#diff-0084a93dcfe85de37559201b19bc019b21a84393d33b40036df20aad9b4a2d4d"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

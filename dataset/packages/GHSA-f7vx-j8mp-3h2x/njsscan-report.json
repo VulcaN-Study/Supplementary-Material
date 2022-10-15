@@ -1,0 +1,75 @@
+{
+  "errors": [],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/node/mini-browser-endpoint.js",
+          "match_lines": [
+            267,
+            274
+          ],
+          "match_position": [
+            17,
+            63
+          ],
+          "match_string": "                stat = statWithContent.stat, content = statWithContent.content;\n                mimeType = mime_types_1.lookup(file_uri_1.FileUri.fsPath(stat.uri));\n                if (!mimeType) {\n                    this.logger.warn(\"Cannot handle unexpected resource. URI: \" + statWithContent.stat.uri + \".\");\n                    return [2 /*return*/, response.send()];\n                }\n                response.contentType(mimeType);\n                return [2 /*return*/, response.send(content)];"
+        },
+        {
+          "file_path": "/src/lib/node/mini-browser-endpoint.js",
+          "match_lines": [
+            320,
+            320
+          ],
+          "match_position": [
+            16,
+            54
+          ],
+          "match_string": "        return response.send(statWithContent.content);"
+        },
+        {
+          "file_path": "/src/lib/node/mini-browser-endpoint.js",
+          "match_lines": [
+            410,
+            410
+          ],
+          "match_position": [
+            16,
+            54
+          ],
+          "match_string": "        return response.send(statWithContent.content);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_username": {
+      "files": [
+        {
+          "file_path": "/src/lib/browser/mini-browser-content.js",
+          "match_lines": [
+            188,
+            188
+          ],
+          "match_position": [
+            9,
+            131
+          ],
+          "match_string": "        SandboxOptions[SandboxOptions[\"allow-top-navigation-by-user-activation\"] = 10] = \"allow-top-navigation-by-user-activation\";"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded username in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

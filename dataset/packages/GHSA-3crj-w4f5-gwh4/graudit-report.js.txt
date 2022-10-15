@@ -1,0 +1,270 @@
+/src/lib/thirdparty/less/tree/value.js-14-        if (this.value.length === 1) {
+/src/lib/thirdparty/less/tree/value.js:15:            return this.value[0].eval(env);
+/src/lib/thirdparty/less/tree/value.js-16-        } else {
+/src/lib/thirdparty/less/tree/value.js-17-            return new(tree.Value)(this.value.map(function (v) {
+/src/lib/thirdparty/less/tree/value.js:18:                return v.eval(env);
+/src/lib/thirdparty/less/tree/value.js-19-            }));
+##############################################
+/src/lib/thirdparty/less/tree/extend.js-28-    eval: function (env) {
+/src/lib/thirdparty/less/tree/extend.js:29:        return new(tree.Extend)(this.selector.eval(env), this.option, this.index);
+/src/lib/thirdparty/less/tree/extend.js-30-    },
+##############################################
+/src/lib/thirdparty/less/tree/alpha.js-11-    eval: function (env) {
+/src/lib/thirdparty/less/tree/alpha.js:12:        if (this.value.eval) { return new tree.Alpha(this.value.eval(env)); }
+/src/lib/thirdparty/less/tree/alpha.js-13-        return this;
+##############################################
+/src/lib/thirdparty/less/tree/directive.js-41-            evaldDirective = new(tree.Directive)(this.name, null, this.index, this.currentFileInfo);
+/src/lib/thirdparty/less/tree/directive.js:42:            evaldDirective.rules = [this.rules[0].eval(env)];
+/src/lib/thirdparty/less/tree/directive.js-43-            evaldDirective.rules[0].root = true;
+##############################################
+/src/lib/thirdparty/less/tree/expression.js-19-            returnValue = new(tree.Expression)(this.value.map(function (e) {
+/src/lib/thirdparty/less/tree/expression.js:20:                return e.eval(env);
+/src/lib/thirdparty/less/tree/expression.js-21-            }));
+##############################################
+/src/lib/thirdparty/less/tree/expression.js-25-            }
+/src/lib/thirdparty/less/tree/expression.js:26:            returnValue = this.value[0].eval(env);
+/src/lib/thirdparty/less/tree/expression.js-27-        } else {
+##############################################
+/src/lib/thirdparty/less/tree/operation.js-13-    eval: function (env) {
+/src/lib/thirdparty/less/tree/operation.js:14:        var a = this.operands[0].eval(env),
+/src/lib/thirdparty/less/tree/operation.js:15:            b = this.operands[1].eval(env);
+/src/lib/thirdparty/less/tree/operation.js-16-
+##############################################
+/src/lib/thirdparty/less/tree/javascript.js-15-        var expression = this.expression.replace(/@\{([\w-]+)\}/g, function (_, name) {
+/src/lib/thirdparty/less/tree/javascript.js:16:            return tree.jsify(new(tree.Variable)('@' + name, that.index).eval(env));
+/src/lib/thirdparty/less/tree/javascript.js-17-        });
+##############################################
+/src/lib/thirdparty/less/tree/javascript.js-32-                    toJS: function () {
+/src/lib/thirdparty/less/tree/javascript.js:33:                        return this.value.eval(env).toCSS();
+/src/lib/thirdparty/less/tree/javascript.js-34-                    }
+##############################################
+/src/lib/thirdparty/less/tree/paren.js-18-    eval: function (env) {
+/src/lib/thirdparty/less/tree/paren.js:19:        return new(tree.Paren)(this.value.eval(env));
+/src/lib/thirdparty/less/tree/paren.js-20-    }
+##############################################
+/src/lib/thirdparty/less/tree/import.js-72-    evalForImport: function (env) {
+/src/lib/thirdparty/less/tree/import.js:73:        return new(tree.Import)(this.path.eval(env), this.features, this.options, this.index, this.currentFileInfo);
+/src/lib/thirdparty/less/tree/import.js-74-    },
+/src/lib/thirdparty/less/tree/import.js-75-    evalPath: function (env) {
+/src/lib/thirdparty/less/tree/import.js:76:        var path = this.path.eval(env);
+/src/lib/thirdparty/less/tree/import.js-77-        var rootpath = this.currentFileInfo && this.currentFileInfo.rootpath;
+##############################################
+/src/lib/thirdparty/less/tree/import.js-92-    eval: function (env) {
+/src/lib/thirdparty/less/tree/import.js:93:        var ruleset, features = this.features && this.features.eval(env);
+/src/lib/thirdparty/less/tree/import.js-94-
+##############################################
+/src/lib/thirdparty/less/tree/rule.js-46-            return new(tree.Rule)(name,
+/src/lib/thirdparty/less/tree/rule.js:47:                              this.value.eval(env),
+/src/lib/thirdparty/less/tree/rule.js-48-                              this.important,
+##############################################
+/src/lib/thirdparty/less/tree/rule.js-74-    for (i = 0; i < n; i++) {
+/src/lib/thirdparty/less/tree/rule.js:75:        name[i].eval(env).genCSS(env, output);
+/src/lib/thirdparty/less/tree/rule.js-76-    }
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-30-            for (i = 0; i < selCnt; i++) {
+/src/lib/thirdparty/less/tree/ruleset.js:31:                selectors.push(thisSelectors[i].eval(env));
+/src/lib/thirdparty/less/tree/ruleset.js-32-            }
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-79-                /*jshint loopfunc:true */
+/src/lib/thirdparty/less/tree/ruleset.js:80:                rules = rsRules[i].eval(env).filter(function(r) {
+/src/lib/thirdparty/less/tree/ruleset.js-81-                    if ((r instanceof tree.Rule) && r.variable) {
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-99-            if (! (rule instanceof tree.mixin.Definition)) {
+/src/lib/thirdparty/less/tree/ruleset.js:100:                rsRules[i] = rule = rule.eval ? rule.eval(env) : rule;
+/src/lib/thirdparty/less/tree/ruleset.js-101-                // for rulesets, check if it is a css guard and can be removed
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-138-            if (rules[i] instanceof tree.Import) {
+/src/lib/thirdparty/less/tree/ruleset.js:139:                importRules = rules[i].eval(env);
+/src/lib/thirdparty/less/tree/ruleset.js-140-                if (importRules && importRules.length) {
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-168-        if (lastSelector.condition &&
+/src/lib/thirdparty/less/tree/ruleset.js:169:            !lastSelector.condition.eval(
+/src/lib/thirdparty/less/tree/ruleset.js-170-                new(tree.evalEnv)(env,
+##############################################
+/src/lib/thirdparty/less/tree/variable.js-13-        if (name.indexOf('@@') === 0) {
+/src/lib/thirdparty/less/tree/variable.js:14:            name = '@' + new(tree.Variable)(name.slice(1)).eval(env).value;
+/src/lib/thirdparty/less/tree/variable.js-15-        }
+##############################################
+/src/lib/thirdparty/less/tree/variable.js-28-            if (v) {
+/src/lib/thirdparty/less/tree/variable.js:29:                return v.value.eval(env);
+/src/lib/thirdparty/less/tree/variable.js-30-            }
+##############################################
+/src/lib/thirdparty/less/tree/quoted.js-24-        var value = this.value.replace(/`([^`]+)`/g, function (_, exp) {
+/src/lib/thirdparty/less/tree/quoted.js:25:            return new(tree.JavaScript)(exp, that.index, true).eval(env).value;
+/src/lib/thirdparty/less/tree/quoted.js-26-        }).replace(/@\{([\w-]+)\}/g, function (_, name) {
+/src/lib/thirdparty/less/tree/quoted.js:27:            var v = new(tree.Variable)('@' + name, that.index, that.currentFileInfo).eval(env, true);
+/src/lib/thirdparty/less/tree/quoted.js-28-            return (v instanceof tree.Quoted) ? v.value : v.toCSS();
+##############################################
+/src/lib/thirdparty/less/tree/url.js-19-    eval: function (ctx) {
+/src/lib/thirdparty/less/tree/url.js:20:        var val = this.value.eval(ctx),
+/src/lib/thirdparty/less/tree/url.js-21-            rootpath;
+##############################################
+/src/lib/thirdparty/less/tree/element.js-27-        return new(tree.Element)(this.combinator,
+/src/lib/thirdparty/less/tree/element.js:28:                                 this.value.eval ? this.value.eval(env) : this.value,
+/src/lib/thirdparty/less/tree/element.js-29-                                 this.index,
+##############################################
+/src/lib/thirdparty/less/tree/element.js-52-    eval: function (env) {
+/src/lib/thirdparty/less/tree/element.js:53:        return new(tree.Attribute)(this.key.eval ? this.key.eval(env) : this.key,
+/src/lib/thirdparty/less/tree/element.js:54:            this.op, (this.value && this.value.eval) ? this.value.eval(env) : this.value);
+/src/lib/thirdparty/less/tree/element.js-55-    },
+##############################################
+/src/lib/thirdparty/less/tree/negative.js-17-        if (env.isMathOn()) {
+/src/lib/thirdparty/less/tree/negative.js:18:            return (new(tree.Operation)('*', [new(tree.Dimension)(-1), this.value])).eval(env);
+/src/lib/thirdparty/less/tree/negative.js-19-        }
+/src/lib/thirdparty/less/tree/negative.js:20:        return new(tree.Negative)(this.value.eval(env));
+/src/lib/thirdparty/less/tree/negative.js-21-    }
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-26-        args = this.arguments && this.arguments.map(function (a) {
+/src/lib/thirdparty/less/tree/mixin.js:27:            return { name: a.name, value: a.value.eval(env) };
+/src/lib/thirdparty/less/tree/mixin.js-28-        });
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-105-                            Array.prototype.push.apply(
+/src/lib/thirdparty/less/tree/mixin.js:106:                                  rules, mixin.eval(env, args, this.important).rules);
+/src/lib/thirdparty/less/tree/mixin.js-107-                        } catch (e) {
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-202-                        if (!evaldArguments[j] && name === params[j].name) {
+/src/lib/thirdparty/less/tree/mixin.js:203:                            evaldArguments[j] = arg.value.eval(env);
+/src/lib/thirdparty/less/tree/mixin.js:204:                            frame.prependRule(new(tree.Rule)(name, arg.value.eval(env)));
+/src/lib/thirdparty/less/tree/mixin.js-205-                            isNamedFound = true;
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-229-                    for (j = argIndex; j < args.length; j++) {
+/src/lib/thirdparty/less/tree/mixin.js:230:                        varargs.push(args[j].value.eval(env));
+/src/lib/thirdparty/less/tree/mixin.js-231-                    }
+/src/lib/thirdparty/less/tree/mixin.js:232:                    frame.prependRule(new(tree.Rule)(name, new(tree.Expression)(varargs).eval(env)));
+/src/lib/thirdparty/less/tree/mixin.js-233-                } else {
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-235-                    if (val) {
+/src/lib/thirdparty/less/tree/mixin.js:236:                        val = val.eval(env);
+/src/lib/thirdparty/less/tree/mixin.js-237-                    } else if (params[i].value) {
+/src/lib/thirdparty/less/tree/mixin.js:238:                        val = params[i].value.eval(mixinEnv);
+/src/lib/thirdparty/less/tree/mixin.js-239-                        frame.resetCache();
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-251-                for (j = argIndex; j < args.length; j++) {
+/src/lib/thirdparty/less/tree/mixin.js:252:                    evaldArguments[j] = args[j].value.eval(env);
+/src/lib/thirdparty/less/tree/mixin.js-253-                }
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-265-
+/src/lib/thirdparty/less/tree/mixin.js:266:        frame.prependRule(new(tree.Rule)('@arguments', new(tree.Expression)(_arguments).eval(env)));
+/src/lib/thirdparty/less/tree/mixin.js-267-
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-271-        ruleset.originalRuleset = this;
+/src/lib/thirdparty/less/tree/mixin.js:272:        ruleset = ruleset.eval(new(tree.evalEnv)(env, [this, frame].concat(mixinFrames)));
+/src/lib/thirdparty/less/tree/mixin.js-273-        if (important) {
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-278-    matchCondition: function (args, env) {
+/src/lib/thirdparty/less/tree/mixin.js:279:        if (this.condition && !this.condition.eval(
+/src/lib/thirdparty/less/tree/mixin.js-280-            new(tree.evalEnv)(env,
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-301-            if (!this.params[i].name && !this.params[i].variadic) {
+/src/lib/thirdparty/less/tree/mixin.js:302:                if (args[i].value.eval(env).toCSS() != this.params[i].value.eval(env).toCSS()) {
+/src/lib/thirdparty/less/tree/mixin.js-303-                    return false;
+##############################################
+/src/lib/thirdparty/less/tree/selector.js-95-    eval: function (env) {
+/src/lib/thirdparty/less/tree/selector.js:96:        var evaldCondition = this.condition && this.condition.eval(env),
+/src/lib/thirdparty/less/tree/selector.js-97-            elements = this.elements, extendList = this.extendList;
+/src/lib/thirdparty/less/tree/selector.js-98-
+/src/lib/thirdparty/less/tree/selector.js:99:        elements = elements && elements.map(function (e) { return e.eval(env); });
+/src/lib/thirdparty/less/tree/selector.js:100:        extendList = extendList && extendList.map(function(extend) { return extend.eval(env); });
+/src/lib/thirdparty/less/tree/selector.js-101-
+##############################################
+/src/lib/thirdparty/less/tree/call.js-32-    eval: function (env) {
+/src/lib/thirdparty/less/tree/call.js:33:        var args = this.args.map(function (a) { return a.eval(env); }),
+/src/lib/thirdparty/less/tree/call.js-34-            nameLC = this.name.toLowerCase(),
+##############################################
+/src/lib/thirdparty/less/tree/condition.js-16-    eval: function (env) {
+/src/lib/thirdparty/less/tree/condition.js:17:        var a = this.lvalue.eval(env),
+/src/lib/thirdparty/less/tree/condition.js:18:            b = this.rvalue.eval(env);
+/src/lib/thirdparty/less/tree/condition.js-19-
+##############################################
+/src/lib/thirdparty/less/tree/media.js-45-        try {
+/src/lib/thirdparty/less/tree/media.js:46:            media.features = this.features.eval(env);
+/src/lib/thirdparty/less/tree/media.js-47-        }
+##############################################
+/src/lib/thirdparty/less/tree/media.js-57-        env.frames.unshift(this.rules[0]);
+/src/lib/thirdparty/less/tree/media.js:58:        media.rules = [this.rules[0].eval(env)];
+/src/lib/thirdparty/less/tree/media.js-59-        env.frames.shift();
+##############################################
+/src/lib/thirdparty/less/tree/assignment.js-13-        if (this.value.eval) {
+/src/lib/thirdparty/less/tree/assignment.js:14:            return new(tree.Assignment)(this.key, this.value.eval(env));
+/src/lib/thirdparty/less/tree/assignment.js-15-        }
+##############################################
+/src/lib/thirdparty/less/env.js-11-        'strictImports',    // option -
+/src/lib/thirdparty/less/env.js:12:        'insecure',         // option - whether to allow imports from insecure ssl hosts
+/src/lib/thirdparty/less/env.js-13-        'dumpLineNumbers',  // option - whether to dump line numbers
+##############################################
+/src/lib/thirdparty/less/lessc_helper.js-37-        console.log("  --strict-imports         Force evaluation of imports.");
+/src/lib/thirdparty/less/lessc_helper.js:38:        console.log("  --insecure               Allow imports from insecure https hosts.");
+/src/lib/thirdparty/less/lessc_helper.js-39-        console.log("  -v, --version            Print version number and exit.");
+##############################################
+/src/lib/thirdparty/less/index.js-21-        if (callback) {
+/src/lib/thirdparty/less/index.js:22:            parser.parse(input, function (e, root) {
+/src/lib/thirdparty/less/index.js-23-                try { callback(e, root && root.toCSS && root.toCSS(options)); } 
+##############################################
+/src/lib/thirdparty/less/index.js-29-            process.nextTick(function () {
+/src/lib/thirdparty/less/index.js:30:                parser.parse(input, function (e, root) {
+/src/lib/thirdparty/less/index.js-31-                    if (e) { return ee.emit('error', e); }
+##############################################
+/src/lib/thirdparty/less/index.js-202-                        } else {
+/src/lib/thirdparty/less/index.js:203:                            fs.readFile(pathname, 'utf-8', function(e, data) {
+/src/lib/thirdparty/less/index.js-204-                                if (e) { callback(e); }
+##############################################
+/src/lib/thirdparty/less/parser.js-104-                    } else {
+/src/lib/thirdparty/less/parser.js:105:                        new(less.Parser)(newEnv).parse(contents, function (e, root) {
+/src/lib/thirdparty/less/parser.js-106-                            fileParsedFunc(e, root, fullPath);
+##############################################
+/src/lib/thirdparty/less/functions.js-379-        if (typeof window !== 'undefined') {
+/src/lib/thirdparty/less/functions.js:380:            return new tree.URL(filePathNode || mimetypeNode, this.currentFileInfo).eval(this.env);
+/src/lib/thirdparty/less/functions.js-381-        }
+##############################################
+/src/lib/thirdparty/less/functions.js-434-
+/src/lib/thirdparty/less/functions.js:435:                return new tree.URL(filePathNode || mimetypeNode, this.currentFileInfo).eval(this.env);
+/src/lib/thirdparty/less/functions.js-436-            }
+##############################################
+/src/lib/less/importsPush.js-65-					// Create custom parser when resolving imports
+/src/lib/less/importsPush.js:66:					parserFactory(newEnv, fileLoader).parse(contents, function(e, root) {
+/src/lib/less/importsPush.js-67-					/* END MODIFICATION */
+##############################################
+/src/lib/index.js-154-
+/src/lib/index.js:155:		that.fileUtils.readFile(pathname, options.rootPaths).then(function(result) {
+/src/lib/index.js-156-			if (!result) {
+##############################################
+/src/lib/index.js-207-		return new Promise(function(resolve, reject) {
+/src/lib/index.js:208:			parser.parse(config.content, function(err, tree) {
+/src/lib/index.js-209-				if (err) {
+##############################################
+/src/lib/index.js-260-					// parse the content again to have a clean tree
+/src/lib/index.js:261:					parser.parse(config.content, function(err, tree) {
+/src/lib/index.js-262-						if (err) {
+##############################################
+/src/lib/index.js-285-					return new Promise(function(resolve, reject) {
+/src/lib/index.js:286:						parser.parse(result.cssVariablesSource, function(err, tree) {
+/src/lib/index.js-287-							if (err) {
+##############################################
+/src/lib/index.js-360-		return Promise.all([
+/src/lib/index.js:361:			that.fileUtils.readFile(scopeOptions.embeddedCompareFilePath, options.rootPaths).then(function(config) {
+/src/lib/index.js-362-				if (!config) {
+##############################################
+/src/lib/index.js-366-			}),
+/src/lib/index.js:367:			that.fileUtils.readFile(scopeOptions.embeddedFilePath, options.rootPaths).then(function(config) {
+/src/lib/index.js-368-				if (!config) {
+##############################################
+/src/lib/index.js-384-				// Create diff object between embeddedCompare and embedded
+/src/lib/index.js:385:				const oBase = css.parse(embeddedCompareCss);
+/src/lib/index.js:386:				const oEmbedded = css.parse(embeddedCss);
+/src/lib/index.js-387-
+##############################################
+/src/lib/index.js-466-	function readDotTheming(dotThemingInputPath) {
+/src/lib/index.js:467:		return that.fileUtils.readFile(dotThemingInputPath, options.rootPaths).then(function(result) {
+/src/lib/index.js-468-			let dotTheming;
+##############################################
+/src/lib/index.js-471-			if (result) {
+/src/lib/index.js:472:				dotTheming = JSON.parse(result.content);
+/src/lib/index.js-473-				dotThemingFilePath = result.path;
+##############################################
+/src/lib/index.js-512-			// No css diffing and scoping
+/src/lib/index.js:513:			return that.fileUtils.readFile(options.lessInputPath, options.rootPaths).then(compile);
+/src/lib/index.js-514-		});
+##############################################
+/src/lib/fileUtils.js-49-			return new Promise(function(resolve, reject) {
+/src/lib/fileUtils.js:50:				fs.readFile(fileInfo.path, {
+/src/lib/fileUtils.js-51-					encoding: "utf8"

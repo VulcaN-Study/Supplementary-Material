@@ -1,0 +1,85 @@
+{
+  "errors": [],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/auth-sms/data-source.js",
+          "match_lines": [
+            75,
+            75
+          ],
+          "match_position": [
+            33,
+            46
+          ],
+          "match_string": "      const pin = `${Math.floor(Math.random() * 1000000)}`.padStart(6, '0');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_sha1": {
+      "files": [
+        {
+          "file_path": "/src/lib/auth/data-source.js",
+          "match_lines": [
+            87,
+            87
+          ],
+          "match_position": [
+            29,
+            63
+          ],
+          "match_string": "        key: `:userLogins:${_crypto.default.createHash('sha1').update(userCookie).digest('hex')}`"
+        },
+        {
+          "file_path": "/src/lib/auth/data-source.js",
+          "match_lines": [
+            158,
+            158
+          ],
+          "match_position": [
+            31,
+            65
+          ],
+          "match_string": "          key: `:userLogins:${_crypto.default.createHash('sha1').update(cookie).digest('hex')}`,"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "SHA1 is a a weak hash which is known to have collision. Use a strong hashing function.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_username": {
+      "files": [
+        {
+          "file_path": "/src/lib/template/data-source.tests.js",
+          "match_lines": [
+            30,
+            30
+          ],
+          "match_position": [
+            5,
+            37
+          ],
+          "match_string": "    context.userToken = 'some-token';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded username in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

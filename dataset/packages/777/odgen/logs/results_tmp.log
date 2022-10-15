@@ -1,0 +1,732 @@
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/decompress-zip.js
+Line 257	DecompressZip.prototype.extractFile = function (file, options) {
+    var destination = path.join(options.path, file.path);
+
+    // Possible compression methods:
+    //    0 - The file is stored (no compression)
+    //    1 - The file is Shrunk
+    //    2 - The file is Reduced with compression factor 1
+    //    3 - The file is Reduced with compression factor 2
+    //    4 - The file is Reduced with compression factor 3
+    //    5 - The file is Reduced with compression factor 4
+    //    6 - The file is Imploded
+    //    7 - Reserved for Tokenizing compression algorithm
+    //    8 - The file is Deflated
+    //    9 - Enhanced Deflating using Deflate64(tm)
+    //   10 - PKWARE Data Compression Library Imploding (old IBM TERSE)
+    //   11 - Reserved by PKWARE
+    //   12 - File is compressed using BZIP2 algorithm
+    //   13 - Reserved by PKWARE
+    //   14 - LZMA (EFS)
+    //   15 - Reserved by PKWARE
+    //   16 - Reserved by PKWARE
+    //   17 - Reserved by PKWARE
+    //   18 - File is compressed using IBM TERSE (new)
+    //   19 - IBM LZ77 z Architecture (PFS)
+    //   97 - WavPack compressed data
+    //   98 - PPMd version I, Rev 1
+
+    if (file.type === 'Directory') {
+        return extractors.folder(file, destination, this);
+    }
+
+    if (file.type === 'File') {
+        switch (file.compressionMethod) {
+        case 0:
+            return extractors.store(file, destination, this);
+
+        case 8:
+            return extractors.deflate(file, destination, this);
+
+        default:
+            throw new Error('Unsupported compression type');
+        }
+    }
+
+    if (file.type === 'SymbolicLink') {
+        if (options.follow) {
+            return extractors.copy(file, destination, this, options.path);
+        } else {
+            return extractors.symlink(file, destination, this, options.path);
+        }
+    }
+
+    throw new Error('Unsupported file type "' + file.type + '"');
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/decompress-zip.js
+Line 258	    var destination = path.join(options.path, file.path);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 162	var pipePromise = function (input, destination, options) {
+    var deferred = Q.defer();
+    var output = fs.createWriteStream(destination, options);
+    var errorHandler = function (error) {
+        deferred.reject(error);
+    };
+
+    input.on('error', errorHandler);
+    output.on('error', errorHandler);
+
+    // For node 0.8 we can't just use the 'finish' event of the pipe
+    input.on('end', function () {
+        output.end(function () {
+            deferred.resolve();
+        });
+    });
+
+    input.pipe(output, {end: false});
+
+    return deferred.promise;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 65	            writer = pipePromise.bind(null, input, destination, { mode: file.mode });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 11	var writeFile = Q.denodeify(fs.writeFile);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 162	var pipePromise = function (input, destination, options) {
+    var deferred = Q.defer();
+    var output = fs.createWriteStream(destination, options);
+    var errorHandler = function (error) {
+        deferred.reject(error);
+    };
+
+    input.on('error', errorHandler);
+    output.on('error', errorHandler);
+
+    // For node 0.8 we can't just use the 'finish' event of the pipe
+    input.on('end', function () {
+        output.end(function () {
+            deferred.resolve();
+        });
+    });
+
+    input.pipe(output, {end: false});
+
+    return deferred.promise;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 43	var extractors = {
+    folder: function (folder, destination, zip) {
+        return mkdir(destination, zip.dirCache, folder.mode)
+        .then(function () {
+            return {folder: folder.path};
+        });
+    },
+    store: function (file, destination, zip) {
+        var writer;
+
+        if (file.uncompressedSize === 0) {
+            writer = touch.bind(null, destination);
+        } else if (file.uncompressedSize <= zip.chunkSize) {
+            writer = function () {
+                return zip.getBuffer(file._offset, file._offset + file.uncompressedSize)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            };
+        } else {
+            var input = new stream.Readable();
+            input.wrap(fs.createReadStream(zip.filename, {start: file._offset, end: file._offset + file.uncompressedSize - 1}));
+            writer = pipePromise.bind(null, input, destination, { mode: file.mode });
+        }
+
+        return mkdir(path.dirname(destination), zip.dirCache)
+        .then(writer)
+        .then(function () {
+            return {stored: file.path};
+        });
+    },
+    deflate: function (file, destination, zip) {
+        // For Deflate you don't actually need to specify the end offset - and
+        // in fact many ZIP files don't include compressed file sizes for
+        // Deflated files so we don't even know what the end offset is.
+
+        return mkdir(path.dirname(destination), zip.dirCache)
+        .then(function () {
+            if (file._maxSize <= zip.chunkSize) {
+                return zip.getBuffer(file._offset, file._offset + file._maxSize)
+                .then(inflateRaw)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            } else {
+                // For node 0.8 we need to create the Zlib stream and attach
+                // handlers in the same tick of the event loop, which is why we do
+                // the creation in here
+                var input = new stream.Readable();
+                input.wrap(fs.createReadStream(zip.filename, {start: file._offset}));
+                var inflater = input.pipe(zlib.createInflateRaw({highWaterMark: 32 * 1024}));
+
+                return pipePromise(inflater, destination, { mode: file.mode });
+            }
+        })
+        .then(function () {
+            return {deflated: file.path};
+        });
+    },
+    symlink: function (file, destination, zip, basePath) {
+        var parent = path.dirname(destination);
+        return mkdir(parent, zip.dirCache)
+        .then(function () {
+            return getLinkLocation(file, destination, zip, basePath);
+        })
+        .then(function (linkTo) {
+            return symlink(path.resolve(parent, linkTo), destination)
+            .then(function () {
+                return {symlink: file.path, linkTo: linkTo};
+            });
+        });
+    },
+    // Make a shallow copy of the file/directory this symlink points to instead
+    // of actually creating a link
+    copy: function (file, destination, zip, basePath) {
+        var type;
+        var parent = path.dirname(destination);
+
+        return mkdir(parent, zip.dirCache)
+        .then(function () {
+            return getLinkLocation(file, destination, zip, basePath);
+        })
+        .then(function (linkTo) {
+            return stat(path.resolve(parent, linkTo))
+            .then(function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            })
+            .then(function () {
+                return {copy: file.path, original: linkTo, type: type};
+            });
+        });
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/decompress-zip.js
+Line 257	DecompressZip.prototype.extractFile = function (file, options) {
+    var destination = path.join(options.path, file.path);
+
+    // Possible compression methods:
+    //    0 - The file is stored (no compression)
+    //    1 - The file is Shrunk
+    //    2 - The file is Reduced with compression factor 1
+    //    3 - The file is Reduced with compression factor 2
+    //    4 - The file is Reduced with compression factor 3
+    //    5 - The file is Reduced with compression factor 4
+    //    6 - The file is Imploded
+    //    7 - Reserved for Tokenizing compression algorithm
+    //    8 - The file is Deflated
+    //    9 - Enhanced Deflating using Deflate64(tm)
+    //   10 - PKWARE Data Compression Library Imploding (old IBM TERSE)
+    //   11 - Reserved by PKWARE
+    //   12 - File is compressed using BZIP2 algorithm
+    //   13 - Reserved by PKWARE
+    //   14 - LZMA (EFS)
+    //   15 - Reserved by PKWARE
+    //   16 - Reserved by PKWARE
+    //   17 - Reserved by PKWARE
+    //   18 - File is compressed using IBM TERSE (new)
+    //   19 - IBM LZ77 z Architecture (PFS)
+    //   97 - WavPack compressed data
+    //   98 - PPMd version I, Rev 1
+
+    if (file.type === 'Directory') {
+        return extractors.folder(file, destination, this);
+    }
+
+    if (file.type === 'File') {
+        switch (file.compressionMethod) {
+        case 0:
+            return extractors.store(file, destination, this);
+
+        case 8:
+            return extractors.deflate(file, destination, this);
+
+        default:
+            throw new Error('Unsupported compression type');
+        }
+    }
+
+    if (file.type === 'SymbolicLink') {
+        if (options.follow) {
+            return extractors.copy(file, destination, this, options.path);
+        } else {
+            return extractors.symlink(file, destination, this, options.path);
+        }
+    }
+
+    throw new Error('Unsupported file type "' + file.type + '"');
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/decompress-zip.js
+Line 258	    var destination = path.join(options.path, file.path);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 162	var pipePromise = function (input, destination, options) {
+    var deferred = Q.defer();
+    var output = fs.createWriteStream(destination, options);
+    var errorHandler = function (error) {
+        deferred.reject(error);
+    };
+
+    input.on('error', errorHandler);
+    output.on('error', errorHandler);
+
+    // For node 0.8 we can't just use the 'finish' event of the pipe
+    input.on('end', function () {
+        output.end(function () {
+            deferred.resolve();
+        });
+    });
+
+    input.pipe(output, {end: false});
+
+    return deferred.promise;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 65	            writer = pipePromise.bind(null, input, destination, { mode: file.mode });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 11	var writeFile = Q.denodeify(fs.writeFile);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 162	var pipePromise = function (input, destination, options) {
+    var deferred = Q.defer();
+    var output = fs.createWriteStream(destination, options);
+    var errorHandler = function (error) {
+        deferred.reject(error);
+    };
+
+    input.on('error', errorHandler);
+    output.on('error', errorHandler);
+
+    // For node 0.8 we can't just use the 'finish' event of the pipe
+    input.on('end', function () {
+        output.end(function () {
+            deferred.resolve();
+        });
+    });
+
+    input.pipe(output, {end: false});
+
+    return deferred.promise;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 43	var extractors = {
+    folder: function (folder, destination, zip) {
+        return mkdir(destination, zip.dirCache, folder.mode)
+        .then(function () {
+            return {folder: folder.path};
+        });
+    },
+    store: function (file, destination, zip) {
+        var writer;
+
+        if (file.uncompressedSize === 0) {
+            writer = touch.bind(null, destination);
+        } else if (file.uncompressedSize <= zip.chunkSize) {
+            writer = function () {
+                return zip.getBuffer(file._offset, file._offset + file.uncompressedSize)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            };
+        } else {
+            var input = new stream.Readable();
+            input.wrap(fs.createReadStream(zip.filename, {start: file._offset, end: file._offset + file.uncompressedSize - 1}));
+            writer = pipePromise.bind(null, input, destination, { mode: file.mode });
+        }
+
+        return mkdir(path.dirname(destination), zip.dirCache)
+        .then(writer)
+        .then(function () {
+            return {stored: file.path};
+        });
+    },
+    deflate: function (file, destination, zip) {
+        // For Deflate you don't actually need to specify the end offset - and
+        // in fact many ZIP files don't include compressed file sizes for
+        // Deflated files so we don't even know what the end offset is.
+
+        return mkdir(path.dirname(destination), zip.dirCache)
+        .then(function () {
+            if (file._maxSize <= zip.chunkSize) {
+                return zip.getBuffer(file._offset, file._offset + file._maxSize)
+                .then(inflateRaw)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            } else {
+                // For node 0.8 we need to create the Zlib stream and attach
+                // handlers in the same tick of the event loop, which is why we do
+                // the creation in here
+                var input = new stream.Readable();
+                input.wrap(fs.createReadStream(zip.filename, {start: file._offset}));
+                var inflater = input.pipe(zlib.createInflateRaw({highWaterMark: 32 * 1024}));
+
+                return pipePromise(inflater, destination, { mode: file.mode });
+            }
+        })
+        .then(function () {
+            return {deflated: file.path};
+        });
+    },
+    symlink: function (file, destination, zip, basePath) {
+        var parent = path.dirname(destination);
+        return mkdir(parent, zip.dirCache)
+        .then(function () {
+            return getLinkLocation(file, destination, zip, basePath);
+        })
+        .then(function (linkTo) {
+            return symlink(path.resolve(parent, linkTo), destination)
+            .then(function () {
+                return {symlink: file.path, linkTo: linkTo};
+            });
+        });
+    },
+    // Make a shallow copy of the file/directory this symlink points to instead
+    // of actually creating a link
+    copy: function (file, destination, zip, basePath) {
+        var type;
+        var parent = path.dirname(destination);
+
+        return mkdir(parent, zip.dirCache)
+        .then(function () {
+            return getLinkLocation(file, destination, zip, basePath);
+        })
+        .then(function (linkTo) {
+            return stat(path.resolve(parent, linkTo))
+            .then(function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            })
+            .then(function () {
+                return {copy: file.path, original: linkTo, type: type};
+            });
+        });
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$0$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/decompress-zip.js
+Line 257	DecompressZip.prototype.extractFile = function (file, options) {
+    var destination = path.join(options.path, file.path);
+
+    // Possible compression methods:
+    //    0 - The file is stored (no compression)
+    //    1 - The file is Shrunk
+    //    2 - The file is Reduced with compression factor 1
+    //    3 - The file is Reduced with compression factor 2
+    //    4 - The file is Reduced with compression factor 3
+    //    5 - The file is Reduced with compression factor 4
+    //    6 - The file is Imploded
+    //    7 - Reserved for Tokenizing compression algorithm
+    //    8 - The file is Deflated
+    //    9 - Enhanced Deflating using Deflate64(tm)
+    //   10 - PKWARE Data Compression Library Imploding (old IBM TERSE)
+    //   11 - Reserved by PKWARE
+    //   12 - File is compressed using BZIP2 algorithm
+    //   13 - Reserved by PKWARE
+    //   14 - LZMA (EFS)
+    //   15 - Reserved by PKWARE
+    //   16 - Reserved by PKWARE
+    //   17 - Reserved by PKWARE
+    //   18 - File is compressed using IBM TERSE (new)
+    //   19 - IBM LZ77 z Architecture (PFS)
+    //   97 - WavPack compressed data
+    //   98 - PPMd version I, Rev 1
+
+    if (file.type === 'Directory') {
+        return extractors.folder(file, destination, this);
+    }
+
+    if (file.type === 'File') {
+        switch (file.compressionMethod) {
+        case 0:
+            return extractors.store(file, destination, this);
+
+        case 8:
+            return extractors.deflate(file, destination, this);
+
+        default:
+            throw new Error('Unsupported compression type');
+        }
+    }
+
+    if (file.type === 'SymbolicLink') {
+        if (options.follow) {
+            return extractors.copy(file, destination, this, options.path);
+        } else {
+            return extractors.symlink(file, destination, this, options.path);
+        }
+    }
+
+    throw new Error('Unsupported file type "' + file.type + '"');
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/decompress-zip.js
+Line 258	    var destination = path.join(options.path, file.path);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$1$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 162	var pipePromise = function (input, destination, options) {
+    var deferred = Q.defer();
+    var output = fs.createWriteStream(destination, options);
+    var errorHandler = function (error) {
+        deferred.reject(error);
+    };
+
+    input.on('error', errorHandler);
+    output.on('error', errorHandler);
+
+    // For node 0.8 we can't just use the 'finish' event of the pipe
+    input.on('end', function () {
+        output.end(function () {
+            deferred.resolve();
+        });
+    });
+
+    input.pipe(output, {end: false});
+
+    return deferred.promise;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 65	            writer = pipePromise.bind(null, input, destination, { mode: file.mode });
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$2$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 11	var writeFile = Q.denodeify(fs.writeFile);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$3$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 162	var pipePromise = function (input, destination, options) {
+    var deferred = Q.defer();
+    var output = fs.createWriteStream(destination, options);
+    var errorHandler = function (error) {
+        deferred.reject(error);
+    };
+
+    input.on('error', errorHandler);
+    output.on('error', errorHandler);
+
+    // For node 0.8 we can't just use the 'finish' event of the pipe
+    input.on('end', function () {
+        output.end(function () {
+            deferred.resolve();
+        });
+    });
+
+    input.pipe(output, {end: false});
+
+    return deferred.promise;
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+
+|checker| success id$4$color:green$: 
+==========================
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 43	var extractors = {
+    folder: function (folder, destination, zip) {
+        return mkdir(destination, zip.dirCache, folder.mode)
+        .then(function () {
+            return {folder: folder.path};
+        });
+    },
+    store: function (file, destination, zip) {
+        var writer;
+
+        if (file.uncompressedSize === 0) {
+            writer = touch.bind(null, destination);
+        } else if (file.uncompressedSize <= zip.chunkSize) {
+            writer = function () {
+                return zip.getBuffer(file._offset, file._offset + file.uncompressedSize)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            };
+        } else {
+            var input = new stream.Readable();
+            input.wrap(fs.createReadStream(zip.filename, {start: file._offset, end: file._offset + file.uncompressedSize - 1}));
+            writer = pipePromise.bind(null, input, destination, { mode: file.mode });
+        }
+
+        return mkdir(path.dirname(destination), zip.dirCache)
+        .then(writer)
+        .then(function () {
+            return {stored: file.path};
+        });
+    },
+    deflate: function (file, destination, zip) {
+        // For Deflate you don't actually need to specify the end offset - and
+        // in fact many ZIP files don't include compressed file sizes for
+        // Deflated files so we don't even know what the end offset is.
+
+        return mkdir(path.dirname(destination), zip.dirCache)
+        .then(function () {
+            if (file._maxSize <= zip.chunkSize) {
+                return zip.getBuffer(file._offset, file._offset + file._maxSize)
+                .then(inflateRaw)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            } else {
+                // For node 0.8 we need to create the Zlib stream and attach
+                // handlers in the same tick of the event loop, which is why we do
+                // the creation in here
+                var input = new stream.Readable();
+                input.wrap(fs.createReadStream(zip.filename, {start: file._offset}));
+                var inflater = input.pipe(zlib.createInflateRaw({highWaterMark: 32 * 1024}));
+
+                return pipePromise(inflater, destination, { mode: file.mode });
+            }
+        })
+        .then(function () {
+            return {deflated: file.path};
+        });
+    },
+    symlink: function (file, destination, zip, basePath) {
+        var parent = path.dirname(destination);
+        return mkdir(parent, zip.dirCache)
+        .then(function () {
+            return getLinkLocation(file, destination, zip, basePath);
+        })
+        .then(function (linkTo) {
+            return symlink(path.resolve(parent, linkTo), destination)
+            .then(function () {
+                return {symlink: file.path, linkTo: linkTo};
+            });
+        });
+    },
+    // Make a shallow copy of the file/directory this symlink points to instead
+    // of actually creating a link
+    copy: function (file, destination, zip, basePath) {
+        var type;
+        var parent = path.dirname(destination);
+
+        return mkdir(parent, zip.dirCache)
+        .then(function () {
+            return getLinkLocation(file, destination, zip, basePath);
+        })
+        .then(function (linkTo) {
+            return stat(path.resolve(parent, linkTo))
+            .then(function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            })
+            .then(function () {
+                return {copy: file.path, original: linkTo, type: type};
+            });
+        });
+    }
+};
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 164	    var output = fs.createWriteStream(destination, options);
+$FilePath$/home/tiago/empirical-jsvuln-tools-study/framework/src/packages/CWE-22/777/package/lib/extractors.js
+Line 179	    input.pipe(output, {end: false});
+

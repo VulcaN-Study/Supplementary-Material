@@ -1,0 +1,65 @@
+{
+    "advisory": {
+        "id": "GHSA-fxwf-4rqh-v8g3",
+        "cwe": [
+            "CWE-346",
+            "CWE-453"
+        ]
+    },
+    "correct_cwe": [
+        "CWE-346",
+        "CWE-453"
+    ],
+    "correct_package_link": "https://registry.npmjs.org/socket.io/-/socket.io-2.3.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/index.js",
+                    "start_lineno": 75,
+                    "end_lineno": 92,
+                    "code": "if (!!origin && typeof(this._origins) == 'function') return this._origins(origin, fn); if (this._origins.indexOf('*:*') !== -1) return fn(null, true); if (origin) { try { var parts = url.parse(origin); var defaultPort = 'https:' == parts.protocol ? 443 : 80; parts.port = parts.port != null ? parts.port : defaultPort; var ok = ~this._origins.indexOf(parts.protocol + '//' + parts.hostname + ':' + parts.port) || ~this._origins.indexOf(parts.hostname + ':' + parts.port) || ~this._origins.indexOf(parts.hostname + ':*') || ~this._origins.indexOf('*:' + parts.port); debug('origin %s is %svalid', origin, !!ok ? '' : 'not '); return fn(null, !!ok); } catch (ex) { }"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/socketio/socket.io/commit/f78a575f66ab693c3ea96ea88429ddb1a44c86c7"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

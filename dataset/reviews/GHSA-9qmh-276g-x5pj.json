@@ -1,0 +1,76 @@
+{
+    "advisory": {
+        "id": "GHSA-9qmh-276g-x5pj",
+        "cwe": "CWE-471"
+    },
+    "correct_cwe": "CWE-1321",
+    "correct_package_link": "https://registry.npmjs.org/immer/-/immer-8.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "dist/immer.cjs.development.js",
+                    "lineno": 1346,
+                    "code": "function applyPatches_(draft, patches) {"
+                },
+                "sink": {
+                    "file": "dist/immer.cjs.development.js",
+                    "lineno": 1378,
+                    "code": "return base[key] = value;"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/immer.cjs.development.js",
+                    "lineno": 1346,
+                    "code": "function applyPatches_(draft, patches) {"
+                },
+                "sink": {
+                    "file": "dist/immer.cjs.development.js",
+                    "lineno": 1393,
+                    "code": "return base[key] = value;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ["https://security.snyk.io/vuln/SNYK-JS-IMMER-1019369",
+                    "https://security.snyk.io/vuln/SNYK-JAVA-ORGWEBJARSNPM-1061986"]
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/immerjs/immer/commit/da2bd4fa0edc9335543089fe7d290d6a346c40c5#diff-21530d373d707f0b045d276b993da55c57414f9b8128658eaba33a99ca464758"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

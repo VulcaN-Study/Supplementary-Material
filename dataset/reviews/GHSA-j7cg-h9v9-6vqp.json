@@ -1,0 +1,99 @@
+{
+    "advisory": {
+        "id": "GHSA-j7cg-h9v9-6vqp",
+        "cwe": "CWE-915"
+    },
+    "correct_cwe": ["CWE-915", "CWE-1321"],
+    "correct_package_link": "https://registry.npmjs.org/@irrelon/path/-/path-4.6.8.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/Path.js",
+                    "lineno": 369,
+                    "code": "const set = (obj, path, val, options = {}) => {"
+                },
+                "sink": {
+                    "file": "src/Path.js",
+                    "lineno": 404,
+                    "code": "obj[options.transformKey(unEscape(internalPath))] = val;"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/Path.js",
+                    "lineno": 438,
+                    "code": "const unSet = (obj, path, options = {}, tracking = {}) => {"
+                },
+                "sink": {
+                    "file": "src/Path.js",
+                    "lineno": 494,
+                    "code": "newObj[transformedPathPart] = unSet(childPart, pathParts.join('.'), options, tracking);"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/Path.js",
+                    "lineno": 556,
+                    "code": "const pushVal = (obj, path, val, options = {}) => {"
+                },
+                "sink": {
+                    "file": "src/Path.js",
+                    "lineno": 581,
+                    "code": "obj[part].push(val);"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/Path.js",
+                    "lineno": 606,
+                    "code": "const pullVal = (obj, path, val, options = {strict: true}) => {"
+                },
+                "sink": {
+                    "file": "src/Path.js",
+                    "lineno": 626,
+                    "code": "obj[part] = decouple(obj[part], options) || [];"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/Irrelon/irrelon-path/commit/8a126b160c1a854ae511659c111413ad9910ebe3"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

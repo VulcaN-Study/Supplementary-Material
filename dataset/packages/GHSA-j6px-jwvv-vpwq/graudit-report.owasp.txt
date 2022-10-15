@@ -1,0 +1,386 @@
+/src/.eslintrc-79-    "no-empty-character-class": 2,
+/src/.eslintrc:80:    "no-eval": 2,
+/src/.eslintrc-81-    "no-ex-assign": 2,
+##############################################
+/src/.eslintrc-90-    "no-implicit-coercion": 0,
+/src/.eslintrc:91:    "no-implied-eval": 2,
+/src/.eslintrc-92-    "no-inline-comments": 0,
+##############################################
+/src/README.md-8-
+/src/README.md:9:**angular-expressions** exposes a `.compile()`-method which can be used to compile evaluable expressions:
+/src/README.md-10-
+##############################################
+/src/README.md-13-
+/src/README.md:14:evaluate = expressions.compile("1 + 1");
+/src/README.md:15:evaluate(); // returns 2
+/src/README.md-16-```
+##############################################
+/src/README.md-20-```javascript
+/src/README.md:21:evaluate = expressions.compile("name");
+/src/README.md-22-scope = { name: "Jenny" };
+/src/README.md:23:evaluate(scope); // returns 'Jenny'
+/src/README.md-24-
+/src/README.md:25:evaluate = expressions.compile("ship.pirate.name = 'Störtebeker'");
+/src/README.md:26:evaluate(scope); // won't throw an error because angular's expressions are forgiving
+/src/README.md-27-console.log(scope.ship.pirate.name); // prints 'Störtebeker'
+##############################################
+/src/README.md-32-```javascript
+/src/README.md:33:evaluate = expressions.compile("ship.pirate.name");
+/src/README.md:34:evaluate.assign(scope, "Störtebeker");
+/src/README.md-35-console.log(scope.ship.pirate.name); // prints 'Störtebeker'
+##############################################
+/src/README.md-58-
+/src/README.md:59:Arguments are evaluated against the scope:
+/src/README.md-60-
+##############################################
+/src/README.md-85-
+/src/README.md:86:Compiles `src` and returns a function `evaluate()`. The compiled function is cached under `compile.cache[src]` to speed up further calls.
+/src/README.md-87-
+##############################################
+/src/README.md-123-
+/src/README.md:124:### evaluate(scope?): \*
+/src/README.md-125-
+##############################################
+/src/README.md-127-
+/src/README.md:128:### evaluate.assign(scope, value): \*
+/src/README.md-129-
+##############################################
+/src/README.md-161-For reflective calls (a[b]) we check that the value of the lookup is not the Function constructor
+/src/README.md:162:while evaluating the expression, which is a stronger but more expensive test. Since reflective
+/src/README.md-163-calls are expensive anyway, this is not such a big deal compared to static dereferencing.
+##############################################
+/src/package.json-16-    "parse",
+/src/package.json:17:    "eval",
+/src/package.json-18-    "source"
+##############################################
+/src/lib/parse.js-706-function isScope(obj) {
+/src/lib/parse.js:707:	return obj && obj.$evalAsync && obj.$watch;
+/src/lib/parse.js-708-}
+##############################################
+/src/lib/parse.js-1161-				noUnsafeEval:
+/src/lib/parse.js:1162:					!ngCspAttribute || ngCspAttribute.indexOf("no-unsafe-eval") !== -1,
+/src/lib/parse.js-1163-				noInlineStyle:
+##############################################
+/src/lib/parse.js-1265- *
+/src/lib/parse.js:1266: * @param {Object} self Context which `fn` should be evaluated in.
+/src/lib/parse.js-1267- * @param {function()} fn Function to be bound.
+##############################################
+/src/lib/parse.js-1547-	var src = document.currentScript.getAttribute("src");
+/src/lib/parse.js:1548:	var link = document.createElement("a");
+/src/lib/parse.js-1549-	link.href = src;
+/src/lib/parse.js-1550-	var scriptProtocol = link.protocol;
+/src/lib/parse.js:1551:	var docLoadProtocol = document.location.protocol;
+/src/lib/parse.js-1552-	if (
+##############################################
+/src/lib/parse.js-1728-				"Angular: disabling automatic bootstrap. <script> protocol indicates " +
+/src/lib/parse.js:1729:					"an extension, document.location.href does not match."
+/src/lib/parse.js-1730-			);
+##############################################
+/src/lib/parse.js-1874-	window.name = "NG_ENABLE_DEBUG_INFO!" + window.name;
+/src/lib/parse.js:1875:	window.location.reload();
+/src/lib/parse.js-1876-}
+##############################################
+/src/lib/parse.js-4218- *    * `context` – `{object}` – an object against which any expressions embedded in the strings
+/src/lib/parse.js:4219: *      are evaluated against (typically a scope object).
+/src/lib/parse.js-4220- *    * `locals` – `{object=}` – local variables context object, useful for overriding values in
+##############################################
+/src/test/main.test.js-38-		var scope;
+/src/test/main.test.js:39:		var evaluate;
+/src/test/main.test.js-40-
+##############################################
+/src/test/main.test.js-64-
+/src/test/main.test.js:65:		describe("when evaluating literals", function() {
+/src/test/main.test.js-66-			it("should return null", function() {
+/src/test/main.test.js:67:				evaluate = compile("null");
+/src/test/main.test.js:68:				expect(evaluate(scope)).to.equal(null);
+/src/test/main.test.js-69-			});
+##############################################
+/src/test/main.test.js-71-			it("should return true", function() {
+/src/test/main.test.js:72:				evaluate = compile("true");
+/src/test/main.test.js:73:				expect(evaluate(scope)).to.equal(true);
+/src/test/main.test.js-74-			});
+##############################################
+/src/test/main.test.js-76-			it("should return false", function() {
+/src/test/main.test.js:77:				evaluate = compile("false");
+/src/test/main.test.js:78:				expect(evaluate(scope)).to.equal(false);
+/src/test/main.test.js-79-			});
+##############################################
+/src/test/main.test.js-81-			it("should return 2.34e5", function() {
+/src/test/main.test.js:82:				evaluate = compile("2.34e5");
+/src/test/main.test.js:83:				expect(evaluate(scope)).to.equal(2.34e5);
+/src/test/main.test.js-84-			});
+##############################################
+/src/test/main.test.js-86-			it("should return 'string'", function() {
+/src/test/main.test.js:87:				evaluate = compile("'string'");
+/src/test/main.test.js:88:				expect(evaluate(scope)).to.equal("string");
+/src/test/main.test.js-89-			});
+##############################################
+/src/test/main.test.js-91-			it("should return [ship, 1, 2, []]", function() {
+/src/test/main.test.js:92:				evaluate = compile("[ship, 1, 2, []]");
+/src/test/main.test.js:93:				expect(evaluate(scope)).to.eql([scope.ship, 1, 2, []]);
+/src/test/main.test.js-94-			});
+##############################################
+/src/test/main.test.js-96-			it("should return { test: 'value', 'new-object': {} }", function() {
+/src/test/main.test.js:97:				evaluate = compile("{ test: 'value', 'new-object': {} }");
+/src/test/main.test.js:98:				expect(evaluate(scope)).to.eql({ test: "value", "new-object": {} });
+/src/test/main.test.js-99-			});
+##############################################
+/src/test/main.test.js-101-			it("should return context value when nothing in the scope", function() {
+/src/test/main.test.js:102:				evaluate = compile("test");
+/src/test/main.test.js:103:				expect(evaluate(scope, { test: "hello" })).to.equal("hello");
+/src/test/main.test.js-104-			});
+##############################################
+/src/test/main.test.js-106-			it("should return context value when something in the scope", function() {
+/src/test/main.test.js:107:				evaluate = compile("test");
+/src/test/main.test.js:108:				expect(evaluate({ test: "bye" }, { test: "hello" })).to.equal("hello");
+/src/test/main.test.js-109-			});
+##############################################
+/src/test/main.test.js-111-
+/src/test/main.test.js:112:		describe("when evaluating simple key look-ups", function() {
+/src/test/main.test.js-113-			it("should return the value if its defined on scope", function() {
+/src/test/main.test.js:114:				evaluate = compile("ship");
+/src/test/main.test.js:115:				expect(evaluate(scope)).to.equal(scope.ship);
+/src/test/main.test.js-116-			});
+##############################################
+/src/test/main.test.js-118-			it("should return undefined instead of throwing a ReferenceError if it's not defined on scope", function() {
+/src/test/main.test.js:119:				evaluate = compile("notDefined");
+/src/test/main.test.js:120:				expect(evaluate(scope)).to.equal(undefined);
+/src/test/main.test.js-121-			});
+##############################################
+/src/test/main.test.js-123-			it("should return the scope even when the 'this' keyword is used", function() {
+/src/test/main.test.js:124:				evaluate = compile("this");
+/src/test/main.test.js:125:				expect(evaluate(scope)).to.equal(scope);
+/src/test/main.test.js-126-			});
+##############################################
+/src/test/main.test.js-128-
+/src/test/main.test.js:129:		describe("when evaluating simple assignments", function() {
+/src/test/main.test.js-130-			it("should set the new value on scope", function() {
+/src/test/main.test.js:131:				evaluate = compile("newValue = 'new'");
+/src/test/main.test.js:132:				evaluate(scope);
+/src/test/main.test.js-133-				expect(scope.newValue).to.equal("new");
+##############################################
+/src/test/main.test.js-136-			it("should change the value if its defined on scope", function() {
+/src/test/main.test.js:137:				evaluate = compile("ship = 'ship'");
+/src/test/main.test.js:138:				evaluate(scope);
+/src/test/main.test.js-139-				expect(scope.ship).to.equal("ship");
+##############################################
+/src/test/main.test.js-142-
+/src/test/main.test.js:143:		describe("when evaluating dot-notated loop-ups", function() {
+/src/test/main.test.js-144-			it("should return the value if its defined on scope", function() {
+/src/test/main.test.js:145:				evaluate = compile("ship.pirate.name");
+/src/test/main.test.js:146:				expect(evaluate(scope)).to.equal("Jenny");
+/src/test/main.test.js-147-			});
+##############################################
+/src/test/main.test.js-149-			it("should return undefined instead of throwing a ReferenceError if it's not defined on scope", function() {
+/src/test/main.test.js:150:				evaluate = compile("island.pirate.name");
+/src/test/main.test.js:151:				expect(evaluate(scope)).to.equal(undefined);
+/src/test/main.test.js-152-			});
+##############################################
+/src/test/main.test.js-154-
+/src/test/main.test.js:155:		describe("when evaluating dot-notated assignments", function() {
+/src/test/main.test.js-156-			it("should set the new value on scope", function() {
+/src/test/main.test.js:157:				evaluate = compile("island.pirate.name = 'Störtebeker'");
+/src/test/main.test.js:158:				evaluate(scope);
+/src/test/main.test.js-159-				expect(scope.island.pirate.name).to.equal("Störtebeker");
+##############################################
+/src/test/main.test.js-162-			it("should change the value if its defined on scope", function() {
+/src/test/main.test.js:163:				evaluate = compile("ship.pirate.name = 'Störtebeker'");
+/src/test/main.test.js:164:				evaluate(scope);
+/src/test/main.test.js-165-				expect(scope.ship.pirate.name).to.equal("Störtebeker");
+##############################################
+/src/test/main.test.js-168-
+/src/test/main.test.js:169:		describe("when evaluating array look-ups", function() {
+/src/test/main.test.js-170-			beforeEach(function() {
+##############################################
+/src/test/main.test.js-174-			it("should return the value if its defined on scope", function() {
+/src/test/main.test.js:175:				evaluate = compile("ships[1].pirate");
+/src/test/main.test.js:176:				expect(evaluate(scope)).to.equal("Störtebeker");
+/src/test/main.test.js-177-			});
+##############################################
+/src/test/main.test.js-179-			it("should return undefined instead of throwing a ReferenceError if it's not defined on scope", function() {
+/src/test/main.test.js:180:				evaluate = compile("ships[2].pirate");
+/src/test/main.test.js:181:				expect(evaluate(scope)).to.equal(undefined);
+/src/test/main.test.js-182-			});
+##############################################
+/src/test/main.test.js-184-
+/src/test/main.test.js:185:		describe("when evaluating array assignments", function() {
+/src/test/main.test.js-186-			it("should change the value if its defined on scope", function() {
+/src/test/main.test.js-187-				scope.ships = [{ pirate: "Jenny" }];
+/src/test/main.test.js:188:				evaluate = compile("ships[0].pirate = 'Störtebeker'");
+/src/test/main.test.js:189:				evaluate(scope);
+/src/test/main.test.js-190-				expect(scope.ships[0].pirate).to.equal("Störtebeker");
+##############################################
+/src/test/main.test.js-193-
+/src/test/main.test.js:194:		describe("when evaluating function calls", function() {
+/src/test/main.test.js-195-			describe("using no arguments", function() {
+##############################################
+/src/test/main.test.js-200-
+/src/test/main.test.js:201:					evaluate = compile("findPirate()");
+/src/test/main.test.js:202:					expect(evaluate(scope)).to.equal(scope.ship.pirate);
+/src/test/main.test.js-203-				});
+##############################################
+/src/test/main.test.js-208-					};
+/src/test/main.test.js:209:					evaluate = compile("returnThis()");
+/src/test/main.test.js:210:					expect(evaluate(scope)).to.equal(scope);
+/src/test/main.test.js-211-				});
+##############################################
+/src/test/main.test.js-216-					};
+/src/test/main.test.js:217:					evaluate = compile("ship.returnThis()");
+/src/test/main.test.js:218:					expect(evaluate(scope)).to.equal(scope.ship);
+/src/test/main.test.js-219-				});
+##############################################
+/src/test/main.test.js-226-					};
+/src/test/main.test.js:227:					evaluate = compile("findPirate(ship.pirate, 1, [2, 3])");
+/src/test/main.test.js:228:					expect(evaluate(scope)).to.eql([scope.ship.pirate, 1, [2, 3]]);
+/src/test/main.test.js-229-				});
+##############################################
+/src/test/main.test.js-232-
+/src/test/main.test.js:233:		describe("when evaluating operators", function() {
+/src/test/main.test.js-234-			it("should return the expected result when using +", function() {
+/src/test/main.test.js:235:				evaluate = compile("1 + 1");
+/src/test/main.test.js:236:				expect(evaluate()).to.equal(2);
+/src/test/main.test.js-237-			});
+##############################################
+/src/test/main.test.js-239-			it("should return the expected result when using -", function() {
+/src/test/main.test.js:240:				evaluate = compile("1 - 1");
+/src/test/main.test.js:241:				expect(evaluate()).to.equal(0);
+/src/test/main.test.js-242-			});
+##############################################
+/src/test/main.test.js-244-			it("should return the expected result when using *", function() {
+/src/test/main.test.js:245:				evaluate = compile("2 * 2");
+/src/test/main.test.js:246:				expect(evaluate()).to.equal(4);
+/src/test/main.test.js-247-			});
+##############################################
+/src/test/main.test.js-249-			it("should return the expected result when using /", function() {
+/src/test/main.test.js:250:				evaluate = compile("4 / 2");
+/src/test/main.test.js:251:				expect(evaluate()).to.equal(2);
+/src/test/main.test.js-252-			});
+##############################################
+/src/test/main.test.js-254-			it("should return the expected result when using %", function() {
+/src/test/main.test.js:255:				evaluate = compile("3 % 2");
+/src/test/main.test.js:256:				expect(evaluate()).to.equal(1);
+/src/test/main.test.js-257-			});
+##############################################
+/src/test/main.test.js-259-			it("should return the expected result when using &&", function() {
+/src/test/main.test.js:260:				evaluate = compile("true && true");
+/src/test/main.test.js:261:				expect(evaluate()).to.equal(true);
+/src/test/main.test.js:262:				evaluate = compile("true && false");
+/src/test/main.test.js:263:				expect(evaluate()).to.equal(false);
+/src/test/main.test.js:264:				evaluate = compile("false && false");
+/src/test/main.test.js:265:				expect(evaluate()).to.equal(false);
+/src/test/main.test.js-266-			});
+##############################################
+/src/test/main.test.js-268-			it("should return the expected result when using ||", function() {
+/src/test/main.test.js:269:				evaluate = compile("true || true");
+/src/test/main.test.js:270:				expect(evaluate()).to.equal(true);
+/src/test/main.test.js:271:				evaluate = compile("true || false");
+/src/test/main.test.js:272:				expect(evaluate()).to.equal(true);
+/src/test/main.test.js:273:				evaluate = compile("false || false");
+/src/test/main.test.js:274:				expect(evaluate()).to.equal(false);
+/src/test/main.test.js-275-			});
+##############################################
+/src/test/main.test.js-277-			it("should return the expected result when using !", function() {
+/src/test/main.test.js:278:				evaluate = compile("!true");
+/src/test/main.test.js:279:				expect(evaluate()).to.equal(false);
+/src/test/main.test.js:280:				evaluate = compile("!false");
+/src/test/main.test.js:281:				expect(evaluate()).to.equal(true);
+/src/test/main.test.js-282-			});
+##############################################
+/src/test/main.test.js-286-                scope.value = 2;
+/src/test/main.test.js:287:                evaluate = compile("value++");
+/src/test/main.test.js:288:                expect(evaluate()).to.equal(3);
+/src/test/main.test.js-289-                expect(scope.value).to.equal(3);
+##############################################
+/src/test/main.test.js-294-                scope.value = 2;
+/src/test/main.test.js:295:                evaluate = compile("value--");
+/src/test/main.test.js:296:                expect(evaluate()).to.equal(1);
+/src/test/main.test.js-297-                expect(scope.value).to.equal(1);
+##############################################
+/src/test/main.test.js-300-			it("should return the expected result when using ?", function() {
+/src/test/main.test.js:301:				evaluate = compile("true? 'it works' : false");
+/src/test/main.test.js:302:				expect(evaluate()).to.equal("it works");
+/src/test/main.test.js:303:				evaluate = compile("false? false : 'it works'");
+/src/test/main.test.js:304:				expect(evaluate()).to.equal("it works");
+/src/test/main.test.js-305-			});
+##############################################
+/src/test/main.test.js-327-			it("should still be parseable and executable", function() {
+/src/test/main.test.js:328:				evaluate = compile("ships[index][pi + 'rate'](Jenny)");
+/src/test/main.test.js:329:				expect(evaluate(scope)).to.equal("Jenny");
+/src/test/main.test.js-330-			});
+##############################################
+/src/test/main.test.js-332-
+/src/test/main.test.js:333:		describe("when evaluating syntactical errors", function() {
+/src/test/main.test.js-334-			it("should give a readable error message", function() {
+##############################################
+/src/test/main.test.js-361-
+/src/test/main.test.js:362:				evaluate = compile("1.2345 | currency:selectedCurrency:2");
+/src/test/main.test.js-363-				expect(
+/src/test/main.test.js:364:					evaluate({
+/src/test/main.test.js-365-						selectedCurrency: "EUR"
+##############################################
+/src/test/main.test.js-370-
+/src/test/main.test.js:371:		describe("when evaluating the same expression multiple times", function() {
+/src/test/main.test.js-372-			it("should cache the generated function", function() {
+##############################################
+/src/test/main.test.js-440-	describe("Special characters", function() {
+/src/test/main.test.js:441:		var evaluate;
+/src/test/main.test.js-442-		it("should allow to define isIdentifierStart and isIdentifierContinue", function() {
+##############################################
+/src/test/main.test.js-451-			}
+/src/test/main.test.js:452:			evaluate = compile("être_embarassé", {
+/src/test/main.test.js-453-				isIdentifierStart: validChars,
+##############################################
+/src/test/main.test.js-456-
+/src/test/main.test.js:457:			expect(evaluate({ être_embarassé: "Ping" })).to.eql("Ping");
+/src/test/main.test.js-458-		});
+##############################################
+/src/test/main.test.js-461-	describe("prototype", function() {
+/src/test/main.test.js:462:		var evaluate;
+/src/test/main.test.js-463-
+/src/test/main.test.js-464-		it("should not leak", function() {
+/src/test/main.test.js:465:			evaluate = compile("''.split");
+/src/test/main.test.js:466:			expect(evaluate({})).to.eql(undefined);
+/src/test/main.test.js-467-		});
+##############################################
+/src/test/main.test.js-469-		it("should not leak with computed prop", function() {
+/src/test/main.test.js:470:			evaluate = compile("a['split']");
+/src/test/main.test.js:471:			expect(evaluate({ a: "" })).to.eql(undefined);
+/src/test/main.test.js-472-		});
+##############################################
+/src/test/main.test.js-474-		it("should allow to read string length", function() {
+/src/test/main.test.js:475:			evaluate = compile("'abc'.length");
+/src/test/main.test.js:476:			expect(evaluate({})).to.eql(3);
+/src/test/main.test.js-477-		});
+##############################################
+/src/test/main.test.js-479-		it("should allow to read users length", function() {
+/src/test/main.test.js:480:			evaluate = compile("users.length");
+/src/test/main.test.js:481:			expect(evaluate({ users: [1, 4, 4] })).to.eql(3);
+/src/test/main.test.js-482-		});
+##############################################
+/src/test/main.test.js-484-		// it("should disallow from changing prototype", function() {
+/src/test/main.test.js:485:		// 	evaluate = compile("name.split = 10");
+/src/test/main.test.js-486-		// 	var scope = { name: "hello" };
+/src/test/main.test.js:487:		// 	evaluate(scope);
+/src/test/main.test.js-488-		// 	expect(scope.name.split).to.be.a("function");
+##############################################
+/src/test/main.test.js-492-		it("should work with __proto__", function() {
+/src/test/main.test.js:493:			evaluate = compile("__proto__");
+/src/test/main.test.js:494:			expect(evaluate({})).to.eql(undefined);
+/src/test/main.test.js-495-		});
+##############################################
+/src/test/main.test.js-497-		it("should work with toString", function() {
+/src/test/main.test.js:498:			evaluate = compile("toString");
+/src/test/main.test.js:499:			expect(evaluate({ toString: 10 })).to.eql(10);
+/src/test/main.test.js-500-		});
+##############################################
+/src/CHANGELOG.md-18-}
+/src/CHANGELOG.md:19:evaluate = compile("être_embarassé", {
+/src/CHANGELOG.md-20-  isIdentifierStart: validChars,
+##############################################
+/src/CHANGELOG.md-23-
+/src/CHANGELOG.md:24:evaluate({ être_embarassé: "Ping" });
+/src/CHANGELOG.md-25-```
+##############################################
+/src/CHANGELOG.md-35-```javascript
+/src/CHANGELOG.md:36:evaluate = compile("this + 2")(2); // which gives 4
+/src/CHANGELOG.md-37-```

@@ -1,0 +1,84 @@
+<report_mosca>
+ <Path>/src/gammautils.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -  else if(number%2===0){return false}return getPrimeFactors(number).length===1}module.exports.isPrime=isPrime},{"./arrayUtils":3,"./mathUtilsNonStrict":15,"./objectUtils":17,"./stringUtils":20}],15:[function(_dereq_,module,exports){module.exports.__name="Math";module.exports.solve=function(input,vars){try{return eval("with(Math){with(vars || {}){"+input+"}}")}catch(e){console.log(e);return NaN}}},{}],16:[function(_dereq_,module,exports){"use strict";var oUtils=_dereq_("./objectUtils");module.exports.__name="Number";module.exports.getRandomInteger=function(min,max){return Math.floor(Math.random()*(max-min+1))+min};module.exports.isBetween=function(value,min,max,inclusive){if(oUtils.isUndefined(inclusive)){inclusive=true}if(inclusive){return value>=min&&value<=max}else{return value>min&&value<max}}},{"./objectUtils":17}],17:[function(_dereq_,module,exports){"use strict";var util=_dereq_("util");module.exports.__name="Object";function isUndefined(object){return typeof object===typeof undefined}module.exports.isUndefined=isUndefined;function forEachOwnProperty(object,iterator){if(typeof object!=="object"||object===null){return}var propertiesLength=Object.keys(object).length,current=1;
+
+ Line: 51 -  );H.writeInt32BE(this._f,20);H.writeInt32BE(this._g,24);H.writeInt32BE(this._h,28);return H};return Sha256}},{"./util":49,util:56}],49:[function(_dereq_,module,exports){exports.write=write;exports.zeroFill=zeroFill;exports.toString=toString;function write(buffer,string,enc,start,from,to,LE){var l=to-from;if(enc==="ascii"||enc==="binary"){for(var i=0;i<l;i++){buffer[start+i]=string.charCodeAt(i+from)}}else if(enc==null){for(var i=0;i<l;i++){buffer[start+i]=string[i+from]}}else if(enc==="hex"){for(var i=0;i<l;i++){var j=from+i;buffer[start+i]=parseInt(string[j*2]+string[j*2+1],16)}}else if(enc==="base64"){throw new Error("base64 encoding not yet supported")}else throw new Error(enc+" encoding not yet supported")}function zeroFill(buf,from){for(var i=from;i<buf.length;i++)buf[i]=0}},{}],50:[function(_dereq_,module,exports){(function(Buffer){var blocksize=64;var zeroBuffer=new Buffer(blocksize);zeroBuffer.fill(0);module.exports=function(createHmac,exports){exports=exports||{};exports.pbkdf2=function(password,salt,iterations,keylen,cb){if("function"!==typeof cb)throw new Error("No callback provided to pbkdf2");setTimeout(function(){cb(null,exports.pbkdf2Sync(password,salt,iterations,keylen))})};exports.pbkdf2Sync=function(key,salt,iterations,keylen){if("number"!==typeof iterations)throw new TypeError("Iterations not a number");if(iterations<0)throw new TypeError("Bad iterations");if("number"!==typeof keylen)throw new TypeError("Key length not a number");if(keylen<0)throw new TypeError("Bad key length");var key=!Buffer.isBuffer(key)?new Buffer(key):key;if(key.length>blocksize){key=createHash(alg).update(key).digest()}else if(key.length<blocksize){key=Buffer.concat([key,zeroBuffer],blocksize)}var HMAC;var cplen,p=0,i=1,itmp=new Buffer(4),digtmp;var out=new Buffer(keylen);out.fill(0);while(keylen){if(keylen>20)cplen=20;else cplen=keylen;itmp[0]=i>>24&255;itmp[1]=i>>16&255;itmp[2]=i>>8&255;itmp[3]=i&255;HMAC=createHmac("sha1",key);HMAC.update(salt);HMAC.update(itmp);digtmp=HMAC.digest();digtmp.copy(out,p,0,cplen);for(var j=1;j<iterations;j++){HMAC=createHmac("sha1",key);HMAC.update(dig Line: 54 -  zY:54}],54:[function(_dereq_,module,exports){var process=module.exports={};process.nextTick=function(){var canSetImmediate=typeof window!=="undefined"&&window.setImmediate;var canPost=typeof window!=="undefined"&&window.postMessage&&window.addEventListener;if(canSetImmediate){return function(f){return window.setImmediate(f)}}if(canPost){var queue=[];window.addEventListener("message",function(ev){var source=ev.source;if((source===window||source===null)&&ev.data==="process-tick"){ev.stopPropagation();if(queue.length>0){var fn=queue.shift();fn()}}},true);return function nextTick(fn){queue.push(fn);window.postMessage("process-tick","*")}}return function nextTick(fn){setTimeout(fn,0)}}();process.title="browser";process.browser=true;process.env={};process.argv=[];function noop(){}process.on=noop;process.addListener=noop;process.once=noop;process.off=noop;process.removeListener=noop;process.removeAllListeners=noop;process.emit=noop;process.binding=function(name){throw new Error("process.binding is not supported")};process.cwd=function(){return"/"};process.chdir=function(dir){throw new Error("process.chdir is not supported")}},{}],55:[function(_dereq_,module,exports){module.exports=function isBuffer(arg){return arg&&typeof arg==="object"&&typeof arg.copy==="function"&&typeof arg.fill==="function"&&typeof arg.readUInt8==="function"}},{}],56:[function(_dereq_,module,exports){(function(process,global){var formatRegExp=/%[sdj%]/g;exports.format=function(f){if(!isString(f)){var objects=[];for(var i=0;i<arguments.length;i++){objects.push(inspect(arguments[i]))}return objects.join(" ")}var i=1;var args=arguments;var len=args.length;var str=String(f).replace(formatRegExp,function(x){if(x==="%%")return"%";if(i>=len)return x;switch(x){case"%s":return String(args[i++]);case"%d":return Number(args[i++]);case"%j":try{return JSON.stringify(args[i++])}catch(_){return"[Circular]"}default:return x}});for(var x=args[i];i<len;x=args[++i]){if(isNull(x)||!isObject(x)){str+=" "+x}else{str+=" "+inspect(x)}}return str};exports.deprecate=function(fn,msg){if(isUndefined(global.process)){return function(){retur</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/gammautils.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 9 -  res.lean=true;next()};module.exports.acceptXml=function(req,res,next){req.headers.accept="application/xml";res.lean=true;next()};module.exports.acceptCsv=function(req,res,next){req.headers.accept="text/csv";res.lean=true;next()};var corsDefaults={allowOrigin:"*",allowMethods:"GET,PUT,POST,DELETE,HEAD,OPTIONS",allowHeaders:"Content-Type, Authorization, Content-Length, X-Requested-With",exposeHeaders:""};module.exports.allowCORS=function(params){if(typeof params==="undefined"){params=corsDefaults}return function(req,res,next){res.header("Access-Control-Allow-Origin",params.allowOrigin||corsDefaults.allowOrigin);res.header("Access-Control-Allow-Methods",params.allowMethods||corsDefaults.allowMethods);res.header("Access-Control-Allow-Headers",params.allowHeaders||corsDefaults.allowHeaders);res.header("Access-Control-Expose-Headers",params.exposeHeaders||corsDefaults.exposeHeaders);if("OPTIONS"===req.method){return res.status(200).end()}next()}};module.exports.loadAction=function(name,options){return _dereq_(path.join(__dirname,"./actions/"+name+"Action"))(options)}}).call(this,"/lib")},{path:53}],8:[function(_dereq_,module,exports){"use strict";var crypto=_dereq_("crypto");module.exports.__name="Crypto";module.exports.hmac=function(algorithm,key,text,encoding){if(typeof encoding==="undefined"){encoding="base64"}var hmac=crypto.createHmac(algorithm,key);hmac.setEncoding(encoding);hmac.write(text);hmac.end();return hmac.read()};module.exports.sha1=function(value){return crypto.createHash("sha1").update(value).digest("hex")};module.exports.md5=function(value){return crypto.createHash("md5").update(value).digest("hex")};module.exports.cipher=function(value,password,algorithm){algorithm=algorithm||"aes256";var cipher=crypto.createCipher(algorithm,password);return cipher.update(value,"utf8","hex")+cipher.final("hex")};module.exports.decipher=function(value,password,algorithm){algorithm=algorithm||"aes256";var decipher=crypto.createDecipher(algorithm,password);return decipher.update(value,"hex","utf8")+decipher.final("utf8")}},{crypto:42}],9:[function(_dereq_,module,exports){"use strict";</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/tests/controllerUtilsTest.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 84 -                  value: 'GET,PUT,POST,DELETE,HEAD,OPTIONS'
+
+ Line: 113 -                  value: 'GET,PUT,POST,DELETE,HEAD,OPTIONS'
+
+ Line: 171 -                  value: 'GET,PUT,POST,DELETE,HEAD,OPTIONS'
+
+ Line: 200 -                  value: 'GET,PUT,POST,DELETE,HEAD,OPTIONS'
+
+ Line: 294 -                      value: 'GET,PUT,POST,DELETE,HEAD,OPTIONS'
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/mathUtilsNonStrict.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 9 -          return eval('with(Math){with(vars || {}){' + input + '}}');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/controllerUtils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 30 -      allowMethods: 'GET,PUT,POST,DELETE,HEAD,OPTIONS',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/numberUtils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -      // TAKEN FROM:
+
+</Result>
+</report_mosca>
+

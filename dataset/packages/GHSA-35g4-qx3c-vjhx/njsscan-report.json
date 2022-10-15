@@ -1,0 +1,202 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 82,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "start": {
+            "col": 34,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 11157,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08",
+          "start": {
+            "col": 34,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "generic_error_disclosure": {
+      "files": [
+        {
+          "file_path": "/src/scripts/upgrade-db-0.3-to-1.0.js",
+          "match_lines": [
+            189,
+            207
+          ],
+          "match_position": [
+            5,
+            6
+          ],
+          "match_string": "    try {\n        yield newRoomStore.ensureIndexAsync({\n            fieldName: \"id\",\n            unique: true,\n            sparse: false\n        });\n        yield newRoomStore.ensureIndexAsync({\n            fieldName: \"matrix_id\",\n            unique: false,\n            sparse: true\n        });\n        yield newRoomStore.ensureIndexAsync({\n            fieldName: \"remote_id\",\n            unique: false,\n            sparse: true\n        });\n    } catch (err) {\n        console.error(JSON.stringify(err));\n    }"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-209: Generation of Error Message Containing Sensitive Information",
+        "description": "Error messages with stack traces may expose sensitive information about the application.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "WARNING"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/components/membership-queue.js",
+          "match_lines": [
+            188,
+            188
+          ],
+          "match_position": [
+            76,
+            89
+          ],
+          "match_string": "            const delay = Math.min((this.opts.actionDelayMs * attempts) + (Math.random() * 500), this.opts.actionDelayMs);"
+        },
+        {
+          "file_path": "/src/lib/components/request.js",
+          "match_lines": [
+            20,
+            20
+          ],
+          "match_position": [
+            13,
+            26
+          ],
+          "match_string": "    return (Math.random() * 1e20).toString(36);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_password": {
+      "files": [
+        {
+          "file_path": "/src/lib/components/room-link-validator.js",
+          "match_lines": [
+            165,
+            165
+          ],
+          "match_position": [
+            5,
+            78
+          ],
+          "match_string": "    RoomLinkValidatorStatus[RoomLinkValidatorStatus[\"PASSED\"] = 0] = \"PASSED\";"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded password in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    },
+    "node_username": {
+      "files": [
+        {
+          "file_path": "/src/lib/components/room-link-validator.js",
+          "match_lines": [
+            166,
+            166
+          ],
+          "match_position": [
+            5,
+            104
+          ],
+          "match_string": "    RoomLinkValidatorStatus[RoomLinkValidatorStatus[\"ERROR_USER_CONFLICT\"] = 1] = \"ERROR_USER_CONFLICT\";"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded username in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    },
+    "yaml_deserialize": {
+      "files": [
+        {
+          "file_path": "/src/lib/bridge.js",
+          "match_lines": [
+            195,
+            195
+          ],
+          "match_position": [
+            28,
+            112
+          ],
+          "match_string": "            const regObj = js_yaml_1.default.load(await fs_1.promises.readFile(this.opts.registration, 'utf8'));"
+        },
+        {
+          "file_path": "/src/lib/components/cli.js",
+          "match_lines": [
+            247,
+            247
+          ],
+          "match_position": [
+            16,
+            57
+          ],
+          "match_string": "        return yaml.load(fs.readFileSync(fpath, 'utf8'));"
+        },
+        {
+          "file_path": "/src/lib/components/config-validator.js",
+          "match_lines": [
+            83,
+            83
+          ],
+          "match_position": [
+            24,
+            81
+          ],
+          "match_string": "        const result = js_yaml_1.default.load(fs.readFileSync(filename, 'utf8'));"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-502: Deserialization of Untrusted Data",
+        "description": "User controlled data in 'yaml.load()' function can result in Remote Code Injection.",
+        "owasp": "A8: Insecure Deserialization",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

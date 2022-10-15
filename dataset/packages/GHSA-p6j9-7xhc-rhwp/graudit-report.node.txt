@@ -1,0 +1,36 @@
+/src/src/URI.min.js-53-this.query(a,b);return"string"===typeof c&&c.length?"?"+c:c};g.hash=function(a,b){var c=this.fragment(a,b);return"string"===typeof c&&c.length?"#"+c:c};g.pathname=function(a,b){if(void 0===a||!0===a){var c=this._parts.path||(this._parts.hostname?"/":"");return a?(this._parts.urn?d.decodeUrnPath:d.decodePath)(c):c}this._parts.path=this._parts.urn?a?d.recodeUrnPath(a):"":a?d.recodePath(a):"/";this.build(!b);return this};g.path=g.pathname;g.href=function(a,b){var c;if(void 0===a)return this.toString();
+/src/src/URI.min.js:54:this._string="";this._parts=d._parts();var e=a instanceof d,f="object"===typeof a&&(a.hostname||a.path||a.pathname);a.nodeName&&(f=d.getDomAttribute(a),a=a[f]||"",f=!1);!e&&f&&void 0!==a.pathname&&(a=a.toString());if("string"===typeof a||a instanceof String)this._parts=d.parse(String(a),this._parts);else if(e||f){e=e?a._parts:a;for(c in e)"query"!==c&&B.call(this._parts,c)&&(this._parts[c]=e[c]);e.query&&this.query(e.query,!1)}else throw new TypeError("invalid input");this.build(!b);return this};
+/src/src/URI.min.js-55-g.is=function(a){var b=!1,c=!1,e=!1,f=!1,n=!1,z=!1,I=!1,L=!this._parts.urn;this._parts.hostname&&(L=!1,c=d.ip4_expression.test(this._parts.hostname),e=d.ip6_expression.test(this._parts.hostname),b=c||e,n=(f=!b)&&k&&k.has(this._parts.hostname),z=f&&d.idn_expression.test(this._parts.hostname),I=f&&d.punycode_expression.test(this._parts.hostname));switch(a.toLowerCase()){case "relative":return L;case "absolute":return!L;case "domain":case "name":return f;case "sld":return n;case "ip":return b;case "ip4":case "ipv4":case "inet4":return c;
+##############################################
+/src/src/URI.min.js-59-this.build(!b);return this};g.authority=function(a,b){if(this._parts.urn)return void 0===a?"":this;if(void 0===a)return this._parts.hostname?d.buildAuthority(this._parts):"";if("/"!==d.parseAuthority(a,this._parts))throw new TypeError('Hostname "'+a+'" contains characters other than [A-Z0-9.-]');this.build(!b);return this};g.userinfo=function(a,b){if(this._parts.urn)return void 0===a?"":this;if(void 0===a){var c=d.buildUserinfo(this._parts);return c?c.substring(0,c.length-1):c}"@"!==a[a.length-1]&&
+/src/src/URI.min.js:60:(a+="@");d.parseUserinfo(a,this._parts);this.build(!b);return this};g.resource=function(a,b){if(void 0===a)return this.path()+this.search()+this.hash();var c=d.parse(a);this._parts.path=c.path;this._parts.query=c.query;this._parts.fragment=c.fragment;this.build(!b);return this};g.subdomain=function(a,b){if(this._parts.urn)return void 0===a?"":this;if(void 0===a){if(!this._parts.hostname||this.is("IP"))return"";var c=this._parts.hostname.length-this.domain().length-1;return this._parts.hostname.substring(0,
+/src/src/URI.min.js-61-c)||""}c=this._parts.hostname.length-this.domain().length;c=this._parts.hostname.substring(0,c);c=new RegExp("^"+q(c));a&&"."!==a.charAt(a.length-1)&&(a+=".");if(-1!==a.indexOf(":"))throw new TypeError("Domains cannot contain colons");a&&d.ensureValidHostname(a,this._parts.protocol);this._parts.hostname=this._parts.hostname.replace(c,a);this.build(!b);return this};g.domain=function(a,b){if(this._parts.urn)return void 0===a?"":this;"boolean"===typeof a&&(b=a,a=void 0);if(void 0===a){if(!this._parts.hostname||
+##############################################
+/src/src/URI.min.js-88-K));2===h.type&&(g=r[H](h.val[G][0].substring(0,K)))}else v?(l=r[H](h.val[G][1]),2===h.type?(g=r[H](h.val[G][0]),h[H].push([g,l])):h[H].push([void 0,l])):(l=h[H][G][1],2===h.type&&(g=h[H][G][0]));w&&(w+=u);D?w+=g+(p||l?"=":"")+l:(G||(w+=r[H](F)+(p||l?"=":"")),2===h.type&&(w+=g+","),w+=l)}return w};k.expandUnnamed=function(h,p,D,u,K){var F="",w=p.encode;p=p.empty_name_separator;var H=!h[w].length,v;var g=0;for(v=h.val.length;g<v;g++){if(K)var B=r[w](h.val[g][1].substring(0,K));else H?(B=r[w](h.val[g][1]),
+/src/src/URI.min.js:89:h[w].push([2===h.type?r[w](h.val[g][0]):void 0,B])):B=h[w][g][1];F&&(F+=u);if(2===h.type){var G=K?r[w](h.val[g][0].substring(0,K)):h[w][g][0];F+=G;F=D?F+(p||B?"=":""):F+","}F+=B}return F};k.noConflict=function(){x.URITemplate===k&&(x.URITemplate=d);return k};E.expand=function(h,p){var D="";this.parts&&this.parts.length||this.parse();h instanceof m||(h=new m(h));for(var u=0,K=this.parts.length;u<K;u++)D+="string"===typeof this.parts[u]?this.parts[u]:k.expand(this.parts[u],h,p);return D};E.parse=function(){var h=
+/src/src/URI.min.js-90-this.expression,p=k.EXPRESSION_PATTERN,D=k.VARIABLE_PATTERN,u=k.VARIABLE_NAME_PATTERN,K=k.LITERAL_PATTERN,F=[],w=0,H=function(t){if(t.match(K))throw Error('Invalid Literal "'+t+'"');return t};for(p.lastIndex=0;;){var v=p.exec(h);if(null===v){F.push(H(h.substring(w)));break}else F.push(H(h.substring(w,v.index))),w=v.index+v[0].length;if(!A[v[1]])throw Error('Unknown Operator "'+v[1]+'" in "'+v[0]+'"');if(!v[3])throw Error('Unclosed Expression "'+v[0]+'"');var g=v[2].split(",");for(var B=0,G=g.length;B<
+##############################################
+/src/src/URI.js-1246-    if (typeof href === 'string' || href instanceof String) {
+/src/src/URI.js:1247:      this._parts = URI.parse(String(href), this._parts);
+/src/src/URI.js-1248-    } else if (_URI || _object) {
+##############################################
+/src/src/URI.js-1474-
+/src/src/URI.js:1475:    parts = URI.parse(v);
+/src/src/URI.js-1476-    this._parts.path = parts.path;
+##############################################
+/src/src/URITemplate.js-330-      // lazilyy parse the template
+/src/src/URITemplate.js:331:      this.parse();
+/src/src/URITemplate.js-332-    }
+##############################################
+/src/CHANGELOG.md-33-
+/src/CHANGELOG.md:34:* making [`URI.parse()`](http://medialize.github.io/URI.js/docs.html#static-parse) allow `_` in hostname - [Issue #347](https://github.com/medialize/URI.js/issues/347), [PR #348](https://github.com/medialize/URI.js/issues/348)
+/src/CHANGELOG.md:35:* fixing [`URI.parse()`](http://medialize.github.io/URI.js/docs.html#static-parse) to not use `Number.isNumber()` for IE compatibility - [Issue #350](https://github.com/medialize/URI.js/issues/350), [PR #351](https://github.com/medialize/URI.js/issues/351)
+/src/CHANGELOG.md-36-
+##############################################
+/src/CHANGELOG.md-38-
+/src/CHANGELOG.md:39:* making [`URI.parse()`](http://medialize.github.io/URI.js/docs.html#static-parse) throw on invalid port and hostname - [Issue #344](https://github.com/medialize/URI.js/issues/344), [PR #345](https://github.com/medialize/URI.js/issues/345)
+/src/CHANGELOG.md-40-
+##############################################
+/src/CHANGELOG.md-205-* optimize [`.relativeTo()`](http://medialize.github.io/URI.js/docs.html#relativeto) results - ([Issue #78](https://github.com/medialize/URI.js/issues/78), [Issue #95](https://github.com/medialize/URI.js/issues/95))
+/src/CHANGELOG.md:206:* removing obsolete code fragments from `URI.parse()` and `relativeTo()` - ([Issue #100](https://github.com/medialize/URI.js/issues/100))
+/src/CHANGELOG.md-207-* adding setting [`URI.escapeQuerySpace`](http://medialize.github.io/URI.js/docs.html#setting-escapeQuerySpace) to control if query string should escape spaces using `+` or `%20` - ([Issue #74](https://github.com/medialize/URI.js/issues/74))

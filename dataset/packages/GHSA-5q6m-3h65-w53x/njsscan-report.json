@@ -1,0 +1,146 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "f657f99d3fb9647db92628e96007aabb46e5f04f33e49999075aab8e250ca7ce",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "f657f99d3fb9647db92628e96007aabb46e5f04f33e49999075aab8e250ca7ce",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "express_open_redirect": {
+      "files": [
+        {
+          "file_path": "/src/redirectServedPathMiddleware.js",
+          "match_lines": [
+            22,
+            23
+          ],
+          "match_position": [
+            7,
+            29
+          ],
+          "match_string": "      const newPath = path.join(servedPath, req.path !== '/' ? req.path : '');\n      res.redirect(newPath);"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')",
+        "description": "Untrusted user input in redirect() can result in Open Redirect vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "join_resolve_path_traversal": {
+      "files": [
+        {
+          "file_path": "/src/ModuleScopePlugin.js",
+          "match_lines": [
+            49,
+            52
+          ],
+          "match_position": [
+            33,
+            10
+          ],
+          "match_string": "        const requestFullPath = path.resolve(\n          path.dirname(request.context.issuer),\n          request.__innerRequest_request\n        );"
+        },
+        {
+          "file_path": "/src/redirectServedPathMiddleware.js",
+          "match_lines": [
+            22,
+            22
+          ],
+          "match_position": [
+            23,
+            78
+          ],
+          "match_string": "      const newPath = path.join(servedPath, req.path !== '/' ? req.path : '');"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-22: Improper Limitation of a Pathname to a Restricted Directory (Path Traversal)",
+        "description": "Path constructed with user input can result in Path Traversal. Ensure that user input does not reach `join()` or `resolve()`. ",
+        "owasp": "A5: Broken Access Control",
+        "severity": "WARNING"
+      }
+    },
+    "regex_dos": {
+      "files": [
+        {
+          "file_path": "/src/WebpackDevServerUtils.js",
+          "match_lines": [
+            394,
+            394
+          ],
+          "match_position": [
+            8,
+            36
+          ],
+          "match_string": "  if (!/^http(s)?:\\/\\//.test(proxy)) {"
+        },
+        {
+          "file_path": "/src/launchEditor.js",
+          "match_lines": [
+            336,
+            336
+          ],
+          "match_position": [
+            6,
+            55
+          ],
+          "match_string": "    !WINDOWS_FILE_NAME_WHITELIST.test(fileName.trim())"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-185: Incorrect Regular Expression",
+        "description": "Ensure that the regex used to compare with user supplied input is safe from regular expression denial of service.",
+        "owasp": "A6: Security Misconfiguration",
+        "severity": "WARNING"
+      }
+    }
+  },
+  "templates": {}
+}

@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-6xv6-jpvw-cx6q",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/bestzip/-/bestzip-2.1.6.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/bestzip.js",
+                    "lineno": 19,
+                    "code": "const nativeZip = options =>"
+                },
+                "sink": {
+                    "file": "lib/bestzip.js",
+                    "lineno": 27,
+                    "code": "const zipProcess = cp.exec(command, { stdio: \"inherit\", cwd: options.cwd });"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/nfriedly/node-bestzip/commit/45d4a901478c6a8f396c8b959dd6cf8fd3f955b6"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

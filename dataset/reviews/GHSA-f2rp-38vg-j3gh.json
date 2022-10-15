@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-f2rp-38vg-j3gh",
+        "cwe": "CWE-88"
+    },
+    "correct_cwe": "CWE-88",
+    "correct_package_link": "https://registry.npmjs.org/shescape/-/shescape-1.1.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/unix.js",
+                    "lineno": 1,
+                    "code": "function escapeShellArg(arg) {"
+                },
+                "sink": {
+                    "file": "src/unix.js",
+                    "lineno": 2,
+                    "code": "return arg.replace(/'/g, `'\\\\''`);"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/win.js",
+                    "lineno": 1,
+                    "code": "function escapeShellArg(arg) {"
+                },
+                "sink": {
+                    "file": "src/win.js",
+                    "lineno": 2,
+                    "code": "return arg.replace(/\"/g, `\"\"`);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/ericcornelissen/shescape/security/advisories/GHSA-f2rp-38vg-j3gh"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/ericcornelissen/shescape/commit/07a069a66423809cbedd61d980c11ca44a29ea2b"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "d"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

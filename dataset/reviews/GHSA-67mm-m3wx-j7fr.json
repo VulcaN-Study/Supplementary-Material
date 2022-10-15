@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-67mm-m3wx-j7fr",
+        "cwe": "CWE-77"
+    },
+    "correct_cwe": "CWE-77",
+    "correct_package_link": "https://registry.npmjs.org/gitlog/-/gitlog-4.0.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "dist/gitlog.cjs.development.js",
+                    "lineno": 197,
+                    "code": "function gitlog(userOptions, cb) {"
+                },
+                "sink": {
+                    "file": "dist/gitlog.cjs.development.js",
+                    "lineno": 216,
+                    "code": "var stdout = child_process.execSync(command, execOptions).toString();"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/gitlog.cjs.development.js",
+                    "lineno": 197,
+                    "code": "function gitlog(userOptions, cb) {"
+                },
+                "sink": {
+                    "file": "dist/gitlog.cjs.development.js",
+                    "lineno": 227,
+                    "code": "child_process.exec(command, execOptions, function (err, stdout, stderr) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/domharrington/node-gitlog/commit/bb22ffb2c907e0284f887ab625e12b88c31f4bf4"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "A"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

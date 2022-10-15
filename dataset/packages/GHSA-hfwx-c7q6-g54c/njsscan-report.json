@@ -1,0 +1,146 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 18,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "202a998e2e8c9098eb79238e5e04e9c58899dec5f5be2178842578520e56b46b",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 18,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "202a998e2e8c9098eb79238e5e04e9c58899dec5f5be2178842578520e56b46b",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            174,
+            198
+          ],
+          "match_position": [
+            5,
+            6
+          ],
+          "match_string": "    var type = (mime[req.body.type] || 'png');\n    var connectionAborted = false;\n\n    if (!req.body) return res.status(400).send('Body is required. Sending a body? Make sure your Content-type header is correct. Accepted is application/json and multipart/form-data.');\n\n    if (!req.body.infile && !req.body.options && !req.body.svg && !req.body.data) {\n        log(2,\n            'request',\n            uniqueid,\n            'from',\n            req.headers['x-forwarded-for'] || req.connection.remoteAddress,\n            'was empty:',\n            JSON.stringify(req.body, undefined, '  '),\n            'headers:',\n            JSON.stringify(req.headers, undefined, '  ')\n        );\n\n        return res.status(400).send('No chart data found. Please make sure you are using application/json or multipart/form-data headers, and that the chart data is in the options attribute if sending JSON.');\n    }\n\n    cres = doCallbacks(beforeRequest, req, res, req.body, id, uniqueid, type);\n    if (cres !== true) {\n        //Block request\n        return res.send(cres);\n    }"
+        },
+        {
+          "file_path": "/src/lib/server.js",
+          "match_lines": [
+            194,
+            198
+          ],
+          "match_position": [
+            5,
+            6
+          ],
+          "match_string": "    cres = doCallbacks(beforeRequest, req, res, req.body, id, uniqueid, type);\n    if (cres !== true) {\n        //Block request\n        return res.send(cres);\n    }"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    },
+    "node_insecure_random_generator": {
+      "files": [
+        {
+          "file_path": "/src/lib/phantompool.js",
+          "match_lines": [
+            99,
+            99
+          ],
+          "match_position": [
+            79,
+            92
+          ],
+          "match_string": "        workcount: settings.workLimit ? Math.round((settings.workLimit / 2) * Math.random()) : 0,"
+        },
+        {
+          "file_path": "/src/lib/phantompool.js",
+          "match_lines": [
+            357,
+            357
+          ],
+          "match_position": [
+            36,
+            49
+          ],
+          "match_string": "        wrk = readyList[Math.round(Math.random() * (readyList.length - 1))];"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "description": "crypto.pseudoRandomBytes()/Math.random() is a cryptographically weak random number generator.",
+        "owasp": "A9: Using Components with Known Vulnerabilities",
+        "severity": "WARNING"
+      }
+    },
+    "node_username": {
+      "files": [
+        {
+          "file_path": "/src/phantom/worker.js",
+          "match_lines": [
+            96,
+            96
+          ],
+          "match_position": [
+            5,
+            105
+          ],
+          "match_string": "    page.settings.userAgent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0';"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-798: Use of Hard-coded Credentials",
+        "description": "A hardcoded username in plain text is identified. Store it properly in an environment variable.",
+        "owasp": "A3: Sensitive Data Exposure",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

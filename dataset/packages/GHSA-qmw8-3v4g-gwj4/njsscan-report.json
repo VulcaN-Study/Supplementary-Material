@@ -1,0 +1,102 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "db5c3795cb080810fed0380bf4d6adef3f81579e8ae3a867d3c2abab2329db9d",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 4,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "db5c3795cb080810fed0380bf4d6adef3f81579e8ae3a867d3c2abab2329db9d",
+          "start": {
+            "col": 1,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "node_ssrf": {
+      "files": [
+        {
+          "file_path": "/src/lib/request.js",
+          "match_lines": [
+            74,
+            82
+          ],
+          "match_position": [
+            17,
+            7
+          ],
+          "match_string": "    const req = requests[opts.url.protocol].request({\n      method: opts.method,\n      port: opts.url.port,\n      path: opts.url.pathname + opts.qs,\n      hostname: opts.url.hostname,\n      headers: opts.headers,\n      agent: agents[opts.url.protocol.replace(/^unix:/, '')],\n      ...httpOpts.requestOptions\n    })"
+        },
+        {
+          "file_path": "/src/lib/request.js",
+          "match_lines": [
+            96,
+            115
+          ],
+          "match_position": [
+            5,
+            7
+          ],
+          "match_string": "    const req = {\n      path: opts.url.pathname + opts.qs,\n      method: opts.method,\n      headers: Object.assign({}, opts.headers),\n      body: opts.body,\n      requestTimeout: undiciOpts.requestTimeout\n    }\n\n    // remove forbidden headers\n    req.headers.connection = undefined\n    req.headers['transfer-encoding'] = undefined\n\n    pool.request(req, function (err, res) {\n      if (err) {\n        done(err)\n        return\n      }\n\n      done(null, { statusCode: res.statusCode, headers: res.headers, stream: res.body })\n    })"
+        },
+        {
+          "file_path": "/src/lib/request.js",
+          "match_lines": [
+            142,
+            146
+          ],
+          "match_position": [
+            17,
+            33
+          ],
+          "match_string": "    const req = http2Client.request({\n      ':method': opts.method,\n      ':path': opts.url.pathname + opts.qs,\n      ...stripHttp1ConnectionHeaders(opts.headers)\n    }, http2Opts.requestOptions)"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-918: Server-Side Request Forgery (SSRF)",
+        "description": "User controlled URL in http client libraries can result in Server Side Request Forgery (SSRF).",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

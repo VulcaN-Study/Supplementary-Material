@@ -1,0 +1,90 @@
+{
+  "errors": [
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as typescript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 28,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "a5f35901ee8b2039a7431144c23dd10bd47c1d07bcee0cd3a536421d86412214",
+          "start": {
+            "col": 16,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    },
+    {
+      "code": 3,
+      "help": "If the code appears to be valid, this may be a semgrep bug.",
+      "level": "warn",
+      "long_msg": "Could not parse LICENSE as javascript",
+      "short_msg": "parse error",
+      "spans": [
+        {
+          "context_end": null,
+          "context_start": null,
+          "end": {
+            "col": 28,
+            "line": 1
+          },
+          "file": "/src/LICENSE",
+          "source_hash": "a5f35901ee8b2039a7431144c23dd10bd47c1d07bcee0cd3a536421d86412214",
+          "start": {
+            "col": 16,
+            "line": 1
+          }
+        }
+      ],
+      "type": "SourceParseError"
+    }
+  ],
+  "njsscan_version": "0.2.8",
+  "nodejs": {
+    "express_xss": {
+      "files": [
+        {
+          "file_path": "/src/tests/test-request-methods.js",
+          "match_lines": [
+            13,
+            22
+          ],
+          "match_position": [
+            3,
+            4
+          ],
+          "match_string": "  var body = (req.method != \"HEAD\" ? \"Hello World\" : \"\");\n\n  res.writeHead(200, {\n    \"Content-Type\": \"text/plain\",\n    \"Content-Length\": Buffer.byteLength(body)\n  });\n  // HEAD has no body\n  if (req.method != \"HEAD\") {\n    res.write(body);\n  }"
+        },
+        {
+          "file_path": "/src/tests/test-events.js",
+          "match_lines": [
+            9,
+            18
+          ],
+          "match_position": [
+            3,
+            4
+          ],
+          "match_string": "  var body = (req.method != \"HEAD\" ? \"Hello World\" : \"\");\n\n  res.writeHead(200, {\n    \"Content-Type\": \"text/plain\",\n    \"Content-Length\": Buffer.byteLength(body)\n  });\n  // HEAD has no body\n  if (req.method != \"HEAD\") {\n    res.write(body);\n  }"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "description": "Untrusted User Input in Response will result in Reflected Cross Site Scripting Vulnerability.",
+        "owasp": "A1: Injection",
+        "severity": "ERROR"
+      }
+    }
+  },
+  "templates": {}
+}

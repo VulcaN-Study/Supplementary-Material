@@ -1,0 +1,561 @@
+/src/lib/thirdparty/less/tree/value.js-12-    },
+/src/lib/thirdparty/less/tree/value.js:13:    eval: function (env) {
+/src/lib/thirdparty/less/tree/value.js-14-        if (this.value.length === 1) {
+/src/lib/thirdparty/less/tree/value.js:15:            return this.value[0].eval(env);
+/src/lib/thirdparty/less/tree/value.js-16-        } else {
+/src/lib/thirdparty/less/tree/value.js-17-            return new(tree.Value)(this.value.map(function (v) {
+/src/lib/thirdparty/less/tree/value.js:18:                return v.eval(env);
+/src/lib/thirdparty/less/tree/value.js-19-            }));
+##############################################
+/src/lib/thirdparty/less/tree/extend.js-27-    },
+/src/lib/thirdparty/less/tree/extend.js:28:    eval: function (env) {
+/src/lib/thirdparty/less/tree/extend.js:29:        return new(tree.Extend)(this.selector.eval(env), this.option, this.index);
+/src/lib/thirdparty/less/tree/extend.js-30-    },
+##############################################
+/src/lib/thirdparty/less/tree/alpha.js-10-    },
+/src/lib/thirdparty/less/tree/alpha.js:11:    eval: function (env) {
+/src/lib/thirdparty/less/tree/alpha.js:12:        if (this.value.eval) { return new tree.Alpha(this.value.eval(env)); }
+/src/lib/thirdparty/less/tree/alpha.js-13-        return this;
+##############################################
+/src/lib/thirdparty/less/tree/directive.js-36-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/directive.js:37:    eval: function (env) {
+/src/lib/thirdparty/less/tree/directive.js:38:        var evaldDirective = this;
+/src/lib/thirdparty/less/tree/directive.js-39-        if (this.rules) {
+/src/lib/thirdparty/less/tree/directive.js-40-            env.frames.unshift(this);
+/src/lib/thirdparty/less/tree/directive.js:41:            evaldDirective = new(tree.Directive)(this.name, null, this.index, this.currentFileInfo);
+/src/lib/thirdparty/less/tree/directive.js:42:            evaldDirective.rules = [this.rules[0].eval(env)];
+/src/lib/thirdparty/less/tree/directive.js:43:            evaldDirective.rules[0].root = true;
+/src/lib/thirdparty/less/tree/directive.js-44-            env.frames.shift();
+/src/lib/thirdparty/less/tree/directive.js-45-        }
+/src/lib/thirdparty/less/tree/directive.js:46:        return evaldDirective;
+/src/lib/thirdparty/less/tree/directive.js-47-    },
+##############################################
+/src/lib/thirdparty/less/tree/anonymous.js-10-    type: "Anonymous",
+/src/lib/thirdparty/less/tree/anonymous.js:11:    eval: function () { 
+/src/lib/thirdparty/less/tree/anonymous.js-12-        return new tree.Anonymous(this.value, this.index, this.currentFileInfo, this.mapLines);
+##############################################
+/src/lib/thirdparty/less/tree/keyword.js-5-    type: "Keyword",
+/src/lib/thirdparty/less/tree/keyword.js:6:    eval: function () { return this; },
+/src/lib/thirdparty/less/tree/keyword.js-7-    genCSS: function (env, output) {
+##############################################
+/src/lib/thirdparty/less/tree/expression.js-10-    },
+/src/lib/thirdparty/less/tree/expression.js:11:    eval: function (env) {
+/src/lib/thirdparty/less/tree/expression.js-12-        var returnValue,
+##############################################
+/src/lib/thirdparty/less/tree/expression.js-19-            returnValue = new(tree.Expression)(this.value.map(function (e) {
+/src/lib/thirdparty/less/tree/expression.js:20:                return e.eval(env);
+/src/lib/thirdparty/less/tree/expression.js-21-            }));
+##############################################
+/src/lib/thirdparty/less/tree/expression.js-25-            }
+/src/lib/thirdparty/less/tree/expression.js:26:            returnValue = this.value[0].eval(env);
+/src/lib/thirdparty/less/tree/expression.js-27-        } else {
+##############################################
+/src/lib/thirdparty/less/tree/unicode-descriptor.js-11-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/unicode-descriptor.js:12:    eval: function () { return this; }
+/src/lib/thirdparty/less/tree/unicode-descriptor.js-13-};
+##############################################
+/src/lib/thirdparty/less/tree/operation.js-12-    },
+/src/lib/thirdparty/less/tree/operation.js:13:    eval: function (env) {
+/src/lib/thirdparty/less/tree/operation.js:14:        var a = this.operands[0].eval(env),
+/src/lib/thirdparty/less/tree/operation.js:15:            b = this.operands[1].eval(env);
+/src/lib/thirdparty/less/tree/operation.js-16-
+##############################################
+/src/lib/thirdparty/less/tree/javascript.js-9-    type: "JavaScript",
+/src/lib/thirdparty/less/tree/javascript.js:10:    eval: function (env) {
+/src/lib/thirdparty/less/tree/javascript.js-11-        var result,
+##############################################
+/src/lib/thirdparty/less/tree/javascript.js-15-        var expression = this.expression.replace(/@\{([\w-]+)\}/g, function (_, name) {
+/src/lib/thirdparty/less/tree/javascript.js:16:            return tree.jsify(new(tree.Variable)('@' + name, that.index).eval(env));
+/src/lib/thirdparty/less/tree/javascript.js-17-        });
+##############################################
+/src/lib/thirdparty/less/tree/javascript.js-21-        } catch (e) {
+/src/lib/thirdparty/less/tree/javascript.js:22:            throw { message: "JavaScript evaluation error: " + e.message + " from `" + expression + "`" ,
+/src/lib/thirdparty/less/tree/javascript.js-23-                    index: this.index };
+##############################################
+/src/lib/thirdparty/less/tree/javascript.js-32-                    toJS: function () {
+/src/lib/thirdparty/less/tree/javascript.js:33:                        return this.value.eval(env).toCSS();
+/src/lib/thirdparty/less/tree/javascript.js-34-                    }
+##############################################
+/src/lib/thirdparty/less/tree/javascript.js-41-        } catch (e) {
+/src/lib/thirdparty/less/tree/javascript.js:42:            throw { message: "JavaScript evaluation error: '" + e.name + ': ' + e.message.replace(/["]/g, "'") + "'" ,
+/src/lib/thirdparty/less/tree/javascript.js-43-                    index: this.index };
+##############################################
+/src/lib/thirdparty/less/tree/paren.js-17-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/paren.js:18:    eval: function (env) {
+/src/lib/thirdparty/less/tree/paren.js:19:        return new(tree.Paren)(this.value.eval(env));
+/src/lib/thirdparty/less/tree/paren.js-20-    }
+##############################################
+/src/lib/thirdparty/less/tree/import.js-32-// The actual import node doesn't return anything, when converted to CSS.
+/src/lib/thirdparty/less/tree/import.js:33:// The reason is that it's used at the evaluation stage, so that the rules
+/src/lib/thirdparty/less/tree/import.js-34-// it imports can be treated like any other rules.
+/src/lib/thirdparty/less/tree/import.js-35-//
+/src/lib/thirdparty/less/tree/import.js:36:// In `eval`, we make sure all Import nodes get evaluated, recursively, so
+/src/lib/thirdparty/less/tree/import.js-37-// we end up with a flat structure, which can easily be imported in the parent
+##############################################
+/src/lib/thirdparty/less/tree/import.js-71-    },
+/src/lib/thirdparty/less/tree/import.js:72:    evalForImport: function (env) {
+/src/lib/thirdparty/less/tree/import.js:73:        return new(tree.Import)(this.path.eval(env), this.features, this.options, this.index, this.currentFileInfo);
+/src/lib/thirdparty/less/tree/import.js-74-    },
+/src/lib/thirdparty/less/tree/import.js:75:    evalPath: function (env) {
+/src/lib/thirdparty/less/tree/import.js:76:        var path = this.path.eval(env);
+/src/lib/thirdparty/less/tree/import.js-77-        var rootpath = this.currentFileInfo && this.currentFileInfo.rootpath;
+##############################################
+/src/lib/thirdparty/less/tree/import.js-91-    },
+/src/lib/thirdparty/less/tree/import.js:92:    eval: function (env) {
+/src/lib/thirdparty/less/tree/import.js:93:        var ruleset, features = this.features && this.features.eval(env);
+/src/lib/thirdparty/less/tree/import.js-94-
+##############################################
+/src/lib/thirdparty/less/tree/import.js-108-        } else if (this.css) {
+/src/lib/thirdparty/less/tree/import.js:109:            var newImport = new(tree.Import)(this.evalPath(env), features, this.options, this.index);
+/src/lib/thirdparty/less/tree/import.js-110-            if (!newImport.css && this.error) {
+##############################################
+/src/lib/thirdparty/less/tree/import.js-116-
+/src/lib/thirdparty/less/tree/import.js:117:            ruleset.evalImports(env);
+/src/lib/thirdparty/less/tree/import.js-118-
+##############################################
+/src/lib/thirdparty/less/tree/rule.js-31-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/rule.js:32:    eval: function (env) {
+/src/lib/thirdparty/less/tree/rule.js-33-        var strictMathBypass = false, name = this.name;    
+##############################################
+/src/lib/thirdparty/less/tree/rule.js-38-                && (name[0] instanceof tree.Keyword)
+/src/lib/thirdparty/less/tree/rule.js:39:                    ? name[0].value : evalName(env, name);
+/src/lib/thirdparty/less/tree/rule.js-40-        }
+##############################################
+/src/lib/thirdparty/less/tree/rule.js-46-            return new(tree.Rule)(name,
+/src/lib/thirdparty/less/tree/rule.js:47:                              this.value.eval(env),
+/src/lib/thirdparty/less/tree/rule.js-48-                              this.important,
+##############################################
+/src/lib/thirdparty/less/tree/rule.js-70-
+/src/lib/thirdparty/less/tree/rule.js:71:function evalName(env, name) {
+/src/lib/thirdparty/less/tree/rule.js-72-    var value = "", i, n = name.length,
+##############################################
+/src/lib/thirdparty/less/tree/rule.js-74-    for (i = 0; i < n; i++) {
+/src/lib/thirdparty/less/tree/rule.js:75:        name[i].eval(env).genCSS(env, output);
+/src/lib/thirdparty/less/tree/rule.js-76-    }
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-20-    },
+/src/lib/thirdparty/less/tree/ruleset.js:21:    eval: function (env) {
+/src/lib/thirdparty/less/tree/ruleset.js-22-        var thisSelectors = this.selectors, selectors, 
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-30-            for (i = 0; i < selCnt; i++) {
+/src/lib/thirdparty/less/tree/ruleset.js:31:                selectors.push(thisSelectors[i].eval(env));
+/src/lib/thirdparty/less/tree/ruleset.js-32-            }
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-61-        if (ruleset.root || ruleset.allowImports || !ruleset.strictImports) {
+/src/lib/thirdparty/less/tree/ruleset.js:62:            ruleset.evalImports(env);
+/src/lib/thirdparty/less/tree/ruleset.js-63-        }
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-65-        // Store the frames around mixin definitions,
+/src/lib/thirdparty/less/tree/ruleset.js:66:        // so they can be evaluated like closures when the time comes.
+/src/lib/thirdparty/less/tree/ruleset.js-67-        var rsRules = ruleset.rules, rsRuleCnt = rsRules ? rsRules.length : 0;
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-79-                /*jshint loopfunc:true */
+/src/lib/thirdparty/less/tree/ruleset.js:80:                rules = rsRules[i].eval(env).filter(function(r) {
+/src/lib/thirdparty/less/tree/ruleset.js-81-                    if ((r instanceof tree.Rule) && r.variable) {
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-99-            if (! (rule instanceof tree.mixin.Definition)) {
+/src/lib/thirdparty/less/tree/ruleset.js:100:                rsRules[i] = rule = rule.eval ? rule.eval(env) : rule;
+/src/lib/thirdparty/less/tree/ruleset.js-101-                // for rulesets, check if it is a css guard and can be removed
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-106-                        // cannot call if there is no selector, so we can just continue
+/src/lib/thirdparty/less/tree/ruleset.js:107:                        if (!rule.selectors[0].evaldCondition) {
+/src/lib/thirdparty/less/tree/ruleset.js-108-                            continue;
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-132-    },
+/src/lib/thirdparty/less/tree/ruleset.js:133:    evalImports: function(env) {
+/src/lib/thirdparty/less/tree/ruleset.js-134-        var rules = this.rules, i, importRules;
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-138-            if (rules[i] instanceof tree.Import) {
+/src/lib/thirdparty/less/tree/ruleset.js:139:                importRules = rules[i].eval(env);
+/src/lib/thirdparty/less/tree/ruleset.js-140-                if (importRules && importRules.length) {
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-164-        var lastSelector = this.selectors[this.selectors.length-1];
+/src/lib/thirdparty/less/tree/ruleset.js:165:        if (!lastSelector.evaldCondition) {
+/src/lib/thirdparty/less/tree/ruleset.js-166-            return false;
+##############################################
+/src/lib/thirdparty/less/tree/ruleset.js-168-        if (lastSelector.condition &&
+/src/lib/thirdparty/less/tree/ruleset.js:169:            !lastSelector.condition.eval(
+/src/lib/thirdparty/less/tree/ruleset.js:170:                new(tree.evalEnv)(env,
+/src/lib/thirdparty/less/tree/ruleset.js-171-                    env.frames))) {
+##############################################
+/src/lib/thirdparty/less/tree/variable.js-9-    type: "Variable",
+/src/lib/thirdparty/less/tree/variable.js:10:    eval: function (env) {
+/src/lib/thirdparty/less/tree/variable.js-11-        var variable, name = this.name;
+##############################################
+/src/lib/thirdparty/less/tree/variable.js-13-        if (name.indexOf('@@') === 0) {
+/src/lib/thirdparty/less/tree/variable.js:14:            name = '@' + new(tree.Variable)(name.slice(1)).eval(env).value;
+/src/lib/thirdparty/less/tree/variable.js-15-        }
+/src/lib/thirdparty/less/tree/variable.js-16-        
+/src/lib/thirdparty/less/tree/variable.js:17:        if (this.evaluating) {
+/src/lib/thirdparty/less/tree/variable.js-18-            throw { type: 'Name',
+##############################################
+/src/lib/thirdparty/less/tree/variable.js-23-        
+/src/lib/thirdparty/less/tree/variable.js:24:        this.evaluating = true;
+/src/lib/thirdparty/less/tree/variable.js-25-
+##############################################
+/src/lib/thirdparty/less/tree/variable.js-28-            if (v) {
+/src/lib/thirdparty/less/tree/variable.js:29:                return v.value.eval(env);
+/src/lib/thirdparty/less/tree/variable.js-30-            }
+##############################################
+/src/lib/thirdparty/less/tree/variable.js-32-        if (variable) { 
+/src/lib/thirdparty/less/tree/variable.js:33:            this.evaluating = false;
+/src/lib/thirdparty/less/tree/variable.js-34-            return variable;
+##############################################
+/src/lib/thirdparty/less/tree/quoted.js-21-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/quoted.js:22:    eval: function (env) {
+/src/lib/thirdparty/less/tree/quoted.js-23-        var that = this;
+/src/lib/thirdparty/less/tree/quoted.js-24-        var value = this.value.replace(/`([^`]+)`/g, function (_, exp) {
+/src/lib/thirdparty/less/tree/quoted.js:25:            return new(tree.JavaScript)(exp, that.index, true).eval(env).value;
+/src/lib/thirdparty/less/tree/quoted.js-26-        }).replace(/@\{([\w-]+)\}/g, function (_, name) {
+/src/lib/thirdparty/less/tree/quoted.js:27:            var v = new(tree.Variable)('@' + name, that.index, that.currentFileInfo).eval(env, true);
+/src/lib/thirdparty/less/tree/quoted.js-28-            return (v instanceof tree.Quoted) ? v.value : v.toCSS();
+##############################################
+/src/lib/thirdparty/less/tree/url.js-18-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/url.js:19:    eval: function (ctx) {
+/src/lib/thirdparty/less/tree/url.js:20:        var val = this.value.eval(ctx),
+/src/lib/thirdparty/less/tree/url.js-21-            rootpath;
+##############################################
+/src/lib/thirdparty/less/tree/element.js-25-    },
+/src/lib/thirdparty/less/tree/element.js:26:    eval: function (env) {
+/src/lib/thirdparty/less/tree/element.js-27-        return new(tree.Element)(this.combinator,
+/src/lib/thirdparty/less/tree/element.js:28:                                 this.value.eval ? this.value.eval(env) : this.value,
+/src/lib/thirdparty/less/tree/element.js-29-                                 this.index,
+##############################################
+/src/lib/thirdparty/less/tree/element.js-51-    type: "Attribute",
+/src/lib/thirdparty/less/tree/element.js:52:    eval: function (env) {
+/src/lib/thirdparty/less/tree/element.js:53:        return new(tree.Attribute)(this.key.eval ? this.key.eval(env) : this.key,
+/src/lib/thirdparty/less/tree/element.js:54:            this.op, (this.value && this.value.eval) ? this.value.eval(env) : this.value);
+/src/lib/thirdparty/less/tree/element.js-55-    },
+##############################################
+/src/lib/thirdparty/less/tree/color.js-29-    type: "Color",
+/src/lib/thirdparty/less/tree/color.js:30:    eval: function () { return this; },
+/src/lib/thirdparty/less/tree/color.js-31-    luma: function () { return (0.2126 * this.rgb[0] / 255) + (0.7152 * this.rgb[1] / 255) + (0.0722 * this.rgb[2] / 255); },
+##############################################
+/src/lib/thirdparty/less/tree/negative.js-15-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/negative.js:16:    eval: function (env) {
+/src/lib/thirdparty/less/tree/negative.js-17-        if (env.isMathOn()) {
+/src/lib/thirdparty/less/tree/negative.js:18:            return (new(tree.Operation)('*', [new(tree.Dimension)(-1), this.value])).eval(env);
+/src/lib/thirdparty/less/tree/negative.js-19-        }
+/src/lib/thirdparty/less/tree/negative.js:20:        return new(tree.Negative)(this.value.eval(env));
+/src/lib/thirdparty/less/tree/negative.js-21-    }
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-20-    },
+/src/lib/thirdparty/less/tree/mixin.js:21:    eval: function (env) {
+/src/lib/thirdparty/less/tree/mixin.js-22-        var mixins, mixin, args, rules = [], match = false, i, m, f, isRecursive, isOneFound, rule,
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-26-        args = this.arguments && this.arguments.map(function (a) {
+/src/lib/thirdparty/less/tree/mixin.js:27:            return { name: a.name, value: a.value.eval(env) };
+/src/lib/thirdparty/less/tree/mixin.js-28-        });
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-34-                // To make `default()` function independent of definition order we have two "subpasses" here.
+/src/lib/thirdparty/less/tree/mixin.js:35:                // At first we evaluate each guard *twice* (with `default() == true` and `default() == false`),
+/src/lib/thirdparty/less/tree/mixin.js-36-                // and build candidate list with corresponding flags. Then, when we know all possible matches,
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-105-                            Array.prototype.push.apply(
+/src/lib/thirdparty/less/tree/mixin.js:106:                                  rules, mixin.eval(env, args, this.important).rules);
+/src/lib/thirdparty/less/tree/mixin.js-107-                        } catch (e) {
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-184-
+/src/lib/thirdparty/less/tree/mixin.js:185:    evalParams: function (env, mixinEnv, args, evaldArguments) {
+/src/lib/thirdparty/less/tree/mixin.js-186-        /*jshint boss:true */
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-191-
+/src/lib/thirdparty/less/tree/mixin.js:192:        mixinEnv = new tree.evalEnv(mixinEnv, [frame].concat(mixinEnv.frames));
+/src/lib/thirdparty/less/tree/mixin.js-193-
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-201-                    for(j = 0; j < params.length; j++) {
+/src/lib/thirdparty/less/tree/mixin.js:202:                        if (!evaldArguments[j] && name === params[j].name) {
+/src/lib/thirdparty/less/tree/mixin.js:203:                            evaldArguments[j] = arg.value.eval(env);
+/src/lib/thirdparty/less/tree/mixin.js:204:                            frame.prependRule(new(tree.Rule)(name, arg.value.eval(env)));
+/src/lib/thirdparty/less/tree/mixin.js-205-                            isNamedFound = true;
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-221-        for (i = 0; i < params.length; i++) {
+/src/lib/thirdparty/less/tree/mixin.js:222:            if (evaldArguments[i]) { continue; }
+/src/lib/thirdparty/less/tree/mixin.js-223-
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-229-                    for (j = argIndex; j < args.length; j++) {
+/src/lib/thirdparty/less/tree/mixin.js:230:                        varargs.push(args[j].value.eval(env));
+/src/lib/thirdparty/less/tree/mixin.js-231-                    }
+/src/lib/thirdparty/less/tree/mixin.js:232:                    frame.prependRule(new(tree.Rule)(name, new(tree.Expression)(varargs).eval(env)));
+/src/lib/thirdparty/less/tree/mixin.js-233-                } else {
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-235-                    if (val) {
+/src/lib/thirdparty/less/tree/mixin.js:236:                        val = val.eval(env);
+/src/lib/thirdparty/less/tree/mixin.js-237-                    } else if (params[i].value) {
+/src/lib/thirdparty/less/tree/mixin.js:238:                        val = params[i].value.eval(mixinEnv);
+/src/lib/thirdparty/less/tree/mixin.js-239-                        frame.resetCache();
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-245-                    frame.prependRule(new(tree.Rule)(name, val));
+/src/lib/thirdparty/less/tree/mixin.js:246:                    evaldArguments[i] = val;
+/src/lib/thirdparty/less/tree/mixin.js-247-                }
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-251-                for (j = argIndex; j < args.length; j++) {
+/src/lib/thirdparty/less/tree/mixin.js:252:                    evaldArguments[j] = args[j].value.eval(env);
+/src/lib/thirdparty/less/tree/mixin.js-253-                }
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-259-    },
+/src/lib/thirdparty/less/tree/mixin.js:260:    eval: function (env, args, important) {
+/src/lib/thirdparty/less/tree/mixin.js-261-        var _arguments = [],
+/src/lib/thirdparty/less/tree/mixin.js-262-            mixinFrames = this.frames.concat(env.frames),
+/src/lib/thirdparty/less/tree/mixin.js:263:            frame = this.evalParams(env, new(tree.evalEnv)(env, mixinFrames), args, _arguments),
+/src/lib/thirdparty/less/tree/mixin.js-264-            rules, ruleset;
+/src/lib/thirdparty/less/tree/mixin.js-265-
+/src/lib/thirdparty/less/tree/mixin.js:266:        frame.prependRule(new(tree.Rule)('@arguments', new(tree.Expression)(_arguments).eval(env)));
+/src/lib/thirdparty/less/tree/mixin.js-267-
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-271-        ruleset.originalRuleset = this;
+/src/lib/thirdparty/less/tree/mixin.js:272:        ruleset = ruleset.eval(new(tree.evalEnv)(env, [this, frame].concat(mixinFrames)));
+/src/lib/thirdparty/less/tree/mixin.js-273-        if (important) {
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-278-    matchCondition: function (args, env) {
+/src/lib/thirdparty/less/tree/mixin.js:279:        if (this.condition && !this.condition.eval(
+/src/lib/thirdparty/less/tree/mixin.js:280:            new(tree.evalEnv)(env,
+/src/lib/thirdparty/less/tree/mixin.js:281:                [this.evalParams(env, new(tree.evalEnv)(env, this.frames.concat(env.frames)), args, [])] // the parameter variables
+/src/lib/thirdparty/less/tree/mixin.js-282-                    .concat(this.frames) // the parent namespace/mixin frames
+##############################################
+/src/lib/thirdparty/less/tree/mixin.js-301-            if (!this.params[i].name && !this.params[i].variadic) {
+/src/lib/thirdparty/less/tree/mixin.js:302:                if (args[i].value.eval(env).toCSS() != this.params[i].value.eval(env).toCSS()) {
+/src/lib/thirdparty/less/tree/mixin.js-303-                    return false;
+##############################################
+/src/lib/thirdparty/less/tree/comment.js-21-    },
+/src/lib/thirdparty/less/tree/comment.js:22:    eval: function () { return this; },
+/src/lib/thirdparty/less/tree/comment.js-23-    markReferenced: function () {
+##############################################
+/src/lib/thirdparty/less/tree/dimension.js-16-    },
+/src/lib/thirdparty/less/tree/dimension.js:17:    eval: function (env) {
+/src/lib/thirdparty/less/tree/dimension.js-18-        return this;
+##############################################
+/src/lib/thirdparty/less/tree/selector.js-9-    if (!condition) {
+/src/lib/thirdparty/less/tree/selector.js:10:        this.evaldCondition = true;
+/src/lib/thirdparty/less/tree/selector.js-11-    }
+##############################################
+/src/lib/thirdparty/less/tree/selector.js-25-    },
+/src/lib/thirdparty/less/tree/selector.js:26:    createDerived: function(elements, extendList, evaldCondition) {
+/src/lib/thirdparty/less/tree/selector.js:27:        evaldCondition = (evaldCondition != null) ? evaldCondition : this.evaldCondition;
+/src/lib/thirdparty/less/tree/selector.js-28-        var newSelector = new(tree.Selector)(elements, extendList || this.extendList, null, this.index, this.currentFileInfo, this.isReferenced);
+/src/lib/thirdparty/less/tree/selector.js:29:        newSelector.evaldCondition = evaldCondition;
+/src/lib/thirdparty/less/tree/selector.js-30-        newSelector.mediaEmpty = this.mediaEmpty;
+##############################################
+/src/lib/thirdparty/less/tree/selector.js-94-    },
+/src/lib/thirdparty/less/tree/selector.js:95:    eval: function (env) {
+/src/lib/thirdparty/less/tree/selector.js:96:        var evaldCondition = this.condition && this.condition.eval(env),
+/src/lib/thirdparty/less/tree/selector.js-97-            elements = this.elements, extendList = this.extendList;
+/src/lib/thirdparty/less/tree/selector.js-98-
+/src/lib/thirdparty/less/tree/selector.js:99:        elements = elements && elements.map(function (e) { return e.eval(env); });
+/src/lib/thirdparty/less/tree/selector.js:100:        extendList = extendList && extendList.map(function(extend) { return extend.eval(env); });
+/src/lib/thirdparty/less/tree/selector.js-101-
+/src/lib/thirdparty/less/tree/selector.js:102:        return this.createDerived(elements, extendList, evaldCondition);
+/src/lib/thirdparty/less/tree/selector.js-103-    },
+##############################################
+/src/lib/thirdparty/less/tree/selector.js-124-    getIsOutput: function() {
+/src/lib/thirdparty/less/tree/selector.js:125:        return this.evaldCondition;
+/src/lib/thirdparty/less/tree/selector.js-126-    }
+##############################################
+/src/lib/thirdparty/less/tree/call.js-19-    //
+/src/lib/thirdparty/less/tree/call.js:20:    // When evaluating a function call,
+/src/lib/thirdparty/less/tree/call.js-21-    // we either find the function in `tree.functions` [1],
+/src/lib/thirdparty/less/tree/call.js:22:    // in which case we call it, passing the  evaluated arguments,
+/src/lib/thirdparty/less/tree/call.js-23-    // if this returns null or we cannot find the function, we 
+##############################################
+/src/lib/thirdparty/less/tree/call.js-27-    //
+/src/lib/thirdparty/less/tree/call.js:28:    // The reason why we evaluate the arguments, is in the case where
+/src/lib/thirdparty/less/tree/call.js-29-    // we try to pass a variable to a function, like: `saturate(@color)`.
+##############################################
+/src/lib/thirdparty/less/tree/call.js-31-    //
+/src/lib/thirdparty/less/tree/call.js:32:    eval: function (env) {
+/src/lib/thirdparty/less/tree/call.js:33:        var args = this.args.map(function (a) { return a.eval(env); }),
+/src/lib/thirdparty/less/tree/call.js-34-            nameLC = this.name.toLowerCase(),
+##############################################
+/src/lib/thirdparty/less/tree/call.js-45-                throw { type: e.type || "Runtime",
+/src/lib/thirdparty/less/tree/call.js:46:                        message: "error evaluating function `" + this.name + "`" +
+/src/lib/thirdparty/less/tree/call.js-47-                                 (e.message ? ': ' + e.message : ''),
+##############################################
+/src/lib/thirdparty/less/tree/condition.js-15-    },
+/src/lib/thirdparty/less/tree/condition.js:16:    eval: function (env) {
+/src/lib/thirdparty/less/tree/condition.js:17:        var a = this.lvalue.eval(env),
+/src/lib/thirdparty/less/tree/condition.js:18:            b = this.rvalue.eval(env);
+/src/lib/thirdparty/less/tree/condition.js-19-
+##############################################
+/src/lib/thirdparty/less/tree/media.js-28-    toCSS: tree.toCSS,
+/src/lib/thirdparty/less/tree/media.js:29:    eval: function (env) {
+/src/lib/thirdparty/less/tree/media.js-30-        if (!env.mediaBlocks) {
+##############################################
+/src/lib/thirdparty/less/tree/media.js-45-        try {
+/src/lib/thirdparty/less/tree/media.js:46:            media.features = this.features.eval(env);
+/src/lib/thirdparty/less/tree/media.js-47-        }
+##############################################
+/src/lib/thirdparty/less/tree/media.js-57-        env.frames.unshift(this.rules[0]);
+/src/lib/thirdparty/less/tree/media.js:58:        media.rules = [this.rules[0].eval(env)];
+/src/lib/thirdparty/less/tree/media.js-59-        env.frames.shift();
+##############################################
+/src/lib/thirdparty/less/tree/media.js-62-
+/src/lib/thirdparty/less/tree/media.js:63:        return env.mediaPath.length === 0 ? media.evalTop(env) :
+/src/lib/thirdparty/less/tree/media.js:64:                    media.evalNested(env);
+/src/lib/thirdparty/less/tree/media.js-65-    },
+##############################################
+/src/lib/thirdparty/less/tree/media.js-84-
+/src/lib/thirdparty/less/tree/media.js:85:    evalTop: function (env) {
+/src/lib/thirdparty/less/tree/media.js-86-        var result = this;
+##############################################
+/src/lib/thirdparty/less/tree/media.js-99-    },
+/src/lib/thirdparty/less/tree/media.js:100:    evalNested: function (env) {
+/src/lib/thirdparty/less/tree/media.js-101-        var i, value,
+##############################################
+/src/lib/thirdparty/less/tree/assignment.js-11-    },
+/src/lib/thirdparty/less/tree/assignment.js:12:    eval: function (env) {
+/src/lib/thirdparty/less/tree/assignment.js:13:        if (this.value.eval) {
+/src/lib/thirdparty/less/tree/assignment.js:14:            return new(tree.Assignment)(this.key, this.value.eval(env));
+/src/lib/thirdparty/less/tree/assignment.js-15-        }
+##############################################
+/src/lib/thirdparty/less/env.js-55-
+/src/lib/thirdparty/less/env.js:56:    var evalCopyProperties = [
+/src/lib/thirdparty/less/env.js-57-        'silent',         // whether to swallow errors and warnings
+##############################################
+/src/lib/thirdparty/less/env.js-62-        'strictMath',     // whether math has to be within parenthesis
+/src/lib/thirdparty/less/env.js:63:        'strictUnits',    // whether units need to evaluate correctly
+/src/lib/thirdparty/less/env.js-64-        'cleancss',       // whether to compress with clean-css
+##############################################
+/src/lib/thirdparty/less/env.js-69-
+/src/lib/thirdparty/less/env.js:70:    tree.evalEnv = function(options, frames) {
+/src/lib/thirdparty/less/env.js:71:        copyFromOriginal(options, this, evalCopyProperties);
+/src/lib/thirdparty/less/env.js-72-
+##############################################
+/src/lib/thirdparty/less/env.js-75-
+/src/lib/thirdparty/less/env.js:76:    tree.evalEnv.prototype.inParenthesis = function () {
+/src/lib/thirdparty/less/env.js-77-        if (!this.parensStack) {
+##############################################
+/src/lib/thirdparty/less/env.js-82-
+/src/lib/thirdparty/less/env.js:83:    tree.evalEnv.prototype.outOfParenthesis = function () {
+/src/lib/thirdparty/less/env.js-84-        this.parensStack.pop();
+##############################################
+/src/lib/thirdparty/less/env.js-86-
+/src/lib/thirdparty/less/env.js:87:    tree.evalEnv.prototype.isMathOn = function () {
+/src/lib/thirdparty/less/env.js-88-        return this.strictMath ? (this.parensStack && this.parensStack.length) : true;
+##############################################
+/src/lib/thirdparty/less/env.js-90-
+/src/lib/thirdparty/less/env.js:91:    tree.evalEnv.prototype.isPathRelative = function (path) {
+/src/lib/thirdparty/less/env.js-92-        return !/^(?:[a-z-]+:|\/)/.test(path);
+##############################################
+/src/lib/thirdparty/less/env.js-94-
+/src/lib/thirdparty/less/env.js:95:    tree.evalEnv.prototype.normalizePath = function( path ) {
+/src/lib/thirdparty/less/env.js-96-        var
+##############################################
+/src/lib/thirdparty/less/to-css-visitor.js-20-        visitMixinDefinition: function (mixinNode, visitArgs) {
+/src/lib/thirdparty/less/to-css-visitor.js:21:            // mixin definitions do not get eval'd - this means they keep state
+/src/lib/thirdparty/less/to-css-visitor.js-22-            // so we have to clear that state here so it isn't used if toCSS is called twice
+##############################################
+/src/lib/thirdparty/less/lessc_helper.js-36-        console.log("  -s, --silent             Suppress output of error messages.");
+/src/lib/thirdparty/less/lessc_helper.js:37:        console.log("  --strict-imports         Force evaluation of imports.");
+/src/lib/thirdparty/less/lessc_helper.js-38-        console.log("  --insecure               Allow imports from insecure https hosts.");
+##############################################
+/src/lib/thirdparty/less/visitor.js-107-            for (i = 0; i < cnt; i++) {
+/src/lib/thirdparty/less/visitor.js:108:                var evald = this.visit(nodes[i]);
+/src/lib/thirdparty/less/visitor.js:109:                if (!evald.splice) {
+/src/lib/thirdparty/less/visitor.js:110:                    out.push(evald);
+/src/lib/thirdparty/less/visitor.js:111:                } else if (evald.length) {
+/src/lib/thirdparty/less/visitor.js:112:                    this.flatten(evald, out);
+/src/lib/thirdparty/less/visitor.js-113-                }
+##############################################
+/src/lib/thirdparty/less/parser.js-29-//      treating it as a literal.
+/src/lib/thirdparty/less/parser.js:30://      An example would be '1px solid #000' - which evaluates to itself,
+/src/lib/thirdparty/less/parser.js-31-//      we don't need to know what the individual components are.
+##############################################
+/src/lib/thirdparty/less/parser.js-68-        mime:  env.mime,         // MIME type of .less files
+/src/lib/thirdparty/less/parser.js:69:        error: null,             // Error in parsing/evaluating an import
+/src/lib/thirdparty/less/parser.js-70-        push: function (path, currentFileInfo, importOptions, callback) {
+##############################################
+/src/lib/thirdparty/less/parser.js-513-
+/src/lib/thirdparty/less/parser.js:514:            root.toCSS = (function (evaluate) {
+/src/lib/thirdparty/less/parser.js-515-                return function (options, variables) {
+/src/lib/thirdparty/less/parser.js-516-                    options = options || {};
+/src/lib/thirdparty/less/parser.js:517:                    var evaldRoot,
+/src/lib/thirdparty/less/parser.js-518-                        css,
+/src/lib/thirdparty/less/parser.js:519:                        evalEnv = new tree.evalEnv(options);
+/src/lib/thirdparty/less/parser.js-520-                        
+##############################################
+/src/lib/thirdparty/less/parser.js-545-                        });
+/src/lib/thirdparty/less/parser.js:546:                        evalEnv.frames = [new(tree.Ruleset)(null, variables)];
+/src/lib/thirdparty/less/parser.js-547-                    }
+##############################################
+/src/lib/thirdparty/less/parser.js-574-
+/src/lib/thirdparty/less/parser.js:575:                        evaldRoot = evaluate.call(root, evalEnv);
+/src/lib/thirdparty/less/parser.js-576-
+/src/lib/thirdparty/less/parser.js-577-                        for(i = 0; i < visitors.length; i++) {
+/src/lib/thirdparty/less/parser.js:578:                            visitors[i].run(evaldRoot);
+/src/lib/thirdparty/less/parser.js-579-                        }
+##############################################
+/src/lib/thirdparty/less/parser.js-581-                        if (options.sourceMap) {
+/src/lib/thirdparty/less/parser.js:582:                            evaldRoot = new tree.sourceMapOutput(
+/src/lib/thirdparty/less/parser.js-583-                                {
+##############################################
+/src/lib/thirdparty/less/parser.js-585-                                    writeSourceMap: options.writeSourceMap,
+/src/lib/thirdparty/less/parser.js:586:                                    rootNode: evaldRoot,
+/src/lib/thirdparty/less/parser.js-587-                                    contentsMap: parser.imports.contents,
+##############################################
+/src/lib/thirdparty/less/parser.js-597-
+/src/lib/thirdparty/less/parser.js:598:                        css = evaldRoot.toCSS({
+/src/lib/thirdparty/less/parser.js-599-                                compress: Boolean(options.compress),
+##############################################
+/src/lib/thirdparty/less/parser.js-626-                };
+/src/lib/thirdparty/less/parser.js:627:            })(root.eval);
+/src/lib/thirdparty/less/parser.js-628-
+##############################################
+/src/lib/thirdparty/less/parser.js-996-                //
+/src/lib/thirdparty/less/parser.js:997:                // JavaScript code to be evaluated
+/src/lib/thirdparty/less/parser.js-998-                //
+/src/lib/thirdparty/less/parser.js:999:                //     `window.location.href`
+/src/lib/thirdparty/less/parser.js-1000-                //
+##############################################
+/src/lib/thirdparty/less/functions.js-215-    e: function (str) {
+/src/lib/thirdparty/less/functions.js:216:        return new(tree.Anonymous)(str instanceof tree.JavaScript ? str.evaluated : str);
+/src/lib/thirdparty/less/functions.js-217-    },
+##############################################
+/src/lib/thirdparty/less/functions.js-379-        if (typeof window !== 'undefined') {
+/src/lib/thirdparty/less/functions.js:380:            return new tree.URL(filePathNode || mimetypeNode, this.currentFileInfo).eval(this.env);
+/src/lib/thirdparty/less/functions.js-381-        }
+##############################################
+/src/lib/thirdparty/less/functions.js-434-
+/src/lib/thirdparty/less/functions.js:435:                return new tree.URL(filePathNode || mimetypeNode, this.currentFileInfo).eval(this.env);
+/src/lib/thirdparty/less/functions.js-436-            }
+##############################################
+/src/lib/thirdparty/less/functions.js-647-tree.defaultFunc = {
+/src/lib/thirdparty/less/functions.js:648:    eval: function () {
+/src/lib/thirdparty/less/functions.js-649-        var v = this.value_, e = this.error_;
+##############################################
+/src/lib/thirdparty/less/functions.js-686-    f = tree.defaultFunc;
+/src/lib/thirdparty/less/functions.js:687:    tf["default"] = f.eval.bind(f);
+/src/lib/thirdparty/less/functions.js-688-    
+##############################################
+/src/lib/thirdparty/less/import-visitor.js-1-(function (tree) {
+/src/lib/thirdparty/less/import-visitor.js:2:    tree.importVisitor = function(importer, finish, evalEnv, onceFileDetectionMap, recursionDetector) {
+/src/lib/thirdparty/less/import-visitor.js-3-        this._visitor = new tree.visitor(this);
+##############################################
+/src/lib/thirdparty/less/import-visitor.js-5-        this._finish = finish;
+/src/lib/thirdparty/less/import-visitor.js:6:        this.env = evalEnv || new tree.evalEnv();
+/src/lib/thirdparty/less/import-visitor.js-7-        this.importCount = 0;
+##############################################
+/src/lib/thirdparty/less/import-visitor.js-38-            var importVisitor = this,
+/src/lib/thirdparty/less/import-visitor.js:39:                evaldImportNode,
+/src/lib/thirdparty/less/import-visitor.js-40-                inlineCSS = importNode.options.inline;
+##############################################
+/src/lib/thirdparty/less/import-visitor.js-44-                try {
+/src/lib/thirdparty/less/import-visitor.js:45:                    evaldImportNode = importNode.evalForImport(this.env);
+/src/lib/thirdparty/less/import-visitor.js-46-                } catch(e){
+/src/lib/thirdparty/less/import-visitor.js-47-                    if (!e.filename) { e.index = importNode.index; e.filename = importNode.currentFileInfo.filename; }
+/src/lib/thirdparty/less/import-visitor.js:48:                    // attempt to eval properly and treat as css
+/src/lib/thirdparty/less/import-visitor.js-49-                    importNode.css = true;
+##############################################
+/src/lib/thirdparty/less/import-visitor.js-53-
+/src/lib/thirdparty/less/import-visitor.js:54:                if (evaldImportNode && (!evaldImportNode.css || inlineCSS)) {
+/src/lib/thirdparty/less/import-visitor.js:55:                    importNode = evaldImportNode;
+/src/lib/thirdparty/less/import-visitor.js-56-                    this.importCount++;
+/src/lib/thirdparty/less/import-visitor.js:57:                    var env = new tree.evalEnv(this.env, this.env.frames.slice(0));
+/src/lib/thirdparty/less/import-visitor.js-58-
+##############################################
+/src/lib/plugin/css-variables-collector.js-65-
+/src/lib/plugin/css-variables-collector.js:66:		// override: do not evaluate variables
+/src/lib/plugin/css-variables-collector.js-67-		less.tree.Variable.prototype.genCSS = function(env, output) {
+##############################################
+/src/.reuse/dep5-22- in this project for that SAP External Product for your internal, non-productive
+/src/.reuse/dep5:23: and non-commercial test and evaluation of such API Calls. Nothing herein grants
+/src/.reuse/dep5-24- you any rights to use or access any SAP External Product, or provide any third

@@ -1,0 +1,2237 @@
+<report_mosca>
+ <Path>/src/fuzzing.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 2089 -  			setTimeout(() => {
+
+ Line: 2345 -  	setInterval(async () => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/fuzzing.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 2132 -  				// DELETE RANDOM ITEM
+
+ Line: 2165 -  				// UPDATE RANDOM ITEM
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/command-ls.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 40 -  		const queryOptions = {};
+
+ Line: 41 -  		if (options.limit) queryOptions.limit = options.limit;
+
+ Line: 46 -  		if (options.reverse === true) queryOptions.orderByDir = queryOptions.orderByDir == 'ASC' ? 'DESC' : 'ASC';
+
+ Line: 50 -  			if (options.type.indexOf('n') >= 0) queryOptions.itemTypes.push('note');
+
+ Line: 51 -  			if (options.type.indexOf('t') >= 0) queryOptions.itemTypes.push('todo');
+
+ Line: 53 -  		if (pattern) queryOptions.titlePattern = pattern;
+
+ Line: 63 -  			items = await Note.previews(app().currentFolder().id, queryOptions);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/command-edit.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 100 -  				type: 'NOTE_SELECT',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/app.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 163 -  		setTimeout(async () => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/app.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 60 -  			throw new Error(_('More than one item match "%s". Please narrow down your query.', pattern));
+
+ Line: 325 -  			{ keys: ['DELETE', 'BACKSPACE'], type: 'function', command: 'delete' },
+
+ Line: 431 -  			// receive the SETTING_UPDATE_ALL even, which mean state.settings will not be
+
+ Line: 444 -  				type: 'TAG_UPDATE_ALL',
+
+ Line: 449 -  				type: 'FOLDER_SELECT',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/cli-integration-tests.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 74 -  	await db.transactionExecBatch(['DELETE FROM folders', 'DELETE FROM notes', 'DELETE FROM tags', 'DELETE FROM note_tags', 'DELETE FROM resources', 'DELETE FROM deleted_items']);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/command-apidoc.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 75 -  		lines.push('To prevent unauthorised applications from accessing the API, the calls must be authentified. To do so, you must provide a token as a query parameter for each API call. You can get this token from the Joplin desktop application, on the Web Clipper Options screen.');
+
+ Line: 92 -  		lines.push('For example, for the endpoint `DELETE /tags/:id/notes/:note_id`, to remove the tag with ID "ABCD1234" from the note with ID "EFGH789", you would run for example:');
+
+ Line: 94 -  		lines.push('\tcurl -X DELETE http://localhost:41184/tags/ABCD1234/notes/EFGH789');
+
+ Line: 101 -  		lines.push('* **DELETE**: To delete items.');
+
+ Line: 106 -  		lines.push('You can change the fields that will be returned by the API using the `fields=` query parameter, which takes a list of comma separated fields. For example, to get the longitude and latitude of a note, use this:');
+
+ Line: 134 -  		lines.push('Call **GET /search?query=YOUR_QUERY** to search for notes. This end-point supports the `field` parameter which is recommended to use so that you only get the data that you need. The query syntax is as described in the main documentation: https://joplinapp.org/#searching');
+
+ Line: 172 -  					description: 'If `body_html` is provided and contains relative URLs, provide the `base_url` parameter too so that all the URLs can be converted to absolute ones. The base URL is basically where the HTML was fetched from, minus the query (everything after the \'?\'). For example if the original page was `https://stackoverflow.com/search?q=%5Bjava%5D+test`, the base URL is `https://stackoverflow.com/search`.',
+
+ Line: 303 -  			lines.push(`## DELETE /${tableName}/:id`);
+
+ Line: 309 -  				lines.push('## DELETE /tags/:id/notes/:note_id');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/app-gui.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 479 -  				setTimeout(() => this.term_.term().inverse(this.linkSelector_.link), 50);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/app-gui.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 147 -  				let actionType = 'FOLDER_SELECT';
+
+ Line: 148 -  				if (nextItem.type_ === BaseModel.TYPE_TAG) actionType = 'TAG_SELECT';
+
+ Line: 149 -  				if (nextItem.type_ === BaseModel.TYPE_SEARCH) actionType = 'SEARCH_SELECT';
+
+ Line: 157 -  					type: 'FOLDER_SELECT',
+
+ Line: 162 -  					type: 'TAG_SELECT',
+
+ Line: 167 -  					type: 'SEARCH_SELECT',
+
+ Line: 195 -  				type: 'NOTE_SELECT',
+
+ Line: 452 -  						type: 'SEARCH_DELETE',
+
+ Line: 562 -  		return [':', 'ENTER', 'DOWN', 'UP', 'LEFT', 'RIGHT', 'DELETE', 'BACKSPACE', 'ESCAPE', 'TAB', 'SHIFT_TAB', 'PAGE_UP', 'PAGE_DOWN'].indexOf(name) >= 0;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/SyncTargetOneDrive.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 105 -  			BaseSyncTarget.dispatch({ type: 'SYNC_REPORT_UPDATE', report: { errors: [error] } });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/joplin-renderer/MdToHtml/rules/mermaid_render.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 29 -  const initIID_ = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/joplin-renderer/assets/mermaid/mermaid.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 10 -  appendChild(e.apply(this,arguments))}))},insert:function(t,e){var n="function"==typeof t?t:ue(t),r=null==e?ce:"function"==typeof e?e:bt(e);return this.select((function(){return this.insertBefore(n.apply(this,arguments),r.apply(this,arguments)||null)}))},remove:function(){return this.each(fe)},clone:function(t){return this.select(t?he:le)},datum:function(t){return arguments.length?this.property("__data__",t):this.node().__data__},on:function(t,e,n){var r,i,a=be(t+""),o=a.length;if(!(arguments.length<2)){for(s=e?me:ve,null==n&&(n=!1),r=0;r<o;++r)this.each(s(a[r],e,n));return this}var s=this.node().__on;if(s)for(var u,c=0,f=s.length;c<f;++c)for(r=0,u=s[c];r<o;++r)if((i=a[r]).type===u.type&&i.name===u.name)return u.value},dispatch:function(t,e){return this.each(("function"==typeof e?ke:xe)(t,e))}};var Me=Se,Te=function(t){return"string"==typeof t?new Ae([[document.querySelector(t)]],[document.documentElement]):new Ae([[t]],Ee)};function De(){pe.stopImmediatePropagation()}var Ce=function(){pe.preventDefault(),pe.stopImmediatePropagation()},Ne=function(t){var e=t.document.documentElement,n=Te(t).on("dragstart.drag",Ce,!0);"onselectstart"in e?n.on("selectstart.drag",Ce,!0):(e.__noselect=e.style.MozUserSelect,e.style.MozUserSelect="none")};function Ie(t,e){var n=t.document.documentElement,r=Te(t).on("dragstart.drag",null);e&&(r.on("click.drag",Ce,!0),setTimeout((function(){r.on("click.drag",null)}),0)),"onselectstart"in n?r.on("selectstart.drag",null):(n.style.MozUserSelect=n.__noselect,delete n.__noselect)}var Le=function(t,e,n){t.prototype=e.prototype=n,n.constructor=t};function Be(t,e){var n=Object.create(t.prototype);for(var r in e)n[r]=e[r];return n}function Oe(){}var Re="\\s*([+-]?\\d+)\\s*",Pe="\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",Fe="\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",qe=/^#([0-9a-f]{3,8})$/,je=new RegExp("^rgb\\("+[Re,Re,Re]+"\\)$"),Ue=new RegExp("^rgb\\("+[Fe,Fe,Fe]+"\\)$"),ze=new RegExp("^rgba\\("+[Re,Re,Re,Pe]+"\\)$"),Ye=new RegExp("^rgba\\("+[Fe,Fe,Fe,Pe]+"\\)$"),Ve=new RegExp("^hsl\\("+[Pe,Fe,Fe]+"\\)$"),He=new RegExp("^hsla\\("+[Pe,Fe,Fe,Pe]+"\\)$ Line: 15 -  ct"==typeof t||(t={}),null!==e&&"object"==typeof e||(e={}),e)n in t?r[n]=Bn(t[n],e[n]):i[n]=e[n];return function(t){for(n in r)i[n]=r[n](t);return i}},Dn=/[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g,Cn=new RegExp(Dn.source,"g");var Nn,In,Ln=function(t,e){var n,r,i,a=Dn.lastIndex=Cn.lastIndex=0,o=-1,s=[],u=[];for(t+="",e+="";(n=Dn.exec(t))&&(r=Cn.exec(e));)(i=r.index)>a&&(i=e.slice(a,i),s[o]?s[o]+=i:s[++o]=i),(n=n[0])===(r=r[0])?s[o]?s[o]+=r:s[++o]=r:(s[++o]=null,u.push({i:o,x:Mn(n,r)})),a=Cn.lastIndex;return a<e.length&&(i=e.slice(a),s[o]?s[o]+=i:s[++o]=i),s.length<2?u[0]?function(t){return function(e){return t(e)+""}}(u[0].x):function(t){return function(){return t}}(e):(e=u.length,function(t){for(var n,r=0;r<e;++r)s[(n=u[r]).i]=n.x(t);return s.join("")})},Bn=function(t,e){var n,r=typeof e;return null==e||"boolean"===r?dn(e):("number"===r?Mn:"string"===r?(n=Ke(e))?(e=n,vn):Ln:e instanceof Ke?vn:e instanceof Date?Sn:kn(e)?xn:Array.isArray(e)?An:"function"!=typeof e.valueOf&&"function"!=typeof e.toString||isNaN(e)?Tn:Mn)(t,e)},On=function(){for(var t,e=pe;t=e.sourceEvent;)e=t;return e},Rn=function(t,e){var n=t.ownerSVGElement||t;if(n.createSVGPoint){var r=n.createSVGPoint();return r.x=e.clientX,r.y=e.clientY,[(r=r.matrixTransform(t.getScreenCTM().inverse())).x,r.y]}var i=t.getBoundingClientRect();return[e.clientX-i.left-t.clientLeft,e.clientY-i.top-t.clientTop]},Pn=function(t,e,n){arguments.length<3&&(n=e,e=On().changedTouches);for(var r,i=0,a=e?e.length:0;i<a;++i)if((r=e[i]).identifier===n)return Rn(t,r);return null},Fn=function(t){var e=On();return e.changedTouches&&(e=e.changedTouches[0]),Rn(t,e)},qn=0,jn=0,Un=0,zn=1e3,Yn=0,Vn=0,Hn=0,Gn="object"==typeof performance&&performance.now?performance:Date,$n="object"==typeof window&&window.requestAnimationFrame?window.requestAnimationFrame.bind(window):function(t){setTimeout(t,17)};function Wn(){return Vn||($n(Kn),Vn=Gn.now()+Hn)}function Kn(){Vn=0}function Xn(){this._call=this._time=this._next=null}function Zn(t,e,n){var r=new Xn;return r.restart(t,e,n),r}function Jn(){Wn(),++qn;for(var t,e=Nn;e;)(t=Vn-e._time)>=0&&e._call.call(nu Line: 16 -  xt;--qn}function Qn(){Vn=(Yn=Gn.now())+Hn,qn=jn=0;try{Jn()}finally{qn=0,function(){var t,e,n=Nn,r=1/0;for(;n;)n._call?(r>n._time&&(r=n._time),t=n,n=n._next):(e=n._next,n._next=null,n=t?t._next=e:Nn=e);In=t,er(r)}(),Vn=0}}function tr(){var t=Gn.now(),e=t-Yn;e>zn&&(Hn-=e,Yn=t)}function er(t){qn||(jn&&(jn=clearTimeout(jn)),t-Vn>24?(t<1/0&&(jn=setTimeout(Qn,t-Gn.now()-Hn)),Un&&(Un=clearInterval(Un))):(Un||(Yn=Gn.now(),Un=setInterval(tr,zn)),qn=1,$n(Qn)))}Xn.prototype=Zn.prototype={constructor:Xn,restart:function(t,e,n){if("function"!=typeof t)throw new TypeError("callback is not a function");n=(null==n?Wn():+n)+(null==e?0:+e),this._next||In===this||(In?In._next=this:Nn=this,In=this),this._call=t,this._time=n,er()},stop:function(){this._call&&(this._call=null,this._time=1/0,er())}};var nr=function(t,e,n){var r=new Xn;return e=null==e?0:+e,r.restart((function(n){r.stop(),t(n+e)}),e,n),r},rr=gt("start","end","cancel","interrupt"),ir=[],ar=0,or=1,sr=2,ur=3,cr=4,fr=5,lr=6,hr=function(t,e,n,r,i,a){var o=t.__transition;if(o){if(n in o)return}else t.__transition={};!function(t,e,n){var r,i=t.__transition;function a(u){var c,f,l,h;if(n.state!==or)return s();for(c in i)if((h=i[c]).name===n.name){if(h.state===ur)return nr(a);h.state===cr?(h.state=lr,h.timer.stop(),h.on.call("interrupt",t,t.__data__,h.index,h.group),delete i[c]):+c<e&&(h.state=lr,h.timer.stop(),h.on.call("cancel",t,t.__data__,h.index,h.group),delete i[c])}if(nr((function(){n.state===ur&&(n.state=cr,n.timer.restart(o,n.delay,n.time),o(u))})),n.state=sr,n.on.call("start",t,t.__data__,n.index,n.group),n.state===sr){for(n.state=ur,r=new Array(l=n.tween.length),c=0,f=-1;c<l;++c)(h=n.tween[c].value.call(t,t.__data__,n.index,n.group))&&(r[++f]=h);r.length=f+1}}function o(e){for(var i=e<n.duration?n.ease.call(null,e/n.duration):(n.timer.restart(s),n.state=fr,1),a=-1,o=r.length;++a<o;)r[a].call(t,i);n.state===fr&&(n.on.call("end",t,t.__data__,n.index,n.group),s())}function s(){for(var r in n.state=lr,n.timer.stop(),delete i[e],i)return;delete t.__transition}i[e]=n,n.timer=Zn((function(t){n.state=or,n.timer.restart(a,n.delay,n.time),n. Line: 25 -  &&(C=Math.max(S-u,Math.min(T-u,C)),i=n,l=u+C),x<0?(N=Math.max(M-o,Math.min(D-o,N)),s=o+N,d=h):x>0&&(N=Math.max(M-h,Math.min(D-h,N)),s=o,d=h+N);break;case pi:w&&(i=Math.max(S,Math.min(T,n-C*w)),l=Math.max(S,Math.min(T,u+C*w))),x&&(s=Math.max(M,Math.min(D,o-N*x)),d=Math.max(M,Math.min(D,h+N*x)))}l<i&&(w*=-1,t=n,n=u,u=t,t=i,i=l,l=t,m in wi&&F.attr("cursor",_i[m=wi[m]])),d<s&&(x*=-1,t=o,o=h,h=t,t=s,s=d,d=t,m in xi&&F.attr("cursor",_i[m=xi[m]])),k.selection&&(A=k.selection),g&&(i=A[0][0],l=A[1][0]),y&&(s=A[0][1],d=A[1][1]),A[0][0]===i&&A[0][1]===s&&A[1][0]===l&&A[1][1]===d||(k.selection=[[i,s],[l,d]],c.call(v),R.brush())}function z(){if(ci(),pe.touches){if(pe.touches.length)return;e&&clearTimeout(e),e=setTimeout((function(){e=null}),500)}else Ie(pe.view,p),q.on("keydown.brush keyup.brush mousemove.brush mouseup.brush",null);P.attr("pointer-events","all"),F.attr("cursor",_i.overlay),k.selection&&(A=k.selection),function(t){return t[0][0]===t[1][0]||t[0][1]===t[1][1]}(A)&&(k.selection=null,c.call(v)),R.end()}}function d(){f(this,arguments).moved()}function p(){f(this,arguments).ended()}function g(){var e=this.__brush||{selection:null};return e.extent=yi(n.apply(this,arguments)),e.dim=t,e}return u.move=function(e,n){e.selection?e.on("start.brush",(function(){f(this,arguments).beforestart().start()})).on("interrupt.brush end.brush",(function(){f(this,arguments).end()})).tween("brush",(function(){var e=this,r=e.__brush,i=f(e,arguments),a=r.selection,o=t.input("function"==typeof n?n.apply(this,arguments):n,r.extent),s=Bn(a,o);function u(t){r.selection=1===t&&null===o?null:s(t),c.call(e),i.brush()}return null!==a&&null!==o?u:u(1)})):e.each((function(){var e=this,r=arguments,i=e.__brush,a=t.input("function"==typeof n?n.apply(e,r):n,i.extent),o=f(e,r).beforestart();_r(e),i.selection=null===a?null:a,c.call(e),o.start().brush().end()}))},u.clear=function(t){u.move(t,null)},l.prototype={beforestart:function(){return 1==++this.active&&(this.state.emitter=this,this.starting=!0),this},start:function(){return this.starting?(this.starting=!1,this.emit("start")):this.emit("brush"),this},brush:functi Line: 34 -  ("mouse",a.apply(this,arguments),Fn,this,arguments);o&&(Te(pe.view).on("mousemove.drag",p,!0).on("mouseup.drag",g,!0),Ne(pe.view),De(),n=!1,t=pe.clientX,e=pe.clientY,o("start"))}}function p(){if(Ce(),!n){var r=pe.clientX-t,i=pe.clientY-e;n=r*r+i*i>l}u.mouse("drag")}function g(){Te(pe.view).on("mousemove.drag mouseup.drag",null),Ie(pe.view,n),Ce(),u.mouse("end")}function y(){if(i.apply(this,arguments)){var t,e,n=pe.changedTouches,r=a.apply(this,arguments),o=n.length;for(t=0;t<o;++t)(e=m(n[t].identifier,r,Pn,this,arguments))&&(De(),e("start"))}}function b(){var t,e,n=pe.changedTouches,r=n.length;for(t=0;t<r;++t)(e=u[n[t].identifier])&&(Ce(),e("drag"))}function v(){var t,e,n=pe.changedTouches,i=n.length;for(r&&clearTimeout(r),r=setTimeout((function(){r=null}),500),t=0;t<i;++t)(e=u[n[t].identifier])&&(De(),e("end"))}function m(t,e,n,r,i){var a,s,l,d=n(e,t),p=c.copy();if(_e(new lo(h,"beforestart",a,t,f,d[0],d[1],0,0,p),(function(){return null!=(pe.subject=a=o.apply(r,i))&&(s=a.x-d[0]||0,l=a.y-d[1]||0,!0)})))return function o(c){var g,y=d;switch(c){case"start":u[t]=o,g=f++;break;case"end":delete u[t],--f;case"drag":d=n(e,t),g=f}_e(new lo(h,c,a,t,g,d[0]+s,d[1]+l,d[0]-y[0],d[1]-y[1],p),p.apply,p,[c,r,i])}}return h.filter=function(t){return arguments.length?(i="function"==typeof t?t:fo(!!t),h):i},h.container=function(t){return arguments.length?(a="function"==typeof t?t:fo(t),h):a},h.subject=function(t){return arguments.length?(o="function"==typeof t?t:fo(t),h):o},h.touchable=function(t){return arguments.length?(s="function"==typeof t?t:fo(!!t),h):s},h.on=function(){var t=c.on.apply(c,arguments);return t===c?h:t},h.clickDistance=function(t){return arguments.length?(l=(t=+t)*t,h):Math.sqrt(l)},h},vo={},mo={},_o=34,wo=10,xo=13;function ko(t){return new Function("d","return {"+t.map((function(t,e){return JSON.stringify(t)+": d["+e+'] || ""'})).join(",")+"}")}function Eo(t){var e=Object.create(null),n=[];return t.forEach((function(t){for(var r in t)r in e||n.push(e[r]=r)})),n}function Ao(t,e){var n=t+"",r=n.length;return r<e?new Array(e-r+1).join(0)+n:n}function So(t){var e,n=t.getUTCHours( Line: 111 -  oming||new w(t,e)}function w(t,e){this.that=t,this.args=e,this.active=0,this.extent=r.apply(t,e),this.taps=0}function x(){if(n.apply(this,arguments)){var t=_(this,arguments),e=this.__zoom,r=Math.max(s[0],Math.min(s[1],e.k*Math.pow(2,a.apply(this,arguments)))),o=Fn(this);if(t.wheel)t.mouse[0][0]===o[0]&&t.mouse[0][1]===o[1]||(t.mouse[1]=e.invert(t.mouse[0]=o)),clearTimeout(t.wheel);else{if(e.k===r)return;t.mouse=[o,e.invert(o)],_r(this),t.start()}pE(),t.wheel=setTimeout((function(){t.wheel=null,t.end()}),d),t.zoom("mouse",i(b(y(e,r),t.mouse[0],t.mouse[1]),t.extent,u))}}function k(){if(!e&&n.apply(this,arguments)){var t=_(this,arguments,!0),r=Te(pe.view).on("mousemove.zoom",(function(){if(pE(),!t.moved){var e=pe.clientX-o,n=pe.clientY-s;t.moved=e*e+n*n>p}t.zoom("mouse",i(b(t.that.__zoom,t.mouse[0]=Fn(t.that),t.mouse[1]),t.extent,u))}),!0).on("mouseup.zoom",(function(){r.on("mousemove.zoom mouseup.zoom",null),Ie(pe.view,t.moved),pE(),t.end()}),!0),a=Fn(this),o=pe.clientX,s=pe.clientY;Ne(pe.view),dE(),t.mouse=[a,this.__zoom.invert(a)],_r(this),t.start()}}function E(){if(n.apply(this,arguments)){var t=this.__zoom,e=Fn(this),a=t.invert(e),o=t.k*(pe.shiftKey?.5:2),s=i(b(y(t,o),e,a),r.apply(this,arguments),u);pE(),c>0?Te(this).transition().duration(c).call(m,s,e):Te(this).call(g.transform,s)}}function A(){if(n.apply(this,arguments)){var e,r,i,a,o=pe.touches,s=o.length,u=_(this,arguments,pe.changedTouches.length===s);for(dE(),r=0;r<s;++r)i=o[r],a=[a=Pn(this,o,i.identifier),this.__zoom.invert(a),i.identifier],u.touch0?u.touch1||u.touch0[2]===a[2]||(u.touch1=a,u.taps=0):(u.touch0=a,e=!0,u.taps=1+!!t);t&&(t=clearTimeout(t)),e&&(u.taps<2&&(t=setTimeout((function(){t=null}),h)),_r(this),u.start())}}function S(){if(this.__zooming){var e,n,r,a,o=_(this,arguments),s=pe.changedTouches,c=s.length;for(pE(),t&&(t=clearTimeout(t)),o.taps=0,e=0;e<c;++e)n=s[e],r=Pn(this,s,n.identifier),o.touch0&&o.touch0[2]===n.identifier?o.touch0[0]=r:o.touch1&&o.touch1[2]===n.identifier&&(o.touch1[0]=r);if(n=o.that.__zoom,o.touch1){var f=o.touch0[0],l=o.touch0[1],h=o.touch1[0],d=o.touch1[1],p=(p=h[0]-f[0])*p+(p=h[ Line: 112 -  g=d[0]-l[0])*g+(g=d[1]-l[1])*g;n=y(n,Math.sqrt(p/g)),r=[(f[0]+h[0])/2,(f[1]+h[1])/2],a=[(l[0]+d[0])/2,(l[1]+d[1])/2]}else{if(!o.touch0)return;r=o.touch0[0],a=o.touch0[1]}o.zoom("touch",i(b(n,r,a),o.extent,u))}}function M(){if(this.__zooming){var t,n,r=_(this,arguments),i=pe.changedTouches,a=i.length;for(dE(),e&&clearTimeout(e),e=setTimeout((function(){e=null}),h),t=0;t<a;++t)n=i[t],r.touch0&&r.touch0[2]===n.identifier?delete r.touch0:r.touch1&&r.touch1[2]===n.identifier&&delete r.touch1;if(r.touch1&&!r.touch0&&(r.touch0=r.touch1,delete r.touch1),r.touch0)r.touch0[1]=this.__zoom.invert(r.touch0[0]);else if(r.end(),2===r.taps){var o=Te(this).on("dblclick.zoom");o&&o.apply(this,arguments)}}}return g.transform=function(t,e,n){var r=t.selection?t.selection():t;r.property("__zoom",bE),t!==r?m(t,e,n):r.interrupt().each((function(){_(this,arguments).start().zoom(null,"function"==typeof e?e.apply(this,arguments):e).end()}))},g.scaleBy=function(t,e,n){g.scaleTo(t,(function(){var t=this.__zoom.k,n="function"==typeof e?e.apply(this,arguments):e;return t*n}),n)},g.scaleTo=function(t,e,n){g.transform(t,(function(){var t=r.apply(this,arguments),a=this.__zoom,o=null==n?v(t):"function"==typeof n?n.apply(this,arguments):n,s=a.invert(o),c="function"==typeof e?e.apply(this,arguments):e;return i(b(y(a,c),o,s),t,u)}),n)},g.translateBy=function(t,e,n){g.transform(t,(function(){return i(this.__zoom.translate("function"==typeof e?e.apply(this,arguments):e,"function"==typeof n?n.apply(this,arguments):n),r.apply(this,arguments),u)}))},g.translateTo=function(t,e,n,a){g.transform(t,(function(){var t=r.apply(this,arguments),o=this.__zoom,s=null==a?v(t):"function"==typeof a?a.apply(this,arguments):a;return i(lE.translate(s[0],s[1]).scale(o.k).translate("function"==typeof e?-e.apply(this,arguments):-e,"function"==typeof n?-n.apply(this,arguments):-n),t,u)}),a)},w.prototype={start:function(){return 1==++this.active&&(this.that.__zooming=this,this.emit("start")),this},zoom:function(t,e){return this.mouse&&"mouse"!==t&&(this.mouse[1]=e.invert(this.mouse[0])),this.touch0&&"touch"!==t&&(this.touch0[1]=e.invert(t Line: 152 -  =this.pow(t,i),p=o;0!==d.cmp(s);){for(var g=d,y=0;0!==g.cmp(s);y++)g=g.redSqr();r(y<p);var b=this.pow(l,new a(1).iushln(p-y-1));h=h.redMul(b),l=b.redSqr(),d=d.redMul(l),p=y}return h},x.prototype.invm=function(t){var e=t._invmp(this.m);return 0!==e.negative?(e.negative=0,this.imod(e).redNeg()):this.imod(e)},x.prototype.pow=function(t,e){if(e.isZero())return new a(1).toRed(this);if(0===e.cmpn(1))return t.clone();var n=new Array(16);n[0]=new a(1).toRed(this),n[1]=t;for(var r=2;r<n.length;r++)n[r]=this.mul(n[r-1],t);var i=n[0],o=0,s=0,u=e.bitLength()%26;for(0===u&&(u=26),r=e.length-1;r>=0;r--){for(var c=e.words[r],f=u-1;f>=0;f--){var l=c>>f&1;i!==n[0]&&(i=this.sqr(i)),0!==l||0!==o?(o<<=1,o|=l,(4===++s||0===r&&0===f)&&(i=this.mul(i,n[o]),s=0,o=0)):s=0}u=26}return i},x.prototype.convertTo=function(t){var e=t.umod(this.m);return e===t?e.clone():e},x.prototype.convertFrom=function(t){var e=t.clone();return e.red=null,e},a.mont=function(t){return new k(t)},i(k,x),k.prototype.convertTo=function(t){return this.imod(t.ushln(this.shift))},k.prototype.convertFrom=function(t){var e=this.imod(t.mul(this.rinv));return e.red=null,e},k.prototype.imul=function(t,e){if(t.isZero()||e.isZero())return t.words[0]=0,t.length=1,t;var n=t.imul(e),r=n.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m),i=n.isub(r).iushrn(this.shift),a=i;return i.cmp(this.m)>=0?a=i.isub(this.m):i.cmpn(0)<0&&(a=i.iadd(this.m)),a._forceRed(this)},k.prototype.mul=function(t,e){if(t.isZero()||e.isZero())return new a(0)._forceRed(this);var n=t.mul(e),r=n.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m),i=n.isub(r).iushrn(this.shift),o=i;return i.cmp(this.m)>=0?o=i.isub(this.m):i.cmpn(0)<0&&(o=i.iadd(this.m)),o._forceRed(this)},k.prototype.invm=function(t){return this.imod(t._invmp(this.m).mul(this.r2))._forceRed(this)}}(t,this)}).call(this,n(9)(t))},function(t,e){var n=Array.isArray;t.exports=n},function(t,e){var n,r,i=t.exports={};function a(){throw new Error("setTimeout has not been defined")}function o(){throw new Error("clearTimeout has not been defined")}function s(t){if(n===setTimeout)return se Line: 153 -  if((n===a||!n)&&setTimeout)return n=setTimeout,setTimeout(t,0);try{return n(t,0)}catch(e){try{return n.call(null,t,0)}catch(e){return n.call(this,t,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:a}catch(t){n=a}try{r="function"==typeof clearTimeout?clearTimeout:o}catch(t){r=o}}();var u,c=[],f=!1,l=-1;function h(){f&&u&&(f=!1,u.length?c=u.concat(c):l=-1,c.length&&d())}function d(){if(!f){var t=s(h);f=!0;for(var e=c.length;e;){for(u=c,c=[];++l<e;)u&&u[l].run();l=-1,e=c.length}u=null,f=!1,function(t){if(r===clearTimeout)return clearTimeout(t);if((r===o||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(t);try{r(t)}catch(e){try{return r.call(null,t)}catch(e){return r.call(this,t)}}}(t)}}function p(t,e){this.fun=t,this.array=e}function g(){}i.nextTick=function(t){var e=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)e[n-1]=arguments[n];c.push(new p(t,e)),1!==c.length||f||s(d)},p.prototype.run=function(){this.fun.apply(null,this.array)},i.title="browser",i.browser=!0,i.env={},i.argv=[],i.version="",i.versions={},i.on=g,i.addListener=g,i.once=g,i.off=g,i.removeListener=g,i.removeAllListeners=g,i.emit=g,i.prependListener=g,i.prependOnceListener=g,i.listeners=function(t){return[]},i.binding=function(t){throw new Error("process.binding is not supported")},i.cwd=function(){return"/"},i.chdir=function(t){throw new Error("process.chdir is not supported")},i.umask=function(){return 0}},function(t,e,n){"use strict";(function(t){
+
+ Line: 246 -  r\]$/,Ht=/^0o[0-7]+$/i,Gt=/^(?:0|[1-9]\d*)$/,$t=/[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g,Wt=/($^)/,Kt=/['\n\r\u2028\u2029\\]/g,Xt="\\u0300-\\u036f\\ufe20-\\ufe2f\\u20d0-\\u20ff",Zt="\\xac\\xb1\\xd7\\xf7\\x00-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\xbf\\u2000-\\u206f \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000",Jt="[\\ud800-\\udfff]",Qt="["+Zt+"]",te="["+Xt+"]",ee="\\d+",ne="[\\u2700-\\u27bf]",re="[a-z\\xdf-\\xf6\\xf8-\\xff]",ie="[^\\ud800-\\udfff"+Zt+ee+"\\u2700-\\u27bfa-z\\xdf-\\xf6\\xf8-\\xffA-Z\\xc0-\\xd6\\xd8-\\xde]",ae="\\ud83c[\\udffb-\\udfff]",oe="[^\\ud800-\\udfff]",se="(?:\\ud83c[\\udde6-\\uddff]){2}",ue="[\\ud800-\\udbff][\\udc00-\\udfff]",ce="[A-Z\\xc0-\\xd6\\xd8-\\xde]",fe="(?:"+re+"|"+ie+")",le="(?:"+ce+"|"+ie+")",he="(?:"+te+"|"+ae+")"+"?",de="[\\ufe0e\\ufe0f]?"+he+("(?:\\u200d(?:"+[oe,se,ue].join("|")+")[\\ufe0e\\ufe0f]?"+he+")*"),pe="(?:"+[ne,se,ue].join("|")+")"+de,ge="(?:"+[oe+te+"?",te,se,ue,Jt].join("|")+")",ye=RegExp("['’]","g"),be=RegExp(te,"g"),ve=RegExp(ae+"(?="+ae+")|"+ge+de,"g"),me=RegExp([ce+"?"+re+"+(?:['’](?:d|ll|m|re|s|t|ve))?(?="+[Qt,ce,"$"].join("|")+")",le+"+(?:['’](?:D|LL|M|RE|S|T|VE))?(?="+[Qt,ce+fe,"$"].join("|")+")",ce+"?"+fe+"+(?:['’](?:d|ll|m|re|s|t|ve))?",ce+"+(?:['’](?:D|LL|M|RE|S|T|VE))?","\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])","\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])",ee,pe].join("|"),"g"),_e=RegExp("[\\u200d\\ud800-\\udfff"+Xt+"\\ufe0e\\ufe0f]"),we=/[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/,xe=["Array","Buffer","DataView","Date","Error","Float32Array","Float64Array","Function","Int8Array","Int16Array","Int32Array","Map","Math","Object","Promise","RegExp","Set","String","Symbol","TypeError","Uint8Array","Uint8ClampedArray","Uint16Array","Uint32Array","WeakMap","_","clearTimeout","isFinite","parseInt","setTimeout"],ke=-1,Ee={};Ee[ut]=Ee[ct]=Ee[ft]=Ee[lt]=Ee[ht]=Ee[dt]=Ee[pt]=Ee[gt]=Ee[yt]=!0,Ee[q]=Ee[j]=Ee[ot]=Ee[z]=Ee[st]=Ee[Y]=Ee[H]=Ee[G]=Ee[W]=Ee[K]=Ee[Z]=Ee[Q]=Ee[tt Line: 250 -  typeOf,ee),Le=ee.create,Oe=se.propertyIsEnumerable,Re=ae.splice,nn=Se?Se.isConcatSpreadable:r,ln=Se?Se.iterator:r,Ln=Se?Se.toStringTag:r,Bn=function(){try{var t=Fa(ee,"defineProperty");return t({},"",{}),t}catch(t){}}(),On=e.clearTimeout!==Ne.clearTimeout&&e.clearTimeout,Rn=Zt&&Zt.now!==Ne.Date.now&&Zt.now,Pn=e.setTimeout!==Ne.setTimeout&&e.setTimeout,Fn=te.ceil,qn=te.floor,jn=ee.getOwnPropertySymbols,Un=_e?_e.isBuffer:r,zn=e.isFinite,Yn=ae.join,Vn=An(ee.keys,ee),Hn=te.max,Gn=te.min,$n=Zt.now,Wn=e.parseInt,Kn=te.random,Xn=ae.reverse,Zn=Fa(e,"DataView"),Jn=Fa(e,"Map"),Qn=Fa(e,"Promise"),tr=Fa(e,"Set"),er=Fa(e,"WeakMap"),nr=Fa(ee,"create"),rr=er&&new er,ir={},ar=fo(Zn),or=fo(Jn),sr=fo(Qn),ur=fo(tr),cr=fo(er),fr=Se?Se.prototype:r,lr=fr?fr.valueOf:r,hr=fr?fr.toString:r;function dr(t){if(Ts(t)&&!bs(t)&&!(t instanceof br)){if(t instanceof yr)return t;if(fe.call(t,"__wrapped__"))return lo(t)}return new yr(t)}var pr=function(){function t(){}return function(e){if(!Ms(e))return{};if(Le)return Le(e);t.prototype=e;var n=new t;return t.prototype=r,n}}();function gr(){}function yr(t,e){this.__wrapped__=t,this.__actions__=[],this.__chain__=!!e,this.__index__=0,this.__values__=r}function br(t){this.__wrapped__=t,this.__actions__=[],this.__dir__=1,this.__filtered__=!1,this.__iteratees__=[],this.__takeCount__=O,this.__views__=[]}function vr(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function mr(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function _r(t){var e=-1,n=null==t?0:t.length;for(this.clear();++e<n;){var r=t[e];this.set(r[0],r[1])}}function wr(t){var e=-1,n=null==t?0:t.length;for(this.__data__=new _r;++e<n;)this.add(t[e])}function xr(t){var e=this.__data__=new mr(t);this.size=e.size}function kr(t,e){var n=bs(t),r=!n&&ys(t),i=!n&&!r&&ws(t),a=!n&&!r&&!i&&Rs(t),o=n||r||i||a,s=o?pn(t.length,re):[],u=s.length;for(var c in t)!e&&!fe.call(t,c)||o&&("length"==c||i&&("offset"==c||"parent"==c)||a&&("buffer"==c||"byteLength"==c||"byteOffset"==c)||Ha(c,u))||s.push(c);return s}function Er(t){var e=t.length;re Line: 262 -   st;case or:return W;case sr:return"[object Promise]";case ur:return tt;case cr:return it}return e});var Ka=ue?Es:Yu;function Xa(t){var e=t&&t.constructor;return t===("function"==typeof e&&e.prototype||se)}function Za(t){return t==t&&!Ms(t)}function Ja(t,e){return function(n){return null!=n&&(n[t]===e&&(e!==r||t in ee(n)))}}function Qa(t,e,n){return e=Hn(e===r?t.length-1:e,0),function(){for(var r=arguments,i=-1,a=Hn(r.length-e,0),o=Xt(a);++i<a;)o[i]=r[e+i];i=-1;for(var s=Xt(e+1);++i<e;)s[i]=r[i];return s[e]=n(o),Ye(t,this,s)}}function to(t,e){return e.length<2?t:Xr(t,Ci(e,0,-1))}function eo(t,e){if(("constructor"!==e||"function"!=typeof t[e])&&"__proto__"!=e)return t[e]}var no=oo(Mi),ro=Pn||function(t,e){return Ne.setTimeout(t,e)},io=oo(Ti);function ao(t,e,n){var r=e+"";return io(t,function(t,e){var n=e.length;if(!n)return t;var r=n-1;return e[r]=(n>1?"& ":"")+e[r],e=e.join(n>2?", ":" "),t.replace(Ot,"{\n/* [wrapped with "+e+"] */\n")}(r,function(t,e){return He(F,(function(n){var r="_."+n[0];e&n[1]&&!Ke(t,r)&&t.push(r)})),t.sort()}(function(t){var e=t.match(Rt);return e?e[1].split(Pt):[]}(r),n)))}function oo(t){var e=0,n=0;return function(){var i=$n(),a=T-(i-n);if(n=i,a>0){if(++e>=M)return arguments[0]}else e=0;return t.apply(r,arguments)}}function so(t,e){var n=-1,i=t.length,a=i-1;for(e=e===r?i:e;++n<e;){var o=wi(n,a),s=t[o];t[o]=t[n],t[n]=s}return t.length=e,t}var uo=function(t){var e=ss(t,(function(t){return n.size===u&&n.clear(),t})),n=e.cache;return e}((function(t){var e=[];return 46===t.charCodeAt(0)&&e.push(""),t.replace(Dt,(function(t,n,r,i){e.push(r?i.replace(qt,"$1"):n||t)})),e}));function co(t){if("string"==typeof t||Os(t))return t;var e=t+"";return"0"==e&&1/t==-N?"-0":e}function fo(t){if(null!=t){try{return ce.call(t)}catch(t){}try{return t+""}catch(t){}}return""}function lo(t){if(t instanceof br)return t.clone();var e=new yr(t.__wrapped__,t.__chain__);return e.__actions__=na(t.__actions__),e.__index__=t.__index__,e.__values__=t.__values__,e}var ho=ki((function(t,e){return _s(t)?Fr(t,Vr(e,1,_s,!0)):[]})),po=ki((function(t,e){var n=ko(e);return _s(n)&&(n=r),_s(t)?F Line: 454 -  ead.next,--this.length,t}},t.prototype.clear=function(){this.head=this.tail=null,this.length=0},t.prototype.join=function(t){if(0===this.length)return"";for(var e=this.head,n=""+e.data;e=e.next;)n+=t+e.data;return n},t.prototype.concat=function(t){if(0===this.length)return r.alloc(0);if(1===this.length)return this.head.data;for(var e,n,i,a=r.allocUnsafe(t>>>0),o=this.head,s=0;o;)e=o.data,n=a,i=s,e.copy(n,i),s+=o.data.length,o=o.next;return a},t}(),i&&i.inspect&&i.inspect.custom&&(t.exports.prototype[i.inspect.custom]=function(){var t=i.inspect({length:this.length});return this.constructor.name+" "+t})},function(t,e){},function(t,e,n){(function(t){var r=void 0!==t&&t||"undefined"!=typeof self&&self||window,i=Function.prototype.apply;function a(t,e){this._id=t,this._clearFn=e}e.setTimeout=function(){return new a(i.call(setTimeout,r,arguments),clearTimeout)},e.setInterval=function(){return new a(i.call(setInterval,r,arguments),clearInterval)},e.clearTimeout=e.clearInterval=function(t){t&&t.close()},a.prototype.unref=a.prototype.ref=function(){},a.prototype.close=function(){this._clearFn.call(r,this._id)},e.enroll=function(t,e){clearTimeout(t._idleTimeoutId),t._idleTimeout=e},e.unenroll=function(t){clearTimeout(t._idleTimeoutId),t._idleTimeout=-1},e._unrefActive=e.active=function(t){clearTimeout(t._idleTimeoutId);var e=t._idleTimeout;e>=0&&(t._idleTimeoutId=setTimeout((function(){t._onTimeout&&t._onTimeout()}),e))},n(427),e.setImmediate="undefined"!=typeof self&&self.setImmediate||void 0!==t&&t.setImmediate||this&&this.setImmediate,e.clearImmediate="undefined"!=typeof self&&self.clearImmediate||void 0!==t&&t.clearImmediate||this&&this.clearImmediate}).call(this,n(12))},function(t,e,n){(function(t,e){!function(t,n){"use strict";if(!t.setImmediate){var r,i,a,o,s,u=1,c={},f=!1,l=t.document,h=Object.getPrototypeOf&&Object.getPrototypeOf(t);h=h&&h.setTimeout?h:t,"[object process]"==={}.toString.call(t.process)?r=function(t){e.nextTick((function(){p(t)}))}:!function(){if(t.postMessage&&!t.importScripts){var e=!0,n=t.onmessage;return t.onmessage=function(){e=!1},t.postMessage("","*"),t. Line: 455 -  }()?t.MessageChannel?((a=new MessageChannel).port1.onmessage=function(t){p(t.data)},r=function(t){a.port2.postMessage(t)}):l&&"onreadystatechange"in l.createElement("script")?(i=l.documentElement,r=function(t){var e=l.createElement("script");e.onreadystatechange=function(){p(t),e.onreadystatechange=null,i.removeChild(e),e=null},i.appendChild(e)}):r=function(t){setTimeout(p,0,t)}:(o="setImmediate$"+Math.random()+"$",s=function(e){e.source===t&&"string"==typeof e.data&&0===e.data.indexOf(o)&&p(+e.data.slice(o.length))},t.addEventListener?t.addEventListener("message",s,!1):t.attachEvent("onmessage",s),r=function(e){t.postMessage(o+e,"*")}),h.setImmediate=function(t){"function"!=typeof t&&(t=new Function(""+t));for(var e=new Array(arguments.length-1),n=0;n<e.length;n++)e[n]=arguments[n+1];var i={callback:t,args:e};return c[u]=i,r(u),u++},h.clearImmediate=d}function d(t){delete c[t]}function p(t){if(f)setTimeout(p,0,t);else{var e=c[t];if(e){f=!0;try{!function(t){var e=t.callback,r=t.args;switch(r.length){case 0:e();break;case 1:e(r[0]);break;case 2:e(r[0],r[1]);break;case 3:e(r[0],r[1],r[2]);break;default:e.apply(n,r)}}(e)}finally{d(t),f=!1}}}}}("undefined"==typeof self?void 0===t?this:t:self)}).call(this,n(12),n(7))},function(t,e,n){(function(e){function n(t){try{if(!e.localStorage)return!1}catch(t){return!1}var n=e.localStorage[t];return null!=n&&"true"===String(n).toLowerCase()}t.exports=function(t,e){if(n("noDeprecation"))return t;var r=!1;return function(){if(!r){if(n("throwDeprecation"))throw new Error(e);n("traceDeprecation")?console.trace(e):console.warn(e),r=!0}return t.apply(this,arguments)}}}).call(this,n(12))},function(t,e,n){"use strict";t.exports=a;var r=n(196),i=n(54);function a(t){if(!(this instanceof a))return new a(t);r.call(this,t)}i.inherits=n(2),i.inherits(a,r),a.prototype._transform=function(t,e,n){n(null,t)}},function(t,e,n){t.exports=n(116)},function(t,e,n){t.exports=n(35)},function(t,e,n){t.exports=n(114).Transform},function(t,e,n){t.exports=n(114).PassThrough},function(t,e,n){var r=n(2),i=n(45),a=n(3).Buffer,o=[1518500249,1859775393,-1894007588,-899497514 Line: 502 -  type.runInContext=function(t){if(!(t instanceof Context))throw new TypeError("needs a 'context' argument.");var e=document.createElement("iframe");e.style||(e.style={}),e.style.display="none",document.body.appendChild(e);var n=e.contentWindow,r=n.eval,i=n.execScript;!r&&i&&(i.call(n,"null"),r=n.eval),forEach(Object_keys(t),(function(e){n[e]=t[e]})),forEach(globals,(function(e){t[e]&&(n[e]=t[e])}));var a=Object_keys(n),o=r.call(n,this.code);return forEach(Object_keys(n),(function(e){(e in t||-1===indexOf(a,e))&&(t[e]=n[e])})),forEach(globals,(function(e){e in t||defineProp(t,e,n[e])})),document.body.removeChild(e),o},Script.prototype.runInThisContext=function(){return eval(this.code)},Script.prototype.runInNewContext=function(t){var e=Script.createContext(t),n=this.runInContext(e);return t&&forEach(Object_keys(e),(function(n){t[n]=e[n]})),n},forEach(Object_keys(Script.prototype),(function(t){exports[t]=Script[t]=function(e){var n=Script(e);return n[t].apply(n,[].slice.call(arguments,1))}})),exports.isContext=function(t){return t instanceof Context},exports.createScript=function(t){return exports.Script(t)},exports.createContext=Script.createContext=function(t){var e=new Context;return"object"==typeof t&&forEach(Object_keys(t),(function(n){e[n]=t[n]})),e}},function(t,e,n){var r=n(2);function i(t){this._reporterState={obj:null,path:[],options:t||{},errors:[]}}function a(t,e){this.path=t,this.rethrow(e)}e.Reporter=i,i.prototype.isError=function(t){return t instanceof a},i.prototype.save=function(){var t=this._reporterState;return{obj:t.obj,pathLen:t.path.length}},i.prototype.restore=function(t){var e=this._reporterState;e.obj=t.obj,e.path=e.path.slice(0,t.pathLen)},i.prototype.enterKey=function(t){return this._reporterState.path.push(t)},i.prototype.exitKey=function(t){var e=this._reporterState;e.path=e.path.slice(0,t-1)},i.prototype.leaveKey=function(t,e,n){var r=this._reporterState;this.exitKey(t),null!==r.obj&&(r.obj[e]=n)},i.prototype.path=function(){return this._reporterState.path.join("/")},i.prototype.enterObject=function(){var t=this._reporterState,e=t.obj;return t.obj={}</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/joplin-renderer/assets/mermaid/mermaid.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 189 -   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/joplin-renderer/assets/mermaid/mermaid_render.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 29 -  const initIID_ = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Setting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1188 -  		this.saveTimeoutId_ = setTimeout(async () => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Setting.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 838 -  		return this.modelSelectOne('SELECT * FROM settings WHERE key = ?', [key]);
+
+ Line: 844 -  		return this.modelSelectAll('SELECT * FROM settings').then(async (rows) => {
+
+ Line: 898 -  			type: 'SETTING_UPDATE_ALL',
+
+ Line: 936 -  					type: 'SETTING_UPDATE_ONE',
+
+ Line: 952 -  			type: 'SETTING_UPDATE_ONE',
+
+ Line: 1146 -  		queries.push('DELETE FROM settings');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Note.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 379 -  		return this.modelSelectOne(`SELECT ${this.previewFieldsSql(options.fields)} FROM notes WHERE is_conflict = 0 AND id = ?`, [noteId]);
+
+ Line: 397 -  		return this.modelSelectAll('SELECT * FROM notes WHERE is_conflict = 1');
+
+ Line: 401 -  		const r = await this.db().selectOne('SELECT count(*) as total FROM notes WHERE is_conflict = 1');
+
+ Line: 406 -  		return this.modelSelectAll('SELECT * FROM notes WHERE is_conflict = 0');
+
+ Line: 571 -  		const n = await this.db().selectOne('SELECT updated_time FROM notes WHERE id = ?', [noteId]);
+
+ Line: 598 -  		ItemChange.add(BaseModel.TYPE_NOTE, note.id, isNew ? ItemChange.TYPE_CREATE : ItemChange.TYPE_UPDATE, changeSource, beforeNoteJson);
+
+ Line: 602 -  				type: 'NOTE_UPDATE_ONE',
+
+ Line: 634 -  				ItemChange.add(BaseModel.TYPE_NOTE, id, ItemChange.TYPE_DELETE, changeSource, beforeChangeItems[id]);
+
+ Line: 637 -  					type: 'NOTE_DELETE',
+
+ Line: 645 -  		return this.modelSelectAll('SELECT id, title, body, is_todo, todo_due, todo_completed, is_conflict FROM notes WHERE is_conflict = 0 AND is_todo = 1 AND todo_completed = 0 AND todo_due > ?', [time.unixMs()]);
+
+ Line: 702 -  	// This method will disable the NOTE_UPDATE_ONE action to prevent a lot
+
+ Line: 705 -  	// NOTE_IS_INSERTING_NOTES action in the application middleware.
+
+ Line: 711 -  				type: 'NOTE_IS_INSERTING_NOTES',
+
+ Line: 717 -  			type: 'NOTE_IS_INSERTING_NOTES',
+
+ Line: 723 -  				SELECT id, \`order\`, user_created_time, user_updated_time
+
+ Line: 724 -  				FROM notes
+
+ Line: 725 -  				WHERE is_conflict = 0 AND parent_id = ?
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/ResourceLocalState.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 15 -  		const result = await this.modelSelectOne('SELECT * FROM resource_local_states WHERE resource_id = ?', [resourceId]);
+
+ Line: 28 -  		const queries = [{ sql: 'DELETE FROM resource_local_states WHERE resource_id = ?', params: [o.resource_id] }, Database.insertQuery(this.tableName(), o)];
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/NoteTag.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 14 -  		return this.modelSelectAll(`SELECT * FROM note_tags WHERE note_id IN ("${noteIds.join('","')}")`);
+
+ Line: 18 -  		const rows = await this.db().selectAll('SELECT tag_id FROM note_tags WHERE note_id = ?', [noteId]);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/NoteResource.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  		const existingRows = await this.modelSelectAll('SELECT * FROM note_resources WHERE note_id = ?', [noteId]);
+
+ Line: 26 -  				queries.push({ sql: 'UPDATE note_resources SET last_seen_time = ?, is_associated = 1 WHERE id = ?', params: [Date.now(), row.id] });
+
+ Line: 29 -  				queries.push({ sql: 'UPDATE note_resources SET is_associated = 0 WHERE id = ?', params: [row.id] });
+
+ Line: 34 -  			queries.push({ sql: 'INSERT INTO note_resources (note_id, resource_id, is_associated, last_seen_time) VALUES (?, ?, ?, ?)', params: [noteId, notProcessedResourceIds[i], 1, Date.now()] });
+
+ Line: 41 -  		const missingResources = await this.db().selectAll('SELECT id FROM resources WHERE id NOT IN (SELECT DISTINCT resource_id FROM note_resources)');
+
+ Line: 45 -  			queries.push({ sql: 'INSERT INTO note_resources (note_id, resource_id, is_associated, last_seen_time) VALUES (?, ?, ?, ?)', params: ['', id, 0, 0] });
+
+ Line: 51 -  		await this.db().exec({ sql: 'UPDATE note_resources SET is_associated = 0 WHERE note_id = ?', params: [noteId] });
+
+ Line: 59 -  			SELECT resource_id, sum(is_associated)
+
+ Line: 60 -  			FROM note_resources
+
+ Line: 72 -  		await this.db().exec('DELETE FROM note_resources WHERE resource_id = ?', [resourceId]);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Folder.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 35 -  			.selectAll('SELECT id FROM notes WHERE is_conflict = 0 AND parent_id = ?', [parentId])
+
+ Line: 47 -  		const rows = await this.db().selectAll('SELECT id FROM folders WHERE parent_id = ?', [parentId]);
+
+ Line: 52 -  		const r = await this.db().selectOne('SELECT count(*) as total FROM notes WHERE is_conflict = 0 AND parent_id = ?', [parentId]);
+
+ Line: 57 -  		const query = Database.updateQuery('notes', { is_conflict: 1 }, { parent_id: parentId });
+
+ Line: 81 -  			type: 'FOLDER_DELETE',
+
+ Line: 114 -  		const where = !includeCompletedTodos ? 'WHERE (notes.is_todo = 0 OR notes.todo_completed = 0)' : '';
+
+ Line: 116 -  		const sql = `SELECT folders.id as folder_id, count(notes.parent_id) as note_count 
+
+ Line: 117 -  			FROM folders LEFT JOIN notes ON notes.parent_id = folders.id
+
+ Line: 209 -  		const folders = await this.db().selectAll('SELECT id FROM folders WHERE parent_id = ?', [folderId]);
+
+ Line: 365 -  		return this.modelSelectOne('SELECT * FROM folders ORDER BY created_time DESC LIMIT 1');
+
+ Line: 444 -  				type: 'FOLDER_UPDATE_ONE',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Revision.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 110 -  		const r = await this.db().selectOne('SELECT count(*) as total FROM revisions WHERE item_type = ? AND item_id = ?', [itemType, itemId]);
+
+ Line: 116 -  		return this.modelSelectOne('SELECT * FROM revisions WHERE item_type = ? AND item_id = ? ORDER BY item_updated_time DESC LIMIT 1', [itemType, itemId]);
+
+ Line: 120 -  		return this.modelSelectAll('SELECT * FROM revisions WHERE item_type = ? AND item_id = ? ORDER BY item_updated_time ASC', [itemType, itemId]);
+
+ Line: 125 -  		const rows = await this.db().selectAll(`SELECT distinct item_id FROM revisions WHERE item_type = ? AND item_id IN ("${itemIds.join('","')}")`, [itemType]);
+
+ Line: 166 -  			revs = await this.modelSelectAll('SELECT * FROM revisions WHERE item_type = ? AND item_id = ? AND item_updated_time <= ? ORDER BY item_updated_time ASC', [revision.item_type, revision.item_id, revision.item_updated_time]);
+
+ Line: 211 -  		const revisions = await this.modelSelectAll('SELECT * FROM revisions WHERE item_updated_time < ? ORDER BY item_updated_time DESC', [cutOffDate]);
+
+ Line: 218 -  			const keptRev = await this.modelSelectOne('SELECT * FROM revisions WHERE item_updated_time >= ? AND item_type = ? AND item_id = ? ORDER BY item_updated_time ASC LIMIT 1', [cutOffDate, rev.item_type, rev.item_id]);
+
+ Line: 223 -  				const deleteQuery = { sql: `DELETE FROM revisions WHERE ${deleteQueryCondition}`, params: deleteQueryParams };
+
+ Line: 226 -  					const hasEncrypted = await this.modelSelectOne(`SELECT * FROM revisions WHERE encryption_applied = 1 AND ${deleteQueryCondition}`, deleteQueryParams);
+
+ Line: 235 -  					const queries = [deleteQuery, { sql: 'UPDATE revisions SET title_diff = ?, body_diff = ?, metadata_diff = ? WHERE id = ?', params: [this.createTextPatch('', merged.title), this.createTextPatch('', merged.body), this.createObjectPatch({}, merged.metadata), keptRev.id] }];
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Resource.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 35 -  		return this.db().selectAll(`SELECT resource_id, fetch_status FROM resource_local_states WHERE resource_id IN ("${resourceIds.join('","')}")`);
+
+ Line: 40 -  			SELECT title AS resource_title, resource_id, fetch_error
+
+ Line: 41 -  			FROM resource_local_states
+
+ Line: 43 -  			WHERE fetch_status = ?
+
+ Line: 48 -  		const sql = ['SELECT * FROM resources WHERE encryption_applied = 0 AND id IN (SELECT resource_id FROM resource_local_states WHERE fetch_status = ?)'];
+
+ Line: 50 -  			sql.push('AND resources.id IN (SELECT resource_id FROM resources_to_download)');
+
+ Line: 58 -  		return await this.db().exec('UPDATE resource_local_states SET fetch_status = ? WHERE fetch_status = ?', [Resource.FETCH_STATUS_IDLE, Resource.FETCH_STATUS_STARTED]);
+
+ Line: 62 -  		return this.db().exec('UPDATE resource_local_states SET fetch_status = ?, fetch_error = "" WHERE resource_id = ?', [Resource.FETCH_STATUS_IDLE, resourceId]);
+
+ Line: 254 -  		return this.modelSelectAll('SELECT * FROM resources WHERE `size` < 0 AND encryption_blob_encrypted = 0');
+
+ Line: 261 -  		return this.db().exec('UPDATE resources set `size` = ? WHERE id = ?', [fileSize, resourceId]);
+
+ Line: 285 -  		await this.db().exec('INSERT INTO resources_to_download (resource_id, updated_time, created_time) SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM resources_to_download WHERE resource_id = ?)', [resourceId, t, t, resourceId]);
+
+ Line: 295 -  			SELECT count(*) as total
+
+ Line: 296 -  			FROM resource_local_states
+
+ Line: 297 -  			WHERE fetch_status = ?
+
+ Line: 298 -  			AND resource_id IN (SELECT id FROM resources WHERE encryption_blob_encrypted = 1)
+
+ Line: 307 -  			SELECT count(*) as total
+
+ Line: 308 -  			FROM resource_local_states
+
+ Line: 309 -  			WHERE fetch_status = ?
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Tag.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 16 -  		const rows = await this.db().selectAll('SELECT note_id FROM note_tags WHERE tag_id = ?', [tagId]);
+
+ Line: 40 -  		const noteTags = await NoteTag.modelSelectAll('SELECT id FROM note_tags WHERE tag_id = ?', [tagId]);
+
+ Line: 54 -  			type: 'TAG_DELETE',
+
+ Line: 69 -  			type: 'TAG_UPDATE_ONE',
+
+ Line: 77 -  		const noteTags = await NoteTag.modelSelectAll('SELECT id FROM note_tags WHERE tag_id = ? and note_id = ?', [tagId, noteId]);
+
+ Line: 89 -  		const sql = 'SELECT * FROM tags_with_note_count WHERE id = ?';
+
+ Line: 94 -  		const r = await this.db().selectOne('SELECT note_id FROM note_tags WHERE tag_id = ? AND note_id = ? LIMIT 1', [tagId, noteId]);
+
+ Line: 99 -  		return await Tag.modelSelectAll('SELECT * FROM tags_with_note_count');
+
+ Line: 105 -  		options.conditions.push('id IN (SELECT distinct id FROM tags_with_note_count)');
+
+ Line: 111 -  		return this.modelSelectAll(`SELECT * FROM tags WHERE id IN ("${tagIds.join('","')}")`);
+
+ Line: 126 -  		return this.modelSelectAll(`SELECT * FROM tags WHERE id IN ("${commonTagIds.join('","')}")`);
+
+ Line: 188 -  				type: 'TAG_UPDATE_ONE',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/BaseItem.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 82 -  		const sql = 'SELECT count(*) as total FROM sync_items WHERE sync_target = ? AND item_type = ?';
+
+ Line: 122 -  		const temp = await this.db().selectAll('SELECT item_id FROM sync_items WHERE sync_time > 0 AND sync_target = ?', [syncTarget]);
+
+ Line: 131 -  		const output = await this.db().selectAll('SELECT * FROM sync_items WHERE sync_target = ?', [syncTarget]);
+
+ Line: 162 -  			const sql = `SELECT * FROM ${ItemClass.tableName()} WHERE id IN ("${ids.join('","')}")`;
+
+ Line: 197 -  			const conflictNotes = await this.db().selectAll(`SELECT id FROM notes WHERE id IN ("${ids.join('","')}") AND is_conflict = 1`);
+
+ Line: 216 -  						sql: 'INSERT INTO deleted_items (item_type, item_id, deleted_time, sync_target) VALUES (?, ?, ?, ?)',
+
+ Line: 235 -  		return this.db().selectAll('SELECT * FROM deleted_items WHERE sync_target = ?', [syncTarget]);
+
+ Line: 239 -  		const r = await this.db().selectOne('SELECT count(*) as total FROM deleted_items WHERE sync_target = ?', [syncTarget]);
+
+ Line: 244 -  		return this.db().exec('DELETE FROM deleted_items WHERE item_id = ? AND sync_target = ?', [itemId, syncTarget]);
+
+ Line: 501 -  				const blobDownloadedButEncryptedSql = 'encryption_blob_encrypted = 1 AND id IN (SELECT resource_id FROM resource_local_states WHERE fetch_status = 2))';
+
+ Line: 509 -  				SELECT *
+
+ Line: 510 -  				FROM %s
+
+ Line: 511 -  				WHERE %s
+
+ Line: 540 -  			// 'SELECT * FROM [ITEMS] WHERE id NOT INT (SELECT item_id FROM sync_items WHERE sync_target = ?)'
+
+ Line: 543 -  			// 'SELECT * FROM [ITEMS] items JOIN sync_items s ON s.item_id = items.id WHERE sync_target = ? AND'
+
+ Line: 560 -  				SELECT %s
+
+ Line: 561 -  				FROM %s items
+
+ Line: 562 -  				WHERE id NOT IN (
+
+ Line: 563 -  					SELECT item_id FROM sync_items WHERE sync_target = %d
+
+ Line: 589 -  					SELECT %s FROM %s items
+
+ Line: 591 -  					WHERE sync_target = %d
+
+ Line: 650 -  		const rows = await this.db().selectAll('SELECT * FROM sync_items WHERE sync_disabled = 1 AND sync_target = ?', [syncTargetId]);
+
+ Line: 675 -  				sql: 'DELETE FROM sync_items WHERE sync_target = ? AND item_type = ? AND item_id = ?',
+
+ Line: 679 -  				sql: 'INSERT INTO sync_items (sync_target, item_type, item_id, item_location, sync_time, sync_disabled, sync_disabled_reason) VALUES (?, ?, ?, ?, ?, ?, ?)',
+
+ Line: 707 -  			let selectSql = `SELECT id FROM ${ItemClass.tableName()}`;
+
+ Line: 708 -  			if (ItemClass.modelType() == this.TYPE_NOTE) selectSql += ' WHERE is_conflict = 0';
+
+ Line: 710 -  			queries.push(`DELETE FROM sync_items WHERE item_location = ${BaseItem.SYNC_ITEM_LOCATION_LOCAL} AND item_type = ${ItemClass.modelType()} AND item_id NOT IN (${selectSql})`);
+
+ Line: 731 -  				SELECT id
+
+ Line: 732 -  				FROM %s
+
+ Line: 733 -  				WHERE encryption_applied = 0`,
+
+ Line: 743 -  			await this.db().exec(`UPDATE sync_items SET force_sync = 1 WHERE item_id IN ("${ids.join('","')}")`);
+
+ Line: 767 -  		await this.db().exec('UPDATE sync_items SET force_sync = 1 WHERE item_id = ?', [itemId]);
+
+ Line: 771 -  		await this.db().exec('UPDATE sync_items SET force_sync = 1');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/ItemChange.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 39 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/ItemChange.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 23 -  			await this.db().transactionExecBatch([{ sql: 'DELETE FROM item_changes WHERE item_id = ?', params: [itemId] }, { sql: 'INSERT INTO item_changes (item_type, item_id, type, source, created_time, before_change_item) VALUES (?, ?, ?, ?, ?, ?)', params: [itemType, itemId, type, changeSource, Date.now(), beforeChangeItemJson] }]);
+
+ Line: 31 -  		const row = await this.db().selectOne('SELECT max(id) as max_id FROM item_changes');
+
+ Line: 50 -  		return this.db().exec('DELETE FROM item_changes WHERE id <= ?', [lowestChangeId]);
+
+ Line: 58 -  ItemChange.TYPE_UPDATE = 2;
+
+ Line: 59 -  ItemChange.TYPE_DELETE = 3;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Migration.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 18 -  		return this.modelSelectAll('SELECT * FROM migrations ORDER BY number ASC');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/MasterKey.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  		return this.modelSelectOne('SELECT * FROM master_keys WHERE created_time >= (SELECT max(created_time) FROM master_keys)');
+
+ Line: 27 -  				type: 'MASTERKEY_UPDATE_ONE',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Alarm.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 13 -  		return this.modelSelectOne('SELECT * FROM alarms WHERE note_id = ?', [noteId]);
+
+ Line: 17 -  		return this.db().exec('DELETE FROM alarms WHERE trigger_time <= ?', [Date.now()]);
+
+ Line: 22 -  		const alarms = await this.db().selectAll('SELECT alarms.id FROM alarms LEFT JOIN notes ON alarms.note_id = notes.id WHERE notes.id IS NULL');
+
+ Line: 49 -  		return this.modelSelectAll('SELECT * FROM alarms WHERE trigger_time >= ?', [Date.now()]);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/models/Search.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 12 -  		let output = query.trim();
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/poor-man-intervals.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 3 -  	static setInterval(callback, interval) {
+
+ Line: 16 -  	static setTimeout(callback, interval) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/screens/note.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 169 -  						setTimeout(() => {
+
+ Line: 892 -  		this.focusUpdateIID_ = setTimeout(() => {
+
+ Line: 1001 -  							setTimeout(() => {
+
+ Line: 1003 -  								setTimeout(() => {
+
+ Line: 1058 -  							setTimeout(() => {
+
+ Line: 1060 -  								setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/screens/search.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 65 -  		this.setState({ query: this.props.query });
+
+ Line: 87 -  		const query = this.state.query.trim();
+
+ Line: 92 -  			query: query,
+
+ Line: 95 -  		this.setState({ query: query });
+
+ Line: 105 -  		this.setState({ query: '' });
+
+ Line: 112 -  		query = query === null ? this.state.query.trim : query.trim();
+
+ Line: 120 -  				const p = query.split(' ');
+
+ Line: 140 -  		this.setState({ query: text });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/screens/notes.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 146 -  			type: 'NOTE_UPDATE_ALL',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/screens/onedrive-login.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 93 -  		setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/screen-header.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 157 -  			this.props.dispatch({ type: 'NOTE_SELECTION_END' });
+
+ Line: 164 -  		this.props.dispatch({ type: 'NOTE_SELECT_ALL_TOGGLE' });
+
+ Line: 178 -  		this.props.dispatch({ type: 'NOTE_SELECTION_END' });
+
+ Line: 188 -  		this.props.dispatch({ type: 'NOTE_SELECTION_END' });
+
+ Line: 435 -  							this.props.dispatch({ type: 'NOTE_SELECTION_END' });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/note-body-viewer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 57 -  				this.resourceLoadedTimeoutId_ = setTimeout(() => {
+
+ Line: 89 -  			const readyStateCheckInterval = setInterval(function() {
+
+ Line: 98 -  				    	setTimeout(() => { 
+
+ Line: 154 -  		setTimeout(() => {
+
+ Line: 162 -  		setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/note-item.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 84 -  				type: 'NOTE_SELECTION_TOGGLE',
+
+ Line: 100 -  			type: this.props.noteSelectionEnabled ? 'NOTE_SELECTION_TOGGLE' : 'NOTE_SELECTION_START',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/shared/reduxSharedMiddleware.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  	if (action.type === 'SETTING_UPDATE_ONE' && !!action.key.match(/^sync\.\d+\.path$/)) {
+
+ Line: 23 -  	if (action.type === 'SETTING_UPDATE_ONE' && action.key === 'sync.resourceDownloadMode') {
+
+ Line: 42 -  	if (action.type == 'NOTE_DELETE' ||
+
+ Line: 43 -  		action.type == 'NOTE_UPDATE_ONE' ||
+
+ Line: 44 -  		action.type == 'NOTE_UPDATE_ALL' ||
+
+ Line: 46 -  		action.type == 'TAG_UPDATE_ONE') {
+
+ Line: 50 -  	if (action.type === 'NOTE_SELECT' || action.type === 'NAV_BACK') {
+
+ Line: 59 -  	if (action.type === 'NOTE_DELETE' ||
+
+ Line: 60 -  		action.type === 'NOTE_SELECT' ||
+
+ Line: 61 -  		action.type === 'NOTE_SELECT_TOGGLE' ||
+
+ Line: 62 -  		action.type === 'TAG_UPDATE_ONE' ||
+
+ Line: 63 -  		action.type === 'TAG_UPDATE_ALL') {
+
+ Line: 85 -  			type: 'TAG_UPDATE_ALL',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/components/shared/encryption-config-shared.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 71 -  	shared.refreshStatsIID_ = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/shim-init-react.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 20 -  	shim.setInterval = PoorManIntervals.setInterval;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/migrations/20.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 17 -  		queries.push({ sql: 'UPDATE resources SET `size` = ? WHERE id = ?', params: [stat.size, resourceId] });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/WebDavApi.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 436 -  		if (['MKCOL', 'DELETE', 'PUT', 'MOVE'].indexOf(method) >= 0) return null;
+
+ Line: 442 -  		// null responses are possible, for example for DELETE calls
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/file-api-driver-webdav.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 205 -  			await this.api().exec('DELETE', path);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/AsyncActionQueue.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 47 -          this.scheduleProcessingIID_ = setTimeout(() => {
+
+ Line: 91 -                  const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/file-api-driver-amazon-s3.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 5 -  const S3_MAX_DELETES = 1000;
+
+ Line: 293 -  			const toDelete = keys.splice(0, S3_MAX_DELETES);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/onedrive-api.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 82 -  		const query = {
+
+ Line: 206 -  	async exec(method, path, query = null, data = null, options = null) {
+
+ Line: 308 -  				} else if (error.code == 'itemNotFound' && method == 'DELETE') {
+
+ Line: 340 -  	async execJson(method, path, query, data) {
+
+ Line: 341 -  		const response = await this.exec(method, path, query, data);
+
+ Line: 353 -  	async execText(method, path, query, data) {
+
+ Line: 354 -  		const response = await this.exec(method, path, query, data);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/ClipperServer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 110 -  						'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/logger.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 94 -  				let sql = `SELECT * FROM logs WHERE level IN (${options.levels.join(',')}) ORDER BY timestamp DESC`;
+
+ Line: 138 -  						sql: 'INSERT INTO logs (`source`, `level`, `message`, `timestamp`) VALUES (?, ?, ?, ?)',
+
+ Line: 148 -  						sql: 'DELETE FROM logs WHERE `timestamp` < ?',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/BaseSyncTarget.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 89 -  				const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/synchronizer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 188 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/synchronizer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 147 -  		this.dispatch({ type: 'SYNC_REPORT_UPDATE', report: Object.assign({}, this.progressReport_) });
+
+ Line: 255 -  	// 2. DELETE_REMOTE: Delete on the sync target, the items that have been deleted locally.
+
+ Line: 580 -  			// 2. DELETE_REMOTE
+
+ Line: 602 -  			} // DELETE_REMOTE STEP
+
+ Line: 757 -  							if (creatingOrUpdatingResource) this.dispatch({ type: 'SYNC_CREATED_OR_UPDATED_RESOURCE', id: content.id });
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/rnInjectedJs/webviewLib.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 0 -  module.exports = "const webviewLib = {};\n\nlet manualDownloadResourceElements = [];\n\nwebviewLib.onUnloadedResourceClick = function(event) {\n\tconst resourceId = event.currentTarget.getAttribute('data-resource-id');\n\twebviewLib.options_.postMessage(`markForDownload:${resourceId}`);\n};\n\nwebviewLib.setupResourceManualDownload = function() {\n\tfor (const element of manualDownloadResourceElements) {\n\t\telement.style.cursor = 'default';\n\t\telement.removeEventListener('click', webviewLib.onUnloadedResourceClick);\n\t}\n\n\tmanualDownloadResourceElements = [];\n\n\tconst elements = document.getElementsByClassName('resource-status-notDownloaded');\n\n\tfor (const element of elements) {\n\t\telement.style.cursor = 'pointer';\n\t\telement.addEventListener('click', webviewLib.onUnloadedResourceClick);\n\t\tmanualDownloadResourceElements.push(element);\n\t}\n};\n\nwebviewLib.handleInternalLink = function(event, anchorNode) {\n\tconst href = anchorNode.getAttribute('href');\n\tif (!href) return false;\n\n\tif (href.indexOf('#') === 0) {\n\t\tevent.preventDefault();\n\t\t// let old_hash = location.hash;\n\n\t\tlocation.hash = href;\n\n\t\t// HACK\n\t\t// For some reason anchors at the bottom cause the webview to move itself\n\t\t// so that the content is aligned with the top of the screen\n\t\t// This basically refreshes the scroll view so that is returns to a normal\n\t\t// position, the scroll positions stays correct though\n\t\t// Additionally an anchor could not be clicked twice because the location\n\t\t// would not change, this fixes that also\n\t\t//\n\t\t// Commented out to fix https://github.com/laurent22/joplin/issues/2141\n\t\t// We might need to fix a better fix to the previous bug.\n\t\t//\n\t\t// setTimeout(function() {\n\t\t// \tlocation.hash = old_hash;\n\t\t// }, 10);\n\t\treturn true;\n\t}\n\n\treturn false;\n};\n\nwebviewLib.getParentAnchorElement = function(element) {\n\tlet counter = 0;\n\twhile (true) {\n\t\tif (counter++ >= 10000) {\n\t\t\tconsole.warn('been looping for too long - exiting');\n\t\t\treturn null;\n\t\t}\n\n\t\tif (!element) return null;\n\t\</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/registry.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 154 -  			reg.scheduleSyncId_ = setTimeout(timeoutCallback, delay);
+
+ Line: 182 -  			reg.recurrentSyncId_ = shim.setInterval(() => {
+
+ Line: 216 -  		setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/database.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 144 -  				const query = this.wrapQuery(queries[i]);
+
+ Line: 145 -  				await this.exec(query.sql, query.params);
+
+ Line: 240 -  			sql: `INSERT INTO \`${tableName}\` (${keySql}) VALUES (${valueSql})`,
+
+ Line: 269 -  			sql: `UPDATE \`${tableName}\` SET ${sql} WHERE ${where}`,
+
+ Line: 289 -  			INSERT INTO _BACKUP_TABLE_NAME_ SELECT _FIELDS_NO_TYPE_ FROM _TABLE_NAME_;
+
+ Line: 292 -  			INSERT INTO _TABLE_NAME_ SELECT _FIELDS_NO_TYPE_ FROM _BACKUP_TABLE_NAME_;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/shareHandler.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 36 -      setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/vendor/ntp-client.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 72 -          var timeout = setTimeout(function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/BaseApplication.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 123 -  				type: 'FOLDER_SELECT',
+
+ Line: 310 -  			type: 'NOTE_UPDATE_ALL',
+
+ Line: 317 -  				type: 'NOTE_SELECT',
+
+ Line: 344 -  				type: 'NOTE_SELECT',
+
+ Line: 455 -  		if (this.hasGui() && ['NOTE_UPDATE_ONE', 'NOTE_DELETE', 'FOLDER_UPDATE_ONE', 'FOLDER_DELETE'].indexOf(action.type) >= 0) {
+
+ Line: 460 -  		// Don't add FOLDER_UPDATE_ALL as refreshFolders() is calling it too, which
+
+ Line: 462 -  		if (this.hasGui() && ['FOLDER_UPDATE_ONE'].indexOf(action.type) >= 0) {
+
+ Line: 471 -  		if (action.type == 'HISTORY_BACKWARD' || action.type == 'HISTORY_FORWARD' || action.type == 'FOLDER_SELECT' || action.type === 'FOLDER_DELETE' || action.type === 'FOLDER_AND_NOTE_SELECT' || (action.type === 'SEARCH_UPDATE' && newState.notesParentType === 'Folder')) {
+
+ Line: 476 -  			if (action.type === 'FOLDER_AND_NOTE_SELECT') {
+
+ Line: 482 -  		if (this.hasGui() && (action.type == 'NOTE_IS_INSERTING_NOTES' && !action.value)) {
+
+ Line: 486 -  		if (this.hasGui() && ((action.type == 'SETTING_UPDATE_ONE' && action.key == 'uncompletedTodosOnTop') || action.type == 'SETTING_UPDATE_ALL')) {
+
+ Line: 490 -  		if (this.hasGui() && ((action.type == 'SETTING_UPDATE_ONE' && action.key == 'showCompletedTodos') || action.type == 'SETTING_UPDATE_ALL')) {
+
+ Line: 494 -  		if (this.hasGui() && ((action.type == 'SETTING_UPDATE_ONE' && action.key.indexOf('notes.sortOrder') === 0) || action.type == 'SETTING_UPDATE_ALL')) {
+
+ Line: 498 -  		if (action.type == 'SMART_FILTER_SELECT') {
+
+ Line: 503 -  		if (action.type == 'TAG_SELECT' || action.type === 'TAG_DELETE') {
+
+ Line: 507 -  		if (action.type == 'SEARCH_SELECT' || action.type === 'SEARCH_DELETE') {
+
+ Line: 525 -  		if (action.type === 'NOTE_UPDATE_ONE' || action.type === 'NOTE_DELETE') {
+
+ Line: 529 -  		if (this.hasGui() && action.type == 'SETTING_UPDATE_ALL') {
+
+ Line: 533 -  		if (this.hasGui() && action.type == 'SETTING_UPDATE_ONE' && (
+
+ Line: 544 -  		if (this.hasGui() && action.type === 'SYNC_CREATED_OR_UPDATED_RESOURCE') {
+
+ Line: 548 -  		if (action.type == 'SETTING_UPDATE_ONE') {
+
+ Line: 550 -  		} else if (action.type == 'SETTING_UPDATE_ALL') {
+
+ Line: 695 -  		this.database_.setLogExcludedQueryTypes(['SELECT']);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/WelcomeUtils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 70 -  				type: 'FOLDER_SELECT',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/reducer.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 198 -  		FOLDER_DELETE: ['folders', 'selectedFolderId', true],
+
+ Line: 199 -  		NOTE_DELETE: ['notes', 'selectedNoteIds', false],
+
+ Line: 200 -  		TAG_DELETE: ['tags', 'selectedTagId', true],
+
+ Line: 201 -  		SEARCH_DELETE: ['searches', 'selectedSearchId', true],
+
+ Line: 270 -  		if (action.type === 'TAG_UPDATE_ONE') itemsKey = 'tags';
+
+ Line: 271 -  		if (action.type === 'FOLDER_UPDATE_ONE') itemsKey = 'folders';
+
+ Line: 272 -  		if (action.type === 'MASTERKEY_UPDATE_ONE') itemsKey = 'masterKeys';
+
+ Line: 365 -  	if (action.type === 'NOTE_SELECT') {
+
+ Line: 369 -  	} else if (action.type === 'NOTE_SELECT_ADD') {
+
+ Line: 372 -  	} else if (action.type === 'NOTE_SELECT_REMOVE') {
+
+ Line: 383 -  	} else if (action.type === 'NOTE_SELECT_TOGGLE') {
+
+ Line: 387 -  			newState = changeSelectedNotes(state, { type: 'NOTE_SELECT_REMOVE', id: noteIds[0] });
+
+ Line: 389 -  			newState = changeSelectedNotes(state, { type: 'NOTE_SELECT_ADD', id: noteIds[0] });
+
+ Line: 439 -  		newState = changeSelectedFolder(newState, Object.assign({}, action, { type: 'FOLDER_SELECT', folderId: note.parent_id }));
+
+ Line: 440 -  		newState = changeSelectedNotes(newState, Object.assign({}, action, { type: 'NOTE_SELECT', noteId: note.id }));
+
+ Line: 455 -  		newState = changeSelectedFolder(newState, Object.assign({}, action, { type: 'FOLDER_SELECT', folderId: note.parent_id }));
+
+ Line: 456 -  		newState = changeSelectedNotes(newState, Object.assign({}, action, { type: 'NOTE_SELECT', noteId: note.id }));
+
+ Line: 465 -  	case 'NOTE_SELECT':
+
+ Line: 476 -  	case 'TAG_SELECT':
+
+ Line: 477 -  	case 'FOLDER_AND_NOTE_SELECT':
+
+ Line: 478 -  	case 'FOLDER_SELECT':
+
+ Line: 484 -  	case 'NOTE_UPDATE_ONE': {
+
+ Line: 503 -  	case 'SEARCH_UPDATE':
+
+ Line: 510 -  	case 'FOLDER_DELETE':
+
+ Line: 517 -  	case 'NOTE_DELETE': {
+
+ Line: 549 -  	// NOTE_DELETE requires post processing
+
+ Line: 550 -  	if (action.type !== 'NOTE_DELETE') {
+
+ Line: 557 -  		case 'NOTE_SELECT':
+
+ Line: 558 -  		case 'NOTE_SELECT_ADD':
+
+ Line: 559 -  		case 'NOTE_SELECT_REMOVE':
+
+ Line: 560 -  		case 'NOTE_SELECT_TOGGLE':
+
+ Line: 563 -  		case 'NOTE_SELECT_EXTEND':
+
+ Line: 597 -  		case 'NOTE_SELECT_ALL':
+
+ Line: 602 -  		case 'NOTE_SELECT_ALL_TOGGLE': {
+
+ Line: 613 -  		case 'SMART_FILTER_SELECT':
+
+ Line: 619 -  		case 'FOLDER_SELECT':
+
+ Line: 623 -  		case 'FOLDER_AND_NOTE_SELECT':
+
+ Line: 626 -  				const noteSelectAction = Object.assign({}, action, { type: 'NOTE_SELECT' });
+
+ Line: 631 -  		case 'SETTING_UPDATE_ALL':
+
+ Line: 636 -  		case 'SETTING_UPDATE_ONE':
+
+ Line: 655 -  		case 'NOTE_UPDATE_ALL':
+
+ Line: 664 -  		case 'NOTE_UPDATE_ONE':
+
+ Line: 737 -  		case 'NOTE_DELETE':
+
+ Line: 751 -  		case 'NOTE_IS_INSERTING_NOTES':
+
+ Line: 759 -  		case 'TAG_DELETE':
+
+ Line: 764 -  		case 'FOLDER_UPDATE_ALL':
+
+ Line: 786 -  		case 'TAG_UPDATE_ALL':
+
+ Line: 791 -  		case 'TAG_SELECT':
+
+ Line: 801 -  		case 'TAG_UPDATE_ONE':
+
+ Line: 836 -  		case 'FOLDER_UPDATE_ONE':
+
+ Line: 837 -  		case 'MASTERKEY_UPDATE_ONE':
+
+ Line: 841 -  		case 'FOLDER_DELETE':
+
+ Line: 845 -  		case 'MASTERKEY_UPDATE_ALL':
+
+ Line: 892 -  		case 'SYNC_REPORT_UPDATE':
+
+ Line: 911 -  		case 'SEARCH_UPDATE':
+
+ Line: 935 -  		case 'SEARCH_DELETE':
+
+ Line: 939 -  		case 'SEARCH_SELECT':
+
+ Line: 1004 -  		case 'TEMPLATE_UPDATE_ALL':
+
+ Line: 1031 -  	if (action.type.indexOf('NOTE_UPDATE') === 0 || action.type.indexOf('FOLDER_UPDATE') === 0 || action.type.indexOf('TAG_UPDATE') === 0) {
+
+ Line: 1036 -  	if (action.type === 'NOTE_DELETE') {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/file-api-driver-onedrive.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 84 -  		let query = this.itemFilter_();
+
+ Line: 92 -  		const r = await this.api_.execJson('GET', url, query);
+
+ Line: 150 -  		return this.api_.exec('DELETE', this.makePath_(path));
+
+ Line: 222 -  			const query = this.itemFilter_();
+
+ Line: 224 -  			return { url: url, query: query };
+
+ Line: 232 -  		let query = null;
+
+ Line: 242 -  			response = await this.api_.execJson('GET', url, query);
+
+ Line: 261 -  				response = await this.api_.execJson('GET', url, query);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/time-utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 104 -  			setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/BaseModel.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 165 -  		let sql = `SELECT count(*) as total FROM \`${this.tableName()}\``;
+
+ Line: 166 -  		if (options.where) sql += ` WHERE ${options.where}`;
+
+ Line: 183 -  		return this.modelSelectAll(`SELECT * FROM \`${this.tableName()}\` WHERE \`id\` LIKE ?`, [`${partialId}%`]);
+
+ Line: 207 -  		const q = this.applySqlOptions(options, `SELECT id FROM \`${this.tableName()}\``);
+
+ Line: 216 -  		let sql = `SELECT ${this.db().escapeFields(options.fields)} FROM \`${this.tableName()}\``;
+
+ Line: 219 -  			sql += ` WHERE ${options.where}`;
+
+ Line: 232 -  		let sql = `SELECT ${this.db().escapeFields(options.fields)} FROM \`${this.tableName()}\``;
+
+ Line: 233 -  		sql += ` WHERE id IN ("${ids.join('","')}")`;
+
+ Line: 253 -  		let sql = `SELECT ${this.db().escapeFields(options.fields)} FROM \`${this.tableName()}\``;
+
+ Line: 254 -  		if (conditions.length) sql += ` WHERE ${conditions.join(' AND ')}`;
+
+ Line: 256 -  		const query = this.applySqlOptions(options, sql, params);
+
+ Line: 257 -  		return this.modelSelectAll(query.sql, query.params);
+
+ Line: 282 -  		let sql = `SELECT ${this.db().escapeFields(options.fields)} FROM \`${this.tableName()}\` WHERE \`${fieldName}\` = ?`;
+
+ Line: 297 -  		let sql = `SELECT ${this.db().escapeFields(options.fields)} FROM \`${this.tableName()}\` WHERE ${whereSql.join(' AND ')}`;
+
+ Line: 303 -  		return this.modelSelectOne(`SELECT * FROM \`${this.tableName()}\` WHERE \`title\` = ?`, [fieldValue]);
+
+ Line: 395 -  		let query = {};
+
+ Line: 444 -  		return query;
+
+ Line: 571 -  		return this.db().exec(`DELETE FROM ${this.tableName()} WHERE id = ?`, [id]);
+
+ Line: 578 -  		const sql = `DELETE FROM ${this.tableName()} WHERE ${idFieldName} IN ("${ids.join('","')}")`;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/import-enex.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 486 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/import-enex.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 98 -  		const notes = await Note.modelSelectAll('SELECT * FROM notes WHERE is_conflict = 0 AND created_time = ? AND title = ?', [note.created_time, note.title]);
+
+ Line: 102 -  	const notes = await Note.modelSelectAll('SELECT * FROM notes WHERE is_conflict = 0 AND created_time = ?', [note.created_time]);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/folders-screen-utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 51 -  		this.scheduleRefreshFoldersIID_ = setTimeout(() => {
+
+ Line: 63 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/folders-screen-utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 41 -  				type: 'FOLDER_UPDATE_ALL',
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/CommandService.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 46 -          this.mapStateToPropsIID_ = setTimeout(() => {
+
+ Line: 145 -          setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/synchronizer/LockHandler.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 266 -          this.refreshTimers_[handle].id = setInterval(() => __awaiter(this, void 0, void 0, function* () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/report.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 59 -  			const items = await ItemClass.modelSelectAll(`SELECT items.id, items.updated_time, sync_items.sync_time FROM ${ItemClass.tableName()} items JOIN sync_items ON sync_items.item_id = items.id`);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/searchengine/SearchEngineUtils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 8 -  		if (query.length && query[0] === '/') {
+
+ Line: 9 -  			query = query.substr(1);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/searchengine/queryBuilder.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -      Operation["UNION"] = "UNION";
+
+ Line: 30 -  		SELECT folders.id
+
+ Line: 31 -  		FROM folders
+
+ Line: 32 -  		WHERE id
+
+ Line: 34 -  			SELECT id
+
+ Line: 35 -  			FROM folders
+
+ Line: 36 -  			WHERE ${relevantFolders}
+
+ Line: 38 -  		UNION ALL
+
+ Line: 39 -  		SELECT folders.id
+
+ Line: 40 -  		FROM folders
+
+ Line: 46 -  		SELECT notes_normalized.ROWID
+
+ Line: 47 -  		FROM notebooks_in_scope
+
+ Line: 60 -          return Operation.UNION;
+
+ Line: 72 -  			SELECT DISTINCT note_${tableName}.note_id AS id FROM note_${tableName}
+
+ Line: 75 -  		SELECT * FROM (
+
+ Line: 76 -  			SELECT *
+
+ Line: 77 -  			FROM all_notes_with_${requirement}_${tableName}
+
+ Line: 84 -          const requiredNotesQuery = requiredNotes.join(' UNION ');
+
+ Line: 102 -  			SELECT note_${tableName}.note_id as id
+
+ Line: 103 -  			FROM note_${tableName}
+
+ Line: 104 -  			WHERE
+
+ Line: 113 -  		SELECT notes_normalized.ROWID
+
+ Line: 114 -  		FROM notes_with_${requirement}_${tableName}
+
+ Line: 125 -  	SELECT resources.id
+
+ Line: 126 -  	FROM resources
+
+ Line: 127 -  	WHERE resources.mime LIKE ?`;
+
+ Line: 129 -  	SELECT note_resources.note_id AS id
+
+ Line: 130 -  	FROM note_resources
+
+ Line: 131 -  	WHERE note_resources.is_associated=1
+
+ Line: 145 -  	SELECT tags.id
+
+ Line: 146 -  	FROM tags
+
+ Line: 147 -  	WHERE tags.title
+
+ Line: 150 -  	SELECT note_tags.note_id AS id
+
+ Line: 151 -  	FROM note_tags
+
+ Line: 152 -  	WHERE note_tags.tag_id IN (${tagIDs})`;
+
+ Line: 164 -          // Faster query when values can only take two distinct values
+
+ Line: 179 -  			SELECT ROWID
+
+ Line: 180 -  			FROM notes_normalized
+
+ Line: 181 -  			WHERE ${getCondition(term)}
+
+ Line: 209 -  				SELECT ROWID
+
+ Line: 210 -  				FROM notes_normalized
+
+ Line: 211 -  				WHERE ${getCondition(filterName, value, relation)}
+
+ Line: 267 -  				SELECT ROWID
+
+ Line: 268 -  				FROM notes_fts
+
+ Line: 269 -  				WHERE notes_fts${type} MATCH ?
+
+ Line: 277 -  					SELECT *
+
+ Line: 278 -  					FROM (
+
+ Line: 279 -  						SELECT ROWID
+
+ Line: 280 -  						FROM notes_fts
+
+ Line: 282 -  						SELECT ROWID
+
+ Line: 283 -  						FROM notes_fts
+
+ Line: 284 -  						WHERE notes_fts${type} MATCH ?
+
+ Line: 328 -  function queryBuilder(terms, fuzzy) {
+
+ Line: 329 -      const queryParts = [];
+
+ Line: 333 -      queryParts.push(`
+
+ Line: 334 -  	SELECT
+
+ Line: 344 -  	FROM notes_fts
+
+ Line: 345 -  	WHERE ${getConnective(terms, relation)}`);
+
+ Line: 346 -      notebookFilter(terms, queryParts, params, withs);
+
+ Line: 347 -      tagFilter(terms, queryParts, params, relation, withs);
+
+ Line: 348 -      resourceFilter(terms, queryParts, params, relation, withs);
+
+ Line: 349 -      textFilter(terms, queryParts, params, relation, fuzzy);
+
+ Line: 350 -      typeFilter(terms, queryParts, params, relation);
+
+ Line: 351 -      completedFilter(terms, queryParts, params, relation);
+
+ Line: 352 -      dateFilter(terms, queryParts, params, relation);
+
+ Line: 353 -      locationFilter(terms, queryParts, params, relation);
+
+ Line: 354 -      sourceUrlFilter(terms, queryParts, params, relation);
+
+ Line: 355 -      let query;
+
+ Line: 357 -          query = ['WITH RECURSIVE', withs.join(','), queryParts.join(' ')].join(' ');
+
+ Line: 360 -          query = queryParts.join(' ');
+
+ Line: 362 -      return { query, params };
+
+ Line: 364 -  exports.default = queryBuilder;
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/searchengine/filterParser.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 21 -      for (let i = 0; i < query.length; i++) {
+
+ Line: 22 -          const c = query[i];
+
+ Line: 73 -                  // Trim quotes since we don't support phrase query here
+
+ Line: 86 -              // By quoting the word, FTS match query will take care of removing dashes and other word seperators.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/searchengine/SearchEngine.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 97 -  		this.scheduleSyncTablesIID_ = setTimeout(async () => {
+
+ Line: 668 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/searchengine/SearchEngine.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 10 -  const queryBuilder = require('./queryBuilder').default;
+
+ Line: 57 -  		let noteIds = await this.db().selectAll('SELECT id FROM notes WHERE is_conflict = 0 AND encryption_applied = 0');
+
+ Line: 63 -  		await this.db().exec('DELETE FROM notes_normalized');
+
+ Line: 68 -  				SELECT ${SearchEngine.relevantFields}
+
+ Line: 69 -  				FROM notes
+
+ Line: 70 -  				WHERE id IN ("${currentIds.join('","')}") AND is_conflict = 0 AND encryption_applied = 0`);
+
+ Line: 77 -  				INSERT INTO notes_normalized(${SearchEngine.relevantFields})
+
+ Line: 85 -  				queries.push({ sql: 'INSERT INTO notes_spellfix(word,rank) SELECT term, documents FROM search_aux WHERE col=\'*\'' });
+
+ Line: 142 -  					SELECT id, item_id, type
+
+ Line: 143 -  					FROM item_changes
+
+ Line: 144 -  					WHERE item_type = ?
+
+ Line: 156 -  						queries.push({ sql: 'DELETE FROM notes_spellfix' });
+
+ Line: 157 -  						queries.push({ sql: 'INSERT INTO notes_spellfix(word,rank) SELECT term, documents FROM search_aux WHERE col=\'*\'' });
+
+ Line: 165 -  					SELECT ${SearchEngine.relevantFields}
+
+ Line: 166 -  					FROM notes WHERE id IN ("${noteIds.join('","')}") AND is_conflict = 0 AND encryption_applied = 0`
+
+ Line: 172 -  					if (change.type === ItemChange.TYPE_CREATE || change.type === ItemChange.TYPE_UPDATE) {
+
+ Line: 173 -  						queries.push({ sql: 'DELETE FROM notes_normalized WHERE id = ?', params: [change.item_id] });
+
+ Line: 178 -  							INSERT INTO notes_normalized(${SearchEngine.relevantFields})
+
+ Line: 183 -  					} else if (change.type === ItemChange.TYPE_DELETE) {
+
+ Line: 184 -  						queries.push({ sql: 'DELETE FROM notes_normalized WHERE id = ?', params: [change.item_id] });
+
+ Line: 218 -  		const sql = 'SELECT count(*) as total FROM notes_fts';
+
+ Line: 239 -  		// - If there's only one term in the query string, the content with the most matches goes on top
+
+ Line: 241 -  		//   eg. if query is "abcd efgh", "abcd efgh" will go before "abcd XX efgh".
+
+ Line: 271 -  		// p - The number of matchable phrases in the query.
+
+ Line: 429 -  			const fuzzyWords = this.db().selectAll('SELECT word, score FROM notes_spellfix WHERE word MATCH ? AND top=3', [word]);
+
+ Line: 586 -  		query = query.replace(/\*/, '');
+
+ Line: 646 -  				const { query, params } =  (searchType === SearchEngine.SEARCH_TYPE_FTS_FUZZY) ? queryBuilder(parsedQuery.allTerms, true) : queryBuilder(parsedQuery.allTerms, false);
+
+ Line: 654 -  				this.logger().warn(`Cannot execute MATCH query: ${searchString}: ${error.message}`);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/ExternalEditWatcher.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 251 -  				const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/RevisionService.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 272 -  		this.maintenanceTimer1_ = setTimeout(() => {
+
+ Line: 276 -  		this.maintenanceTImer2_ = shim.setInterval(() => {
+
+ Line: 292 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/RevisionService.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 118 -  					SELECT id, item_id, type, before_change_item
+
+ Line: 119 -  					FROM item_changes
+
+ Line: 120 -  					WHERE item_type = ?
+
+ Line: 133 -  				const notes = await Note.modelSelectAll(`SELECT * FROM notes WHERE is_conflict = 0 AND encryption_applied = 0 AND id IN ("${noteIds.join('","')}")`);
+
+ Line: 139 -  					if (change.type === ItemChange.TYPE_UPDATE && doneNoteIds.indexOf(noteId) < 0) {
+
+ Line: 157 -  					if (change.type === ItemChange.TYPE_DELETE && !!change.before_change_item) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/ResourceService.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 162 -  		service.maintenanceTimer1_ = setTimeout(() => {
+
+ Line: 166 -  		service.maintenanceTimer2_ = shim.setInterval(() => {
+
+ Line: 182 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/ResourceService.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 36 -  				SELECT id, item_id, type
+
+ Line: 37 -  				FROM item_changes
+
+ Line: 38 -  				WHERE item_type = ?
+
+ Line: 49 -  			const notes = await Note.modelSelectAll(`SELECT id, title, body, encryption_applied FROM notes WHERE id IN ("${noteIds.join('","')}")`);
+
+ Line: 66 -  				if (change.type === ItemChange.TYPE_CREATE || change.type === ItemChange.TYPE_UPDATE) {
+
+ Line: 83 -  				} else if (change.type === ItemChange.TYPE_DELETE) {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/KvStore.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 46 -  		const r = await this.db().selectOne('SELECT `value`, `type` FROM key_values WHERE `key` = ?', [key]);
+
+ Line: 53 -  		await this.db().exec('INSERT OR REPLACE INTO key_values (`key`, `value`, `type`, `updated_time`) VALUES (?, ?, ?, ?)', [key, value, this.typeFromValue_(value), t]);
+
+ Line: 57 -  		await this.db().exec('DELETE FROM key_values WHERE `key` = ?', [key]);
+
+ Line: 61 -  		await this.db().exec('DELETE FROM key_values WHERE `key` LIKE ?', [`${prefix}%`]);
+
+ Line: 65 -  		await this.db().exec('DELETE FROM key_values');
+
+ Line: 69 -  		return this.formatValues_(await this.db().selectAll('SELECT * FROM key_values'));
+
+ Line: 78 -  			const result = await this.db().selectOne('SELECT `value`, `type` FROM key_values WHERE `key` = ?', [key]);
+
+ Line: 90 -  		const results = await this.db().selectAll('SELECT `key`, `value`, `type` FROM key_values WHERE `key` LIKE ?', [`${prefix}%`]);
+
+ Line: 95 -  		const r = await this.db().selectOne('SELECT count(*) as total FROM key_values');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/ResourceFetcher.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 198 -  			const iid = setInterval(() => {
+
+ Line: 251 -  		this.scheduleQueueProcessIID_ = setTimeout(() => {
+
+ Line: 260 -  		this.scheduleAutoAddResourcesIID_ = setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/rest/Api.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 53 -  	async route(method, path, query = null, body = null, files = null) {
+
+ Line: 55 -  		if (!query) query = {};
+
+ Line: 60 -  		if (query && query.nounce) {
+
+ Line: 61 -  			const requestMd5 = md5(JSON.stringify([method, path, body, query, files.length]));
+
+ Line: 71 -  			query: query ? query : {},
+
+ Line: 131 -  		const query = request.query;
+
+ Line: 133 -  		const fields = query.fields
+
+ Line: 185 -  		if (request.method === 'DELETE' && id) {
+
+ Line: 216 -  		const query = request.query.query;
+
+ Line: 219 -  		const queryType = request.query.type ? BaseModel.modelNameToType(request.query.type) : BaseModel.TYPE_NOTE;
+
+ Line: 226 -  			const sqlQueryPart = query.replace(/\*/g, '%');
+
+ Line: 266 -  			if (request.method === 'DELETE') {
+
+ Line: 274 -  				// Ideally we should get all this in one SQL query but for now that will do
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/AlarmServiceDriverNode.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 49 -  		// Note: setTimeout will break for values larger than Number.MAX_VALUE - in which case the timer
+
+ Line: 58 -  			timeoutId = setTimeout(() => {
+
+ Line: 66 -  			timeoutId = setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/services/DecryptionWorker.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 66 -  		this.scheduleId_ = setTimeout(() => {
+
+ Line: 289 -  			const iid = setInterval(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/joplin-database.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 118 -  INSERT INTO version (version) VALUES (1);
+
+ Line: 195 -  			queries.push(`DELETE FROM ${n}`);
+
+ Line: 196 -  			queries.push(`DELETE FROM sqlite_sequence WHERE name="${n}"`); // Reset autoincremented IDs
+
+ Line: 199 -  		queries.push('DELETE FROM settings WHERE key="sync.1.context"');
+
+ Line: 200 -  		queries.push('DELETE FROM settings WHERE key="sync.2.context"');
+
+ Line: 201 -  		queries.push('DELETE FROM settings WHERE key="sync.3.context"');
+
+ Line: 202 -  		queries.push('DELETE FROM settings WHERE key="sync.4.context"');
+
+ Line: 203 -  		queries.push('DELETE FROM settings WHERE key="sync.5.context"');
+
+ Line: 204 -  		queries.push('DELETE FROM settings WHERE key="sync.6.context"');
+
+ Line: 205 -  		queries.push('DELETE FROM settings WHERE key="sync.7.context"');
+
+ Line: 207 -  		queries.push('DELETE FROM settings WHERE key="revisionService.lastProcessedChangeId"');
+
+ Line: 208 -  		queries.push('DELETE FROM settings WHERE key="resourceService.lastProcessedChangeId"');
+
+ Line: 209 -  		queries.push('DELETE FROM settings WHERE key="searchEngine.lastProcessedChangeId"');
+
+ Line: 275 -  		queries.push(this.wrapQuery('DELETE FROM table_fields'));
+
+ Line: 277 -  		return this.selectAll('SELECT name FROM sqlite_master WHERE type="table"')
+
+ Line: 312 -  				queries.push({ sql: 'UPDATE version SET table_fields_version = ?', params: [newVersion] });
+
+ Line: 319 -  		return { sql: 'INSERT INTO migrations (number, created_time, updated_time) VALUES (?, ?, ?)', params: [num, timestamp, timestamp] };
+
+ Line: 388 -  				queries.push('INSERT INTO settings (`key`, `value`) VALUES (\'sync.3.context\', (SELECT `value` FROM settings WHERE `key` = \'sync.context\'))');
+
+ Line: 389 -  				queries.push('DELETE FROM settings WHERE `key` = "sync.context"');
+
+ Line: 398 -  					queries.push(`UPDATE ${n} SET user_created_time = created_time`);
+
+ Line: 399 -  					queries.push(`UPDATE ${n} SET user_updated_time = updated_time`);
+
+ Line: 473 -  				queries.push({ sql: 'INSERT INTO item_changes (item_type, item_id, type, created_time) SELECT 1, id, 1, ? FROM notes', params: [Date.now()] });
+
+ Line: 496 -  				queries.push({ sql: 'UPDATE resources SET fetch_status = ?', params: [Resource.FETCH_STATUS_DONE] });
+
+ Line: 511 -  				queries.push('INSERT INTO resource_local_states SELECT null, id, fetch_status, fetch_error FROM resources');
+
+ Line: 536 -  				queries.push('INSERT INTO notes_fts(docid, id, title, body) SELECT rowid, id, title, body FROM notes WHERE is_conflict = 0 AND encryption_applied = 0');
+
+ Line: 541 -  					CREATE TRIGGER notes_fts_before_update BEFORE UPDATE ON notes BEGIN
+
+ Line: 542 -  						DELETE FROM notes_fts WHERE docid=old.rowid;
+
+ Line: 545 -  					CREATE TRIGGER notes_fts_before_delete BEFORE DELETE ON notes BEGIN
+
+ Line: 546 -  						DELETE FROM notes_fts WHERE docid=old.rowid;
+
+ Line: 549 -  					CREATE TRIGGER notes_after_update AFTER UPDATE ON notes BEGIN
+
+ Line: 550 -  						INSERT INTO notes_fts(docid, id, title, body) SELECT rowid, id, title, body FROM notes WHERE is_conflict = 0 AND encryption_applied = 0 AND new.rowid = notes.rowid;
+
+ Line: 553 -  					CREATE TRIGGER notes_after_insert AFTER INSERT ON notes BEGIN
+
+ Line: 554 -  						INSERT INTO notes_fts(docid, id, title, body) SELECT rowid, id, title, body FROM notes WHERE is_conflict = 0 AND encryption_applied = 0 AND new.rowid = notes.rowid;
+
+ Line: 582 -  					CREATE TRIGGER notes_fts_before_update BEFORE UPDATE ON notes_normalized BEGIN
+
+ Line: 583 -  						DELETE FROM notes_fts WHERE docid=old.rowid;
+
+ Line: 586 -  					CREATE TRIGGER notes_fts_before_delete BEFORE DELETE ON notes_normalized BEGIN
+
+ Line: 587 -  						DELETE FROM notes_fts WHERE docid=old.rowid;
+
+ Line: 590 -  					CREATE TRIGGER notes_after_update AFTER UPDATE ON notes_normalized BEGIN
+
+ Line: 591 -  						INSERT INTO notes_fts(docid, id, title, body) SELECT rowid, id, title, body FROM notes_normalized WHERE new.rowid = notes_normalized.rowid;
+
+ Line: 594 -  					CREATE TRIGGER notes_after_insert AFTER INSERT ON notes_normalized BEGIN
+
+ Line: 595 -  						INSERT INTO notes_fts(docid, id, title, body) SELECT rowid, id, title, body FROM notes_normalized WHERE new.rowid = notes_normalized.rowid;
+
+ Line: 683 -  						SELECT tags.id as id, tags.title as title, tags.created_time as created_time, tags.updated_time as updated_time, COUNT(notes.id) as note_count 
+
+ Line: 684 -  						FROM tags 
+
+ Line: 687 -  						WHERE notes.id IS NOT NULL 
+
+ Line: 762 -  						SELECT tags.id as id, tags.title as title, tags.created_time as created_time, tags.updated_time as updated_time, COUNT(notes.id) as note_count 
+
+ Line: 763 -  						FROM tags 
+
+ Line: 766 -  						WHERE notes.id IS NOT NULL 
+
+ Line: 835 -  					CREATE TRIGGER notes_fts_before_update BEFORE UPDATE ON notes_normalized BEGIN
+
+ Line: 836 -  						DELETE FROM notes_fts WHERE docid=old.rowid;
+
+ Line: 839 -  					CREATE TRIGGER notes_fts_before_delete BEFORE DELETE ON notes_normalized BEGIN
+
+ Line: 840 -  						DELETE FROM notes_fts WHERE docid=old.rowid;
+
+ Line: 843 -  					CREATE TRIGGER notes_after_update AFTER UPDATE ON notes_normalized BEGIN
+
+ Line: 844 -  						INSERT INTO notes_fts(docid, ${tableFields}) SELECT rowid, ${tableFields} FROM notes_normalized WHERE new.rowid = notes_normalized.rowid;
+
+ Line: 847 -  					CREATE TRIGGER notes_after_insert AFTER INSERT ON notes_normalized BEGIN
+
+ Line: 848 -  						INSERT INTO notes_fts(docid, ${tableFields}) SELECT rowid, ${tableFields} FROM notes_normalized WHERE new.rowid = notes_normalized.rowid;
+
+ Line: 858 -  			queries.push({ sql: 'UPDATE version SET version = ?', params: [targetVersion] });
+
+ Line: 882 -  			await this.selectOne('SELECT count(*) FROM notes_fts');
+
+ Line: 895 -  			await this.selectOne('SELECT count(*) FROM notes_spellfix');
+
+ Line: 920 -  			versionRow = await this.selectOne('SELECT * FROM version LIMIT 1');
+
+ Line: 940 -  		const rows = await this.selectAll('SELECT * FROM table_fields');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/shim.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 169 -  shim.setInterval = function(fn, interval) {
+
+ Line: 170 -  	return setInterval(fn, interval);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/onedrive-api-node-utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 73 -  					setTimeout(() => {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/onedrive-api-node-utils.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 61 -  				const query = url.query;
+
+ Line: 79 -  				if (!query.code) return writeResponse(400, '"code" query parameter is missing');
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/lib/renderers/webviewLib.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 47 -  		// setTimeout(function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/command-search.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 43 -  			type: 'SEARCH_SELECT',
+
+</Result>
+</report_mosca>
+

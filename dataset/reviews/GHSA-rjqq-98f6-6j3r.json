@@ -1,0 +1,59 @@
+{
+    "advisory": {
+        "id": "GHSA-rjqq-98f6-6j3r",
+        "cwe": "CWE-20"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/sanitize-html/-/sanitize-html-2.3.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "index.js",
+                    "start_lineno": 305,
+                    "end_lineno": 337,
+                    "code": "if (name === 'iframe' && a === 'src') { let allowed = true; try { // naughtyHref is in charge of whether protocol relative URLs // are cool. We should just accept them // TODO: Replace deprecated `url.parse` // eslint-disable-next-line node/no-deprecated-api parsed = url.parse(value, false, true); const isRelativeUrl = parsed && parsed.host === null && parsed.protocol === null; if (isRelativeUrl) { // default value of allowIframeRelativeUrls is true // unless allowedIframeHostnames or allowedIframeDomains specified allowed = has(options, 'allowIframeRelativeUrls') ? options.allowIframeRelativeUrls : (!options.allowedIframeHostnames && !options.allowedIframeDomains); } else if (options.allowedIframeHostnames || options.allowedIframeDomains) { const allowedHostname = (options.allowedIframeHostnames || []).find(function (hostname) { return hostname === parsed.hostname; }); const allowedDomain = (options.allowedIframeDomains || []).find(function(domain) { return parsed.hostname === domain || parsed.hostname.endsWith(`.${domain}`); }); allowed = allowedHostname || allowedDomain; } } catch (e) { // Unparseable iframe src allowed = false; } if (!allowed) { delete frame.attribs[a]; return; } }"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://advisory.checkmarx.net/advisory/CX-2021-4308/"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/apostrophecms/sanitize-html/pull/458/files"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

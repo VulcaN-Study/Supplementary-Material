@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-333x-qr3v-g4xx",
+        "cwe": "CWE-74"
+    },
+    "correct_cwe": ["CWE-74", "CWE-78"],
+    "correct_package_link": "https://registry.npmjs.org/spritesheet-js/-/spritesheet-js-1.2.6.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/generator.js",
+                    "lineno": 19,
+                    "code": "exports.trimImages = function (files, options, callback) {"
+                },
+                "sink": {
+                    "file": "lib/generator.js",
+                    "lineno": 32,
+                    "code": "exec('convert' + scale + ' ' + fuzz + ' -define png:exclude-chunks=date \"' + file.originalPath + '\" -bordercolor transparent -border 1 -trim \"' + file.path + '\"', next);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://security.snyk.io/vuln/SNYK-JS-SPRITESHEETJS-1048333"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

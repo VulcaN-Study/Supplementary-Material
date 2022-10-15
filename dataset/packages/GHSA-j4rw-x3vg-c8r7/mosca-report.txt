@@ -1,0 +1,123 @@
+<report_mosca>
+ <Path>/src/src/oojs/promise.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 180 -              setTimeout(oojs.proxy(this, function () {
+
+ Line: 186 -              setTimeout(oojs.proxy(this, function () {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/bin/source/oojs.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1009 -              setTimeout(oojs.proxy(this, function() {
+
+ Line: 1013 -              setTimeout(oojs.proxy(this, function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/bin/format/oojs.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 636 -              setTimeout(oojs.proxy(this, function() {
+
+ Line: 640 -              setTimeout(oojs.proxy(this, function() {
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/bin/compress/oojs.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 4 -  jected)try{this.ev.emit("onFulfilled",t)}catch(r){this._reject(r)}},resolve:function(t){var e=oojs.create(this);return e._resolve(t),e},_reject:function(t){return this.status="rejected",this.data=t,this.ev.eventList&&this.ev.eventList.onRejected&&this.ev.emit("onRejected",t),t},reject:function(t){var e=oojs.create(this);return e._reject(t),e},promisify:function(t,e){var s=function(){var s=oojs.create("oojs.promise"),i=Array.prototype.slice.apply(arguments),r=function(t){if(t)this._reject(t);else{var e=Array.prototype.slice.call(arguments,1);e.length<=1&&(e=e[0]),this._resolve(e)}};return i.push(oojs.proxy(s,r)),t.apply(e,i),s};return s},then:function(t,e){t=t||this.defaultFunc,e=e||this.defaultFunc;var s=oojs.create("oojs.promise"),i=oojs.proxy(s,function(t){this._resolve(t.onFulfilled)}),r=oojs.proxy(s,function(t){this._reject(t.onRejected)});return this.ev.bind("onFulfilled",t),this.ev.group("onFulfilledGroup","onFulfilled",i),this.ev.bind("onRejected",e),this.ev.group("onRejectedGroup","onRejected",r),"fulfilled"===this.status?setTimeout(oojs.proxy(this,function(){this._resolve(this.data)}),0):"rejected"===this.status&&setTimeout(oojs.proxy(this,function(){this._reject(this.data)}),0),s},"catch":function(t){this.then(null,t)},all:function(t){var e=oojs.create(this),s=oojs.create("oojs.event");s.bind("error",oojs.proxy(e,function(t){this._reject(t)}));for(var i=[],r=0,n=t.length;n>r;r++){var o="event-"+(r+1);i.push(o);var a=t[r];a.__eventName=o,a.allEvent=s,s.bind(o,function(t){return t});var h=function(t){this.allEvent.emit(this.__eventName,t)}.proxy(a),c=function(t){this.allEvent.emit("error",t),this.allEvent.unbind()}.proxy(a);a.then(h,c)}return s.group("all",i,function(t){var e=[];for(var s in t)e.push(t[s]);this._resolve(e)}.proxy(e)),e},race:function(t){var e=oojs.create(this),s=oojs.create("oojs.event");s.bind("success",oojs.proxy(e,function(t){this._resolve(t)})),s.bind("error",oojs.proxy(e,function(t){this._reject(t)}));for(var i=[],r=0,n=t.length;n>r;r++){var o="event-"+(r+1);i.push(o);var a=t[r],h=function(t){this.emit("success",t),this.unbind()}.proxy(s),c=functio</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/unit/oojs.core.unit.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 290 -  			setTimeout(function(){
+
+ Line: 310 -  			setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/unit/oojs.promise.unit.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 58 -                      setTimeout(function(){
+
+ Line: 118 -                  setTimeout(function(){
+
+ Line: 124 -                  setTimeout(function(){
+
+ Line: 130 -                  setTimeout(function(){
+
+ Line: 145 -                  setTimeout(function(){
+
+ Line: 151 -                  setTimeout(function(){
+
+ Line: 157 -                  setTimeout(function(){
+
+ Line: 175 -                  setTimeout(function(){
+
+ Line: 180 -                  setTimeout(function(){
+
+ Line: 185 -                  setTimeout(function(){
+
+ Line: 199 -                  setTimeout(function(){
+
+ Line: 204 -                  setTimeout(function(){
+
+ Line: 209 -                  setTimeout(function(){
+
+ Line: 223 -                  setTimeout(function(){
+
+ Line: 231 -                  setTimeout(function(){
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/test/coverage/lcov-report/prettify.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 7 -  X++){var aj=T[X];var ai=aj.className;if(ai.indexOf("prettyprint")>=0){var ah=ai.match(ab);var am;if(!ah&&(am=o(aj))&&"CODE"===am.tagName){ah=am.className.match(ab)}if(ah){ah=ah[1]}var al=false;for(var ak=aj.parentNode;ak;ak=ak.parentNode){if((ak.tagName==="pre"||ak.tagName==="code"||ak.tagName==="xmp")&&ak.className&&ak.className.indexOf("prettyprint")>=0){al=true;break}}if(!al){var af=aj.className.match(/\blinenums\b(?::(\d+))?/);af=af?af[1]&&af[1].length?+af[1]:true:false;if(af){Q(aj,af)}S={langExtension:ah,sourceNode:aj,numberLines:af};d(S)}}}if(X<T.length){setTimeout(U,250)}else{if(ad){ad()}}}U()}window.prettyPrintOne=y;window.prettyPrint=b;window.PR={createSimpleLexer:g,registerLangHandler:c,sourceDecorator:i,PR_ATTRIB_NAME:P,PR_ATTRIB_VALUE:n,PR_COMMENT:j,PR_DECLARATION:E,PR_KEYWORD:z,PR_LITERAL:G,PR_NOCODE:N,PR_PLAIN:F,PR_PUNCTUATION:L,PR_SOURCE:J,PR_STRING:C,PR_TAG:m,PR_TYPE:O}})();PR.registerLangHandler(PR.createSimpleLexer([],[[PR.PR_DECLARATION,/^<!\w[^>]*(?:>|$)/],[PR.PR_COMMENT,/^<\!--[\s\S]*?(?:-\->|$)/],[PR.PR_PUNCTUATION,/^(?:<[%?]|[%?]>)/],["lang-",/^<\?([\s\S]+?)(?:\?>|$)/],["lang-",/^<%([\s\S]+?)(?:%>|$)/],["lang-",/^<xmp\b[^>]*>([\s\S]+?)<\/xmp\b[^>]*>/i],["lang-handlebars",/^<script\b[^>]*type\s*=\s*['"]?text\/x-handlebars-template['"]?\b[^>]*>([\s\S]*?)(<\/script\b[^>]*>)/i],["lang-js",/^<script\b[^>]*>([\s\S]*?)(<\/script\b[^>]*>)/i],["lang-css",/^<style\b[^>]*>([\s\S]*?)(<\/style\b[^>]*>)/i],["lang-in.tag",/^(<\/?[a-z][^<>]*>)/i],[PR.PR_DECLARATION,/^{{[#^>/]?\s*[\w.][^}]*}}/],[PR.PR_DECLARATION,/^{{&?\s*[\w.][^}]*}}/],[PR.PR_DECLARATION,/^{{{>?\s*[\w.][^}]*}}}/],[PR.PR_COMMENT,/^{{![^}]*}}/]]),["handlebars","hbs"]);PR.registerLangHandler(PR.createSimpleLexer([[PR.PR_PLAIN,/^[ \t\r\n\f]+/,null," \t\r\n\f"]],[[PR.PR_STRING,/^\"(?:[^\n\r\f\\\"]|\\(?:\r\n?|\n|\f)|\\[\s\S])*\"/,null],[PR.PR_STRING,/^\'(?:[^\n\r\f\\\']|\\(?:\r\n?|\n|\f)|\\[\s\S])*\'/,null],["lang-css-str",/^url\(([^\)\"\']*)\)/i],[PR.PR_KEYWORD,/^(?:url|rgb|\!important|@import|@page|@media|@charset|inherit)(?=[^\-\w]|$)/i,null],["lang-css-kw",/^(-?(?:[_a-z]|(?:\\[0-9a-f]+ ?))(?:[_a-z0-9\-]|\\</Result>
+</report_mosca>
+

@@ -1,0 +1,165 @@
+<report_mosca>
+ <Path>/src/src/gsap-core.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 859 -  				manual || (_id = _req(_tick)); //make sure the request is made before we dispatch the "tick" event so that timing is maintained. Otherwise, if processing the "tick" requires a bunch of time (like 15ms) and we're using a setTimeout() that's based on 16.7ms, it'd technically take 31.7ms between frames otherwise.
+
+ Line: 886 -  					_req = _raf || (f => setTimeout(f, (_nextTime - _self.time * 1000 + 1) | 0));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/ScrollTrigger.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 893 -  					_raf = _win.requestAnimationFrame || (f => setTimeout(f, 16));
+
+ Line: 905 -  					_syncInterval = setInterval(_sync, 200);
+
+ Line: 947 -  		ms && clearInterval(_syncInterval) || ((_syncInterval = ms) && setInterval(_sync, ms));
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/src/ScrollTrigger.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 178 -  					index ? matches.push(i) : _revertAll(1, _media[i]) || (_isFunction(_media[i+2]) && _media[i+2]()); // Firefox doesn't update the "matches" property of the MediaQueryList object correctly - it only does so as it calls its change handler - so we must re-create a media query here to ensure it's accurate.
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/gsap-core.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1223 -      manual || (_id = _req(_tick)); //make sure the request is made before we dispatch the "tick" event so that timing is maintained. Otherwise, if processing the "tick" requires a bunch of time (like 15ms) and we're using a setTimeout() that's based on 16.7ms, it'd technically take 31.7ms between frames otherwise.
+
+ Line: 1258 -            return setTimeout(f, _nextTime - _self.time * 1000 + 1 | 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/gsap.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1203 -              return setTimeout(f, _nextTime - _self.time * 1000 + 1 | 0);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/gsap.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 15 -  .document||{},ot.gsap=ae,(i.gsapVersions||(i.gsapVersions=[])).push(ae.version),K(l||i.GreenSockGlobals||!i.gsap&&i||{}),y=i.requestAnimationFrame),g&&T.sleep(),v=y||function(t){return setTimeout(t,S-1e3*T.time+1|0)},m=1,qk(2))},sleep:function sleep(){(y?i.cancelAnimationFrame:clearTimeout)(g),m=0,v=O},lagSmoothing:function lagSmoothing(t,e){k=t||1e8,C=Math.min(e,k,0)},fps:function fps(t){D=1e3/(t||240),S=1e3*T.time+D},add:function add(t){z.indexOf(t)<0&&z.push(t),Pt()},remove:function remove(t){var e;~(e=z.indexOf(t))&&z.splice(e,1)&&e<=w&&w--},_listeners:z=[]}),Pt=function _wake(){return!m&&At.wake()},Dt={},St=/^[\d.\-M][\d.\-,\s]/,zt=/["']/g,Ft=function _invertEase(e){return function(t){return 1-e(1-t)}},Rt=function _parseEase(t,e){return t&&(o(t)?t:Dt[t]||zb(t))||e};function qk(t){var e,r,i,n,a=x()-P,s=!0===t;if(k<a&&(A+=a-C),(0<(e=(i=(P+=a)-A)-S)||s)&&(n=++T.frame,b=i-1e3*T.time,T.time=i/=1e3,S+=e+(D<=e?4:D-e),r=1),s||(g=v(qk)),r)for(w=0;w<z.length;w++)z[w](i,b,n,t)}function Tl(t){return t<R?F*t*t:t<.7272727272727273?F*Math.pow(t-1.5/2.75,2)+.75:t<.9090909090909092?F*(t-=2.25/2.75)*t+.9375:F*Math.pow(t-2.625/2.75,2)+.984375}_("Linear,Quad,Cubic,Quart,Quint,Strong",function(t,e){var r=e<5?e+1:e;Db(t+",Power"+(r-1),e?function(t){return Math.pow(t,r)}:function(t){return t},function(t){return 1-Math.pow(1-t,r)},function(t){return t<.5?Math.pow(2*t,r)/2:1-Math.pow(2*(1-t),r)/2})}),Dt.Linear.easeNone=Dt.none=Dt.Linear.easeIn,Db("Elastic",Fb("in"),Fb("out"),Fb()),F=7.5625,R=1/2.75,Db("Bounce",function(t){return 1-Tl(1-t)},Tl),Db("Expo",function(t){return t?Math.pow(2,10*(t-1)):0}),Db("Circ",function(t){return-(J(1-t*t)-1)}),Db("Sine",function(t){return 1===t?1:1-Q(t*X)}),Db("Back",Gb("in"),Gb("out"),Gb()),Dt.SteppedEase=Dt.steps=ot.SteppedEase={config:function config(t,e){void 0===t&&(t=1);var r=1/t,i=t+(e?0:1),n=e?1:0;return function(t){return((i*yt(0,.99999999,t)|0)+n)*r}}},I.ease=Dt["quad.out"],_("onComplete,onUpdate,onStart,onRepeat,onReverseComplete,onInterrupt",function(t){return ct+=t+","+t+"Params,"});var Et,It=function GSCache(t,e){this.id=G++,(t._gsap=this).target=t,th</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/ScrollTrigger.min.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 16 -  ,"scroll",Ia),we&&xa(ScrollTrigger,"refreshInit",we),y&&y.add?Me.delayedCall(.01,function(){return P||_||Te.refresh()})&&(A=.01)&&(P=_=0):Te.refresh())},Te.disable=function(e,t){if(Te.enabled&&(!1!==e&&Te.revert(),Te.enabled=Te.isActive=!1,t||Y&&Y.pause(),G=0,n&&(n.uncache=1),we&&ya(ScrollTrigger,"refreshInit",we),Z&&(Z.pause(),p.tween&&p.tween.kill()&&(p.tween=0)),!ve)){for(var r=at.length;r--;)if(at[r].scroller===he&&at[r]!==Te)return;ya(he,"resize",Ja),ya(he,"scroll",Ia)}},Te.kill=function(e,t){Te.disable(e,t),i&&delete st[i];var r=at.indexOf(Te);at.splice(r,1),r===ze&&0<lt&&ze--,y&&(y.scrollTrigger=null,e&&y.render(-1),t||y.kill()),O&&[O,E,I,R].forEach(function(e){return e.parentNode.removeChild(e)}),n&&(n.uncache=1)},Te.enable()}else this.update=this.refresh=this.kill=H},ScrollTrigger.register=function register(e){if(!o&&(Me=e||J(),I()&&window.document&&(ke=window,Pe=document,_e=Pe.documentElement,Oe=Pe.body),Me&&(Ee=Me.utils.toArray,Le=Me.utils.clamp,Me.core.globals("ScrollTrigger",ScrollTrigger),Oe))){s=ke.requestAnimationFrame||function(e){return setTimeout(e,16)},xa(ke,"mousewheel",Ia),i=[ke,Pe,_e,Oe],xa(Pe,"scroll",Ia);var t,r=Oe.style,n=r.borderTop;r.borderTop="1px solid #000",t=nt(Oe),rt.m=Math.round(t.top+rt.sc())||0,tt.m=Math.round(t.left+tt.sc())||0,n?r.borderTop=n:r.removeProperty("border-top"),c=setInterval(Ha,200),Me.delayedCall(.5,function(){return Be=0}),xa(Pe,"touchcancel",H),xa(Oe,"touchstart",H),wa(xa,Pe,"pointerdown,touchstart,mousedown",function(){return Ae=1}),wa(xa,Pe,"pointerup,touchend,mouseup",function(){return Ae=0}),u=Me.utils.checkPrefix("transform"),D.push(u),o=He(),a=Me.delayedCall(.2,z).pause(),p=[Pe,"visibilitychange",function(){var e=ke.innerWidth,t=ke.innerHeight;Pe.hidden?(f=e,d=t):f===e&&d===t||Ja()},Pe,"DOMContentLoaded",z,ke,"load",function(){return De||z()},ke,"resize",Ja],R(xa)}return o},ScrollTrigger.defaults=function defaults(e){for(var t in e)it[t]=e[t]},ScrollTrigger.kill=function kill(){Je=0,at.slice(0).forEach(function(e){return e.kill(1)})},ScrollTrigger.config=function config(e){"limitCallbacks"in e&&(qe=!!e.limitCallbacks); Line: 17 -  nterval;t&&clearInterval(c)||(c=t)&&setInterval(Ha,t),"autoRefreshEvents"in e&&(R(ya)||R(xa,e.autoRefreshEvents||"none"))},ScrollTrigger.scrollerProxy=function scrollerProxy(e,t){var r=Ee(e)[0];K(r)?Fe.unshift(ke,t,Oe,t,_e,t):Fe.unshift(r,t)},ScrollTrigger.matchMedia=function matchMedia(e){var t,r,n,o,i;for(r in e)n=P.indexOf(r),o=e[r],"all"===(We=r)?o():(t=ke.matchMedia(r))&&(t.matches&&(i=o()),~n?(P[n+1]=X(P[n+1],o),P[n+2]=X(P[n+2],i)):(n=P.length,P.push(r,o,i),t.addListener?t.addListener(Pa):t.addEventListener("change",Pa)),P[n+3]=t.matches),We=0;return P},ScrollTrigger.clearMatchMedia=function clearMatchMedia(e){e||(P.length=0),0<=(e=P.indexOf(e))&&P.splice(e,4)},ScrollTrigger);function ScrollTrigger(e,t){o||ScrollTrigger.register(Me)||console.warn("Please gsap.registerPlugin(ScrollTrigger)"),this.init(e,t)}Z.version="3.5.1",Z.saveStyles=function(e){return e?Ee(e).forEach(function(e){var t=O.indexOf(e);0<=t&&O.splice(t,4),O.push(e,e.style.cssText,Me.core.getCache(e),We)}):O},Z.revert=function(e,t){return A(!e,t)},Z.create=function(e,t){return new Z(e,t)},Z.refresh=function(e){return e?Ja():z(!0)},Z.update=B,Z.maxScroll=function(e,t){return Q(e,t?tt:rt)},Z.getScrollFunc=function(e,t){return M(Ee(e)[0],t?tt:rt)},Z.getById=function(e){return st[e]},Z.getAll=function(){return at.slice(0)},Z.isScrolling=function(){return!!De},Z.addEventListener=function(e,t){var r=C[e]||(C[e]=[]);~r.indexOf(t)||r.push(t)},Z.removeEventListener=function(e,t){var r=C[e],n=r&&r.indexOf(t);0<=n&&r.splice(n,1)},Z.batch=function(e,t){function bi(e,t){var r=[],n=[],o=Me.delayedCall(i,function(){t(r,n),r=[],n=[]}).pause();return function(e){r.length||o.restart(!0),r.push(e.trigger),n.push(e),a<=r.length&&o.progress(1)}}var r,n=[],o={},i=t.interval||.016,a=t.batchMax||1e9;for(r in t)o[r]="on"===r.substr(0,2)&&T(t[r])&&"onRefreshInit"!==r?bi(0,t[r]):t[r];return T(a)&&(a=a(),xa(Z,"refresh",function(){return a=t.batchMax()})),Ee(e).forEach(function(e){var t={};for(r in o)t[r]=o[r];t.trigger=e,n.push(Z.create(t))}),n},Z.sort=function(e){return at.sort(e||function(e,t){return-1e6*(e.vars.refreshPriority||0)+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/ScrollTrigger.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1305 -  	            return setTimeout(f, 16);
+
+ Line: 1322 -  	          _syncInterval = setInterval(_sync, 200);
+
+ Line: 1384 -  	    ms && clearInterval(_syncInterval) || (_syncInterval = ms) && setInterval(_sync, ms);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/dist/ScrollTrigger.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 1432 -  	    query || (_media.length = 0);
+
+ Line: 1433 -  	    query = _media.indexOf(query);
+
+ Line: 1434 -  	    query >= 0 && _media.splice(query, 4);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/ScrollTrigger.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible code injection</Title>
+ <Description> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application.</Description>
+ <Level> High</Level>
+ <Reference> https://www.securecoding.cert.org/confluence/pages/viewpage.action?pageId=2130132 </Reference>
+ <Match> eval\s?\(|setTimeout|setInterval</Match>
+ <Result> Line: 1344 -              return setTimeout(f, 16);
+
+ Line: 1364 -            _syncInterval = setInterval(_sync, 200);
+
+ Line: 1428 -      ms && clearInterval(_syncInterval) || (_syncInterval = ms) && setInterval(_sync, ms);
+
+</Result>
+</report_mosca>
+
+<report_mosca>
+ <Path>/src/ScrollTrigger.js</Path>
+ <Module>/app/Mosca/eggs/javascript_common_fail.egg</Module>
+ <Title> Possible SQL injection</Title>
+ <Description> notification possible SQL injection</Description>
+ <Level> High</Level>
+ <Reference> https://www.owasp.org/index.php/Testing_for_Stack_Overflow </Reference>
+ <Match> query|YQL|WHERE|FROM|SELECT|UPDATE|DELETE|INSERT|UNION|getResults</Match>
+ <Result> Line: 353 -          index ? matches.push(i) : _revertAll(1, _media[i]) || _isFunction(_media[i + 2]) && _media[i + 2](); // Firefox doesn't update the "matches" property of the MediaQueryList object correctly - it only does so as it calls its change handler - so we must re-create a media query here to ensure it's accurate.
+
+ Line: 1477 -      query || (_media.length = 0);
+
+ Line: 1478 -      query = _media.indexOf(query);
+
+ Line: 1479 -      query >= 0 && _media.splice(query, 4);
+
+</Result>
+</report_mosca>
+
