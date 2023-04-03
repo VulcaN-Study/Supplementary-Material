@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-xxvw-45rp-3mj2",
+        "cwe": "CWE-502"
+    },
+    "correct_cwe": "CWE-502",
+    "correct_package_link": "https://registry.npmjs.org/js-yaml/-/js-yaml-2.0.4.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/js-yaml/type/js/function.js",
+                    "lineno": 8,
+                    "code": "function resolveJavascriptFunction(object /*, explicit*/) {"
+                },
+                "sink": {
+                    "file": "lib/js-yaml/type/js/function.js",
+                    "lineno": 13,
+                    "code": "func = new Function('return ' + object);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://nealpoole.com/blog/2013/06/code-execution-via-yaml-in-js-yaml-nodejs-module/"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-37q6-576q-vgr7",
+        "cwe": "CWE-346"
+    },
+    "correct_cwe": "CWE-346",
+    "correct_package_link": "https://registry.npmjs.org/parcel-bundler/-/parcel-bundler-1.9.7.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "package/src/HMRServer.js",
+                    "lineno": 20,
+                    "code": "this.wss = new WebSocket.Server({server: this.server});"
+                },
+                "sink": {
+                    "file": "package/src/HMRServer.js",
+                    "lineno": 24,
+                    "code": "this.wss.on('connection', ws => {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/BodCar/CSF/blob/main/1/L3/721/parcel-bundler-poc/parcel-bundler-poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/BodCar/CSF/blob/main/README.md"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

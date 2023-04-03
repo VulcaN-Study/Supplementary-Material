@@ -1,0 +1,64 @@
+{
+    "advisory": {
+        "id": "GHSA-5mrr-rgp6-x4gr",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-94",
+    "correct_package_link": "https://registry.npmjs.org/marsdb/-/marsdb-0.6.11.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "juice-shop/routes/trackOrder.js",
+                    "lineno": 412,
+                    "code": "$where: function $where(selectorValue, matcher) {"
+                },
+                "sink": {
+                    "file": "marsdb/lib/DocumentMatcher.js",
+                    "lineno": 419,
+                    "code": "selectorValue = Function('obj', 'return ' + selectorValue);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "nc -l -p 9999 127.1 # this is a remote shell"
+        },
+        {
+            "file_path": "GHSA-5mrr-rgp6-x4gr.poc.js"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

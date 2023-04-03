@@ -1,0 +1,73 @@
+{
+    "advisory": {
+        "id": "GHSA-6xc2-mj39-q599",
+        "cwe": "CWE-284"
+    },
+    "correct_cwe": "CWE-284",
+    "correct_package_link": "https://github.com/strapi/strapi/archive/v3.0.0-beta.17.4.zip",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "packages/strapi-admin/controllers/Auth.js",
+                    "lineno": 206,
+                    "code": "async changePassword(ctx) {"
+                },
+                "sink": {
+                    "file": "packages/strapi-admin/controllers/Auth.js",
+                    "lineno": 253,
+                    "code": ".findOne({ resetPasswordToken: code });"
+                }
+            },
+            {
+                "source": {
+                    "file": "packages/strapi-plugin-users-permissions/controllers/Auth.js",
+                    "lineno": 178,
+                    "code": "async changePassword(ctx) {"
+                },
+                "sink": {
+                    "file": "packages/strapi-plugin-users-permissions/controllers/Auth.js",
+                    "lineno": 189,
+                    "code": ".findOne({ resetPasswordToken: params.code });"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/strapi/strapi/pull/4443/files"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-hxcc-f52p-wc94",
+        "cwe": "CWE-NVD-Other "
+    },
+    "correct_cwe": "CWE-502",
+    "correct_package_link": "https://registry.npmjs.org/serialize-javascript/-/serialize-javascript-3.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 46,
+                    "code": "module.exports = function serialize(obj, options) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 198,
+                    "code": "return \"new RegExp(\" + serialize(regexps[valueIndex].source) + \", \\\"\" + regexps[valueIndex].flags + \"\\\")\";"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/yahoo/serialize-javascript/pull/22#issuecomment-253667311"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/yahoo/serialize-javascript/commit/f21a6fb3ace2353413761e79717b2d210ba6ccbd"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "B"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

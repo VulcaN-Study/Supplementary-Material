@@ -1,0 +1,62 @@
+{
+    "advisory": {
+        "id": "GHSA-fm4j-4xhm-xpwx",
+        "cwe": "CWE-20"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/sandbox/-/sandbox-0.8.6.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/sandbox.js",
+                    "lineno": 40,
+                    "code": "Sandbox.prototype.run = function(code, hollaback) {"
+                },
+                "sink": {
+                    "file": "lib/shovel.js",
+                    "lineno": 24,
+                    "code": "return Function('return eval('+JSON.stringify(str+'')+')');"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/gf3/sandbox/issues/50"
+        }
+    ],
+    "patch": [],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "B"
+        },
+        "mosca": {
+            "score": "B"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

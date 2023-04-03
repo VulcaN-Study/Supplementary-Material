@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-rgq8-25qc-h54q",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/myserver.alexcthomas18/-/myserver.alexcthomas18-0.0.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "static.js",
+                    "lineno": 6,
+                    "code": "var urlObj = url.parse(req.url, true, false);"
+                },
+                "sink": {
+                    "file": "static.js",
+                    "lineno": 29,
+                    "code": "fs.readFile(ROOT_DIR + urlObj.pathname, function (err,data) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/myserver.alexcthomas18/PoC.sh"
+        }
+    ],
+    "patch": [
+        {
+            "file_path": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "A"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

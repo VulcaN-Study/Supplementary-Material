@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-5j3g-jfq3-7jwx",
+        "cwe": "CWE-94"
+    },
+    "correct_cwe": "CWE-94",
+    "correct_package_link": "https://registry.npmjs.org/bassmaster/-/bassmaster-1.5.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/batch.js",
+                    "lineno": 81,
+                    "code": "internals.process = function (request, requests, resultsData, reply) {"
+                },
+                "sink": {
+                    "file": "lib/batch.js",
+                    "lineno": 152,
+                    "code": "eval('value = ref.' + parts[i].value + ';');"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://www.exploit-db.com/exploits/40689"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/outmoded/bassmaster/commit/b751602d8cb7194ee62a61e085069679525138c4"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "B"
+        },
+        "mosca": {
+            "score": "A"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

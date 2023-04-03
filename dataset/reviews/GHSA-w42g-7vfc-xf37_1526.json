@@ -1,0 +1,69 @@
+{
+    "advisory": {
+        "id": "GHSA-w42g-7vfc-xf37",
+        "npm_id": 1526,
+        "cwe": "CWE-200"
+    },
+    "correct_cwe": "CWE-200",
+    "correct_package_link": "https://registry.npmjs.org/apollo-server-azure-functions/-/apollo-server-azure-functions-2.14.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "dist/ApolloServer.js",
+                    "start_lineno": 17,
+                    "end_lineno": 22,
+                    "code": "constructor(options) { if (process.env.ENGINE_API_KEY || options.engine) { options.engine = Object.assign({ sendReportsImmediately: true }, (typeof options.engine !== 'boolean' ? options.engine : {})); } super(options); }"
+                }
+            },
+            {
+                "block": {
+                    "file": "src/ApolloServer.ts",
+                    "start_lineno": 27,
+                    "end_lineno": 35,
+                    "code": " constructor(options: Config) {if (process.env.ENGINE_API_KEY || options.engine) { options.engine = { sendReportsImmediately: true, ...(typeof options.engine !== 'boolean' ? options.engine : {}), }; } super(options); }"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/apollographql/apollo-server/commit/e2e816316f5c28a03de2ee1589edb2b10c358114"
+        },
+        {
+            "url": "https://github.com/advisories/GHSA-w42g-7vfc-xf37"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

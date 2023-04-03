@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-8w57-jfpm-945m",
+        "cwe": "CWE-20"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/http-proxy-agent/-/http-proxy-agent-2.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 28,
+                    "code": "if ('string' == typeof opts) opts = url.parse(opts);"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 80,
+                    "code": "req.setHeader('Proxy-Authorization', 'Basic ' + new Buffer(auth).toString('base64'));"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/321631"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/TooTallNate/node-http-proxy-agent/commit/b7b7cc793c3226aa83f820ce5c277e81862d32eb"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "E"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

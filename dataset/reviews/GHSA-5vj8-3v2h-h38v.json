@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-5vj8-3v2h-h38v",
+        "cwe": "CWE-20"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/next/-/next-5.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "/dist/server/index.js",
+                    "lineno": 709,
+                    "code": "p = _path.join.apply(undefined, [_this3.dist, 'static'].concat((0, _toConsumableArray3.default)(params.path || [])));"
+                },
+                "sink": {
+                    "file": "/dist/server/require.js",
+                    "lineno": 33,
+                    "code": "return _context.abrupt('return', require(f));"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://registry.npmjs.org/next/-/next-5.1.0.tgz"
+        }
+    ],
+    "poc": [
+        {
+            "url": "https://github.com/masasron/vulnerability-research/tree/master/CVE-2018-6184/LFI"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "advisory": {
+        "id": "GHSA-cmh5-qc8w-xvcq",
+        "cwe": "CWE-725"
+    },
+    "correct_cwe": "CWE-725",
+    "correct_package_link": "https://registry.npmjs.org/i18next/-/i18next-3.4.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "i18next.js",
+                    "lineno": 1177,
+                    "code": "var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0>"
+                },
+                "sink": {
+                    "file": "i18next.js",
+                    "lineno": 1190,
+                    "code": "this.escapeValue = iOpts.escapeValue;"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/commonjs/Interpolator.js",
+                    "lineno": 33,
+                    "code": "var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];"
+                },
+                "sink": {
+                    "file": "dist/commonjs/Interpolator.js",
+                    "lineno": 46,
+                    "code": "this.escapeValue = iOpts.escapeValue;"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/es/Interpolator.js",
+                    "lineno": 18,
+                    "code": "var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0>"
+                },
+                "sink": {
+                    "file": "dist/commonjs/Interpolator.js",
+                    "lineno": 31,
+                    "code": "this.escapeValue = iOpts.escapeValue;"
+                }
+            },
+            {
+                "source": {
+                    "file": "dist/umd/i18next.js",
+                    "lineno": 1177,
+                    "code": "var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0>"
+                },
+                "sink": {
+                    "file": "dist/umd/i18next.js",
+                    "lineno": 1190,
+                    "code": "this.escapeValue = iOpts.escapeValue;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://www.npmjs.com/advisories/326"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/i18next/i18next/pull/826/commits/d367309d4427c2d651b0f0b304504cf59c056cab"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

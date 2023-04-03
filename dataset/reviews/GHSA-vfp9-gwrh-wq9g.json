@@ -1,0 +1,102 @@
+{
+    "advisory": {
+        "id": "GHSA-vfp9-gwrh-wq9g",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/crud-file-server/-/crud-file-server-0.8.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "crud-file-server.js",
+                    "lineno": 6,
+                    "code": "while(url.indexOf('..').length > 0) { url = url.replace('..', ''); }"
+                },
+                "sink": {
+                    "file": "crud-file-server.js",
+                    "lineno": 91,
+                    "code": "case 'GET': // returns file or directory contents"
+                }
+            },
+            {
+                "source": {
+                    "file": "crud-file-server.js",
+                    "lineno": 6,
+                    "code": "while(url.indexOf('..').length > 0) { url = url.replace('..', ''); }"
+                },
+                "sink": {
+                    "file": "crud-file-server.js",
+                    "lineno": 185,
+                    "code": "case 'PUT': // write a file"
+                }
+            },
+            {
+                "source": {
+                    "file": "crud-file-server.js",
+                    "lineno": 6,
+                    "code": "while(url.indexOf('..').length > 0) { url = url.replace('..', ''); }"
+                },
+                "sink": {
+                    "file": "crud-file-server.js",
+                    "lineno": 200,
+                    "code": "case 'POST': // create a directory or rename a file or directory"
+                }
+            },
+            {
+                "source": {
+                    "file": "crud-file-server.js",
+                    "lineno": 6,
+                    "code": "while(url.indexOf('..').length > 0) { url = url.replace('..', ''); }"
+                },
+                "sink": {
+                    "file": "crud-file-server.js",
+                    "lineno": 234,
+                    "code": "case 'DELETE': // delete a file or directory"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/310690"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/omphalos/crud-file-server/commit/4fc3b404f718abb789f4ce4272c39c7a138c7a82"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": "GHSA-73v8-v6g4-vrpm",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/decompress-zip/-/decompress-zip-0.3.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/extractor.js",
+                    "start_lineno": 63,
+                    "end_lineno": 65,
+                    "code": "var input = new stream.Readable();\ninput.wrap(fs.createReadStream(zip.filename, {start: file._offset, end: file._offset + file.uncompressedSize - 1}));\nwriter = pipePromise.bind(null, input, destination, { mode: file.mode });"
+                }
+            },
+            {
+                "block": {
+                    "file": "lib/extractor.js",
+                    "start_lineno": 91,
+                    "end_lineno": 95,
+                    "code": "var input = new stream.Readable();\ninput.wrap(fs.createReadStream(zip.filename, {start: file._offset}));\nvar inflater = input.pipe(zlib.createInflateRaw({highWaterMark: 32 * 1024}));\nreturn pipePromise(inflater, destination, { mode: file.mode });"
+                }
+            },
+            {
+                "block": {
+                    "file": "lib/extractor.js",
+                    "start_lineno": 130,
+                    "end_lineno": 132,
+                    "code": "var input = new stream.Readable();\ninput.wrap(fs.createReadStream(path.resolve(parent, linkTo)));\nreturn pipePromise(input, destination);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://snyk.io/research/zip-slip-vulnerability"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/bower/decompress-zip/commit/9a908bd30ec9d9b2009110691cfcbe2b96f07c95"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

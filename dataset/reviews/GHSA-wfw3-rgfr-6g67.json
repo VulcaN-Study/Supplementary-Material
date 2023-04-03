@@ -1,0 +1,54 @@
+{
+    "advisory": {
+        "id": "GHSA-wfw3-rgfr-6g67",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/ag-grid/-/ag-grid-18.1.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "dist/ag-grid.js",
+                    "start_lineno": 5653,
+                    "end_lineno": 5667,
+                    "code": "GridApi.prototype.setRowData = function (rowData) {if (this.gridOptionsWrapper.isRowModelDefault()) {if (this.gridOptionsWrapper.isDeltaRowDataMode()) {var _a = this.immutableService.createTransactionForRowData(rowData), transaction = _a[0], orderIdMap = _a[1];this.clientSideRowModel.updateRowData(transaction, orderIdMap);}else {this.selectionController.reset();this.clientSideRowModel.setRowData(rowData);}}else {console.log('cannot call setRowData unless using normal row model');}};"
+                }
+            }
+        ]
+    },
+    "poc": [],
+    "patch": [],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

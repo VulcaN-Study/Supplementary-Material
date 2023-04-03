@@ -1,0 +1,62 @@
+{
+    "advisory": {
+        "id": "GHSA-mrmf-qwxg-7c3h",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/remarkable/-/remarkable-1.6.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/parser_inline.js",
+                    "start_lineno": 147,
+                    "end_lineno": 153,
+                    "code": "var BAD_PROTOCOLS = [ 'vbscript', 'javascript', 'file' ]; if (str.indexOf(':') !== -1 && BAD_PROTOCOLS.indexOf(str.split(':')[0]) !== -1) {\n return false;\n}"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/jonschlinkert/remarkable/issues/332"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/sophiebits/remarkable/commit/49e24e8f2a431c095ddbb74ecb67cf1cf8f88c47"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

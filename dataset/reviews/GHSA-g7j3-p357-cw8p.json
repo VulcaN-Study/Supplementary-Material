@@ -1,0 +1,61 @@
+{
+    "advisory": {
+        "id": "GHSA-g7j3-p357-cw8p",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/f2e-server/-/f2e-server-1.12.11.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "nodeLib/index.js",
+                    "lineno": 39,
+                    "code": "try{pathurl = decodeURI(url.parse(req.url).pathname); }catch(e){ pathurl = req.url; }"
+                },
+                "sink": {
+                    "file": "nodeLib/index.js",
+                    "lineno": 115,
+                    "code": "var rs = fs.createReadStream(pathname), s = '', dataArr = [], ware;"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/shy2850/node-server/pull/12/commits/78244adb6dd66f87103adbb553de45d09c2dca34"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

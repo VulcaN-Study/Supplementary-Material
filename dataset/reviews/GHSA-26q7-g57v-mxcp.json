@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": "GHSA-26q7-g57v-mxcp",
+        "cwe": "CWE-80"
+    },
+    "correct_cwe": "CWE-80",
+    "correct_package_link": "https://registry.npmjs.org/shout/-/shout-0.49.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "client/js/shout.js",
+                    "lineno": 317,
+                    "code": "socket.on(\"topic\", function(data) {"
+                },
+                "sink": {
+                    "file": "client/js/shout.js",
+                    "lineno": 318,
+                    "code": "$(\"#chan-\" + data.chan).find(\".header .topic\").html(data.topic);"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/plugins/irc-events/topic.js",
+                    "lineno": 6,
+                    "code": "irc.on(\"topic\", function(data) {"
+                },
+                "sink": {
+                    "file": "src/plugins/irc-events/topic.js",
+                    "lineno": 32,
+                    "code": "topic: topic"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/erming/shout/commit/ef041d6612e20369bf49b17b8162c57b4955a1cc"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

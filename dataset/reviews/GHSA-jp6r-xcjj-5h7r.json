@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-jp6r-xcjj-5h7r",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/cyberchef/-/cyberchef-8.31.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "package/src/web/InputWaiter.mjs",
+                    "lineno": 55,
+                    "code": "return this.fileBuffer || document.getElementById('input-text').value;"
+                },
+                "sink": {
+                    "file": "package/src/core/operations/TextEncodingBruteForce.mjs",
+                    "lineno": 83,
+                    "code": "table += `<tr><td>${enc}</td><td>${value}</td></tr>`;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/gchq/CyberChef/issues/539"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/gchq/CyberChef/commit/01f0625d6a177f9c5df9281f12a27c814c2d8bcf"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

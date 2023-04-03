@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-gjcw-v447-2w7q",
+        "cwe": "CWE-310"
+    },
+    "correct_cwe": "CWE-310",
+    "correct_package_link": "https://registry.npmjs.org/jws/-/jws-2.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/verify-stream.js",
+                    "lineno": 32,
+                    "code": "const header = headerFromJWS(jwsSig);"
+                },
+                "sink": {
+                    "file": "lib/verify-stream.js",
+                    "lineno": 68,
+                    "code": "return algo.verify(securedInput, signature, secretOrKey);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://auth0.com/blog/critical-vulnerabilities-in-json-web-token-libraries/"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/auth0/node-jws/commit/585d0e1e97b6747c10cf5b7689ccc5618a89b299#diff-4ac32a78649ca5bdd8e0ba38b7006a1e"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

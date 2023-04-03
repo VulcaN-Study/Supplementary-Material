@@ -1,0 +1,114 @@
+{
+    "advisory": {
+        "id": "GHSA-xqh8-5j36-4556",
+        "cwe": "CWE-89"
+    },
+    "correct_cwe": "CWE-89",
+    "correct_package_link": "https://registry.npmjs.org/connect-pg-simple/-/connect-pg-simple-6.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 13,
+                    "code": "const PGStore = function (options) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 96,
+                    "code": " this.query('DELETE FROM ' + this.quotedTable() + ' WHERE expire < to_timestamp($1)', [currentTimestamp()], function (err) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 13,
+                    "code": "const PGStore = function (options) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 166,
+                    "code": " .then(function (res) { fn && fn(null, res && res[0] ? res[0] : false); })"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 13,
+                    "code": " const PGStore = function (options) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 184,
+                    "code": "this.query('SELECT sess FROM ' + this.quotedTable() + ' WHERE sid = $1 AND expire >= to_timestamp($2)', [sid, currentTimestamp()], function (err, data) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 13,
+                    "code": "const PGStore = function (options) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 208,
+                    "code": " this.query(query, [sess, expireTime, sid], function (err) { if (fn) { fn.apply(this, err); }"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 13,
+                    "code": "const PGStore = function (options) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 221,
+                    "code": "this.query('DELETE FROM ' + this.quotedTable() + ' WHERE sid = $1', [sid], function (err) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "A"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

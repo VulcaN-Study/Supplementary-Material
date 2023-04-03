@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": "GHSA-23vf-5g53-hm9q",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://github.com/KoryNunn/list-n-stream/archive/87de3f13465e9d4d21eb75be8143cdc4085a19b3.zip",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "server.js",
+                    "lineno": 87,
+                    "code": "var path = process.cwd() + '/' + details.path;"
+                },
+                "sink": {
+                    "file": "server.js",
+                    "lineno": 25,
+                    "code": "fs.readdir(path, function(error, files){"
+                }
+            },
+            {
+                "source": {
+                    "file": "server.js",
+                    "lineno": 87,
+                    "code": "var path = process.cwd() + '/' + details.path;"
+                },
+                "sink": {
+                    "file": "server.js",
+                    "lineno": 76,
+                    "code": "var file = fs.createReadStream(path, {start: start, end: end});"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/list-n-stream/attack.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/KoryNunn/list-n-stream/commit/99b0b40b34aaedfcdf25da46bef0a06b9c47fb59"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

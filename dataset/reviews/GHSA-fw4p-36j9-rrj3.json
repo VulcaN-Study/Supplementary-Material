@@ -1,0 +1,78 @@
+{
+    "advisory": {
+        "id": "GHSA-fw4p-36j9-rrj3",
+        "cwe": "CWE-400"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/sequelize/-/sequelize-4.44.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/dialects/sqlite/query.js",
+                    "lineno": 79,
+                    "code": "run(sql, parameters) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/sqlite/query.js",
+                    "lineno": 256,
+                    "code": "this.database[method](this.sql, afterExecute);"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/sqlite/query.js",
+                    "lineno": 79,
+                    "code": "run(sql, parameters) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/sqlite/query.js",
+                    "lineno": 259,
+                    "code": "this.database[method](this.sql, parameters, afterExecute);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "file_path": "GHSA-fw4p-36j9-rrj3.poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/sequelize/sequelize/pull/11877/commits/ba14ebd9305bb15db1b21b7760e8670787b2e068"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

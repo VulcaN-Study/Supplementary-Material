@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-9prh-257w-9277",
+        "cwe": "CWE-79"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/handlebars/-/handlebars-3.0.8.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/handlebars/utils.js",
+                    "lineno": 12,
+                    "code": "const badChars =  /[&<>\"'`]/g"
+                },
+                "sink": {
+                    "file": "lib/handlebars/utils.js",
+                    "lineno": 83,
+                    "code": "return string.replace(badChars, escapeChar);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "Template: <a href={{foo}}/> \n Input: { 'foo' : 'test.com onload=alert(1)'} \n Rendered result: <a href=test.com onload=alert(1)/>"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/handlebars-lang/handlebars.js/releases/tag/v4.0.0"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "E"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

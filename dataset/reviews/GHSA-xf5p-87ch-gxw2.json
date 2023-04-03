@@ -1,0 +1,73 @@
+{
+    "advisory": {
+        "id": "GHSA-xf5p-87ch-gxw2",
+        "cwe": "CWE-400"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/marked/-/marked-0.6.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/marked.js",
+                    "start_lineno": 618,
+                    "end_lineno": 622,
+                    "code": "text: edit(inline.text)\n.replace(']|', '~]|')\n.replace('|$', '|https?://|ftp://|www\\.|[a-zA-Z0-9.!#$%&\\'*+/=?^_`{\\|}~-]+@|$')\n.getRegex()\n});"
+                }
+            },
+            {
+                "block": {
+                    "file": "lib/marked.js",
+                    "start_lineno": 631,
+                    "end_lineno": 633,
+                    "code": "inline.breaks = merge({}, inline.gfm, {\nbr: edit(inline.br).replace('{2,}', '*').getRegex(),\ntext: edit(inline.gfm.text).replace('{2,}', '*').getRegex()"
+                }
+            },
+            {
+                "block": {
+                    "file": "lib/marked.js",
+                    "start_lineno": 547,
+                    "end_lineno": 549,
+                    "code": "br: /^( {2,}|\\)\n(?!\\s*$)/,\ndel: noop,\ntext: /^(`+|[^`])[\\s\\S]*?(?=[\\<!\\[`*]|\b_| {2,}\n|$)/"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/markedjs/marked/pull/1460/commits/be27472a8169dda7875330939f8115ab677cdc07"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

@@ -1,0 +1,102 @@
+{
+    "advisory": {
+        "id": "GHSA-wjr4-2jgw-hmv8",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/whereis/-/whereis-0.4.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 3,
+                    "code": "module.exports = function whereis(name, cb) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 8,
+                    "code": "cp.exec('whereis ' + name, function(error, stdout, stderr) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 3,
+                    "code": "module.exports = function whereis(name, cb) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 4,
+                    "code": "cp.exec('which ' + name, function(error, stdout, stderr){"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 3,
+                    "code": "module.exports = function whereis(name, cb) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 10,
+                    "code": "cp.exec('where ' + name, function (error, stdout, stderr) {"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 3,
+                    "code": "module.exports = function whereis(name, cb) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 12,
+                    "code": "cp.exec('for %i in (' + name + '.exe) do @echo. %~$PATH:i', function (error, stdout, stderr) { //windows xp"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/319476"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

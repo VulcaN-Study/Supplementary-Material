@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-qcff-ffx3-m25c",
+        "cwe": "CWE-78"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/meta-git/-/meta-git-1.1.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "bin/meta-git-clone",
+                    "lineno": 14,
+                    "code": "const repoUrl = process.argv[2] === 'blank' ? process.argv[3] : process.argv[2];"
+                },
+                "sink": {
+                    "file": "bin/meta-git-clone",
+                    "lineno": 20,
+                    "code": "exec({ cmd: `git clone ${repoUrl} ${dirname}`, displayDir: dirname }, (err, result) => {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/728040"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/mateodelnorte/meta-git/commit/affdd44225d79398b3f8d5eb6183089126bba8c6#diff-8df1c1bf0978668ace12f643bb79cb53c0edcce0fae974090d5095f35239de47"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-363h-vj6q-3cmj",
+        "cwe": "CWE-538"
+    },
+    "correct_cwe": "CWE-538",
+    "correct_package_link": "https://registry.npmjs.org/hapi/-/hapi-6.0.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/response/index.js",
+                    "lineno": 44,
+                    "code": "internals.headers = function (request, next) {"
+                },
+                "sink": {
+                    "file": "lib/response/index.js",
+                    "lineno": 46,
+                    "code": "var response = request.response; if (request.jsonp && response._payload.jsonp) { response.type('text/javascript'); response._payload.jsonp(request.jsonp);}"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/hapijs/hapi/pull/1810/commits/6bf71008ce98d2a0069c316e1009feca631f3358"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

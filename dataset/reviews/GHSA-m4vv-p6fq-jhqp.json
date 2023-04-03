@@ -1,0 +1,66 @@
+{
+    "advisory": {
+        "id": "GHSA-m4vv-p6fq-jhqp",
+        "cwe": "CWE-22"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/@vivaxy/here/-/here-3.2.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "middleware/file-explorer.js",
+                    "lineno": 27,
+                    "code": "const directory = config.get(configKey.DIRECTORY);"
+                },
+                "sink": {
+                    "file": "middleware/file_explorer.js",
+                    "lineno": 32,
+                    "code": "let stat = yield getFileStat(fullRequestPath);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/296254"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/vivaxy/here/commit/298dbab41344dfb7f95f66b1fa7b5cfb436bd4a2"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}
