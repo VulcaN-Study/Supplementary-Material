@@ -22,6 +22,10 @@ Each advisory review contains:
     
 - **Advisory CWE:** The CWE assigned by the reporter who created the advisory.
 
+- **Advisory CVE:** The  Common Vulnerabilities and Exposures identifier (if it exists).
+
+- **Advisory Link:** A URL of the npm or github advisory web page.
+
 - **Correct CWE:** The CWE assigned by the reviewer (might differ from the Advisory CWE) 
 
 - **Correct Package Link**: URL to download the correct package version which contains the vulnerability described in the advisory.
