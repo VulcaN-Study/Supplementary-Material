@@ -1,0 +1,69 @@
+{
+    "advisory": {
+        "id": "GHSA-549f-73hh-mj38",
+        "npm_id": "1174",
+        "cve": "CVE-2019-5485",
+        "cwe": "CWE-78",
+        "github_link": "https://github.com/advisories/GHSA-549f-73hh-mj38"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/gitlabhook/-/gitlabhook-0.0.17.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "gitlabhook.js",
+                    "lineno": 139,
+                    "code": "var fname = Path.join(path, 'task-' + pad(idx, 3));"
+                },
+                "sink": {
+                    "file": "gitlabhook.js",
+                    "lineno": 146,
+                    "code": "execFile(self.cmdshell, [ fname ], { cwd:path, env:process.env },"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://packetstormsecurity.com/files/154598/NPMJS-gitlabhook-0.0.17-Remote-Command-Execution.html"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/rolfn/node-gitlab-hook/pull/13/files"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "E"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "advisory": {
+        "id": "GHSA-mpjf-8cmf-p789",
+        "npm_id": "750",
+        "cwe": "CWE-79",
+        "github_link": "https://github.com/advisories/GHSA-mpjf-8cmf-p789"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/jingo/-/jingo-1.9.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "routes/wiki.js",
+                    "start_lineno": 72,
+                    "end_lineno": 108,
+                    "code": "var page = new models.Page(req.params.page, req.params.version)\n\n\n\n  page.fetch().then(function () {\n\n    if (!page.error) {\n\n      res.locals.canEdit = true\n\n      if (page.revision !== 'HEAD' && page.revision !== page.hashes[0]) {\n\n        res.locals.warning = \"You're not reading the latest revision of this page, which is \" + \"<a href='\" + page.urlForShow() + \"'>here</a>.\"\n\n        res.locals.canEdit = false\n\n      }\n\n\n\n      res.locals.notice = req.session.notice\n\n      delete req.session.notice\n\n\n\n      res.render('show', {\n\n        page: page,\n\n        title: app.locals.config.get('application').title + ' \u2013 ' + page.title,\n\n        content: renderer.render('# ' + page.title + '\\n' + page.content)\n\n      })\n\n    } else {\n\n      if (req.user) {\n\n        // Try sorting out redirect loops with case insentive fs\n\n        // Path 'xxxxx.md' exists on disk, but not in 'HEAD'.\n\n        if (/but not in 'HEAD'/.test(page.error)) {\n\n          page.setNames(page.name.slice(0, 1).toUpperCase() + page.name.slice(1))\n\n        }\n\n        res.redirect(page.urlFor('new'))\n\n      } else {\n\n        // Special case for the index page, anonymous user and an empty docbase\n\n        if (page.isIndex()) {\n\n          res.render('welcome', {\n\n            title: 'Welcome to ' + app.locals.config.get('application').title\n\n          })\n\n        } else {\n\n          res.locals.title = '404 - Not found'\n\n          res.statusCode = 404\n\n          res.render('404.pug')\n\n          return"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/claudioc/jingo/commit/19cf84df1edc497776939febea9a43b6413d6403"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "B"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "advisory": {
+        "id": "GHSA-pr49-5hhf-6mm6",
+        "npm_id": "459",
+        "cve": "CVE-2017-16180",
+        "cwe": "CWE-22",
+        "github_link": "https://github.com/advisories/GHSA-pr49-5hhf-6mm6"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/serverabc/-/serverabc-1.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 5,
+                    "code": "var path=\".\"+url.parse(request.url).pathname;"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 9,
+                    "code": "fs.readFile(path,function(error,file){"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/tree/master/directory-traversal/serverabc"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "B"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

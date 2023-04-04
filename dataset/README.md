@@ -2,13 +2,17 @@
 
 Each advisory is identified by a unique ID, which obeys one of the following formats:
 
-- *npmjs_id*, where *npmjs_id* is a number, if at the time of review **npmjs.com** hosted the advisories (old format), e.g:
+- *npmjs_id*, where *npmjs_id* is a number, if at the time of review **npmjs.com** hosted the advisories (old format) and **github.com** does not host the advisory, e.g:
     
         1548
 
 - *ghsa_id*, where *ghsa_id* is the ID of a GitHub Security Advisory (*GHSA-xxxx-xxxx-xxxx*), if at the time of review **github.com** hosted the advisories (new format), e.g:
 
-        GHSA-2cf2-2383-h4jv
+        GHSA-vx3p-948g-6vhq
+
+- *npm_id*_*ghsa_id*, if the advisory has an *npm_id* (old format) but is also hosted at **github.com** (new format), e.g:
+
+        10_GHSA-333x-9vgq-v2j4
 
 ## *packages/*
 

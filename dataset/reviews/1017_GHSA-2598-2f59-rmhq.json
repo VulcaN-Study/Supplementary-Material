@@ -1,0 +1,73 @@
+{
+    "advisory": {
+        "id": "GHSA-2598-2f59-rmhq",
+        "npm_id": "1017",
+        "cve": "CVE-2019-10749",
+        "cwe": "CWE-89",
+        "github_link": "https://github.com/advisories/GHSA-2598-2f59-rmhq"
+    },
+    "correct_cwe": "CWE-89",
+    "correct_package_link": "https://registry.npmjs.org/sequelize/-/sequelize-3.35.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "/lib/model.js",
+                    "lineno": 1336,
+                    "code": "createFunction: function(functionName, params, returnType, language, body, options) {"
+                },
+                "sink": {
+                    "file": "/lib/model.js",
+                    "lineno": 1398,
+                    "code": "return this.QueryInterface.select(this, this.getTableName(options), options);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://snyk.io/vuln/SNYK-JS-SEQUELIZE-450222",
+            "file_path": "1017_GHSA-2598-2f59-rmhq.poc.js"
+        },
+        {
+            "file_path": "GHSA-2598-2f59-rmhq.poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/sequelize/sequelize/commit/ee4017379db0059566ecb5424274ad4e2d66bc68"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "A"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

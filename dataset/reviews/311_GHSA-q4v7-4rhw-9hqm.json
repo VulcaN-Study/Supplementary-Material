@@ -1,0 +1,69 @@
+{
+    "advisory": {
+        "id": "GHSA-q4v7-4rhw-9hqm",
+        "npm_id": "311",
+        "cve": "CVE-2017-5941",
+        "cwe": "CWE-502",
+        "github_link": "https://github.com/advisories/GHSA-q4v7-4rhw-9hqm"
+    },
+    "correct_cwe": "CWE-502",
+    "correct_package_link": "https://registry.npmjs.org/node-serialize/-/node-serialize-0.0.4.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/serialize.js",
+                    "lineno": 59,
+                    "code": "exports.unserialize = function(obj, originObj) {"
+                },
+                "sink": {
+                    "file": "lib/serialize.js",
+                    "lineno": 75,
+                    "code": "obj[key] = eval('(' + obj[key].substring(FUNCFLAG.length) + ')');"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/luin/serialize/issues/4#issue-206432756"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "B"
+        },
+        "mosca": {
+            "score": "A"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

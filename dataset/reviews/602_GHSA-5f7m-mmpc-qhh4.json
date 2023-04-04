@@ -1,0 +1,68 @@
+{
+    "advisory": {
+        "id": "GHSA-5f7m-mmpc-qhh4",
+        "npm_id": "602",
+        "cwe": "CWE-20",
+        "github_link": "https://github.com/advisories/GHSA-5f7m-mmpc-qhh4"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/mysql/-/mysql-2.13.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/protocol/Auth.js",
+                    "lineno": 23,
+                    "code": "Auth.token = function(password, scramble) {"
+                },
+                "sink": {
+                    "file": "lib/protocol/Auth.js",
+                    "lineno": 29,
+                    "code": "var stage1 = sha1((new Buffer(password, 'utf8')).toString('binary'));"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://www.npmjs.com/advisories/602"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/mysqljs/mysql/commit/310c6a7d1b2e14b63b572dbfbfa10128f20c6d52"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

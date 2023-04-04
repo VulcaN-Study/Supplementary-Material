@@ -1,0 +1,69 @@
+{
+    "advisory": {
+        "id": "GHSA-vxwf-pprx-wc25",
+        "npm_id": "370",
+        "cve": "CVE-2017-16104",
+        "cwe": "CWE-22",
+        "github_link": "https://github.com/advisories/GHSA-vxwf-pprx-wc25"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/citypredict.whauwiller/-/citypredict.whauwiller-0.1.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "weather_server.js",
+                    "lineno": 7,
+                    "code": "var urlObj = url.parse(req.url, true, false);"
+                },
+                "sink": {
+                    "file": "weather_server.js",
+                    "lineno": 27,
+                    "code": "fs.readFile(root_dir + urlObj.pathname, function(err, data)"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/citypredict.whauwiller/attack.js"
+        }
+    ],
+    "patch": [
+        {
+            "file_path": "370_GHSA-vxwf-pprx-wc25.patch"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "A"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

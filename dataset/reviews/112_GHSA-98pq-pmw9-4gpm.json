@@ -1,0 +1,172 @@
+{
+    "advisory": {
+        "id": "GHSA-98pq-pmw9-4gpm",
+        "npm_id": "112",
+        "cve": "CVE-2016-10550",
+        "cwe": "CWE-89",
+        "github_link": "https://github.com/advisories/GHSA-98pq-pmw9-4gpm"
+    },
+    "correct_cwe": "CWE-89",
+    "correct_package_link": "https://registry.npmjs.org/sequelize/-/sequelize-3.16.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1765,
+                    "code": "addLimitAndOffset: function(options, model) "
+                },
+                "sink": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1768,
+                    "code": "fragment += ' LIMIT ' + options.offset + ', ' + 18440000000000000000;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1765,
+                    "code": "addLimitAndOffset: function(options, model) "
+                },
+                "sink": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1770,
+                    "code": "fragment += ' LIMIT ' + options.offset + ', ' + options.limit;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1765,
+                    "code": "addLimitAndOffset: function(options, model) "
+                },
+                "sink": {
+                    "file": "lib/dialects/abstract/query-generator.js",
+                    "lineno": 1772,
+                    "code": "fragment += ' LIMIT ' + options.limit;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/mssql/query-generator.js",
+                    "lineno": 556,
+                    "code": "addLimitAndOffset: function(options, model) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/mssql/query-generator.js",
+                    "lineno": 593,
+                    "code": "fragment += ' OFFSET ' + offset + ' ROWS';"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/mssql/query-generator.js",
+                    "lineno": 556,
+                    "code": "addLimitAndOffset: function(options, model) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/mssql/query-generator.js",
+                    "lineno": 597,
+                    "code": "fragment += ' FETCH NEXT ' + options.limit + ' ROWS ONLY';"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/postgres/query-generator.js",
+                    "lineno": 424,
+                    "code": "addLimitAndOffset: function(options, model) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/postgres/query-generator.js",
+                    "lineno": 426,
+                    "code": "if (options.limit) fragment += ' LIMIT ' + options.limit;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/postgres/query-generator.js",
+                    "lineno": 424,
+                    "code": "addLimitAndOffset: function(options, model) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/postgres/query-generator.js",
+                    "lineno": 427,
+                    "code": "if (options.offset) fragment += ' OFFSET ' + options.offset;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/sqlite/query-generator.js",
+                    "lineno": 91,
+                    "code": "addLimitAndOffset: function(options, model) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/sqlite/query-generator.js",
+                    "lineno": 94,
+                    "code": "fragment += ' LIMIT ' + options.offset + ', ' + 10000000000000;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/sqlite/query-generator.js",
+                    "lineno": 91,
+                    "code": "addLimitAndOffset: function(options, model) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/sqlite/query-generator.js",
+                    "lineno": 97,
+                    "code": "fragment += ' LIMIT ' + options.offset + ', ' + options.limit;"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/dialects/sqlite/query-generator.js",
+                    "lineno": 91,
+                    "code": "addLimitAndOffset: function(options, model) {"
+                },
+                "sink": {
+                    "file": "lib/dialects/sqlite/query-generator.js",
+                    "lineno": 99,
+                    "code": "fragment += ' LIMIT ' + options.limit;"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/sequelize/sequelize/pull/5167/commits/f282d85e60e3df5e57ecdb82adccb4eaef404f03"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

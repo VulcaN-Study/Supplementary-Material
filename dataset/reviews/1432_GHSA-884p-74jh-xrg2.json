@@ -1,0 +1,68 @@
+{
+    "advisory": {
+        "id": "GHSA-884p-74jh-xrg2",
+        "npm_id": "1432",
+        "cwe": "CWE-78",
+        "github_link": "https://github.com/advisories/GHSA-884p-74jh-xrg2"
+    },
+    "correct_cwe": "CWE-78",
+    "correct_package_link": "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 7,
+                    "code": "module.exports = function (pid, signal, callback) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 20,
+                    "code": "exec('taskkill /pid ' + pid + ' /T /F', callback);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/701183"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/pkrumins/node-tree-kill/pull/31/commits/e5d66d1fbd4b392294512d4644ac22bdc888573c"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

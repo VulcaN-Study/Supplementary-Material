@@ -1,0 +1,76 @@
+{
+    "advisory": {
+        "id": "GHSA-r3x4-wr4h-pw33",
+        "npm_id": "1021",
+        "cve": "CVE-2019-10759",
+        "cwe": "CWE-693",
+        "github_link": "https://github.com/advisories/GHSA-r3x4-wr4h-pw33"
+    },
+    "correct_cwe": "CWE-94",
+    "correct_package_link": "https://registry.npmjs.org/safer-eval/-/safer-eval-1.3.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/index.js",
+                    "lineno": 74,
+                    "code": "function saferEval (code, context) {"
+                },
+                "sink": {
+                    "file": "src/index.js",
+                    "lineno": 47,
+                    "code": "'(function () {\"use strict\"; ' + src + '})()'"
+                }
+            },
+            {
+                "source": {
+                    "file": "src/browser.js",
+                    "lineno": 78,
+                    "code": "function saferEval (code, context, opts = {}) {"
+                },
+                "sink": {
+                    "file": "src/browser.js",
+                    "lineno": 49,
+                    "code": "return Function('__context', src).call(null, __context)"
+                }
+            }
+        ]
+    },
+    "patch": [
+        {
+            "url": "https://github.com/commenthol/safer-eval/compare/v1.3.3...v1.3.4"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

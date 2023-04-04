@@ -1,0 +1,69 @@
+{
+    "advisory": {
+        "id": "GHSA-5mjw-6jrh-hvfq",
+        "npm_id": "548",
+        "cve": "CVE-2017-16226",
+        "cwe": "CWE-20",
+        "github_link": "https://github.com/advisories/GHSA-5mjw-6jrh-hvfq"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/static-eval/-/static-eval-1.1.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "src/index.js",
+                    "lineno": 3,
+                    "code": "module.exports = function (ast, vars) {"
+                },
+                "sink": {
+                    "file": "src/index.js",
+                    "lineno": 118,
+                    "code": "return Function(keys.join(', '), 'return ' + unparse(node)).apply(null, vals);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "file_path": "548_GHSA-5mjw-6jrh-hvfq.poc.js"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/browserify/static-eval/pull/18"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

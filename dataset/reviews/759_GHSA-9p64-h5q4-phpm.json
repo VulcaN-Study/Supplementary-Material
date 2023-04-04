@@ -1,0 +1,68 @@
+{
+    "advisory": {
+        "id": "GHSA-9p64-h5q4-phpm",
+        "npm_id": "759",
+        "cwe": "CWE-20",
+        "github_link": "https://github.com/advisories/GHSA-9p64-h5q4-phpm"
+    },
+    "correct_cwe": "CWE-20",
+    "correct_package_link": "https://registry.npmjs.org/office-converter/-/office-converter-1.0.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 19,
+                    "code": "function generate(fileName, next, outputType) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 20,
+                    "code": "exec('unoconv -f ' + outputType + ' \"' + fileName +'\"', function (error, stdout, stderr) {"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/418sec/huntr/blob/master/bounties/npm/office-converter/1/README.md"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/418sec/office-converter/pull/1/commits/49224ac2f4254a121817c487ca1c0e1c3252aeea#diff-e727e4bdf3657fd1d798edcd6b099d6e092f8573cba266154583a746bba0f346"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

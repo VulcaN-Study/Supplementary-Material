@@ -1,0 +1,69 @@
+{
+    "advisory": {
+        "id": "GHSA-7xfp-9c55-5vqj",
+        "npm_id": "309",
+        "cve": "CVE-2017-16026",
+        "cwe": "CWE-201",
+        "github_link": "https://github.com/advisories/GHSA-7xfp-9c55-5vqj"
+    },
+    "correct_cwe": "CWE-201",
+    "correct_package_link": "https://registry.npmjs.org/request/-/request-2.67.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/multipart.js",
+                    "lineno": 66,
+                    "code": "Multipart.prototype.build = function (parts, chunked) {"
+                },
+                "sink": {
+                    "file": "lib/multipart.js",
+                    "lineno": 71,
+                    "code": "return chunked ? body.append(part) : body.push(new Buffer(part))"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/request/request/pull/2018#issue-56421978"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/request/request/pull/2018/commits/3d31d4526fa4d4e4f59b89cabe194fb671063cdb"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

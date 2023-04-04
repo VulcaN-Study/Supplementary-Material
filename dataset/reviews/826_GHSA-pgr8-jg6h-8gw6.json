@@ -1,0 +1,64 @@
+{
+    "advisory": {
+        "id": "GHSA-pgr8-jg6h-8gw6",
+        "npm_id": "826",
+        "cwe": "CWE-79",
+        "github_link": "https://github.com/advisories/GHSA-pgr8-jg6h-8gw6"
+    },
+    "correct_cwe": "CWE-79",
+    "correct_package_link": "https://registry.npmjs.org/webpack-bundle-analyzer/-/webpack-bundle-analyzer-3.3.1.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "src/viewer.js",
+                    "start_lineno": 52,
+                    "end_lineno": 61,
+                    "code": "app.use('/', (req, res) => {    res.render('viewer', {      mode: 'server',      get chartData() { return JSON.stringify(chartData) },      defaultSizes: JSON.stringify(defaultSizes),      enableWebSocket: true,      // Helpers      escapeScript    });  });"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/463380"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/webpack-contrib/webpack-bundle-analyzer/commit/20f2b4c553ee343f491faf63e39427fba9908c7c"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "B"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

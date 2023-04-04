@@ -1,0 +1,81 @@
+{
+    "advisory": {
+        "id": "GHSA-qhv9-728r-6jqg",
+        "npm_id": "130",
+        "cve": "CVE-2016-1000232",
+        "cwe": "CWE-400",
+        "github_link": "https://github.com/advisories/GHSA-qhv9-728r-6jqg"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.2.2.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "lib/cookie.js",
+                    "lineno": 324,
+                    "code": "function parse(str, options) {"
+                },
+                "sink": {
+                    "file": "lib/cookie.js",
+                    "lineno": 365,
+                    "code": "var unparsed = str.slice(firstSemi).replace(/^\\s*;\\s*/, '').trim()"
+                }
+            },
+            {
+                "source": {
+                    "file": "lib/cookie.js",
+                    "lineno": 324,
+                    "code": "function parse(str, options) {"
+                },
+                "sink": {
+                    "file": "lib/cookie.js",
+                    "lineno": 381,
+                    "code": "var cookie_avs = unparsed.split(/\\s*;\\s*/);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": ""
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/salesforce/tough-cookie/commit/615627206357d997d5e6ff9da158997de05235ae"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

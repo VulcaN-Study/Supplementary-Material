@@ -1,0 +1,81 @@
+{
+    "advisory": {
+        "id": "GHSA-qh38-wrgf-cj2c",
+        "npm_id": "454",
+        "cve": "CVE-2017-16183",
+        "cwe": "CWE-22",
+        "github_link": "https://github.com/advisories/GHSA-qh38-wrgf-cj2c"
+    },
+    "correct_cwe": "CWE-22",
+    "correct_package_link": "https://registry.npmjs.org/iter-server/-/iter-server-1.0.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "http.js",
+                    "lineno": 269,
+                    "code": "var oURL = url.parse(request.url);"
+                },
+                "sink": {
+                    "file": "http.js",
+                    "lineno": 192,
+                    "code": "raw = fs.createReadStream(pathName, {\"start\": range.start, \"end\": range.end});"
+                }
+            },
+            {
+                "source": {
+                    "file": "http.js",
+                    "lineno": 269,
+                    "code": "var oURL = url.parse(request.url);"
+                },
+                "sink": {
+                    "file": "http.js",
+                    "lineno": 200,
+                    "code": "raw = fs.createReadStream(pathName);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://github.com/JacksonGL/NPM-Vuln-PoC/blob/master/directory-traversal/iter-server/PoC.sh"
+        }
+    ],
+    "patch": [
+        {
+            "url": ""
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

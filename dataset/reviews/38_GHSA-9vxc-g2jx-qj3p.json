@@ -1,0 +1,61 @@
+{
+    "advisory": {
+        "id": "GHSA-9vxc-g2jx-qj3p",
+        "npm_id": "38",
+        "cve": "CVE-2013-7379",
+        "cwe": "CWE-287",
+        "github_link": "https://github.com/advisories/GHSA-9vxc-g2jx-qj3p"
+    },
+    "correct_cwe": "CWE-287",
+    "correct_package_link": "https://registry.npmjs.org/tomato/-/tomato-0.0.5.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "lib/api.js",
+                    "start_lineno": 71,
+                    "end_lineno": 79,
+                    "code": "  app.use('/api', function (req, res, next) {\nvar access_key = req.headers['access-key'] ||\n(req.query && req.query.access_key) ||\n(req.body && req.body.access_key) ||\n(req.cookies && req.cookies.access_key);\nif (access_key && config.master.api.access_key.indexOf(access_key) !== -1) {\nlogger.info({event: 'verify-success', access_key: access_key, url: req.url});\nreq.access_key = access_key;\nnext();\n"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://www.npmjs.com/advisories/38#proof-of-concept"
+        }
+    ],
+    "patch": [],
+    "tools": {
+        "codeql": {
+            "score": "C"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "C"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "D"
+        }
+    }
+}

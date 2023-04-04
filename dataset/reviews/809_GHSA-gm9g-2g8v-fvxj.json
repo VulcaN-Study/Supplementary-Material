@@ -1,0 +1,75 @@
+{
+    "advisory": {
+        "id": "GHSA-gm9g-2g8v-fvxj",
+        "npm_id": "809",
+        "cwe": "CWE-471",
+        "github_link": "https://github.com/advisories/GHSA-gm9g-2g8v-fvxj"
+    },
+    "correct_cwe": "CWE-400",
+    "correct_package_link": "https://registry.npmjs.org/upmerge/-/upmerge-0.1.8.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "block": {
+                    "file": "package/src/upmerge.js",
+                    "start_lineno": 143,
+                    "end_lineno": 143,
+                    "code": "objBase[key] = clone(objExt[key]);"
+                }
+            },
+            {
+                "block": {
+                    "file": "package/src/upmerge.js",
+                    "start_lineno": 147,
+                    "end_lineno": 147,
+                    "code": "objBase[key] = objExt[key];"
+                }
+            },
+            {
+                "block": {
+                    "file": "package/build/upmerge.js",
+                    "start_lineno": 1,
+                    "end_lineno": 1,
+                    "code": "!function(e){var u=function(e,n){return(!1!==(n=!r(n)||!!n)||null!==e)&&\"object\"==typeof e},c=function(e){return void 0===e},r=function(e){return!c(e)},i=function(e){if(\"object\"!=typeof e||null===e)return null;var n=e.constructor.toString().match(/function\\s+([^(]+)/);return n.length?n[1].toLowerCase():null},f=function(e){var n,r;if(u(r=e)&&r instanceof Array){n=[];for(var o=0;o<e.length;o++)n[o]=e[o]}else if(u(e))if(null===e)n=null;else if(e instanceof Date)(n=new Date).setTime(e.getTime());else if(e instanceof Error)n=new Error(e.message);else{if(\"object\"!==i(e)){var t=\"Unsupported object type (\"+i(e)+\"): Please, extend this function\";throw console.error(t,\"Failed to clone:\",e),new Error(t)}for(var l in n={},e)e.hasOwnProperty(l)&&(n[l]=f(e[l]))}else n=e;return n},o=function(e,n,t){c(t)&&(t={}),t.clone=!r(t.clone)||!!t.clone,t.deep=!r(t.deep)||!!t.deep,t.replaceOnly=!!t.replaceOnly;var l=function(e,n){for(var r in n)if(\"__proto__\"!==r&&n.hasOwnProperty(r)){if(t.replaceOnly&&c(e[r]))return null;if(t.deep&&u(n[r]))if(\"object\"===i(n[r])){var o=l(u(e[r],!1)?e[r]:{},n[r]);if(null===o)return null;e[r]=o}else e[r]=f(n[r]);else e[r]=n[r]}return e};return l(t.clone?f(e):e,n)},n={clone:f,merge:o,add:function(e,n){return o(e,n,{replaceOnly:!0})}};e?module.exports=n:window.upmerge=n}(\"object\"==typeof module&&\"object\"==typeof module.exports);"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "url": "https://hackerone.com/reports/439120"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "D"
+        },
+        "graudit": {
+            "score": "D"
+        },
+        "insidersec": {
+            "score": "D"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "C"
+        },
+        "msdevskim": {
+            "score": "D"
+        },
+        "drek": {
+            "score": "D"
+        },
+        "mosca": {
+            "score": "D"
+        },
+        "odgen": {
+            "score": "A"
+        }
+    }
+}

